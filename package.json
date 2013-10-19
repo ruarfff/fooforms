@@ -1,0 +1,36 @@
+{
+  "name": "FooForms",
+  "version": "1.0.0",
+  "description": "Makes forms n'stuff",
+  "keywords": [
+    "Forms",
+    "Node.js",
+    "application",
+    "openshift"
+  ],
+  "author": {
+    "name": "FooForms",
+    "email": "info@fooforms.com",
+    "url": "http://www.fooforms.com/"
+  },
+  "homepage": "http://www.fooforms.com/",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/ruairitobrien/fooforms.git"
+  },
+  "engines": {
+    "node": ">= 0.10.0",
+    "npm": ">= 1.0.0"
+  },
+  "dependencies": {
+    "express": "3.4.0",
+    "ejs": "*",
+    "less-middleware": "*",
+    "mongoose": "~3.6.20",
+    "mongodb": "~1.3.19"
+  },
+  "devDependencies": {},
+  "bundleDependencies": [],
+  "private": true,
+  "main": "server.js"
+}
