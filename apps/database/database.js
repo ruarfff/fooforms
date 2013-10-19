@@ -9,6 +9,7 @@ var Database = function(){
     //  Scope.
     var self = this;
     this.connected = false;
+    this.errorMessage = '';
 
     // Generate the Mongo Db connection URL
     var generate_mongo_url = function (dbConfig) {
@@ -33,7 +34,9 @@ var Database = function(){
     this.connect = function(){
         var db = mongoose.connection;
 
-        db.on('error', console.error);
+        db.on('error', function (error) {
+            self.errorMessage = error;
+        });
         db.once('open', function () {
             self.connected = true;
         });
