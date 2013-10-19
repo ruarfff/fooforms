@@ -1,12 +1,20 @@
-var mongo;
-
-mongo = {
+var openshiftDbConfig = {
     "hostname": process.env.OPENSHIFT_MONGODB_DB_HOST,
     "port": process.env.OPENSHIFT_MONGODB_DB_PORT,
     "username": "admin",
-    "password": "YBVHXNVjLIzh",
+    "password": "hE6DLZs5m4C4",
     "name": "admin",
     "db": "dev"
 };
 
-exports.mongo = mongo;
+var devDbConfig = {
+    "hostname": 'localhost',
+    "port": 27017,
+    "username": "",
+    "password": "",
+    "name": "",
+    "db": "test"
+};
+
+exports.mongo = (typeof OPENSHIFT_APP_NAME !== 'undefined') ? openshiftDbConfig : devDbConfig;
+
