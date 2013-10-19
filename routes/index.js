@@ -1,9 +1,8 @@
-
 /*
  * GET home page.
  */
 
-exports.index = function(req, res){
+exports.index = function (req, res) {
     var db = require('../apps/database/database');
     var util = require('util');
 

@@ -35,7 +35,9 @@ var Database = function(){
         var db = mongoose.connection;
 
         db.on('error', function (error) {
-            self.errorMessage = error;
+            if (error) {
+                self.errorMessage = error.toString();
+            }
         });
         db.once('open', function () {
             self.connected = true;
