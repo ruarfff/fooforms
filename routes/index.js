@@ -15,6 +15,7 @@ exports.index = function (req, res) {
             arch: process.arch,
             platform: process.platform,
             nodeVersion: process.version,
+            isOpenShift: (typeof OPENSHIFT_APP_NAME !== 'undefined')
         }
     );
 };

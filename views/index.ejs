@@ -16,6 +16,16 @@
 <h1><%= title %></h1>
 
 <p class="lead">Welcome to <%= title %></p>
+<% if (isOpenShift) { %>
+<div class="panel panel-primary">
+    <div class="panel-heading">
+        <h3 class="panel-title">Running on Openshift</h3>
+    </div>
+    <div class="panel-body">
+        -----
+    </div>
+</div>
+<% } %>
 
 <% if (dbConnected) { %>
 <div class="panel panel-success">
