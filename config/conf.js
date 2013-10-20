@@ -4,7 +4,7 @@ var openshiftDbConfig = {
     "username": "admin",
     "password": "hE6DLZs5m4C4",
     "name": "admin",
-    "db": "dev"
+    "db": "fooforms"
 };
 
 var devDbConfig = {
