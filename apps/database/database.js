@@ -14,15 +14,15 @@ var Database = function(){
     // Generate the Mongo Db connection URL
     var generate_mongo_url = function (dbConfig) {
         console.log(dbConfig);
-        dbConfig.hostname = (dbConfig.hostname || 'localhost');
-        dbConfig.port = (dbConfig.port || 27017);
-        dbConfig.db = (dbConfig.db || 'test');
+        var url;
         if (dbConfig.username && dbConfig.password) {
-            return "mongodb://" + dbConfig.username + ":" + dbConfig.password + "@" + dbConfig.hostname + ":" + dbConfig.port + "/" + dbConfig.db;
+            url = "mongodb://" + dbConfig.username + ":" + dbConfig.password + "@" + dbConfig.hostname + ":" + dbConfig.port + "/" + dbConfig.db;
         }
         else {
-            return "mongodb://" + dbConfig.hostname + ":" + dbConfig.port + "/" + dbConfig.db;
+            url = "mongodb://" + dbConfig.hostname + ":" + dbConfig.port + "/" + dbConfig.db;
         }
+        console.log(url);
+        return url;
     };
 
     this.mongourl = generate_mongo_url(configuration.mongo);
@@ -42,6 +42,7 @@ var Database = function(){
         db.once('open', function () {
             self.connected = true;
         });
+        console.log(this.mongourl);
         mongoose.connect(this.mongourl);
     }
 

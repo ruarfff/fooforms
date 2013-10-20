@@ -1,0 +1,42 @@
+<div id='formNewCloud' class='alert alert-warning m5'>
+    <h5>Create a New cloud</h5>
+
+    <p>Fill out the form below and your cloud will be created instantly.</p>
+
+    <form name='newCloudForm' id='newCloudForm'>
+        <input type='hidden' name='command' value='do'/>
+        <input type='hidden' name='object' value='createNewCloud'/>
+        <ul id='fieldsNewCloud'>
+
+            <li class='formTitle'>Cloud Name</li>
+            <li class='input'><input type=text name='name' id='name' placeholder="Enter a name for your new cloud"></li>
+
+            <li class='formTitle'>Web URL</li>
+            <div class="control-group" id='menuLabelCG'>
+                <li class='input control-group error"'><i>appzigo.com/</i> <input type=text name='menuLabel'
+                                                                                  id='menuLabel'><br>
+                    <span id='menuLabelHelp' class="help-inline"></span>
+            </div>
+
+            <li class='formTitle'>Description</li>
+            <li class='input'><textarea name='description' id='description' rows=5></textarea></li>
+
+            <li class='formTitle'>Logo<br>
+                <input type='hidden' name='icon' id='icon' value='1'/>
+                <img class='logo' id='img_icon' src=''/>
+            </li>
+            <li class='input'>
+                <progress id='progress' style='display:none;'></progress>
+
+                <input class='fileuploader btn' name="file_icon" id='file_icon' type="file"/>
+
+            </li>
+
+            <li class='formTitle'>&nbsp;</li>
+            <li class='input'>
+                <input class='btn btn-success' id='frmCreateCloud' type=submit value='Submit'
+                       onclick='createNewCloud();return false;'></li>
+        </ul>
+        <div style='clear: both'></div>
+    </form>
+</div>

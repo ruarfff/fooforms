@@ -1,0 +1,789 @@
+body {
+    padding: 0px;
+    margin: 0px;
+    font-family: arial;
+    font-size: .8em;
+    background: #E5F1FD;
+}
+
+.Small {
+    width: 30%;
+}
+
+.Medium {
+    width: 60%;
+}
+
+.Large {
+    width: 98%;
+}
+
+.tall {
+    min-height: 100% !important;
+    background: #fff;
+}
+
+.post {
+    border: 1px solid #fff;
+
+}
+
+.highlight, .post:hover {
+    border: 1px solid #D1E6F9;
+    background: #FFFBE3
+}
+
+.media-body {
+    background: #fff;
+    border: 1px solid #D1E6F9;
+    padding: 5px;
+}
+
+a {
+    cursor: pointer;
+}
+
+.m0 {
+    margin: 0px !important;
+}
+
+.m5 {
+    margin: 5px;
+}
+
+.m10 {
+    margin: 10px;
+}
+
+.mb5 {
+    margin-bottom: 5px !important;
+}
+
+.w33 {
+    width: 33%;
+}
+
+.w100 {
+    display: block;
+}
+
+.smallfont {
+    font-size: 9px;
+    line-height: 12px;
+}
+
+label {
+    font-size: 12px;
+}
+
+#Modal Label, #theForm label {
+    font-size: 12px;
+    min-width: 110px;
+    margin-right: 15px;
+    text-align: right;
+    display: inline-block;
+    vertical-align: top;
+}
+
+label.field {
+    font-size: 12px;
+    min-width: 110px;
+    margin-right: 15px;
+    text-align: right;
+    display: inline-block;
+    vertical-align: top;
+    clear: both;
+    background: none;
+}
+
+#Modal textarea, #theForm textarea {
+    width: 70%;
+}
+
+#modalPostContent img {
+    text-align: center;
+    margin: 50px;
+}
+
+#modalPostContent img.iconSmall {
+    text-align: center;
+    margin: 5px;
+    width: 48px;
+    height: 48px;
+}
+
+.comments {
+    margin: 5px;
+    padding: 5px;
+    border: 1px solid #EDF8FD;
+    border-top: 1px solid #BBDFF1;
+    border-left: 1px solid #BBDFF1;
+    background: #fff;
+    font-size: 14px;
+    line-height: 20px;
+}
+
+.comments h4 {
+    font-weight: bold;
+    font-size: 12px;
+}
+
+table thead tr {
+    background: #fcf8e3;
+    border: 1px solid #fbeed5;
+}
+
+#fir
+#firstTime {
+    display: none;
+}
+
+#header {
+    padding: 0px;
+    margin: 0px;
+    height: 50px !important;
+    background: #fff;
+    border-bottom: 1px solid #D1E6F9;
+    margin-bottom: 15px;
+}
+
+a.logout {
+    background: #f7f7f7;
+    color: #008DCE;
+    height: 18px;
+    font-size: .85em;
+    line-height: 18px;
+    border-radius: 9px;
+    margin-right: 5px;
+    margin-left: 10px;
+    padding: 4px 10px 4px 10px;
+    text-decoration: none;
+    display: inline-block;
+    border: 1px solid #cecece;
+}
+
+#logo {
+    padding: 0px;
+    margin: 0px;
+    display: inline;
+    vertical-align: absmiddle;
+    float: left;
+}
+
+#topmenu {
+    padding: 0px;
+    margin: 0px;
+    display: inline-block;
+    height: 50px !important;
+    line-height: 50px;
+    vertical-align: absmiddle;
+    float: left;
+}
+
+#logo img {
+    margin: 0px;
+}
+
+#header ul {
+    padding: 0px;
+    margin: 0px;
+    color: #fff;
+    line-height: 50px;
+    height: 50px !important;
+    list-style: none;
+    display: block;
+
+}
+
+#header ul li {
+    padding: 0px;
+    margin: 0px;
+    display: inline;
+    height: 50px !important;
+    vertical-align: middle;
+}
+
+#header ul li a {
+    margin: 0px;
+    display: inline-block;
+    color: #fff;
+    text-decoration: none;
+    padding: 0px;
+    padding-left: 20px;
+    padding-right: 20px;
+    font-weight: normal;
+    font-size: 1em;
+    line-height: 24px;
+    height: 24px !important;
+    border-radius: 12px;
+    color: #666;
+    border: 1px solid #fff;
+}
+
+#header ul li.selected a {
+    border-color: #cecece;
+
+}
+
+#header ul li:hover a {
+    border-color: #cecece;
+}
+
+#profile img {
+    vertical-align: middle;
+    margin-right: 10px;
+    height: 40px;
+    padding: 0px;
+    background-size: 40px 40px;
+}
+
+#profile {
+    float: right;
+    padding: 0px;
+    display: block;
+    text-align: right;
+    color: #666;
+    line-height: 50px;
+    margin-right: 10px;
+    vertical-align: middle;
+}
+
+#main {
+    margin: 0 auto 0;
+    width: 100%;
+    display: block;
+}
+
+#newHub {
+    width: 600px;
+    background: #FFFFCC;
+    border: 1px solid #FFFF99;
+}
+
+.formLayout input[type=text] {
+    padding: 5px;
+}
+
+li.boxbtn {
+    list-style: none;
+    display: block;
+}
+
+li.boxbtn a {
+    background: #efefef;
+    list-style: none;
+    border: 1px solid #cecece;
+    border-radius: 5px;
+    line-height: 30px;
+    margin: 4px;
+    width: 100px;
+    display: block;
+    color: #202020;
+    padding-left: 10px;
+    text-decoration: none;
+}
+
+li.boxbtn a:hover {
+    background: #E6FFE6;
+}
+
+.jlink, .iconLink {
+    display: block;
+    border-bottom: 1px solid #f4f4f4;
+    color: #404040 !important;
+    text-decoration: none;
+    font-weight: normal;
+    margin-bottom: 4px;
+    font-size: .9em;
+
+    vertical-align: middle;
+    line-height: 24px;
+    padding-left: 4px;
+}
+
+.jlink img.icon, .iconLink img.icon {
+    max-height: 24px;
+    max-width: 24px;
+    line-height: 24px;
+    margin-right: 5px;
+    padding: 2px;
+    background: #fff;
+    border: 1px solid #f7f7f7;
+    vertical-align: middle;
+}
+
+img.iconSmall {
+    max-height: 20px;
+    max-width: 20px;
+    line-height: 16px;
+    margin-right: 5px;
+    padding: 1px;
+    background: #fff;
+    vertical-align: middle;
+}
+
+div#nowViewing, .nowViewing {
+    display: block;
+    padding: 0px;
+    margin: 0px;
+    color: #404040 !important;
+    text-decoration: none;
+    font-weight: bold;
+    margin-bottom: 4px;
+    vertical-align: middle;
+    line-height: 30px;
+    height: 32px;
+    padding-left: 4px;
+}
+
+div#nowViewing h1, div#nowViewingProfile h1, .nowViewing h1 {
+    display: inline;
+    color: #404040 !important;
+    text-decoration: none;
+    font-weight: bold;
+    font-size: .9em;
+    vertical-align: middle;
+    line-height: 30px;
+    height: 30px;
+}
+
+div#nowViewing img, .nowViewing img {
+    padding: 0px;
+    margin: 0px;
+    max-height: 24px;
+    max-width: 24px;
+    line-height: 24px;
+    margin-right: 5px;
+    padding: 2px;
+    background: #fff;
+    border: 1px solid #cecece;
+    vertical-align: middle;
+}
+
+div#nowViewing span {
+    float: right;
+}
+
+div#nowViewing span a {
+    font-weight: normal;
+    margin-right: 10px;
+}
+
+div#nowViewingProfile {
+    display: block;
+    width: 100%;
+    padding: 0px;
+    margin: 0px;
+    vertical-align: middle;
+    text-align: center;
+    max-height: 108px;
+}
+
+div#nowViewingProfile img {
+    padding: 0px;
+    margin: 0px;
+    max-height: 100px;
+    max-width: 98%;
+    margin-right: 5px;
+    padding: 2px;
+    background: #fff;
+    vertical-align: middle;
+
+}
+
+ul#fieldsNewCloud {
+    width: 100%;
+    list-style: none;
+    display: block;
+    margin: 0px;
+    padding: 0px;
+}
+
+ul#fieldsNewCloud li.formTitle {
+    display: block;
+    width: 120px;
+    font-weight: normal;
+    line-height: 30px;
+    text-align: right;
+    margin: 2px;
+    float: left;
+    clear: both;
+    padding-right: 5px;
+}
+
+ul#fieldsNewCloud li.label #logoFrame img {
+    border: 1px solid #ececec;
+    max-height: 60px;
+    background: #fff;
+    padding: 2px;
+}
+
+ul#fieldsNewCloud li.label #iconFrame img {
+    border: 1px solid #ececec;
+    width: 24px;
+    height: 24px;
+}
+
+ul#fieldsNewCloud li.input {
+    display: block;
+    font-weight: bold;
+    line-height: 30px;
+    text-align: left;
+    margin: 2px;
+    float: left;
+}
+
+#theForm {
+    display: none;
+
+}
+
+div.post {
+    display: block;
+    padding: 5px;
+    border: 1px solid #cecece;
+    margin: 5px;
+}
+
+div.posties {
+    display: block;
+    padding: 0px;
+    border: 1px solid #D9EDF7;
+    margin: 5px !important;
+    width: 47%;
+    max-height: 200px;
+    float: left;
+    font-weight: normal;
+    overflow: hidden;
+    border-radius: 3px;
+}
+
+div.posties h4, .connectedSortable h4 {
+    font-size: 12px;
+    display: block;
+    padding-left: 6px;
+}
+
+div.postTitle {
+
+}
+
+div.posties label, .connectedSortable label, div.media-body label.fieldTitle {
+    background: #FFFBE3;
+    font-weight: normal;
+    display: block;
+    margin: 0px;
+    padding-left: 3px;
+    padding-right: 3px;
+    color: #0088cc;
+}
+
+div.posties label.fieldTitle, .connectedSortable label.fieldTitle, div.media-body label.fieldTitle {
+    background: none;;
+    font-weight: bold;
+    display: inline-block;
+    margin: 0px;
+    margin-right: 0px;
+    margin-left: 0px;
+    color: #666;
+    clear: both;
+}
+
+div.posties a {
+    text-decoration: none;
+    color: #888;
+}
+
+#appLayout {
+    background: url(images/appCanvas.png) no-repeat;
+}
+
+.mediaBox {
+    width: 23%;
+    display: block;
+    margin: 5px;
+    padding: 0px;
+    border-right: 1px solid #efefef;
+    float: left;
+    text-align: center;
+    line-height: 24px;
+    font-weight: bold;
+}
+
+.mediaBox img {
+    margin: 0 auto;
+    display: block;
+}
+
+.mediaBox a {
+    border: 0px;
+    text-decoration: none;
+    text-align: center;
+
+}
+
+img.profile {
+    width: 35px;
+    height: 35px;
+
+    background: #fff;
+    padding: 0px;
+    margin-right: 5px;
+    border: 1px solid #bce8f1;
+
+}
+
+.connectedSortable {
+    border-right: 1px solid #cecece;
+    width: 33%;
+    min-height: 200px;
+    display: inline-block;
+    margin: 0px;
+    float: left;
+    list-style: none;
+}
+
+.connectedSortable li {
+    display: block;
+}
+
+div.bucket1 {
+    display: block;
+    padding: 0px;
+    border: 1px solid #D9EDF7;
+    margin: 5px !important;
+    max-height: 200px;
+    float: left;
+    font-weight: normal;
+    overflow: hidden;
+    border-radius: 3px;
+}
+
+input.ui-button::-moz-focus-inner,
+button.ui-button::-moz-focus-inner {
+    border: 0;
+    padding: 0;
+}
+
+.ui-datepicker {
+    width: 17em;
+    padding: .2em .2em 0;
+    display: none;
+    background: #fff;
+}
+
+.ui-datepicker .ui-datepicker-header {
+    position: relative;
+    padding: .2em 0;
+}
+
+.ui-datepicker .ui-datepicker-prev,
+.ui-datepicker .ui-datepicker-next {
+    position: absolute;
+    top: 2px;
+    width: 1.8em;
+    height: 1.8em;
+}
+
+.ui-datepicker .ui-datepicker-prev-hover,
+.ui-datepicker .ui-datepicker-next-hover {
+    top: 1px;
+}
+
+.ui-datepicker .ui-datepicker-prev {
+    left: 2px;
+}
+
+.ui-datepicker .ui-datepicker-next {
+    right: 2px;
+}
+
+.ui-datepicker .ui-datepicker-prev-hover {
+    left: 1px;
+}
+
+.ui-datepicker .ui-datepicker-next-hover {
+    right: 1px;
+}
+
+.ui-datepicker .ui-datepicker-prev span,
+.ui-datepicker .ui-datepicker-next span {
+    display: block;
+    position: absolute;
+    left: 50%;
+    margin-left: -8px;
+    top: 50%;
+    margin-top: -8px;
+}
+
+.ui-datepicker .ui-datepicker-title {
+    margin: 0 2.3em;
+    line-height: 1.8em;
+    text-align: center;
+}
+
+.ui-datepicker .ui-datepicker-title select {
+    font-size: 1em;
+    margin: 1px 0;
+}
+
+.ui-datepicker select.ui-datepicker-month-year {
+    width: 100%;
+}
+
+.ui-datepicker select.ui-datepicker-month,
+.ui-datepicker select.ui-datepicker-year {
+    width: 49%;
+}
+
+.ui-datepicker table {
+    width: 100%;
+    font-size: .9em;
+    border-collapse: collapse;
+    margin: 0 0 .4em;
+}
+
+.ui-datepicker th {
+    padding: .7em .3em;
+    text-align: center;
+    font-weight: bold;
+    border: 0;
+}
+
+.ui-datepicker td {
+    border: 0;
+    padding: 1px;
+}
+
+.ui-datepicker td span,
+.ui-datepicker td a {
+    display: block;
+    padding: .2em;
+    text-align: right;
+    text-decoration: none;
+}
+
+.ui-datepicker .ui-datepicker-buttonpane {
+    background-image: none;
+    margin: .7em 0 0 0;
+    padding: 0 .2em;
+    border-left: 0;
+    border-right: 0;
+    border-bottom: 0;
+}
+
+.ui-datepicker .ui-datepicker-buttonpane button {
+    float: right;
+    margin: .5em .2em .4em;
+    cursor: pointer;
+    padding: .2em .6em .3em .6em;
+    width: auto;
+    overflow: visible;
+}
+
+.ui-datepicker .ui-datepicker-buttonpane button.ui-datepicker-current {
+    float: left;
+}
+
+/* with multiple calendars */
+.ui-datepicker.ui-datepicker-multi {
+    width: auto;
+}
+
+.ui-datepicker-multi .ui-datepicker-group {
+    float: left;
+}
+
+.ui-datepicker-multi .ui-datepicker-group table {
+    width: 95%;
+    margin: 0 auto .4em;
+}
+
+.ui-datepicker-multi-2 .ui-datepicker-group {
+    width: 50%;
+}
+
+.ui-datepicker-multi-3 .ui-datepicker-group {
+    width: 33.3%;
+}
+
+.ui-datepicker-multi-4 .ui-datepicker-group {
+    width: 25%;
+}
+
+.ui-datepicker-multi .ui-datepicker-group-last .ui-datepicker-header,
+.ui-datepicker-multi .ui-datepicker-group-middle .ui-datepicker-header {
+    border-left-width: 0;
+}
+
+.ui-datepicker-multi .ui-datepicker-buttonpane {
+    clear: left;
+}
+
+.ui-datepicker-row-break {
+    clear: both;
+    width: 100%;
+    font-size: 0;
+}
+
+/* RTL support */
+.ui-datepicker-rtl {
+    direction: rtl;
+}
+
+.ui-datepicker-rtl .ui-datepicker-prev {
+    right: 2px;
+    left: auto;
+}
+
+.ui-datepicker-rtl .ui-datepicker-next {
+    left: 2px;
+    right: auto;
+}
+
+.ui-datepicker-rtl .ui-datepicker-prev:hover {
+    right: 1px;
+    left: auto;
+}
+
+.ui-datepicker-rtl .ui-datepicker-next:hover {
+    left: 1px;
+    right: auto;
+}
+
+.ui-datepicker-rtl .ui-datepicker-buttonpane {
+    clear: right;
+}
+
+.ui-datepicker-rtl .ui-datepicker-buttonpane button {
+    float: left;
+}
+
+.ui-datepicker-rtl .ui-datepicker-buttonpane button.ui-datepicker-current,
+.ui-datepicker-rtl .ui-datepicker-group {
+    float: right;
+}
+
+.ui-datepicker-rtl .ui-datepicker-group-last .ui-datepicker-header,
+.ui-datepicker-rtl .ui-datepicker-group-middle .ui-datepicker-header {
+    border-right-width: 0;
+    border-left-width: 1px;
+}
+
+#footer {
+    background: #fff;
+    width: 100%;
+    text-align: right;
+    line-height: 30px;
+    display: block;
+    clear: both;
+}
+
+#footerContent {
+    display: block;
+    margin-right: 10px;
+    font-weight: bold;
+    font-size: 10px;
+}
+
+/*

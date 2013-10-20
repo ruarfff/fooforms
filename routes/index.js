@@ -9,7 +9,8 @@ exports.index = function (req, res) {
     res.render('index',
         {
             title: 'FooForms',
-            connected: db.connected,
+            dbConnected: db.connected,
+            dbErrorMessage: db.errorMessage || 'No error message available',
             uptime: process.uptime(),
             arch: process.arch,
             platform: process.platform,

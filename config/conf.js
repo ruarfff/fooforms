@@ -9,7 +9,7 @@ var openshiftDbConfig = {
 
 var devDbConfig = {
     "hostname": 'localhost',
-    "port": 27017,
+    "port": '27017',
     "username": "",
     "password": "",
     "name": "",
