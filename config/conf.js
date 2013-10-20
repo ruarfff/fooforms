@@ -16,5 +16,5 @@ var devDbConfig = {
     "db": "test"
 };
 
-exports.mongo = (typeof OPENSHIFT_APP_NAME !== 'undefined') ? openshiftDbConfig : devDbConfig;
+exports.mongo = (typeof process.env.OPENSHIFT_APP_NAME !== 'undefined') ? openshiftDbConfig : devDbConfig;
 
