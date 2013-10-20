@@ -1,0 +1,63 @@
+<!doctype html>
+<html lang="en" ng-app>
+<head>
+    <title>CloudThingy - Login or Register</title>
+    <meta charset="utf-8">
+    <link rel="stylesheet" href="/stylesheets/login.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.0.7/angular.min.js"></script>
+    <script src="/javascripts/login.js"></script>
+</head>
+<body>
+<div id='login'>
+    <div id='loginForm'>
+        <ul>
+            <li class='normalLogin'>
+                <div id='normalLogin'>
+                    <h1>Sign-in</h1>
+
+                    <form action='' method='post'>
+                        <input type='text' name='username' id='username' ng-model="username"
+                               placeholder="Enter your username">
+                        <input type='password' name='password' id='password' ng-model="userPass" placeholder="Password">
+                        <input type="submit" name='tryLogin' id='tryLogin' value='Sign In'>
+                    </form>
+                    <a class='newPass' href='/forgotpassword'>Forgot Password</a>
+                </div>
+            </li>
+            <li class='socialLogin'>
+                <div id='oneclickLogin'>
+                    <h1>Sign-in Using</h1>
+                    <a class='login plus' href='/auth/google'>Google Plus</a>
+                    <a class='login linkedin' href='/auth/linkedin'>LinkedIn</a>
+                    <a class='login twitter' href='/auth/twitter'>Twitter</a>
+
+                    <a class='login yahoo' href='/auth/yahoo'>Yahoo</a>
+                    <a class='login facebook' href='/auth/facebook'>Facebook</a>
+                    <a class='login openid' href='/auth/yahoo'>Open ID</a>
+                </div>
+            </li>
+        </ul>
+
+    </div>
+    <div id="registerForm" ng-controller="Controller">
+        <form novalidate class="simple-form">
+            Name:
+            <input type="text" ng-model="user.name"/><br/>
+            E-mail:
+            <input type="email" ng-model="user.email"/><br/>
+            Gender:
+            <input type="radio" ng-model="user.gender" value="male"/>male
+            <input type="radio" ng-model="user.gender" value="female"/>female<br/>
+            <button ng-click="reset()">RESET</button>
+            <button ng-click="update(user)">SAVE</button>
+        </form>
+        <pre>form = {{user | json}}</pre>
+        <pre>master = {{master | json}}</pre>
+    </div>
+    <div id='signinFooter'>
+        AppBoxPeople let's you create powerful social apps for you and your team - <a href='/register' class='register'>Sign
+        Up</a>
+    </div>
+</div>
+</body>
+</html>

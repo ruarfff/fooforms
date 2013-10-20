@@ -1,10 +1,11 @@
 exports.index = function (req, res) {
+    // Temporarily showing a status page until proper development starts
     var db = require('../apps/database/database');
     var util = require('util');
 
-    res.render('index',
+    res.render('status',
         {
-            title: "FooForms",
+            title: "FooForms Status",
             dbConnected: db.connected,
             dbErrorMessage: db.errorMessage || "No error message available",
             uptime: process.uptime(),

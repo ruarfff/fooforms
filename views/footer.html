@@ -1,0 +1,36 @@
+<div id='contentStore' class='hide'>
+    <!--
+    Displayed when user First Logs in and lacks a cloud
+    -->
+    <div id='firstTime' class='hide'>
+
+        <div class="alert alert-warning m5">
+            <h4>Welcome <? echo $displayName ?>,</h4>
+
+            <p>AppZigo lets you create apps for you and your team.</p>
+
+            <p><h5>Here's a few ideas.</h5></p>
+            <ul>
+                <li>Create a Bug Tracker</li>
+                <li>Manage Invoices</li>
+                <li>Holiday Request Form</li>
+                <li>Customer Service Helpdesk</li>
+                <li>Manage Projects</li>
+            </ul>
+        </div>
+        <div class="alert alert-info m5">
+            <p><strong>You'll need a cloud to put your apps into. </strong><br>
+                You can create as many clouds as you need. Use them to group similar apps, make departments, etc.</P>
+
+            <p><h5>Let's get started!</h5>
+            <button class='btn btnNewCloud btn-primary' onclick='loadTabsHTML("newCloudForm");'>Create a new cloud
+            </button>
+            <button class='btn'>Join an existing cloud</button>
+
+
+        </div>
+    </div>
+
+
+</div>
+</body></html>

@@ -1,0 +1,120 @@
+<!doctype html>
+<html lang="en" ng-app>
+<head>
+    <title><%=cloud %> on AppZigo</title>
+    <!--[if lt IE 9]>
+    <script src="/lib/html5shiv.js"></script>
+    <script src="/lib/respond.js"></script>
+    <![endif]-->
+    <!--[if lt IE 9]>
+    <script src="/lib/jquery/jquery.js"></script>
+    <![endif]-->
+    <!--[if gt IE 8]>
+    <script src="/lib/jquery/jquery2.js"></script>
+    <![endif]-->
+    <!--[if !IE]>
+    <script src="/lib/jquery/jquery2.js"></script>
+    <![endif]-->
+
+    <script src="http://code.jquery.com/jquery-migrate-1.2.1.js"></script>
+    <script src="/lib/jquery/jquery-ui-1.10.3.custom.min.js"></script>
+    <script src="/lib/jquery.json-2.4.js"></script>
+    <script src="/lib/jquery.dataTables.min.js"></script>
+    <script src="/lib/bootstrap/bootstrap.min.js"></script>
+
+    <script src="/javascripts/utils.js"></script>
+
+    <%
+    switch(route){
+    case 'app':
+    %>
+    <script src="/javascripts/app.js"></script>
+    <%
+    break;
+    case 'newapp':
+    %>
+    <script src="/javascripts/appMaker.js"></script>
+    <link rel="stylesheet" href="/styles/appMaker.css">
+    <%
+    break;
+    case 'clouds':
+    %>
+    <script src="/javascripts/clouds.js"></script>
+    <%
+    break;
+    case 'apps':
+    %>
+    <script src="/javascripts/apps.js"></script>
+    <%
+    break;
+    case 'profile':
+    %>
+    <script src="/javascripts/profile.js"></script>
+    <%
+    break;
+    case 'help':
+    %>
+    <script src="/javascripts/help.js"></script>
+    <%
+    break;
+    default:
+    if (isCloud){
+    %>
+    <script src="/javascripts/cloud.js"></script>
+    <%
+    }else{
+    %>
+    <script src="/javascripts/nada.js"></script>
+    ;
+    <%
+    }
+    %>
+    <script src="/javascripts/default.js"></script>
+    <%
+    break;
+
+
+    }
+
+    %>
+
+    <link rel="stylesheet" href="/stylesheets/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="/stylesheets/cloudthingy.css">
+    <link rel="stylesheet" href="/stylesheets/grid.css">
+
+
+</head>
+<body>
+
+
+<div id='wrapper'>
+    <div class="container-fluid">
+        <div id='header' class="row-fluid">
+            <div id="logo" class="span3"><img src='/images/cloudthingy.png'/></div>
+
+
+            <div id='topmenu' class="span6">
+                <ul>
+                    <li class=selected><A href="/">Home</A></li>
+                    <li><A href="/profile">Profile</A></li>
+                    <li><A href="/clouds">Clouds</A></li>
+                    <li><A href="/apps">Apps</A></li>
+                    <li><A href="/people">People</A></li>
+                    <li><A href="/help">Help</A></li>
+                </ul>
+            </div>
+
+            <div class="span3">
+                <div id='profile'>
+
+                    <% if (user.photo != ''){
+                    %>
+                    <img style='background-image: url(<%= user.photo %>)' src='/imgages/circle.png'/>
+                    <%
+                    }
+                    %>
+                    <%= user.displayName %>
+                    <a class='btn btn-mini' href='/logout'>Logout</a>
+                </div>
+            </div>
+        </div>

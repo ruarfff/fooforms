@@ -1,0 +1,56 @@
+<% include globalHeader.html %>
+<div class="row-fluid" style='margin:10px;'>
+    <% include leftCloudMenu.html %>
+    <div class="span5 boxed" id='mainView'>
+
+
+        <div id='appView' class='hide'>
+            <div id='nowViewing'>
+                <img src=''/>
+
+                <h1></h1>
+<span id='formAction'><span>
+            </div>
+            <div id='theFormDescription' class='alert alert-success m5'>
+            </div>
+            <div id='theForm' class='alert alert-info m5'>
+            </div>
+            <div id='theFormPostVars'>
+            </div>
+            <div id='posts'>
+            </div>
+
+        </div>
+        <div id='tabs'>
+            <ul id='mainTabs' class="nav nav-tabs">
+                <li><a id='tabsMenu-1' href="#tabs-1" data-toggle="tab">Apps by <%= cloud %></a></li>
+                <li style="float: right"><a href='#' id='itemTitlelink'><span id='itemTitle'></span></a></li>
+            </ul>
+            <div class="tab-content">
+                <div id="tabs-1" class="tab-pane active">
+
+
+                </div>
+
+            </div>
+        </div>
+
+
+    </div>
+
+    <div class="span5 tall">
+        <%include postView.html %>
+
+
+    </div>
+</div>
+</div>
+
+<script>
+    $(document).ready(function () {
+        getCloud('<%= cloud %>');
+    });
+</script>
+
+<% include footer.html %>
+ 

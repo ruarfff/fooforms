@@ -1,0 +1,88 @@
+<% include globalHeader.html %>
+
+<div class="row-fluid">
+    <% include leftNewAppMenu.html %>
+
+    <div class="span8 boxed" id='mainView'>
+
+
+        <div id='msgCenter' class="hide">
+            <div class="alert alert-block alert-info fade in m5">
+                <p>Saving your app, please stand by...</p>
+            </div>
+        </div>
+
+        <div id="tabs">
+            <ul id='appTabs' class="nav nav-tabs">
+                <li class="active"><a href="#tabs-newApp" data-toggle="tab">New App</a></li>
+                <li><a href="#tabs-settings" data-toggle="tab">Settings</a></li>
+                <li><a href="#tabs-publish" data-toggle="tab">Publish</a></li>
+            </ul>
+            <div class="tab-content">
+                <div id="tabs-newApp" class="tab-pane active">
+                    <div id='appHeading'><img class='icon' id='appIconDisplay' src='/app/dispatch.php?id=95'/>
+
+                        <h2 id='appName'>Untitled App</h2>
+
+                        <p id='appDescription'>Click here to edit the title and description. </p>
+                    </div>
+                    <div id='appLayout'>
+
+
+                    </div>
+                    <div id='saveAppForm'>
+                        <button id='saveApp' class='btn btn-success'>Save App</button>
+                    </div>
+                </div>
+
+
+                <div id="tabs-settings" class="tab-pane">
+                    <div class='alert alert-warning'><h4>Settings</h4>
+                    </div>
+                    <div id='saveAppForm'>
+                        <button id='saveApp' class='btn btn-success'>Save App</button>
+                    </div>
+                </div>
+                <div id="tabs-publish" class="tab-pane">
+                    <div class='alert alert-warning'><h4>Publish</h4>
+
+                        <p>Choose one or more ways to publish your app.</p>
+                    </div>
+                    <div class='m10 alert alert-info'>
+                        <h5>Add it to one or more clouds</h5>
+
+                        <p>Your app will be displayed in each of the following clouds</p>
+
+                        <div id='cloudList'>
+                            <%
+                            var length = clouds.length,
+                            cloud = null;
+                            cloudList='';
+                            for (var i = 0; i < length; i++) {
+                            cloud = clouds[i];
+                            %>
+                            <label class='checkbox'><input id='publishcloud' name='publishcloud[]' type='checkbox'
+                                                           value='<%= cloud._id %>'/><%= cloud.name %></label>
+                            <%
+                            }
+                            %>
+                        </div>
+                        <hr>
+
+                        <h5>Add it to a Website or Blog</h5>
+
+                        <p>Copy the following code to your page on your website.</p>
+                        <textarea class='large'>
+                            <script>function load()
+                            ;</script>
+                        </textarea>
+                    </div>
+                    <div id='saveAppForm'>
+                        <button id='saveApp' class='btn btn-success'>Save App</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+    </div>

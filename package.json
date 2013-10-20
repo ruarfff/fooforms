@@ -33,7 +33,8 @@
         "grunt": "~0.4.1",
         "grunt-contrib-uglify": "~0.2.4",
         "grunt-contrib-nodeunit": "~0.2.1",
-        "grunt-contrib-jshint": "~0.6.4"
+        "grunt-contrib-jshint": "~0.6.4",
+        "nodemon": "~0.7.10"
     },
     "bundleDependencies": [],
     "private": true,
