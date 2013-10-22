@@ -1,7 +1,7 @@
 'use strict';
 
 var mongoose = require('mongoose');
-var configuration = require('../../config/conf');
+var configuration = require('../../config/config');
 
 
 var Database = function(){
@@ -12,8 +12,9 @@ var Database = function(){
     this.errorMessage = '';
 
     // Generate the Mongo Db connection URL
-    var generate_mongo_url = function (dbConfig) {
-        console.log(dbConfig);
+    var generate_mongo_url = function () {
+        var dbConfig = configuration.mongo;
+        console.log(configuration);
         var url;
         if (dbConfig.username && dbConfig.password) {
             url = "mongodb://" + dbConfig.username + ":" + dbConfig.password + "@" + dbConfig.hostname + ":" + dbConfig.port + "/" + dbConfig.db;
@@ -25,7 +26,7 @@ var Database = function(){
         return url;
     };
 
-    this.mongourl = generate_mongo_url(configuration.mongo);
+    this.mongourl = generate_mongo_url();
     // Pull in the mongo client and related libs
     this.MongoClient = require('../../node_modules/mongodb').MongoClient;
     this.ObjectID = require('../../node_modules/mongodb').ObjectID;

@@ -1,16 +1,17 @@
 #!/bin/env node
+var env = process.env.NODE_ENV = process.env.NODE_ENV || 'development';
 var database = require('./apps/database/database');
 var http = require('http');
 var express = require('express');
-var controllers = require('./controllers');
+var passport = require('passport');
 var path = require('path');
-var fs = require('fs')
+var fs = require('fs');
+var config = require('./config/config');
 
 var FooFormsServerApp = function () {
 
     //  Scope.
     var self = this;
-    var app = express();
 
     /*  ================================================================  */
     /*  Helper functions.                                                 */
@@ -30,6 +31,7 @@ var FooFormsServerApp = function () {
             console.warn('No OPENSHIFT_NODEJS_IP var, using 127.0.0.1');
             self.ipaddress = "127.0.0.1";
         }
+        self.app = express();
     };
 
 
@@ -56,8 +58,6 @@ var FooFormsServerApp = function () {
         process.on('exit', function () {
             self.terminator();
         });
-
-        // Removed 'SIGPIPE' from the list - bugz 852598.
         ['SIGHUP', 'SIGINT', 'SIGQUIT', 'SIGILL', 'SIGTRAP', 'SIGABRT',
             'SIGBUS', 'SIGFPE', 'SIGUSR1', 'SIGSEGV', 'SIGUSR2', 'SIGTERM'
         ].forEach(function (element, index, array) {
@@ -79,42 +79,14 @@ var FooFormsServerApp = function () {
     self.initialize = function () {
         self.setupVariables();
         self.setupTerminationHandlers();
-        var expressLogFile = fs.createWriteStream('./logs/express.log', {flags: 'a'});
 
-        app.configure(function () {
-            app.set('title', 'fooforms');
-            app.set('port', process.env.PORT || 3000);
-            app.set('views', __dirname + '/views');
-            app.use(app.router);
-            app.set('uploads', __dirname + '/uploads');
-            app.engine('html', require('ejs').renderFile);
-            app.set('view engine', 'html');
-            app.use(express.favicon());
-            app.use(express.logger('dev'));
-            app.use(express.bodyParser());
-            app.use(express.methodOverride());
-            app.use(express.logger({stream: expressLogFile}));
-            app.use(express.cookieParser('appZiG0s3ssi0n'));
-            app.use(express.session());
-            app.use(require('less-middleware')({ src: __dirname + '/public' }));
-            app.use(express.static(path.join(__dirname, 'public')));
-            //app.use(authentication.passport.initialize());
-            //app.use(authentication.passport.session());
+        if (!fs.existsSync('./logs')) {
+            fs.mkdirSync('./logs')
+        }
 
-        });
+        require('./config/express')(self.app, passport);
 
-        // development only
-        app.configure('development', function () {
-            app.use(express.errorHandler({ dumpExceptions: true, showStack: true }));
-        });
-
-        // production only
-        app.configure('production', function () {
-            app.use(express.errorHandler());
-        });
-
-        app.get('/', controllers.index);
-
+        require('./apps/dev/routes')(self.app);
     };
 
 
@@ -122,7 +94,7 @@ var FooFormsServerApp = function () {
      *  Start the server (starts up the application).
      */
     self.start = function () {
-        http.createServer(app).listen(self.port, self.ipaddress, function () {
+        http.createServer(self.app).listen(self.port, self.ipaddress, function () {
             console.log('%s: Node server started on %s:%d ...',
                 Date(Date.now()), self.ipaddress, self.port);
         });
@@ -141,4 +113,6 @@ console.log("Starting web server...");
 var serverApp = new FooFormsServerApp();
 serverApp.initialize();
 serverApp.start();
+
+exports = module.exports = serverApp;
 
