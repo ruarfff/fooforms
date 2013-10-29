@@ -1,18 +1,21 @@
 var config = require('../../config/config');
 var viewDir = config.root + '/apps/dev/views';
+var db = require('../database/database');
+
 var routes = function (app) {
 
     app.get('/', function (req, res) {
         res.render(viewDir + '/index');
     });
 
-    app.get('/status', function (req, res) {
-        // Temporarily showing a status page until proper development starts
-        var db = require('../database/database');
+    app.get('/api', function (req, res){
+       res.render(viewDir + '/api');
+    });
 
+    app.get('/status', function (req, res) {
         res.render(viewDir + '/status',
             {
-                title: "FooForms Status",
+                title: config.app.name,
                 dbConnected: db.connected,
                 dbErrorMessage: db.errorMessage || "No error message available",
                 uptime: process.uptime(),
@@ -30,8 +33,6 @@ var routes = function (app) {
             }
         );
     });
-
-
 };
 
 module.exports = routes;

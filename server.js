@@ -31,6 +31,7 @@ var FooFormsServerApp = function () {
             console.warn('No OPENSHIFT_NODEJS_IP var, using 127.0.0.1');
             self.ipaddress = "127.0.0.1";
         }
+        // Set up the express object to initialize the application
         self.app = express();
     };
 
@@ -77,16 +78,14 @@ var FooFormsServerApp = function () {
      *  Initializes the application.
      */
     self.initialize = function () {
-        self.setupVariables();
-        self.setupTerminationHandlers();
-
         if (!fs.existsSync('./logs')) {
             fs.mkdirSync('./logs')
         }
+        self.setupVariables();
+        self.setupTerminationHandlers();
 
         require('./config/express')(self.app, passport);
-
-        require('./apps/dev/routes')(self.app);
+        require('./config//routes')(self.app);
     };
 
 
