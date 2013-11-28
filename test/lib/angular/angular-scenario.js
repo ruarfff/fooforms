@@ -21494,7 +21494,7 @@
         return function (array, expression, comperator) {
             if (!isArray(array)) return array;
             var predicates = [];
-            predicates.check = function (value) {
+            predicates.ensureAuthenticated = function (value) {
                 for (var j = 0; j < predicates.length; j++) {
                     if (!predicates[j](value)) {
                         return false;
@@ -21589,7 +21589,7 @@
             var filtered = [];
             for (var j = 0; j < array.length; j++) {
                 var value = array[j];
-                if (predicates.check(value)) {
+                if (predicates.ensureAuthenticated(value)) {
                     filtered.push(value);
                 }
             }
@@ -29318,7 +29318,7 @@
             });
         };
 
-        chain.check = function () {
+        chain.ensureAuthenticated = function () {
             return this.addFutureAction("checkbox '" + this.name + "' toggle", function ($window, $document, done) {
                 var input = $document.elements('[ng\\:model="$1"]', this.name).filter(':checkbox');
                 input.trigger('click');

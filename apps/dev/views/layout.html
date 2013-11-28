@@ -6,10 +6,10 @@
     <link rel='stylesheet' href='/stylesheets/bootstrap.min.css'/>
     <link rel='stylesheet' href='/stylesheets/style.css'/>
 
-    <!--[if lt IE 9]>
+    <![if lt IE 9]>
     <script src="/lib/html5shiv.js"></script>
     <script src="/lib/respond.min.js"></script>
-    <![endif]-->
+    <![endif]>
 
 </head>
 <body>
@@ -29,8 +29,8 @@
     <!-- Collect the nav links, forms, and other content for toggling -->
     <div class="collapse navbar-collapse navbar-ex1-collapse">
         <ul class="nav navbar-nav">
-            <li><a href="/api">API</a></li>
-            <li><a href="/status">Status</a></li>
+            <li><a href="/admin/api">API</a></li>
+            <li><a href="/admin/status">Status</a></li>
         </ul>
     </div>
     <!-- /.navbar-collapse -->
@@ -38,12 +38,12 @@
 
 <%- body %>
 
-<!--[if lt IE 9]>
+<![if lt IE 9]>
 <script src="/lib/jquery/jquery.js"></script>
-<![endif]-->
-<!--[if gt IE 8]>
+<![endif]>
+<![if gt IE 8]>
 <script src="/lib/jquery/jquery2.js"></script>
-<![endif]-->
+<![endif]>
 <![if !IE]>
 <script src="/lib/jquery/jquery2.js"></script>
 <![endif]>
@@ -51,9 +51,9 @@
 <script src="/lib/bootstrap/bootstrap.min.js"></script>
 
 <script>
-    //Temporary solution here. Will move to external file once i figure out the structure for the client code.
+    //Temporary solution here. Will move to external file once I figure out the structure for the client code.
     $(function(){
-        var path = window.location.pathname;//.replace(/\.[^/.]+$/, "");
+        var path = window.location.pathname;
         $('nav li a[href$="'+path+'"]').parents('li').addClass('active');
     });
 </script>

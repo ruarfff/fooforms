@@ -1,9 +1,21 @@
+/*jslint node: true */
+'use strict';
+
 /**
  * Main configuration for all routes in application.
  * Any apps that are added should initialize their routes here.
  * @param app - The express object
+ * @param passport - Passport object for authentication
  */
-var routes = function (app) {
+var routes = function (app, passport) {
+
+    app.get('/', function (req, res) {
+        res.render('index');
+    });
+
+    require('../apps/authentication/routes')(app, passport);
+    require('../apps/dev/routes')(app);
+    require('../apps/user/routes')(app);
 
 };
 

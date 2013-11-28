@@ -1,18 +1,22 @@
+/*jslint node: true */
+'use strict';
+
 var config = require('../../config/config');
 var viewDir = config.root + '/apps/dev/views';
-var db = require('../database/database');
+var db = require('../database/lib');
+var authentication = require('../authentication/lib');
 
 var routes = function (app) {
 
-    app.get('/', function (req, res) {
+    app.get('/admin', authentication.ensureAuthenticated, function (req, res) {
         res.render(viewDir + '/index');
     });
 
-    app.get('/api', function (req, res){
+    app.get('/admin/api', authentication.ensureAuthenticated, function (req, res){
        res.render(viewDir + '/api');
     });
 
-    app.get('/status', function (req, res) {
+    app.get('/admin/status', authentication.ensureAuthenticated, function (req, res) {
         res.render(viewDir + '/status',
             {
                 title: config.app.name,

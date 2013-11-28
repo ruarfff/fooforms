@@ -1,3 +1,6 @@
+/*jslint node: true */
+'use strict';
+
 var express = require('express');
 var engine = require('ejs-locals');
 var flash = require('connect-flash');
@@ -36,11 +39,12 @@ module.exports = function (app, passport) {
         app.use(express.bodyParser());
         app.use(express.methodOverride());
         app.use(express.cookieParser('f0of09m5s3ssi0n'));
-        app.use(express.session());
+        app.use(express.session({ secret: 'f0of09m5s3ssi0n' }));
         app.use(flash());
         app.use(helpers(config.app.name));
         app.use(passport.initialize());
         app.use(passport.session());
+        app.use('/zxcvbn', express.static('node_modules/zxcvbn'));
     });
 
     // development only
@@ -57,7 +61,9 @@ module.exports = function (app, passport) {
 
     app.use(function (err, req, res, next) {
         //Treat as 404
-        if (~err.message.indexOf('not found')) return next();
+        if (err.message.indexOf('not found')) {
+            return next();
+        }
 
         //Log it
         console.error(err.stack);
@@ -69,7 +75,7 @@ module.exports = function (app, passport) {
     });
 
     //Assume 404 since no middleware responded
-    app.use(function (req, res, next) {
+    app.use(function (req, res) {
         res.status(404).render('404', {
             url: req.originalUrl,
             error: 'Not found'

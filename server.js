@@ -1,12 +1,15 @@
 #!/bin/env node
+/*jslint node: true */
+'use strict';
+
 var env = process.env.NODE_ENV = process.env.NODE_ENV || 'development';
-var database = require('./apps/database/database');
+var database = require('./apps/database/lib');
 var http = require('http');
 var express = require('express');
 var passport = require('passport');
 var path = require('path');
 var fs = require('fs');
-var config = require('./config/config');
+var configuration = require('./config/config');
 
 var FooFormsServerApp = function () {
 
@@ -44,10 +47,10 @@ var FooFormsServerApp = function () {
     self.terminator = function (sig) {
         if (typeof sig === "string") {
             console.log('%s: Received %s - terminating app ...',
-                Date(Date.now()), sig);
+                new Date(Date.now()), sig);
             process.exit(1);
         }
-        console.log('%s: Node server stopped.', Date(Date.now()));
+        console.log('%s: Node server stopped.', new Date(Date.now()));
     };
 
 
@@ -61,11 +64,58 @@ var FooFormsServerApp = function () {
         });
         ['SIGHUP', 'SIGINT', 'SIGQUIT', 'SIGILL', 'SIGTRAP', 'SIGABRT',
             'SIGBUS', 'SIGFPE', 'SIGUSR1', 'SIGSEGV', 'SIGUSR2', 'SIGTERM'
-        ].forEach(function (element, index, array) {
+        ].forEach(function (element) {
                 process.on(element, function () {
                     self.terminator(element);
                 });
             });
+    };
+
+    /**
+     * Walks through a given path and requires all .js file within, including subdirectories.
+     *
+     * @param pathToWalk - Root location to walk from
+     */
+    self.walk = function(pathToWalk) {
+        fs.readdirSync(pathToWalk).forEach(function(file) {
+            var newPath = path.join(pathToWalk, file);
+            var stat = fs.statSync(newPath);
+            if (stat.isFile()) {
+                if (/(.*)\.js/.test(file)) {
+                    console.log('Requiring: ' + newPath);
+                    require(newPath);
+                }
+            } else if (stat.isDirectory()) {
+                self.walk(newPath);
+            }
+        });
+    };
+
+    /**
+     * Load any models in the application in to mongoose
+     */
+    self.bootstrapModels = function() {
+        // Load the root models
+        try{
+            var rootModelsPath = path.join(configuration.root, 'models');
+            self.walk(rootModelsPath);
+        } catch(err){
+            console.log(err.toString());
+        }
+
+        // Look for and load any app models
+        var appsPath = path.join(configuration.root, 'apps');
+        fs.readdirSync(appsPath).forEach(function(appDir) {
+            var modelsPath = path.join(path.join(appsPath, appDir), 'models');
+            try{
+                var stat = fs.statSync(modelsPath);
+                if (stat.isDirectory()) {
+                    self.walk(modelsPath);
+                }
+            } catch (err){
+                console.log(err.toString());
+            }
+        });
     };
 
 
@@ -78,14 +128,16 @@ var FooFormsServerApp = function () {
      *  Initializes the application.
      */
     self.initialize = function () {
+        require('coffee-script');
         if (!fs.existsSync('./logs')) {
-            fs.mkdirSync('./logs')
+            fs.mkdirSync('./logs');
         }
         self.setupVariables();
         self.setupTerminationHandlers();
-
+        self.bootstrapModels();
+        require('./config/passport')(passport);
         require('./config/express')(self.app, passport);
-        require('./config//routes')(self.app);
+        require('./config/routes')(self.app, passport);
     };
 
 
@@ -95,7 +147,7 @@ var FooFormsServerApp = function () {
     self.start = function () {
         http.createServer(self.app).listen(self.port, self.ipaddress, function () {
             console.log('%s: Node server started on %s:%d ...',
-                Date(Date.now()), self.ipaddress, self.port);
+                new Date(Date.now()), self.ipaddress, self.port);
         });
     };
 
@@ -105,9 +157,10 @@ var FooFormsServerApp = function () {
 /**
  *  main():  Main code.
  */
+console.log("Running environment: " + env);
 console.log("Initializing database connection...");
-database.connect();
-console.log("Successfully connected to database at " + database.mongourl);
+database.openConnection();
+console.log("Successfully connected to database at " + database.url);
 console.log("Starting web server...");
 var serverApp = new FooFormsServerApp();
 serverApp.initialize();

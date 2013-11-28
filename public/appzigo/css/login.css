@@ -1,0 +1,195 @@
+body{
+font-weight: normal;
+font-family: arial;
+padding: 0px;
+margin: 0px;
+    width: 100%;
+    height: 100%;
+	overflow:hidden;
+	background: #efefef;
+
+/* IE9 SVG, needs conditional override of 'filter' to 'none' */
+}
+
+
+
+
+#login {
+position: absolute;
+left: 50%;
+top: 100px;
+text-align: left;        
+width:566px;
+height:275px;
+margin-left: -273px; /*half width*/
+border-radius: 10px;
+border: 1px solid #cecece;
+color: #404040;
+background:  #fff url(../img/cloudthingy.png) top right no-repeat;
+padding-top:60px;
+}
+#loginForm{
+width: 100%;
+margin: 0px;
+padding: 0px;
+border-top:1px solid #dedede;
+border-bottom:1px solid #dedede;
+background: #f7f7f7;
+display: block;
+}
+#login ul{
+list-style: none;
+width:564px;
+height: 220px;
+margin: 0px;
+padding: 0px;
+}
+
+#login ul li.normalLogin{
+list-style: none;
+display: block;
+float: left;
+width:210px;
+height: 220px;
+margin: 0px;
+padding: 0px;
+border-right: 1px solid #cecece;
+}
+#login ul li.socialLogin{
+list-style: none;
+display: block;
+float: left;
+width:340px;
+height: 220px;
+margin: 0px;
+padding: 0px;
+border-left: 1px solid #fff;
+}
+h1{
+display: block;
+margin: 0px;
+margin-top: 10px;
+padding: 0px;
+font-weight: normal;
+font-size: 20px;
+line-height: 40px;
+color: #008DCE;
+text-align: left;
+padding-left: 15px;
+
+}
+
+input[type=text],input[type=password]{
+border: 1px solid #cecece;
+background: #fff;
+color: #222;
+line-height: 30px;
+font-size: 15px;
+display: block;
+margin-left: 15px;
+padding-left: 5px;
+border-radius: 3px;
+margin-bottom: 10px;
+}
+
+input#tryLogin{
+border: 1px solid #fff;
+background: #9E0400;
+color: #fff;
+line-height: 30px;
+font-size: 14px;
+display: block;
+margin-left: 15px;
+padding-left: 15px;
+border-radius: 15px;
+padding-right: 15px;
+cursor: pointer;
+}
+input#tryLogin:hover{
+border: 1px solid #6E0300;
+}
+#oneclickLogin a{
+border: 1px solid #cecece;
+line-height: 30px;
+height: 30px;
+font-size: 15px;
+display: inline-block;
+margin-left: 10px;
+margin-right: 0px;
+padding-left: 40px;
+border-radius: 5px;
+padding-right: 10px;
+cursor: pointer;
+text-decoration: none;
+margin-bottom: 10px;
+background-size: 31px;
+width: 100px;
+color: #202020;
+}
+#oneclickLogin a:hover{
+background-color: #F9FEE8;
+}
+a.plus{
+background: #fff url(images/gplus.png) no-repeat ;
+
+}
+a.twitter{
+background: #fff url(images/twitter.png) no-repeat ;
+
+}
+a.linkedin{
+background: #fff url(images/linkedin.png) no-repeat ;
+
+}
+a.facebook{
+background: #fff url(images/facebook.png) no-repeat ;
+
+}
+a.yahoo{
+background: #fff url(images/yahoo.png) no-repeat ;
+
+}
+
+a.openid{
+background: #fff url(images/openid.png) no-repeat ;
+
+}
+
+a.wordpress{
+background: #fff url(images/wordpress.png) no-repeat ;
+
+}
+
+#signinFooter{
+text-align: right;
+margin-right: 10px;
+line-height: 30px;
+font-size: 10px;
+padding: 10px;
+}
+
+#signinFooter a.register{
+border: 1px solid #fff;
+background: #96CE00;
+color: #fff;
+line-height: 30px;
+font-size: 14px;
+display: inline-block;
+padding-left: 15px;
+border-radius: 15px;
+padding-right: 15px;
+text-align: center;
+text-decoration: none;
+}
+
+#signinFooter a.register:hover{
+border: 1px solid #658600;
+}
+
+a.newPass{
+margin:10px;
+font-size: 10px;
+text-decoration: underline;
+color: #c0c0c0;
+font-weight: bold;
+}
