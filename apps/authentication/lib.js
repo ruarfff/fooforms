@@ -7,7 +7,6 @@ var viewDir = path.join(__dirname, 'views');
 var loginPath = path.join(viewDir, 'login');
 var signupPath = path.join(viewDir, 'signup');
 var userApi = path.join(configuration.root, 'apps/user/api');
-var zxcvbn = require("zxcvbn");
 
 exports.userApi = userApi;
 exports.loginPath = loginPath;
@@ -46,10 +45,9 @@ exports.ensureAdmin = function ensureAdmin(req, res, next) {
 
 exports.signup = function signup(req, res, next){
     var body = req.body;
-    if (password1 !== password2) return next(new Error("Passwords must match"));
-    console.log(typeof zxcvbn);
-    var result = zxcvbn(password1);
-    if (result.score < MIN_PASSWORD_SCORE) return next(new Error("Password is too simple"));
+    if (password1 !== password2) {
+        return next(new Error("Passwords must match"));
+    }
     pass.createUser(
         body.username,
         body.email,
