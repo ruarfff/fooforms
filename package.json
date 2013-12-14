@@ -51,7 +51,8 @@
         "mocha": "~1.15.1",
         "blanket": "~1.1.5",
         "grunt-contrib-watch": "~0.5.3",
-        "should": "~2.1.1"
+        "should": "~2.1.1",
+        "grunt-concurrent": "~0.4.2"
     },
     "bundleDependencies": [],
     "private": true,

@@ -6,29 +6,9 @@
 
 module.exports = function (grunt) {
 
-    /**
-     grunt.initConfig({
-        pkg: require('./package.json'),
-        nodemon: {
-            dev: {
-                options: {
-                    file: 'server.js',
-                    watchedExtensions: ['js', 'json'],
-                    ignoredFiles: ['node_modules/**', 'public/**'],
-                    nodeArgs: ['--debug']
-                }
-            }
-        },
-        concurrent: {
-            target: {
-                tasks: ['nodemon'],
-                options: {
-                    logConcurrentOutput: true
-                }
-            }
-        }
 
-    });
+    /**
+
 
      grunt.loadNpmTasks('grunt-nodemon');
 
@@ -87,12 +67,40 @@ module.exports = function (grunt) {
      **/
 
 
-        // Add the grunt-mocha-test tasks.
-    grunt.loadNpmTasks('grunt-mocha-test');
-    grunt.loadNpmTasks('grunt-contrib-watch');
+    require('load-grunt-tasks')(grunt);
 
 
     grunt.initConfig({
+        pkg: grunt.file.readJSON('package.json'),
+        nodemon: {
+            // For development. Nodemon keeps the app running and loads file changes automatically.
+            dev: {
+                options: {
+                    file: 'server.js',
+                    watchedExtensions: ['js', 'json'],
+                    ignoredFiles: ['node_modules/**', 'public/**'],
+                    nodeArgs: ['--debug']
+                }
+            }
+        },// End nodemon
+        watch: {
+            // Run certain tasks every time a js file changes.
+            all: {
+                files: '**/*.js',
+                tasks: [
+                    ['mochaTest']
+                ]
+            }
+        },// End watch
+        concurrent: {
+            // Spawn separate processes for nodemon and watch
+            dev: {
+                options: {
+                    logConcurrentOutput: true
+                },
+                tasks: ['watch', 'nodemon:dev']
+            }
+        },// End concurrent
         // Configure a mochaTest task
         mochaTest: {
             test: {
@@ -123,15 +131,7 @@ module.exports = function (grunt) {
                     tasks: ['check']
                 }
             }
-        },
-        watch: {
-            all: {
-                files: '**/*.js',
-                tasks: [
-                    ['mochaTest']
-                ]
-            }
-        }
+        }// End mochaTest
     });
 
     // On watch events configure mochaTest to run only on the test if it is one
@@ -144,6 +144,7 @@ module.exports = function (grunt) {
         }
     });
 
+    grunt.registerTask('dev', ['concurrent:dev']);
     grunt.registerTask('default', ['watch']);
 
 };
