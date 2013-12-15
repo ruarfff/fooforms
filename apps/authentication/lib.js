@@ -45,7 +45,7 @@ exports.ensureAdmin = function ensureAdmin(req, res, next) {
 
 exports.signup = function signup(req, res, next){
     var body = req.body;
-    if (password1 !== password2) {
+    if (body.password1 !== body.password2) {
         return next(new Error("Passwords must match"));
     }
     pass.createUser(
@@ -60,7 +60,7 @@ exports.signup = function signup(req, res, next){
                 if (err) return next(err);
                 // successful login
                 res.redirect('/');
-            })
-        })
+            });
+        });
 
 };

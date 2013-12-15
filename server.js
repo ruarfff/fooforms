@@ -75,8 +75,8 @@ var FooFormsServerApp = function () {
      *
      * @param pathToWalk - Root location to walk from
      */
-    self.walk = function(pathToWalk) {
-        fs.readdirSync(pathToWalk).forEach(function(file) {
+    self.walk = function (pathToWalk) {
+        fs.readdirSync(pathToWalk).forEach(function (file) {
             var newPath = path.join(pathToWalk, file);
             var stat = fs.statSync(newPath);
             if (stat.isFile()) {
@@ -93,25 +93,25 @@ var FooFormsServerApp = function () {
     /**
      * Load any models in the application in to mongoose
      */
-    self.bootstrapModels = function() {
+    self.bootstrapModels = function () {
         // Load the root models
-        try{
+        try {
             var rootModelsPath = path.join(configuration.root, 'models');
             self.walk(rootModelsPath);
-        } catch(err){
+        } catch (err) {
             console.log(err.toString());
         }
 
         // Look for and load any app models
         var appsPath = path.join(configuration.root, 'apps');
-        fs.readdirSync(appsPath).forEach(function(appDir) {
+        fs.readdirSync(appsPath).forEach(function (appDir) {
             var modelsPath = path.join(path.join(appsPath, appDir), 'models');
-            try{
+            try {
                 var stat = fs.statSync(modelsPath);
                 if (stat.isDirectory()) {
                     self.walk(modelsPath);
                 }
-            } catch (err){
+            } catch (err) {
                 console.log(err.toString());
             }
         });
@@ -165,5 +165,5 @@ var serverApp = new FooFormsServerApp();
 serverApp.initialize();
 serverApp.start();
 
-exports = module.exports = serverApp;
+exports.serverApp = module.exports = serverApp;
 

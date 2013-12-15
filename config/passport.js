@@ -8,9 +8,8 @@ var FacebookStrategy = require('passport-facebook').Strategy;
 var YahooStrategy = require('passport-yahoo').Strategy;
 var LinkedInStrategy = require('passport-linkedin').Strategy;
 
-var mongoose = require('mongoose');
 var configuration = require('./config');
-var User = require('../apps/user/models/user').userModel;
+var User = require('../apps/user/models/user').User;
 
 module.exports = function (passport) {
 
@@ -35,7 +34,7 @@ module.exports = function (passport) {
                 if (!user) {
                     return done(null, false, { message: 'Incorrect username.' });
                 }
-                if (!user.validPassword(password)) {
+                if (!user.authenticate(password)) {
                     return done(null, false, { message: 'Incorrect password.' });
                 }
                 return done(null, user);

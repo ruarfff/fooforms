@@ -1,8 +1,8 @@
 /*jslint node: true */
 'use strict';
-
-//var User = require('./apps/user/models/user');
-//var database = require('./apps/database/lib');
+process.env.NODE_ENV = process.env.NODE_ENV || 'development';
+var database = require('./apps/database/lib');
+var User = require('./apps/user/models/user').User;
 
 module.exports = function (grunt) {
 
@@ -143,6 +143,67 @@ module.exports = function (grunt) {
             grunt.config('mochaTest.simple.src', filepath);
         }
     });
+
+
+    grunt.registerTask('dbdrop', 'drop the database', function () {
+        // async mode
+        var done = this.async();
+
+        //  var database = require('./apps/database/lib');
+
+        database.connection.on('open', function () {
+            database.connection.db.dropDatabase(function (err) {
+                database.closeConnection();
+                if (err) {
+                    console.log('Error: ' + err);
+                    done(false);
+                } else {
+                    console.log('Successfully dropped db');
+                    done();
+                }
+            });
+        });
+        database.openConnection();
+    });
+
+    grunt.registerTask('dbseed', 'seed the database', function () {
+        grunt.task.run([
+            'adduser:ruairi:ruairi@fooforms.com:secret1:true',
+            'adduser:brian:brian@fooforms.com:secret2:true',
+            'adduser:bob:bob@gmail.com:secret3:false',
+            'adduser:mary:mary@gmail.com:secret4:false'
+        ]);
+    });
+
+    grunt.registerTask('adduser', 'add a user to the database', function (usr, emailaddress, pass, adm) {
+        var done = this.async();
+        // convert adm string to bool
+        adm = (adm === "true");
+        var user = new User(
+            {
+                username: usr,
+                email: emailaddress,
+                password: pass,
+                admin: adm
+            }
+        );
+        database.openConnection();
+        console.log(user.username);
+        console.log(user.email);
+
+        user.save(function (err) {
+            database.closeConnection();
+            if (err) {
+                console.log('Error: ' + err);
+                done(false);
+            } else {
+                console.log('saved user: ' + user.username);
+                done();
+            }
+        });
+
+    });
+
 
     grunt.registerTask('dev', ['concurrent:dev']);
     grunt.registerTask('default', ['watch']);

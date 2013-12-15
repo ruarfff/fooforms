@@ -6,7 +6,7 @@ var mongoose = require('mongoose');
 var configuration = require('../../config/config');
 var authentication = require('../authentication/lib');
 var viewDir = path.join(configuration.root, '/apps/user/views');
-var User = mongoose.model('User');
+var User = require('./models/user').User;
 
 /**
  * Create user

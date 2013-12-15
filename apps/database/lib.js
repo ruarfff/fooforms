@@ -6,10 +6,10 @@ var configuration = require('../../config/config');
 
 var database = {};
 
+var url;
 // Generate the Mongo Db connection URL
-var generateMongoUrl = function () {
-    var dbConfig = configuration.mongo,
-        url;
+function setUrl() {
+    var dbConfig = configuration.mongo;
 
     if (dbConfig.username && dbConfig.password) {
         url = "mongodb://" + dbConfig.username + ":" + dbConfig.password + "@" + dbConfig.hostname + ":" + dbConfig.port + "/" + dbConfig.db;
@@ -17,8 +17,8 @@ var generateMongoUrl = function () {
         url = "mongodb://" + dbConfig.hostname + ":" + dbConfig.port + "/" + dbConfig.db;
     }
     console.log(url);
-    return url;
-};
+}
+setUrl();
 
 module.exports = {
 
@@ -26,7 +26,7 @@ module.exports = {
     MongoClient : require('../../node_modules/mongodb').MongoClient,
     ObjectID : require('../../node_modules/mongodb').ObjectID,
     BSON : require('../../node_modules/mongodb').BSONPure,
-    url : generateMongoUrl(),
+    url: url,
     connected : false,
     errorMessage : '',
     connection : mongoose.connection,
@@ -40,8 +40,18 @@ module.exports = {
         database.connection.once('open', function () {
             database.connected = true;
         });
-        console.log(database.url);
-        mongoose.connect(database.url);
+        mongoose.connect(url);
+    },
+    closeConnection: function () {
+        mongoose.disconnect(function (err) {
+
+            if (err) {
+                console.log('Error closing DB');
+            }
+            else {
+                console.log('DB Closed');
+            }
+        });
     }
 };
 

@@ -3,7 +3,7 @@
 
 var authentication = require('./lib');
 var mongoose = require('mongoose');
-var User = mongoose.model('User');
+var User = require('../user/models/user').User;
 
 
 var routes = function (app, passport) {
