@@ -1,1 +1,4 @@
 export NODE_ENV=production
+
+grunt dbdrop
+grunt dbseed
