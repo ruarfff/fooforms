@@ -13,10 +13,11 @@ var User = require('./models/user').User;
  */
 exports.create = function (req, res, next) {
     var user = new User(req.body);
-
+    console.log( JSON.stringify( req ) );
     user.provider = 'local';
     user.save(function (err) {
         if (err) {
+            console.log( err.toString() );
             return res.render(authentication.signupPath, {
                 errors: err.errors,
                 user: user
@@ -24,7 +25,7 @@ exports.create = function (req, res, next) {
         }
         req.logIn(user, function (loginErr) {
             if (loginErr) {
-                return next(err);
+                return next( loginErr );
             }
             return res.redirect('/');
         });

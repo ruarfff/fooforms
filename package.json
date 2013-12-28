@@ -54,7 +54,9 @@
         "grunt-contrib-watch": "~0.5.3",
         "should": "~2.1.1",
         "grunt-concurrent": "~0.4.2",
-        "grunt-cli": "~0.1.11"
+        "grunt-cli": "~0.1.11",
+        "load-grunt-tasks": "~0.2.0",
+        "yuidocjs": "~0.3.46"
     },
     "bundleDependencies": [],
     "private": true,

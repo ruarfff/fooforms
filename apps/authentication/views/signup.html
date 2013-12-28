@@ -8,7 +8,7 @@
 
     <![if lt IE 9]>
     <script src="/lib/html5shiv.js"></script>
-    <script src="/lib/respond.min.js"></script>
+    <script src="/lib/respond.js"></script>
     <![endif]>
 
 </head>
@@ -17,16 +17,21 @@
  <form action="/signup" method="post">
     <div>
         <label>Choose Username:</label>
-        <input type="text" name="username"/>
+        <input type="text" name="username" required/>
     </div>
-    <label>Choose Password:</label>
+     <div>
+         <label>Email:</label>
+         <input type="email" name="email" required/>
+     </div>
+     <label>Choose Password:</label>
     <div class=meter>
-      <input type=password id=password name="password" />
-      <div class=bar></div>
+        <input type=password id=password name="password" required/>
+
+        <div class=bar></div>
     </div>
     <div>
         <label>Re-Enter Password:</label>
-        <input type="password" name="password-verify"/>
+        <input type="password" name="password-verify" required/>
     </div>
     <div>
         <input type="submit" value="Sign Up"/>
