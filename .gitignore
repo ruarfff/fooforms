@@ -16,3 +16,4 @@ node_modules
 # IDE Stuff
 .idea
 *.suo
+out
