@@ -44,10 +44,11 @@ var routes = function ( app, passport ) {
     } );
 
     app.post( '/login',
-        passport.authenticate( 'local', { successRedirect: '/',
+        passport.authenticate( 'local', { successRedirect: '/dashboard',
             failureRedirect: '/login',
             failureFlash: true } )
     );
+
 
     app.post( '/signup', function ( req, res ) {
         var userApi = require( authentication.userApi );

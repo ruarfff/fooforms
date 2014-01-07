@@ -25,6 +25,10 @@ var UserSchema = new Schema({
         type: Boolean,
         required: true
     },
+    displayName: {
+        type: String,
+        required: false
+    },
     photo: String,
     provider: String,
     salt: String,

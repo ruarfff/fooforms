@@ -12,7 +12,7 @@ var routes = function (app) {
      *  View Handlers
      *********************************************************************************/
 
-    app.get('users/', function (req, res) {
+    app.get('/users', function (req, res) {
         res.render(viewDir + '/index');
     });
 

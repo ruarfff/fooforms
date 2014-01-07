@@ -21,8 +21,9 @@ body {
     border-radius: 10px;
     border: 1px solid #cecece;
     color: #404040;
-    background: #fff url(../img/cloudthingy.png) top right no-repeat;
-    padding-top: 60px;
+    background: #fff url(/images/fooLogo.png) top left no-repeat;
+    background-size: 30px 30px;
+        padding-top: 60px;
 }
 
 #loginForm {
@@ -93,20 +94,22 @@ input[type=text], input[type=password] {
 
 input#tryLogin {
     border: 1px solid #fff;
-    background: #9E0400;
+    background: #96CE00;
     color: #fff;
-    line-height: 30px;
+    line-height: 24px;
     font-size: 14px;
-    display: block;
-    margin-left: 15px;
+    display: inline-block;
     padding-left: 15px;
-    border-radius: 15px;
+    border-radius: 12px;
     padding-right: 15px;
-    cursor: pointer;
+    text-align: center;
+    text-decoration: none;
+margin-left: 110px;
 }
 
 input#tryLogin:hover {
-    border: 1px solid #6E0300;
+    border: 1px solid #658600;
+
 }
 
 #oneclickLogin a {
@@ -133,31 +136,31 @@ input#tryLogin:hover {
 }
 
 a.plus {
-    background: #fff url(images/gplus.png) no-repeat;
+    background: #fff url(/images/gplus.png) no-repeat;
 }
 
 a.twitter {
-    background: #fff url(images/twitter.png) no-repeat;
+    background: #fff url(/images/twitter.png) no-repeat;
 }
 
 a.linkedin {
-    background: #fff url(images/linkedin.png) no-repeat;
+    background: #fff url(/images/linkedin.png) no-repeat;
 }
 
 a.facebook {
-    background: #fff url(images/facebook.png) no-repeat;
+    background: #fff url(/images/facebook.png) no-repeat;
 }
 
 a.yahoo {
-    background: #fff url(images/yahoo.png) no-repeat;
+    background: #fff url(/images/yahoo.png) no-repeat;
 }
 
 a.openid {
-    background: #fff url(images/openid.png) no-repeat;
+    background: #fff url(/images/openid.png) no-repeat;
 }
 
 a.wordpress {
-    background: #fff url(images/wordpress.png) no-repeat;
+    background: #fff url(/images/wordpress.png) no-repeat;
 }
 
 #signinFooter {
@@ -170,20 +173,22 @@ a.wordpress {
 
 #signinFooter a.register {
     border: 1px solid #fff;
-    background: #96CE00;
+    background: #9E0400;
     color: #fff;
     line-height: 30px;
     font-size: 14px;
     display: inline-block;
+    margin-left: 15px;
     padding-left: 15px;
     border-radius: 15px;
     padding-right: 15px;
-    text-align: center;
+    cursor: pointer;
     text-decoration: none;
 }
 
 #signinFooter a.register:hover {
-    border: 1px solid #658600;
+
+    border: 1px solid #6E0300;
 }
 
 a.newPass {
@@ -192,4 +197,9 @@ a.newPass {
     text-decoration: underline;
     color: #c0c0c0;
     font-weight: bold;
+}
+
+
+#registerForm{
+    display: none;
 }

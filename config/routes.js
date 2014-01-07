@@ -16,6 +16,7 @@ var routes = function (app, passport) {
     require('../apps/authentication/routes')(app, passport);
     require('../apps/dev/routes')(app);
     require('../apps/user/routes')(app);
+    require('../apps/dashboard/routes')(app);
 
 };
 
