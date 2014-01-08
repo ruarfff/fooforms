@@ -20,19 +20,11 @@ var FooFormsServerApp = function () {
     /*  ================================================================  */
 
     /**
-     *  Set up server IP address and port # using env variables/defaults.
+     *  Set up server IP address and port
      */
     self.setupVariables = function () {
-        //  Set the environment variables we need.
-        self.ipaddress = process.env.OPENSHIFT_NODEJS_IP;
-        self.port = process.env.OPENSHIFT_NODEJS_PORT || 3000;
-
-        if (typeof self.ipaddress === "undefined") {
-            //  Log errors on OpenShift but continue w/ 127.0.0.1 - this
-            //  allows us to run/test the app locally.
-            console.warn('No OPENSHIFT_NODEJS_IP var, using 127.0.0.1');
-            self.ipaddress = "127.0.0.1";
-        }
+        self.ipaddress = "127.0.0.1";
+        self.port = 3000;
         // Set up the express object to initialize the application
         self.app = express();
     };
@@ -91,7 +83,7 @@ var FooFormsServerApp = function () {
     };
 
     /**
-     * Load any models in the application in to mongoose
+     * Load any models in the application to mongoose
      */
     self.bootstrapModels = function () {
         // Load the root models
@@ -127,10 +119,6 @@ var FooFormsServerApp = function () {
      *  Initializes the application.
      */
     self.initialize = function () {
-        require('coffee-script');
-        if (!fs.existsSync('./logs')) {
-            fs.mkdirSync('./logs');
-        }
         self.setupVariables();
         self.setupTerminationHandlers();
         self.bootstrapModels();
@@ -156,11 +144,16 @@ var FooFormsServerApp = function () {
 /**
  *  main():  Main code.
  */
-console.log("Running environment: " + env);
-console.log("Initializing database connection...");
+console.log( 'Running environment: ' + env );
+console.log( 'Initializing database connection...' );
 database.openConnection();
-console.log("Successfully connected to database at " + database.url);
-console.log("Starting web server...");
+if ( database.connected ) {
+    console.log( 'Successfully connected to database at ' + database.url );
+} else {
+    console.error( 'Could not connect to database at ' + database.url + ' : ' + database.errorMessage );
+}
+
+console.log( 'Starting web server...' );
 var serverApp = new FooFormsServerApp();
 serverApp.initialize();
 serverApp.start();
