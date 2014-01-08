@@ -3,4 +3,4 @@ node_modules/**
 public/**
 .idea/**
 logs/**
-.git/**
+/.git/*
