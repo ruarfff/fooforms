@@ -6,7 +6,11 @@ var configuration = require('../../config/config');
 
 var database = {};
 
-var url;
+var connection = mongoose.connection;
+var connected = false;
+var url = 'not set';
+var errorMessage = '';
+
 // Generate the Mongo Db connection URL
 function setUrl() {
     var dbConfig = configuration.mongo;
@@ -27,18 +31,19 @@ module.exports = {
     ObjectID : require('../../node_modules/mongodb').ObjectID,
     BSON : require('../../node_modules/mongodb').BSONPure,
     url: url,
-    connected : false,
-    errorMessage : '',
-    connection : mongoose.connection,
+    connected: connected,
+    errorMessage: errorMessage,
+    connection: connection,
     openConnection : function () {
-        database.connection = mongoose.connection;
-        database.connection.on('error', function (error) {
+        connection.on( 'error', function ( error ) {
             if (error) {
-                database.errorMessage = error.toString();
+                console.error( 'Error opening DB: ' + error.toString() );
+                errorMessage = error.toString();
             }
         });
-        database.connection.once('open', function () {
-            database.connected = true;
+        connection.once( 'open', function () {
+            console.log( 'Successfully connected to database at ' + url );
+            connected = true;
         });
         mongoose.connect(url);
     },
@@ -46,7 +51,7 @@ module.exports = {
         mongoose.disconnect(function (err) {
 
             if (err) {
-                console.log('Error closing DB');
+                console.error( 'Error closing DB' );
             }
             else {
                 console.log('DB Closed');

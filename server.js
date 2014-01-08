@@ -2,13 +2,13 @@
 'use strict';
 
 var env = process.env.NODE_ENV = process.env.NODE_ENV || 'development';
-var database = require('./apps/database/lib');
-var http = require('http');
-var express = require('express');
-var passport = require('passport');
-var path = require('path');
-var fs = require('fs');
-var configuration = require('./config/config');
+var database = require( './apps/database/lib' );
+var http = require( 'http' );
+var express = require( 'express' );
+var passport = require( 'passport' );
+var path = require( 'path' );
+var fs = require( 'fs' );
+var configuration = require( './config/config' );
 
 var FooFormsServerApp = function () {
 
@@ -35,13 +35,13 @@ var FooFormsServerApp = function () {
      *  Terminate server on receipt of the specified signal.
      *  @param {string} sig  Signal to terminate on.
      */
-    self.terminator = function (sig) {
-        if (typeof sig === "string") {
-            console.log('%s: Received %s - terminating app ...',
-                new Date(Date.now()), sig);
-            process.exit(1);
+    self.terminator = function ( sig ) {
+        if ( typeof sig === "string" ) {
+            console.log( '%s: Received %s - terminating app ...',
+                new Date( Date.now() ), sig );
+            process.exit( 1 );
         }
-        console.log('%s: Node server stopped.', new Date(Date.now()));
+        console.log( '%s: Node server stopped.', new Date( Date.now() ) );
     };
 
 
@@ -50,16 +50,16 @@ var FooFormsServerApp = function () {
      */
     self.setupTerminationHandlers = function () {
         //  Process on exit and signals.
-        process.on('exit', function () {
+        process.on( 'exit', function () {
             self.terminator();
-        });
+        } );
         ['SIGHUP', 'SIGINT', 'SIGQUIT', 'SIGILL', 'SIGTRAP', 'SIGABRT',
             'SIGBUS', 'SIGFPE', 'SIGUSR1', 'SIGSEGV', 'SIGUSR2', 'SIGTERM'
-        ].forEach(function (element) {
-                process.on(element, function () {
-                    self.terminator(element);
-                });
-            });
+        ].forEach( function ( element ) {
+                process.on( element, function () {
+                    self.terminator( element );
+                } );
+            } );
     };
 
     /**
@@ -67,19 +67,19 @@ var FooFormsServerApp = function () {
      *
      * @param pathToWalk - Root location to walk from
      */
-    self.walk = function (pathToWalk) {
-        fs.readdirSync(pathToWalk).forEach(function (file) {
-            var newPath = path.join(pathToWalk, file);
-            var stat = fs.statSync(newPath);
-            if (stat.isFile()) {
-                if (/(.*)\.js/.test(file)) {
-                    console.log('Requiring: ' + newPath);
-                    require(newPath);
+    self.walk = function ( pathToWalk ) {
+        fs.readdirSync( pathToWalk ).forEach( function ( file ) {
+            var newPath = path.join( pathToWalk, file );
+            var stat = fs.statSync( newPath );
+            if ( stat.isFile() ) {
+                if ( /(.*)\.js/.test( file ) ) {
+                    console.log( 'Requiring: ' + newPath );
+                    require( newPath );
                 }
-            } else if (stat.isDirectory()) {
-                self.walk(newPath);
+            } else if ( stat.isDirectory() ) {
+                self.walk( newPath );
             }
-        });
+        } );
     };
 
     /**
@@ -88,25 +88,29 @@ var FooFormsServerApp = function () {
     self.bootstrapModels = function () {
         // Load the root models
         try {
-            var rootModelsPath = path.join(configuration.root, 'models');
-            self.walk(rootModelsPath);
-        } catch (err) {
-            console.log(err.toString());
+            var rootModelsPath = path.join( configuration.root, 'models' );
+            if ( fs.existsSync( rootModelsPath ) ) {
+                self.walk( rootModelsPath );
+            }
+        } catch ( err ) {
+            console.log( err.toString() );
         }
 
         // Look for and load any app models
-        var appsPath = path.join(configuration.root, 'apps');
-        fs.readdirSync(appsPath).forEach(function (appDir) {
-            var modelsPath = path.join(path.join(appsPath, appDir), 'models');
-            try {
-                var stat = fs.statSync(modelsPath);
-                if (stat.isDirectory()) {
-                    self.walk(modelsPath);
+        var appsPath = path.join( configuration.root, 'apps' );
+        fs.readdirSync( appsPath ).forEach( function ( appDir ) {
+            var modelsPath = path.join( path.join( appsPath, appDir ), 'models' );
+            if ( fs.existsSync( rootModelsPath ) ) {
+                try {
+                    var stat = fs.statSync( modelsPath );
+                    if ( stat.isDirectory() ) {
+                        self.walk( modelsPath );
+                    }
+                } catch ( err ) {
+                    console.log( err.toString() );
                 }
-            } catch (err) {
-                console.log(err.toString());
             }
-        });
+        } );
     };
 
 
@@ -122,9 +126,9 @@ var FooFormsServerApp = function () {
         self.setupVariables();
         self.setupTerminationHandlers();
         self.bootstrapModels();
-        require('./config/passport')(passport);
-        require('./config/express')(self.app, passport);
-        require('./config/routes')(self.app, passport);
+        require( './config/passport' )( passport );
+        require( './config/express' )( self.app, passport );
+        require( './config/routes' )( self.app, passport );
     };
 
 
@@ -132,10 +136,10 @@ var FooFormsServerApp = function () {
      *  Start the server (starts up the application).
      */
     self.start = function () {
-        http.createServer(self.app).listen(self.port, self.ipaddress, function () {
-            console.log('%s: Node server started on %s:%d ...',
-                new Date(Date.now()), self.ipaddress, self.port);
-        });
+        http.createServer( self.app ).listen( self.port, self.ipaddress, function () {
+            console.log( '%s: Node server started on %s:%d ...',
+                new Date( Date.now() ), self.ipaddress, self.port );
+        } );
     };
 
 };
@@ -147,12 +151,6 @@ var FooFormsServerApp = function () {
 console.log( 'Running environment: ' + env );
 console.log( 'Initializing database connection...' );
 database.openConnection();
-if ( database.connected ) {
-    console.log( 'Successfully connected to database at ' + database.url );
-} else {
-    console.error( 'Could not connect to database at ' + database.url + ' : ' + database.errorMessage );
-}
-
 console.log( 'Starting web server...' );
 var serverApp = new FooFormsServerApp();
 serverApp.initialize();
