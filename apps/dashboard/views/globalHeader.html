@@ -1,0 +1,64 @@
+<!doctype html>
+<html lang="en" ng-app>
+<head>
+    <title><%=cloud %> on AppZigo</title>
+
+    <script src="/lib/html5shiv.js"></script>
+    <script src="/lib/respond.js"></script>
+
+    <script src="/lib/jquery/jquery2.js"></script>
+
+
+    <script src="http://code.jquery.com/jquery-migrate-1.2.1.js"></script>
+    <script src="/lib/jquery/jquery-ui-1.10.3.custom.min.js"></script>
+    <script src="/appzigo/javascripts/jquery.json-2.4.js"></script>
+    <script src="/appzigo/javascripts/jquery.dataTables.min.js"></script>
+    <script src="/appzigo/javascripts/bootstrap.min.js"></script>
+
+    <script src="/appzigo/javascripts/utils.js"></script>
+
+
+    <script src="/appzigo//javascripts/main.js"></script>
+
+
+
+    <link rel="stylesheet" href="/appzigo/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="/appzigo/css/cloudthingy.css">
+    <link rel="stylesheet" href="appzigo/css/grid.css">
+
+
+</head>
+<body>
+
+
+<div id='wrapper'>
+    <div class="container-fluid">
+        <div id='header' class="row-fluid">
+            <div id="logo" class="span3"><img src='/images/cloudthingy.png'/></div>
+
+
+            <div id='topmenu' class="span6">
+                <ul>
+                    <li class=selected><A href="/">Home</A></li>
+                    <li><A href="/profile">Profile</A></li>
+                    <li><A href="/clouds">Clouds</A></li>
+                    <li><A href="/apps">Apps</A></li>
+                    <li><A href="/people">People</A></li>
+                    <li><A href="/help">Help</A></li>
+                </ul>
+            </div>
+
+            <div class="span3">
+                <div id='profile'>
+
+                    <% if (user.photo != ''){
+                    %>
+                    <img style='background-image: url(<%= user.photo %>)' src='/imgages/circle.png'/>
+                    <%
+                    }
+                    %>
+                    <%= user.displayName %>
+                    <a class='btn btn-mini' href='/logout'>Logout</a>
+                </div>
+            </div>
+        </div>

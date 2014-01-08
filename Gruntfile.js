@@ -107,14 +107,14 @@ module.exports = function (grunt) {
 
     grunt.registerTask('dbseed', 'seed the database', function () {
         grunt.task.run([
-            'adduser:ruairi:ruairi@fooforms.com:secret1:true',
-            'adduser:brian:brian@fooforms.com:secret2:true',
+            'adduser:ruairi:ruairi@fooforms.com:secret1:true:Ruairi',
+            'adduser:brian:brian@fooforms.com:secret2:true:Brian',
             'adduser:bob:bob@gmail.com:secret3:false',
             'adduser:mary:mary@gmail.com:secret4:false'
         ]);
     });
 
-    grunt.registerTask('adduser', 'add a user to the database', function (usr, emailaddress, pass, adm) {
+    grunt.registerTask('adduser', 'add a user to the database', function (usr, emailaddress, pass, adm, displayName) {
         var done = this.async();
         // convert adm string to bool
         adm = (adm === "true");
@@ -123,7 +123,8 @@ module.exports = function (grunt) {
                 username: usr,
                 email: emailaddress,
                 password: pass,
-                admin: adm
+                admin: adm,
+                displayName : displayName
             }
         );
         database.openConnection();
