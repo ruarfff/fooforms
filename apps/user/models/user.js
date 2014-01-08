@@ -7,8 +7,12 @@ var crypto = require('crypto');
 var authTypes = ['github', 'twitter', 'facebook', 'google', 'yahoo', 'linkedin'];
 
 var UserSchema = new Schema({
-    name: String,
-    username: {
+    name: {
+        familyName: String,
+        givenName: String,
+        middleName: String
+    },
+    displayName: {
         type: String,
         requires: true,
         unique: true
@@ -25,10 +29,6 @@ var UserSchema = new Schema({
         type: Boolean,
         required: true
     },
-    displayName: {
-        type: String,
-        required: false
-    },
     photo: String,
     provider: String,
     salt: String,
@@ -38,7 +38,6 @@ var UserSchema = new Schema({
     google: {},
     yahoo: {},
     linkedin: {}
-
 });
 
 
@@ -49,11 +48,11 @@ UserSchema.path('email').validate(function(email) {
     return email.length;
 }, 'Email cannot be blank');
 
-UserSchema.path('username').validate(function(username) {
+UserSchema.path( 'displayName' ).validate( function ( displayName ) {
     if (authTypes.indexOf(this.provider) !== -1) {
         return true;
     }
-    return username.length;
+    return displayName.length;
 }, 'Username cannot be blank');
 
 UserSchema.path('password').validate(function(password) {

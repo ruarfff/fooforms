@@ -84,12 +84,12 @@ module.exports = function(req,res){
 
 	// All API calls are made via POST
 	// Grab the post vars to determine the action required.
-	
+
 	//possible options are command,object item
 	// such as [get, cloud, myCloud]
-	
+
 	// in genneral all calls are either inserts or gets from the DB.
-	
+
 	app.post('/', function(req, res){
 
 
@@ -121,12 +121,12 @@ module.exports = function(req,res){
 								sendResponse(clouds);
 								db.close();
 
-							} 
+							}
 						})
 
 					}
 
-				});	
+				});
 
 				break;
 
@@ -155,16 +155,16 @@ module.exports = function(req,res){
 										sendResponse({cloud : cloud, apps : apps});
 										db.close();
 
-									} 
+									}
 								})
 
 
-							} 
+							}
 						})
-					
+
 					}
 
-				});		 
+				});
 				break;
 
 
@@ -188,12 +188,12 @@ module.exports = function(req,res){
 								sendResponse(apps);
 								db.close();
 
-							} 
+							}
 						})
-						
+
 					}
 
-				});	
+				});
 
 
 				break;
@@ -238,21 +238,21 @@ module.exports = function(req,res){
 													sendResponse({app : app[0], posts : posts ,users : users});
 													db.close();
 
-												} 
+												}
 											})
-										
-										
 
-										} 
+
+
+										}
 									})
 
 
-								} 
+								}
 							})
-							
+
 						}
 
-					});	
+					});
 				}
 				break;
 
@@ -285,7 +285,7 @@ module.exports = function(req,res){
 									sendResponse({error : 'App not found - ' + err});
 									db.close();
 								}else{
-									
+
 									var collection = db.collection('comment');
 									collection.find({postId : post[0]._id.toHexString()}).toArray(function(err, comments) {
 										if(err ){
@@ -303,24 +303,24 @@ module.exports = function(req,res){
 													sendResponse({posts : post , comments : comments ,users : users});
 													db.close();
 
-												} 
+												}
 											})
-										
-										
 
 
-										} 
+
+
+										}
 									})
 
-							
 
 
-								} 
+
+								}
 							})
-							
+
 						}
 
-					});	
+					});
 				}
 				//jsonResponse=getSingleAppPost(postId);
 				break;
@@ -429,8 +429,8 @@ module.exports = function(req,res){
 				var icon = req.body.icon;
 				var menuLabel = req.body.menuLabel;
 				var owner = req.user._id
-					
-				
+
+
 				MongoClient.connect(mongourl, function(err, db) {
 					if(err){
 						sendResponse(err);
@@ -462,22 +462,22 @@ module.exports = function(req,res){
 										sendResponse({docs : docs});
 										db.close();
 
-									} 
+									}
 
 
 								});
 							}
 
 
-							} 
+							}
 						})
-					
+
 					}
 
-				});		 
-				
-				
-				
+				});
+
+
+
 				break;
 
 			case 'saveApp':
@@ -522,13 +522,13 @@ module.exports = function(req,res){
 								sendResponse({'newAppID' : docs._id});
 								db.close();
 
-							} 
+							}
 
 
 						});
 					}
 
-				});	
+				});
 
 				//jsonResponse['newAppID']=createAppJSON(name,description,newButtonLabel,menuLabel,icon,feedDisplayStyle,slug,fields,allowComments,minimumPostLevel,minimumViewLevel,clouds);
 				//jsonResponse['post']=_POST;
@@ -565,13 +565,13 @@ module.exports = function(req,res){
 								sendResponse(comment[0]);
 								db.close();
 
-							} 
+							}
 
 
 						});
 					}
 
-				});	
+				});
 
 
 				break;
@@ -602,23 +602,23 @@ module.exports = function(req,res){
 								sendResponse({'newAppPostId' : post[0]._id});
 								db.close();
 
-							} 
+							}
 
 
 						});
 					}
 
-				});	
+				});
 
 
 
 				break;
-				
-				
+
+
 			case 'appUpdate':
-				
+
 				var o_id = new BSON.ObjectID(req.param('postId'));
-				
+
 				MongoClient.connect(mongourl, function(err, db) {
 					if(err){
 						sendResponse(err);
@@ -640,13 +640,13 @@ module.exports = function(req,res){
 								sendResponse({'success' : post});
 								db.close();
 
-							} 
+							}
 
 
 						});
 					}
 
-				});	
+				});
 
 
 

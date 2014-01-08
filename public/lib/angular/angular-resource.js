@@ -3,10 +3,10 @@
  * (c) 2010-2012 Google, Inc. http://angularjs.org
  * License: MIT
  */
-(function (window, angular, undefined) {
+(function ( window, angular, undefined ) {
     'use strict';
 
-    var $resourceMinErr = angular.$$minErr('$resource');
+    var $resourceMinErr = angular.$$minErr( '$resource' );
 
     /**
      * @ngdoc overview
@@ -39,7 +39,7 @@
      * Requires the {@link ngResource `ngResource`} module to be installed.
      *
      * @param {string} url A parametrized URL template with parameters prefixed by `:` as in
-     *   `/user/:username`. If you are using a URL with a port number (e.g.
+     *   `/user/:displayName`. If you are using a URL with a port number (e.g.
      *   `http://example.com:8080/api`), it will be respected.
      *
      *   If you are using a url with a suffix, just add the suffix, like this:
@@ -281,8 +281,8 @@
      </doc:scenario>
      </doc:example>
      */
-    angular.module('ngResource', ['ng']).
-        factory('$resource', ['$http', '$parse', '$q', function ($http, $parse, $q) {
+    angular.module( 'ngResource', ['ng'] ).
+        factory( '$resource', ['$http', '$parse', '$q', function ( $http, $parse, $q ) {
             var DEFAULT_ACTIONS = {
                 'get': {method: 'GET'},
                 'save': {method: 'POST'},
@@ -295,8 +295,8 @@
                 extend = angular.extend,
                 copy = angular.copy,
                 isFunction = angular.isFunction,
-                getter = function (obj, path) {
-                    return $parse(path)(obj);
+                getter = function ( obj, path ) {
+                    return $parse( path )( obj );
                 };
 
             /**
@@ -310,11 +310,11 @@
              *    sub-delims    = "!" / "$" / "&" / "'" / "(" / ")"
              *                     / "*" / "+" / "," / ";" / "="
              */
-            function encodeUriSegment(val) {
-                return encodeUriQuery(val, true).
-                    replace(/%26/gi, '&').
-                    replace(/%3D/gi, '=').
-                    replace(/%2B/gi, '+');
+            function encodeUriSegment ( val ) {
+                return encodeUriQuery( val, true ).
+                    replace( /%26/gi, '&' ).
+                    replace( /%3D/gi, '=' ).
+                    replace( /%2B/gi, '+' );
             }
 
 
@@ -329,113 +329,113 @@
              *    sub-delims    = "!" / "$" / "&" / "'" / "(" / ")"
              *                     / "*" / "+" / "," / ";" / "="
              */
-            function encodeUriQuery(val, pctEncodeSpaces) {
-                return encodeURIComponent(val).
-                    replace(/%40/gi, '@').
-                    replace(/%3A/gi, ':').
-                    replace(/%24/g, '$').
-                    replace(/%2C/gi, ',').
-                    replace(/%20/g, (pctEncodeSpaces ? '%20' : '+'));
+            function encodeUriQuery ( val, pctEncodeSpaces ) {
+                return encodeURIComponent( val ).
+                    replace( /%40/gi, '@' ).
+                    replace( /%3A/gi, ':' ).
+                    replace( /%24/g, '$' ).
+                    replace( /%2C/gi, ',' ).
+                    replace( /%20/g, (pctEncodeSpaces ? '%20' : '+') );
             }
 
-            function Route(template, defaults) {
+            function Route ( template, defaults ) {
                 this.template = template;
                 this.defaults = defaults || {};
                 this.urlParams = {};
             }
 
             Route.prototype = {
-                setUrlParams: function (config, params, actionUrl) {
+                setUrlParams: function ( config, params, actionUrl ) {
                     var self = this,
                         url = actionUrl || self.template,
                         val,
                         encodedVal;
 
                     var urlParams = self.urlParams = {};
-                    forEach(url.split(/\W/), function (param) {
-                        if (!(new RegExp("^\\d+$").test(param)) && param && (new RegExp("(^|[^\\\\]):" + param + "(\\W|$)").test(url))) {
+                    forEach( url.split( /\W/ ), function ( param ) {
+                        if ( !(new RegExp( "^\\d+$" ).test( param )) && param && (new RegExp( "(^|[^\\\\]):" + param + "(\\W|$)" ).test( url )) ) {
                             urlParams[param] = true;
                         }
-                    });
-                    url = url.replace(/\\:/g, ':');
+                    } );
+                    url = url.replace( /\\:/g, ':' );
 
                     params = params || {};
-                    forEach(self.urlParams, function (_, urlParam) {
-                        val = params.hasOwnProperty(urlParam) ? params[urlParam] : self.defaults[urlParam];
-                        if (angular.isDefined(val) && val !== null) {
-                            encodedVal = encodeUriSegment(val);
-                            url = url.replace(new RegExp(":" + urlParam + "(\\W|$)", "g"), encodedVal + "$1");
+                    forEach( self.urlParams, function ( _, urlParam ) {
+                        val = params.hasOwnProperty( urlParam ) ? params[urlParam] : self.defaults[urlParam];
+                        if ( angular.isDefined( val ) && val !== null ) {
+                            encodedVal = encodeUriSegment( val );
+                            url = url.replace( new RegExp( ":" + urlParam + "(\\W|$)", "g" ), encodedVal + "$1" );
                         } else {
-                            url = url.replace(new RegExp("(\/?):" + urlParam + "(\\W|$)", "g"), function (match, leadingSlashes, tail) {
-                                if (tail.charAt(0) == '/') {
+                            url = url.replace( new RegExp( "(\/?):" + urlParam + "(\\W|$)", "g" ), function ( match, leadingSlashes, tail ) {
+                                if ( tail.charAt( 0 ) == '/' ) {
                                     return tail;
                                 } else {
                                     return leadingSlashes + tail;
                                 }
-                            });
+                            } );
                         }
-                    });
+                    } );
 
                     // strip trailing slashes and set the url
-                    url = url.replace(/\/+$/, '');
+                    url = url.replace( /\/+$/, '' );
                     // then replace collapse `/.` if found in the last URL path segment before the query
                     // E.g. `http://url.com/id./format?q=x` becomes `http://url.com/id.format?q=x`
-                    url = url.replace(/\/\.(?=\w+($|\?))/, '.');
+                    url = url.replace( /\/\.(?=\w+($|\?))/, '.' );
                     // replace escaped `/\.` with `/.`
-                    config.url = url.replace(/\/\\\./, '/.');
+                    config.url = url.replace( /\/\\\./, '/.' );
 
 
                     // set params - delegate param encoding to $http
-                    forEach(params, function (value, key) {
-                        if (!self.urlParams[key]) {
+                    forEach( params, function ( value, key ) {
+                        if ( !self.urlParams[key] ) {
                             config.params = config.params || {};
                             config.params[key] = value;
                         }
-                    });
+                    } );
                 }
             };
 
 
-            function ResourceFactory(url, paramDefaults, actions) {
-                var route = new Route(url);
+            function ResourceFactory ( url, paramDefaults, actions ) {
+                var route = new Route( url );
 
-                actions = extend({}, DEFAULT_ACTIONS, actions);
+                actions = extend( {}, DEFAULT_ACTIONS, actions );
 
-                function extractParams(data, actionParams) {
+                function extractParams ( data, actionParams ) {
                     var ids = {};
-                    actionParams = extend({}, paramDefaults, actionParams);
-                    forEach(actionParams, function (value, key) {
-                        if (isFunction(value)) {
+                    actionParams = extend( {}, paramDefaults, actionParams );
+                    forEach( actionParams, function ( value, key ) {
+                        if ( isFunction( value ) ) {
                             value = value();
                         }
-                        ids[key] = value && value.charAt && value.charAt(0) == '@' ? getter(data, value.substr(1)) : value;
-                    });
+                        ids[key] = value && value.charAt && value.charAt( 0 ) == '@' ? getter( data, value.substr( 1 ) ) : value;
+                    } );
                     return ids;
                 }
 
-                function defaultResponseInterceptor(response) {
+                function defaultResponseInterceptor ( response ) {
                     return response.resource;
                 }
 
-                function Resource(value) {
-                    copy(value || {}, this);
+                function Resource ( value ) {
+                    copy( value || {}, this );
                 }
 
-                forEach(actions, function (action, name) {
-                    var hasBody = /^(POST|PUT|PATCH)$/i.test(action.method);
+                forEach( actions, function ( action, name ) {
+                    var hasBody = /^(POST|PUT|PATCH)$/i.test( action.method );
 
-                    Resource[name] = function (a1, a2, a3, a4) {
+                    Resource[name] = function ( a1, a2, a3, a4 ) {
                         var params = {}, data, success, error;
 
-                        switch (arguments.length) {
+                        switch ( arguments.length ) {
                             case 4:
                                 error = a4;
                                 success = a3;
                             //fallthrough
                             case 3:
                             case 2:
-                                if (isFunction(a2)) {
-                                    if (isFunction(a1)) {
+                                if ( isFunction( a2 ) ) {
+                                    if ( isFunction( a1 ) ) {
                                         success = a1;
                                         error = a2;
                                         break;
@@ -451,70 +451,76 @@
                                     break;
                                 }
                             case 1:
-                                if (isFunction(a1)) success = a1;
-                                else if (hasBody) data = a1;
-                                else params = a1;
+                                if ( isFunction( a1 ) ) {
+                                    success = a1;
+                                }
+                                else if ( hasBody ) {
+                                    data = a1;
+                                }
+                                else {
+                                    params = a1;
+                                }
                                 break;
                             case 0:
                                 break;
                             default:
-                                throw $resourceMinErr('badargs',
-                                    "Expected up to 4 arguments [params, data, success, error], got {0} arguments", arguments.length);
+                                throw $resourceMinErr( 'badargs',
+                                    "Expected up to 4 arguments [params, data, success, error], got {0} arguments", arguments.length );
                         }
 
                         var isInstanceCall = data instanceof Resource;
-                        var value = isInstanceCall ? data : (action.isArray ? [] : new Resource(data));
+                        var value = isInstanceCall ? data : (action.isArray ? [] : new Resource( data ));
                         var httpConfig = {};
                         var responseInterceptor = action.interceptor && action.interceptor.response || defaultResponseInterceptor;
                         var responseErrorInterceptor = action.interceptor && action.interceptor.responseError || undefined;
 
-                        forEach(action, function (value, key) {
-                            if (key != 'params' && key != 'isArray' && key != 'interceptor') {
-                                httpConfig[key] = copy(value);
+                        forEach( action, function ( value, key ) {
+                            if ( key != 'params' && key != 'isArray' && key != 'interceptor' ) {
+                                httpConfig[key] = copy( value );
                             }
-                        });
+                        } );
 
                         httpConfig.data = data;
-                        route.setUrlParams(httpConfig, extend({}, extractParams(data, action.params || {}), params), action.url);
+                        route.setUrlParams( httpConfig, extend( {}, extractParams( data, action.params || {} ), params ), action.url );
 
-                        var promise = $http(httpConfig).then(function (response) {
+                        var promise = $http( httpConfig ).then(function ( response ) {
                             var data = response.data,
                                 promise = value.$promise;
 
-                            if (data) {
-                                if (angular.isArray(data) != !!action.isArray) {
-                                    throw $resourceMinErr('badcfg', 'Error in resource configuration. Expected response' +
+                            if ( data ) {
+                                if ( angular.isArray( data ) != !!action.isArray ) {
+                                    throw $resourceMinErr( 'badcfg', 'Error in resource configuration. Expected response' +
                                         ' to contain an {0} but got an {1}',
-                                        action.isArray ? 'array' : 'object', angular.isArray(data) ? 'array' : 'object');
+                                        action.isArray ? 'array' : 'object', angular.isArray( data ) ? 'array' : 'object' );
                                 }
-                                if (action.isArray) {
+                                if ( action.isArray ) {
                                     value.length = 0;
-                                    forEach(data, function (item) {
-                                        value.push(new Resource(item));
-                                    });
+                                    forEach( data, function ( item ) {
+                                        value.push( new Resource( item ) );
+                                    } );
                                 } else {
-                                    copy(data, value);
+                                    copy( data, value );
                                     value.$promise = promise;
                                 }
                             }
 
                             value.$resolved = true;
 
-                            (success || noop)(value, response.headers);
+                            (success || noop)( value, response.headers );
 
                             response.resource = value;
 
                             return response;
-                        },function (response) {
+                        },function ( response ) {
                             value.$resolved = true;
 
-                            (error || noop)(response);
+                            (error || noop)( response );
 
-                            return $q.reject(response);
-                        }).then(responseInterceptor, responseErrorInterceptor);
+                            return $q.reject( response );
+                        } ).then( responseInterceptor, responseErrorInterceptor );
 
 
-                        if (!isInstanceCall) {
+                        if ( !isInstanceCall ) {
                             // we are creating instance / collection
                             // - set the initial promise
                             // - return the instance / collection
@@ -529,26 +535,26 @@
                     };
 
 
-                    Resource.prototype['$' + name] = function (params, success, error) {
-                        if (isFunction(params)) {
+                    Resource.prototype['$' + name] = function ( params, success, error ) {
+                        if ( isFunction( params ) ) {
                             error = success;
                             success = params;
                             params = {};
                         }
-                        var result = Resource[name](params, this, success, error);
+                        var result = Resource[name]( params, this, success, error );
                         return result.$promise || result;
                     };
-                });
+                } );
 
-                Resource.bind = function (additionalParamDefaults) {
-                    return ResourceFactory(url, extend({}, paramDefaults, additionalParamDefaults), actions);
+                Resource.bind = function ( additionalParamDefaults ) {
+                    return ResourceFactory( url, extend( {}, paramDefaults, additionalParamDefaults ), actions );
                 };
 
                 return Resource;
             }
 
             return ResourceFactory;
-        }]);
+        }] );
 
 
-})(window, window.angular);
+})( window, window.angular );

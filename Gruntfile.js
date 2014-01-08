@@ -107,28 +107,29 @@ module.exports = function (grunt) {
 
     grunt.registerTask('dbseed', 'seed the database', function () {
         grunt.task.run([
-            'adduser:ruairi:ruairi@fooforms.com:secret1:true:Ruairi',
-            'adduser:brian:brian@fooforms.com:secret2:true:Brian',
-            'adduser:bob:bob@gmail.com:secret3:false',
-            'adduser:mary:mary@gmail.com:secret4:false'
+            'adduser:Ruairi:{familyName: "O\'Brien", givenName: "Ruairi", middleName: "Tomas"}:ruairi@fooforms.com:secret1:true:local',
+            'adduser:Brian:{}:brian@fooforms.com:secret2:true:local',
+            'adduser:bob:{}:bob@gmail.com:secret3:false:local',
+            'adduser:mary:{}:mary@gmail.com:secret4:false:local'
         ]);
     });
 
-    grunt.registerTask('adduser', 'add a user to the database', function (usr, emailaddress, pass, adm, displayName) {
+    grunt.registerTask( 'adduser', 'add a user to the database', function ( displayName, name, emailaddress, password, admin, provider ) {
         var done = this.async();
         // convert adm string to bool
-        adm = (adm === "true");
+        admin = (admin === "true");
         var user = new User(
             {
-                username: usr,
+                displayName: displayName,
+                name: name,
                 email: emailaddress,
-                password: pass,
-                admin: adm,
-                displayName : displayName
+                password: password,
+                admin: admin,
+                provider: provider
             }
         );
         database.openConnection();
-        console.log(user.username);
+        console.log( user.displayName );
         console.log(user.email);
 
         user.save(function (err) {
@@ -137,7 +138,7 @@ module.exports = function (grunt) {
                 console.log('Error: ' + err);
                 done(false);
             } else {
-                console.log('saved user: ' + user.username);
+                console.log( 'saved user: ' + user.displayName );
                 done();
             }
         });
