@@ -3,29 +3,34 @@
 <head>
     <title><%=cloud %> on AppZigo</title>
 
-    <script src="/lib/html5shiv.js"></script>
-    <script src="/lib/respond.js"></script>
+    <!-- Bootstrap core CSS -->
+    <!--
+    <link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.0.3/css/bootstrap.min.css">
+    <link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.0.3/css/bootstrap-theme.min.css">
+    <link rel="stylesheet" href="//netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.css">
+    -->
+    <link rel="stylesheet" href="/appzigo/css/bootstrap.min.css">
 
-    <script src="/lib/jquery/jquery2.js"></script>
-
-
-    <script src="http://code.jquery.com/jquery-migrate-1.2.1.js"></script>
-    <script src="/lib/jquery/jquery-ui-1.10.3.custom.min.js"></script>
-    <script src="/appzigo/javascripts/jquery.json-2.4.js"></script>
-    <script src="/appzigo/javascripts/jquery.dataTables.min.js"></script>
+    <script src="https://code.jquery.com/jquery-1.10.2.min.js"></script>
+    <!-- <script src="//netdna.bootstrapcdn.com/bootstrap/3.0.3/js/bootstrap.min.js"></script>-->
     <script src="/appzigo/javascripts/bootstrap.min.js"></script>
 
+    <script src="http://code.jquery.com/jquery-migrate-1.2.1.js"></script>
+
+    <script src="/appzigo/javascripts/jquery-ui-1.10.3.custom.min.js"></script>
+    <script src="/appzigo/javascripts/jquery.json-2.4.js"></script>
+    <script src="/appzigo/javascripts/jquery.dataTables.min.js"></script>
     <script src="/appzigo/javascripts/utils.js"></script>
-
-
     <script src="/appzigo//javascripts/main.js"></script>
 
-
-
-    <link rel="stylesheet" href="/appzigo/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="/appzigo/css/cloudthingy.css">
-    <link rel="stylesheet" href="appzigo/css/grid.css">
+    <link rel="stylesheet" href="/appzigo/css/grid.css">
 
+    <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!--[if lt IE 9]>
+    <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+    <script src="https://oss.maxcdn.com/libs/respond.js/1.3.0/respond.min.js"></script>
+    <![endif]-->
 
 </head>
 <body>
@@ -51,9 +56,9 @@
             <div class="span3">
                 <div id='profile'>
 
-                    <% if (user.photo != ''){
+                    <% if (user.photo){
                     %>
-                    <img style='background-image: url(<%= user.photo %>)' src='/imgages/circle.png'/>
+                    <img style='background-image: url(<%= user.photo %>)' src='/images/circle.png'/>
                     <%
                     }
                     %>
