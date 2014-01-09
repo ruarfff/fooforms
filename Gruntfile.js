@@ -1,16 +1,16 @@
 /*jslint node: true */
 'use strict';
 process.env.NODE_ENV = process.env.NODE_ENV || 'development';
-var database = require('./apps/database/lib');
-var User = require('./apps/user/models/user').User;
+var database = require( './apps/database/lib' );
+var User = require( './apps/user/models/user' ).User;
 
-module.exports = function (grunt) {
+module.exports = function ( grunt ) {
 
-    require('load-grunt-tasks')(grunt);
+    require( 'load-grunt-tasks' )( grunt );
 
 
-    grunt.initConfig({
-        pkg: grunt.file.readJSON('package.json'),
+    grunt.initConfig( {
+        pkg: grunt.file.readJSON( 'package.json' ),
         nodemon: {
             // For development. Nodemon keeps the app running and loads file changes automatically.
             dev: {
@@ -71,48 +71,48 @@ module.exports = function (grunt) {
                 }
             }
         }// End mochaTest
-    });
+    } );
 
     // On watch events configure mochaTest to run only on the test if it is one
     // otherwise, run the whole testsuite
-    var defaultSimpleSrc = grunt.config('mochaTest.simple.src');
-    grunt.event.on('watch', function (action, filepath) {
-        grunt.config('mochaTest.simple.src', defaultSimpleSrc);
-        if (filepath.match('test/')) {
-            grunt.config('mochaTest.simple.src', filepath);
+    var defaultSimpleSrc = grunt.config( 'mochaTest.simple.src' );
+    grunt.event.on( 'watch', function ( action, filepath ) {
+        grunt.config( 'mochaTest.simple.src', defaultSimpleSrc );
+        if ( filepath.match( 'test/' ) ) {
+            grunt.config( 'mochaTest.simple.src', filepath );
         }
-    });
+    } );
 
 
-    grunt.registerTask('dbdrop', 'drop the database', function () {
+    grunt.registerTask( 'dbdrop', 'drop the database', function () {
         // async mode
         var done = this.async();
 
         //  var database = require('./apps/database/lib');
 
-        database.connection.on('open', function () {
-            database.connection.db.dropDatabase(function (err) {
+        database.connection.on( 'open', function () {
+            database.connection.db.dropDatabase( function ( err ) {
                 database.closeConnection();
-                if (err) {
-                    console.log('Error: ' + err);
-                    done(false);
+                if ( err ) {
+                    console.log( 'Error: ' + err );
+                    done( false );
                 } else {
-                    console.log('Successfully dropped db');
+                    console.log( 'Successfully dropped db' );
                     done();
                 }
-            });
-        });
+            } );
+        } );
         database.openConnection();
-    });
+    } );
 
-    grunt.registerTask('dbseed', 'seed the database', function () {
-        grunt.task.run([
-            'adduser:Ruairi:{familyName: "O\'Brien", givenName: "Ruairi", middleName: "Tomas"}:ruairi@fooforms.com:secret1:true:local',
+    grunt.registerTask( 'dbseed', 'seed the database', function () {
+        grunt.task.run( [
+            'adduser:Ruairi:{}:ruairi@fooforms.com:secret1:true:local',
             'adduser:Brian:{}:brian@fooforms.com:secret2:true:local',
             'adduser:bob:{}:bob@gmail.com:secret3:false:local',
             'adduser:mary:{}:mary@gmail.com:secret4:false:local'
-        ]);
-    });
+        ] );
+    } );
 
     grunt.registerTask( 'adduser', 'add a user to the database', function ( displayName, name, emailaddress, password, admin, provider ) {
         var done = this.async();
@@ -130,23 +130,23 @@ module.exports = function (grunt) {
         );
         database.openConnection();
         console.log( user.displayName );
-        console.log(user.email);
+        console.log( user.email );
 
-        user.save(function (err) {
+        user.save( function ( err ) {
             database.closeConnection();
-            if (err) {
-                console.log('Error: ' + err);
-                done(false);
+            if ( err ) {
+                console.log( 'Error: ' + err );
+                done( false );
             } else {
                 console.log( 'saved user: ' + user.displayName );
                 done();
             }
-        });
+        } );
 
-    });
+    } );
 
 
-    grunt.registerTask('dev', ['concurrent:dev']);
-    grunt.registerTask('default', ['watch']);
+    grunt.registerTask( 'dev', ['concurrent:dev'] );
+    grunt.registerTask( 'default', ['watch'] );
 
 };
