@@ -1,14 +1,14 @@
 /*jslint node: true */
 'use strict';
 
-var config = require('../../config/config');
+var config = require( '../../config/config' );
 var viewDir = config.root + '/apps/user/views';
 var authentication = require( '../authentication/lib' );
 var userApi = require( './api' );
 var path = require( 'path' );
 
 
-var routes = function (app) {
+var routes = function ( app ) {
 
     /*********************************************************************************
      *  View Handlers
@@ -17,9 +17,8 @@ var routes = function (app) {
         var user = req.profile;
 
         res.render( path.join( viewDir, 'profile' ), {
-            title: user.name,
             user: user
-        });
+        } );
 
     } );
 
@@ -27,7 +26,7 @@ var routes = function (app) {
      *  API
      *********************************************************************************/
 
-    app.get( '/me', authentication.ensureAuthenticated, function ( req, res ) {
+    app.get( '/api/user/me', authentication.ensureAuthenticated, function ( req, res ) {
         userApi.me( req, res );
     } );
 

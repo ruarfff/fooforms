@@ -1,6 +1,31 @@
-<% layout('layout') -%>
-<h1>Dev Homepage</h1>
-<p>Status link shows basic details of running environment.</p>
-<p>API link shows details of api routes that are set up.</p>
+<!doctype html>
+<html lang="en">
+<head>
+    <% include ../../../views/includes/globalHeader.html %>
+</head>
+<body>
 
+<% include ../../../views/includes/globalNavBar.html %>
+
+<div class="container">
+    <div class="row">
+
+        <h1>Dev Homepage</h1>
+
+        <p>Status link shows basic details of running environment.</p>
+
+        <p>API link shows details of api routes that are set up.</p>
+
+    </div>
+
+    <div class="row">
+        <% include includes/footer.html %>
+    </div>
+
+</div>
+
+<% include ../../../views/includes/globalScripts.html %>
+
+</body>
+</html>
 

@@ -1,63 +1,89 @@
-<% include globalHeader.html %>
-<div class="row-fluid">
-    <% include leftMenu.html %>
+<!doctype html>
+<html lang="en">
+<head>
+    <% include ../../../views/includes/globalHeader.html %>
 
-    <div class="span5 boxed" id='mainView'>
+    <link rel="stylesheet" href="/appzigo/css/cloudthingy.css">
+    <link rel="stylesheet" href="/appzigo/css/grid.css">
 
-        <div id='appView' class='hide'>
-            <div id='nowViewing'>
-                <img src=''/>
+</head>
+<body>
 
-                <h1></h1>
-<span id='formAction'><span>
-            </div>
-            <div id='theFormDescription' class='alert alert-success m5'>
-            </div>
-            <div id='theForm' class='alert alert-info m5'>
-            </div>
-            <div id='theFormPostVars'>
-            </div>
-            <div id='posts'>
-            </div>
+<% include ../../../views/includes/globalNavBar.html %>
 
+<div class="container">
+    <div class="row">
+        <div class="col-xs-3 col-sm-3 col-md-3">
+            <% include includes/leftMenu.html %>
         </div>
 
-        <div id='tabs'>
-            <ul id='mainTabs' class="nav nav-tabs">
-                <li><a id='tabsMenu-1' href="#tabs-1" data-toggle="tab">Timeline</a></li>
-                <li><a id='tabsMenu-2' href="#tabs-2" data-toggle="tab">Clouds</a></li>
-                <li><a id='tabsMenu-3' href="#tabs-3" data-toggle="tab">Apps</a></li>
-                <li style="float: right"><a href='#' id='itemTitlelink'><span id='itemTitle'></span></a></li>
-            </ul>
-            <div class="tab-content">
-                <div id="tabs-1" class="tab-pane active">
+        <div class="col-xs-6 col-sm-6 col-md-6 boxed" id='mainView'>
 
+            <div id='appView' class='hide'>
+                <div id='nowViewing'>
+                    <img src=''/>
 
+                    <h1></h1>
+                    <span id='formAction'></span>
                 </div>
-                <div id="tabs-2" class="tab-pane">
-                    <%= JSON.stringify(user) %>
-                    <div class='well'>
-                        <a class='btn' href='clouds'>Find more clouds</a>
-                        <button class='btn'>Create a cloud</button>
+                <div id='theFormDescription' class='alert alert-success m5'>
+                </div>
+                <div id='theForm' class='alert alert-info m5'>
+                </div>
+                <div id='theFormPostVars'>
+                </div>
+                <div id='posts'>
+                </div>
+
+            </div>
+
+            <div id='tabs'>
+                <ul id='mainTabs' class="nav nav-tabs">
+                    <li><a id='tabsMenu-1' href="#tabs-1" data-toggle="tab">Timeline</a></li>
+                    <li><a id='tabsMenu-2' href="#tabs-2" data-toggle="tab">Clouds</a></li>
+                    <li><a id='tabsMenu-3' href="#tabs-3" data-toggle="tab">Apps</a></li>
+                    <li style="float: right"><a href='#' id='itemTitlelink'><span id='itemTitle'></span></a></li>
+                </ul>
+                <div class="tab-content">
+                    <div id="tabs-1" class="tab-pane active">
+
+
+                    </div>
+                    <div id="tabs-2" class="tab-pane">
+                        <%= JSON.stringify(user) %>
+                        <div class='well'>
+                            <a class='btn' href='clouds'>Find more clouds</a>
+                            <button class='btn'>Create a cloud</button>
+                        </div>
+                    </div>
+                    <div id="tabs-3" class="tab-pane">
+
+                        <%= JSON.stringify(user) %>
                     </div>
                 </div>
-                <div id="tabs-3" class="tab-pane">
-
-                    <%= JSON.stringify(user) %>
-                </div>
             </div>
+
         </div>
 
-
+        <div class="col-xs-3 col-sm-3 col-md-3 tall">
+            <%include postView.html %>
+        </div>
     </div>
 
-    <div class="span5 tall">
-        <%include postView.html %>
-
-
+    <div class="row">
+        <% include includes/footer.html %>
     </div>
-</div>
+
 </div>
 
-<% include footer.html %>
+<% include ../../../views/includes/globalScripts.html %>
+<script src="http://code.jquery.com/jquery-migrate-1.2.1.js"></script>
 
+<script src="/appzigo/javascripts/jquery-ui-1.10.3.custom.min.js"></script>
+<script src="/appzigo/javascripts/jquery.json-2.4.js"></script>
+<script src="/appzigo/javascripts/jquery.dataTables.min.js"></script>
+<script src="/appzigo/javascripts/utils.js"></script>
+<script src="/appzigo//javascripts/main.js"></script>
+
+</body>
+</html>

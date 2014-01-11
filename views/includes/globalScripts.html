@@ -1,0 +1,10 @@
+<script src="https://code.jquery.com/jquery-1.10.2.min.js"></script>
+<script src="//netdna.bootstrapcdn.com/bootstrap/3.0.3/js/bootstrap.min.js"></script>
+
+<script>
+    //Temporary solution here. Will move to external file once I figure out the structure for the client code.
+    $( function () {
+        var path = window.location.pathname;
+        $( 'nav li a[href$="' + path + '"]' ).parents( 'li' ).addClass( 'active' );
+    } );
+</script>

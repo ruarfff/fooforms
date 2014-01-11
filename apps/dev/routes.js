@@ -1,23 +1,33 @@
 /*jslint node: true */
 'use strict';
 
-var config = require('../../config/config');
+var config = require( '../../config/config' );
 var viewDir = config.root + '/apps/dev/views';
-var db = require('../database/lib');
-var authentication = require('../authentication/lib');
+var db = require( '../database/lib' );
+var authentication = require( '../authentication/lib' );
 
-var routes = function (app) {
+var routes = function ( app ) {
 
-    app.get('/admin', authentication.ensureAuthenticated, function (req, res) {
-        res.render(viewDir + '/index');
-    });
+    app.get( '/admin', authentication.ensureAuthenticated, function ( req, res ) {
 
-    app.get('/admin/api', authentication.ensureAuthenticated, function (req, res){
-       res.render(viewDir + '/api');
-    });
+        var find = '/';
+        var re = new RegExp( find, 'g' );
 
-    app.get('/admin/status', authentication.ensureAuthenticated, function (req, res) {
-        res.render(viewDir + '/status',
+        var cloudName = req.originalUrl.replace( re, '' );
+
+        res.render( viewDir + '/index', {
+            cloud: cloudName,
+            isCloud: 'false',
+            user: req.user
+        } );
+    } );
+
+    app.get( '/admin/api', authentication.ensureAuthenticated, function ( req, res ) {
+        res.render( viewDir + '/api' );
+    } );
+
+    app.get( '/admin/status', authentication.ensureAuthenticated, function ( req, res ) {
+        res.render( viewDir + '/status',
             {
                 title: config.app.name,
                 dbConnected: db.connected,
@@ -36,7 +46,7 @@ var routes = function (app) {
                 openshiftNodePort: process.env.OPENSHIFT_NODEJS_PORT || "Unknown"
             }
         );
-    });
+    } );
 };
 
 module.exports = routes;
