@@ -17,7 +17,8 @@ var routes = function ( app ) {
         var user = req.user;
 
         res.render( path.join( viewDir, 'profile' ), {
-            user: user
+            user: user,
+            title: 'Profile'
         } );
 
     } );
@@ -26,7 +27,8 @@ var routes = function ( app ) {
         var user = req.user;
 
         res.render( path.join( viewDir, 'people' ), {
-            user: user
+            user: user,
+            title: 'People'
         } );
 
     } );

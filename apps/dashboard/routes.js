@@ -15,7 +15,8 @@ var routes = function ( app ) {
         res.render( viewDir + '/index', {
             cloud: cloudName,
             isCloud: 'false',
-            user: req.user
+            user: req.user,
+            title: 'Dashboard'
         } );
     } );
 
