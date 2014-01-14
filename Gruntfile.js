@@ -107,10 +107,10 @@ module.exports = function ( grunt ) {
 
     grunt.registerTask( 'dbseed', 'seed the database', function () {
         grunt.task.run( [
-            'adduser:Ruairi:{}:ruairi@fooforms.com:secret1:true:local',
-            'adduser:Brian:{}:brian@fooforms.com:secret2:true:local',
-            'adduser:bob:{}:bob@gmail.com:secret3:false:local',
-            'adduser:mary:{}:mary@gmail.com:secret4:false:local'
+            'adduser:Ruairi:{}:ruairi@fooforms.com:secret1:true:local:Ruairi',
+            'adduser:Brian:{}:brian@fooforms.com:secret2:true:local:Brian',
+            'adduser:bob:{}:bob@gmail.com:secret3:false:local:Bob',
+            'adduser:mary:{}:mary@gmail.com:secret4:false:local:Mary'
         ] );
     } );
 
