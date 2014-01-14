@@ -1,21 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <% include ../../../views/includes/globalHeader.html %>
+</head>
+<body>
 
-<% include ../../../views/includes/globalHeader.html %>
-
-
-<body class=" default-layout">
 <% include ../../../views/includes/globalNavBar.html %>
-<% include ../../../views/includes/globalLeftBar.html %>
 
+<div class="container">
+    <div class="row">
+        <div class="col-xs-3 col-sm-3 col-md-3">
+            <% include ../../../views/includes/leftMenu.html %>
+        </div>
 
+        <div class="col-xs-9 col-sm-9 col-md-9 boxed" id='mainView'>
+            <h1>Profile</h1>
+        </div>
+    </div>
 
-<!-- Page content
-    ================================================== -->
-<section class="container">
+</div>
 
+<% include ../../../views/includes/globalScripts.html %>
 
-
-    <!-- ================================================== -->
-    <section class="row-fluid">
-<h1>User Profile</h1>
 </body>
 </html>
+

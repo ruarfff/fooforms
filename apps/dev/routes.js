@@ -9,7 +9,7 @@ var authentication = require( '../authentication/lib' );
 var routes = function ( app ) {
 
     app.get( '/admin', authentication.ensureAuthenticated, function ( req, res ) {
-
+        var user = req.user;
         var find = '/';
         var re = new RegExp( find, 'g' );
 
@@ -35,15 +35,7 @@ var routes = function ( app ) {
                 uptime: process.uptime(),
                 arch: process.arch,
                 platform: process.platform,
-                nodeVersion: process.version,
-                isOpenShift: (typeof process.env.OPENSHIFT_APP_NAME !== "undefined"),
-                openshiftAppDns: process.env.OPENSHIFT_APP_DNS || "Unknown",
-                openshiftAppName: process.env.OPENSHIFT_APP_NAME || "Unknown",
-                openshiftAppUUID: process.env.OPENSHIFT_APP_UUID || "Unknown",
-                openshiftMongoHost: process.env.OPENSHIFT_MONGODB_DB_HOST || "Unknown",
-                openshiftMongoPort: process.env.OPENSHIFT_MONGODB_DB_PORT || "Unknown",
-                openshiftNodeIp: process.env.OPENSHIFT_NODEJS_IP || "Unknown",
-                openshiftNodePort: process.env.OPENSHIFT_NODEJS_PORT || "Unknown"
+                nodeVersion: process.version
             }
         );
     } );

@@ -1,0 +1,40 @@
+{
+    "restartable": "rs",
+    "ignore": [
+        ".git",
+        "node_modules/**/node_modules",
+        "node_modules/*",
+        "public/*",
+        "views/*",
+        ".git/*",
+        ".gitignore",
+        "package.json",
+        "Profile",
+        "README.md",
+        ".idea/*",
+        "logs/*"
+    ],
+    "verbose": true,
+    "execMap": {
+        "js": "node --harmony"
+    },
+    "watch": ["*.*"],
+    "stdin": true
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
