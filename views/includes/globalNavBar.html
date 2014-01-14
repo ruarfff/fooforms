@@ -1,45 +1,68 @@
-<nav id='header' class="navbar navbar-default" role="navigation">
-    <!-- Brand and toggle get grouped for better mobile display -->
-    <div class="navbar-header">
-        <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
-            <span class="sr-only">Toggle navigation</span>
-            <span class="icon-bar"></span>
-            <span class="icon-bar"></span>
-            <span class="icon-bar"></span>
-        </button>
-        <a id="logo" class="navbar-brand" href="#"><img src='/images/cloudthingy.png'/></a>
-    </div>
+<div class="navbar navbar-fixed-top navbar-inverse navbar-main" role="navigation">
+    <div class="container">
+        <div class="navbar-header">
+            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand" href="#">FOOFORMS</a>
+        </div>
+        <div class="collapse navbar-collapse clearfix">
+            <div class="clearfix ">
+                <ul class="nav navbar-nav nav-profile clearfix">
+                    <li>
+                        <% if (user.photo){
+                        %>
+                        <img style='background-image: url(<%= user.photo %>)' src='/images/circle.png'/>
+                        <%
+                        }
+                        %>
+                        <%= user.displayName %>
+                      <button class='btn btn-sm btn-inverse pull-right' href='/logout'>Logout</button>
+                    </li>
+                    <li>
+                        <input type="text" placeholder="Search..." class="input-search"/>
+                    </li>
+                </ul>
+            </div>
 
-    <!-- Collect the nav links, forms, and other content for toggling -->
-    <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
-        <ul id='topmenu' class="nav navbar-nav">
-            <li><a href="/dashboard">Home</a></li>
-            <li><a href="/profile">Profile</a></li>
-            <li><a href="/clouds">Clouds</a></li>
-            <li><a href="/apps">Apps</a></li>
-            <li><a href="/people">People</a></li>
-            <li><a href="#">Help</a></li>
-            <% if (user.admin){
-            %>
-            <li><a href="/admin">Admin</a></li>
-            <%
-            }
-            %>
-        </ul>
-        <ul class="nav navbar-nav navbar-right">
-            <li>
-                <% if (user.photo){
-                %>
-                <img style='background-image: url(<%= user.photo %>)' src='/images/circle.png'/>
-                <%
-                }
-                %>
-                <%= user.displayName %>
-            </li>
-            <li>
-                <a class='btn btn-sm' href='/logout'>Logout</a>
-            </li>
-        </ul>
-    </div>
-    <!-- /.navbar-collapse -->
-</nav>
+            <div id="left-panel" class="clearfix">
+                <div id="left-panel-content" class="clearfix">
+                    <ul class="clearfix">
+                        <li class="active">
+                            <a href="/dashboard"><i class="fa fa-dashboard"></i>Dashboard</a>
+                        </li>
+                        <li>
+                            <a href="/clouds"><i class="fa fa-cloud"></i>Clouds</a>
+                        </li>
+                        <li>
+                            <a href="/apps"><i class="fa fa-th"></i>Apps</a>
+                        </li>
+                        <li>
+                            <a href="/people"><i class="fa fa-group"></i>People</a>
+                        </li>
+                        <li>
+                            <a href="/calendar"><i class="fa fa-calendar"></i>Dates</a>
+                        </li>
+
+                        <li>
+                            <a href="/profile"><i class="fa fa-user"></i>Profile</a>
+                        </li>
+                        <li>
+                            <a href="/userGuide"><i class="fa fa-rocket"></i>User Guide</a>
+                        </li>
+                        <li>
+                            <a href="/profile"><i class="fa fa-cogs"></i>Settings</a>
+                        </li>
+
+                    </ul>
+                </div>
+
+            </div>
+
+        </div><!-- /.nav-collapse -->
+    </div><!-- /.container -->
+</div><!-- /.navbar -->
+
