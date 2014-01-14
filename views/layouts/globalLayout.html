@@ -1,13 +1,27 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-    <title></title>
+    <% include ../includes/globalHeader.html %>
 </head>
 <body>
 
-</div>
+<% include ../includes/globalNavBar.html %>
 
-<% include ../../../views/includes/globalScripts.html %>
+<div class="container">
+    <div class="row">
+        <div class="col-xs-3 col-sm-3 col-md-3">
+            <% include ../includes/leftMenu.html %>
+        </div>
+
+        <div class="col-xs-9 col-sm-9 col-md-9 boxed" id='mainView'>
+            <%- body %>
+        </div>
+    </div>
+</div>
+<% include ../includes/globalFooter.html %>
+
+<% include ../includes/globalScripts.html %>
 
 </body>
 </html>
+

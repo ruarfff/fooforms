@@ -2,29 +2,6 @@
 
 <p class="lead">Welcome to <%= title %></p>
 
-<% if (isOpenShift) { %>
-<div class="panel panel-primary">
-    <div class="panel-heading">
-        <h3 class="panel-title">Running on Openshift</h3>
-    </div>
-    <div class="panel-body">
-        <p>App Name: <%= openshiftAppName %></p>
-
-        <p>App DNS: <%= openshiftAppDns %></p>
-
-        <p>App UUID: <%= openshiftAppUUID %></p>
-
-        <p>Mongo Host: <%= openshiftMongoHost %></p>
-
-        <p>Mongo Port: <%= openshiftMongoPort %></p>
-
-        <p>Node IP: <%= openshiftNodeIp %></p>
-
-        <p>Node Port: <%= openshiftNodePort %></p>
-    </div>
-</div>
-<% } %>
-
 <% if (dbConnected) { %>
 <div class="panel panel-success">
     <% } else { %>

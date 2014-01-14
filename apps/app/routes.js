@@ -12,7 +12,7 @@ var routes = function ( app ) {
      *  View Handlers
      *********************************************************************************/
     app.get( '/apps', authentication.ensureAuthenticated, function ( req, res ) {
-        var user = req.profile;
+        var user = req.user;
 
         res.render( path.join( viewDir, 'index' ), {
             user: user
