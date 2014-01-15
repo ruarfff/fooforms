@@ -1,11 +1,9 @@
-'use strict';
+var userApp = angular.module('userApp', []);
 
-/* Controllers */
-
-angular.module( 'myApp.controllers', [] ).
-    controller( 'MyCtrl1', [function () {
-
-    }] )
-    .controller( 'MyCtrl2', [function () {
-
-    }] );
+userApp.controller('ProfileCtrl', function ($scope, $http){
+    'use strict';
+    $http.get('/api/user/me').success(function(data){
+        $scope.profile = data;
+        alert('hello');
+    })
+})

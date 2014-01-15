@@ -3,16 +3,15 @@
     "ignore": [
         ".git",
         "node_modules/**/node_modules",
-        "node_modules/*",
-        "public/*",
-        "views/*",
-        ".git/*",
+        "public",
+        "views",
+        ".git",
         ".gitignore",
         "package.json",
         "Profile",
         "README.md",
-        ".idea/*",
-        "logs/*"
+        ".idea",
+        "logs"
     ],
     "verbose": true,
     "execMap": {

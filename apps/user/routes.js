@@ -18,7 +18,8 @@ var routes = function ( app ) {
 
         res.render( path.join( viewDir, 'profile' ), {
             user: user,
-            title: 'Profile'
+            title: 'Profile',
+            scripts: ['javascripts/user/controllers/controllers.js']
         } );
 
     } );
