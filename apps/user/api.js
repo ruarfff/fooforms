@@ -1,56 +1,61 @@
 /*jslint node: true */
 'use strict';
 
-var authentication = require( '../authentication/lib' );
-var User = require( './models/user' ).User;
+var authentication = require('../authentication/lib');
+var User = require('./models/user').User;
+var userLib = require('./lib')
+
 
 /**
- * Create user
+ * Create new user
  */
-exports.create = function ( req, res, next ) {
-    var user = new User( req.body );
-    console.log( JSON.stringify( req ) );
-    user.provider = 'local';
-    user.save( function ( err ) {
-        if ( err ) {
-            console.log( err.toString() );
-            return res.render( authentication.signupPath, {
+exports.create = function (req, res) {
+    userLib.createUserLocalStrategy(req.body, function (err, user) {
+        if (err) {
+            console.log(err.toString());
+            return res.render(authentication.signupPath, {
                 errors: err.errors,
                 user: user
-            } );
+            });
         }
-        req.logIn( user, function ( loginErr ) {
-            if ( loginErr ) {
-                return next( loginErr );
-            }
-            return res.redirect( '/' );
-        } );
-    } );
+    });
 };
 
 /**
- * Send User
+ * Send current logged in user
  */
-exports.me = function ( req, res ) {
-    res.jsonp( req.user || null );
+exports.me = function (req, res) {
+    res.jsonp(userLib.userProfile(req.user) || null);
+};
+
+/**
+ * Update user
+ */
+exports.updateUser = function (req, res) {
+    try {
+        var updatedUser = req.body;
+
+        var query = { _id: updatedUser.id };
+
+        User.findOneAndUpdate(query, updatedUser, {upsert: false, "new": false}).exec(
+            function (err, user) {
+                if (!err) {
+                    console.log("updated " + user.displayName);
+                } else {
+                    res.statusCode = 400;
+                    console.log(err);
+                }
+                res.send(user);
+            });
+    } catch (err) {
+        res.statusCode = 400;
+        res.send(err);
+    }
 };
 
 /**
  * Find user by id
  */
-exports.user = function ( req, res, next, id ) {
-    User
-        .findOne( {
-            _id: id
-        } )
-        .exec( function ( err, user ) {
-            if ( err ) {
-                return next( err );
-            }
-            if ( !user ) {
-                return next( new Error( 'Failed to load User ' + id ) );
-            }
-            req.profile = user;
-            next();
-        } );
+exports.user = function (req, res, next, id) {
+
 };

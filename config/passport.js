@@ -21,17 +21,7 @@ module.exports = function ( passport ) {
         User.findOne( {
             _id: id
         }, function ( err, user ) {
-
-            var userProfile =
-            {
-                name: user.name,
-                displayName: user.displayName,
-                photo: user.photo,
-                email: user.email,
-                admin: user.admin
-            }
-
-            done( err, userProfile );
+            done(err, user);
         } );
     } );
 
