@@ -5,7 +5,7 @@
  * Main configuration for all routes in application.
  * Any apps that are added should initialize their routes here.
  * @param app - The express object
- * @param passport - Passport object for authentication
+ * @param passport - Passport object for authenticator
  */
 var routes = function (app, passport) {
 

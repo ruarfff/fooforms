@@ -1,34 +1,26 @@
 /*jslint node: true */
 'use strict';
 
-var config = require( '../../config/config' );
+var config = require('../../config/config');
 var viewDir = config.root + '/apps/dev/views';
-var db = require( '../database/lib' );
-var authentication = require( '../authentication/lib' );
+var db = require('../database/lib/databaseGateway');
+var authenticator = require('../authentication/lib/authenticator');
 
-var routes = function ( app ) {
+var routes = function (app) {
 
-    app.get( '/admin', authentication.ensureAuthenticated, function ( req, res ) {
-        var user = req.user;
-        var find = '/';
-        var re = new RegExp( find, 'g' );
-
-        var cloudName = req.originalUrl.replace( re, '' );
-
-        res.render( viewDir + '/index', {
-            cloud: cloudName,
-            isCloud: 'false',
+    app.get('/admin', authenticator.ensureAuthenticated, function (req, res) {
+        res.render(viewDir + '/index', {
             user: req.user,
             title: 'Admin'
-        } );
-    } );
+        });
+    });
 
-    app.get( '/admin/api', authentication.ensureAuthenticated, function ( req, res ) {
-        res.render( viewDir + '/api' );
-    } );
+    app.get('/admin/api', authenticator.ensureAuthenticated, function (req, res) {
+        res.render(viewDir + '/api');
+    });
 
-    app.get( '/admin/status', authentication.ensureAuthenticated, function ( req, res ) {
-        res.render( viewDir + '/status',
+    app.get('/admin/status', authenticator.ensureAuthenticated, function (req, res) {
+        res.render(viewDir + '/status',
             {
                 title: config.app.name,
                 dbConnected: db.connected,
@@ -39,7 +31,7 @@ var routes = function ( app ) {
                 nodeVersion: process.version
             }
         );
-    } );
+    });
 };
 
 module.exports = routes;

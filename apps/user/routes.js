@@ -1,11 +1,12 @@
 /*jslint node: true */
 'use strict';
 
-var config = require('../../config/config');
+var config = require( '../../config/config' );
 var viewDir = config.root + '/apps/user/views';
-var authentication = require('../authentication/lib');
-var userApi = require('./api');
+var authenticator = require('../authentication/lib/authenticator');
 var path = require('path');
+
+var profileApi = require('./api/profile');
 
 var routes = function (app) {
 
@@ -13,7 +14,7 @@ var routes = function (app) {
      *  View Handlers
      *********************************************************************************/
 
-    app.get('/profile', authentication.ensureAuthenticated, function (req, res) {
+    app.get('/profile', authenticator.ensureAuthenticated, function (req, res) {
         var user = req.user;
 
         res.render(path.join(viewDir, 'profile'), {
@@ -29,7 +30,7 @@ var routes = function (app) {
 
     });
 
-    app.get('/people', authentication.ensureAuthenticated, function (req, res) {
+    app.get('/people', authenticator.ensureAuthenticated, function (req, res) {
         var user = req.user;
 
         res.render(path.join(viewDir, 'people'), {
@@ -43,13 +44,13 @@ var routes = function (app) {
      *  API
      *********************************************************************************/
 
-    app.get('/api/user/me', authentication.ensureAuthenticated, function (req, res) {
-        userApi.me(req, res);
+    app.get('/api/user/me', authenticator.ensureAuthenticated, function (req, res) {
+        profileApi.me(req, res);
     });
 
-    app.put('/api/user/:id', authentication.ensureAuthenticated, function (req, res) {
+    app.put('/api/user/:id', authenticator.ensureAuthenticated, function (req, res) {
         if (req.user.id === req.params.id) {
-            userApi.updateUser(req, res);
+            profileApi.updateProfile(req, res);
         }
     });
 

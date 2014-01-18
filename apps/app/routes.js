@@ -1,32 +1,32 @@
 /*jslint node: true */
 'use strict';
 
-var config = require( '../../config/config' );
+var config = require('../../config/config');
 var viewDir = config.root + '/apps/app/views';
-var authentication = require( '../authentication/lib' );
-var path = require( 'path' );
+var authenticator = require('../authentication/lib/authenticator');
+var path = require('path');
 
-var routes = function ( app ) {
+var routes = function (app) {
 
     /*********************************************************************************
      *  View Handlers
      *********************************************************************************/
-    app.get( '/apps', authentication.ensureAuthenticated, function ( req, res ) {
+    app.get('/apps', authenticator.ensureAuthenticated, function (req, res) {
         var user = req.user;
 
-        res.render( path.join( viewDir, 'index' ), {
+        res.render(path.join(viewDir, 'index'), {
             user: user
-        } );
+        });
 
-    } );
+    });
     /*********************************************************************************
      *  API
      *********************************************************************************/
 
-    app.get( '/api/apps', authentication.ensureAuthenticated, function ( req, res ) {
+    app.get('/api/apps', authenticator.ensureAuthenticated, function (req, res) {
 
 
-    } );
+    });
 
 };
 

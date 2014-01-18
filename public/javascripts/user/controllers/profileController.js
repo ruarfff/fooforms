@@ -13,5 +13,3 @@ fooformsApp.controller('ProfileCtrl', function ($scope, Restangular) {
     };
 
 });
-
-

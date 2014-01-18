@@ -1,7 +1,7 @@
 /*jslint node: true */
 'use strict';
 process.env.NODE_ENV = process.env.NODE_ENV || 'development';
-var database = require('./apps/database/lib');
+var database = require('./apps/database/lib/databaseGateway');
 var User = require('./apps/user/models/user').User;
 
 module.exports = function (grunt) {

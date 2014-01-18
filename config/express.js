@@ -36,8 +36,8 @@ module.exports = function (app, passport) {
         app.use(express.favicon());
         app.use(require('less-middleware')({ src: config.root + '/public' }));
         app.use(express.static(config.root + '/public'));
-        app.use( express.json() );
-        app.use( express.urlencoded() );
+        app.use(express.json());
+        app.use(express.urlencoded());
         app.use(express.methodOverride());
         app.use(express.cookieParser('f0of09m5s3ssi0n'));
         app.use(express.session({ secret: 'f0of09m5s3ssi0n' }));
@@ -45,7 +45,6 @@ module.exports = function (app, passport) {
         app.use(helpers(config.app.name));
         app.use(passport.initialize());
         app.use(passport.session());
-        app.use('/zxcvbn', express.static('node_modules/zxcvbn'));
     });
 
     // development only
