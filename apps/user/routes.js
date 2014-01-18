@@ -1,7 +1,7 @@
 /*jslint node: true */
 'use strict';
 
-var config = require('../../config/config');
+var config = require( '../../config/config' );
 var viewDir = config.root + '/apps/user/views';
 var authentication = require('../authentication/lib');
 var userApi = require('./api');
