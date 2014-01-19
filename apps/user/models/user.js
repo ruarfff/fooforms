@@ -149,7 +149,7 @@ UserSchema.statics.findByDisplayName = function (displayName, next) {
 };
 
 UserSchema.statics.findUserByEmail = function (email, next) {
-    this.find({ email: email }, next)
+    this.find( { email: email }, next );
 };
 
 

@@ -1,18 +1,18 @@
 /*jslint node: true */
 'use strict';
 
-var config = require('../../config/config');
-var viewDir = config.root + '/apps/dashboard/views';
-var authenticator = require('../authentication/lib/authenticator');
+var path = require( 'path' );
+var viewDir = path.join( global.config.apps.DASHBOARD, 'views' );
+var authenticator = require( global.config.apps.AUTHENTICATION );
 
-var routes = function (app) {
+var routes = function ( app ) {
 
-    app.get('/dashboard', authenticator.ensureAuthenticated, function (req, res) {
-        res.render(viewDir + '/index', {
+    app.get( '/dashboard', authenticator.ensureAuthenticated, function ( req, res ) {
+        res.render( viewDir + '/index', {
             user: req.user,
             title: 'Dashboard'
-        });
-    });
+        } );
+    } );
 
 };
 

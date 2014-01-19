@@ -2,7 +2,7 @@
 'use strict';
 
 var User = require('../models/user').User;
-var userProfile = require('../lib/profile')
+var userProfile = require( '../lib/profile' );
 
 
 /**

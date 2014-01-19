@@ -2,18 +2,18 @@
 "use strict";
 
 /**
- * Middleware that checks user authenticator is ok
+ * Middleware that checks user is authenticated
  *
  * @param req
  * @param res
  * @param next
  * @returns {*}
  */
-exports.ensureAuthenticated = function check(req, res, next) {
-    if (req.isAuthenticated()) {
+exports.ensureAuthenticated = function check ( req, res, next ) {
+    if ( req.isAuthenticated() ) {
         return next();
     }
-    res.redirect('/login');
+    res.redirect( '/login' );
 };
 
 /**
@@ -23,12 +23,12 @@ exports.ensureAuthenticated = function check(req, res, next) {
  * @param res
  * @param next
  */
-exports.ensureAdmin = function ensureAdmin(req, res, next) {
-    if (req.user && req.user.admin === true) {
+exports.ensureAdmin = function ensureAdmin ( req, res, next ) {
+    if ( req.user && req.user.admin === true ) {
         next();
     }
     else {
-        res.send(403);
+        res.send( 403 );
     }
 };
 

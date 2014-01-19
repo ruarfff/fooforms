@@ -1,14 +1,21 @@
 /*jslint node: true */
 'use strict';
 
+/* Set this before doing anything as the value is used during initialization */
 var env = process.env.NODE_ENV = process.env.NODE_ENV || 'development';
-var database = require('./apps/database/lib/databaseGateway');
+
+/*
+ Putting config in to global scope. It is a singleton and saves requiring long path names all over the place.
+ Sort of goes against best practice however so will look in to a better way of doing this.
+ */
+global.config = require( './config/config' );
+
+var database = require( './apps/database/lib/databaseGateway' );
 var http = require( 'http' );
 var express = require( 'express' );
 var passport = require( 'passport' );
 var path = require( 'path' );
 var fs = require( 'fs' );
-var configuration = require( './config/config' );
 
 var FooFormsServerApp = function () {
 
@@ -88,7 +95,7 @@ var FooFormsServerApp = function () {
     self.bootstrapModels = function () {
         // Load the root models
         try {
-            var rootModelsPath = path.join( configuration.root, 'models' );
+            var rootModelsPath = path.join( global.config.root, 'models' );
             if ( fs.existsSync( rootModelsPath ) ) {
                 self.walk( rootModelsPath );
             }
@@ -97,7 +104,7 @@ var FooFormsServerApp = function () {
         }
 
         // Look for and load any app models
-        var appsPath = path.join( configuration.root, 'apps' );
+        var appsPath = path.join( global.config.root, 'apps' );
         fs.readdirSync( appsPath ).forEach( function ( appDir ) {
             var modelsPath = path.join( path.join( appsPath, appDir ), 'models' );
             if ( fs.existsSync( rootModelsPath ) ) {

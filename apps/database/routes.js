@@ -1,13 +1,14 @@
 /*jslint node: true */
 'use strict';
 
-var config = require('../../config/config');
-var viewDir = config.root + '/apps/database/views';
-var database = require('./lib/databaseGateway');
-var authenticator = require('../authentication/lib/authenticator');
+var path = require( 'path' );
+var viewDir = path.join( global.config.apps.DATABASE, 'views' );
+var database = require( global.config.apps.DATABASE );
+var authenticator = require( global.config.apps.AUTHENTICATION );
 
 var routes = function (app) {
 
+    // TODO: Move this to admin app
     app.get('/admin/database', authenticator.ensureAdmin, function (req, res) {
 
         database.connection.db.collectionNames(function (err, names) {

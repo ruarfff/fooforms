@@ -1,9 +1,8 @@
 /*jslint node: true */
 'use strict';
 
-var authentication = require('../../authentication/lib');
-var User = require('../models/user').User;
-var userCreator = require('../lib/userCreator');
+var authentication = require(global.config.apps.AUTHENTICATION);
+var userCreator = require( global.config.apps.USER );
 
 
 /**

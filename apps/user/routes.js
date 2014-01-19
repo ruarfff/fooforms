@@ -1,10 +1,10 @@
 /*jslint node: true */
 'use strict';
 
-var config = require( '../../config/config' );
-var viewDir = config.root + '/apps/user/views';
-var authenticator = require('../authentication/lib/authenticator');
 var path = require('path');
+var viewDir = path.join( global.config.apps.USER, 'views' );
+var authenticator = require( global.config.apps.AUTHENTICATION );
+
 
 var profileApi = require('./api/profile');
 
