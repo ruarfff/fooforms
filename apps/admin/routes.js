@@ -2,7 +2,7 @@
 'use strict';
 
 var config = require('../../config/config');
-var viewDir = config.root + '/apps/dev/views';
+var viewDir = config.root + '/apps/admin/views';
 var db = require('../database/lib/databaseGateway');
 var authenticator = require('../authentication/lib/authenticator');
 

@@ -11,9 +11,34 @@ var devDbConfig = {
     "db": "test"
 };
 
+/* Convenience paths to apps and other components */
+var adminDir = path.join(rootPath, 'apps/admin');
+var appDir = path.join(rootPath, 'apps/app');
+var authenticationDir = path.join(rootPath, 'apps/authentication');
+var cloudDir = path.join(rootPath, 'apps/cloud');
+var dashboardDir = path.join(rootPath, 'apps/dashboard');
+var databaseDir = path.join(rootPath, 'apps/database');
+var loggingDir = path.join(rootPath, 'apps/logging');
+var userDir = path.join(rootPath, 'apps/user');
+
+/**
+ * Enumerator to allow easy access to absolute application root paths.
+ */
+var apps = {
+    "ADMIN": adminDir,
+    "APP": appDir,
+    "AUTHENTICATION": authenticationDir,
+    "CLOUD": cloudDir,
+    "DASHBOARD": dashboardDir,
+    "DATABASE": databaseDir,
+    "LOGGING": loggingDir,
+    "USER": userDir
+};
+
 module.exports = {
     root: rootPath,
     port: process.env.PORT || 3000,
-    database: devDbConfig
+    database: devDbConfig,
+    apps: apps
 }
 

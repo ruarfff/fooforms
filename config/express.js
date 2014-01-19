@@ -6,13 +6,15 @@ var engine = require('ejs-locals');
 var flash = require('connect-flash');
 var helpers = require('view-helpers');
 var fs = require('fs');
+var log4js = require('log4js');
 var config = require('./config');
 
+
 module.exports = function (app, passport) {
+
     var expressLogFile = fs.createWriteStream(config.root + '/logs/express.log', {flags: 'a'});
 
     app.set('showStackError', true);
-
     //Should be placed before express.static
     app.use(express.compress({
         filter: function (req, res) {
@@ -23,6 +25,7 @@ module.exports = function (app, passport) {
 
     //Don't use logger for test env
     if (process.env.NODE_ENV !== 'test') {
+        //  app.use(log4js.connectLogger(logger, { level: 'auto' }));
         app.use(express.logger({stream: expressLogFile}));
     }
 

@@ -13,12 +13,12 @@ var routes = function (app, passport) {
         res.render('index');
     });
 
+    require('../apps/admin/routes')(app);
     require( '../apps/app/routes' )( app );
     require('../apps/authentication/routes')(app, passport);
     require( '../apps/cloud/routes' )( app );
     require( '../apps/dashboard/routes' )( app );
     require( '../apps/database/routes' )( app );
-    require('../apps/dev/routes')(app);
     require('../apps/user/routes')(app);
 
 };
