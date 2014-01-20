@@ -5,7 +5,8 @@ var path = require( 'path' );
 var viewDir = path.join( global.config.apps.AUTHENTICATION, 'views' );
 var loginPath = path.join( viewDir, 'login' );
 var signupPath = path.join( viewDir, 'signup' );
-var User = require( global.config.apps.USER ).User;
+var User = require( path.join( global.config.apps.USER, 'models/user' ) ).User;
+var log = require( global.config.apps.LOGGING ).LOG;
 
 
 var routes = function ( app, passport ) {
@@ -42,6 +43,7 @@ var routes = function ( app, passport ) {
      * Logout
      */
     app.get( '/logout', function ( req, res ) {
+        log.debug( res.user.displayName + ' logging out' );
         req.logout();
         res.redirect( '/' );
     } );

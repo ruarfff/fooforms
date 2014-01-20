@@ -1,6 +1,7 @@
 /*jslint node: true */
 'use strict';
 
+var path = require( 'path' );
 var LocalStrategy = require( 'passport-local' ).Strategy;
 var GoogleStrategy = require( 'passport-google-oauth' ).OAuth2Strategy;
 var TwitterStrategy = require( 'passport-twitter' ).Strategy;
@@ -8,7 +9,7 @@ var FacebookStrategy = require( 'passport-facebook' ).Strategy;
 var YahooStrategy = require( 'passport-yahoo' ).Strategy;
 var LinkedInStrategy = require( 'passport-linkedin' ).Strategy;
 
-var User = require( global.config.apps.USER ).User;
+var User = require( path.join( global.config.apps.USER, 'models/user' ) ).User;
 
 module.exports = function ( passport ) {
 

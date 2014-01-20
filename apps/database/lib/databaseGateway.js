@@ -1,59 +1,62 @@
 /*jslint node: true */
 'use strict';
 
+var path = require( 'path' );
 var mongoose = require( 'mongoose' );
+var log = require( global.config.apps.LOGGING ).LOG;
 
-var database = {};
-
-var connection = mongoose.connection;
-var connected = false;
-var url = 'not set';
-var errorMessage = '';
+var database = {
+    connection: mongoose.connection,
+    connected: false,
+    url: 'not set',
+    errorMessage: ''
+};
 
 // Generate the Mongo Db connection URL
 function setUrl () {
     var dbConfig = global.config.database;
 
     if ( dbConfig.username && dbConfig.password ) {
-        url = "mongodb://" + dbConfig.username + ":" + dbConfig.password + "@" + dbConfig.hostname + ":" + dbConfig.port + "/" + dbConfig.db;
+        database.url = "mongodb://" + dbConfig.username + ":" + dbConfig.password + "@" + dbConfig.hostname + ":" + dbConfig.port + "/" + dbConfig.db;
     } else {
-        url = "mongodb://" + dbConfig.hostname + ":" + dbConfig.port + "/" + dbConfig.db;
+        database.url = "mongodb://" + dbConfig.hostname + ":" + dbConfig.port + "/" + dbConfig.db;
     }
-    console.log( url );
+    log.debug( database.url );
 }
 setUrl();
+var mongoModule = path.join( global.config.root, 'node_modules/mongodb' );
 
 module.exports = {
 
     // Pull in the mongo client and related libs
-    MongoClient: require( '../../../node_modules/mongodb' ).MongoClient,
-    ObjectID: require( '../../../node_modules/mongodb' ).ObjectID,
-    BSON: require( '../../../node_modules/mongodb' ).BSONPure,
-    url: url,
-    connected: connected,
-    errorMessage: errorMessage,
-    connection: connection,
+    MongoClient: require( mongoModule ).MongoClient,
+    ObjectID: require( mongoModule ).ObjectID,
+    BSON: require( mongoModule ).BSONPure,
+    url: database.url,
+    connected: database.connected,
+    errorMessage: database.errorMessage,
+    connection: database.connection,
     openConnection: function () {
-        connection.on( 'error', function ( error ) {
+        database.connection.on( 'error', function ( error ) {
             if ( error ) {
-                console.error( 'Error opening DB: ' + error.toString() );
-                errorMessage = error.toString();
+                database.errorMessage = error.toString();
+                log.error( 'Error opening DB: ' + database.errorMessage );
             }
         } );
-        connection.once( 'open', function () {
-            console.log( 'Successfully connected to database at ' + url );
-            connected = true;
+        database.connection.once( 'open', function () {
+            log.info( 'Successfully connected to database at ' + database.url );
+            database.connected = true;
         } );
-        mongoose.connect( url );
+        mongoose.connect( database.url );
     },
     closeConnection: function () {
         mongoose.disconnect( function ( err ) {
 
             if ( err ) {
-                console.error( 'Error closing DB' );
+                log.error( 'Error closing DB' );
             }
             else {
-                console.log( 'DB Closed' );
+                log.info( 'DB Closed' );
             }
         } );
     }

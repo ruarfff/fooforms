@@ -20,7 +20,7 @@
                         }
                         %>
                         <%= user.displayName %>
-                      <button class='btn btn-sm btn-inverse pull-right' href='/logout'>Logout</button>
+                        <button class='btn btn-sm btn-inverse pull-right' href='/logout'>Logout</button>
                     </li>
                     <li>
                         <input type="text" placeholder="Search..." class="input-search"/>
@@ -34,6 +34,11 @@
                         <li class="active">
                             <a href="/dashboard"><i class="fa fa-dashboard"></i>Dashboard</a>
                         </li>
+                        <% if (user.admin) {%>
+                        <li>
+                            <a href="/admin"><i class="fa fa-user"></i>Admin</a>
+                        </li>
+                        <% } %>
                         <li>
                             <a href="/clouds"><i class="fa fa-cloud"></i>Clouds</a>
                         </li>
@@ -62,7 +67,9 @@
 
             </div>
 
-        </div><!-- /.nav-collapse -->
-    </div><!-- /.container -->
+        </div>
+        <!-- /.nav-collapse -->
+    </div>
+    <!-- /.container -->
 </div><!-- /.navbar -->
 

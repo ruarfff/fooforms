@@ -3,8 +3,11 @@
 process.env.NODE_ENV = process.env.NODE_ENV || 'development';
 global.config = require( './config/config' );
 
+var path = require( 'path' );
 var database = require( global.config.apps.DATABASE );
-var User = require( global.config.apps.USER ).User;
+var User = require( path.join( global.config.apps.USER, 'models/user' ) ).User;
+
+var log = require( global.config.apps.LOGGING ).LOG;
 
 module.exports = function ( grunt ) {
 
@@ -135,8 +138,8 @@ module.exports = function ( grunt ) {
             }
         );
         database.openConnection();
-        console.log( user.displayName );
-        console.log( user.email );
+        log.debug( user.displayName );
+        log.debug( user.email );
 
         user.save( function ( err ) {
             database.closeConnection();

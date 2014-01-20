@@ -10,12 +10,14 @@ var env = process.env.NODE_ENV = process.env.NODE_ENV || 'development';
  */
 global.config = require( './config/config' );
 
-var database = require( './apps/database/lib/databaseGateway' );
 var http = require( 'http' );
 var express = require( 'express' );
 var passport = require( 'passport' );
 var path = require( 'path' );
 var fs = require( 'fs' );
+
+var database = require( global.config.apps.DATABASE );
+var log = require( global.config.apps.LOGGING ).LOG;
 
 var FooFormsServerApp = function () {
 
@@ -155,10 +157,10 @@ var FooFormsServerApp = function () {
 /**
  *  main():  Main code.
  */
-console.log( 'Running environment: ' + env );
-console.log( 'Initializing database connection...' );
+log.info( 'Running environment: ' + env );
+log.info( 'Initializing database connection...' );
 database.openConnection();
-console.log( 'Starting web server...' );
+log.info( 'Starting web server...' );
 var serverApp = new FooFormsServerApp();
 serverApp.initialize();
 serverApp.start();

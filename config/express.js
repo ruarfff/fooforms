@@ -7,7 +7,7 @@ var flash = require( 'connect-flash' );
 var helpers = require( 'view-helpers' );
 var fs = require( 'fs' );
 var log4js = require( 'log4js' );
-var logger = require( global.config.apps.LOGGING );
+var log = require( global.config.apps.LOGGING ).LOG;
 
 
 module.exports = function ( app, passport ) {
@@ -25,7 +25,7 @@ module.exports = function ( app, passport ) {
 
     //Don't use logger for test env
     if ( process.env.NODE_ENV !== 'test' ) {
-        app.use( log4js.connectLogger( logger, { level: 'auto' } ) );
+        app.use( log4js.connectLogger( log, { level: 'auto' } ) );
     }
 
     app.configure( function () {
