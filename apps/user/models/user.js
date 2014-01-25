@@ -6,7 +6,7 @@ var Schema = mongoose.Schema;
 var crypto = require('crypto');
 var authTypes = ['github', 'twitter', 'facebook', 'google', 'yahoo', 'linkedin'];
 
-var UserSchema = new Schema({
+var userSchema = new Schema({
     name: {
         familyName: String,
         givenName: String,
@@ -45,21 +45,21 @@ var UserSchema = new Schema({
 });
 
 
-UserSchema.path('email').validate(function (email) {
+userSchema.path('email').validate(function (email) {
     if (authTypes.indexOf(this.provider) !== -1) {
         return true;
     }
     return email.length;
 }, 'Email cannot be blank');
 
-UserSchema.path('displayName').validate(function (displayName) {
+userSchema.path('displayName').validate(function (displayName) {
     if (authTypes.indexOf(this.provider) !== -1) {
         return true;
     }
     return displayName.length;
 }, 'Username cannot be blank');
 
-UserSchema.path('password').validate(function (password) {
+userSchema.path('password').validate(function (password) {
     if (authTypes.indexOf(this.provider) !== -1) {
         return true;
     }
@@ -78,7 +78,7 @@ var notNullOrEmpty = function (value) {
 /**
  * Pre-save hook
  */
-UserSchema.pre('save', function (next) {
+userSchema.pre('save', function (next) {
     console.log('saving');
     if (!this.isNew) {
         console.log('saving2');
@@ -101,7 +101,7 @@ UserSchema.pre('save', function (next) {
 /**
  * Methods
  */
-UserSchema.methods = {
+userSchema.methods = {
     /**
      * Authenticate - check if the passwords are the same
      *
@@ -144,16 +144,15 @@ UserSchema.methods = {
  *
  */
 
-UserSchema.statics.findByDisplayName = function (displayName, next) {
+userSchema.statics.findByDisplayName = function (displayName, next) {
     this.find({ displayName: new RegExp(displayName, 'i') }, next);
 };
 
-UserSchema.statics.findUserByEmail = function (email, next) {
-    this.find( { email: email }, next );
+userSchema.statics.findUserByEmail = function (email, next) {
+    this.find({ email: email }, next);
 };
 
 
-UserSchema.set('autoIndex', false);
+userSchema.set('autoIndex', false);
 
-var User = mongoose.model('User', UserSchema);
-exports.User = User;
+exports.User = mongoose.model('User', userSchema);

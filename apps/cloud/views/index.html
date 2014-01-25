@@ -1,2 +1,25 @@
 <% layout(global.config.layouts.MAIN) -%>
 <h1>Clouds</h1>
+
+
+<div ng-controller="CloudCtrl">
+
+    <tr ng-repeat="cloud in clouds">
+        <td>{{cloud.name}}</td>
+    </tr>
+
+    <form novalidate class="css-form">
+        Name:
+        <input type="text" ng-model="cloud.name" required/><br/>
+        Description:
+        <input type="text" ng-model="cloud.description" required/><br/>
+        Icon:
+        <input type="text" ng-model="cloud.icon" required/><br/>
+        Menu Label:
+        <input type="text" ng-model="cloud.menuLabel" required/><br/>
+        <button ng-click="update(cloud)">SAVE</button>
+    </form>
+
+
+</div>
+</div>

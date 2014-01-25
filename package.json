@@ -41,7 +41,8 @@
         "async": "~0.2.x",
         "log4js": "~0.6.x",
         "nodemailer": "~0.6.x",
-        "enum": "~0.2.x"
+        "enum": "~0.2.x",
+        "express-partials": "~0.2.0"
     },
     "devDependencies": {
         "grunt": "~0.4.x",

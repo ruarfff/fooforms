@@ -2,11 +2,11 @@
 'use strict';
 
 var path = require('path');
-var viewDir = path.join( global.config.apps.USER, 'views' );
-var authenticator = require( global.config.apps.AUTHENTICATION );
+var viewDir = path.join(global.config.apps.USER, 'views');
+var authenticator = require(global.config.apps.AUTHENTICATION);
 
 
-var profileApi = require('./api/profile');
+var userApi = require(path.join(global.config.apps.USER, 'api/profile'));
 
 var routes = function (app) {
 
@@ -45,14 +45,34 @@ var routes = function (app) {
      *********************************************************************************/
 
     app.get('/api/user/me', authenticator.ensureAuthenticated, function (req, res) {
-        profileApi.me(req, res);
+        userApi.me(req, res);
     });
 
     app.put('/api/user/:id', authenticator.ensureAuthenticated, function (req, res) {
         if (req.user.id === req.params.id) {
-            profileApi.updateProfile(req, res);
+            userApi.updateProfile(req, res);
         }
     });
+
+    app.post('/api/user/check/username', authenticator.ensureAuthenticated, function (req, res) {
+        userApi.checkUserName(req.body.displayName).onResolve(function (err, user) {
+            "use strict";
+            if (user) {
+                res.status(403);
+                res.render('signup', {
+                    error: 'Username is already taken'
+                });
+                return;
+            }
+            if (err) {
+                res.status(500);
+                log.error(err.toString());
+                return res.render('signup', { error: err.message });
+            }
+
+        });
+    });
+
 
 };
 
