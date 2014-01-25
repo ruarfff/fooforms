@@ -1,0 +1,66 @@
+)]}',
+[
+{
+"type": "text",
+"name": "Text Box",
+"label" : "Untitled",
+"placeholder": "enter some text",
+"size" : 50,
+"boxSize" : 12,
+"required" : false,
+"rows" : false,
+"options" : false,
+"userInstructions": "",
+"description": "A standard text-box",
+"help": "The most common form field. Use it to gather text data such as name, email address, etc.",
+"icon" : " fa fa-cogs",
+"html" : "<div class=\"form-group clearfix\"><label for=\"exampleInputEmail1\">{{appField.label}}<i class=\"fa fa-question-circle\" ng-hide=\"!appField.userInstructions\" popover=\"{{appField.userInstructions}}\" popover-trigger=\"mouseenter\"></i> </label> <input type=\"email\" class=\"form-control\" id=\"exampleInputEmail1\" placeholder=\"{{appField.placeholder}}\" /> </div>"
+},
+{
+"type": "textarea",
+"name": "Paragraph Text",
+"label" : "Untitled",
+"placeholder": "",
+"size" : 50,
+"boxSize" : 12,
+"required" : false,
+"rows" : 5,
+"options" : false,
+"description": "A larger, multi-row text box.",
+"help": "Use it to gather text with multiple rows such as address or questions, etc.",
+"icon" : "fa fa-cogs",
+"html" : "<div class=\"form-group clearfix\"><label for=\"exampleInputEmail1\">{{appField.label}}<i class=\"fa fa-question-circle\" ng-hide=\"!appField.userInstructions\" popover=\"{{appField.userInstructions}}\" popover-trigger=\"mouseenter\"></i></label> <textarea rows=\"{{appField.rows\" class=\"form-control\" id=\"exampleInputEmail1\" ></textarea></div>"
+},
+{
+"type": "email",
+"name": "Email",
+"label": "Email",
+"placeholder": "Enter email",
+"size" :50,
+"boxSize" : 12,
+"required" : false,
+"rows" : false,
+"options" : false,
+"description": "A larger, multi-row text box.",
+"help": "Use it to gather text with multiple rows such as address or questions, etc.",
+"icon" : "fa fa-cogs",
+"html" : "<div class=\"form-group clearfix\"><label for=\"exampleInputEmail1\">{{appField.label}}<i class=\"fa fa-question-circle\" ng-hide=\"!appField.userInstructions\" popover=\"{{appField.userInstructions}}\" popover-trigger=\"mouseenter\"></i></label> <input ng-style=\"{'width': appField.size+'%'}\" type=\"email\" class=\"form-control\" id=\"exampleInputEmail1\" placeholder=\"{{appField.placeholder}}\" /> </div>"
+},
+{
+"type": "Select",
+"name": "Select",
+"label" : "Dropdown",
+"placeholder": "",
+"size" :50,
+"boxSize" : 12,
+"required" : false,
+"rows" : false,
+"options" : false,
+"description": "A larger, multi-row text box.",
+"help": "Use it to gather text with multiple rows such as address or questions, etc.",
+"icon" : "fa fa-cogs",
+"html" : "<div class=\"form-group clearfix\"><label for=\"exampleInputEmail1\">{{appField.label}}<i class=\"fa fa-question-circle\" ng-hide=\"!appField.userInstructions\" popover=\"{{appField.userInstructions}}\" popover-trigger=\"mouseenter\"></i></label> <select class=\"form-control\" id=\"exampleInputEmail1\" > </select></div>"
+}
+
+
+]
