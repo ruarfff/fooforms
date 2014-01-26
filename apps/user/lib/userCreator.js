@@ -8,14 +8,10 @@ exports.createUserLocalStrategy = function ( userJSON, next ) {
         var user = new User( userJSON );
         user.provider = 'local';
         user.save( function ( err ) {
-            if ( err ) {
-                log.error( err.toString() );
-            }
             next( err, user );
         } );
     } catch ( err ) {
         log.error( err.toString() );
         next( err, null );
     }
-
 };

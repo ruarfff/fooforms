@@ -23,7 +23,7 @@ exports.create = function ( req, res ) {
         };
         userLib.createUserLocalStrategy( userDetails, function ( err, user ) {
             if ( err ) {
-                console.log( err.toString() );
+                log.error( err.toString() );
                 return res.render( authentication.signupPath, {
                     errors: err.errors,
                     user: user
