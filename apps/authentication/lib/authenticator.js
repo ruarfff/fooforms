@@ -17,15 +17,16 @@ exports.ensureAuthenticated = function check ( req, res, next ) {
 };
 
 /**
- * Middleware that checks if the current user is an admin
+ * Middleware that checks if the current user is an admin user
  *
  * @param req
  * @param res
  * @param next
+ * @returns {*}
  */
 exports.ensureAdmin = function ensureAdmin ( req, res, next ) {
-    if ( req.user && req.user.admin === true ) {
-        next();
+    if ( req.isAuthenticated() && req.user && req.user.admin === true ) {
+        return next();
     }
     else {
         res.send( 403 );
