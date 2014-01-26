@@ -10,28 +10,17 @@
             <a class="navbar-brand" href="#">FOOFORMS</a>
         </div>
         <div class="collapse navbar-collapse clearfix">
-            <div class="clearfix ">
-                <ul class="nav navbar-nav nav-profile clearfix">
-                    <li>
-                        <% if (user.photo){
-                        %>
-                        <img style='background-image: url(<%= user.photo %>)' src='/images/circle.png'/>
-                        <%
-                        }
-                        %>
-                        <%= user.displayName %>
-                      <button class='btn btn-sm btn-inverse pull-right' href='/logout'>Logout</button>
-                    </li>
-                    <li>
+            <div class="nav-search">
+
                         <input type="text" placeholder="Search..." class="input-search"/>
-                    </li>
-                </ul>
+
+
             </div>
 
             <div id="left-panel" class="clearfix">
                 <div id="left-panel-content" class="clearfix">
                     <ul class="clearfix">
-                        <li class="active">
+                        <li>
                             <a href="/dashboard"><i class="fa fa-dashboard"></i>Dashboard</a>
                         </li>
                         <li>
@@ -56,10 +45,34 @@
                         <li>
                             <a href="/profile"><i class="fa fa-cogs"></i>Settings</a>
                         </li>
+                        <% if(user.admin){ %>
+                        <li>
+                            <a href="/admin"><i class="fa fa-flask"></i>Admin</a>
+                        </li>
+                        <% } %>
 
 
                     </ul>
                 </div>
+
+            </div>
+
+            <div class="nav-profile">
+
+                        <% if (user.photo){
+                        %>
+                        <img class="img-circle" src='<%= user.photo %>'/>
+                        <%
+                        }else{
+                %>
+                <img class="img-circle" src='/images/photo.jpg'/>
+                <%
+
+                }
+
+                        %>
+                        <%= user.displayName %>
+                        <button class='btn btn-xs btn-default pull-right' href='/logout'>Logout</button>
 
             </div>
 

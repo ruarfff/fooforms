@@ -20,6 +20,7 @@ var routes = function (app, passport) {
     require( '../apps/database/routes' )( app );
     require('../apps/dev/routes')(app);
     require('../apps/user/routes')(app);
+    require('../apps/appBuilder/routes')(app);
 
 };
 

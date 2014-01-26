@@ -1,27 +1,11 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <% include ../../../views/includes/globalHeader.html %>
-</head>
-<body>
-
-<% include ../../../views/includes/globalNavBar.html %>
-
-<div class="container">
-    <div class="row">
-        <div class="col-xs-3 col-sm-3 col-md-3">
-            <% include ../../../views/includes/leftMenu.html %>
+<% layout('../../../views/layouts/globalLayout.html') -%>
+<div class="row">
+    <div class="col-xs-8 col sm-8 col-md-8">
+        <div class="alert alert-info">
+            <h3>Create a New App Form</h3>
+            <a class="btn btn-primary" href="/appbuilder">Open App Builder</a>
         </div>
 
-        <div class="col-xs-9 col-sm-9 col-md-9 boxed" id='mainView'>
-            <h1>Admin</h1>
-        </div>
     </div>
 
 </div>
-
-<% include ../../../views/includes/globalScripts.html %>
-
-</body>
-</html>
-
