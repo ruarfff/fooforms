@@ -1,0 +1,116 @@
+<% layout('../../../views/layouts/appBuilderLayout.html') -%>
+
+<div class="row" >
+
+    <div class="col-md-3 pageGroup">
+        <div ng-show="draggedItem != null">{{draggedItem.text}}</div>
+        <% include ../../../views/includes/appBuilderMenu.html %></div>
+    <div class="col-md-9">
+
+        <div class="pageGroup" id='mainView'>
+
+
+            <div id='msgCenter' class="hide">
+                <div class="alert alert-block alert-info fade in m5">
+                    <p>Saving your app, please stand by...</p>
+                </div>
+            </div>
+
+            <div id="tabs">
+                <ul id='appTabs' class="nav nav-tabs">
+                    <li class="active"><a href="#tabs-newApp" data-toggle="tab" >Design</a></li>
+                    <li><a href="#tabs-settings" data-toggle="tab">Settings</a></li>
+                    <li><a href="#tabs-publish" data-toggle="tab">Publish</a></li>
+                </ul>
+                <div class="tab-content">
+                    <div id="tabs-newApp" class="tab-pane active" >
+                        <div id='appHeading'><img class='icon' id='appIconDisplay' src='/app/dispatch.php?id=95'/>
+
+                            <h2 id='appName'>Untitled App</h2>
+
+                            <p id='appDescription'>Click here to edit the title and description. </p>
+                        </div>
+                        <div id='appLayout' class="container">
+
+                            <div  id='appFields' class="row"
+                                 droppable='appFields'
+                                 ng-update='updateObjects(from, to)'
+                                 ng-create='createObject(object, to)'
+                                 id="sortable-buttons">
+                                <div class='appFormObject col-sm-{{appField.boxSize}}'
+                                    ng-repeat="appField in appFields track by $index"
+                                    ng-show="appField.name"
+                                    ng-click="editField($index, $event)"
+                                    ng-class="{ 'selected': $index == nowEditing }">
+                                    <button ng-click='deleteItem(appField.id)'
+                                        class='btn btn-xs pull-right btn-danger'
+                                        ng-show="$index == nowEditing">X</button>
+                                    <div compile='appField.html'></div>
+                                </div>
+                                <div class="placeholder alert alert-warning" ng-show="showPlaceHolder()">Drag a new Input Field in here to get started</div>
+
+                            </div>
+
+
+
+                        </div>
+
+                        <div id='saveAppForm'>
+                            <button id='saveApp' class='btn btn-success'>Save App</button>
+                        </div>
+
+                         <pre class="ng-binding">
+     {{appFields | json}}
+ </pre>
+                    </div>
+
+
+                    <div id="tabs-settings" class="tab-pane">
+                        <div class='alert alert-warning'><h4>Settings</h4>
+                        </div>
+                        <div id='saveAppForm'>
+                            <button id='saveApp' class='btn btn-success'>Save App</button>
+                        </div>
+                    </div>
+                    <div id="tabs-publish" class="tab-pane">
+                        <div class='alert alert-warning'><h4>Publish</h4>
+
+                            <p>Choose one or more ways to publish your app.</p>
+                        </div>
+                        <div class='m10 alert alert-info'>
+                            <h5>Add it to one or more clouds</h5>
+
+                            <p>Your app will be displayed in each of the following clouds</p>
+
+                            <div id='cloudList'>
+
+                            </div>
+                            <hr>
+
+                            <h5>Add it to a Website or Blog</h5>
+
+                            <p>Copy the following code to your page on your website.</p>
+                            <textarea class='large'>
+                                <script>function load()
+                                ;</script>
+                            </textarea>
+                        </div>
+                        <div id='saveAppForm'>
+                            <button id='saveApp' class='btn btn-success'>Save App</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+
+        </div>
+
+    </div>
+
+
+</div>
+
+
+
+
+
