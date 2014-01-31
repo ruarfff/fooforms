@@ -12,13 +12,20 @@ var routes = function ( app ) {
     /*********************************************************************************
      *  View Handlers
      *********************************************************************************/
+
     app.get( '/clouds', authenticator.ensureAuthenticated, function ( req, res ) {
         var user = req.user;
 
         res.render( path.join( viewDir, 'index' ), {
-            user: user
+            user: user,
+            title: 'Clouds',
+            scripts: [
+                'javascripts/cloud/controllers/cloudController.js',
+                'javascripts/cloud/directives/cloudDirective.js',
+                'javascripts/cloud/filters/cloudFilter.js',
+                'javascripts/cloud/services/cloudService.js'
+            ]
         } );
-
     } );
     /*********************************************************************************
      *  API

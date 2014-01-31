@@ -1,43 +1,64 @@
 /*jslint node: true */
 'use strict';
 
-var log = require( global.config.apps.LOGGING ).LOG;
-var Cloud = require( global.config.apps.CLOUD ).Cloud;
+var log = require(global.config.apps.LOGGING).LOG;
+var Cloud = require(global.config.apps.CLOUD).Cloud;
 
-exports.getCloudById = function ( req, res, id ) {
+exports.getCloudById = function (req, res, id) {
     try {
-        Cloud.findById( id, function ( err, cloud ) {
-            if ( err ) {
-                log.error( err.toString() );
-                res.status( 404 );
-                res.send( err );
+        Cloud.findById(id, function (err, cloud) {
+            if (err) {
+                log.error(err.toString());
+                res.status(404);
+                res.send(err);
             } else {
-                res.status( 200 );
-                res.send( cloud );
+                res.status(200);
+                res.send(cloud);
             }
-        } );
-    } catch ( err ) {
-        log.error( err.toString() );
-        res.status( 500 );
-        res.send( err );
+        });
+    } catch (err) {
+        log.error(err.toString());
+        res.status(500);
+        res.send(err);
     }
 };
 
-exports.getUserClouds = function ( req, res ) {
+exports.getUserClouds = function (req, res) {
     try {
-        Cloud.find( { owner: req.user.id }, function ( err, clouds ) {
-            if ( err ) {
-                log.error( err.toString() );
-                res.status( 404 );
-                res.send( err );
+        Cloud.find({ owner: req.user.id }, function (err, clouds) {
+            if (err) {
+                log.error(err.toString());
+                res.status(404);
+                res.send(err);
             } else {
-                res.status( 200 );
-                res.send( clouds );
+                res.status(200);
+                res.send(clouds);
             }
-        } );
-    } catch ( err ) {
-        log.error( err.toString() );
-        res.status( 500 );
-        res.send( err );
+        });
+    } catch (err) {
+        log.error(err.toString());
+        res.status(500);
+        res.send(err);
+    }
+};
+
+// Temporary helper function
+exports.getAllClouds = function (req, res) {
+    try {
+        log.debug('Getting all clouds');
+        Cloud.find({}, function (err, clouds) {
+            if (err) {
+                log.error(err.toString());
+                res.status(404);
+                res.send(err);
+            } else {
+                res.status(200);
+                res.send(clouds);
+            }
+        });
+    } catch (err) {
+        log.error(err.toString());
+        res.status(500);
+        res.send(err);
     }
 };
