@@ -1,7 +1,7 @@
 /*jslint node: true */
 'use strict';
 
-var path = require( 'path' );
+var log = require( global.config.apps.LOGGING ).LOG;
 var LocalStrategy = require( 'passport-local' ).Strategy;
 var GoogleStrategy = require( 'passport-google-oauth' ).OAuth2Strategy;
 var TwitterStrategy = require( 'passport-twitter' ).Strategy;
@@ -9,26 +9,37 @@ var FacebookStrategy = require( 'passport-facebook' ).Strategy;
 var YahooStrategy = require( 'passport-yahoo' ).Strategy;
 var LinkedInStrategy = require( 'passport-linkedin' ).Strategy;
 
-var User = require( path.join( global.config.apps.USER, 'models/user' ) ).User;
+var User = require( global.config.apps.USER ).User;
 
 module.exports = function ( passport ) {
 
     passport.serializeUser( function ( user, done ) {
-        done( null, user.id );
+        try {
+            done( null, user.id );
+        } catch ( err ) {
+            log.error( err.toString() );
+        }
     } );
 
     passport.deserializeUser( function ( id, done ) {
-        User.findOne( {
-            _id: id
-        }, function ( err, user ) {
-            done( err, user );
-        } );
+        try {
+            User.findOne( {
+                _id: id
+            }, function ( err, user ) {
+                done( err, user );
+            } );
+        } catch ( err ) {
+            log.error( err.toString() );
+        }
     } );
 
 
     passport.use( new LocalStrategy(
-        function ( email, password, done ) {
-            User.findOne( { email: email }, function ( err, user ) {
+        function ( username, password, done ) {
+            User.findOne( { $or: [
+                { email: username },
+                { displayName: username }
+            ] }, function ( err, user ) {
                 if ( err ) {
                     return done( err );
                 }

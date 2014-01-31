@@ -4,9 +4,7 @@
 var path = require('path');
 var viewDir = path.join(global.config.apps.USER, 'views');
 var authenticator = require(global.config.apps.AUTHENTICATION);
-
-
-var userApi = require(path.join(global.config.apps.USER, 'api/profile'));
+var userApi = require( path.join( global.config.apps.USER, 'api/userApi' ) );
 
 var routes = function (app) {
 
@@ -54,23 +52,8 @@ var routes = function (app) {
         }
     });
 
-    app.post('/api/user/check/username', authenticator.ensureAuthenticated, function (req, res) {
-        userApi.checkUserName(req.body.displayName).onResolve(function (err, user) {
-            "use strict";
-            if (user) {
-                res.status(403);
-                res.render('signup', {
-                    error: 'Username is already taken'
-                });
-                return;
-            }
-            if (err) {
-                res.status(500);
-                log.error(err.toString());
-                return res.render('signup', { error: err.message });
-            }
-
-        });
+    app.post( '/api/user/check/username', function ( req, res ) {
+        userApi.checkUserName( req, res );
     });
 
 

@@ -2,10 +2,8 @@
 'use strict';
 
 var path = require( 'path' );
-var viewDir = path.join( global.config.apps.AUTHENTICATION, 'views' );
-var loginPath = path.join( viewDir, 'login' );
-var signupPath = path.join( viewDir, 'signup' );
-var User = require( path.join( global.config.apps.USER, 'models/user' ) ).User;
+var authApi = require( path.join( global.config.apps.AUTHENTICATION, 'api/authenticationApi' ) );
+var authLib = require( global.config.apps.AUTHENTICATION );
 var log = require( global.config.apps.LOGGING ).LOG;
 
 
@@ -19,7 +17,7 @@ var routes = function ( app, passport ) {
      * Show login form
      */
     app.get( '/login', function ( req, res ) {
-        res.render( loginPath, {
+        res.render( authLib.loginPath, {
             title: 'Login',
             message: req.flash( 'error' )
         } );
@@ -29,9 +27,8 @@ var routes = function ( app, passport ) {
      * Show sign up form
      */
     app.get( '/signup', function ( req, res ) {
-        res.render( signupPath, {
-            title: 'Sign up',
-            user: new User()
+        res.render( authLib.signupPath, {
+            title: 'Sign up'
         } );
     } );
 
@@ -56,7 +53,7 @@ var routes = function ( app, passport ) {
 
 
     app.post( '/signup', function ( req, res ) {
-        //TODO: Removed previous implementation. Need to come up with secure design for this.
+        authApi.signup( req, res );
     } );
 
     /*********************************************************************************

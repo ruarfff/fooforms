@@ -1,6 +1,11 @@
 /*jslint node: true */
 'use strict';
 
-/**
- * Created on 1/9/14.
- */
+var Cloud = require('../models/cloud').Cloud;
+var cloudCreator = require('./cloudCreator');
+
+
+module.exports = {
+    Cloud: Cloud,
+    createCloud: cloudCreator.createCloud
+};

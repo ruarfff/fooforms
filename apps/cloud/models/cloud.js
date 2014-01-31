@@ -1,10 +1,10 @@
 /*jslint node: true */
 'use strict';
 
-var mongoose = require('mongoose');
+var mongoose = require( 'mongoose' );
 var Schema = mongoose.Schema;
 
-var cloudSchema = Schema({
+var cloudSchema = new Schema( {
     name: String,
     description: String,
     icon: String,
@@ -15,7 +15,7 @@ var cloudSchema = Schema({
         index: true
     },
     owner: { type: Schema.Types.ObjectId, ref: 'User' }
-});
+} );
 
-exports.Cloud = mongoose.model('Cloud', cloudSchema);
+exports.Cloud = mongoose.model( 'Cloud', cloudSchema );
 

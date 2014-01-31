@@ -41,8 +41,6 @@ app.directive('uniqueUsername', ['$http', function ($http) {
     }
 }]);
 
-// http://codepen.io/brunoscopelliti/pen/ECyka
-
 app.directive('match', [function () {
     return {
         require: 'ngModel',
