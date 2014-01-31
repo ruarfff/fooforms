@@ -1,16 +1,21 @@
 /*jslint node: true */
 'use strict';
 process.env.NODE_ENV = process.env.NODE_ENV || 'development';
-var database = require( './apps/database/lib' );
-var User = require( './apps/user/models/user' ).User;
+global.config = require('./config/config');
 
-module.exports = function ( grunt ) {
+var path = require('path');
+var database = require(global.config.apps.DATABASE);
+var User = require(path.join(global.config.apps.USER, 'models/user')).User;
 
-    require( 'load-grunt-tasks' )( grunt );
+var log = require(global.config.apps.LOGGING).LOG;
+
+module.exports = function (grunt) {
+
+    require('load-grunt-tasks')(grunt);
 
 
-    grunt.initConfig( {
-        pkg: grunt.file.readJSON( 'package.json' ),
+    grunt.initConfig({
+        pkg: grunt.file.readJSON('package.json'),
         nodemon: {
             // For development. Nodemon keeps the app running and loads file changes automatically.
             dev: {
@@ -71,57 +76,61 @@ module.exports = function ( grunt ) {
                 }
             }
         }// End mochaTest
-    } );
+    });
 
     // On watch events configure mochaTest to run only on the test if it is one
     // otherwise, run the whole testsuite
-    var defaultSimpleSrc = grunt.config( 'mochaTest.simple.src' );
-    grunt.event.on( 'watch', function ( action, filepath ) {
-        grunt.config( 'mochaTest.simple.src', defaultSimpleSrc );
-        if ( filepath.match( 'test/' ) ) {
-            grunt.config( 'mochaTest.simple.src', filepath );
+    var defaultSimpleSrc = grunt.config('mochaTest.simple.src');
+    grunt.event.on('watch', function (action, filepath) {
+        grunt.config('mochaTest.simple.src', defaultSimpleSrc);
+        if (filepath.match('test/')) {
+            grunt.config('mochaTest.simple.src', filepath);
         }
-    } );
+    });
 
 
-    grunt.registerTask( 'dbdrop', 'drop the database', function () {
+    grunt.registerTask('dbdrop', 'drop the database', function () {
         // async mode
         var done = this.async();
 
         //  var database = require('./apps/database/lib');
 
-        database.connection.on( 'open', function () {
-            database.connection.db.dropDatabase( function ( err ) {
+        database.connection.on('open', function () {
+            database.connection.db.dropDatabase(function (err) {
                 database.closeConnection();
-                if ( err ) {
-                    console.log( 'Error: ' + err );
-                    done( false );
+                if (err) {
+                    log.error('Error: ' + err);
+                    done(false);
                 } else {
-                    console.log( 'Successfully dropped db' );
+                    log.debug('Successfully dropped db');
                     done();
                 }
-            } );
-        } );
+            });
+        });
         database.openConnection();
-    } );
+    });
 
-    grunt.registerTask( 'dbseed', 'seed the database', function () {
-        grunt.task.run( [
-            'adduser:Ruairi:{}:ruairi@fooforms.com:secret1:true:local:Ruairi',
-            'adduser:Brian:{}:brian@fooforms.com:secret2:true:local:Brian',
-            'adduser:bob:{}:bob@gmail.com:secret3:false:local:Bob',
-            'adduser:mary:{}:mary@gmail.com:secret4:false:local:Mary'
-        ] );
-    } );
+    grunt.registerTask('dbseed', 'seed the database', function () {
+        grunt.task.run([
+            'adduser:Ruairi:O Brien:Ruairi:Tomas:ruairi@fooforms.com:secret1:true:local',
+            'adduser:Brian:McAuliffe::brian@fooforms.com:secret2:true:local',
+            'adduser:bob:Murphy:Bob:James:bob@gmail.com:secret3:false:local',
+            'adduser:mary:Doe:Mary:Burt:mary@gmail.com:secret4:false:local'
+        ]);
+    });
 
-    grunt.registerTask( 'adduser', 'add a user to the database', function ( displayName, name, emailaddress, password, admin, provider ) {
+    grunt.registerTask('adduser', 'add a user to the database', function (displayName, familyName, givenName, middleName, emailaddress, password, admin, provider) {
         var done = this.async();
         // convert adm string to bool
         admin = (admin === "true");
         var user = new User(
             {
                 displayName: displayName,
-                name: name,
+                name: {
+                    familyName: familyName,
+                    givenName: givenName,
+                    middleName: middleName
+                },
                 email: emailaddress,
                 password: password,
                 admin: admin,
@@ -129,24 +138,80 @@ module.exports = function ( grunt ) {
             }
         );
         database.openConnection();
-        console.log( user.displayName );
-        console.log( user.email );
+        log.debug(user.displayName);
+        log.debug(user.email);
 
-        user.save( function ( err ) {
+        user.save(function (err) {
             database.closeConnection();
-            if ( err ) {
-                console.log( 'Error: ' + err );
-                done( false );
+            if (err) {
+                log.error('Error: ' + err);
+                done(false);
             } else {
-                console.log( 'saved user: ' + user.displayName );
+                log.debug('saved user: ' + user.displayName);
                 done();
             }
-        } );
+        });
 
-    } );
+    });
+
+    grunt.registerTask('addCloud', 'add a cloud to the database', function (name, description, icon, menuLabel, type, owner) {
+
+        var done = this.async();
+        var cloud = new Cloud(
+            {
+                name: name,
+                description: description,
+                icon: icon,
+                menuLabel: menuLabel,
+                owner: owner
+            }
+        );
+        database.openConnection();
+        log.debug(cloud.name);
+
+        cloud.save(function (err) {
+            database.closeConnection();
+            if (err) {
+                log.error('Error: ' + err);
+                done(false);
+            } else {
+                log.debug('saved cloud: ' + cloud.name);
+                done();
+            }
+        });
+
+    });
+
+    grunt.registerTask('addApp', 'add an app to the database', function (name, description, icon, menuLabel, type, owner) {
+
+        var done = this.async();
+        var app = new App(
+            {
+                name: name,
+                description: description,
+                icon: icon,
+                menuLabel: menuLabel,
+                owner: owner
+            }
+        );
+        database.openConnection();
+        log.debug(app.name);
+
+        app.save(function (err) {
+            database.closeConnection();
+            if (err) {
+                log.error('Error: ' + err);
+                done(false);
+            } else {
+                log.debug('saved app: ' + app.name);
+                done();
+            }
+        });
+
+    });
 
 
-    grunt.registerTask( 'dev', ['concurrent:dev'] );
-    grunt.registerTask( 'default', ['watch'] );
+    grunt.registerTask('dev', ['concurrent:dev']);
+    grunt.registerTask('default', ['watch']);
 
 };

@@ -1,8 +1,12 @@
 /*jslint node: true */
 'use strict';
 
-var authentication = require( './lib' );
-var User = require( '../user/models/user' ).User;
+var path = require( 'path' );
+var viewDir = path.join( global.config.apps.AUTHENTICATION, 'views' );
+var loginPath = path.join( viewDir, 'login' );
+var signupPath = path.join( viewDir, 'signup' );
+var User = require( path.join( global.config.apps.USER, 'models/user' ) ).User;
+var log = require( global.config.apps.LOGGING ).LOG;
 
 
 var routes = function ( app, passport ) {
@@ -15,7 +19,7 @@ var routes = function ( app, passport ) {
      * Show login form
      */
     app.get( '/login', function ( req, res ) {
-        res.render( authentication.loginPath, {
+        res.render( loginPath, {
             title: 'Login',
             message: req.flash( 'error' )
         } );
@@ -25,7 +29,7 @@ var routes = function ( app, passport ) {
      * Show sign up form
      */
     app.get( '/signup', function ( req, res ) {
-        res.render( authentication.signupPath, {
+        res.render( signupPath, {
             title: 'Sign up',
             user: new User()
         } );
@@ -39,6 +43,7 @@ var routes = function ( app, passport ) {
      * Logout
      */
     app.get( '/logout', function ( req, res ) {
+        log.debug( res.user.displayName + ' logging out' );
         req.logout();
         res.redirect( '/' );
     } );
@@ -51,16 +56,14 @@ var routes = function ( app, passport ) {
 
 
     app.post( '/signup', function ( req, res ) {
-        var userApi = require( authentication.userApi );
-        userApi.create( req, res, function ( err ) {
-            console.log( err.toString() );
-        } );
+        //TODO: Removed previous implementation. Need to come up with secure design for this.
     } );
 
     /*********************************************************************************
      *  Provider Handlers
      *********************************************************************************/
-
+    var successRedirect = '/dashboard';
+    var failureRedirect = '/login';
 
     app.get( '/auth/google',
         passport.authenticate( 'google', {
@@ -68,27 +71,27 @@ var routes = function ( app, passport ) {
                 'https://www.googleapis.com/auth/userinfo.email']
         } ),
         function () {
-            // The request will be redirected to Google for authentication, so this
+            // The request will be redirected to Google for authenticator, so this
             // function will not be called.
         } );
 
     app.get( '/auth/google/return',
-        passport.authenticate( 'google', { failureRedirect: '/login' } ),
+        passport.authenticate( 'google', { failureRedirect: failureRedirect } ),
         function ( req, res ) {
-            res.redirect( '/' );
+            res.redirect( successRedirect );
         } );
 
 
     app.get( '/auth/twitter', passport.authenticate( 'twitter' ) );
 
     //Twitter will redirect the user to this URL after approval.  Finish the
-    //authentication process by attempting to obtain an access token.  If
+    //authenticator process by attempting to obtain an access token.  If
     //access was granted, the user will be logged in.  Otherwise,
-    //authentication has failed.
+    //authenticator has failed.
     app.get( '/auth/twitter/callback',
         passport.authenticate( 'twitter', {
-            successRedirect: '/',
-            failureRedirect: '/login'
+            successRedirect: successRedirect,
+            failureRedirect: failureRedirect
         } ) );
 
     app.get( '/auth/facebook',
@@ -97,33 +100,33 @@ var routes = function ( app, passport ) {
 
     app.get( '/auth/facebook/callback',
         passport.authenticate( 'facebook', {
-            successRedirect: '/',
-            failureRedirect: '/login'
+            successRedirect: successRedirect,
+            failureRedirect: failureRedirect
         } ) );
 
     app.get( '/auth/yahoo',
-        passport.authenticate( 'yahoo', { failureRedirect: '/login' } ),
+        passport.authenticate( 'yahoo', { failureRedirect: failureRedirect } ),
         function ( req, res ) {
-            res.redirect( '/' );
+            res.redirect( successRedirect );
         } );
 
     app.get( '/auth/yahoo/return',
-        passport.authenticate( 'yahoo', { failureRedirect: '/login' } ),
+        passport.authenticate( 'yahoo', { failureRedirect: failureRedirect } ),
         function ( req, res ) {
-            res.redirect( '/' );
+            res.redirect( successRedirect );
         } );
 
     app.get( '/auth/linkedin',
         passport.authenticate( 'linkedin' ),
         function () {
-            // The request will be redirected to LinkedIn for authentication, so this
+            // The request will be redirected to LinkedIn for authenticator, so this
             // function will not be called.
         } );
 
     app.get( '/auth/linkedin/callback',
-        passport.authenticate( 'linkedin', { failureRedirect: '/login' } ),
+        passport.authenticate( 'linkedin', { failureRedirect: failureRedirect } ),
         function ( req, res ) {
-            res.redirect( '/' );
+            res.redirect( successRedirect );
         } );
 
 };

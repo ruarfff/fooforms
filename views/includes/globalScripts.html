@@ -1,23 +1,21 @@
-<script src="https://code.jquery.com/jquery-1.10.2.min.js"></script>
-<script src="//ajax.googleapis.com/ajax/libs/jqueryui/1.10.3/jquery-ui.min.js"></script>
-<script src="//netdna.bootstrapcdn.com/bootstrap/3.0.3/js/bootstrap.min.js"></script>
-<script src="//ajax.googleapis.com/ajax/libs/angularjs/1.2.8/angular.min.js"></script>
-<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.2.0rc1/angular-route.min.js"></script>
-<script src="//cdnjs.cloudflare.com/ajax/libs/angular-ui-bootstrap/0.10.0/ui-bootstrap.js"></script>
+<script type="text/javascript" src="//code.jquery.com/jquery-1.10.2.min.js"></script>
+<script type="text/javascript" src="//netdna.bootstrapcdn.com/bootstrap/3.0.3/js/bootstrap.min.js"></script>
+<script type="text/javascript" src="//ajax.googleapis.com/ajax/libs/angularjs/1.2.8/angular.min.js"></script>
+<script type="text/javascript" src=" //cdn.jsdelivr.net/underscorejs/latest/underscore-min.js"></script>
+<script type="text/javascript" src="//cdn.jsdelivr.net/restangular/latest/restangular.min.js"></script>
 
-<script src="/javascripts/underscore.js"></script>
-<script src="/javascripts/appbuilder/app/appBuilder.js"></script>
-<script src="/javascripts/appbuilder/controllers/controllers.js"></script>
-<script src="/javascripts/appbuilder/directives/directives.js"></script>
-<script src="/javascripts/appbuilder/filters/filters.js"></script>
-<script src="/javascripts/appbuilder/services/services.js"></script>
-
+<% if( scripts ) { %>
+<% for(var i=0; i
+<scripts.length; i++) {%>
+<script type="text/javascript" src="<%= scripts[i] %>"></script>
+<% } %>
+<% } %>
 
 
 <script>
     //Temporary solution here. Will move to external file once I figure out the structure for the client code.
-    $( function () {
+    $(function () {
         var path = window.location.pathname;
-        $( 'div#left-panel li a[href$="' + path + '"]' ).parents( 'li' ).addClass( 'active' );
-    } );
+        $('nav li a[href$="' + path + '"]').parents('li').addClass('active');
+    });
 </script>

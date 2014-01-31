@@ -1,6 +1,7 @@
 /*jslint node: true */
 'use strict';
 
+var path = require( 'path' );
 var LocalStrategy = require( 'passport-local' ).Strategy;
 var GoogleStrategy = require( 'passport-google-oauth' ).OAuth2Strategy;
 var TwitterStrategy = require( 'passport-twitter' ).Strategy;
@@ -8,8 +9,7 @@ var FacebookStrategy = require( 'passport-facebook' ).Strategy;
 var YahooStrategy = require( 'passport-yahoo' ).Strategy;
 var LinkedInStrategy = require( 'passport-linkedin' ).Strategy;
 
-var configuration = require( './config' );
-var User = require( '../apps/user/models/user' ).User;
+var User = require( path.join( global.config.apps.USER, 'models/user' ) ).User;
 
 module.exports = function ( passport ) {
 
@@ -47,7 +47,7 @@ module.exports = function ( passport ) {
     passport.use( new GoogleStrategy( {
             clientID: '150320538991.apps.googleusercontent.com',
             clientSecret: 'yD0Q6YxFTO-MF8LowWyDeWNB',
-            callbackURL: "http://" + configuration.serverAddress + "/auth/google/return",
+            callbackURL: "http://" + global.config.serverAddress + "/auth/google/return",
             profileFields: ['id', 'email', 'displayName', 'photos']
         },
         function ( accessToken, refreshToken, profile, done ) {
@@ -74,7 +74,7 @@ module.exports = function ( passport ) {
     passport.use( new TwitterStrategy( {
             consumerKey: 'nhWoUHO6Qtxp947zr6RSuA',
             consumerSecret: 'upXOlY7vVZsjCwhZKd7xPOVRr4Sd6F0lHxAHSOL7k',
-            callbackURL: "http://" + configuration.serverAddress + "/auth/twitter/callback",
+            callbackURL: "http://" + global.config.serverAddress + "/auth/twitter/callback",
             profileFields: ['id', 'email', 'displayName', 'photos']
         },
         function ( token, tokenSecret, profile, done ) {
@@ -101,7 +101,7 @@ module.exports = function ( passport ) {
     passport.use( new FacebookStrategy( {
             clientID: '549767738378698',
             clientSecret: '3af17cc1e7c7e55df543e39ba3863116',
-            callbackURL: "http://" + configuration.serverAddress + "/auth/facebook/callback",
+            callbackURL: "http://" + global.config.serverAddress + "/auth/facebook/callback",
             profileFields: ['id', 'email', 'name', 'picture']
         },
         function () {
@@ -110,8 +110,8 @@ module.exports = function ( passport ) {
     ) );
 
     passport.use( new YahooStrategy( {
-            returnURL: "http://" + configuration.serverAddress + "/auth/yahoo/return",
-            realm: "http://" + configuration.serverAddress + "/"
+            returnURL: "http://" + global.config.serverAddress + "/auth/yahoo/return",
+            realm: "http://" + global.config.serverAddress + "/"
         },
         function ( identifier, profile, done ) {
             User.findOne( { uid: profile.id }, function ( err, user ) {
@@ -138,7 +138,7 @@ module.exports = function ( passport ) {
     passport.use( new LinkedInStrategy( {
             consumerKey: "u66njfbi0s24",
             consumerSecret: "Xqtv04BVQbuc9nQW",
-            callbackURL: "http://" + configuration.serverAddress + "/auth/linkedin/callback"
+            callbackURL: "http://" + global.config.serverAddress + "/auth/linkedin/callback"
         },
         function ( token, tokenSecret, profile, done ) {
             User.findOne( { uid: profile.id }, function ( err, user ) {

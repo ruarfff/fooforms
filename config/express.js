@@ -6,13 +6,13 @@ var engine = require('ejs-locals');
 var flash = require('connect-flash');
 var helpers = require('view-helpers');
 var fs = require('fs');
-var config = require('./config');
+var log4js = require('log4js');
+var log = require(global.config.apps.LOGGING).LOG;
+
 
 module.exports = function (app, passport) {
-    var expressLogFile = fs.createWriteStream(config.root + '/logs/express.log', {flags: 'a'});
 
     app.set('showStackError', true);
-
     //Should be placed before express.static
     app.use(express.compress({
         filter: function (req, res) {
@@ -23,29 +23,28 @@ module.exports = function (app, passport) {
 
     //Don't use logger for test env
     if (process.env.NODE_ENV !== 'test') {
-        app.use(express.logger({stream: expressLogFile}));
+        app.use(log4js.connectLogger(log, { level: 'auto' }));
     }
 
     app.configure(function () {
-        app.set('title', config.app.name);
-        app.set('port', config.port);
-        app.set('views', config.root + '/views');
-        app.set('uploads', config.root + '/uploads');
+        app.set('title', global.config.app.name);
+        app.set('port', global.config.port);
+        app.set('views', global.config.root + '/views');
+        app.set('uploads', global.config.root + '/uploads');
         app.engine('html', engine);
         app.set('view engine', 'html');
         app.use(express.favicon());
-        app.use(require('less-middleware')({ src: config.root + '/public' }));
-        app.use(express.static(config.root + '/public'));
-        app.use( express.json() );
-        app.use( express.urlencoded() );
+        app.use(require('less-middleware')({ src: global.config.root + '/public' }));
+        app.use(express.static(global.config.root + '/public'));
+        app.use(express.json());
+        app.use(express.urlencoded());
         app.use(express.methodOverride());
         app.use(express.cookieParser('f0of09m5s3ssi0n'));
         app.use(express.session({ secret: 'f0of09m5s3ssi0n' }));
         app.use(flash());
-        app.use(helpers(config.app.name));
+        app.use(helpers(global.config.app.name));
         app.use(passport.initialize());
         app.use(passport.session());
-        app.use('/zxcvbn', express.static('node_modules/zxcvbn'));
     });
 
     // development only

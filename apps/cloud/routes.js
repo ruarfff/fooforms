@@ -1,10 +1,9 @@
 /*jslint node: true */
 'use strict';
 
-var config = require( '../../config/config' );
-var viewDir = config.root + '/apps/cloud/views';
-var authentication = require( '../authentication/lib' );
 var path = require( 'path' );
+var viewDir = path.join( global.config.apps.CLOUD, 'views' );
+var authenticator = require( global.config.apps.AUTHENTICATION );
 
 
 var routes = function ( app ) {
@@ -12,7 +11,7 @@ var routes = function ( app ) {
     /*********************************************************************************
      *  View Handlers
      *********************************************************************************/
-    app.get( '/clouds', authentication.ensureAuthenticated, function ( req, res ) {
+    app.get( '/clouds', authenticator.ensureAuthenticated, function ( req, res ) {
         var user = req.user;
 
         res.render( path.join( viewDir, 'index' ), {
@@ -24,7 +23,7 @@ var routes = function ( app ) {
      *  API
      *********************************************************************************/
 
-    app.get( '/api/clouds', authentication.ensureAuthenticated, function ( req, res ) {
+    app.get( '/api/clouds', authenticator.ensureAuthenticated, function ( req, res ) {
 
 
     } );

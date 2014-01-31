@@ -1,20 +1,14 @@
 /*jslint node: true */
 'use strict';
 
-var config = require( '../../config/config' );
-var viewDir = config.root + '/apps/dashboard/views';
-var authentication = require( '../authentication/lib' );
+var path = require( 'path' );
+var viewDir = path.join( global.config.apps.DASHBOARD, 'views' );
+var authenticator = require( global.config.apps.AUTHENTICATION );
 
 var routes = function ( app ) {
 
-    app.get( '/dashboard', authentication.ensureAuthenticated, function ( req, res ) {
-        var find = '/';
-        var re = new RegExp( find, 'g' );
-
-        var cloudName = req.originalUrl.replace( re, '' );
+    app.get( '/dashboard', authenticator.ensureAuthenticated, function ( req, res ) {
         res.render( viewDir + '/index', {
-            cloud: cloudName,
-            isCloud: 'false',
             user: req.user,
             title: 'Dashboard'
         } );

@@ -1,15 +1,6 @@
-var path = require('path');
+var path = require( 'path' );
 
-var rootPath = path.normalize(__dirname + '/../..');
-
-var openshiftDbConfig = {
-    "hostname": process.env.OPENSHIFT_MONGODB_DB_HOST,
-    "port": process.env.OPENSHIFT_MONGODB_DB_PORT,
-    "username": "admin",
-    "password": "hE6DLZs5m4C4",
-    "name": "admin",
-    "db": "fooforms"
-};
+var rootPath = path.normalize( __dirname + '/../..' );
 
 var devDbConfig = {
     "hostname": 'localhost',
@@ -20,9 +11,41 @@ var devDbConfig = {
     "db": "test"
 };
 
+/* Convenience paths to apps and other components */
+var adminDir = path.join( rootPath, 'apps/admin' );
+var appDir = path.join( rootPath, 'apps/app' );
+var authenticationDir = path.join( rootPath, 'apps/authentication' );
+var cloudDir = path.join( rootPath, 'apps/cloud' );
+var dashboardDir = path.join( rootPath, 'apps/dashboard' );
+var databaseDir = path.join( rootPath, 'apps/database' );
+var loggingDir = path.join( rootPath, 'apps/logging' );
+var userDir = path.join( rootPath, 'apps/user' );
+
+/**
+ * Enumerator to allow easy access to absolute application root paths.
+ */
+var apps = {
+    "ADMIN": adminDir,
+    "APP": appDir,
+    "AUTHENTICATION": authenticationDir,
+    "CLOUD": cloudDir,
+    "DASHBOARD": dashboardDir,
+    "DATABASE": databaseDir,
+    "LOGGING": loggingDir,
+    "USER": userDir
+};
+
+var mainLayoutPath = path.join( rootPath, 'views/layouts/globalLayout.html' );
+
+var layouts = {
+    "MAIN": mainLayoutPath
+};
+
 module.exports = {
     root: rootPath,
-    port: process.env.OPENSHIFT_NODEJS_PORT || process.env.PORT || 3000,
-    mongo: (typeof process.env.OPENSHIFT_APP_NAME !== 'undefined') ? openshiftDbConfig : devDbConfig
+    port: process.env.PORT || 3000,
+    database: devDbConfig,
+    apps: apps,
+    layouts: layouts
 }
 

@@ -6,7 +6,7 @@ var Schema = mongoose.Schema;
 var crypto = require('crypto');
 var authTypes = ['github', 'twitter', 'facebook', 'google', 'yahoo', 'linkedin'];
 
-var UserSchema = new Schema({
+var userSchema = new Schema({
     name: {
         familyName: String,
         givenName: String,
@@ -14,12 +14,14 @@ var UserSchema = new Schema({
     },
     displayName: {
         type: String,
-        requires: true,
-        unique: true
+        required: true,
+        unique: true,
+        index: true
     },
     email: {
         type: String,
-        required: true
+        required: true,
+        index: true
     },
     password: {
         type: String,
@@ -29,7 +31,9 @@ var UserSchema = new Schema({
         type: Boolean,
         required: true
     },
-    photo: String,
+    photo: {
+        type: String
+    },
     provider: String,
     salt: String,
     facebook: {},
@@ -41,21 +45,21 @@ var UserSchema = new Schema({
 });
 
 
-UserSchema.path('email').validate(function(email) {
+userSchema.path('email').validate(function (email) {
     if (authTypes.indexOf(this.provider) !== -1) {
         return true;
     }
     return email.length;
 }, 'Email cannot be blank');
 
-UserSchema.path( 'displayName' ).validate( function ( displayName ) {
+userSchema.path('displayName').validate(function (displayName) {
     if (authTypes.indexOf(this.provider) !== -1) {
         return true;
     }
     return displayName.length;
 }, 'Username cannot be blank');
 
-UserSchema.path('password').validate(function(password) {
+userSchema.path('password').validate(function (password) {
     if (authTypes.indexOf(this.provider) !== -1) {
         return true;
     }
@@ -67,15 +71,17 @@ UserSchema.path('password').validate(function(password) {
  * @param value
  * @returns If the value is null or has no length(empty)
  */
-var notNullOrEmpty = function(value) {
+var notNullOrEmpty = function (value) {
     return value && value.length;
 };
 
 /**
  * Pre-save hook
  */
-UserSchema.pre('save', function(next) {
+userSchema.pre('save', function (next) {
+    console.log('saving');
     if (!this.isNew) {
+        console.log('saving2');
         return next();
     }
     this._password = this.password;
@@ -91,10 +97,11 @@ UserSchema.pre('save', function(next) {
     }
 });
 
+
 /**
  * Methods
  */
-UserSchema.methods = {
+userSchema.methods = {
     /**
      * Authenticate - check if the passwords are the same
      *
@@ -102,7 +109,7 @@ UserSchema.methods = {
      * @return {Boolean}
      * @api public
      */
-    authenticate: function(plainText) {
+    authenticate: function (plainText) {
         return this.encryptPassword(plainText) === this.password;
     },
 
@@ -112,7 +119,7 @@ UserSchema.methods = {
      * @return {String}
      * @api public
      */
-    makeSalt: function() {
+    makeSalt: function () {
         return Math.round((new Date().valueOf() * Math.random())) + '';
     },
 
@@ -123,7 +130,7 @@ UserSchema.methods = {
      * @return {String}
      * @api public
      */
-    encryptPassword: function(password) {
+    encryptPassword: function (password) {
         if (!password) {
             return '';
         }
@@ -131,5 +138,21 @@ UserSchema.methods = {
     }
 };
 
-var User = mongoose.model('User', UserSchema);
-exports.User = User;
+/**
+ *
+ * Query Helpers
+ *
+ */
+
+userSchema.statics.findByDisplayName = function (displayName, next) {
+    this.find({ displayName: new RegExp(displayName, 'i') }, next);
+};
+
+userSchema.statics.findUserByEmail = function (email, next) {
+    this.find({ email: email }, next);
+};
+
+
+userSchema.set('autoIndex', false);
+
+exports.User = mongoose.model('User', userSchema);
