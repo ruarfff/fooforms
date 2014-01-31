@@ -1,161 +1,228 @@
+<div id="appBuilderMenu">
+<ul id='optionTabs' class="nav nav-tabs">
+    <li class="active"><a id='appTabFields' href="#appTabs-fields" data-toggle="tab">Fields</a></li>
+    <li><a id='appTabSettings' href="#appTabs-settings" data-toggle="tab">Settings</a></li>
+</ul>
+<div class="tab-content white p5">
+<div id="appTabs-fields" class="tab-pane active">
+
+    <div class="panel-group" id="accordion">
 
 
-    <div id="appBuilderMenu" >
-        <ul id='optionTabs' class="nav nav-tabs">
-            <li class="active"><a id='appTabFields' href="#appTabs-fields" data-toggle="tab">Fields</a></li>
-            <li><a id='appTabSettings' href="#appTabs-settings" data-toggle="tab">Settings</a></li>
-        </ul>
-        <div class="tab-content">
-            <div id="appTabs-fields" class="tab-pane active alert">
-
-                <div class="panel-group" id="accordion">
-
-
-                <div class="panel panel-success">
-                    <div class="panel-heading">
-                        <h4 class="panel-title">
-                            <a class='center-block' data-toggle="collapse" data-parent="#accordion" href="#collapseOne">
-                                Common
-                            </a>
-                        </h4>
-                    </div>
+        <div class="panel panel-info">
+            <div class="panel-heading">
+                <h6 class="panel-title">
+                    <a class='center-block' data-toggle="collapse" data-parent="#accordion" href="#collapseOne">
+                        Standard
+                    </a>
+                </h6>
+            </div>
                     <div id="collapseOne" class="panel-collapse collapse in">
                         <div class="panel-body">
-                            <div class="m0 p0">
-                                <div class='fieldObject btn btn-default'
-                                    ng-repeat='inputType in inputTypes'
-                                    ng-show="inputType.name"
-                                    draggable="inputType"
-                                    draggable-target="#appFields">
-                                    {{inputType.name}}
-                              </div>
-                            </div>
+                            <ul class="list-group">
+                                <div class='fieldObject list-group-item'
+                                     ng-repeat='inputType in inputTypes'
+                                     ng-show="inputType.name"
+                                     draggable="inputType"
+                                     ng-border="showBorders(show)"
+                                     ng-showBorder="showBorders(show)"
+                                     draggable-target="#appFields"
+                                        >
+                                {{inputType.name}}
+                                </div>
+                            </ul>
                         </div>
                     </div>
 
                 </div>
 
 
-                    <div class="panel panel-info">
-                        <div class="panel-heading">
-                            <h4 class="panel-title">
-                                <a class='center-block' data-toggle="collapse" data-parent="#accordion" href="#collapseTwo">
-                                    User
-                                </a>
-                            </h4>
+        <div class="panel panel-info">
+            <div class="panel-heading">
+                <h6 class="panel-title">
+                    <a class='center-block' data-toggle="collapse" data-parent="#accordion" href="#collapseTwo">
+                        User Related
+                    </a>
+                </h6>
+            </div>
+            <div id="collapseTwo" class="panel-collapse collapse">
+                <div class="panel-body">
+                    <ul class="list-group">
+                        <div class='fieldObject list-group-item'
+                             ng-repeat='inputType in inputTypes'
+                             ng-show="inputType.name"
+                             draggable="inputType"
+                             ng-border="showBorders(show)"
+                             ng-showBorder="showBorders(show)"
+                             draggable-target="#appFields"
+                                >
+                            {{inputType.name}}
                         </div>
-                        <div id="collapseTwo" class="panel-collapse collapse">
-                            <div class="panel-body">
+                    </ul>
+                </div>
+            </div>
 
-                            </div>
+        </div>
+
+        <div class="panel panel-info">
+            <div class="panel-heading">
+                <h6 class="panel-title">
+                    <a class='center-block' data-toggle="collapse" data-parent="#accordion" href="#collapseThree">
+                        Advanced
+                    </a>
+                </h6>
+            </div>
+            <div id="collapseThree" class="panel-collapse collapse">
+                <div class="panel-body">
+                    <ul class="list-group">
+                        <div class='fieldObject list-group-item'
+                             ng-repeat='inputType in inputTypes'
+                             ng-show="inputType.name"
+                             draggable="inputType"
+                             ng-border="showBorders(show)"
+                             ng-showBorder="showBorders(show)"
+                             draggable-target="#appFields"
+                                >
+                            {{inputType.name}}
                         </div>
-
-                    </div>
-
-
-                    </div>
-            </div>
-
-
-            <div id="appTabs-settings" class="tab-pane">
-                <div class='alert alert-danger'>
-                    {{appFields[nowEditing].name}} - {{nowEditing}}
-
-                    No Field Items have been selected. Drag fields to the form, then edit.
-                </div>
-
-                <div id="FieldSettings" class="alert-info" >
-                    <form class="form-horizontal container" role="form">
-                    <div class="form-group">
-                    <label class="col-sm-4 control-label">Field Label</label>
-                        <div class="col-sm-8">
-                    <input type='text' class="form-control" ng-model="appFields[nowEditing].label" />
-                            </div>
-                    </div>
-                        <div class="form-group">
-                            <label class="col-sm-4 control-label">Box size</label><div class="col-sm-8">
-                    <input type="range" name="points" min="1" max="12" ng-model="appFields[nowEditing].boxSize">
-                        </div> </div>
-                        <div class="form-group">
-                            <label class="col-sm-4 control-label">Field size</label><div class="col-sm-8">
-                    <input type="range" name="points" min="10" max="100" ng-model="appFields[nowEditing].size">
-
-                        </div> </div>
-                        <div class="form-group">
-                            <label class="col-sm-4 control-label">Use as Post Title </label><div class="col-sm-8">
-                            <input type='checkbox' name='useAsTitle' id='useAsTitle' ></label>
-                        </div> </div>
-                        <div class="form-group">
-                            <label class="col-sm-4 control-label">Required </label> <div class="col-sm-8">
-                            <input type='checkbox' ng-model="appFields[nowEditing].required"></label>
-                        </div> </div>
-                        <div class="form-group">
-                            <label class="col-sm-4 control-label">Placeholder</label><div class="col-sm-8">
-                    <input type='text' name='defaultValue' id='defaultValue' ng-model="appFields[nowEditing].placeholder"/>
-                        </div> </div>
-                        <div class="form-group">
-                            <label class="col-sm-4 control-label">Instructions for user</label><div class="col-sm-8">
-                    <input type='text' name='userInstructions' id='userInstructions' ng-model="appFields[nowEditing].userInstructions"/>
-</div> </div>
-               </form>
+                    </ul>
                 </div>
             </div>
 
-
-            <div id="appTabs-app" class="tab-pane alert alert-success">
-
-                <label>App Name</label>
-                <input type='text' name='appName' id='txbxAppName' value='Untitled App'/>
-                <label>Description</label>
-                <textarea name='appDescription' id='txareaAppDescription'>This is the app that I built to get stuff
-                    done.</textarea>
-
-                <label>Icon</label>
-
-                <div>
-                    <input type='hidden' name='icon' id='icon' value='1'/>
-                    <img id='img_icon' class='icon' src='http://www.cloudthingy.com/app/dispatch.php?id=95'/>
-
-                    <input class='fileuploader btn' name="file_icon" id='file_icon' type="file"/>
-                    <progress id='progress' style='display:none;'></progress>
-                </div>
-                <fieldset>
-                    <legend>Display Options</legend>
-                    <label>Menu Label</label>
-                    <input type='text' name='menuLabel' id='menuLabel' value='Untitled App'/>
-                    <label>New Button Label</label>
-                    <input type='text' name='newButtonLabel' id='newButtonLabel' value='Create New'/>
-                    <label>Display Posts as</label>
-                    <select name='feedDisplayStyle' id='feedDisplayStyle'>
-                        <option>Feed</option>
-                        <option>Grid</option>
-                        <option>Bucket</option>
-                    </select>
-                </fieldset>
-
-                <fieldset>
-                    <legend>Engagement</legend>
-                    <label>Allow Comments</label>
-                    Yes<input type='radio' name='allowComments' id=allowComments checked value='1'/> No<input
-                        type='radio' name='allowComments' id=noallowComments value='0'/>
-                    <label>Minimum level to View</label>
-                    <select name='minimumViewLevel' id='minimumViewLevel'>
-                        <option>Visitor</option>
-                        <option>Fan</option>
-                        <option>Staff</option>
-                        <option>Manager</option>
-                        <option>Admin</option>
-                    </select>
-                    <label>Minimum level to Post</label>
-                    <select name='minimumPostLevel' id='minimumPostLevel'>
-                        <option>Visitor</option>
-                        <option>Fan</option>
-                        <option>Staff</option>
-                        <option>Manager</option>
-                        <option>Admin</option>
-                    </select>
-                </fieldset>
-
-            </div>
         </div>
     </div>
+</div>
+
+
+<div id="appTabs-settings" class="tab-pane">
+    <div class='alert-warning m5 p5' ng-show="nowEditing>=0">
+        <h4> {{app.fields[nowEditing].name}} </h4>
+    </div>
+
+    <div id="FieldSettings" class="blockInsert"
+         ng-show="showFieldSettings">
+
+        <form class="form-horizontal container" role="form">
+            <div class="form-group">
+                <label class="col-sm-4 control-label">Field Label</label>
+
+                <div class="col-sm-8">
+                    <input type='text' class="form-control" ng-model="app.fields[nowEditing].label"/>
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="col-sm-4 control-label">Box size</label>
+
+                <div class="col-sm-8">
+                    <input type="range" name="points" min="1" max="12"
+                           ng-model="app.fields[nowEditing].boxSize">
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="col-sm-4 control-label">Field size</label>
+
+                <div class="col-sm-8">
+                    <input type="range" name="points" min="10" max="100" ng-model="app.fields[nowEditing].size">
+
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="col-sm-4 control-label">Use as Post Title </label>
+
+                <div class="col-sm-8">
+                    <input type='checkbox' name='useAsTitle' id='useAsTitle'></label>
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="col-sm-4 control-label">Required </label>
+
+                <div class="col-sm-8">
+                    <input type='checkbox' ng-model="app.fields[nowEditing].required"></label>
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="col-sm-4 control-label">Placeholder</label>
+
+                <div class="col-sm-8">
+                    <input type='text' class="form-control"
+                           ng-model="app.fields[nowEditing].placeholder"/>
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="col-sm-4 control-label">Instructions for user</label>
+
+                <div class="col-sm-8">
+                    <input type='text' class="form-control"
+                           ng-model="app.fields[nowEditing].userInstructions"/>
+                </div>
+            </div>
+        </form>
+    </div>
+    <div id="AppSettings" class="blockInsert"
+         ng-show="showAppSettings">
+
+        <form class="form-horizontal container" role="form">
+            <div class="form-group">
+                <label class="col-sm-4 control-label">App Name</label>
+                <input type='text' class="form-control" ng-model="app.name"/>
+            </div>
+            <form class="form-horizontal container" role="form">
+                <div class="form-group">
+                    <label class="col-sm-4 control-label">Description</label>
+                    <textarea class="form-control" ng-model="app.description"></textarea>
+                </div>
+                <form class="form-horizontal container" role="form">
+                    <div class="form-group">
+                        <label class="col-sm-4 control-label">Icon</label>
+
+                        <div>
+
+                            <img class='icon' ng-src="/icons/color/{{app.icon}}"/>
+                            <button class="btn btn-default" ng-click="open()">Change!</button>
+                            <div ng-show="selected">Selection from a modal: {{ selected }}</div>
+
+
+                        </div>
+                    </div>
+                    <fieldset>
+                        <legend>Display Options</legend>
+                        <label>Menu Label</label>
+                        <input type='text' name='menuLabel' id='menuLabel' value='Untitled App'/>
+                        <label>New Button Label</label>
+                        <input type='text' name='newButtonLabel' id='newButtonLabel' value='Create New'/>
+                        <label>Display Posts as</label>
+                        <select name='feedDisplayStyle' id='feedDisplayStyle'>
+                            <option>Feed</option>
+                            <option>Grid</option>
+                            <option>Bucket</option>
+                        </select>
+                    </fieldset>
+
+                    <fieldset>
+                        <legend>Engagement</legend>
+                        <label>Allow Comments</label>
+                        Yes<input type='radio' name='allowComments' id=allowComments checked value='1'/>
+                        No<input
+                            type='radio' name='allowComments' id=noallowComments value='0'/>
+                        <label>Minimum level to View</label>
+                        <select name='minimumViewLevel' id='minimumViewLevel'>
+                            <option>Visitor</option>
+                            <option>Fan</option>
+                            <option>Staff</option>
+                            <option>Manager</option>
+                            <option>Admin</option>
+                        </select>
+                        <label>Minimum level to Post</label>
+                        <select name='minimumPostLevel' id='minimumPostLevel'>
+                            <option>Visitor</option>
+                            <option>Fan</option>
+                            <option>Staff</option>
+                            <option>Manager</option>
+                            <option>Admin</option>
+                        </select>
+                    </fieldset>
+
+    </div>
+    </form>      </div>
+</div>
+</div>

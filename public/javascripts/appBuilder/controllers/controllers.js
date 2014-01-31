@@ -2,52 +2,113 @@
 
 /* Controllers */
 
-angular.module( 'appBuilder.controllers', [] ).
-    controller( 'fieldsCtrl', ['$scope','$http', 'DragDropHandler' ,function ($scope, $http ,DragDropHandler) {
+angular.module('appBuilder.controllers', []).
+    controller('fieldsCtrl', ['$scope', '$http', 'DragDropHandler' , '$modal', function ($scope, $http, DragDropHandler, $modal) {
 
 
+        $http.get('/javascripts/appBuilder/app/inputTypes.json').success(function (data) {
 
-        $http.get('/javascripts/appBuilder/app/inputTypes.json').success(function(data) {
 
-
-            $scope.inputTypes = data;
+            $scope.inputTypes = data.inputTypes;
+            $scope.icons = data.icons;
 
         });
+        // the main object to store the app data
+        $scope.app = {
+            "id": Math.ceil(Math.random() * 1000),
+            "name": "Untitled App-Form",
+            "icon": "document.png",
+            "description": "My new form based application",
+            "menuLabel": "",
+            "btnLabel": "New Post",
+            "settings": {
+                "allowComments": true,
+                "status": "draft"
+            },
+            "fields": []
+        };
+        $scope.nowEditing = null;
+        $scope.dragging = false;
 
-        $scope.appFields=[];
-        $scope.nowEditing = 0;
 
-
-        $scope.updateObjects = function(from, to) {
-            var itemIds = _.pluck($scope.appFields, 'id');
+        $scope.updateObjects = function (from, to) {
+            var itemIds = _.pluck($scope.app.fields, 'id');
             console.log(itemIds);
+            $scope.dragging = false;
         };
 
-        $scope.createObject = function(object, to) {
+        $scope.createObject = function (object, to) {
             var newItem = angular.copy(object);
             newItem.id = Math.ceil(Math.random() * 1000);
-            DragDropHandler.addObject(newItem, $scope.appFields, to);
+            DragDropHandler.addObject(newItem, $scope.app.fields, to);
+            $scope.dragging = false;
         };
 
-        $scope.deleteItem = function(itemId) {
-            $scope.appFields = _.reject($scope.appFields, function(appField) {
-                return appField.id == itemId;
+        $scope.deleteItem = function (itemId) {
+            $scope.app.fields = _.reject($scope.app.fields, function (field) {
+                return field.id == itemId;
             });
         }
 
-        $scope.showPlaceHolder = function(){
-            return $scope.appFields.length == 0
+        $scope.showBorders = function (show) {
+            $scope.dragging = show;
+            $scope.nowEditing = null;
+            $scope.$apply();
         }
 
-        $scope.editField = function(appField, $event){
-            $scope.nowEditing=appField;
-            angular.element('#appTabSettings').tab('show');
-            var xx=$event;
+        $scope.showPlaceHolder = function () {
+            return $scope.app.fields.length == 0
         }
 
+        $scope.editField = function (field) {
+            if (field == 'AppTitle') {
+                $scope.nowEditing = null;
+                $scope.showFieldSettings = false;
+                $scope.showAppSettings = true;
+            } else {
+                $scope.nowEditing = field;
+                $scope.showFieldSettings = true;
+                $scope.showAppSettings = false;
+            }
+            angular.element('#appTabSettings').tab('show')
 
-    }] )
-    .controller( 'formCtrl', ['$scope','$http', function ($scope, $http) {
 
+        }
 
-    }] );
+//Icon Selection -  Modal Dialog
+        $scope.open = function () {
+
+            var modalInstance = $modal.open({
+                templateUrl: '/partials/icons.html',
+                controller: ModalInstanceCtrl,
+                resolve: {
+                    icons: function () {
+                        return $scope.icons;
+                    }
+                }
+            });
+
+            modalInstance.result.then(function (selectedItem) {
+                $scope.selected = selectedItem;
+            });
+        };
+
+// End Icon Selection -  Modal Dialog
+
+    }])
+
+var ModalInstanceCtrl = function ($scope, $modalInstance, icons) {
+    $scope.icons = icons;
+    $scope.selected = {
+        icon: $scope.icons[0]
+    };
+
+    $scope.ok = function () {
+        $modalInstance.close($scope.selected.icon);
+    };
+
+    $scope.cancel = function () {
+        $modalInstance.dismiss('cancel');
+    };
+
+};

@@ -19,7 +19,8 @@ angular.module( 'appBuilder.directives', [] )
     .directive('draggable', ['DragDropHandler', function(DragDropHandler) {
         return {
             scope: {
-                draggable: '='
+                draggable: '=',
+                ngBorder: '&'
             },
             link: function(scope, element, attrs){
                 element.draggable({
@@ -28,9 +29,12 @@ angular.module( 'appBuilder.directives', [] )
                     revert: "invalid",
                     start: function() {
                         DragDropHandler.dragObject = scope.draggable;
+                        scope.ngBorder({'show': true});
+
                     },
                     stop: function() {
                         DragDropHandler.dragObject = undefined;
+                        scope.ngBorder({'show': false});
                     }
                 });
 
@@ -44,11 +48,18 @@ angular.module( 'appBuilder.directives', [] )
             scope: {
                 droppable: '=',
                 ngUpdate: '&',
-                ngCreate: '&'
+                ngCreate: '&',
+                ngBorder: '&'
+
             },
             link: function(scope, element, attrs){
                 element.sortable();
                 element.disableSelection();
+                element.on("sortstart", function (event, ui) {
+
+                    scope.$parent.showBorders(true);
+
+                });
                 element.on("sortdeactivate", function(event, ui) {
                     var from = angular.element(ui.item).scope().$index;
                     var to = element.children().index(ui.item);
@@ -61,6 +72,7 @@ angular.module( 'appBuilder.directives', [] )
                                     from: from,
                                     to: to
                                 });
+
                             } else {
                                 scope.ngCreate({
                                     object: DragDropHandler.dragObject,
@@ -75,48 +87,10 @@ angular.module( 'appBuilder.directives', [] )
             }
         };
     }])
-    .directive('sortable', ['$timeout', function($timeout) {
-        return {
-            scope: {
-                ngModel: '=',
-                ngChange: '&'
-            },
-            link: function(scope, element, attrs) {
-                var toUpdate;
-                var startIndex = -1;
-                element.sortable({
-                    placeholder: "alert alert-info",
-                    start: function (event, ui) {
-                        // on start we define where the item is dragged from
-                        startIndex = $(ui.item).index();
-                    },
-                    stop: function (event, ui) {
-                        // on stop we determine the new index of the
-                        // item and store it there
-                        var newIndex = $(ui.item).index();
-                        var toMove = toUpdate[startIndex];
-                        toUpdate.splice(startIndex, 1);
-                        toUpdate.splice(newIndex, 0, toMove);
 
-                        // we move items in the array, if we want
-                        // to trigger an update in angular use $apply()
-                        // since we're outside angulars lifecycle
-                        $timeout(function() {
-                            scope.ngChange();
-                        });
-                    }
-                });
+// not used but may be useful some day......
 
-                $timeout(function() {
-                    toUpdate = scope.ngModel;
-                });
-            }
-        }
-    }])
-
-
-
-.directive('compile', function($compile) {
+    .directive('compile', function($compile) {
     // directive factory creates a link function
     return function(scope, element, attrs) {
         scope.$watch(

@@ -6,7 +6,6 @@
 
 // Declare app level module which depends on filters, and services
 angular.module('appBuilder', [
-    'ngRoute',
     'appBuilder.filters',
     'appBuilder.services',
     'appBuilder.directives',

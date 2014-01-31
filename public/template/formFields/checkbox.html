@@ -1,9 +1,14 @@
-<!DOCTYPE html>
-<html>
-<head>
-    <title></title>
-</head>
-<body>
+<div class="form-group clearfix">
+    <label for="{{appField.id}}">{{appField.label}}
+        <i class="fa fa-question-circle"
+           ng-hide="!appField.userInstructions"
+           popover="{{appField.userInstructions}}"
+           popover-trigger="mouseenter"></i>
+    </label>
 
-</body>
-</html>
+    <div class="input-group" ng-style="{'width': appField.size+'%'}">
+        <input type="checkbox"
+               id="{{appField.id}}"
+               placeholder="{{appField.placeholder}}"/>
+    </div>
+</div>

@@ -12,7 +12,7 @@
         <div class="collapse navbar-collapse clearfix">
             <div class="nav-search">
 
-                        <input type="text" placeholder="Search..." class="input-search"/>
+                <input type="text" placeholder="Search..." class="input-search"/>
 
 
             </div>
@@ -59,24 +59,26 @@
 
             <div class="nav-profile">
 
-                        <% if (user.photo){
-                        %>
-                        <img class="img-circle" src='<%= user.photo %>'/>
-                        <%
-                        }else{
+                <% if (user.photo){
+                %>
+                <img class="img-circle" src='<%= user.photo %>'/>
+                <%
+                }else{
                 %>
                 <img class="img-circle" src='/images/photo.jpg'/>
                 <%
 
                 }
 
-                        %>
-                        <%= user.displayName %>
-                        <button class='btn btn-xs btn-default pull-right' href='/logout'>Logout</button>
+                %>
+                <%= user.displayName %>
+                <button class='btn btn-xs btn-default pull-right' href='/logout'>Logout</button>
 
             </div>
 
-        </div><!-- /.nav-collapse -->
-    </div><!-- /.container -->
+        </div>
+        <!-- /.nav-collapse -->
+    </div>
+    <!-- /.container -->
 </div><!-- /.navbar -->
 

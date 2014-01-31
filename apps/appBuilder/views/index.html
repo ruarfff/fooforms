@@ -2,10 +2,10 @@
 
 <div class="row" >
 
-    <div class="col-md-3 pageGroup">
-        <div ng-show="draggedItem != null">{{draggedItem.text}}</div>
+    <div class="col-sm-3 pageGroup">
+    <div ng-show="draggedItem != null">{{draggedItem.text}}</div>
         <% include ../../../views/includes/appBuilderMenu.html %></div>
-    <div class="col-md-9">
+    <div class="col-sm-9">
 
         <div class="pageGroup" id='mainView'>
 
@@ -22,32 +22,37 @@
                     <li><a href="#tabs-settings" data-toggle="tab">Settings</a></li>
                     <li><a href="#tabs-publish" data-toggle="tab">Publish</a></li>
                 </ul>
-                <div class="tab-content">
+                <div class="tab-content white p5">
                     <div id="tabs-newApp" class="tab-pane active" >
-                        <div id='appHeading'><img class='icon' id='appIconDisplay' src='/app/dispatch.php?id=95'/>
+                        <div id='appHeading' ng-click="editField('AppTitle', $event)"><img class='icon'
+                                                                                           id='appIconDisplay'
+                                                                                           src='/app/dispatch.php?id=95'/>
 
-                            <h2 id='appName'>Untitled App</h2>
+                            <h2 id='appName'>{{app.name}}</h2>
 
-                            <p id='appDescription'>Click here to edit the title and description. </p>
+                            <p id='appDescription'>{{app.description}} </p>
                         </div>
                         <div id='appLayout' class="container">
 
-                            <div  id='appFields' class="row"
-                                 droppable='appFields'
+                            <div id='appFields' class="row"
+                                 droppable='app.fields'
                                  ng-update='updateObjects(from, to)'
                                  ng-create='createObject(object, to)'
-                                 id="sortable-buttons">
+                                    >
                                 <div class='appFormObject col-sm-{{appField.boxSize}}'
-                                    ng-repeat="appField in appFields track by $index"
-                                    ng-show="appField.name"
-                                    ng-click="editField($index, $event)"
-                                    ng-class="{ 'selected': $index == nowEditing }">
+                                     ng-repeat="appField in app.fields track by $index"
+                                     ng-show="appField.name"
+                                     ng-border="showBorders(show)"
+                                     ng-click="editField($index, $event)"
+                                     ng-class="{ 'selected': $index == nowEditing ,'dragging' : dragging}">
                                     <button ng-click='deleteItem(appField.id)'
                                         class='btn btn-xs pull-right btn-danger'
                                         ng-show="$index == nowEditing">X</button>
-                                    <div compile='appField.html'></div>
+                                    <div ng-include='appField.template'></div>
                                 </div>
-                                <div class="placeholder alert alert-warning" ng-show="showPlaceHolder()">Drag a new Input Field in here to get started</div>
+                                <div class="placeholder alert alert-success" ng-show="showPlaceHolder()">Drag a new
+                                    Input Field in here to get started
+                                </div>
 
                             </div>
 
@@ -55,22 +60,18 @@
 
                         </div>
 
-                        <div id='saveAppForm'>
-                            <button id='saveApp' class='btn btn-success'>Save App</button>
-                        </div>
 
-                         <pre class="ng-binding">
-     {{appFields | json}}
- </pre>
                     </div>
 
 
                     <div id="tabs-settings" class="tab-pane">
                         <div class='alert alert-warning'><h4>Settings</h4>
+                            <pre class="ng-binding">
+     {{app.fields | json}}
+ </pre>
+
                         </div>
-                        <div id='saveAppForm'>
-                            <button id='saveApp' class='btn btn-success'>Save App</button>
-                        </div>
+
                     </div>
                     <div id="tabs-publish" class="tab-pane">
                         <div class='alert alert-warning'><h4>Publish</h4>
@@ -95,10 +96,11 @@
                                 ;</script>
                             </textarea>
                         </div>
-                        <div id='saveAppForm'>
-                            <button id='saveApp' class='btn btn-success'>Save App</button>
-                        </div>
+
                     </div>
+                </div>
+                <div id='saveAppForm'>
+                    <button id='saveApp' class='btn btn-success'>Save App</button>
                 </div>
             </div>
 
