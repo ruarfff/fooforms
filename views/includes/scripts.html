@@ -1,0 +1,42 @@
+<script type="text/javascript" src="//code.jquery.com/jquery-2.1.0.min.js"></script>
+<script type="text/javascript" src="//ajax.googleapis.com/ajax/libs/jqueryui/1.10.4/jquery-ui.min.js"></script>
+<script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/underscore.js/1.5.2/underscore-min.js"></script>
+<script type="text/javascript" src="//netdna.bootstrapcdn.com/bootstrap/3.0.3/js/bootstrap.min.js"></script>
+<script type="text/javascript" src="//ajax.googleapis.com/ajax/libs/angularjs/1.2.10/angular.min.js"></script>
+<script type="text/javascript" src="//ajax.googleapis.com/ajax/libs/angularjs/1.2.10/angular-route.js"></script>
+<script type="text/javascript" src="//cdn.jsdelivr.net/restangular/latest/restangular.min.js"></script>
+<script type="text/javascript"
+        src="//cdnjs.cloudflare.com/ajax/libs/angular-ui-bootstrap/0.10.0/ui-bootstrap.js"></script>
+
+<script type="text/javascript" src="/js/main.js"></script>
+
+<!-- Dashboard Scripts -->
+<script type="text/javascript" src="/js/dashboard/dashboardControllers.js"></script>
+
+<!-- User Scripts -->
+<script type="text/javascript" src="/js/user/userControllers.js"></script>
+
+<!-- Cloud Scripts -->
+<script type="text/javascript" src="/js/cloud/cloudControllers.js"></script>
+
+<!-- App Builder Scripts -->
+<!--<script type="text/javascript" src="/js/appBuilder/app/appBuilder.js"></script>-->
+<script type="text/javascript" src="/js/appBuilder/directives/directives.js"></script>
+<script type="text/javascript" src="/js/appBuilder/filters/filters.js"></script>
+<script type="text/javascript" src="/js/appBuilder/controllers/controllers.js"></script>
+
+
+<% if( scripts ) { %>
+<% for(var i=0; i < scripts.length; i++) {%>
+<script type="text/javascript" src="<%= scripts[i] %>"></script>
+<% } %>
+<% } %>
+
+
+<script>
+    //Temporary solution here. Will move to external file once I figure out the structure for the client code.
+    $(function () {
+        var path = window.location.pathname;
+        $('nav li a[href$="' + path + '"]').parents('li').addClass('active');
+    });
+</script>

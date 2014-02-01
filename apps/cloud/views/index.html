@@ -1,24 +1,18 @@
-<% layout("../../../views/layouts/globalLayout.html") -%>
 <h1>Clouds</h1>
 
-
-<div ng-controller="CloudCtrl">
-
-    <ul ng-repeat="cloud in clouds">
-        <li>
-            <form novalidate class="css-form">
-                Name:
-                <input type="text" ng-model="cloud.name" required/><br/>
-                Description:
-                <input type="text" ng-model="cloud.description" required/><br/>
-                Icon:
-                <input type="text" ng-model="cloud.icon" required/><br/>
-                Menu Label:
-                <input type="text" ng-model="cloud.menuLabel" required/><br/>
-                <button ng-click="save(cloud)">SAVE</button>
-            </form>
-        </li>
-    </ul>
-
-</div>
+<ul ng-repeat="cloud in clouds">
+    <li>
+        <form novalidate class="css-form">
+            Name:
+            <input type="text" ng-model="cloud.name" required/><br/>
+            Description:
+            <input type="text" ng-model="cloud.description" required/><br/>
+            Icon:
+            <input type="text" ng-model="cloud.icon" required/><br/>
+            Menu Label:
+            <input type="text" ng-model="cloud.menuLabel" required/><br/>
+            <button ng-click="save(cloud)">SAVE</button>
+        </form>
+    </li>
+</ul>
 

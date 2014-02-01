@@ -1,10 +1,9 @@
-<% layout('../../../views/layouts/appBuilderLayout.html') -%>
-
 <div class="row" >
 
     <div class="col-sm-3 pageGroup">
     <div ng-show="draggedItem != null">{{draggedItem.text}}</div>
-        <% include ../../../views/includes/appBuilderMenu.html %></div>
+        <% include includes/appBuilderMenu.html %>
+    </div>
     <div class="col-sm-9">
 
         <div class="pageGroup" id='mainView'>
@@ -18,9 +17,9 @@
 
             <div id="tabs">
                 <ul id='appTabs' class="nav nav-tabs">
-                    <li class="active"><a href="#tabs-newApp" data-toggle="tab" >Design</a></li>
-                    <li><a href="#tabs-settings" data-toggle="tab">Settings</a></li>
-                    <li><a href="#tabs-publish" data-toggle="tab">Publish</a></li>
+                    <li class="active"><a data-target="#tabs-newApp" data-toggle="tab">Design</a></li>
+                    <li><a data-target="#tabs-settings" data-toggle="tab">Settings</a></li>
+                    <li><a data-target="#tabs-publish" data-toggle="tab">Publish</a></li>
                 </ul>
                 <div class="tab-content white p5">
                     <div id="tabs-newApp" class="tab-pane active" >

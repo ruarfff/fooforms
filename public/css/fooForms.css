@@ -1,0 +1,396 @@
+/* GLOBAL STYLES
+-------------------------------------------------- */
+/* Padding below the footer and lighter body text */
+
+body {
+    padding: 0px;
+    padding-bottom: 40px;
+    color: #212930;
+    background: #fff;
+
+}
+
+.row {
+    margin: 0%;
+    padding: 5%;
+}
+
+.T09 {
+    opacity: .95;
+}
+
+img.logo {
+    margin: 0px;
+    padding: 0px;
+    height: 18px;
+    margin-left: 10px;
+    margin-right: 10px;
+}
+
+/* CUSTOMIZE THE NAVBAR
+-------------------------------------------------- */
+
+/* Special class on .container surrounding .navbar, used for positioning it into place. */
+.navbar-wrapper {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    z-index: 20;
+}
+
+/* Flip around the padding for proper display in narrow viewports */
+.navbar-wrapper .container {
+    padding-left: 0;
+    padding-right: 0;
+}
+
+.navbar-default .navbar-toggle .icon-bar {
+    background-color: #ff7700;
+}
+
+/* CUSTOMIZE THE CAROUSEL
+-------------------------------------------------- */
+
+/* Carousel base class */
+.jumbotron {
+    width: 100%;
+    padding: 0px;
+    margin: 0px;
+}
+
+.jumbotron h1 {
+    font-size: 32px;
+}
+
+.jumbotron h2 {
+    font-size: 18px;
+}
+
+/* Since positioning the image, we need to help out the caption */
+.carousel-caption {
+    z-index: 10;
+    color: #fff;
+    right: 4%;
+    left: 4%;
+    padding: 0%;
+    text-align: center;
+    background-color: rgba(0, 0, 0, 0.3);
+    padding: 2%;
+    bottom: 15%;
+    border-radius: 15px;
+    text-shadow: 2px 2px 8px rgba(0, 0, 0, 0.6);
+
+}
+
+.carousel-caption-dark {
+    color: #fff;
+    background-color: rgba(0, 0, 0, 0.7);
+}
+
+.carousel-caption h1, .carousel-caption h2 {
+    font-weight: 500;
+    letter-spacing: -2;
+}
+
+/* Declare heights because of positioning of img element */
+.jumbotron .item {
+    height: 600px;
+    background-color: #212930;
+}
+
+.jumbotron > .item > img {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    min-height: 600px;
+    max-height: 600px;
+}
+
+i.fa {
+    font-size: 15em;
+    color: #ffffff;
+    text-align: center;
+}
+
+.highlight {
+    color: #ffffff;
+    background: #5c9900;
+}
+
+.highlight {
+    text-align: center;
+    margin: 0 auto 0;
+}
+
+.highlight p {
+    font-size: 1.2em;
+    text-align: left;
+}
+
+.highlight h2 {
+    text-align: left;
+}
+
+.highlight div.col-sm-4 {
+    border-bottom: 1px solid #fff;
+    margin-bottom: 5px;
+}
+
+/* MARKETING CONTENT
+-------------------------------------------------- */
+.container {
+    width: 100%;
+
+}
+
+/* Pad the edges of the mobile views a bit */
+.marketing {
+    padding-left: 15px;
+    padding-right: 15px;
+}
+
+/* Center align the text within the three columns below the carousel */
+.marketing .col-lg-4 {
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+.marketing h2 {
+    font-weight: normal;
+}
+
+.marketing .col-lg-4 p {
+    margin-left: 10px;
+    margin-right: 10px;
+}
+
+.marketing .col-sm-4 img {
+    width: 95%;
+    margin-left: 2.5%;
+}
+
+/* Featurettes
+------------------------- */
+
+.featurette-divider {
+    margin: 40px 0; /* Space out the Bootstrap <hr> more */
+}
+
+/* Thin out the marketing headings */
+.featurette-heading {
+    font-weight: 300;
+    line-height: 1;
+    letter-spacing: -1px;
+}
+
+.lightOnDark {
+    background: #212930;
+    color: #fff;
+}
+
+/* RESPONSIVE CSS
+-------------------------------------------------- */
+
+@media (min-width: 768px) {
+
+    .jumbotron h1 {
+        font-size: 42px;
+    }
+
+    .jumbotron h2 {
+        font-size: 26px;
+    }
+
+    /* Since positioning the image, we need to help out the caption */
+    .carousel-caption {
+        z-index: 10;
+        color: #fff;
+        right: 10%;
+        left: 10%;
+        padding: 0%;
+        text-align: center;
+        background-color: rgba(255, 255, 255, 0.1);
+        padding: 2%;
+        bottom: 20%;
+        border-radius: 15px;
+        text-shadow: 2px 2px 8px rgba(0, 0, 0, 0.6);
+
+    }
+
+    /* Remove the edge padding needed for mobile */
+    .marketing {
+        padding-left: 0px;
+        padding-right: 0px;
+        background: #ffffff;
+    }
+
+    /* Navbar positioning foo */
+    .navbar-wrapper {
+        margin-top: 0px;
+    }
+
+    .navbar-wrapper .navbar {
+        padding-left: 0;
+        padding-right: 0;
+    }
+
+    /* Bump up size of carousel content */
+    .carousel-caption p {
+        margin-bottom: 20px;
+        font-size: 21px;
+        line-height: 1.4;
+    }
+
+    .featurette-heading {
+        font-size: 50px;
+    }
+
+    .highlight div.col-sm-4 {
+        border-bottom: 0px;
+        margin-bottom: 0px;
+    }
+
+}
+
+@media (min-width: 992px) {
+
+    .jumbotron h1 {
+        font-size: 56px;
+    }
+
+    .jumbotron h2 {
+        font-size: 30px;
+    }
+
+    /* Since positioning the image, we need to help out the caption */
+    .carousel-caption {
+        z-index: 10;
+        color: #fff;
+        right: 20%;
+        left: 20%;
+        padding: 0%;
+        text-align: center;
+        background-color: rgba(255, 255, 255, 0.1);
+        padding: 2%;
+        bottom: 20%;
+        border-radius: 15px;
+        text-shadow: 2px 2px 8px rgba(0, 0, 0, 0.6);
+
+    }
+
+    .featurette-heading {
+        margin-top: 120px;
+    }
+
+    .carousel-caption {
+        z-index: 10;
+        color: #fff;
+        right: 15%;
+        left: 15%;
+        text-align: center;
+    }
+
+    .content-secondary .ui-collapsible {
+        padding: 0 15px 10px;
+
+    }
+
+    .content-secondary .ui-collapsible-content {
+        padding: 0;
+        background: none;
+        border-bottom: none;
+    }
+
+    .content-secondary .ui-listview {
+        margin: 0;
+    }
+
+    .content-secondary {
+        text-align: left;
+        float: left;
+        width: 25%;
+        background: none;
+    }
+
+    .content-secondary,
+    .type-interior .content-secondary {
+        margin: 30px 0 20px 2%;
+        padding: 20px 4% 0 0;
+        background: none;
+        border-top: none;
+    }
+
+    .type-index .content-secondary {
+        padding: 0;
+    }
+
+    .content-secondary .ui-collapsible {
+        margin: 0;
+        padding: 0;
+    }
+
+    .content-secondary .ui-collapsible-content {
+        border: none;
+    }
+
+    .type-index .content-secondary .ui-listview {
+        margin: 0;
+    }
+
+    .ui-mobile #jqm-homeheader {
+        padding: 0;
+    }
+
+    .content-primary {
+        width: 65%;
+        float: right;
+        margin-top: 30px;
+        margin-right: 1%;
+        padding-right: 1%;
+    }
+
+    .content-primary ul:first-child {
+        margin-top: 0;
+    }
+
+    .content-secondary h2 {
+        position: absolute;
+        left: -9999px;
+    }
+
+    .type-interior .content-primary {
+        padding: 1.5em 6% 3em 0;
+        margin: 0;
+    }
+
+    /* fix up the collapsibles - expanded on desktop */
+    .content-secondary .ui-collapsible-heading {
+        display: none;
+    }
+
+    .content-secondary .ui-collapsible-contain {
+        margin: 0;
+    }
+
+    .content-secondary .ui-collapsible-content {
+        display: block;
+        margin: 0;
+        padding: 0;
+    }
+
+    .type-interior .content-secondary .ui-li-divider {
+        padding-top: 1em;
+        padding-bottom: 1em;
+    }
+
+    .type-interior .content-secondary {
+        margin: 0;
+        padding: 0;
+    }
+
+}
+
+
+
