@@ -59,18 +59,19 @@
 
                 <% if (user.photo){
                 %>
-                <img class="img-circle" src='<%= user.photo %>'/>
+                <img class="img-circle" src="<%= user.photo %>"/>
                 <%
                 }else{
                 %>
-                <img class="img-circle" src='/assets/images/photo.jpg'/>
+                <img class="img-circle" src="/assets/images/photo.jpg"/>
                 <%
 
                 }
 
                 %>
                 <%= user.displayName %>
-                <button class='btn btn-xs btn-default pull-right' href='/logout'>Logout</button>
+                <button class="btn btn-xs btn-default pull-right" onclick="location.href='logout'">Logout</button>
+
 
             </div>
 
