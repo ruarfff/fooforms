@@ -1,19 +1,18 @@
-<script type="text/ng-template" id="myModalContent.html">
-    <div class="modal-header">
-        <h3>Choose an awesome icon!</h3>
-    </div>
-    <div class="modal-body">
-        <ul>
-            <li ng-repeat="icon in icons">
-                <a ng-click="selected.icon = icon"><img ng-src="/icons/color/{{ icon }}"/></a>
-            </li>
-        </ul>
-        Selected: <b>{{ selected.icon }}</b>
-    </div>
-    <div class="modal-footer">
-        <button class="btn btn-primary" ng-click="ok()">OK</button>
-        <button class="btn btn-warning" ng-click="cancel()">Cancel</button>
-    </div>
-</script>
+<div class="modal-header">
+    <h3>Choose an awesome icon!</h3>
+</div>
+<div class="modal-body container">
+    <ul class="row icons">
+        <li ng-repeat="icon in icons" class="col-sm-2">
+            <a ng-click="chosen.icon = icon"><img class="icon icon-align-left" ng-src="{{ icon }}"/></a>
+        </li>
+    </ul>
+    Selected: <b>{{ chosen.icon }}</b>
+</div>
+<div class="modal-footer">
+    <button class="btn btn-primary" ng-click="ok()">OK</button>
+    <button class="btn btn-warning" ng-click="cancel()">Cancel</button>
+</div>
+
 
 

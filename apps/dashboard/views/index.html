@@ -1,7 +1,7 @@
 <% layout("../../../views/layouts/globalLayout.html") -%>
 
 <div class="row">
-    <div class="col-xs-8 col sm-8 col-md-8">
+    <div class="col-xs-8 col sm-8 col-md-8 pageGroup">
         <div id='appView' class='hide'>
             <div id='nowViewing'>
                 <img src=''/>
@@ -27,21 +27,44 @@
                 <li><a id='tabsMenu-3' href="#tabs-3" data-toggle="tab">Apps</a></li>
                 <li style="float: right"><a href='#' id='itemTitlelink'><span id='itemTitle'></span></a></li>
             </ul>
-            <div class="tab-content">
+            <div class="tab-content white m0 p5">
                 <div id="tabs-1" class="tab-pane active">
 
 
                 </div>
                 <div id="tabs-2" class="tab-pane">
-                    <%= JSON.stringify(user) %>
-                    <div class='well'>
-                        <a class='btn' href='clouds'>Find more clouds</a>
-                        <button class='btn'>Create a cloud</button>
+
+                    <div class="alert alert-warning m5">
+                        <h4>Welcome <? echo $displayName ?>,</h4>
+
+                        <p>FooForms lets you create apps for you and your team.</p>
+
+                        <p><h5>Here's a few ideas.</h5></p>
+                        <ul>
+                            <li>Create a Bug Tracker</li>
+                            <li>Manage Invoices</li>
+                            <li>Holiday Request Form</li>
+                            <li>Customer Service Helpdesk</li>
+                            <li>Manage Projects</li>
+                        </ul>
+                    </div>
+                    <div class="alert alert-info m5">
+                        <p><strong>You'll need a cloud to put your apps into. </strong><br>
+                            You can create as many clouds as you need. Use them to group similar apps, make departments,
+                            etc.</P>
+
+                        <p><h5>Let's get started!</h5>
+                        <button class='btn btnNewCloud btn-primary' onclick='loadTabsHTML("newCloudForm");'>Create a new
+                            cloud
+                        </button>
+                        <button class='btn'>Join an existing cloud</button>
+
+
                     </div>
                 </div>
                 <div id="tabs-3" class="tab-pane">
 
-                    <%= JSON.stringify(user) %>
+
                 </div>
             </div>
         </div>

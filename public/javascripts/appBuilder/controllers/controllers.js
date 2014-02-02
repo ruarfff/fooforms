@@ -17,7 +17,7 @@ angular.module('appBuilder.controllers', []).
         $scope.app = {
             "id": Math.ceil(Math.random() * 1000),
             "name": "Untitled App-Form",
-            "icon": "document.png",
+            "icon": "/icons/color/document.png",
             "description": "My new form based application",
             "menuLabel": "",
             "btnLabel": "New Post",
@@ -89,7 +89,7 @@ angular.module('appBuilder.controllers', []).
             });
 
             modalInstance.result.then(function (selectedItem) {
-                $scope.selected = selectedItem;
+                $scope.app.icon = selectedItem;
             });
         };
 
@@ -99,12 +99,12 @@ angular.module('appBuilder.controllers', []).
 
 var ModalInstanceCtrl = function ($scope, $modalInstance, icons) {
     $scope.icons = icons;
-    $scope.selected = {
+    $scope.chosen = {
         icon: $scope.icons[0]
     };
 
     $scope.ok = function () {
-        $modalInstance.close($scope.selected.icon);
+        $modalInstance.close($scope.chosen.icon);
     };
 
     $scope.cancel = function () {
