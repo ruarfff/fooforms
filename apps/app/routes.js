@@ -11,7 +11,7 @@ var routes = function (app) {
     /*********************************************************************************
      *  View Handlers
      *********************************************************************************/
-    app.get('/apps', authenticator.ensureAuthenticated, function (req, res) {
+    app.get('/partials/apps', authenticator.ensureAuthenticated, function (req, res) {
         var user = req.user;
 
         res.render(path.join(viewDir, 'index'), {

@@ -4,7 +4,7 @@
 var path = require('path');
 var viewDir = path.join(global.config.apps.USER, 'views');
 var authenticator = require(global.config.apps.AUTHENTICATION);
-var userApi = require( path.join( global.config.apps.USER, 'api/userApi' ) );
+var userApi = require(path.join(global.config.apps.USER, 'api/userApi'));
 
 var routes = function (app) {
 
@@ -12,28 +12,20 @@ var routes = function (app) {
      *  View Handlers
      *********************************************************************************/
 
-    app.get('/profile', authenticator.ensureAuthenticated, function (req, res) {
+    app.get('/partials/profile', authenticator.ensureAuthenticated, function (req, res) {
         var user = req.user;
 
         res.render(path.join(viewDir, 'profile'), {
-            user: user,
-            title: 'Profile',
-            scripts: [
-                'javascripts/user/controllers/profileController.js',
-                'javascripts/user/directives/profileDirective.js',
-                'javascripts/user/filters/profileFilter.js',
-                'javascripts/user/services/profileService.js'
-            ]
+            user: user
         });
 
     });
 
-    app.get('/people', authenticator.ensureAuthenticated, function (req, res) {
+    app.get('/partials/people', authenticator.ensureAuthenticated, function (req, res) {
         var user = req.user;
 
         res.render(path.join(viewDir, 'people'), {
-            user: user,
-            title: 'People'
+            user: user
         });
 
     });
@@ -52,8 +44,8 @@ var routes = function (app) {
         }
     });
 
-    app.post( '/api/user/check/username', function ( req, res ) {
-        userApi.checkUserName( req, res );
+    app.post('/api/user/check/username', function (req, res) {
+        userApi.checkUserName(req, res);
     });
 
 

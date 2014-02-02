@@ -1,7 +1,6 @@
-<% layout("../../../views/layouts/globalLayout.html") -%>
 <h1>Profile</h1>
 
-<div ng-controller="ProfileCtrl">
+<div>
     <form novalidate class="css-form">
         Display Name:
         <input type="text" ng-model="user.displayName" required/><br/>
@@ -14,6 +13,5 @@
         E-mail: <input type="email" ng-model="user.email" required/><br/>
         <button ng-click="update(user)">SAVE</button>
     </form>
-</div>
 </div>
 
