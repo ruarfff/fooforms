@@ -55,7 +55,7 @@ var FooFormsServerApp = function () {
 
 
     /**
-     *  Setup termination handlers (for exit and a list of signals).
+     *  Set up termination handlers (for exit and a list of signals).
      */
     self.setupTerminationHandlers = function () {
         //  Process on exit and signals.
