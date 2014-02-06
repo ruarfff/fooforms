@@ -30,6 +30,12 @@ var routes = function (app, passport) {
     require('../apps/user/routes')(app);
     require('../apps/appBuilder/routes')(app);
 
+    app.get('*', function (req, res) {
+        res.render('dashboard', {
+            user: req.user
+        });
+    });
+
 };
 
 module.exports = routes;

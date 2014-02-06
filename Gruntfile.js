@@ -33,10 +33,13 @@ module.exports = function (grunt) {
         watch: {
             // Run certain tasks every time a js file changes.
             all: {
-                files: '**/*.js',
+                files: ['**/*'],
                 tasks: [
                     ['mochaTest']
-                ]
+                ],
+                options: {
+                    livereload: true
+                }
             }
         },// End watch
         concurrent: {

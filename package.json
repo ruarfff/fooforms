@@ -59,7 +59,8 @@
         "grunt-concurrent": "~0.4.x",
         "grunt-cli": "~0.1.x",
         "load-grunt-tasks": "~0.2.x",
-        "yuidocjs": "~0.3.x"
+        "yuidocjs": "~0.3.x",
+        "connect-modrewrite": "~0.5.11"
     },
     "bundleDependencies": [],
     "private": true,
