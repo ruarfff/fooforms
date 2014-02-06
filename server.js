@@ -124,7 +124,7 @@ var FooFormsServerApp = function () {
 
 
     /*  ================================================================  */
-    /*  App server functions (main app logic here).                       */
+    /*  Application server functions (main app logic here).                       */
     /*  ================================================================  */
 
 
