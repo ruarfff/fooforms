@@ -26,13 +26,6 @@
 <script type="text/javascript" src="/js/appBuilder/controllers/controllers.js"></script>
 
 
-<% if( scripts ) { %>
-<% for(var i=0; i < scripts.length; i++) {%>
-<script type="text/javascript" src="<%= scripts[i] %>"></script>
-<% } %>
-<% } %>
-
-
 <script>
     //Temporary solution here. Will move to external file once I figure out the structure for the client code.
     $(function () {
