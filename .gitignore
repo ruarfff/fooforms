@@ -13,6 +13,8 @@ results
 npm-debug.log
 node_modules
 
+.sass-cache
+
 # IDE Stuff
 .idea
 *.suo
