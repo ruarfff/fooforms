@@ -7,8 +7,12 @@
     </label>
 
     <div class="input-group" ng-style="{'width': appField.size+'%'}">
-        <input type="checkbox"
-               id="{{appField.id}}"
-               placeholder="{{appField.placeholder}}"/>
+        <label ng-class="{ 'checkbox-inline': appField.settings.display == 'Inline' ,'checkbox' : appField.settings.display == 'Stacked'}"
+               ng-repeat='option in appField.options'>
+            <input type="checkbox" ng-model="option.selected"
+                   id="{{appField.id}}">{{option.label}}
+        </label>
+
+
     </div>
 </div>

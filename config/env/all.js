@@ -1,4 +1,4 @@
-var path = require( 'path' );
+var path = require('path');
 
 var rootPath = path.normalize(__dirname + '/../..');
 
@@ -21,6 +21,7 @@ var databaseDir = path.join(rootPath, 'apps/database');
 var loggingDir = path.join(rootPath, 'apps/logging');
 var userDir = path.join(rootPath, 'apps/user');
 var appBuilderDir = path.join(rootPath, 'apps/appBuilder');
+var calendarDir = path.join(rootPath, 'apps/calendar');
 
 /**
  * Enumerator to allow easy access to absolute application root paths.
@@ -34,7 +35,8 @@ var apps = {
     "DATABASE": databaseDir,
     "LOGGING": loggingDir,
     "USER": userDir,
-    "APPBUILDER": appBuilderDir
+    "APPBUILDER": appBuilderDir,
+    "CALENDAR": calendarDir
 };
 
 var mainLayoutPath = path.join(rootPath, 'views/layouts/globalLayout.html');

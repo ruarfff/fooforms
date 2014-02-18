@@ -1,237 +1,155 @@
 <div id="appBuilderMenu">
-<ul id='optionTabs' class="nav nav-tabs">
-    <li class="active"><a id='appTabFields' data-target="#appTabs-fields" data-toggle="tab">Fields</a></li>
-    <li><a id='appTabSettings' data-target="#appTabs-settings" data-toggle="tab">Settings</a></li>
-</ul>
-<div class="tab-content white p5">
-<div id="appTabs-fields" class="tab-pane active">
+    <ul id='optionTabs' class="nav nav-tabs">
+        <li class="active"><a id='appTabFields' data-target="#appTabs-fields" data-toggle="tab">Fields</a></li>
+        <li><a id='appTabSettings' data-target="#appTabs-settings" data-toggle="tab">Settings</a></li>
+    </ul>
+    <div class="tab-content white p5">
+        <div id="appTabs-fields" class="tab-pane active">
 
-    <div class="panel-group" id="accordion">
-
-
-        <div class="panel panel-info">
-            <div class="panel-heading">
-                <h6 class="panel-title">
-                    <a class='center-block' data-toggle="collapse" data-parent="#accordion" data-target="#collapseOne">
-                    Standard
-                    </a>
-                </h6>
-            </div>
-            <div id="collapseOne" class="panel-collapse collapse in">
-                <div class="panel-body">
-                    <ul class="list-group">
-                        <div class='fieldObject list-group-item'
-                             ng-repeat='inputType in inputTypes'
-                             ng-show="inputType.name"
-                             draggable="inputType"
-                             ng-border="showBorders(show)"
-                             ng-showBorder="showBorders(show)"
-                             draggable-target="#appFields"
-                                >
-                            {{inputType.name}}
-                        </div>
-                    </ul>
-                </div>
-            </div>
-
-        </div>
+            <div class="panel-group" id="accordion">
 
 
-        <div class="panel panel-info">
-            <div class="panel-heading">
-                <h6 class="panel-title">
-                    <a class='center-block' data-toggle="collapse" data-parent="#accordion" data-target="#collapseTwo">
-                    User Related
-                    </a>
-                </h6>
-            </div>
-            <div id="collapseTwo" class="panel-collapse collapse">
-                <div class="panel-body">
-                    <ul class="list-group">
-                        <div class='fieldObject list-group-item'
-                             ng-repeat='inputType in inputTypes'
-                             ng-show="inputType.name"
-                             draggable="inputType"
-                             ng-border="showBorders(show)"
-                             ng-showBorder="showBorders(show)"
-                             draggable-target="#appFields"
-                                >
-                            {{inputType.name}}
-                        </div>
-                    </ul>
-                </div>
-            </div>
-
-        </div>
-
-        <div class="panel panel-info">
-            <div class="panel-heading">
-                <h6 class="panel-title">
-                    <a class='center-block' data-toggle="collapse" data-parent="#accordion" href="#collapseThree">
-                        Advanced
-                    </a>
-                </h6>
-            </div>
-            <div id="collapseThree" class="panel-collapse collapse">
-                <div class="panel-body">
-                    <ul class="list-group">
-                        <div class='fieldObject list-group-item'
-                             ng-repeat='inputType in inputTypes'
-                             ng-show="inputType.name"
-                             draggable="inputType"
-                             ng-border="showBorders(show)"
-                             ng-showBorder="showBorders(show)"
-                             draggable-target="#appFields"
-                                >
-                            {{inputType.name}}
-                        </div>
-                    </ul>
-                </div>
-            </div>
-
-        </div>
-    </div>
-</div>
-
-
-<div id="appTabs-settings" class="tab-pane">
-    <div class='alert-warning m5 p5' ng-show="nowEditing>=0">
-        <h4> {{app.fields[nowEditing].name}} </h4>
-    </div>
-
-    <div id="FieldSettings" class="blockInsert"
-         ng-show="showFieldSettings">
-
-        <form class="form-horizontal container" role="form">
-            <div class="form-group">
-                <label class="col-sm-4 control-label">Field Label</label>
-
-                <div class="col-sm-8">
-                    <input type='text' class="form-control" ng-model="app.fields[nowEditing].label"/>
-                </div>
-            </div>
-            <div class="form-group">
-                <label class="col-sm-4 control-label">Box size</label>
-
-                <div class="col-sm-8">
-                    <input type="range" name="points" min="1" max="12"
-                           ng-model="app.fields[nowEditing].boxSize">
-                </div>
-            </div>
-            <div class="form-group">
-                <label class="col-sm-4 control-label">Field size</label>
-
-                <div class="col-sm-8">
-                    <input type="range" name="points" min="10" max="100" ng-model="app.fields[nowEditing].size">
-
-                </div>
-            </div>
-            <div class="form-group">
-                <label class="col-sm-4 control-label">Use as Post Title </label>
-
-                <div class="col-sm-8">
-                    <input type='checkbox' name='useAsTitle' id='useAsTitle'></label>
-                </div>
-            </div>
-            <div class="form-group">
-                <label class="col-sm-4 control-label">Required </label>
-
-                <div class="col-sm-8">
-                    <input type='checkbox' ng-model="app.fields[nowEditing].required"></label>
-                </div>
-            </div>
-            <div class="form-group">
-                <label class="col-sm-4 control-label">Placeholder</label>
-
-                <div class="col-sm-8">
-                    <input type='text' class="form-control"
-                           ng-model="app.fields[nowEditing].placeholder"/>
-                </div>
-            </div>
-            <div class="form-group">
-                <label class="col-sm-4 control-label">Instructions for user</label>
-
-                <div class="col-sm-8">
-                    <input type='text' class="form-control"
-                           ng-model="app.fields[nowEditing].userInstructions"/>
-                </div>
-            </div>
-        </form>
-    </div>
-    <div id="AppSettings" class="blockInsert"
-         ng-show="showAppSettings">
-
-        <form class="form-horizontal container" role="form">
-            <div class="form-group">
-                <label class="col-sm-4 control-label">App Name</label>
-                <input type='text' class="form-control" ng-model="app.name"/>
-            </div>
-
-                        <div>
-
-            <div class="form-group">
-                <label class="col-sm-4 control-label">Icon</label>
-
-                <div>
-                    <img class='icon' ng-src="{{app.icon}}"/>
-                    <button class="btn btn-default" ng-click="open();">Change!</button>
-                </div>
-            </div>
-            <fieldset>
-                <legend>Display Options</legend>
-                <label>Menu Label</label>
-                <input type='text' name='menuLabel' id='menuLabel' value='Untitled App'/>
-                <label>New Button Label</label>
-                <input type='text' name='newButtonLabel' id='newButtonLabel' value='Create New'/>
-                <label>Display Posts as</label>
-                <select name='feedDisplayStyle' id='feedDisplayStyle'>
-                    <option>Feed</option>
-                    <option>Grid</option>
-                    <option>Bucket</option>
-                </select>
-            </fieldset>
-
+                <div class="panel panel-info">
+                    <div class="panel-heading">
+                        <h6 class="panel-title">
+                            <a class='center-block' data-toggle="collapse" data-parent="#accordion"
+                               data-target="#collapseOne">
+                                Standard
+                            </a>
+                        </h6>
+                    </div>
+                    <div id="collapseOne" class="panel-collapse collapse in">
+                        <div class="panel-body">
+                            <div class="list-group">
+                                <div class='fieldObject list-group-item'
+                                     ng-repeat="inputType in inputTypes"
+                                     ng-show="inputType.name"
+                                     draggable="inputType"
+                                     ng-border="showBorders(show)"
+                                     draggable-target="#appFields, .repeatBox"
+                                        >
+                                    {{inputType.name}}
+                                </div>
+                            </div>
                         </div>
                     </div>
-                    <fieldset>
-                        <legend>Display Options</legend>
-                        <label>Menu Label</label>
-                        <input type='text' name='menuLabel' id='menuLabel' value='Untitled App'/>
-                        <label>New Button Label</label>
-                        <input type='text' name='newButtonLabel' id='newButtonLabel' value='Create New'/>
-                        <label>Display Posts as</label>
-                        <select name='feedDisplayStyle' id='feedDisplayStyle'>
-                            <option>Feed</option>
-                            <option>Grid</option>
-                            <option>Bucket</option>
-                        </select>
-                    </fieldset>
 
-                    <fieldset>
-                        <legend>Engagement</legend>
-                        <label>Allow Comments</label>
-                        Yes<input type='radio' name='allowComments' id=allowComments checked value='1'/>
-                        No<input
-                            type='radio' name='allowComments' id=noallowComments value='0'/>
-                        <label>Minimum level to View</label>
-                        <select name='minimumViewLevel' id='minimumViewLevel'>
-                            <option>Visitor</option>
-                            <option>Fan</option>
-                            <option>Staff</option>
-                            <option>Manager</option>
-                            <option>Admin</option>
-                        </select>
-                        <label>Minimum level to Post</label>
-                        <select name='minimumPostLevel' id='minimumPostLevel'>
-                            <option>Visitor</option>
-                            <option>Fan</option>
-                            <option>Staff</option>
-                            <option>Manager</option>
-                            <option>Admin</option>
-                        </select>
-                    </fieldset>
+                </div>
+
+
+                <div class="panel panel-info">
+                    <div class="panel-heading">
+                        <h6 class="panel-title">
+                            <a class='center-block' data-toggle="collapse" data-parent="#accordion"
+                               data-target="#collapseTwo">
+                                User Related
+                            </a>
+                        </h6>
+                    </div>
+                    <div id="collapseTwo" class="panel-collapse collapse">
+                        <div class="panel-body">
+                            <div class="list-group">
+                                <div class='fieldObject list-group-item'
+                                     ng-repeat='inputType in inputTypes'
+                                     ng-show="inputType.name"
+                                     draggable="inputType"
+                                     ng-border="showBorders(show)"
+                                     ng-showBorder="showBorders(show)"
+                                     draggable-target=".repeatBox"
+                                        >
+                                    {{inputType.name}}
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+
+
+            </div>
+        </div>
+
+
+        <div id="appTabs-settings" class="tab-pane">
+            <div class='alert-info m5 p5' ng-show="nowEditing>=0">
+                <h6><span class="badge">{{nowEditing}}</span> <span>{{app.fields[nowEditing].name}} </span>
+            <span mg-show="nowSubEditing">
+            <span class="badge">{{nowSubEditing}}</span> <span>{{app.fields[nowEditing].fields[nowSubEditing].name}} </span></span>
+                </h6>
+            </div>
+
+            <!-- Settings Block for Standard Fields -->
+
+            <div id="FieldSettings" class="blockInsert" ng-show="showFieldSettings">
+                <div ng-include="app.fields[nowEditing].optionsTemplate"></div>
+
+            </div>
+            <!-- Settings Block for Group Fields -->
+
+            <div id="groupSettings" class="blockInsert" ng-show="showGroupSettings">
+
+                <div ng-include="app.fields[nowEditing].fields[nowSubEditing].groupOptions"></div>
+
+
+            </div>
+
+
+            <!-- Settings Block for Basic Application Settings -->
+
+            <div id="AppSettings" class="blockInsert" ng-show="showAppSettings">
+
+                <form class="form-horizontal container" role="form">
+                    <div class="form-group">
+                        <label class="col-sm-4 control-label">App Name</label>
+                        <input type='text' class="form-control" ng-model="app.name"/>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-sm-4 control-label">Description</label>
+                        <input type='text' class="form-control" ng-model="app.description"/>
+                    </div>
+
+
+                    <div class="form-group">
+                        <label class="col-sm-4 control-label">Icon</label>
+
+                        <div>
+                            <img class='icon' ng-src="{{app.icon}}"/>
+                            <button class="btn btn-default" ng-click="open();">Change!</button>
+                        </div>
+                    </div>
+                    <div class="alert alert-info">
+                        <h4>Display Options</h4>
+
+                        <div class="form-group">
+                            <label class="col-sm-4 control-label">Menu Label</label>
+
+                            <div>
+                                <input type='text' name='menuLabel' id='menuLabel' value='Untitled App'/>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-sm-4 control-label">New Post - Button Label</label>
+
+                            <div>
+                                <input type='text' name='newButtonLabel' id='newButtonLabel' value='Create New'/>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-sm-4 control-label">Display Posts as</label>
+
+                            <input type="checkbox">Feed
+                            <input type="checkbox">Grid
+                            <input type="checkbox">Bucket
+
+                        </div>
+                        <div class="alert alert-info">Additional settings are available from the Application Settings
+                            tab
+                        </div>
+
+                </form>
+            </div>
+        </div>
 
     </div>
-    </form>      </div>
 </div>
-</div>
+</div></div>

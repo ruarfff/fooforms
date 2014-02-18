@@ -1,0 +1,80 @@
+<form class="form-horizontal container" role="form">
+    <div class="form-group">
+        <label class="col-sm-4 control-label">Field Label</label>
+
+        <div class="col-sm-8">
+            <input type='text' class="form-control" ng-model="app.fields[nowEditing].fields[nowSubEditing].label"/>
+        </div>
+    </div>
+    <div class="form-group">
+        <label class="col-sm-4 control-label">Box size</label>
+
+        <div class="col-sm-8">
+            <input type="range" min="1" max="12"
+                   ng-model="app.fields[nowEditing].fields[nowSubEditing].boxSize">
+        </div>
+    </div>
+    <div class="form-group">
+        <label class="col-sm-4 control-label">Field size</label>
+
+        <div class="col-sm-8">
+            <input type="range" min="10" max="100" ng-model="app.fields[nowEditing].fields[nowSubEditing].size">
+
+        </div>
+    </div>
+
+    <div class="form-group">
+        <label class="col-sm-4 control-label">Rows</label>
+
+        <div class="col-sm-8">
+            <input type="range" min="1" max="50" ng-model="app.fields[nowEditing].fields[nowSubEditing].rows">
+
+        </div>
+    </div>
+
+    <div class="form-group">
+        <label class="col-sm-4 control-label">Required </label>
+
+        <div class="col-sm-8">
+            <input type='checkbox' ng-model="app.fields[nowEditing].fields[nowSubEditing].required"></label>
+        </div>
+    </div>
+
+    <div class="form-group">
+        <label class="col-sm-4 control-label">Instructions for user</label>
+
+        <div class="col-sm-8">
+            <input type='text' class="form-control"
+                   ng-model="app.fields[nowEditing].fields[nowSubEditing].userInstructions"/>
+        </div>
+    </div>
+    <div class="alert alert-info">
+        <h6>Options</h6>
+
+        <div ng-repeat='option in app.fields[nowEditing].fields[nowSubEditing].options track by $index'>
+            <div class="input-group">
+      <span class="input-group-addon">
+        <input type="radio" name="app.fields[nowEditing].fields[nowSubEditing].id">
+      </span>
+                <input type='text' value='{{option}}'
+                       ng-model='app.fields[nowEditing].fields[nowSubEditing].options[$index]'
+                       class="form-control input-sm">
+
+                <div class="input-group-btn">
+                    <button class='btn btn-default btn-sm' ng-click="addOption($index)"><i class="fa fa-plus fa-lg"></i>
+                    </button>
+                    <button class='btn btn-default btn-sm' ng-click="deleteOption($index)"><i
+                            class="fa fa-trash-o fa-lg"></i></button>
+
+                </div>
+            </div>
+
+
+        </div>
+
+    </div>
+    </div>
+
+
+</form>
+</div>

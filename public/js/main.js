@@ -1,5 +1,5 @@
 'use strict';
-var fooformsApp = angular.module('fooformsApp', ['ngRoute', 'restangular', 'ui.bootstrap']);
+var fooformsApp = angular.module('fooformsApp', ['ngRoute', 'restangular', 'ui.bootstrap', 'textAngular', 'ui.calendar']);
 
 // configure our routes
 fooformsApp.config(function ($routeProvider, $locationProvider) {

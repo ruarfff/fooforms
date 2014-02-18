@@ -1,6 +1,39 @@
-<h1>Apps</h1>
+<div class="col-sm-8">
 
-<div class="alert alert-info">
-    <h3>Create a New App Form</h3>
-    <a class="btn btn-primary" href="appBuilder">Open App Builder</a>
+    <div class="pageGroup" id='mainView'>
+
+        <div id="tabs">
+            <ul id='appTabs' class="nav nav-tabs">
+                <li class="active"><a data-target="#tabs-myapps" data-toggle="tab">Apps</a></li>
+                <li><a data-target="#tabs-download" data-toggle="tab">Download Apps</a></li>
+            </ul>
+            <div class="tab-content white p5">
+                <div id="tabs-myapps" class="tab-pane active">
+
+                    <h3>Apps</h3>
+
+                </div>
+
+
+                <div id="tabs-download" class="tab-pane">
+                    <h3>Download Apps</h3>
+
+                </div>
+
+                <div class="alert alert-success">
+                    <h3 class="fooHeading">Create your own apps!</h3>
+
+                    <p>You can create your own form based apps using the FOOFORMS App Builder. </p>
+                    <a class="btn btn-success" href="appBuilder">Open the App Builder &raquo;</a>
+                </div>
+            </div>
+
+        </div>
+
+
+    </div>
+
+</div>
+<div class="col-xs-4 col-sm-4 col-md-4 tall ">
+    <%include postView.html %>
 </div>
