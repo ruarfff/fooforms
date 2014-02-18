@@ -5,7 +5,7 @@
 var env = process.env.NODE_ENV = process.env.NODE_ENV || 'development';
 
 /*
- Putting config in to global scope. It is a singleton and saves requiring long path names all over the place.
+ Putting configuration in to global scope. It is a singleton and saves requiring long path names all over the place.
  Sort of goes against best practice however so will look in to a better way of doing this.
  */
 global.config = require( './config/config' );
@@ -55,7 +55,7 @@ var FooFormsServerApp = function () {
 
 
     /**
-     *  Setup termination handlers (for exit and a list of signals).
+     *  Set up termination handlers (for exit and a list of signals).
      */
     self.setupTerminationHandlers = function () {
         //  Process on exit and signals.
@@ -124,7 +124,7 @@ var FooFormsServerApp = function () {
 
 
     /*  ================================================================  */
-    /*  App server functions (main app logic here).                       */
+    /*  Application server functions (main app logic here).                       */
     /*  ================================================================  */
 
 
