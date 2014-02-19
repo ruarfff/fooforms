@@ -2,10 +2,9 @@
 'use strict';
 
 var express = require( 'express' );
-var engine = require( 'ejs-locals' );
+var engine = require('ejs');
 var flash = require( 'connect-flash' );
 var helpers = require( 'view-helpers' );
-var partials = require( 'express-partials' );
 var log4js = require( 'log4js' );
 var log = require( global.config.apps.LOGGING ).LOG;
 
@@ -31,10 +30,9 @@ module.exports = function ( app, passport ) {
         app.set( 'port', global.config.port );
         app.set( 'views', global.config.root + '/views' );
         app.set( 'uploads', global.config.root + '/uploads' );
-        app.engine( 'html', engine );
-        app.set( 'view engine', 'html' );
+        app.engine('.html', engine.__express);
+        app.set('view engine', 'html');
         app.use( express.favicon() );
-        app.use( require( 'less-middleware' )( { src: global.config.root + '/public' } ) );
         app.use( express.static( global.config.root + '/public' ) );
         app.use( express.json() );
         app.use( express.urlencoded() );
@@ -45,7 +43,6 @@ module.exports = function ( app, passport ) {
         app.use( helpers( global.config.app.name ) );
         app.use( passport.initialize() );
         app.use( passport.session() );
-        app.use( partials() );
     } );
 
     // development only
@@ -67,7 +64,7 @@ module.exports = function ( app, passport ) {
         }
 
         //Log it
-        console.error( err.stack );
+        log.error(err.stack);
 
         //Error page
         res.status( 500 ).render( '500', {
@@ -77,7 +74,7 @@ module.exports = function ( app, passport ) {
 
     //Assume 404 since no middleware responded
     app.use( function ( req, res ) {
-        res.status( 404 ).render( '404', {
+        res.status(404).render('404.html', {
             url: req.originalUrl,
             error: 'Not found'
         } );

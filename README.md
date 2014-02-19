@@ -1,2 +1,30 @@
 fooforms
 ========
+
+To ensure all dependencies are installed once repository is pulled down:
+
+npm install (gets all dependencies to get the app up and running)
+npm install --dev (install all dev dependencies, required for testing and Grunt)
+
+Required global dependencies:
+
+npm -g i grunt : See http://gruntjs.com/
+npm -g i grunt-cli : Allows command line access to grunt. Below is a list of grunt tasks currently available.
+
+grunt : Simply starts a file watch task to run tests on changes. Currently does nothing else.
+grunt dev : Start the application with nodemon and starts a file watch, running tests on file changes.
+grunt dbdrop : drop the test database.
+grunt dbseed : seed the test database.
+
+npm -g i nodemon : To run application and restart dev server when file changes are made. Is invoked with grunt dev.
+
+npm -g i jasmine-node : For testing. See https://github.com/mhevery/jasmine-node
+
+npm -g i istanbul : For code coverage reports.
+
+npm -g i yuidocjs : This generates documentation (assuming correct commenting syntax was used. See: http://yui.github.io/yuidoc/). To use, run yuidoc . from root of project.
+
+SASS also needs to be installed. Ruby must be installed to use SASS.
+Install ruby and use GEM: gem install sass
+
+May have forgot a few. Will update as I remember them.
