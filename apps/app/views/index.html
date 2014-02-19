@@ -1,125 +1,118 @@
-<div class="col-sm-9">
+<div class="pageGroup" id='mainView'>
 
-    <div class="pageGroup" id='mainView'>
+    <div id="tabs">
+        <ul id='appTabs' class="nav nav-tabs">
+            <li class="active"><a data-target="#tabs-myapps" data-toggle="tab">Apps</a></li>
+            <li><a data-target="#tabs-download" data-toggle="tab">Download Apps</a></li>
+        </ul>
+        <div class="tab-content white p5">
+            <div id="tabs-myapps" class="tab-pane fade in active">
 
-        <div id="tabs">
-            <ul id='appTabs' class="nav nav-tabs">
-                <li class="active"><a data-target="#tabs-myapps" data-toggle="tab">Apps</a></li>
-                <li><a data-target="#tabs-download" data-toggle="tab">Download Apps</a></li>
-            </ul>
-            <div class="tab-content white p5">
-                <div id="tabs-myapps" class="tab-pane fade in active">
+                <div class="row m5 p5">
+                    <div class="col-sm-4 col-md-3"
+                         ng-repeat="app in ['bike','calculator','blimp','car','cloud','folder','global']">
+                        <div class="thumbnail">
+                            <img src="/assets/icons/color/{{app}}.png" alt="Invoices">
 
-                    <div class="row m5 p5">
-                        <div class="col-sm-4 col-md-3"
-                             ng-repeat="app in ['bike','calculator','blimp','car','cloud','folder','global']">
-                            <div class="thumbnail">
-                                <img src="/assets/icons/color/{{app}}.png" alt="Invoices">
-
-                                <div class="caption">
-                                    <a class="center-block btn btn-default">{{app | uppercase}}</a>
-                                </div>
+                            <div class="caption">
+                                <a class="center-block btn btn-default">{{app | uppercase}}</a>
                             </div>
                         </div>
                     </div>
-
                 </div>
 
-
-                <div id="tabs-download" class="tab-pane fade">
-
-
-                    <div class="row">
-
-                        <!-- Navigation Buttons -->
-                        <div class="col-md-3">
-                            <ul class="nav nav-pills nav-stacked" id="myTabs">
-                                <li class="active"><a data-toggle="tab" data-target="#featured">Featured Apps</a></li>
-                                <li><a data-toggle="tab" data-target="#communication">Communication</a></li>
-                                <li><a data-toggle="tab" data-target="#finance">Finance</a></li>
-                                <li><a data-toggle="tab" data-target="#contact">Contact</a></li>
-                                <li><a data-toggle="tab" data-target="#hr">HR</a></li>
-                                <li><a data-toggle="tab" data-target="#facebook">Facebook</a></li>
-                                <li><a data-toggle="tab" data-target="#software">Software Development</a></li>
-                                <li><a data-toggle="tab" data-target="#events">Events</a></li>
-                                <li><a data-toggle="tab" data-target="#dates">Calendar & Dates</a></li>
-                            </ul>
-                        </div>
-
-                        <!-- Content -->
-                        <div class="col-md-9">
-                            <div class="tab-content">
-                                <div class="tab-pane active" id="featured"><h4>Featured Apps</h4>
-
-                                    <div class="row m5 p5">
-                                        <div class="col-sm-4 col-md-4"
-                                             ng-repeat="app in ['bike','calculator','blimp','car','cloud','folder','global']">
-                                            <div class="thumbnail">
-                                                <img src="/assets/icons/color/{{app}}.png" alt="Invoices">
-
-                                                <div class="caption">
-                                                    <a class="center-block btn btn-default btn-sm">{{app |
-                                                        uppercase}}</a>
-                                                </div>
-                                                <i class="fa fa-star fa-fw"></i>
-                                                <i class="fa fa-star fa-fw"></i>
-                                                <i class="fa fa-star fa-fw"></i>
-                                                <i class="fa fa-star fa-fw"></i>
-                                                <i class="fa fa-star fa-fw"></i>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="tab-pane" id="communication"><h4>Communication</h4>
-
-                                    <div class="row m5 p5">
-                                        <div class="col-sm-4 col-md-4"
-                                             ng-repeat="app in ['calculator','blimp','car','cloud','folder','global']">
-                                            <div class="thumbnail">
-                                                <img src="/assets/icons/color/{{app}}.png" alt="Invoices">
-
-                                                <div class="caption">
-                                                    <a class="center-block btn btn-default btn-sm">{{app |
-                                                        uppercase}}</a>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="tab-pane" id="finance">Messages</div>
-                                <div class="tab-pane" id="contact">Messages</div>
-                                <div class="tab-pane" id="hr">Messages</div>
-                                <div class="tab-pane" id="facebook">Messages</div>
-                                <div class="tab-pane" id="software">Messages</div>
-                                <div class="tab-pane" id="events">Messages</div>
-                                <div class="tab-pane" id="dates">Messages</div>
-                            </div>
-                        </div>
-
-                    </div>
-
-
-                </div>
-                <div class="row">
-                    <div class="col-sm-2"></div>
-                    <div class="col-sm-8">
-                        <div class="alert alert-success">
-                            <h3 class="fooHeading">Create your own apps!</h3>
-
-                            <p>You can create your own form based apps using the FOOFORMS App Builder. </p>
-                            <a class="btn btn-success" href="appBuilder">Open the App Builder &raquo;</a>
-                        </div>
-                    </div>
-                    <div class="col-sm-2"></div>
-                </div>
             </div>
 
-        </div>
 
+            <div id="tabs-download" class="tab-pane fade">
+
+
+                <div class="row">
+
+                    <!-- Navigation Buttons -->
+                    <div class="col-md-3">
+                        <ul class="nav nav-pills nav-stacked" id="myTabs">
+                            <li class="active"><a data-toggle="tab" data-target="#featured">Featured Apps</a></li>
+                            <li><a data-toggle="tab" data-target="#communication">Communication</a></li>
+                            <li><a data-toggle="tab" data-target="#finance">Finance</a></li>
+                            <li><a data-toggle="tab" data-target="#contact">Contact</a></li>
+                            <li><a data-toggle="tab" data-target="#hr">HR</a></li>
+                            <li><a data-toggle="tab" data-target="#facebook">Facebook</a></li>
+                            <li><a data-toggle="tab" data-target="#software">Software Development</a></li>
+                            <li><a data-toggle="tab" data-target="#events">Events</a></li>
+                            <li><a data-toggle="tab" data-target="#dates">Calendar & Dates</a></li>
+                        </ul>
+                    </div>
+
+                    <!-- Content -->
+                    <div class="col-md-9">
+                        <div class="tab-content">
+                            <div class="tab-pane active" id="featured"><h4>Featured Apps</h4>
+
+                                <div class="row m5 p5">
+                                    <div class="col-sm-4 col-md-4"
+                                         ng-repeat="app in ['bike','calculator','blimp','car','cloud','folder','global']">
+                                        <div class="thumbnail">
+                                            <img src="/assets/icons/color/{{app}}.png" alt="Invoices">
+
+                                            <div class="caption">
+                                                <a class="center-block btn btn-default btn-sm">{{app |
+                                                    uppercase}}</a>
+                                            </div>
+                                            <i class="fa fa-star fa-fw"></i>
+                                            <i class="fa fa-star fa-fw"></i>
+                                            <i class="fa fa-star fa-fw"></i>
+                                            <i class="fa fa-star fa-fw"></i>
+                                            <i class="fa fa-star fa-fw"></i>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="tab-pane" id="communication"><h4>Communication</h4>
+
+                                <div class="row m5 p5">
+                                    <div class="col-sm-4 col-md-4"
+                                         ng-repeat="app in ['calculator','blimp','car','cloud','folder','global']">
+                                        <div class="thumbnail">
+                                            <img src="/assets/icons/color/{{app}}.png" alt="Invoices">
+
+                                            <div class="caption">
+                                                <a class="center-block btn btn-default btn-sm">{{app |
+                                                    uppercase}}</a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="tab-pane" id="finance">Messages</div>
+                            <div class="tab-pane" id="contact">Messages</div>
+                            <div class="tab-pane" id="hr">Messages</div>
+                            <div class="tab-pane" id="facebook">Messages</div>
+                            <div class="tab-pane" id="software">Messages</div>
+                            <div class="tab-pane" id="events">Messages</div>
+                            <div class="tab-pane" id="dates">Messages</div>
+                        </div>
+                    </div>
+
+                </div>
+
+
+            </div>
+            <div class="row">
+                <div class="col-sm-2"></div>
+                <div class="col-sm-8">
+                    <div class="alert alert-success">
+                        <h3 class="fooHeading">Create your own apps!</h3>
+
+                        <p>You can create your own form based apps using the FOOFORMS App Builder. </p>
+                        <a class="btn btn-success" href="appBuilder">Open the App Builder &raquo;</a>
+                    </div>
+                </div>
+                <div class="col-sm-2"></div>
+            </div>
+        </div>
 
     </div>
 
-</div>
-<div class="col-xs-3 col-sm-3 col-md-3 tall ">
-    <%include postView.html %>
+
 </div>

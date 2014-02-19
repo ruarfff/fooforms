@@ -2,39 +2,52 @@
 
 /* Filters */
 
-angular.module('appBuilderFilters', []).filter(['filterTypes', function () {
+// Filter app fields based on category
+fooformsApp.filter('filterTypes', function () {
 
-    return function (input, category) {
+    return function (inputs, category) {
         var standard = ["text", "textarea", "select", "checkbox", "radio", "paragraph", "html", "groupbox"];
         var numbers = ["number", "calculation"];
         var people = ["people", "to"];
 
-        var filtered = [];
+        // The filter array to be assigned based on the category
+        var categoryFilter;
 
-        input.forEach(function (inputType) {
+        var filtered = [];
+        try {
+            // TODO: remove logging
+            console.log('filterTypes', arguments);
 
             switch (category) {
-
                 case "standard" :
-                    if (inputType.type == standard) {
-
-                        filtered.push(inputType);
-                    }
+                    categoryFilter = standard;
                     break;
                 case "number" :
-                    if (inputType.type == numbers) {
-
-                        filtered.push(inputType);
-                    }
+                    categoryFilter = numbers;
+                    break;
+                case "people" :
+                    categoryFilter = people;
+                    break;
+                default :
+                    return inputs; // If no category, might as well not filter
                     break;
             }
 
-        })
-        // conditional based on optional argument
-
+            if (categoryFilter) {
+                angular.forEach(inputs, function (input) {
+                    // Check if input type exists in categoryFilter array
+                    if (categoryFilter.indexOf(input.type) > -1) {
+                        filtered.push(input);
+                    }
+                });
+            }
+        } catch (err) {
+            // TODO: What to do if some error? Maybe just return all inputs?
+            console.err(err.toString());
+        }
         return filtered;
     }
 
-}]);
+});
 
 

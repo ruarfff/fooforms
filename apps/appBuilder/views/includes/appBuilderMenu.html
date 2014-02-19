@@ -22,7 +22,7 @@
                         <div class="panel-body">
                             <div class="list-group">
                                 <div class='fieldObject list-group-item'
-                                     ng-repeat="inputType in inputTypes"
+                                     ng-repeat="inputType in inputTypes | filterTypes:'standard'"
                                      ng-show="inputType.name"
                                      draggable="inputType"
                                      ng-border="showBorders(show)"
@@ -145,7 +145,7 @@
                         <div class="alert alert-info">Additional settings are available from the Application Settings
                             tab
                         </div>
-
+                    </div>
                 </form>
             </div>
         </div>
