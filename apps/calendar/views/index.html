@@ -1,34 +1,28 @@
-<div class="col-sm-8">
+<div class="pageGroup" id='mainView'>
 
-    <div class="pageGroup" id='mainView'>
+    <div id="tabs">
+        <ul id='appTabs' class="nav nav-tabs">
+            <li class="active"><a data-target="#tabs-myapps" data-toggle="tab">My Dates</a></li>
+            <li><a data-target="#tabs-download" data-toggle="tab">Global Calendar</a></li>
+        </ul>
+        <div class="tab-content white p5">
+            <div id="tabs-myapps" class="tab-pane active">
 
-        <div id="tabs">
-            <ul id='appTabs' class="nav nav-tabs">
-                <li class="active"><a data-target="#tabs-myapps" data-toggle="tab">My Dates</a></li>
-                <li><a data-target="#tabs-download" data-toggle="tab">Global Calendar</a></li>
-            </ul>
-            <div class="tab-content white p5">
-                <div id="tabs-myapps" class="tab-pane active">
-
-                    <div ui-calendar="uiConfig.calendar" class="span8 calendar" ng-model="eventSources"></div>
-
-                </div>
-
-
-                <div id="tabs-download" class="tab-pane">
-                    <h3>Download Apps</h3>
-
-                </div>
-
+                <div ui-calendar="uiConfig.calendar" class="span8 calendar" ng-model="eventSources"></div>
 
             </div>
 
-        </div>
 
+            <div id="tabs-download" class="tab-pane">
+                <h3>Download Apps</h3>
+
+            </div>
+
+
+        </div>
 
     </div>
 
-</div>
-<div class="col-xs-4 col-sm-4 col-md-4 tall ">
 
 </div>
+

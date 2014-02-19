@@ -1,60 +1,54 @@
-<div class="row">
-    <div class="col-xs-8 col sm-8 col-md-8 pageGroup">
+<div class="pageGroup">
 
-        <div id='tabs'>
-            <ul id='mainTabs' class="nav nav-tabs">
-                <li class="active"><a data-target="#tabs-1" data-toggle="tab">Timeline</a></li>
-                <li><a data-target="#tabs-2" data-toggle="tab">Clouds</a></li>
-                <li><a data-target="#tabs-3" data-toggle="tab">Apps</a></li>
-            </ul>
-            <div class="tab-content white m0 p5">
-                <div id="tabs-1" class="tab-pane active">
-                    <div class="alert  m5">
-                        <h4>Welcome <? echo $displayName ?>,</h4>
+    <div id='tabs'>
+        <ul id='mainTabs' class="nav nav-tabs">
+            <li class="active"><a data-target="#tabs-1" data-toggle="tab">Timeline</a></li>
+            <li><a data-target="#tabs-2" data-toggle="tab">Clouds</a></li>
+            <li><a data-target="#tabs-3" data-toggle="tab">Apps</a></li>
+        </ul>
+        <div class="tab-content white m0 p5">
+            <div id="tabs-1" class="tab-pane active">
+                <div class="alert  m5">
+                    <h4>Welcome <? echo $displayName ?>,</h4>
 
-                        <p>FooForms lets you create apps for you and your team.</p>
+                    <p>FooForms lets you create apps for you and your team.</p>
 
-                        <p><h5>Here's a few ideas.</h5></p>
-                        <ul>
-                            <li>Create a Bug Tracker</li>
-                            <li>Manage Invoices</li>
-                            <li>Holiday Request Form</li>
-                            <li>Customer Service Helpdesk</li>
-                            <li>Manage Projects</li>
-                        </ul>
-                    </div>
-                    <div class="alert alert-info m5">
-                        <h3>Let's get started!</h3>
-
-                        <p><strong>You'll need a cloud to put your apps into. </strong><br>
-                            You can create as many clouds as you need. Use them to group similar apps, make departments,
-                            etc.</P>
-
-
-                        <button class='btn btn-primary' onclick='loadTabsHTML("newCloudForm");'>Create a new
-                            cloud
-                        </button>
-                        <button class='btn btn-default'>Join an existing cloud</button>
-
-
-                    </div>
-
+                    <p><h5>Here's a few ideas.</h5></p>
+                    <ul>
+                        <li>Create a Bug Tracker</li>
+                        <li>Manage Invoices</li>
+                        <li>Holiday Request Form</li>
+                        <li>Customer Service Helpdesk</li>
+                        <li>Manage Projects</li>
+                    </ul>
                 </div>
-                <div id="tabs-2" class="tab-pane">
+                <div class="alert alert-info m5">
+                    <h3>Let's get started!</h3>
+
+                    <p><strong>You'll need a cloud to put your apps into. </strong><br>
+                        You can create as many clouds as you need. Use them to group similar apps, make departments,
+                        etc.</P>
+
+
+                    <button class='btn btn-primary' onclick='loadTabsHTML("newCloudForm");'>Create a new
+                        cloud
+                    </button>
+                    <button class='btn btn-default'>Join an existing cloud</button>
 
 
                 </div>
-                <div id="tabs-3" class="tab-pane">
+
+            </div>
+            <div id="tabs-2" class="tab-pane">
 
 
-                </div>
+            </div>
+            <div id="tabs-3" class="tab-pane">
+
+
             </div>
         </div>
-
-    </div>
-
-    <div class="col-xs-4 col-sm-4 col-md-4 tall ">
-        <%include postView.html %>
     </div>
 
 </div>
+

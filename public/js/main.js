@@ -7,8 +7,7 @@ fooformsApp.config(function ($routeProvider, $locationProvider) {
 
     $routeProvider
         .when('/', {
-            templateUrl: '/partials/dashboard',
-            controller: 'DashboardCtrl'
+            redirectTo: '/dashboard'
         })
         .when('/dashboard', {
             templateUrl: '/partials/dashboard',
@@ -38,10 +37,13 @@ fooformsApp.config(function ($routeProvider, $locationProvider) {
             templateUrl: '/partials/settings'
         })
         .when('/admin', {
-            templateUrl: '/partials/profile'
+            templateUrl: '/partials/admin'
         })
         .when('/appBuilder', {
             templateUrl: '/partials/appBuilder',
             controller: 'fieldsCtrl'
+        })
+        .otherwise({
+            redirectTo: '/404'
         });
 });

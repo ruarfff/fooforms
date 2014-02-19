@@ -31,6 +31,25 @@ var routes = function (app, passport) {
     require('../apps/user/routes')(app);
     require('../apps/appBuilder/routes')(app);
 
+    app.get('/partials/userGuide', authenticator.ensureAuthenticated, function (req, res) {
+        res.render('userGuide', {
+            user: req.user
+        });
+    });
+
+    app.get('/partials/settings', authenticator.ensureAuthenticated, function (req, res) {
+        res.render('settings', {
+            user: req.user
+        });
+    });
+
+    app.get('/404', function (req, res) {
+        res.status(404).render('404', {
+            url: req.originalUrl,
+            error: 'Not found'
+        });
+    });
+
     app.get('*', function (req, res) {
         res.render('dashboard', {
             user: req.user

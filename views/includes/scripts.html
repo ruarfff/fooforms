@@ -7,10 +7,15 @@
 <script type="text/javascript" src="//cdn.jsdelivr.net/restangular/latest/restangular.min.js"></script>
 <script type="text/javascript"
         src="//cdnjs.cloudflare.com/ajax/libs/angular-ui-bootstrap/0.10.0/ui-bootstrap.js"></script>
-
 <script type="text/javascript" src="/js/main.js"></script>
+
 <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.2.4/angular-sanitize.min.js"></script>
 <script type="text/javascript" src="/js/common/textAngular.js"></script>
+
+<!-- Calendar Scripts -->
+<script type="text/javascript" src="/js/calendar/fullcalendar.js"></script>
+<script type="text/javascript" src="/js/calendar/directives/calendar.js"></script>
+
 
 <!-- Dashboard Scripts -->
 <script type="text/javascript" src="/js/dashboard/dashboardControllers.js"></script>
@@ -21,28 +26,7 @@
 <!-- Cloud Scripts -->
 <script type="text/javascript" src="/js/cloud/cloudControllers.js"></script>
 
-<!-- Calendar Scripts -->
-<script type="text/javascript" src="/js/calendar/fullcalendar.js"></script>
-<script type="text/javascript" src="/js/calendar/directives/calendar.js"></script>
-
-
 <!-- App Builder Scripts -->
-<!--<script type="text/javascript" src="/js/appBuilder/app/appBuilder.js"></script>-->
 <script type="text/javascript" src="/js/appBuilder/directives/directives.js"></script>
 <script type="text/javascript" src="/js/appBuilder/filters/filters.js"></script>
-
 <script type="text/javascript" src="/js/appBuilder/controllers/controllers.js"></script>
-<% if( scripts ) { %>
-<% for(var i=0; i < scripts.length; i++) {%>
-<script type="text/javascript" src="<%= scripts[i] %>"></script>
-<% } %>
-<% } %>
-
-
-<script>
-    //Temporary solution here. Will move to external file once I figure out the structure for the client code.
-    $(function () {
-        var path = window.location.pathname;
-        $('nav li a[href$="' + path + '"]').parents('li').addClass('active');
-    });
-</script>
