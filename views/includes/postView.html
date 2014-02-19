@@ -1,7 +1,8 @@
 <div id="postViewer" class='pageGroup'>
     <div>
         <ul id='sideTabs' class="nav nav-tabs">
-            <li class="active"><a data-target="#tabs-notifications" data-toggle="tab">Notifications</a></li>
+            <li class="active"><a data-target="#tabs-notifications" data-toggle="tab">Notifications <span class="badge">4</span></a>
+            </li>
             <li><a data-target="#tabs-chat" data-toggle="tab">Chat</a></li>
         </ul>
         <div class="tab-content white m0 p5">
@@ -16,7 +17,7 @@
                         </a>
 
                         <div class="media-body">
-                            <h4 class="media-heading">Brian want's to chat</h4>
+                            <h6 class="media-heading">Brian want's to chat</h6>
 
                             <p>You've received a new chat request from Brian.</p>
                             <a class="btn btn-success btn-xs">Accept</a>
@@ -31,7 +32,7 @@
                         </a>
 
                         <div class="media-body">
-                            <h4 class="media-heading">New Task Assignment</h4>
+                            <h5 class="media-heading">New Task Assignment</h5>
                             Brian has created a task with your name on it...
                         </div>
                     </div>
@@ -68,7 +69,34 @@
 
             <div id="tabs-chat" class="tab-pane">
 
+                <video autoplay></video>
+                <button class="btn btn-default" onclick="chat()">Start Video Chat</button>
+                </button>
+                <script>
+                    navigator.getUserMedia = navigator.getUserMedia || navigator.webkitGetUserMedia || navigator.mozGetUserMedia;
 
+                    var constraints = {audio: false, video: true};
+                    var video = document.querySelector("video");
+
+                    function successCallback(stream) {
+                        window.stream = stream; // stream available to console
+                        if (window.URL) {
+                            video.src = window.URL.createObjectURL(stream);
+                        } else {
+                            video.src = stream;
+                        }
+                        video.play();
+                    }
+
+                    function errorCallback(error) {
+                        console.log("navigator.getUserMedia error: ", error);
+                    }
+
+                    function chat() {
+                        navigator.getUserMedia(constraints, successCallback, errorCallback);
+                    }
+
+                </script>
             </div>
 
         </div>
