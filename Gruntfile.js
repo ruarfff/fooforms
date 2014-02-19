@@ -38,6 +38,7 @@ module.exports = function (grunt) {
             projectRoot: '.',
             requirejs: false,
             forceExit: true,
+            autotest: true,
             jUnit: {
                 report: true,
                 savePath: 'out/reports/jasmine/',
@@ -45,17 +46,11 @@ module.exports = function (grunt) {
                 consolidate: true
             }
         }, //End bgshell test stuff
-        // Shell commands run by grunt
-        shell: {
-            jasmineTest: {
-                command: 'jasmine-node spec --autotest --watch .'
-            }
-        }, // End shell
         // Minimise and append public js files
         uglify: {
             all: {
                 files: {
-                    'public/build/main.min.js': ['public/js/holder.js', 'public/js/main.js']
+                    'public/js/main.min.js': ['src/js/main.js']
                 }
             }
         }, // End Uglify
@@ -66,40 +61,46 @@ module.exports = function (grunt) {
                     style: 'compressed'
                 },
                 files: {
-                    'public/build/main.css': 'public/css/main.scss'
+                    'public/css/main.css': 'src/sass/main.scss'
                 }
             }
         }, // End SASS
-        nodemon: {
-            // For development. Nodemon keeps the app running and loads file changes automatically.
+        concurrent: {
             dev: {
+                tasks: ['nodemon', 'watch'],
                 options: {
-                    file: 'server.js',
-                    watchedExtensions: ['js', 'json'],
-                    ignoredFiles: ['node_modules/**', 'public/**'],
-                    nodeArgs: ['--debug']
+                    logConcurrentOutput: true
                 }
             }
-        },// End nodemon
+        },
+        nodemon: {
+            dev: {
+                script: 'server.js'
+            }
+        },
         watch: {
-            // Run certain tasks every time a js file changes.
             all: {
                 files: ['public/*'],
                 tasks: ['uglify:all', 'sass'],
                 options: {
                     livereload: true
                 }
-            }
-        },// End watch
-        concurrent: {
-            // Spawn separate processes for nodemon and watch
-            dev: {
+            },
+            js: {
+                files: ['public/js/*'],
+                tasks: ['uglify:all', 'sass'],
                 options: {
-                    logConcurrentOutput: true
-                },
-                tasks: ['shell:jasmineTest', 'uglify:all', 'sass', 'nodemon:dev', 'watch']
+                    livereload: true
+                }
+            },
+            css: {
+                files: ['public/css/*'],
+                tasks: ['sass'],
+                options: {
+                    livereload: true
+                }
             }
-        }// End concurrent
+        }// End watch
     });
 
     // On watch events configure mochaTest to run only on the test if it is one
@@ -249,7 +250,7 @@ module.exports = function (grunt) {
     });
 
 
-    grunt.registerTask('dev', 'start application isn dev mode using watch and nodemon', ['concurrent:dev']);
-    grunt.registerTask('default', 'currently, default simply starts a watch on files but no other functionality', ['watch', 'shell:jasmineTest']);
+    grunt.registerTask('dev', 'start application isn dev mode using watch and nodemon', ['uglify:all', 'sass', 'jasmine_node', 'concurrent']);
+    grunt.registerTask('default', 'currently, default simply starts a watch on files but no other functionality', ['jasmine_node']);
 
 };
