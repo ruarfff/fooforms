@@ -17,13 +17,13 @@
 #appHeading {
     display: block;
     border: 1px solid #efefef;
-    margin: 5px;
+    margin: 0px;
     padding: 5px;
 }
 
 #appHeading.selected {
-    border-color: #d4ebaf;
-    background: #edfcd5;
+    background: #F1FBFF;
+    border: 1px solid #D2E5F7;
 }
 
 #appHeading h2 {
@@ -41,6 +41,7 @@
     font-size: 10px;
     font-weight: normal;
     line-height: 14px;
+
 }
 
 #appTitle {
@@ -68,7 +69,7 @@ div.fieldObject:hover {
 .appFormObject {
     margin: 0px;
     padding: 5px;
-    border: 1px solid #fff;
+    border: 1px solid #EFEFEF;
     background: #fff;
 }
 
@@ -82,19 +83,19 @@ div.fieldObject:hover {
     clear: both !important;
     padding: 30px !important;
     border-radius: 0px !important;
-    border: 1px solid #0073ea;
+    border: 1px solid #EFE3AE;
 }
 
 .ui-sortable-placeholder {
     visibility: visible !important;
-    border: 1px solid #0073ea;
+    border: 2px dashed #D2E5F7 !important;
     display: block;
-    background: #dff0d8 !important;
+    background: #fefefe !important;
 }
 
 .dragging {
-    border: 1px solid #D2E5F7 !important;
-    background: #EDF4FA;
+    background: #F1FBFF !important;
+    border: 1px solid #D2E5F7;
 
 }
 
@@ -139,6 +140,19 @@ img.icon {
     text-align: right;
 }
 
+.repeatBox {
+    display: inline-block;
+    padding: 0px;
+    margin: 0px;
+    border: 2px dotted #D2E5F7;
+    background: #fff;
+    min-height: 90px;
+}
+
+.repeatBox:hover {
+    border: 2px solid #D2E5F7;
+}
+
 #saveApp {
 
 }
@@ -148,3 +162,25 @@ label i.fa {
     color: #185aa7;
     margin-left: 5px;
 }
+
+.onTop {
+    position: absolute !important;
+    z-index: 999999 !important;
+    float: right;
+    top: 2px;
+    right: 2px;
+
+}
+
+.underv {
+    position: relative !important;
+    z-index: 999998 !important;
+
+}
+
+.newForm {
+    background: url('/assets/images/appCanvas.png') top left no-repeat;
+    border: 2px dashed #D2E5F7;
+    min-height: 300px;
+}
+

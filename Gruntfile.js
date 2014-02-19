@@ -138,7 +138,7 @@ module.exports = function (grunt) {
     grunt.registerTask('dbseed', 'seed the database', function () {
         grunt.task.run([
             'adduser:Ruairi:O Brien:Ruairi:Tomas:ruairi@fooforms.com:secret1:true:local',
-            'adduser:Brian:McAuliffe::brian@fooforms.com:secret2:true:local',
+            'adduser:Brian:McAuliffe:Brian:Lee:brian@fooforms.com:secret2:true:local',
             'adduser:bob:Murphy:Bob:James:bob@gmail.com:secret3:false:local',
             'adduser:mary:Doe:Mary:Burt:mary@gmail.com:secret4:false:local',
             'addCloud:TestCloud1:A Test Cloud:none:test1:AType:Brian',

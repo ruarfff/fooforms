@@ -8,10 +8,13 @@
 
     <div class="input-group" ng-style="{'width': appField.size+'%'}">
         <span class="input-group-addon" ng-show="appField.required">*</span>
-        <select
-                rows="{{appField.rows}}"
+        <select data-ng-attr-size="{{appField.rows}}"
                 class="form-control"
                 id="{{appField.id}}"
-                placeholder="{{appField.placeholder}}"></select>
+                >
+            <option ng-repeat='option in appField.options' ng-selected="appField.selected==option.label">
+                {{option.label}}
+            </option>
+        </select>
     </div>
 </div>
