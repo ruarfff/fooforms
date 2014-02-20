@@ -50,7 +50,7 @@ var routes = function (app, passport) {
         });
     });
 
-    app.get('*', function (req, res) {
+    app.get('*', authenticator.ensureAuthenticated, function (req, res) {
         res.render('dashboard', {
             user: req.user
         });

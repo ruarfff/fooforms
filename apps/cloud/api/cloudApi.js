@@ -9,7 +9,8 @@ module.exports = {
     create: cloudCreator.create,
     getCloudById: cloudQuery.getCloudById,
     getUserClouds: cloudQuery.getAllClouds,
-    update: cloudUpdater.update
+    update: cloudUpdater.update,
+    delete: cloudUpdater.delete
 };
 
 

@@ -28,16 +28,20 @@ var routes = function (app) {
         cloudApi.getUserClouds(req, res);
     });
 
-    app.get('/api/cloud/:id', authenticator.ensureAuthenticated, function (req, res) {
+    app.get('/api/clouds/:id', authenticator.ensureAuthenticated, function (req, res) {
         cloudApi.getCloudById(req, res, req.params.id);
     });
 
-    app.post('/api/cloud', authenticator.ensureAuthenticated, function (req, res) {
+    app.post('/api/clouds', authenticator.ensureAuthenticated, function (req, res) {
         cloudApi.create(req, res);
     });
 
-    app.put('/api/cloud', authenticator.ensureAuthenticated, function (req, res) {
+    app.put('/api/clouds', authenticator.ensureAuthenticated, function (req, res) {
         cloudApi.update(req, res);
+    });
+
+    app.delete('/api/clouds', authenticator.ensureAuthenticated, function (req, res) {
+        cloudApi.delete(req, res);
     });
 
 };
