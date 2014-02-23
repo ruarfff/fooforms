@@ -4,7 +4,6 @@ fooforms
 To ensure all dependencies are installed once repository is pulled down:
 
 npm install (gets all dependencies to get the app up and running)
-npm install --dev (install all dev dependencies, required for testing and Grunt)
 
 Required global dependencies:
 

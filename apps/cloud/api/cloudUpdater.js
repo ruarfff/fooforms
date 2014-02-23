@@ -2,6 +2,7 @@
 'use strict';
 
 var cloudLib = require( global.config.apps.CLOUD );
+var Cloud = require( '../models/cloud' ).Cloud;
 var log = require( global.config.apps.LOGGING ).LOG;
 
 exports.update = function ( req, res ) {
@@ -31,9 +32,11 @@ exports.update = function ( req, res ) {
 
 exports.delete = function (req, res) {
     try {
-        var cloudToRemove = req.body;
-
-        cloudLib.Cloud.remove(cloudToRemove, function (err) {
+        var cloudToRemove = new Cloud( req.body );
+        log.debug( JSON.stringify( cloudToRemove ) );
+        cloudToRemove.remove( function ( err, cloud ) {
+            log.debug( JSON.stringify( err ) );
+            log.debug( JSON.stringify( cloud ) );
             if (err) {
                 log.error(err.toString());
                 res.status(400);
