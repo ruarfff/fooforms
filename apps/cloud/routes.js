@@ -40,7 +40,7 @@ var routes = function (app) {
         cloudApi.update(req, res);
     });
 
-    app.delete('/api/clouds', authenticator.ensureAuthenticated, function (req, res) {
+    app.del('/api/clouds', authenticator.ensureAuthenticated, function (req, res) {
         cloudApi.delete(req, res);
     });
 
