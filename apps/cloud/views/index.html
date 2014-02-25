@@ -1,76 +1,155 @@
-<h1>Clouds</h1>
+<div class="col-xs-12 col-sm-8 col-md-8 pageGroup" id='mainView'>
+    <div class="pageGroup">
 
-<div class="panel panel-success">
-    <div class="panel-heading">
-        <h3 class="panel-title">New Cloud</h3>
-    </div>
-    <div class="panel-body">
-        <form novalidate class="css-form" role="form">
-            <div class="form-group">
-                <label for="cloudName">Name</label>
-                <input type="text" class="form-control" id="cloudName" ng-model="newCloud.name" required
-                       placeholder="Some awesome cloud name"/><br/>
-            </div>
-            <div class="form-group">
-                <label for="cloudDescription">Description</label>
-                <input type="text" class="form-control" id="cloudDescription" ng-model="newCloud.description"
-                       placeholder="A detailed description that everyone will read"/>
-            </div>
-            <div class="form-group">
-                <label for="cloudLabel">Label</label>
-                <input type="text" class="form-control" id="cloudLabel" ng-model="newCloud.menuLabel"
-                       placeholder="Not sure about this one"/>
-            </div>
-            <div class="form-group">
-                <label for="cloudIcon">Icon</label>
-                <input type="file" id="cloudIcon" ng-model="newCloud.icon"/>
+        <div id="tabs">
+            <ul id='appTabs' class="nav nav-tabs">
+                <li class="active"><a data-target="#tabs-clouds" data-toggle="tab">Clouds</a></li>
+                <li><a data-target="#tabs-settings" data-toggle="tab">Admin Settings</a></li>
+            </ul>
+            <div class="tab-content white p5">
+                <div id="tabs-clouds" class="tab-pane fade in active">
 
-                <p class="help-block">Whatever you do, don't try to upload a file. We haven't implemented that yet!.</p>
-            </div>
-            <button ng-click="createCloud(newCloud)" class="btn btn-success">Save</button>
-        </form>
+                    <div class="row m5 p5">
+                        <div class="col-sm-4 col-md-3"
+                             ng-repeat="cloud in clouds">
+                            <div class="thumbnail">
+                                <img src="/assets/icons/color/cloud.png" alt="{{cloud.name}} {{cloud.description}}">
 
-    </div>
-</div>
+                                <div class="caption">
+                                    <a class="center-block" title="{{cloud.description}}">{{cloud.name}}</a>
+                                </div>
 
+                            </div>
+                        </div>
+                    </div>
 
-<div class="panel panel-info">
-    <div class="panel-heading">
-        <h3 class="panel-title">Existing Clouds</h3>
-    </div>
-    <div class="panel-body">
-        <div ng-repeat="cloud in clouds">
-            <div class="well well-lg">
-                <div class="badge">{{ $index + 1 }}</div>
-            </div>
-
-            <form novalidate class="css-form" role="form">
-                <div class="form-group">
-                    <label>Name</label>
-                    <input type="text" class="form-control" ng-model="cloud.name" required
-                           placeholder="Some awesome cloud name"/><br/>
                 </div>
-                <div class="form-group">
-                    <label>Description</label>
-                    <input type="text" class="form-control" ng-model="cloud.description"
-                           placeholder="A detailed description that everyone will read"/>
-                </div>
-                <div class="form-group">
-                    <label>Label</label>
-                    <input type="text" class="form-control" ng-model="cloud.menuLabel"
-                           placeholder="Not sure about this one"/>
-                </div>
-                <div class="form-group">
-                    <label>Icon</label>
-                    <input type="text" class="form-control" ng-model="cloud.icon"/>
 
-                    <p class="help-block">Whatever you do, don't try to upload a file. We haven't implemented that
-                        yet!.</p>
+
+                <div id="tabs-settings" class="tab-pane fade">
+
+                    <div class="row">
+
+                        <!-- Navigation Buttons -->
+                        <div class="col-md-3">
+                            <ul class="nav nav-pills nav-stacked" id="myTabs">
+                                <li class="active"><a data-toggle="tab" data-target="#newCloud">New Cloud</a></li>
+                                <li ng-repeat="cloudItem in clouds"><a data-toggle="tab"
+                                                                       data-target="#{{cloudItem._id}}">{{cloudItem.name}}</a>
+                                </li>
+
+                            </ul>
+                        </div>
+
+                        <!-- Content -->
+                        <div class="col-md-9">
+                            <div class="tab-content">
+                                <div class="tab-pane active" id="newCloud">
+
+                                    <div class="panel panel-success">
+                                        <div class="panel-heading">
+                                            <h3 class="panel-title">New Cloud</h3>
+                                        </div>
+                                        <div class="panel-body">
+                                            <form novalidate class="css-form" role="form">
+                                                <div class="form-group">
+                                                    <label for="cloudName">Name</label>
+                                                    <input type="text" class="form-control" id="cloudName"
+                                                           ng-model="newCloud.name" required
+                                                           placeholder="Some awesome cloud name"/><br/>
+                                                </div>
+                                                <div class="form-group">
+                                                    <label for="cloudDescription">Description</label>
+                                                    <input type="text" class="form-control" id="cloudDescription"
+                                                           ng-model="newCloud.description"
+                                                           placeholder="A detailed description that everyone will read"/>
+                                                </div>
+                                                <div class="form-group">
+                                                    <label for="cloudLabel">Label</label>
+                                                    <input type="text" class="form-control" id="cloudLabel"
+                                                           ng-model="newCloud.menuLabel"
+                                                           placeholder="Not sure about this one"/>
+                                                </div>
+                                                <div class="form-group">
+                                                    <label for="cloudIcon">Icon</label>
+                                                    <input type="file" id="cloudIcon" ng-model="newCloud.icon"/>
+
+                                                    <p class="help-block">Whatever you do, don't try to upload a file.
+                                                        We haven't implemented that
+                                                        yet!.</p>
+                                                </div>
+                                                <button ng-click="createCloud(newCloud)" class="btn btn-success">Save
+                                                </button>
+                                            </form>
+
+                                        </div>
+                                    </div>
+
+                                </div>
+
+
+                                <div ng-repeat="cloudDetail in clouds" class="tab-pane" id="{{cloudDetail._id}}">
+
+                                    <div class="panel panel-info">
+                                        <div class="panel-heading">
+                                            <h3 class="panel-title">{{cloudDetail.name}}</h3>
+                                        </div>
+                                        <div class="panel-body">
+
+
+                                            <form novalidate class="css-form" role="form">
+                                                <div class="form-group">
+                                                    <label>Name</label>
+                                                    <input type="text" class="form-control" ng-model="cloudDetail.name"
+                                                           required
+                                                           placeholder="Some awesome cloud name"/><br/>
+                                                </div>
+                                                <div class="form-group">
+                                                    <label>Description</label>
+                                                    <input type="text" class="form-control"
+                                                           ng-model="cloudDetail.description"
+                                                           placeholder="A detailed description that everyone will read"/>
+                                                </div>
+                                                <div class="form-group">
+                                                    <label>Label</label>
+                                                    <input type="text" class="form-control"
+                                                           ng-model="cloudDetail.menuLabel"
+                                                           placeholder="Not sure about this one"/>
+                                                </div>
+                                                <div class="form-group">
+                                                    <label>Icon</label>
+                                                    <input type="text" class="form-control"
+                                                           ng-model="cloudDetail.icon"/>
+
+                                                    <p class="help-block">Whatever you do, don't try to upload a
+                                                        file. We haven't implemented
+                                                        that
+                                                        yet!.</p>
+                                                </div>
+                                                <button ng-click="updateCloud(cloudDetail)" class="btn btn-default">
+                                                    Update
+                                                </button>
+                                                <button ng-click="deleteCloud(cloudDetail)" class="btn btn-danger">
+                                                    Delete
+                                                </button>
+                                            </form>
+                                        </div>
+
+
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+
+                    </div>
                 </div>
-                <button ng-click="updateCloud(cloud)" class="btn btn-default">Update</button>
-                <button ng-click="deleteCloud(cloud)" class="btn btn-danger">Delete</button>
-            </form>
+            </div>
         </div>
-
+        </div>
     </div>
+
+
+<div class="col-xs-12 col-sm-4 col-md-4 tall ">
+    <%include ../../../views/includes/postView.html %>
 </div>

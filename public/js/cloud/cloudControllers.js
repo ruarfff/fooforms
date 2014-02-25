@@ -1,6 +1,7 @@
 fooformsApp.controller('CloudCtrl', function ($scope, $route, Restangular) {
     "use strict";
     Restangular.setBaseUrl('/api');
+    Restangular.setDefaultHeaders({'Content-Type': 'application/json'});
 
     var cloudApi = Restangular.all('clouds');
 

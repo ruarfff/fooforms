@@ -118,7 +118,7 @@
 "name": "Radio Buttons",
 "label" : "Choose One",
 "placeholder": "",
-"size" :50,
+"size" :100,
 "boxSize" : 12,
 "required" : false,
 "rows" : false,

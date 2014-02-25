@@ -1,6 +1,7 @@
-<div class="pageGroup" id='mainView'>
+<div class="col-xs-12 col-sm-8 col-md-8 pageGroup" id='mainView'>
+    <div class="pageGroup">
 
-    <div id="tabs">
+        <div id="tabs">
         <ul id='appTabs' class="nav nav-tabs">
             <li class="active"><a data-target="#tabs-myapps" data-toggle="tab">Apps</a></li>
             <li><a data-target="#tabs-download" data-toggle="tab">Download Apps</a></li>
@@ -15,7 +16,7 @@
                             <img src="/assets/icons/color/{{app}}.png" alt="Invoices">
 
                             <div class="caption">
-                                <a class="center-block btn btn-default">{{app | uppercase}}</a>
+                                <a class="center-block">{{app | uppercase}}</a>
                             </div>
                         </div>
                     </div>
@@ -115,4 +116,8 @@
     </div>
 
 
+</div>
+</div>
+<div class="col-xs-12 col-sm-4 col-md-4 tall ">
+    <%include ../../../views/includes/postView.html %>
 </div>

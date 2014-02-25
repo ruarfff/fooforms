@@ -3,7 +3,13 @@
 /* Services */
 
 
-// Demonstrate how to register services
-// In this case it is a simple value service.
-angular.module('appBuilder.services', []).
-    value('version', '0.1');
+fooformsApp.service('CalculatorService', function (MathService) {
+
+    this.square = function (a) {
+        return MathService.multiply(a, a);
+    };
+    this.cube = function (a) {
+        return MathService.multiply(a, MathService.multiply(a, a));
+    };
+
+});
