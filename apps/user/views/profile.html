@@ -1,43 +1,48 @@
-<div class="pageGroup" id='mainView'>
+<div class="col-xs-12 col-sm-8 col-md-8 pageGroup" id='mainView'>
+    <div class="pageGroup">
 
-    <div id="tabs">
-        <ul id='appTabs' class="nav nav-tabs">
-            <li class="active"><a data-target="#tabs-myapps" data-toggle="tab">Profile</a></li>
+        <div id="tabs">
+            <ul id='appTabs' class="nav nav-tabs">
+                <li class="active"><a data-target="#tabs-myapps" data-toggle="tab">Profile</a></li>
 
-        </ul>
-        <div class="tab-content white p5">
-            <div id="tabs-myapps" class="tab-pane active">
+            </ul>
+            <div class="tab-content white p5">
+                <div id="tabs-myapps" class="tab-pane active">
 
 
-                <form novalidate class="css-form">
-                    <div class="form-group">
-                        <label> Display Name:</label>
-                        <input class="form-control" type="text" ng-model="user.displayName" required/>
-                    </div>
-                    <div class="form-group"><label>First Name:</label>
-                        <input class="form-control" type="text" ng-model="user.name.givenName" required/>
-                    </div>
-                    <div class="form-group"><label>Middle Name:</label>
-                        <input class="form-control" type="text" ng-model="user.name.middleName" required/>
-                    </div>
-                    <div class="form-group"><label>Family Name:</label>
-                        <input class="form-control" type="text" ng-model="user.name.familyName" required/>
-                    </div>
-                    <div class="form-group"><label>E-mail:</label>
-                        <input class="form-control" type="email" ng-model="user.email" required/>
-                    </div>
-                    <button class="btn btn-success" ng-click="update(user)">SAVE</button>
-                </form>
+                    <form novalidate class="css-form">
+                        <div class="form-group">
+                            <label> Display Name:</label>
+                            <input class="form-control" type="text" ng-model="user.displayName" required/>
+                        </div>
+                        <div class="form-group"><label>First Name:</label>
+                            <input class="form-control" type="text" ng-model="user.name.givenName" required/>
+                        </div>
+                        <div class="form-group"><label>Middle Name:</label>
+                            <input class="form-control" type="text" ng-model="user.name.middleName" required/>
+                        </div>
+                        <div class="form-group"><label>Family Name:</label>
+                            <input class="form-control" type="text" ng-model="user.name.familyName" required/>
+                        </div>
+                        <div class="form-group"><label>E-mail:</label>
+                            <input class="form-control" type="email" ng-model="user.email" required/>
+                        </div>
+                        <button class="btn btn-success" ng-click="update(user)">SAVE</button>
+                    </form>
+
+
+                </div>
 
 
             </div>
 
-
         </div>
 
+
     </div>
-
-
+</div>
+<div class="col-xs-12 col-sm-4 col-md-4 tall ">
+    <%include ../../../views/includes/postView.html %>
 </div>
 
 

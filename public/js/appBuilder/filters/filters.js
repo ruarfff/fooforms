@@ -6,9 +6,10 @@
 fooformsApp.filter('filterTypes', function () {
 
     return function (inputs, category) {
-        var standard = ["text", "textarea", "select", "checkbox", "radio", "paragraph", "html", "groupbox"];
-        var numbers = ["number", "calculation"];
-        var people = ["people", "to"];
+        var standard = ["text", "textarea", "email", "select", "checkbox", "radio", "paragraph", "date", "groupbox"];
+        var numbers = ["number", "calculation", "currency", "sum", "payment", "progress"];
+        var people = ["to", "user" , "signature", "profile", "activity"];
+        var advanced = ["status", "labels", "html", "groupBox", "rating", "canvas", "button"];
 
         // The filter array to be assigned based on the category
         var categoryFilter;
@@ -27,6 +28,9 @@ fooformsApp.filter('filterTypes', function () {
                     break;
                 case "people" :
                     categoryFilter = people;
+                    break;
+                case "advanced" :
+                    categoryFilter = advanced;
                     break;
                 default :
                     return inputs; // If no category, might as well not filter

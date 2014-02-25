@@ -42,7 +42,7 @@
                         <h6 class="panel-title">
                             <a class='center-block' data-toggle="collapse" data-parent="#accordion"
                                data-target="#collapseTwo">
-                                User Related
+                                Money & Numbers
                             </a>
                         </h6>
                     </div>
@@ -50,14 +50,14 @@
                         <div class="panel-body">
                             <div class="list-group">
                                 <div class='fieldObject list-group-item'
-                                     ng-repeat='inputType in inputTypes'
-                                     ng-show="inputType.name"
-                                     draggable="inputType"
+                                     ng-repeat="inputType2 in inputTypes | filterTypes:'number'"
+                                     ng-show="inputType2.name"
+                                     draggable="inputType2"
                                      ng-border="showBorders(show)"
                                      ng-showBorder="showBorders(show)"
-                                     draggable-target=".repeatBox"
+                                     draggable-target="#appFields, .repeatBox"
                                         >
-                                    {{inputType.name}}
+                                    {{inputType2.name}}
                                 </div>
                             </div>
                         </div>
@@ -65,12 +65,40 @@
 
                 </div>
 
+                <div class="panel panel-info">
+                    <div class="panel-heading">
+                        <h6 class="panel-title">
+                            <a class='center-block' data-toggle="collapse" data-parent="#accordion"
+                               data-target="#collapseThree">
+                                Advanced
+                            </a>
+                        </h6>
+                    </div>
+                    <div id="collapseThree" class="panel-collapse collapse">
+                        <div class="panel-body">
+                            <div class="list-group">
+                                <div class='fieldObject list-group-item'
+                                     ng-repeat="inputType3 in inputTypes | filterTypes:'advanced'"
+                                     ng-show="inputType3.name"
+                                     draggable="inputType3"
+                                     ng-border="showBorders(show)"
+                                     ng-showBorder="showBorders(show)"
+                                     draggable-target="#appFields, .repeatBox"
+                                        >
+                                    {{inputType3.name}}
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
 
             </div>
         </div>
 
 
         <div id="appTabs-settings" class="tab-pane">
+
             <div class='alert-info m5 p5' ng-show="nowEditing>=0">
                 <h6><span class="badge">{{nowEditing}}</span> <span>{{app.fields[nowEditing].name}} </span>
             <span mg-show="nowSubEditing">
@@ -81,6 +109,8 @@
             <!-- Settings Block for Standard Fields -->
 
             <div id="FieldSettings" class="blockInsert" ng-show="showFieldSettings">
+
+
                 <div ng-include="app.fields[nowEditing].optionsTemplate"></div>
 
             </div>
@@ -152,4 +182,5 @@
 
     </div>
 </div>
-</div></div>
+<div class="m0 p5"></div>
+
