@@ -141,10 +141,6 @@ module.exports = function (grunt) {
             'adduser:Brian:McAuliffe:Brian:Lee:brian@fooforms.com:secret2:true:local',
             'adduser:bob:Murphy:Bob:James:bob@gmail.com:secret3:false:local',
             'adduser:mary:Doe:Mary:Burt:mary@gmail.com:secret4:false:local',
-            'addCloud:TestCloud1:A Test Cloud:none:test1:AType:Brian',
-            'addCloud:TestCloud2:A Test Cloud:none:test2:AType:Brian',
-            'addCloud:TestCloud3:A Test Cloud:none:test3:AType:Ruairi',
-            'addCloud:TestCloud4:A Test Cloud:none:test4:AType:Ruairi'
         ]);
     });
 
