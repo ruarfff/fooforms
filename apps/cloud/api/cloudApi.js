@@ -40,8 +40,8 @@ var createCloud = function (req, res) {
 
 var getCloudById = function (req, res, id) {
     try {
-        cloudLib.Cloud.findById(id, function (err, cloud) {
-            if (err) {
+        cloudLib.getCloudById(id, function (err, cloud) {
+            if (err || !cloud) {
                 handleError(res, err, 404);
             } else {
                 res.status(200);
@@ -55,8 +55,8 @@ var getCloudById = function (req, res, id) {
 
 var getUserClouds = function (req, res) {
     try {
-        cloudLib.Cloud.find({ owner: req.user.id }, function (err, clouds) {
-            if (err) {
+        cloudLib.getUserClouds(req.user.id, function (err, clouds) {
+            if (err || !clouds) {
                 handleError(res, err, 404);
             } else {
                 res.status(200);
@@ -71,9 +71,8 @@ var getUserClouds = function (req, res) {
 // Temporary helper function
 var getAllClouds = function (req, res) {
     try {
-        log.debug('Getting all clouds');
-        cloudLib.Cloud.find({}, function (err, clouds) {
-            if (err) {
+        cloudLib.getAllClouds(function (err, clouds) {
+            if (err || !clouds) {
                 handleError(res, err, 404);
             } else {
                 res.status(200);
@@ -87,17 +86,14 @@ var getAllClouds = function (req, res) {
 
 var updateCloud = function (req, res) {
     try {
-        var updatedCloud = req.body;
-        var id = updatedCloud._id;
-        cloudLib.Cloud.findOneAndUpdate({ _id: id }, updatedCloud, {upsert: true, "new": false}).exec(function (err, cloud) {
-            if (err) {
+        cloudLib.updateCloud(req.body, function (err, cloud) {
+            if (err || !cloud) {
                 handleError(res, err, 409);
             } else {
                 res.status(200);
                 res.send(cloud);
             }
         });
-
     } catch (err) {
         handleError(res, err, 500);
     }
@@ -106,24 +102,11 @@ var updateCloud = function (req, res) {
 var deleteCloud = function (req, res) {
     try {
         var id = req.body._id;
-
-        cloudLib.Cloud.findById(id, function (err, cloud) {
+        cloudLib.deleteCloudById(id, function (err, cloud) {
             if (err) {
                 handleError(res, err, 404);
             } else {
-                cloud.remove(function (err, cloud) {
-                    if (err) {
-                        handleError(res, err, 500);
-                    } else {
-                        cloudLib.Cloud.findById(cloud._id, function (err, cloudThatShouldBeNull) {
-                            if (cloudThatShouldBeNull) {
-                                handleError(res, 'Error deleting cloud', 500);
-                            } else {
-                                res.send(200);
-                            }
-                        });
-                    }
-                });
+                res.send(200);
             }
         });
 
