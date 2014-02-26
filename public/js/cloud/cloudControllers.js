@@ -24,17 +24,27 @@ fooformsApp.controller('CloudCtrl', function ($scope, $route, Restangular) {
 
     // Create a new cloud
     $scope.createCloud = function (cloud) {
-        cloudApi.post(cloud).then(updateCloudList());
+        cloudApi.post(cloud).then(function (res) {
+            updateCloudList();
+        }, function (err) {
+            console.log(err.status);
+        });
     };
 
     // Update and existing cloud
     $scope.updateCloud = function (cloud) {
-        cloud.put().then(updateCloudList());
+        cloud.put().then(function (res) {
+            updateCloudList();
+        });
     };
 
     // Delete and existing cloud
     $scope.deleteCloud = function (cloud) {
-        cloud.remove().then(updateCloudList());
+        cloud.remove().then(function (res) {
+            updateCloudList();
+        }, function (err) {
+            console.log(err.status);
+        });
     };
 
 });

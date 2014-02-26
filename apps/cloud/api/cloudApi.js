@@ -21,7 +21,12 @@ var createCloud = function (req, res) {
         log.debug(JSON.stringify(cloudDetails));
         cloudLib.createCloud(cloudDetails, function (err, cloud) {
             if (err) {
-                handleError(res, err, 500);
+                var responseCode = 500;
+                if (err.code === 11000) {
+                    err.data = 'A cloud with that label already exists.';
+                    responseCode = 409;
+                }
+                handleError(res, err, responseCode);
             } else {
                 res.status(200);
                 res.send(cloud);
@@ -86,7 +91,7 @@ var updateCloud = function (req, res) {
         var id = updatedCloud._id;
         cloudLib.Cloud.findOneAndUpdate({ _id: id }, updatedCloud, {upsert: true, "new": false}).exec(function (err, cloud) {
             if (err) {
-                handleError(res, err, 400);
+                handleError(res, err, 409);
             } else {
                 res.status(200);
                 res.send(cloud);
