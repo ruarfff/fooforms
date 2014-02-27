@@ -10,6 +10,16 @@ fooformsApp.controller('CloudCtrl', function ($scope, $route, Restangular) {
      *
      * TODO: Using updateCloudList all over the place for now. Can make this a lot more efficient by using the server response.
      */
+
+    $scope.tabs = [
+        {name: "Clouds", active: true},
+        {name: "Settings", active: false}
+    ];
+    $scope.nowEditing = 0;
+    $scope.showBorders = function () {
+
+    }
+
     var updateCloudList = function () {
         cloudApi.getList().then(function (clouds) {
             $scope.clouds = clouds;
@@ -21,6 +31,7 @@ fooformsApp.controller('CloudCtrl', function ($scope, $route, Restangular) {
 
     // Set up a new cloud object to help with cloud creation
     $scope.newCloud = {};
+    $scope.newTab = {};
 
     // Create a new cloud
     $scope.createCloud = function (cloud) {
@@ -45,6 +56,18 @@ fooformsApp.controller('CloudCtrl', function ($scope, $route, Restangular) {
         }, function (err) {
             console.log(err.status);
         });
+    };
+
+    // Create a new cloud
+    $scope.createTab = function (tab) {
+
+
+        $scope.tabs.push(angular.copy(tab));
+        $scope.$apply();
+        angular.element('#' + tab.name).tab('show');
+        $scope.newTab = {};
+
+
     };
 
 });
