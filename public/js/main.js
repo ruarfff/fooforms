@@ -1,5 +1,7 @@
 'use strict';
-var fooformsApp = angular.module('fooformsApp', ['ngRoute', 'restangular', 'ui.bootstrap', 'textAngular', 'ui.calendar']);
+var fooformsApp = angular.module('fooformsApp', [
+    'ngRoute', 'restangular', 'ui.bootstrap', 'textAngular', 'ui.calendar'
+]);
 
 // configure our routes
 fooformsApp.config(function ($routeProvider, $locationProvider) {
@@ -18,7 +20,8 @@ fooformsApp.config(function ($routeProvider, $locationProvider) {
             controller: 'CloudCtrl'
         })
         .when('/apps', {
-            templateUrl: '/partials/apps'
+            templateUrl: '/partials/apps',
+            controller: 'AppsCtrl'
         })
         .when('/people', {
             templateUrl: '/partials/people'

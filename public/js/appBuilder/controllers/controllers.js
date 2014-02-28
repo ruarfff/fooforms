@@ -2,7 +2,21 @@
 
 /* Controllers */
 
-fooformsApp.controller('fieldsCtrl', ['$scope', '$http', 'DragDropHandler' , '$modal', function ($scope, $http, DragDropHandler, $modal) {
+fooformsApp.controller('fieldsCtrl', ['$scope', '$http', 'DragDropHandler' , '$modal', 'Restangular', function ($scope, $http, DragDropHandler, $modal, Restangular) {
+    "use strict";
+    Restangular.setBaseUrl('/api');
+    Restangular.setDefaultHeaders({'Content-Type': 'application/json'});
+    var appApi = Restangular.all('apps');
+
+    var updateAppList = function () {
+        appApi.getList().then(function (apps) {
+            console.log('Got apps: ' + JSON.stringify(apps));
+            $scope.apps = apps;
+        });
+    };
+
+    // Get all the existing apps and save them in the scope
+    updateAppList();
 
 
     $http.get('/js/appBuilder/app/inputTypes.json').success(function (data) {
@@ -36,7 +50,6 @@ fooformsApp.controller('fieldsCtrl', ['$scope', '$http', 'DragDropHandler' , '$m
         "created": new Date(),
         "lastModified": new Date(),
         "owner": ""
-
     };
     // some booleans to help track what we are editing, which tabs to enable, etc.
     // used in ng-show in appBuilderMenu
@@ -191,6 +204,15 @@ fooformsApp.controller('fieldsCtrl', ['$scope', '$http', 'DragDropHandler' , '$m
     };
 
 // End Icon Selection -  Modal Dialog
+
+    $scope.saveApp = function (appToSave) {
+        console.log(JSON.stringify(appToSave));
+        appApi.post(appToSave).then(function (res) {
+            updateAppList();
+        }, function (err) {
+            console.log(err.status);
+        });
+    };
 
 }])
 ;

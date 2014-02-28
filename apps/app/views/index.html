@@ -11,12 +11,12 @@
 
                 <div class="row m5 p5">
                     <div class="col-sm-4 col-md-3"
-                         ng-repeat="app in ['bike','calculator','blimp','car','cloud','folder','global']">
+                         ng-repeat="app in apps">
                         <div class="thumbnail">
                             <img src="/assets/icons/color/{{app}}.png" alt="Invoices">
 
                             <div class="caption">
-                                <a class="center-block">{{app | uppercase}}</a>
+                                <a class="center-block">{{app.name | uppercase}}</a>
                             </div>
                         </div>
                     </div>

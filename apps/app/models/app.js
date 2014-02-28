@@ -5,17 +5,28 @@ var mongoose = require('mongoose');
 var Schema = mongoose.Schema;
 
 var appSchema = Schema({
-    name: String,
-    description: String,
+
+    id: Number,
+    name: {
+        type: String,
+        required: true,
+        index: true
+    },
     icon: String,
+    description: String,
     menuLabel: {
         type: String,
         required: true,
-        unique: true,
         index: true
     },
-    owner: { type: Schema.Types.ObjectId, ref: 'User' },
-    cloud: { type: Schema.Types.ObjectId, ref: 'Cloud' }
+    btnLabel: String,
+    settings: {},
+    fields: [],
+    version: Number,
+    created: Date,
+    lastModified: Date,
+    owner: { type: Schema.Types.ObjectId, ref: 'User' }
+
 });
 
 exports.App = mongoose.model('App', appSchema);

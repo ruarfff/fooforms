@@ -16,9 +16,6 @@ fooformsApp.filter('filterTypes', function () {
 
         var filtered = [];
         try {
-            // TODO: remove logging
-            console.log('filterTypes', arguments);
-
             switch (category) {
                 case "standard" :
                     categoryFilter = standard;

@@ -26,7 +26,9 @@ exports.getAppsByCloudId = function (cloudId, next) {
 exports.getAppsByUserId = function (userId, next) {
     "use strict";
     try {
-
+        App.find({ owner: userId }, function (err, apps) {
+            next(err, apps);
+        });
     } catch (err) {
         log.error(err.toString());
         next(err, null);
