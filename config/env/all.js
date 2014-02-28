@@ -39,17 +39,10 @@ var apps = {
     "CALENDAR": calendarDir
 };
 
-var mainLayoutPath = path.join(rootPath, 'views/layouts/globalLayout.html');
-
-var layouts = {
-    "MAIN": mainLayoutPath
-};
-
 module.exports = {
     root: rootPath,
     port: process.env.PORT || 3000,
     database: devDbConfig,
-    apps: apps,
-    layouts: layouts
-}
+    apps: apps
+};
 

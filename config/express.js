@@ -33,7 +33,7 @@ module.exports = function (app, passport) {
         app.engine('.html', engine.__express);
         app.set('view engine', 'html');
         app.use(express.favicon());
-        app.use(express.static(global.config.root + '/public'));
+        app.use(express.static(global.config.root + '/frontend/public'));
         app.use(express.json());
         app.use(express.urlencoded());
         app.use(express.methodOverride());
