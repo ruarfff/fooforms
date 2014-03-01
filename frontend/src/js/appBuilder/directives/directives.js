@@ -1,8 +1,7 @@
-'use strict';
-
 /* Directives */
 
 fooformsApp.factory('DragDropHandler', [function () {
+        'use strict';
         return {
             dragObject: undefined,
             addObject: function (object, objects, to) {

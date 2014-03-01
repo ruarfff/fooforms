@@ -1,14 +1,15 @@
-'use strict';
-var fooformsApp = angular.module('fooformsApp', ['ngRoute', 'restangular', 'ui.bootstrap', 'textAngular', 'ui.calendar']);
+var fooformsApp = angular.module('fooformsApp', [
+    'ngRoute', 'restangular', 'ui.bootstrap', 'textAngular', 'ui.calendar'
+]);
 
 // configure our routes
 fooformsApp.config(function ($routeProvider, $locationProvider) {
+    'use strict';
     $locationProvider.html5Mode(true).hashPrefix('!');
 
     $routeProvider
         .when('/', {
-            templateUrl: '/partials/dashboard',
-            controller: 'DashboardCtrl'
+            redirectTo: '/dashboard'
         })
         .when('/dashboard', {
             templateUrl: '/partials/dashboard',
@@ -19,7 +20,8 @@ fooformsApp.config(function ($routeProvider, $locationProvider) {
             controller: 'CloudCtrl'
         })
         .when('/apps', {
-            templateUrl: '/partials/apps'
+            templateUrl: '/partials/apps',
+            controller: 'AppsCtrl'
         })
         .when('/people', {
             templateUrl: '/partials/people'
@@ -38,10 +40,13 @@ fooformsApp.config(function ($routeProvider, $locationProvider) {
             templateUrl: '/partials/settings'
         })
         .when('/admin', {
-            templateUrl: '/partials/profile'
+            templateUrl: '/partials/admin'
         })
         .when('/appBuilder', {
             templateUrl: '/partials/appBuilder',
             controller: 'fieldsCtrl'
+        })
+        .otherwise({
+            redirectTo: '/404'
         });
 });

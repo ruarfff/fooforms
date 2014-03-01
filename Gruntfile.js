@@ -57,6 +57,9 @@ module.exports = function (grunt) {
         nodemon: {
             dev: {
                 script: 'server.js'
+            },
+            env: {
+                PORT: '8181'
             }
         }, // End Nodemon
         // Concatenate js files
@@ -66,7 +69,10 @@ module.exports = function (grunt) {
                     separator: ';'
                 },
                 src: [
-                    'frontend/src/js/*.js'
+                    'frontend/src/js/main.js', 'frontend/src/js/common/**/*.js',
+                    'frontend/src/js/app/**/*.js', 'frontend/src/js/appBuilder/**/*.js',
+                    'frontend/src/js/calendar/**/*.js', 'frontend/src/js/cloud/**/*.js',
+                    'frontend/src/js/dashboard/**/*.js', 'frontend/src/js/user/**/*.js'
                 ],
                 dest: 'frontend/public/js/main.min.js'
             }
@@ -78,7 +84,7 @@ module.exports = function (grunt) {
             },
             js: {
                 files: {
-                    'public/js/main.min.js': ['frontend/public/js/main.min.js']
+                    'frontend/public/js/main.min.js': ['frontend/public/js/main.min.js']
                 }
             }
         }, // End Uglify
@@ -89,24 +95,31 @@ module.exports = function (grunt) {
                     style: 'compressed'
                 },
                 files: {
-                    'public/css/main.css': 'frontend/src/sass/main.scss'
+                    'frontend/public/css/main.css': 'frontend/src/sass/main.scss'
                 }
             }
         }, // End SASS
         watch: {
-            js: {
-                files: ['frontend/src/js/*.js'],
-                tasks: ['concat:js', 'uglify:all'],
-                options: {
-                    livereload: true,
+            options: {
+                livereload: {
+                    port: 9000
                 }
             },
+            js: {
+                files: ['frontend/src/js/**/*.js'],
+                tasks: ['concat:js', 'uglify'],
+                livereload: false
+            },
             css: {
-                files: ['frontend/src/sass/*.less'],
+                files: ['frontend/src/sass/**/*.scss'],
                 tasks: ['sass'],
-                options: {
-                    livereload: true,
-                }
+                livereload: false
+            },
+            views: {
+                files: ['frontend/views/**', 'apps/*/views/**']
+            },
+            public: {
+                files: ['frontend/public/**']
             }
         } // End watch
     });
@@ -243,6 +256,6 @@ module.exports = function (grunt) {
     });
 
 
-    grunt.registerTask('default', 'start application in dev mode using watch and nodemon', ['concurrent']);
+    grunt.registerTask('default', 'start application in dev mode using watch and nodemon', ['concat:js', 'uglify', 'sass', 'watch']);
 
 };

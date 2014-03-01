@@ -1,7 +1,6 @@
-'use strict';
-
 fooformsApp.controller('AppsCtrl', ['$scope', 'Restangular',
     function ($scope, Restangular) {
+        'use strict';
         Restangular.setBaseUrl('/api');
         Restangular.setDefaultHeaders({'Content-Type': 'application/json'});
         var appApi = Restangular.all('apps');

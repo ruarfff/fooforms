@@ -1,10 +1,8 @@
-'use strict';
-
 /* Services */
 
 
 fooformsApp.service('CalculatorService', function (MathService) {
-
+    'use strict';
     this.square = function (a) {
         return MathService.multiply(a, a);
     };

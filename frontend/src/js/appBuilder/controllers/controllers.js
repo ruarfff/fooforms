@@ -1,5 +1,3 @@
-'use strict';
-
 /* Controllers */
 
 fooformsApp.controller('fieldsCtrl', ['$scope', '$http', 'DragDropHandler' , '$modal', 'Restangular', function ($scope, $http, DragDropHandler, $modal, Restangular) {
@@ -19,8 +17,7 @@ fooformsApp.controller('fieldsCtrl', ['$scope', '$http', 'DragDropHandler' , '$m
     updateAppList();
 
 
-    $http.get('/js/appBuilder/app/inputTypes.json').success(function (data) {
-
+    $http.get('/js/appBuilder/inputTypes.json').success(function (data) {
 
         $scope.inputTypes = data.inputTypes;
         $scope.icons = data.icons;
@@ -218,6 +215,8 @@ fooformsApp.controller('fieldsCtrl', ['$scope', '$http', 'DragDropHandler' , '$m
 ;
 
 var ModalInstanceCtrl = function ($scope, $modalInstance, icons) {
+    'use strict';
+
     $scope.icons = icons;
     $scope.chosen = {
         icon: $scope.icons[0]

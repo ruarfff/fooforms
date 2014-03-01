@@ -1,10 +1,8 @@
-'use strict';
-
 /* Filters */
 
 // Filter app fields based on category
 fooformsApp.filter('filterTypes', function () {
-
+    'use strict';
     return function (inputs, category) {
         var standard = ["text", "textarea", "email", "select", "checkbox", "radio", "paragraph", "date", "groupbox"];
         var numbers = ["number", "calculation", "currency", "sum", "payment", "progress"];
