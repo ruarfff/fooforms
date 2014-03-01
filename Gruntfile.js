@@ -34,7 +34,7 @@ module.exports = function (grunt) {
             }
         },
         jasmine_node: {
-            specNameMatcher: './test/spec/*.spec', // load only specs containing specNameMatcher
+            specNameMatcher: './test/spec', // load only specs containing specNameMatcher
             projectRoot: '.',
             requirejs: false,
             forceExit: true,
@@ -256,6 +256,6 @@ module.exports = function (grunt) {
     });
 
 
-    grunt.registerTask('default', 'start application in dev mode using watch and nodemon', ['concat:js', 'uglify', 'sass', 'concurrent']);
+    grunt.registerTask('default', 'start application in dev mode using watch and nodemon', ['concat:js', 'uglify', 'sass', 'jasmine_node', 'concurrent']);
 
 };
