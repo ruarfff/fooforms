@@ -256,6 +256,6 @@ module.exports = function (grunt) {
     });
 
 
-    grunt.registerTask('default', 'start application in dev mode using watch and nodemon', ['concat:js', 'uglify', 'sass', 'watch']);
+    grunt.registerTask('default', 'start application in dev mode using watch and nodemon', ['concat:js', 'uglify', 'sass', 'concurrent']);
 
 };
