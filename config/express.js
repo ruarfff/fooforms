@@ -28,12 +28,12 @@ module.exports = function (app, passport) {
     app.configure(function () {
         app.set('title', global.config.app.name);
         app.set('port', global.config.port);
-        app.set('views', global.config.root + '/views');
+        app.set('views', global.config.root + '/frontend/views');
         app.set('uploads', global.config.root + '/uploads');
         app.engine('.html', engine.__express);
         app.set('view engine', 'html');
         app.use(express.favicon());
-        app.use(express.static(global.config.root + '/public'));
+        app.use(express.static(global.config.root + '/frontend/public'));
         app.use(express.json());
         app.use(express.urlencoded());
         app.use(express.methodOverride());

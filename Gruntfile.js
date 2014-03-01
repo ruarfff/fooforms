@@ -34,7 +34,7 @@ module.exports = function (grunt) {
             }
         },
         jasmine_node: {
-            specNameMatcher: './*.spec', // load only specs containing specNameMatcher
+            specNameMatcher: './test/spec/*.spec', // load only specs containing specNameMatcher
             projectRoot: '.',
             requirejs: false,
             forceExit: true,
@@ -46,25 +46,6 @@ module.exports = function (grunt) {
                 consolidate: true
             }
         }, //End bgshell test stuff
-        // Minimise and append public js files
-        uglify: {
-            all: {
-                files: {
-                    'public/js/main.min.js': ['src/js/main.js']
-                }
-            }
-        }, // End Uglify
-        // Run SASS compiler
-        sass: {
-            dist: {
-                options: {
-                    style: 'compressed'
-                },
-                files: {
-                    'public/css/main.css': 'src/sass/main.scss'
-                }
-            }
-        }, // End SASS
         concurrent: {
             dev: {
                 tasks: ['nodemon', 'watch'],
@@ -76,43 +57,72 @@ module.exports = function (grunt) {
         nodemon: {
             dev: {
                 script: 'server.js'
+            },
+            env: {
+                PORT: '8181'
             }
-        },
-        watch: {
-            all: {
-                files: ['public/*'],
-                tasks: ['uglify:all', 'sass'],
+        }, // End Nodemon
+        // Concatenate js files
+        concat: {
+            js: {
                 options: {
-                    livereload: true
+                    separator: ';'
+                },
+                src: [
+                    'frontend/src/js/main.js', 'frontend/src/js/common/**/*.js',
+                    'frontend/src/js/app/**/*.js', 'frontend/src/js/appBuilder/**/*.js',
+                    'frontend/src/js/calendar/**/*.js', 'frontend/src/js/cloud/**/*.js',
+                    'frontend/src/js/dashboard/**/*.js', 'frontend/src/js/user/**/*.js'
+                ],
+                dest: 'frontend/public/js/main.min.js'
+            }
+        }, // End concat
+        // Minimise and append public js files
+        uglify: {
+            options: {
+                mangle: false
+            },
+            js: {
+                files: {
+                    'frontend/public/js/main.min.js': ['frontend/public/js/main.min.js']
+                }
+            }
+        }, // End Uglify
+        // Run SASS compiler
+        sass: {
+            dist: {
+                options: {
+                    style: 'compressed'
+                },
+                files: {
+                    'frontend/public/css/main.css': 'frontend/src/sass/main.scss'
+                }
+            }
+        }, // End SASS
+        watch: {
+            options: {
+                livereload: {
+                    port: 9000
                 }
             },
             js: {
-                files: ['public/js/*'],
-                tasks: ['uglify:all', 'sass'],
-                options: {
-                    livereload: true
-                }
+                files: ['frontend/src/js/**/*.js'],
+                tasks: ['concat:js', 'uglify'],
+                livereload: false
             },
             css: {
-                files: ['public/css/*'],
+                files: ['frontend/src/sass/**/*.scss'],
                 tasks: ['sass'],
-                options: {
-                    livereload: true
-                }
+                livereload: false
+            },
+            views: {
+                files: ['frontend/views/**', 'apps/*/views/**']
+            },
+            public: {
+                files: ['frontend/public/**']
             }
-        }// End watch
+        } // End watch
     });
-
-    // On watch events configure mochaTest to run only on the test if it is one
-    // otherwise, run the whole testsuite
-    var defaultSimpleSrc = grunt.config('mochaTest.simple.src');
-    grunt.event.on('watch', function (action, filepath) {
-        grunt.config('mochaTest.simple.src', defaultSimpleSrc);
-        if (filepath.match('test/')) {
-            grunt.config('mochaTest.simple.src', filepath);
-        }
-    });
-
 
     grunt.registerTask('dbdrop', 'drop the database', function () {
         // async mode
@@ -246,7 +256,6 @@ module.exports = function (grunt) {
     });
 
 
-    grunt.registerTask('dev', 'start application isn dev mode using watch and nodemon', ['uglify:all', 'sass', 'jasmine_node', 'concurrent']);
-    grunt.registerTask('default', 'currently, default simply starts a watch on files but no other functionality', ['jasmine_node']);
+    grunt.registerTask('default', 'start application in dev mode using watch and nodemon', ['concat:js', 'uglify', 'sass', 'concurrent']);
 
 };

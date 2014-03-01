@@ -5,13 +5,12 @@
         "node_modules/**/node_modules",
         "public",
         "views",
-        ".git",
         ".gitignore",
         "package.json",
         "Profile",
         "README.md",
-        ".idea",
-        "logs"
+        "logs",
+        ".idea"
     ],
     "verbose": true,
     "execMap": {
