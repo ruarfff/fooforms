@@ -34,18 +34,19 @@ module.exports = function (grunt) {
             }
         },
         jasmine_node: {
-            specNameMatcher: './test/spec', // load only specs containing specNameMatcher
-            projectRoot: '.',
-            requirejs: false,
-            forceExit: true,
-            autotest: true,
-            jUnit: {
-                report: true,
-                savePath: 'out/reports/jasmine/',
-                useDotNotation: true,
-                consolidate: true
+            jasmine_node: {
+                specNameMatcher: "./test/spec", // load only specs containing specNameMatcher
+                projectRoot: ".",
+                requirejs: false,
+                forceExit: true,
+                jUnit: {
+                    report: false,
+                    savePath: "./out/reports/jasmine/",
+                    useDotNotation: true,
+                    consolidate: true
+                }
             }
-        }, //End bgshell test stuff
+        },
         concurrent: {
             dev: {
                 tasks: ['nodemon', 'watch'],
@@ -56,10 +57,25 @@ module.exports = function (grunt) {
         },
         nodemon: {
             dev: {
-                script: 'server.js'
-            },
-            env: {
-                PORT: '8181'
+                script: 'server.js',
+                options: {
+                    args: ['dev'],
+                    nodeArgs: ['--debug'],
+                    callback: function (nodemon) {
+                        nodemon.on('log', function (event) {
+                            console.log(event.colour);
+                        });
+                    },
+                    env: {
+                        PORT: '3000'
+                    },
+                    cwd: __dirname,
+                    ignore: ['node_modules/**'],
+                    ext: 'js',
+                    watch: ['server'],
+                    delay: 1,
+                    legacyWatch: true
+                }
             }
         }, // End Nodemon
         // Concatenate js files
@@ -105,6 +121,7 @@ module.exports = function (grunt) {
                     port: 9000
                 }
             },
+            // No need to livereload for js and css as it will be triggered when the files are processed and added to public
             js: {
                 files: ['frontend/src/js/**/*.js'],
                 tasks: ['concat:js', 'uglify'],
@@ -115,11 +132,18 @@ module.exports = function (grunt) {
                 tasks: ['sass'],
                 livereload: false
             },
+            // No task here for views and public. Just livereload is run.
             views: {
                 files: ['frontend/views/**', 'apps/*/views/**']
             },
             public: {
                 files: ['frontend/public/**']
+            },
+            // Watch the js files that matter on the server and run tests when they are changed.
+            tests: {
+                files: ['apps/**/*.js', 'test/spec/**'],
+                tasks: ['jasmine_node']
+
             }
         } // End watch
     });
