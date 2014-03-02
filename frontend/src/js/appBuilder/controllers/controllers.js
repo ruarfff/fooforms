@@ -1,20 +1,10 @@
 /* Controllers */
 
-fooformsApp.controller('fieldsCtrl', ['$scope', '$http', 'DragDropHandler' , '$modal', 'Restangular', function ($scope, $http, DragDropHandler, $modal, Restangular) {
+fooformsApp.controller('fieldsCtrl', ['$scope', '$http', 'DragDropHandler' , '$modal', 'Restangular', 'appService', function ($scope, $http, DragDropHandler, $modal, Restangular, appService) {
     "use strict";
     Restangular.setBaseUrl('/api');
     Restangular.setDefaultHeaders({'Content-Type': 'application/json'});
     var appApi = Restangular.all('apps');
-
-    var updateAppList = function () {
-        appApi.getList().then(function (apps) {
-            console.log('Got apps: ' + JSON.stringify(apps));
-            $scope.apps = apps;
-        });
-    };
-
-    // Get all the existing apps and save them in the scope
-    updateAppList();
 
 
     $http.get('/js/appBuilder/inputTypes.json').success(function (data) {
@@ -24,29 +14,7 @@ fooformsApp.controller('fieldsCtrl', ['$scope', '$http', 'DragDropHandler' , '$m
 
     });
     // the main object to store the app data
-    $scope.app = {
-        "name": "Untitled App",
-        "icon": "/assets/icons/color/document.png",
-        "description": "My new app - it's totally awesome!",
-        "menuLabel": "Untitled App",
-        "btnLabel": "New Post",
-        "settings": {
-            "allowComments": true,
-            "status": "draft",
-            "displayOptions": [
-                {
-                    "feed": true,
-                    "grid": true,
-                    "card": true
-                }
-            ]
-        },
-        "fields": [],
-        "version": 1,
-        "created": new Date(),
-        "lastModified": new Date(),
-        "owner": ""
-    };
+    $scope.app = appService.getApp();
     // some booleans to help track what we are editing, which tabs to enable, etc.
     // used in ng-show in appBuilderMenu
     $scope.nowEditing = null;
@@ -203,12 +171,31 @@ fooformsApp.controller('fieldsCtrl', ['$scope', '$http', 'DragDropHandler' , '$m
 
     $scope.saveApp = function (appToSave) {
         console.log(JSON.stringify(appToSave));
-        appApi.post(appToSave).then(function (res) {
-            updateAppList();
-        }, function (err) {
-            console.log(err.status);
-        });
+        if (appToSave._id) {
+            // App already exists on server
+            appToSave.put().then(function (res) {
+                console.log('update');
+            }, function (err) {
+                console.log(err.status);
+            });
+        } else {
+            appApi.post(appToSave).then(function (res) {
+                console.log(JSON.stringify(res));
+                $scope.app = res;
+            }, function (err) {
+                console.log(err.status);
+            });
+        }
     };
+
+    $scope.newApp = function (previousApp) {
+        // TODO: Check if there are unsaved changes and warn
+
+        appService.resetApp();
+        $scope.app = appService.getApp();
+
+        // Why isn't that working aaaarrghhh!!!
+    }
 
 }])
 ;

@@ -60,6 +60,21 @@ var getAppById = function (id, res) {
     }
 };
 
+var updateApp = function (req, res) {
+    try {
+        appLib.updateApp(req.body, function (err, app) {
+            if (err || !app) {
+                handleError(res, err, 409);
+            } else {
+                res.status(200);
+                res.send(app);
+            }
+        });
+    } catch (err) {
+
+    }
+};
+
 var deleteApp = function (req, res) {
     try {
         var id = req.body._id;
@@ -104,6 +119,7 @@ module.exports = {
     create: createApp,
     getUserApps: getUserApps,
     getAppById: getAppById,
+    update: updateApp,
     delete: deleteApp
 };
 

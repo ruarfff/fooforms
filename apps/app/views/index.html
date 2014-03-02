@@ -23,8 +23,7 @@
                                     <button type="button" class="btn btn-info" ng-click="viewApp(app)"
                                             data-toggle="modal" data-target="#viewAppModal">View
                                     </button>
-                                    <button type="button" class="btn btn-primary" ng-click="updateApp(app)">Update
-                                    </button>
+                                    <a class="btn btn-primary" href="appBuilder" ng-click="updateApp(app)">Update</a>
                                     <button type="button" class="btn btn-danger" ng-click="deleteApp(app)">Delete
                                     </button>
                                 </div>
@@ -138,7 +137,8 @@
                             <h3 class="fooHeading">Create your own apps!</h3>
 
                             <p>You can create your own form based apps using the FOOFORMS App Builder. </p>
-                            <a class="btn btn-success" href="appBuilder">Open the App Builder &raquo;</a>
+                            <a class="btn btn-success" href="appBuilder" ng-click="newApp()">Open the App
+                                Builder &raquo;</a>
                         </div>
                     </div>
                     <div class="col-sm-2"></div>

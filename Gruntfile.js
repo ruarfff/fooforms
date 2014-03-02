@@ -100,7 +100,7 @@ module.exports = function (grunt) {
             },
             js: {
                 files: {
-                    'frontend/public/js/main.min.js': ['frontend/public/js/main.min.js']
+                    //'frontend/public/js/main.min.js': ['frontend/public/js/main.min.js']
                 }
             }
         }, // End Uglify

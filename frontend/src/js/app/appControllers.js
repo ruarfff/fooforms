@@ -1,5 +1,5 @@
-fooformsApp.controller('AppsCtrl', ['$scope', 'Restangular',
-    function ($scope, Restangular) {
+fooformsApp.controller('AppsCtrl', ['$scope', 'Restangular', 'appService',
+    function ($scope, Restangular, appService) {
         'use strict';
         Restangular.setBaseUrl('/api');
         Restangular.setDefaultHeaders({'Content-Type': 'application/json'});
@@ -20,6 +20,15 @@ fooformsApp.controller('AppsCtrl', ['$scope', 'Restangular',
         };
 
         $scope.viewApp = function (app) {
+
+        };
+
+        $scope.newApp = function () {
+            appService.resetApp();
+        }
+
+        $scope.updateApp = function (app) {
+            appService.setApp(app);
 
         };
 
