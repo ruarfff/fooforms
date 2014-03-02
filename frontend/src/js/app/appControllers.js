@@ -14,5 +14,11 @@ fooformsApp.controller('AppsCtrl', ['$scope', 'Restangular',
 
         // Get all the existing apps and save them in the scope
         updateAppList();
+
+
+        $scope.deleteApp = function (appToDelete) {
+
+        }
+
     }]);
 

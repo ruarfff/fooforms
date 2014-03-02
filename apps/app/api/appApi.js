@@ -45,6 +45,22 @@ var getUserApps = function (req, res) {
     }
 };
 
+var deleteApp = function (req, res) {
+    try {
+        var id = req.body._id;
+        appLib.deleteAppById(id, function (err, app) {
+            if (err) {
+                handleError(res, err, 404);
+            } else {
+                res.send(200);
+            }
+        });
+
+    } catch (err) {
+        handleError(res, err, 500);
+    }
+};
+
 /**
  * A private utility method for handling errors in API calls.
  * TODO: Move this to some kind of reusable utility file.
@@ -69,7 +85,8 @@ var handleError = function (res, err, responseCode) {
 
 module.exports = {
     create: createApp,
-    getUserApps: getUserApps
+    getUserApps: getUserApps,
+    deleteApp: deleteApp
 };
 
 
