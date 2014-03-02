@@ -20,6 +20,15 @@ var routes = function (app) {
         });
 
     });
+
+    /*********************************************************************************
+     *  App Retrieval
+     *********************************************************************************/
+
+    app.get('/apps/repo/:app', function (req, res) {
+        appApi.getAppById(req.params.app, res);
+    });
+
     /*********************************************************************************
      *  API
      *********************************************************************************/
@@ -31,6 +40,10 @@ var routes = function (app) {
 
     app.post('/api/apps', authenticator.ensureAuthenticated, function (req, res) {
         appApi.create(req, res);
+    });
+
+    app.delete('/api/apps', authenticator.ensureAuthenticated, function (req, res) {
+        appApi.delete(req, res);
     });
 
 

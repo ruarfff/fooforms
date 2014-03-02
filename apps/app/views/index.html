@@ -12,11 +12,43 @@
                     <div class="row m5 p5">
                         <div class="col-sm-4 col-md-3"
                              ng-repeat="app in apps">
-                            <div class="thumbnail">
+                            <div id="thumb-{{app._id}}" class="thumbnail" ng-mouseenter="hover(app)"
+                                 ng-mouseleave="hover(app)">
                                 <img src="{{app.icon}}" alt="{{app.name}}">
 
                                 <div class="caption">
                                     <a class="center-block">{{app.name | uppercase}}</a>
+                                </div>
+                                <div ng-show="app.showOptions" class="btn-group">
+                                    <button type="button" class="btn btn-info" ng-click="viewApp(app)"
+                                            data-toggle="modal" data-target="#viewAppModal">View
+                                    </button>
+                                    <button type="button" class="btn btn-primary" ng-click="updateApp(app)">Update
+                                    </button>
+                                    <button type="button" class="btn btn-danger" ng-click="deleteApp(app)">Delete
+                                    </button>
+                                </div>
+                            </div>
+                            <div class="modal fade" id="viewAppModal" tabindex="-1" role="dialog"
+                                 aria-labelledby="myModalLabel" aria-hidden="true">
+                                <div class="modal-dialog">
+                                    <div class="modal-content">
+                                        <div class="modal-header">
+                                            <button type="button" class="close" data-dismiss="modal"
+                                                    aria-hidden="true">&times;</button>
+                                            <h4 class="modal-title">{{app.name}}</h4>
+                                        </div>
+                                        <div class="modal-body">
+                                            <iframe width="400" height="215" frameborder="0" scrolling="yes"
+                                                    marginheight="0" marginwidth="0"
+                                                    src="{{app.url}}">
+                                            </iframe>
+                                        </div>
+                                        <div class="modal-footer">
+                                            <button type="button" class="btn btn-default" data-dismiss="modal">Close
+                                            </button>
+                                        </div>
+                                    </div>
                                 </div>
                             </div>
                         </div>

@@ -25,7 +25,6 @@ fooformsApp.controller('fieldsCtrl', ['$scope', '$http', 'DragDropHandler' , '$m
     });
     // the main object to store the app data
     $scope.app = {
-        "id": Math.ceil(Math.random() * 1000),
         "name": "Untitled App",
         "icon": "/assets/icons/color/document.png",
         "description": "My new app - it's totally awesome!",

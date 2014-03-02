@@ -3,10 +3,9 @@
 
 var mongoose = require('mongoose');
 var Schema = mongoose.Schema;
+var log = require(global.config.apps.LOGGING).LOG;
 
 var appSchema = Schema({
-
-    id: Number,
     name: {
         type: String,
         required: true,
@@ -25,8 +24,29 @@ var appSchema = Schema({
     version: Number,
     created: Date,
     lastModified: Date,
-    owner: { type: Schema.Types.ObjectId, ref: 'User' }
+    owner: { type: Schema.Types.ObjectId, ref: 'User' },
+    url: String
+});
 
+appSchema.pre('save', function (next) {
+    this.wasNew = this.isNew;
+    next();
+});
+
+appSchema.post('save', function () {
+    try {
+        if (this.wasNew) {
+            //TODO: temporary solution hacked together for testing purposes
+            this.url = 'apps/repo/' + this._id;
+            this.save(function (err) {
+                if (err) {
+                    log.error(err.toString());
+                }
+            });
+        }
+    } catch (err) {
+        log.error(err.toString());
+    }
 });
 
 exports.App = mongoose.model('App', appSchema);
