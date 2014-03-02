@@ -29,7 +29,7 @@ module.exports = function (app, passport) {
         app.set('title', global.config.app.name);
         app.set('port', global.config.port);
         app.set('views', global.config.root + '/frontend/views');
-        app.set('uploads', global.config.root + '/uploads');
+        app.set('files', global.config.root + '/files');
         app.engine('.html', engine.__express);
         app.set('view engine', 'html');
         app.use(express.favicon());

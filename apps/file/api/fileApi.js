@@ -1,35 +1,41 @@
 /*jslint node: true */
 'use strict';
-var cloudLib = require(global.config.apps.CLOUD);
+var fileLib = require(global.config.apps.file);
 var log = require(global.config.apps.LOGGING).LOG;
 
 
 /**
- * Create new cloud
+ * Create new file
  */
-var createCloud = function (req, res) {
+var createFile = function (req, res) {
     try {
-        log.debug('creating cloud');
+        log.debug('creating file');
         var body = req.body;
-        var cloudDetails = {
-            name: body.name,
-            description: body.description || '',
+        var fileName = req.files.file.filename;
+        var mimeType = req.files.file.mime;
+        var fileSize = req.files.file.size;
+        var internalName = new ObjectID().toHexString();
+
+
+        var fileDetails = {
+            name: req.files.file.filename,
+            internalName: body.description || '',
             icon: body.icon || '',
-            menuLabel: body.menuLabel || '',
+            mimeType: req.files.file.mime || '',
             owner: req.user.id
         };
-        log.debug(JSON.stringify(cloudDetails));
-        cloudLib.createCloud(cloudDetails, function (err, cloud) {
+        log.debug(JSON.stringify(fileDetails));
+        fileLib.createFile(fileDetails, function (err, file) {
             if (err) {
                 var responseCode = 500;
                 if (err.code === 11000) {
-                    err.data = 'A cloud with that label already exists.';
+                    err.data = 'A file with that label already exists.';
                     responseCode = 409;
                 }
                 handleError(res, err, responseCode);
             } else {
                 res.status(200);
-                res.send(cloud);
+                res.send(file);
             }
         });
     } catch (err) {
@@ -38,14 +44,14 @@ var createCloud = function (req, res) {
 };
 
 
-var getCloudById = function (req, res, id) {
+var getFileById = function (req, res, id) {
     try {
-        cloudLib.getCloudById(id, function (err, cloud) {
-            if (err || !cloud) {
+        fileLib.getFileById(id, function (err, file) {
+            if (err || !file) {
                 handleError(res, err, 404);
             } else {
                 res.status(200);
-                res.send(cloud);
+                res.send(file);
             }
         });
     } catch (err) {
@@ -53,14 +59,14 @@ var getCloudById = function (req, res, id) {
     }
 };
 
-var getUserClouds = function (req, res) {
+var getUserFiles = function (req, res) {
     try {
-        cloudLib.getUserClouds(req.user.id, function (err, clouds) {
-            if (err || !clouds) {
+        fileLib.getUserFiles(req.user.id, function (err, files) {
+            if (err || !files) {
                 handleError(res, err, 404);
             } else {
                 res.status(200);
-                res.send(clouds);
+                res.send(files);
             }
         });
     } catch (err) {
@@ -69,14 +75,14 @@ var getUserClouds = function (req, res) {
 };
 
 // Temporary helper function
-var getAllClouds = function (req, res) {
+var getAllFiles = function (req, res) {
     try {
-        cloudLib.getAllClouds(function (err, clouds) {
-            if (err || !clouds) {
+        fileLib.getAllFiles(function (err, files) {
+            if (err || !files) {
                 handleError(res, err, 404);
             } else {
                 res.status(200);
-                res.send(clouds);
+                res.send(files);
             }
         });
     } catch (err) {
@@ -84,14 +90,14 @@ var getAllClouds = function (req, res) {
     }
 };
 
-var updateCloud = function (req, res) {
+var updateFile = function (req, res) {
     try {
-        cloudLib.updateCloud(req.body, function (err, cloud) {
-            if (err || !cloud) {
+        fileLib.updatefile(req.body, function (err, file) {
+            if (err || !file) {
                 handleError(res, err, 409);
             } else {
                 res.status(200);
-                res.send(cloud);
+                res.send(file);
             }
         });
     } catch (err) {
@@ -99,10 +105,10 @@ var updateCloud = function (req, res) {
     }
 };
 
-var deleteCloud = function (req, res) {
+var deleteFile = function (req, res) {
     try {
         var id = req.body._id;
-        cloudLib.deleteCloudById(id, function (err, cloud) {
+        fileLib.deletefileById(id, function (err, file) {
             if (err) {
                 handleError(res, err, 404);
             } else {
@@ -138,12 +144,12 @@ var handleError = function (res, err, responseCode) {
 
 
 module.exports = {
-    create: createCloud,
-    getCloudById: getCloudById,
-    getUserClouds: getUserClouds,
-    getAllClouds: getAllClouds,
-    update: updateCloud,
-    delete: deleteCloud
+    create: createFile,
+    getFileById: getFileById,
+    getUserFiles: getUserFiles,
+    getAllFiles: getAllFiles,
+    update: updateFile,
+    delete: deleteFile
 };
 
 

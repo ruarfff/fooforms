@@ -9,7 +9,7 @@ exports.updateFile = function (fileJson, next) {
         File.findByIdAndUpdate(fileJson._id, {
             name: fileJson.name,
             description: fileJson.description,
-            icon: fileJson.icon,
+            sizeKB: fileJson.sizeKB,
             menuLabel: fileJson.menuLabel,
             owner: fileJson.owner
         }, { multi: false }, function (err, file) {
