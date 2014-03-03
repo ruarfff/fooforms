@@ -24,3 +24,6 @@ out
 main.min.css
 main.min.js
 coverage.html
+
+frontend/public/css/*.min.css
+frontend/public/js/*.min.js
