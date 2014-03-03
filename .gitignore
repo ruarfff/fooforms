@@ -19,3 +19,8 @@ node_modules
 .idea
 *.suo
 out
+
+# ignore auto generated files
+main.min.css
+main.min.js
+coverage.html
