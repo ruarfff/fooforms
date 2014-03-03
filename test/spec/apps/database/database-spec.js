@@ -42,17 +42,24 @@ describe('Database configuration and connection', function () {
         it('fails when url is invalid', function (done) {
             var cachedUrl = database.url;
             database.url = 'some crazy url';
-            database.openConnection(function (err) {
+            var next = function () {
+
+            };
+            database.openConnection(next, function (err) {
                 database.url = cachedUrl;
-                should.exist(null, err);
+                should.exist(err);
                 done();
             });
         });
 
         it('connects successfully with test url', function (done) {
+            var onError = function (err) {
+
+            };
+
             database.openConnection(function () {
                 done();
-            }, null);
+            }, onError);
         });
     });
 

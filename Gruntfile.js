@@ -43,7 +43,7 @@ module.exports = function (grunt) {
         },
         concurrent: {
             dev: {
-                tasks: ['nodemon', 'watch'],
+                tasks: ['watch', 'nodemon'],
                 options: {
                     logConcurrentOutput: true
                 }
@@ -53,7 +53,6 @@ module.exports = function (grunt) {
             dev: {
                 script: 'server.js',
                 options: {
-                    args: ['dev'],
                     nodeArgs: ['--debug'],
                     callback: function (nodemon) {
                         nodemon.on('log', function (event) {
@@ -66,9 +65,7 @@ module.exports = function (grunt) {
                     cwd: __dirname,
                     ignore: ['node_modules/**'],
                     ext: 'js',
-                    watch: ['server'],
-                    delay: 1,
-                    legacyWatch: true
+                    delay: 1
                 }
             }
         }, // End Nodemon
@@ -105,7 +102,10 @@ module.exports = function (grunt) {
                     style: 'compressed'
                 },
                 files: {
-                    'frontend/public/css/main.css': 'frontend/src/sass/main.scss'
+                    'frontend/public/css/main.min.css': 'frontend/src/sass/main.scss',
+                    'frontend/public/css/signup.min.css': 'frontend/src/sass/authentication/signup.scss',
+                    'frontend/public/css/login.min.css': 'frontend/src/sass/authentication/login.scss',
+                    'frontend/public/css/fooforms.min.css': 'frontend/src/sass/fooforms.scss'
                 }
             }
         }, // End SASS
@@ -276,4 +276,5 @@ module.exports = function (grunt) {
 
     grunt.registerTask('default', 'start application in dev mode using watch and nodemon', ['concat:js', 'uglify', 'sass', 'mochaTest', 'concurrent']);
     grunt.registerTask('test', 'only run tests and generate coverage report', ['mochaTest']);
+    grunt.registerTask('skip-test', 'start application in dev mode using watch and nodemon', ['concat:js', 'uglify', 'sass', 'concurrent']);
 };
