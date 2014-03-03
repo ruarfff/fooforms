@@ -1,4 +1,12 @@
 {
+    "database": {
+        "hostname": "localhost",
+        "port": "27017",
+        "username": "",
+        "password": "",
+        "name": "",
+        "db": "test"
+    },
     "app": {
         "name": "FooForms - Test"
     },

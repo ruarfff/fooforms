@@ -7,15 +7,15 @@ var log = require( global.config.apps.LOGGING ).LOG;
 
 var database = {
     connection: mongoose.connection,
+    name: 'db',
     connected: false,
     url: 'not set',
     errorMessage: ''
 };
 
 // Generate the Mongo Db connection URL
-function setUrl () {
-    var dbConfig = global.config.database;
-
+function initialize(dbConfig) {
+    database.name = dbConfig.db;
     if ( dbConfig.username && dbConfig.password ) {
         database.url = "mongodb://" + dbConfig.username + ":" + dbConfig.password + "@" + dbConfig.hostname + ":" + dbConfig.port + "/" + dbConfig.db;
     } else {
@@ -23,7 +23,9 @@ function setUrl () {
     }
     log.debug( database.url );
 }
-setUrl();
+
+initialize(global.config.database);
+
 var mongoModule = path.join( global.config.root, 'node_modules/mongodb' );
 
 module.exports = {
@@ -32,22 +34,30 @@ module.exports = {
     MongoClient: require( mongoModule ).MongoClient,
     ObjectID: require( mongoModule ).ObjectID,
     BSON: require( mongoModule ).BSONPure,
+    name: database.name,
     url: database.url,
     connected: database.connected,
     errorMessage: database.errorMessage,
     connection: database.connection,
-    openConnection: function () {
+    openConnection: function (next, onError) {
         database.connection.on( 'error', function ( error ) {
             if ( error ) {
                 database.errorMessage = error.toString();
                 log.error( 'Error opening DB: ' + database.errorMessage );
+                if (typeof(onError) == "function") {
+                    onError(error);
+                }
             }
         } );
         database.connection.once( 'open', function () {
             log.info( 'Successfully connected to database at ' + database.url );
             database.connected = true;
+            if (typeof(next) == "function") {
+                next();
+            }
         } );
-        mongoose.connect( database.url );
+
+        mongoose.connect(this.url);
     },
     closeConnection: function () {
         mongoose.disconnect( function ( err ) {

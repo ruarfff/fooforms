@@ -190,11 +190,8 @@ fooformsApp.controller('fieldsCtrl', ['$scope', '$http', 'DragDropHandler' , '$m
 
     $scope.newApp = function (previousApp) {
         // TODO: Check if there are unsaved changes and warn
-
         appService.resetApp();
         $scope.app = appService.getApp();
-
-        // Why isn't that working aaaarrghhh!!!
     }
 
 }])

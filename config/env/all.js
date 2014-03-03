@@ -2,15 +2,6 @@ var path = require('path');
 
 var rootPath = path.normalize(__dirname + '/../..');
 
-var devDbConfig = {
-    "hostname": 'localhost',
-    "port": '27017',
-    "username": "",
-    "password": "",
-    "name": "",
-    "db": "test"
-};
-
 /* Convenience paths to apps and other components */
 var adminDir = path.join(rootPath, 'apps/admin');
 var appDir = path.join(rootPath, 'apps/app');
@@ -42,7 +33,6 @@ var apps = {
 module.exports = {
     root: rootPath,
     port: process.env.PORT || 3000,
-    database: devDbConfig,
     apps: apps
 };
 
