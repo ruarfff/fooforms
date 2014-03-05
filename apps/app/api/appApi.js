@@ -45,6 +45,36 @@ var getUserApps = function (req, res) {
     }
 };
 
+var getAppById = function (id, res) {
+    try {
+        appLib.getAppById(id, function (err, app) {
+            if (err || !app) {
+                handleError(res, err, 404);
+            } else {
+                res.status(200);
+                res.send(app);
+            }
+        });
+    } catch (err) {
+        handleError(res, err, 500);
+    }
+};
+
+var updateApp = function (req, res) {
+    try {
+        appLib.updateApp(req.body, function (err, app) {
+            if (err || !app) {
+                handleError(res, err, 409);
+            } else {
+                res.status(200);
+                res.send(app);
+            }
+        });
+    } catch (err) {
+
+    }
+};
+
 var deleteApp = function (req, res) {
     try {
         var id = req.body._id;
@@ -73,7 +103,9 @@ var handleError = function (res, err, responseCode) {
         if (!responseCode) {
             responseCode = 500;
         }
-        log.error(err.toString());
+        if (err) {
+            log.error(err.toString());
+        }
         res.status(responseCode);
         res.send(err);
     } catch (err) {
@@ -86,7 +118,9 @@ var handleError = function (res, err, responseCode) {
 module.exports = {
     create: createApp,
     getUserApps: getUserApps,
-    deleteApp: deleteApp
+    getAppById: getAppById,
+    update: updateApp,
+    delete: deleteApp
 };
 
 

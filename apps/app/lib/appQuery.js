@@ -6,7 +6,9 @@ var log = require(global.config.apps.LOGGING).LOG;
 exports.getAppById = function (id, next) {
     "use strict";
     try {
-
+        App.findById(id, function (err, app) {
+            next(err, app);
+        });
     } catch (err) {
         log.error(err.toString());
         next(err, null);
