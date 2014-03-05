@@ -1,6 +1,6 @@
 /*jslint node: true */
 'use strict';
-var fileLib = require(global.config.apps.file);
+var fileLib = require(global.config.apps.FILE);
 var log = require(global.config.apps.LOGGING).LOG;
 
 

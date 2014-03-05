@@ -20,11 +20,12 @@
                                     <a class="center-block">{{app.name | uppercase}}</a>
                                 </div>
                                 <div ng-show="app.showOptions" class="btn-group">
-                                    <button type="button" class="btn btn-info" ng-click="viewApp(app)"
+                                    <button type="button" class="btn btn-xs btn-info" ng-click="viewApp(app)"
                                             data-toggle="modal" data-target="#viewAppModal">View
                                     </button>
-                                    <a class="btn btn-primary" href="appBuilder" ng-click="updateApp(app)">Update</a>
-                                    <button type="button" class="btn btn-danger" ng-click="deleteApp(app)">Delete
+                                    <a class="btn btn-xs btn-primary" href="appBuilder"
+                                       ng-click="updateApp(app)">Update</a>
+                                    <button type="button" class="btn btn-xs btn-danger" ng-click="deleteApp(app)">Delete
                                     </button>
                                 </div>
                             </div>

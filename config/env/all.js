@@ -22,6 +22,7 @@ var loggingDir = path.join(rootPath, 'apps/logging');
 var userDir = path.join(rootPath, 'apps/user');
 var appBuilderDir = path.join(rootPath, 'apps/appBuilder');
 var calendarDir = path.join(rootPath, 'apps/calendar');
+var fileDir = path.join(rootPath, 'apps/file');
 
 /**
  * Enumerator to allow easy access to absolute application root paths.
@@ -36,7 +37,8 @@ var apps = {
     "LOGGING": loggingDir,
     "USER": userDir,
     "APPBUILDER": appBuilderDir,
-    "CALENDAR": calendarDir
+    "CALENDAR": calendarDir,
+    "FILE": fileDir
 };
 
 module.exports = {

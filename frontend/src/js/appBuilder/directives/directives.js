@@ -1,14 +1,24 @@
 /* Directives */
 
 fooformsApp.factory('DragDropHandler', [function () {
+    'use strict';
+    return {
+        dragObject: undefined,
+        addObject: function (object, objects, to) {
+            objects.splice(to, 0, object);
+        },
+        moveObject: function (objects, from, to) {
+            objects.splice(to, 0, objects.splice(from, 1)[0]);
+        }
+    };
+}])
+
+fooformsApp.factory('uploadHandler', [function () {
         'use strict';
         return {
-            dragObject: undefined,
-            addObject: function (object, objects, to) {
+
+            uploadObject: function (object, objects, to) {
                 objects.splice(to, 0, object);
-            },
-            moveObject: function (objects, from, to) {
-                objects.splice(to, 0, objects.splice(from, 1)[0]);
             }
         };
     }])
@@ -168,6 +178,45 @@ fooformsApp.factory('DragDropHandler', [function () {
                     }
                     event.stopPropagation();
                     scope.$parent.$apply();
+                });
+            }
+        };
+    }])
+
+
+    .directive('uploadable', ['uploadHandler', function (uploadHandler) {
+        return {
+            scope: {
+                uploadable: '=',
+                ngUpdate: '&',
+                ngCreate: '&',
+                ngBorder: '&'
+
+            },
+            link: function (scope, element, attrs) {
+
+
+                element.on("change", function (event, ui) {
+                    var repeatBox = angular.element(ui.item).scope().$index;
+                    var from = angular.element(ui.item).scope().$index;
+                    var to = element.children().index(ui.item);
+
+                    scope.$parent.nowEditing = from;
+                    scope.$parent.nowSubEditing = repeatBox;
+
+                    if (to >= 0) {
+                        scope.$apply(function () {
+                            if (angular.element(ui.item).scope().subField !== undefined) {
+                                uploadHandler.uploadObject(scope.subdroppable, from, to);
+                                scope.ngUpdate({
+                                    from: from,
+                                    to: to
+                                });
+
+                            }
+                        });
+                    }
+
                 });
             }
         };
