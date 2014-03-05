@@ -16,7 +16,7 @@
     "execMap": {
         "js": "node --harmony"
     },
-    "watch": ["*.*"],
+    "watch": ["apps/**/*.js"],
     "stdin": true
 }
 

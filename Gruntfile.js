@@ -53,6 +53,7 @@ module.exports = function (grunt) {
             dev: {
                 script: 'server.js',
                 options: {
+                    args: ['dev'],
                     nodeArgs: ['--debug'],
                     callback: function (nodemon) {
                         nodemon.on('log', function (event) {
@@ -65,7 +66,9 @@ module.exports = function (grunt) {
                     cwd: __dirname,
                     ignore: ['node_modules/**'],
                     ext: 'js',
-                    delay: 1
+                    watch: ['server'],
+                    delay: 1,
+                    legacyWatch: true
                 }
             }
         }, // End Nodemon
@@ -145,8 +148,6 @@ module.exports = function (grunt) {
     grunt.registerTask('dbdrop', 'drop the database', function () {
         // async mode
         var done = this.async();
-
-        //  var database = require('./apps/database/lib');
 
         database.connection.on('open', function () {
             database.connection.db.dropDatabase(function (err) {
