@@ -19,6 +19,7 @@ node_modules
 .idea
 *.suo
 out
+*.sublime*
 
 # ignore auto generated files
 main.min.css
