@@ -19,37 +19,31 @@ module.exports = function (grunt) {
 
     grunt.initConfig({
         pkg: grunt.file.readJSON('package.json'),
-        // For running stuff int he background.
-        bgShell: {
-            coverage: {
-                cmd: 'node node_modules/istanbul/lib/cli.js cover --dir out/coverage node_modules/grunt-jasmine-node/node_modules/jasmine-node/bin/jasmine-node -- test --forceexit'
+        // Testing
+        mochaTest: {
+            test: {
+                options: {
+                    reporter: 'spec',
+                    require: 'test/coverage/blanket',
+                    clearRequireCache: true
+                },
+                src: ['test/**/*.js']
             },
-            cobertura: {
-                cmd: 'node node_modules/istanbul/lib/cli.js report --root out/coverage --dir out/coverage/cobertura cobertura'
-            }
-        },
-        open: {
-            file: {
-                path: 'out/coverage/lcov-report/index.html'
-            }
-        },
-        jasmine_node: {
-            jasmine_node: {
-                specNameMatcher: "./test/spec", // load only specs containing specNameMatcher
-                projectRoot: ".",
-                requirejs: false,
-                forceExit: true,
-                jUnit: {
-                    report: false,
-                    savePath: "./out/reports/jasmine/",
-                    useDotNotation: true,
-                    consolidate: true
-                }
+            coverage: {
+                options: {
+                    reporter: 'html-cov',
+                    // use the quiet flag to suppress the mocha console output
+                    quiet: true,
+                    // specify a destination file to capture the mocha
+                    // output (the quiet option does not suppress this)
+                    captureFile: 'frontend/public/coverage.html'
+                },
+                src: ['test/**/*.js']
             }
         },
         concurrent: {
             dev: {
-                tasks: ['nodemon', 'watch'],
+                tasks: ['watch', 'nodemon'],
                 options: {
                     logConcurrentOutput: true
                 }
@@ -111,7 +105,10 @@ module.exports = function (grunt) {
                     style: 'compressed'
                 },
                 files: {
-                    'frontend/public/css/main.css': 'frontend/src/sass/main.scss'
+                    'frontend/public/css/main.min.css': 'frontend/src/sass/main.scss',
+                    'frontend/public/css/signup.min.css': 'frontend/src/sass/authentication/signup.scss',
+                    'frontend/public/css/login.min.css': 'frontend/src/sass/authentication/login.scss',
+                    'frontend/public/css/fooforms.min.css': 'frontend/src/sass/fooforms.scss'
                 }
             }
         }, // End SASS
@@ -142,7 +139,7 @@ module.exports = function (grunt) {
             // Watch the js files that matter on the server and run tests when they are changed.
             tests: {
                 files: ['apps/**/*.js', 'test/spec/**'],
-                tasks: ['jasmine_node']
+                tasks: ['mochaTest']
 
             }
         } // End watch
@@ -151,8 +148,6 @@ module.exports = function (grunt) {
     grunt.registerTask('dbdrop', 'drop the database', function () {
         // async mode
         var done = this.async();
-
-        //  var database = require('./apps/database/lib');
 
         database.connection.on('open', function () {
             database.connection.db.dropDatabase(function (err) {
@@ -280,6 +275,7 @@ module.exports = function (grunt) {
     });
 
 
-    grunt.registerTask('default', 'start application in dev mode using watch and nodemon', ['concat:js', 'uglify', 'sass', 'jasmine_node', 'concurrent']);
-
+    grunt.registerTask('default', 'start application in dev mode using watch and nodemon', ['concat:js', 'uglify', 'sass', 'mochaTest', 'concurrent']);
+    grunt.registerTask('test', 'only run tests and generate coverage report', ['mochaTest']);
+    grunt.registerTask('skip-test', 'start application in dev mode using watch and nodemon', ['concat:js', 'uglify', 'sass', 'concurrent']);
 };

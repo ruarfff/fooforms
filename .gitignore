@@ -19,3 +19,11 @@ node_modules
 .idea
 *.suo
 out
+
+# ignore auto generated files
+main.min.css
+main.min.js
+coverage.html
+
+frontend/public/css/*.min.css
+frontend/public/js/*.min.js
