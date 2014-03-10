@@ -37,3 +37,11 @@ exports.getUserClouds = function (userId, next) {
         next(err, null);
     }
 };
+
+exports.getCloudsApps = function (next) {
+    "use strict";
+};
+
+exports.getCloudsAppsNames = function (next) {
+    "use strict";
+};

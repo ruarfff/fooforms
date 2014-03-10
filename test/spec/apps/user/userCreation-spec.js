@@ -2,31 +2,31 @@
 'use strict';
 var path = require('path');
 var should = require('should');
-var testUtil = require('../../testUtil');
+var specUtil = require('../../spec-util');
 
-describe('User database functions', function () {
+describe('User creation functions', function () {
     var database;
     var userLib;
 
     before(function () {
-        testUtil.init();
+        specUtil.init();
         database = require(global.config.apps.DATABASE);
         userLib = require(global.config.apps.USER);
     });
 
     after(function () {
-        testUtil.tearDown();
+        specUtil.tearDown();
     });
 
     beforeEach(function (done) {
-        testUtil.openDatabase(database, done);
+        specUtil.openDatabase(database, done);
     });
 
     afterEach(function (done) {
-        testUtil.dropDatabase(database, done);
+        specUtil.dropDatabase(database, done);
     });
 
-    describe('Creating a user', function () {
+    describe('Creating a user with valid inputs', function () {
         var testName = {
             familyName: "Test Family Name",
             givenName: "testGivenName",
@@ -64,7 +64,7 @@ describe('User database functions', function () {
             });
         });
 
-        it('should be admin and save without error', function (done) {
+        it('with admin set to true should be admin and save without error', function (done) {
             mockUser.admin = true;
             userLib.createUserLocalStrategy(mockUser, function (err, user) {
                 if (err) {
@@ -75,6 +75,44 @@ describe('User database functions', function () {
                     done();
                 }
 
+            });
+        });
+
+    });
+
+
+    describe('Creating a user with invalid inputs', function () {
+        var testName = {
+            familyName: "Test Family Name",
+            givenName: "testGivenName",
+            middleName: "_*^%$£@!"
+        };
+        var testDisplayName = "TestDisplayName";
+        var testEmail = "test@test.com";
+        var testPassword = "some-password";
+        var mockUser;
+        beforeEach(function () {
+            mockUser = {
+                name: testName,
+                displayName: testDisplayName,
+                email: testEmail,
+                password: testPassword
+            };
+        });
+
+        it('should not save and give an error when displayName is not unique', function (done) {
+            userLib.createUserLocalStrategy(mockUser, function (err, user) {
+                if (err) {
+                    done(err);
+                } else {
+                    should.exist(user);
+                    user.displayName.should.equal(testDisplayName);
+                    userLib.createUserLocalStrategy(mockUser, function (err, user) {
+                        should.exist(err);
+                        should.not.exist(user);
+                        done();
+                    });
+                }
             });
         });
     });

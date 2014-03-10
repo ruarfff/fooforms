@@ -4,14 +4,17 @@
 var mongoose = require( "mongoose" );
 var Schema = mongoose.Schema;
 var crypto = require( 'crypto' );
+var uniqueValidator = require('mongoose-unique-validator');
 var authTypes = ['github', 'twitter', 'facebook', 'google', 'yahoo', 'linkedin'];
 
 var userSchema = new Schema( {
+    // Users full name
     name: {
         familyName: String,
         givenName: String,
         middleName: String
     },
+    // Users unique display/user name 
     displayName: {
         type: String,
         required: true,
@@ -27,6 +30,7 @@ var userSchema = new Schema( {
         type: String,
         required: true
     },
+    // Admin users see more of the site
     admin: {
         type: Boolean,
         default: false
@@ -44,6 +48,7 @@ var userSchema = new Schema( {
     linkedin: {}
 } );
 
+userSchema.plugin(uniqueValidator);
 
 userSchema.path( 'email' ).validate( function ( email ) {
     if ( authTypes.indexOf( this.provider ) !== -1 ) {
@@ -79,9 +84,7 @@ var notNullOrEmpty = function ( value ) {
  * Pre-save hook
  */
 userSchema.pre( 'save', function ( next ) {
-    console.log( 'saving' );
     if ( !this.isNew ) {
-        console.log( 'saving2' );
         return next();
     }
     this._password = this.password;
