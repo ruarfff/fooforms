@@ -184,5 +184,13 @@ label i.fa {
   min-height: 300px;
 }
 
+img.icon {
+  max-height: 48px !important;
+  display: inline-block;
+  vertical-align: middle;
+}
 
+.inline {
+  display: inline;
+}
 

@@ -9,71 +9,73 @@
             </button>
             <a class="navbar-brand" href="#">FOOFORMS</a>
         </div>
-        <div class="collapse navbar-collapse clearfix">
-            <div class="nav-search">
+        <div class="collapse navbar-collapse">
 
-                <input type="text" placeholder="Search..." class="input-search"/>
 
-            </div>
+            <ul class="nav navbar-nav">
+                <li>
+                    <a href="dashboard"><i class="fa fa-dashboard"></i> Dashboard</a>
+                </li>
 
-            <div id="left-panel" class="clearfix">
-                <div id="left-panel-content" class="clearfix">
-                    <ul class="clearfix">
+                <li>
+                    <a href="apps"><i class="fa fa-th"></i> Apps</a>
+                </li>
                         <li>
-                            <a href="dashboard"><i class="fa fa-dashboard"></i>Dashboard</a>
+                            <a href="people"><i class="fa fa-group"></i> People</a>
                         </li>
                         <li>
-                            <a href="clouds"><i class="fa fa-cloud"></i>Clouds</a>
-                        </li>
-                        <li>
-                            <a href="apps"><i class="fa fa-th"></i>Apps</a>
-                        </li>
-                        <li>
-                            <a href="people"><i class="fa fa-group"></i>People</a>
-                        </li>
-                        <li>
-                            <a href="calendar"><i class="fa fa-calendar"></i>Dates</a>
+                            <a href="calendar"><i class="fa fa-calendar"></i> Dates</a>
                         </li>
 
+
+                <% if(user.admin){ %>
                         <li>
-                            <a href="profile"><i class="fa fa-user"></i>Profile</a>
-                        </li>
-                        <li>
-                            <a href="userGuide"><i class="fa fa-rocket"></i>User Guide</a>
-                        </li>
-                        <li>
-                            <a href="settings"><i class="fa fa-cogs"></i>Settings</a>
-                        </li>
-                        <% if(user.admin){ %>
-                        <li>
-                            <a href="admin"><i class="fa fa-flask"></i>Admin</a>
+
+                        <a href="admin"><i class="fa fa-flask"></i>Admin</a>
                         </li>
                         <% } %>
 
 
                     </ul>
-                </div>
-            </div>
 
-            <div class="nav-profile">
+            <div class="nav-search">
 
-                <% if (user.photo){
-                %>
-                <img class="img-circle" src="<%= user.photo %>"/>
-                <%
-                }else{
-                %>
-                <img class="img-circle" src="/assets/images/photo.jpg"/>
-                <%
 
-                }
-
-                %>
-                <%= user.displayName %>
-                <button class="btn btn-xs btn-default pull-right" onclick="location.href='logout'">Logout</button>
-
+                <input type="text" placeholder="Search..." class="input-search"/>
 
             </div>
+
+
+            <ul class="nav navbar-nav navbar-right">
+
+                <li class="dropdown profile"><a href="#" class="dropdown-toggle" data-toggle="dropdown">&nbsp;
+                    <% if (user.photo){
+                    %>
+                    <img class="img-circle" src="<%= user.photo %>"/>
+                    <%
+                    }else{
+                    %>
+                    <img class="img-circle" src="/assets/images/photo.jpg"/>
+                    <%
+
+                    }
+
+                    %>
+
+
+                    <%= user.displayName %>
+
+                    <b class="caret"></b></a>
+                    <ul class="dropdown-menu">
+                        <li><a href="profile"><i class="fa fa-user"></i> Profile</a></li>
+                        <li><a href="clouds"><i class="fa fa-cloud"></i> Clouds</a></li>
+                        <li><a href="settings"><i class="fa fa-cogs"></i> Settings</a></li>
+                        <li class="divider"></li>
+                        <li><a onclick="location.href='logout'"><i class="fa fa-lock"></i>Logout</a></li>
+                    </ul>
+                </li>
+            </ul>
+
 
         </div>
         <!-- /.nav-collapse -->

@@ -1,6 +1,6 @@
 /* Controllers */
 
-fooformsApp.controller('fieldsCtrl', ['$scope', '$http', 'DragDropHandler' , '$modal', 'Restangular', 'appService', function ($scope, $http, DragDropHandler, $modal, Restangular, appService) {
+fooformsApp.controller('appViewerCtrl', ['$scope', '$http' , '$modal', 'Restangular', 'appService', function ($scope, $http, $modal, Restangular, appService) {
     "use strict";
     Restangular.setBaseUrl('/api');
     Restangular.setDefaultHeaders({'Content-Type': 'application/json'});

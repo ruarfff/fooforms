@@ -47,6 +47,7 @@ fooformsApp.config(function ($routeProvider, $locationProvider) {
             controller: 'fieldsCtrl'
         })
         .otherwise({
-            redirectTo: '/404'
+            templateUrl: '/partials/appViewer',
+            controller: 'appViewerCtrl'
         });
 });
