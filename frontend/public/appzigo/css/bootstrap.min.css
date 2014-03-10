@@ -2813,6 +2813,7 @@ button.close {
 
 .btn:active, .btn.active {
     background-color: #ccc \9
+
 }
 
 .btn:first-child {
@@ -2936,6 +2937,7 @@ input[type="submit"].btn-block, input[type="reset"].btn-block, input[type="butto
 
 .btn-primary:active, .btn-primary.active {
     background-color: #039 \9
+
 }
 
 .btn-warning {
@@ -2963,6 +2965,7 @@ input[type="submit"].btn-block, input[type="reset"].btn-block, input[type="butto
 
 .btn-warning:active, .btn-warning.active {
     background-color: #c67605 \9
+
 }
 
 .btn-danger {
@@ -2990,6 +2993,7 @@ input[type="submit"].btn-block, input[type="reset"].btn-block, input[type="butto
 
 .btn-danger:active, .btn-danger.active {
     background-color: #942a25 \9
+
 }
 
 .btn-success {
@@ -3017,6 +3021,7 @@ input[type="submit"].btn-block, input[type="reset"].btn-block, input[type="butto
 
 .btn-success:active, .btn-success.active {
     background-color: #408140 \9
+
 }
 
 .btn-info {
@@ -3044,6 +3049,7 @@ input[type="submit"].btn-block, input[type="reset"].btn-block, input[type="butto
 
 .btn-info:active, .btn-info.active {
     background-color: #24748c \9
+
 }
 
 .btn-inverse {
@@ -3071,6 +3077,7 @@ input[type="submit"].btn-block, input[type="reset"].btn-block, input[type="butto
 
 .btn-inverse:active, .btn-inverse.active {
     background-color: #080808 \9
+
 }
 
 button.btn, input[type="submit"].btn {
@@ -4087,6 +4094,7 @@ button.btn.btn-mini, input[type="submit"].btn.btn-mini {
 
 .navbar .btn-navbar:active, .navbar .btn-navbar.active {
     background-color: #ccc \9
+
 }
 
 .navbar .btn-navbar .icon-bar {
@@ -4323,6 +4331,7 @@ button.btn.btn-mini, input[type="submit"].btn.btn-mini {
 
 .navbar-inverse .btn-navbar:active, .navbar-inverse .btn-navbar.active {
     background-color: #000 \9
+
 }
 
 .breadcrumb {

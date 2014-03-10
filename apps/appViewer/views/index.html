@@ -1,0 +1,129 @@
+<div class="col-xs-12 col-sm-8 col-md-8 pageGroup" id='mainView'>
+    <div class="pageGroup">
+
+        <div id='msgCenter' class="hide">
+            <div class="alert alert-block alert-info fade in m5">
+                <p>Saving your app, please stand by...</p>
+            </div>
+        </div>
+
+        <div id="tabs">
+            <ul id='appTabs' class="nav nav-tabs">
+                <li class="active"><a data-target="#tabs-newApp" data-toggle="tab">Design</a></li>
+                <li><a data-target="#tabs-settings" data-toggle="tab">Settings</a></li>
+                <li><a data-target="#tabs-events" data-toggle="tab">Events</a></li>
+                <li><a data-target="#tabs-publish" data-toggle="tab">Publish</a></li>
+            </ul>
+            <div class="tab-content white p5">
+                <div id="tabs-newApp" class="tab-pane active">
+                    <div id='appHeading'
+                         ng-class="{ 'selected': showAppSettings}"
+                         ng-click="editField(null,null,'Application', $event)"><img class='icon'
+                                                                                    ng-src="{{app.icon}}">
+
+                        <h2 id='appName'>{{app.name}}</h2>
+
+                        <p id='appDescription'>{{app.description}} </p>
+                    </div>
+                    <div id='appLayout' class="container"
+                         ng-class="{ 'newForm': app.fields.length==0}">
+
+                        <div id='appFields' class="row"
+                             droppable='app.fields'
+                             ng-update='updateObjects(from, to)'
+                             ng-create='createObject(object, to)'
+                                >
+                            <div class='appFormObject col-sm-{{appField.boxSize}} under'
+                                 ng-repeat="appField in app.fields track by $index"
+                                 ng-show="appField.name"
+                                 ng-border="showBorders(show)"
+                                 ng-click="editField($index,null,'Field', $event)"
+                                 ng-class="{ 'selected': $index == nowEditing ,'dragging' : dragging}">
+                                <div class="btn-group pull-right onTop">
+
+                                    <button ng-click="editField($index, null, 'Field', $event)"
+                                            class='btn btn-xs btn-default'
+                                            >{{$index}}
+                                    </button>
+                                    <button ng-click='deleteItem(appField.id)'
+                                            class='btn btn-xs btn-danger'
+                                            ng-show="$index == nowEditing">X
+                                    </button>
+                                </div>
+                                <div ng-include='appField.template' class="under"></div>
+                            </div>
+
+
+                        </div>
+
+
+                    </div>
+
+
+                </div>
+
+
+                <div id="tabs-settings" class="tab-pane">
+                    <div class='alert alert-warning'><h4>Settings</h4>
+                            <pre class="ng-binding">
+     {{app | json}}
+ </pre>
+
+                    </div>
+
+                </div>
+
+
+                <div id="tabs-events" class="tab-pane">
+
+                    <h4 class="fooHeading">Form Events</h4>
+
+                </div>
+
+
+                <div id="tabs-publish" class="tab-pane">
+                    <div class='alert alert-warning'><h4>Publish</h4>
+
+                        <p>Choose one or more ways to publish your app.</p>
+                    </div>
+                    <div class='m10 alert alert-info'>
+                        <h5>Add it to one or more clouds</h5>
+
+                        <p>Your app will be displayed in each of the following clouds</p>
+
+                        <div id='cloudList'>
+
+                        </div>
+                        <hr>
+
+                        <h5>Add it to a Website or Blog</h5>
+
+                        <p>Copy the following code to your page on your website.</p>
+                        <textarea class='large'>
+
+                        </textarea>
+                    </div>
+
+                </div>
+            </div>
+            <div id='saveAppForm'>
+                <button id='newApp' ng-click="newApp(app)" class="btn btn-warning">New App
+                </button>
+                <button id='saveApp' ng-click="saveApp(app)" class="btn btn-success">Save App
+                </button>
+            </div>
+        </div>
+
+
+    </div>
+
+</div>
+
+<div class="col-xs-12 col-sm-4 col-md-4 tall ">
+    <% include includes/appBuilderMenu.html %>
+    <%include ../../../frontend/views/includes/postView.html %>
+</div>
+
+
+
+
