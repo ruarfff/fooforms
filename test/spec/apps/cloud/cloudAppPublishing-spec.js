@@ -51,7 +51,23 @@ describe('Publishing, Updating and Removing Apps in Clouds', function () {
                 done();
             });
         });
-        it('should update the app list with the new app if App Owner is not Cloud Owner but is in the writeable members list');
+        it('should update the app list with the new app if App Owner is not Cloud Owner but is in the writeable members list', function (done) {
+            cloudLib.addAppToCloud(cloudSpecUtil.getCloud1Id(), cloudSpecUtil.getApp2Id(), function (err, cloud) {
+                if (err) {
+                    return done(err);
+                }
+                should.not.exist(err);
+                should.exist(cloud);
+
+                cloud._id.should.eql(cloudSpecUtil.getCloud1Id());
+                cloud.owner.should.eql(cloudSpecUtil.getUser1Id());
+
+                cloud.should.have.property('apps').with.lengthOf(1);
+                cloud.apps[0].should.eql(cloudSpecUtil.getApp1Id());
+
+                done();
+            });
+        });
         it('should Not update the app list with the new app if App Owner is Not Cloud Owner and Not in the writeable members list');
     });
 
