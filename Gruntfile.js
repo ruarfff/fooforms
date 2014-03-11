@@ -81,6 +81,7 @@ module.exports = function (grunt) {
                 src: [
                     'frontend/src/js/main.js', 'frontend/src/js/common/**/*.js',
                     'frontend/src/js/app/**/*.js', 'frontend/src/js/appBuilder/**/*.js',
+                    'frontend/src/js/app/**/*.js', 'frontend/src/js/appViewer/**/*.js',
                     'frontend/src/js/calendar/**/*.js', 'frontend/src/js/cloud/**/*.js',
                     'frontend/src/js/dashboard/**/*.js', 'frontend/src/js/user/**/*.js'
                 ],

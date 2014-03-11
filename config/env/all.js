@@ -12,6 +12,7 @@ var databaseDir = path.join(rootPath, 'apps/database');
 var loggingDir = path.join(rootPath, 'apps/logging');
 var userDir = path.join(rootPath, 'apps/user');
 var appBuilderDir = path.join(rootPath, 'apps/appBuilder');
+var appViewerDir = path.join(rootPath, 'apps/appViewer');
 var calendarDir = path.join(rootPath, 'apps/calendar');
 var fileDir = path.join(rootPath, 'apps/file');
 
@@ -28,6 +29,7 @@ var apps = {
     "LOGGING": loggingDir,
     "USER": userDir,
     "APPBUILDER": appBuilderDir,
+    "APPVIEWER": appViewerDir,
     "CALENDAR": calendarDir,
     "FILE": fileDir
 };

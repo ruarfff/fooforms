@@ -30,6 +30,7 @@ var routes = function (app, passport) {
     require('../apps/database/routes')(app);
     require('../apps/user/routes')(app);
     require('../apps/appBuilder/routes')(app);
+    require('../apps/appViewer/routes')(app);
     require('../apps/file/routes')(app);
 
     app.get('/partials/userGuide', authenticator.ensureAuthenticated, function (req, res) {
