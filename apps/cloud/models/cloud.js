@@ -33,7 +33,7 @@ var CloudSchema = new Schema({
             ref: 'User'
         }
     ],
-    // List of memebers with write permissions
+    // List of members with write permissions
     membersWithWritePermissions: [
         {
             type: Schema.Types.ObjectId,

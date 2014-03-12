@@ -90,7 +90,7 @@ describe('Cloud creation', function () {
                         should.exist(user3._id);
                         should.exist(user4._id);
                         sampleCloud.owner = user._id;
-                        var numberOfMemebers = 4;
+                        var numberOfMembers = 4;
                         sampleCloud.members = [user1._id, user2._id, user3._id, user4._id];
                         cloudLib.createCloud(sampleCloud, function (err, cloud) {
                             if (err) {
@@ -100,7 +100,7 @@ describe('Cloud creation', function () {
                             cloud.description.should.equal(sampleCloud.description);
                             cloud.icon.should.equal(sampleCloud.icon);
                             cloud.owner.should.equal(user._id);
-                            cloud.should.have.property('members').with.lengthOf(numberOfMemebers);
+                            cloud.should.have.property('members').with.lengthOf(numberOfMembers);
                             should(cloud.members.indexOf(user1._id) > -1).ok;
                             should(cloud.members.indexOf(user2._id) > -1).ok;
                             should(cloud.members.indexOf(user3._id) > -1).ok;

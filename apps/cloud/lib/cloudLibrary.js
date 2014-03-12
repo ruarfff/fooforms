@@ -7,8 +7,6 @@ var cloudDeleter = require('./cloudDeleter');
 var cloudUpdater = require('./cloudUpdater');
 var cloudQuery = require('./cloudQuery');
 var cloudMembers = require('./cloudMembers');
-var cloudUtil = require('./cloudUtil');
-
 
 module.exports = {
     Cloud: Cloud,
@@ -23,6 +21,7 @@ module.exports = {
     addCloudMemberWithWritePermissions: cloudMembers.addCloudMemberWithWritePermissions,
     removeCloudMember: cloudMembers.removeCloudMember,
     removeCloudMemberWritePermissions: cloudMembers.removeCloudMemberWritePermissions,
-    userHasWritePermissionInCloud: cloudUtil.userHasWritePermissionInCloud,
-    checkAndCreateCloudMemberLists: cloudUtil.checkAndCreateCloudMemberLists
+    userIsCloudMember: cloudMembers.userIsCloudMember,
+    userHasWritePermissionInCloud: cloudMembers.userHasWritePermissionInCloud,
+    checkAndCreateCloudMemberLists: cloudMembers.checkAndCreateCloudMemberLists
 };
