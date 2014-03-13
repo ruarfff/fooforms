@@ -21,12 +21,12 @@ var CloudSchema = new Schema({
     },
     // Visual aid
     menuLabel: String,
-    // If Private, cloud only accessable by memebers. Visible to all otherwise  
+    // If Private, cloud only accessible by members. Visible to all otherwise
     private: {
         type: Boolean,
         default: false
     },
-    // List fo memebers with read permissions
+    // List fo members with read permissions
     members: [
         {
             type: Schema.Types.ObjectId,

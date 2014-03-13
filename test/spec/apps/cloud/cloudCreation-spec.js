@@ -53,7 +53,7 @@ describe('Cloud creation', function () {
         };
 
 
-        it('should save without error', function (done) {
+        it('should create a Cloud', function (done) {
 
             userLib.createUserLocalStrategy(sampleUser, function (err, user) {
                 if (err) {
@@ -75,7 +75,7 @@ describe('Cloud creation', function () {
             });
 
         });
-        it('should save without error and have members', function (done) {
+        it('should save Cloud with members', function (done) {
             userLib.createUserLocalStrategy(sampleUser, function (err, user) {
                 if (err) {
                     done(err);
@@ -112,7 +112,7 @@ describe('Cloud creation', function () {
             });
 
         });
-        it('should save without error and have members with write permissions', function (done) {
+        it('should create Cloud with members that have write permissions', function (done) {
             userLib.createUserLocalStrategy(sampleUser, function (err, user) {
                 if (err) {
                     done(err);

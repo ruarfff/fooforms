@@ -302,4 +302,10 @@ describe('Adding, updating and removing cloud members', function () {
         });
     });
 
+    describe('Cloud Member retrieval', function () {
+        it('should get the clouds owner');
+        it('should get a list of cloud members');
+        it('should get a list of all members with write permissions');
+    });
+
 });

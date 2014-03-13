@@ -3,7 +3,7 @@
 
 var path = require('path');
 var should = require('should');
-var testUtil = require('../../spec-util');
+var specUtil = require('../../spec-util');
 var cloudSpecUtil = require('./cloud-spec-util');
 
 describe('Querying Cloud Library to get Clouds and Cloud details', function () {
@@ -11,33 +11,62 @@ describe('Querying Cloud Library to get Clouds and Cloud details', function () {
     var cloudLib;
 
     before(function () {
-        testUtil.init();
+        specUtil.init();
         database = require(global.config.apps.DATABASE);
         cloudLib = require(global.config.apps.CLOUD);
     });
 
     after(function () {
-        testUtil.tearDown();
+        specUtil.tearDown();
+    });
+
+    beforeEach(function (done) {
+        specUtil.openDatabase(database, function (err) {
+            if (err) {
+                return done(err);
+            }
+            cloudSpecUtil.seedCloudsInDatabase(done);
+        });
     });
 
     afterEach(function (done) {
-        testUtil.dropDatabase(database, done);
+        specUtil.dropDatabase(database, done);
     });
 
     describe('Cloud retrieval', function () {
-        it('should return all clouds in the database');
-        it('should find a cloud based on the user Id');
-    });
-
-    describe('Cloud Apps retrieval', function () {
-        it('should get all apps belonging to a cloud');
-        it('should get a list of app names belonging to a cloud');
-    });
-
-    describe('Cloud Member retrieval', function () {
-        it('should get the clouds owner');
-        it('should get a list of cloud members');
-        it('should get a list of all members with write permissions');
+        it('should return all clouds in the database', function (done) {
+            cloudLib.getAllClouds(function (err, clouds) {
+                if (err) {
+                    return done(err);
+                }
+                should.exist(clouds);
+                clouds.length.should.equal(cloudSpecUtil.numberOfClouds);
+                done();
+            });
+        });
+        it('should find a cloud based on the cloud Id', function (done) {
+            cloudLib.getCloudById(cloudSpecUtil.getCloud2Id(), function (err, cloud) {
+                if (err) {
+                    return done(err);
+                }
+                should.exist(cloud);
+                cloud._id.should.eql(cloudSpecUtil.getCloud2Id());
+                cloud.name.should.equal("cloud2");
+                done();
+            });
+        });
+        it('should find all clouds owned by a user', function (done) {
+            cloudLib.getUserClouds(cloudSpecUtil.getUser4Id(), function (err, clouds) {
+                if (err) {
+                    return done(err);
+                }
+                should.exist(clouds);
+                clouds.length.should.equal(1);
+                clouds[0].name.should.equal("cloud4");
+                clouds[0]._id.should.eql(cloudSpecUtil.getCloud4Id());
+                done();
+            });
+        });
     });
 
 

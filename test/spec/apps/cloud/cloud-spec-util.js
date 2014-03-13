@@ -33,6 +33,10 @@ var user1Id, user2Id, user3Id, user4Id;
 var app1Id, app2Id, app3Id, app4Id;
 var cloud1Id, cloud2Id, cloud3Id, cloud4Id;
 
+var numberOfClouds = 4;
+var numberOfUsers = 4;
+var numberOfApps = 4;
+
 var getCloud1Id = function () {
     return cloud1Id;
 };
@@ -287,5 +291,8 @@ module.exports = {
     sampleUsersJSONArray: sampleUsers,
     sampleAppsJSONArray: sampleApps,
     sampleCloudsJSONArray: sampleClouds,
+    numberOfClouds: numberOfClouds,
+    numberOfUsers: numberOfUsers,
+    numberOfApps: numberOfApps,
     seedCloudsInDatabase: seedCloudsInDatabase
 };
