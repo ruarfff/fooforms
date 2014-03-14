@@ -4,17 +4,11 @@
     <div id="postViewer" class="pageGroup">
 
         <div class="alert alert-info">
-
-            <img class='icon' ng-src="{{app.icon}}">
+            <button class="btn btn-default pull-right" ng-click="newPost()">{{app.btnLabel}}</button>
+            <img class="icon pull-left" ng-src="{{app.icon}}">
             <h4 class="inline">{{app.name}}</h4>
 
-
-            <button class="btn btn-default">{{app.btnLabel}}</button>
-            <a class="btn btn-xs btn-primary" href="appBuilder"
-               ng-click="updateApp(app)">Update</a>
-            <button type="button" class="btn btn-xs btn-danger" ng-click="deleteApp(app)">Delete
-            </button>
-
+            <p id='appDescription'>{{postObj.description}} </p>
 
             <div class="input-group">
                 <input type="text" class="form-control">
@@ -23,21 +17,22 @@
       </span>
             </div>
             <!-- /input-group -->
-
+            <a class="text-muted" href="appBuilder" ng-click="updateApp(app)">[App Admin]</a>
         </div>
         <div class="tab-content white m0 p5">
             <div id="tabs-notifications" class="tab-pane active">
                 <div class="list-group">
                     <div class="media list-group-item m0"
-                         ng-repeat="foo in [1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17]">
+                         ng-repeat="foo in posts" ng-click="viewPost($index)">
                         <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
                         <a class="pull-left" href="#">
-                            <img class="media-object" src="/assets/images/photo.jpg" alt="Brian">
+                            <img class="media-object icon" ng-src="{{foo.icon}}" alt="Brian">
                         </a>
 
                         <div class="media-body">
-                            <h5 class="media-heading">New Task Assignment</h5>
-                            Brian has created a task with your name on it...
+                            <h5 class="media-heading">{{foo.fields[0].label}} - {{foo.fields[0].value}} </h5>
+                            {{foo.fields[1].label}} - {{foo.fields[1].value}}
+                            {{foo.fields[2].label}} - {{foo.fields[2].value}}
                         </div>
                     </div>
                 </div>
@@ -60,16 +55,12 @@
 
             <div class="tab-content white p5">
                 <div id="tabs-newApp" class="tab-pane active">
-                    <div id='appHeading'>
 
-
-                    <p id='appDescription'>{{app.description}} </p>
-                    </div>
                     <div id='appLayout' class="container">
 
                         <div class="row">
                             <div class='col-sm-{{appField.boxSize}} under'
-                                 ng-repeat="appField in app.fields track by $index"
+                                 ng-repeat="appField in postObj.fields track by $index"
                                  ng-show="appField.name"
                                     >
 
@@ -84,54 +75,9 @@
 
 
                 </div>
-
-
-                <div id="tabs-settings" class="tab-pane">
-                    <div class='alert alert-warning'><h4>Settings</h4>
-                            <pre class="ng-binding">
-     {{app | json}}
- </pre>
-
-                    </div>
-
-                </div>
-
-
-                <div id="tabs-events" class="tab-pane">
-
-                    <h4 class="fooHeading">Form Events</h4>
-
-                </div>
-
-
-                <div id="tabs-publish" class="tab-pane">
-                    <div class='alert alert-warning'><h4>Publish</h4>
-
-                        <p>Choose one or more ways to publish your app.</p>
-                    </div>
-                    <div class='m10 alert alert-info'>
-                        <h5>Add it to one or more clouds</h5>
-
-                        <p>Your app will be displayed in each of the following clouds</p>
-
-                        <div id='cloudList'>
-
-                        </div>
-                        <hr>
-
-                        <h5>Add it to a Website or Blog</h5>
-
-                        <p>Copy the following code to your page on your website.</p>
-                        <textarea class='large'>
-
-                        </textarea>
-                    </div>
-
-                </div>
             </div>
-            <div id='saveAppForm'>
-
-                <button id='saveApp' ng-click="savePost(post)" class="btn btn-success">Save Post
+            <div class="p5 alert-info">
+                <button id='saveApp' ng-click="savePost(postObj)" class="btn btn-primary">Save Post
                 </button>
             </div>
         </div>

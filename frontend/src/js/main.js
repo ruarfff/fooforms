@@ -46,6 +46,10 @@ fooformsApp.config(function ($routeProvider, $locationProvider) {
             templateUrl: '/partials/appBuilder',
             controller: 'fieldsCtrl'
         })
+        .when('/posts', {
+            templateUrl: '/partials/appViewer',
+            controller: 'appViewerCtrl'
+        })
         .otherwise({
             templateUrl: '/partials/appViewer',
             controller: 'appViewerCtrl'

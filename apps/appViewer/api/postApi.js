@@ -56,7 +56,7 @@ var getPostById = function (req, res, id) {
 
 var getUserPosts = function (req, res) {
     try {
-        cloudLib.getUserPosts(req.user.id, function (err, posts) {
+        postLib.getUserPosts(req.user.id, function (err, posts) {
             if (err || !posts) {
                 handleError(res, err, 404);
             } else {
