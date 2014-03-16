@@ -2,7 +2,7 @@
 'use strict';
 var path = require('path');
 var should = require('should');
-var testUtil = require('../../testUtil');
+var testUtil = require('../../spec-util');
 
 describe('Database configuration and connection', function () {
     var database;

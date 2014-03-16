@@ -37,7 +37,7 @@ fooformsApp.controller('AppsCtrl', ['$scope', 'Restangular', 'appService',
 
         $scope.deleteApp = function (app) {
             app.remove().then(function (res) {
-                // TODO: Do I need ot check the response for anything
+                // TODO: Do I need to check the response for anything
                 var index = $scope.apps.indexOf(app);
 
                 if (index > -1) {

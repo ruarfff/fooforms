@@ -50,7 +50,6 @@ module.exports = {
             }
         });
         database.connection.once('open', function () {
-            log.info('Successfully connected to database at ' + database.url);
             database.connected = true;
             if (typeof(next) == "function") {
                 next();
@@ -70,7 +69,6 @@ module.exports = {
             }
             else {
                 database.connected = false;
-                log.info('DB Closed');
                 if (typeof(next) == "function") {
                     next();
                 }

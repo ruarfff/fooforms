@@ -7,9 +7,7 @@ exports.createUserLocalStrategy = function ( userJSON, next ) {
     try {
         var user = new User( userJSON );
         user.provider = 'local';
-        user.save( function ( err ) {
-            next( err, user );
-        } );
+        user.save(next);
     } catch ( err ) {
         log.error( err.toString() );
         next( err, null );
