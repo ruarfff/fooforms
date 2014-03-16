@@ -8,12 +8,7 @@ var postSchema = new Schema({
     name: String,
     description: String,
     icon: String,
-    menuLabel: {
-        type: String,
-        required: true,
-        unique: true,
-        index: true
-    },
+    menuLabel: String,
     owner: { type: Schema.Types.ObjectId, ref: 'User' },
     fields: {}
 });

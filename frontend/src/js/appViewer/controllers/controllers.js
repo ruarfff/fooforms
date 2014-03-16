@@ -10,6 +10,7 @@ fooformsApp.controller('appViewerCtrl', ['$scope', '$http' , '$modal', 'Restangu
 
     // the main object to store the app data
     $scope.app = appService.getApp();
+    $scope.newPost;
 
     // some booleans to help track what we are editing, which tabs to enable, etc.
     // used in ng-show in appBuilderMenu
@@ -17,7 +18,13 @@ fooformsApp.controller('appViewerCtrl', ['$scope', '$http' , '$modal', 'Restangu
     var getPosts = function () {
         postApi.getList().then(function (posts) {
             $scope.posts = posts;
-            $scope.postObj = $scope.posts[0]
+            if ($scope.posts.length > 10) { // change back to zero once posts filtered by app is done.
+                $scope.postObj = $scope.posts[0];
+            } else {
+                $scope.postObj = angular.copy($scope.app);
+                $scope.postObj.appId = $scope.postObj._id;
+                $scope.postObj._id = null;
+            }
         });
     };
 
@@ -50,6 +57,7 @@ fooformsApp.controller('appViewerCtrl', ['$scope', '$http' , '$modal', 'Restangu
 
     $scope.newPost = function () {
         $scope.postObj = angular.copy($scope.app);
+        $scope.postObj.appId = $scope.postObj._id;
         $scope.postObj._id = null;
     }
 

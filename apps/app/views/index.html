@@ -1,5 +1,5 @@
 <div class="col-xs-12 col-sm-8 col-md-8" id='mainView'>
-    <div class=" pageGroup">
+    <div class="pageGroup">
 
         <div id="tabs">
             <ul id='appTabs' class="nav nav-tabs">
@@ -14,7 +14,7 @@
                              ng-repeat="app in apps">
                             <div id="thumb-{{app._id}}" ng-mouseenter="hover(app)"
                                  ng-mouseleave="hover(app)">
-                                <a class="btn btn-xs btn-primary" href="{{app.name}}"
+                                <a href="{{app.name}}"
                                    ng-click="updateApp(app)">
                                     <img src="{{app.icon}}" alt="{{app.name}}">
                                 </a>
