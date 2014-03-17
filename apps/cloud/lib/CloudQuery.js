@@ -2,7 +2,7 @@
 var Cloud = require('../models/cloud').Cloud;
 var log = require(global.config.apps.LOGGING).LOG;
 
-exports.getCloudById = function (id, next) {
+var getCloudById = function (id, next) {
     "use strict";
     try {
         Cloud.findById(id, function (err, cloud) {
@@ -10,11 +10,21 @@ exports.getCloudById = function (id, next) {
         });
     } catch (err) {
         log.error(err.toString());
-        next(err, null);
+        next(err);
     }
 };
 
-exports.getAllClouds = function (next) {
+var getCloudByName = function (name, next) {
+    "use strict";
+    try {
+        Cloud.findByName(name, next);
+    } catch (err) {
+        log.error(err.toString());
+        next(err);
+    }
+};
+
+var getAllClouds = function (next) {
     "use strict";
     try {
         Cloud.find({}, function (err, cloud) {
@@ -22,26 +32,43 @@ exports.getAllClouds = function (next) {
         });
     } catch (err) {
         log.error(err.toString());
-        next(err, null);
+        next(err);
     }
 };
 
-exports.getUserClouds = function (userId, next) {
+var getCloudOwner = function (cloudId, next) {
+    try {
+        Cloud.findById(cloudId).populate('owner').exec(function (err, cloud) {
+            next(err, cloud.owner);
+        });
+    } catch (err) {
+        log.error(err);
+        return next(err);
+    }
+};
+
+/**
+ * Get all Clouds owned by a particular user
+ *
+ * @param userId
+ * @param next
+ */
+var getUserClouds = function (userId, next) {
     "use strict";
     try {
-        Cloud.find({ owner: userId }, function (err, clouds) {
+        Cloud.findByOwner(userId, function (err, clouds) {
             next(err, clouds);
         });
     } catch (err) {
         log.error(err.toString());
-        next(err, null);
+        next(err);
     }
 };
 
-exports.getCloudsApps = function (next) {
-    "use strict";
-};
-
-exports.getCloudsAppsNames = function (next) {
-    "use strict";
+module.exports = {
+    getCloudById: getCloudById,
+    getCloudByName: getCloudByName,
+    getAllClouds: getAllClouds,
+    getCloudOwner: getCloudOwner,
+    getUserClouds: getUserClouds
 };

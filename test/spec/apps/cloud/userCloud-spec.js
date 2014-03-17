@@ -19,18 +19,12 @@ describe('Cloud creation', function () {
     var sampleUserCloud = {};
 
     before(function () {
-        testUtil.init();
         database = require(global.config.apps.DATABASE);
         cloudLib = require(global.config.apps.CLOUD);
         userLib = require(global.config.apps.USER);
     });
 
-    after(function () {
-        testUtil.tearDown();
-    });
-
-    beforeEach(function (done) {
-        testUtil.openDatabase(database, done);
+    beforeEach(function () {
         sampleUser = {
             name: {
                 familyName: "Test Family Name",

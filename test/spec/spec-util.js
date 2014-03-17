@@ -20,48 +20,24 @@ exports.openDatabase = function (database, done) {
     }, done);
 };
 
-exports.dropDatabase = function (database, done) {
-    /*
-     *   Possible connection states that may be available in database.connection.readyState  
-     */
-    var _disconnected = 0,
-        _connected = 1,
-        _connecting = 2,
-        _disconnecting = 3;
+exports.closeDatabase = function (database, done) {
+    database.closeConnection(function (err) {
+        if (err) {
+            console.log(err.toString());
+            return done(err);
+        }
+        console.log('Connection closed');
+        done();
+    });
+};
 
-    if (database.connection.readyState == _connected) {
-        database.connection.db.dropDatabase(function (err) {
-            database.closeConnection(function (closeErr) {
-                if (err) {
-                    console.error('Error: ' + err);
-                    done(err);
-                } else {
-                    console.log('Successfully dropped db');
-                    if (closeErr) {
-                        done(closeErr);
-                    } else {
-                        done();
-                    }
-                }
-            });
-        });
-    } else {
-        database.openConnection(function () {
-            database.connection.db.dropDatabase(function (err) {
-                database.closeConnection(function (closeErr) {
-                    if (err) {
-                        console.error('Error: ' + err);
-                        done(err);
-                    } else {
-                        console.log('Successfully dropped db');
-                        if (closeErr) {
-                            done(closeErr);
-                        } else {
-                            done();
-                        }
-                    }
-                });
-            });
-        }, done);
-    }
+exports.dropDatabase = function (database, done) {
+    database.connection.db.dropDatabase(function (err) {
+        if (err) {
+            console.error('Error: ' + err);
+            return done(err);
+        }
+        console.log('Successfully dropped db');
+        return done();
+    });
 };

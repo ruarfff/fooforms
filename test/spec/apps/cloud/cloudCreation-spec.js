@@ -17,19 +17,11 @@ describe('Cloud creation', function () {
     var userLib;
 
     before(function () {
-        testUtil.init();
         database = require(global.config.apps.DATABASE);
         cloudLib = require(global.config.apps.CLOUD);
         userLib = require(global.config.apps.USER);
     });
 
-    after(function () {
-        testUtil.tearDown();
-    });
-
-    beforeEach(function (done) {
-        testUtil.openDatabase(database, done);
-    });
 
     afterEach(function (done) {
         testUtil.dropDatabase(database, done);

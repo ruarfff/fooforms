@@ -9,17 +9,8 @@ describe('User creation functions', function () {
     var userLib;
 
     before(function () {
-        specUtil.init();
         database = require(global.config.apps.DATABASE);
         userLib = require(global.config.apps.USER);
-    });
-
-    after(function () {
-        specUtil.tearDown();
-    });
-
-    beforeEach(function (done) {
-        specUtil.openDatabase(database, done);
     });
 
     afterEach(function (done) {

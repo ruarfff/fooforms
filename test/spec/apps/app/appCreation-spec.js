@@ -1,6 +1,5 @@
 /*jslint node: true */
 'use strict';
-var assert = require("assert");
 
 var path = require('path');
 var should = require('should');
@@ -12,13 +11,8 @@ describe('Application creation funcitons', function () {
 
 
     before(function () {
-        testUtil.init();
         database = require(global.config.apps.DATABASE);
         appLib = require(global.config.apps.APP);
-    });
-
-    after(function () {
-        testUtil.tearDown();
     });
 
     afterEach(function (done) {

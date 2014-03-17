@@ -11,22 +11,12 @@ describe('Adding, updating and removing cloud members', function () {
     var cloudLib;
 
     before(function () {
-        specUtil.init();
         database = require(global.config.apps.DATABASE);
         cloudLib = require(global.config.apps.CLOUD);
     });
 
-    after(function () {
-        specUtil.tearDown();
-    });
-
     beforeEach(function (done) {
-        specUtil.openDatabase(database, function (err) {
-            if (err) {
-                return done(err);
-            }
-            cloudSpecUtil.seedCloudsInDatabase(done);
-        });
+        cloudSpecUtil.seedCloudsInDatabase(done);
     });
 
     afterEach(function (done) {
