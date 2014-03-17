@@ -15,12 +15,11 @@ var createPost = function (req, res) {
             name: body.name,
             description: body.description || '',
             icon: body.icon || '',
-            menuLabel: body.menuLabel || '',
             owner: req.user.id,
             fields: body.fields
         };
         log.debug(JSON.stringify(postDetails));
-        postLib.createPost(postDetails, function (err, cloud) {
+        postLib.createPost(postDetails, function (err, post) {
             if (err) {
                 var responseCode = 500;
                 if (err.code === 11000) {
@@ -30,7 +29,7 @@ var createPost = function (req, res) {
                 handleError(res, err, responseCode);
             } else {
                 res.status(200);
-                res.send(cloud);
+                res.send(post);
             }
         });
     } catch (err) {
@@ -56,7 +55,7 @@ var getPostById = function (req, res, id) {
 
 var getUserPosts = function (req, res) {
     try {
-        cloudLib.getUserPosts(req.user.id, function (err, posts) {
+        postLib.getUserPosts(req.user.id, function (err, posts) {
             if (err || !posts) {
                 handleError(res, err, 404);
             } else {

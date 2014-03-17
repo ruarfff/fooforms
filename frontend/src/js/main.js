@@ -1,5 +1,5 @@
 var fooformsApp = angular.module('fooformsApp', [
-    'ngRoute', 'restangular', 'ui.bootstrap', 'textAngular', 'ui.calendar'
+    'ngRoute', 'restangular', 'ui.bootstrap', 'textAngular', 'ui.calendar', 'ngGrid'
 ]);
 
 // configure our routes
@@ -45,6 +45,10 @@ fooformsApp.config(function ($routeProvider, $locationProvider) {
         .when('/appBuilder', {
             templateUrl: '/partials/appBuilder',
             controller: 'fieldsCtrl'
+        })
+        .when('/posts', {
+            templateUrl: '/partials/appViewer',
+            controller: 'appViewerCtrl'
         })
         .otherwise({
             templateUrl: '/partials/appViewer',
