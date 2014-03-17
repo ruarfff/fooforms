@@ -133,8 +133,8 @@ var sampleUsers = [
 
 // JSON objects containing some data to populate Cloud Models in the database
 // Does not contain an ID as that will be created on insert
-// Does not contian an owner ID
-// Attempting to insert this data alone will fail as does not meet data constaints
+// Does not contain an owner ID
+// Attempting to insert this data alone will fail as does not meet data constraints
 var sampleClouds = [
     {
         name: "cloud1",
@@ -160,8 +160,8 @@ var sampleClouds = [
 
 // JSON objects containing some data to populate App Models in the database
 // Does not contain an ID as that will be created on insert
-// Does not contian an owner ID
-// Attempting to insert this data alone will fail as does not meet data constaints
+// Does not contain an owner ID
+// Attempting to insert this data alone will fail as does not meet data constraints
 var sampleApps = [
     {
         name: "app1",

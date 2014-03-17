@@ -230,9 +230,11 @@ var removeCloudMemberWritePermissions = function (cloudId, userId, next) {
             }
         });
     } catch (err) {
+        log.error(err);
         return next(err);
     }
 };
+
 
 module.exports = {
     userIsCloudMember: userIsCloudMember,

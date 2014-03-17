@@ -5,6 +5,7 @@ var path = require('path');
 var should = require('should');
 var testUtil = require('../../spec-util');
 var cloudSpecUtil = require('./cloud-spec-util');
+var log = require(global.config.apps.LOGGING).LOG;
 
 var User = require(global.config.apps.USER).User;
 var App = require(global.config.apps.APP).App;
@@ -36,21 +37,26 @@ describe('Cloud creation', function () {
 
     describe('Creating a cloud with valid inputs', function () {
 
-        var sampleUser = {
-            name: {
-                familyName: "Test Family Name",
-                givenName: "testGivenName",
-                middleName: "_*^%$£@!"
-            },
-            displayName: "sample-user",
-            email: "testEmail1@email.com",
-            password: "testPassword"
-        };
-        var sampleCloud = {
-            name: "sampleCloud",
-            description: "A sample cloud",
-            icon: "some/icon.png"
-        };
+        var sampleUser = {};
+        var sampleCloud = {};
+
+        beforeEach(function () {
+            sampleUser = {
+                name: {
+                    familyName: "Test Family Name",
+                    givenName: "testGivenName",
+                    middleName: "_*^%$£@!"
+                },
+                displayName: "sample-user",
+                email: "testEmail1@email.com",
+                password: "testPassword"
+            };
+            sampleCloud = {
+                name: "sampleCloud",
+                description: "A sample cloud",
+                icon: "some/icon.png"
+            };
+        });
 
 
         it('should create a Cloud', function (done) {
@@ -150,25 +156,38 @@ describe('Cloud creation', function () {
     });
 
     describe('Creating a cloud with invalid inputs', function () {
-        var sampleUser = {
-            name: {
-                familyName: "Test Family Name",
-                givenName: "testGivenName",
-                middleName: "_*^%$£@!"
-            },
-            displayName: "user1",
-            email: "testEmail1@email.com",
-            password: "testPassword"
-        };
-        var sampleCloud = {
-            name: "sampleCloud",
-            description: "A sample cloud",
-            icon: "some/icon.png"
-        };
-        var sampleCloudWithNoName = {
-            description: "A sample cloud",
-            icon: "some/icon.png"
-        };
+        var sampleUser = {};
+        var sampleBaseCloud = {};
+        var sampleCloud = {};
+        var sampleCloudWithNoName = {};
+
+        beforeEach(function () {
+            sampleUser = {
+                name: {
+                    familyName: "Test Family Name",
+                    givenName: "testGivenName",
+                    middleName: "_*^%$£@!"
+                },
+                displayName: "user1",
+                email: "testEmail1@email.com",
+                password: "testPassword"
+            };
+            sampleBaseCloud = {
+                name: "sampleCloud",
+                icon: "some/icon.png"
+            };
+            sampleCloud = {
+                name: "sampleCloud",
+                description: "A sample cloud",
+                icon: "some/icon.png"
+            };
+            sampleCloudWithNoName = {
+                description: "A sample cloud",
+                icon: "some/icon.png"
+            };
+
+        });
+
 
         it('should not save and give an error when name is not provided', function (done) {
             userLib.createUserLocalStrategy(sampleUser, function (err, user) {

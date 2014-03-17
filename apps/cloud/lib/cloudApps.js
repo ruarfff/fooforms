@@ -106,20 +106,43 @@ exports.removeAppFromCloud = function (cloudId, appId, next) {
 
         });
     } catch (err) {
-        log.error(err.toString());
+        log.error(err);
         next(err);
     }
 };
 
 /**
- * Get all app
+ * Get all apps belonging to a cloud
  *
+ * @param cloudId
  * @param next
  */
 exports.getCloudApps = function (cloudId, next) {
     "use strict";
+    try {
+        Cloud.findById(cloudId).populate('apps').exec(function (err, cloud) {
+            next(err, cloud.apps);
+        });
+    } catch (err) {
+        log.error(err);
+        next(err);
+    }
 };
 
-exports.getCloudAppNames = function (next) {
+exports.getCloudAppNames = function (cloudId, next) {
     "use strict";
+    try {
+        Cloud.findById(cloudId).populate('apps', 'name').exec(function (err, cloud) {
+            var names = [];
+            var i = 0;
+            var count = cloud.apps.length;
+            for (i; i < count; i++) {
+                names.push(cloud.apps[i].name);
+            }
+            next(err, names);
+        });
+    } catch (err) {
+        log.error(err);
+        next(err);
+    }
 };

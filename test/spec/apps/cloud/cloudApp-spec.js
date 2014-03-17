@@ -120,8 +120,35 @@ describe('Publishing, Updating and Removing Apps in Clouds', function () {
     });
 
     describe('Cloud Apps retrieval', function () {
-        it('should get all apps belonging to a cloud');
-        it('should get a list of app names belonging to a cloud');
+        it('should get all apps belonging to a cloud', function (done) {
+            cloudLib.addAppToCloud(cloudSpecUtil.getCloud2Id(), cloudSpecUtil.getApp2Id(), function (err, cloud) {
+                if (err) {
+                    return done(err);
+                }
+                should.not.exist(err);
+                should.exist(cloud);
+
+                cloud._id.should.eql(cloudSpecUtil.getCloud2Id());
+                cloud.owner.should.eql(cloudSpecUtil.getUser2Id());
+
+                cloud.should.have.property('apps').with.lengthOf(1);
+                cloud.apps[0].should.eql(cloudSpecUtil.getApp2Id());
+
+                cloudLib.getCloudApps(cloudSpecUtil.getCloud2Id(), function (err, apps) {
+                    if (err) {
+                        return done(err);
+                    }
+                    should.exist(apps);
+                    apps.length.should.equal(1);
+                    apps[0]._id.should.eql(cloudSpecUtil.getApp2Id());
+                    apps[0].name.should.equal('app2');
+                    done();
+                });
+            });
+        });
+        it.skip('should get a list of app names belonging to a cloud', function (done) {
+
+        });
     });
 
 });
