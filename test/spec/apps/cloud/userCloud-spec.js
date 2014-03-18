@@ -57,7 +57,7 @@ describe('Cloud creation', function () {
         testUtil.dropDatabase(database, done);
     });
 
-    describe('Creating a User cloud with valid inputs', function () {
+    describe('Creating a User cloud', function () {
 
 
         it('should create a User Cloud', function (done) {
@@ -132,7 +132,7 @@ describe('Cloud creation', function () {
 
     });
 
-    describe.skip('Updating and Creating a User Cloud with invalid inputs', function () {
+    describe('Updating a User Cloud', function () {
 
         it('should not allow addition of members', function (done) {
 

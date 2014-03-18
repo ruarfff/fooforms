@@ -9,15 +9,17 @@ var log = require(global.config.apps.LOGGING).LOG;
  * including Cloud Owner, Cloud Member or Cloud Member with write permissions.
  *
  * @param cloud - Cloud document
- * @param userId - User Id to check if is a member
+ * @param user - User to check if is a member
  * @returns {*}
  */
-var userIsCloudMember = function (cloud, userId) {
+var userIsCloudMember = function (cloud, user) {
     "use strict";
     try {
-        return (cloud.owner.equals(userId) ||
-            (cloud.membersWithWritePermissions && (cloud.membersWithWritePermissions.indexOf(userId) > -1)) ||
-            (cloud.members && (cloud.members.indexOf(userId) > -1)));
+        return (
+            cloud.owner.equals(user._id) ||
+            (cloud.members && (cloud.members.indexOf(user._id) > -1)) &&
+            (user.cloudMemberships && (user.cloudMemberships.indexOf(cloud._id) > -1))
+            );
     } catch (err) {
         log.error(err);
     }
@@ -28,13 +30,17 @@ var userIsCloudMember = function (cloud, userId) {
  * Checks that a User has write permissions for this Cloud.
  *
  * @param cloud - Cloud document
- * @param userId - User Id to check for write permissions
+ * @param user - User to check for write permissions
  * @returns {*}
  */
-var userHasWritePermissionInCloud = function (cloud, userId) {
+var userHasWritePermissionInCloud = function (cloud, user) {
     "use strict";
     try {
-        return (cloud.owner.equals(userId) || (cloud.membersWithWritePermissions && (cloud.membersWithWritePermissions.indexOf(userId) > -1)));
+        return (
+            cloud.owner.equals(user._id) ||
+            (cloud.membersWithWritePermissions && (cloud.membersWithWritePermissions.indexOf(user._id) > -1)) &&
+            (user.cloudMemberships && (user.cloudMemberships.indexOf(cloud._id) > -1))
+            );
     } catch (err) {
         log.error(err);
     }
@@ -69,30 +75,26 @@ var checkAndCreateCloudMemberLists = function (cloud) {
 var addCloudMember = function (cloudId, userId, next) {
     try {
         Cloud.findById(cloudId, function (err, cloud) {
-            if (err) {
-                return next(err);
-            }
-            if (!cloud) {
-                return next(new Error('Could not find cloud with id: ' + cloudId));
-            }
+            if (err) return next(err);
+            if (!cloud) return next(new Error('Could not find cloud with id: ' + cloudId));
+            if (cloud.isUserCloud) return next(new Error('Cannot add members to a User CLoud'), cloud);
+
             User.findById(userId, function (err, user) {
-                if (err) {
-                    return next(err);
-                }
-                if (!user) {
-                    return next(new Error('Could not add user to cloud because user with id: ' + user._id + ' does not exist in the database'));
-                }
+                if (err) return next(err);
+                if (!user) return next(new Error('Could not add user to cloud because user with id: ' + user._id + ' does not exist in the database'));
+
                 checkAndCreateCloudMemberLists(cloud);
+
                 if (cloud.owner.equals(user._id)) {
                     return next(new Error('User cannot be made a member of cloud because user with id ' + user._id + ' is the cloud owner'));
                 }
-                if (userIsCloudMember(cloud, user._id)) {
+                if (userIsCloudMember(cloud, user)) {
                     return next(new Error('User with id ' + user._id + ' is already a cloud member'))
                 }
-
-                cloud.members.push(user._id);
-                cloud.save(next);
-
+                user.addCloudMembership(cloud._id, function (err, user) {
+                    cloud.members.push(user._id);
+                    cloud.save(next);
+                });
             });
         });
 
@@ -113,33 +115,30 @@ var addCloudMember = function (cloudId, userId, next) {
 var addCloudMemberWithWritePermissions = function (cloudId, userId, next) {
     try {
         Cloud.findById(cloudId, function (err, cloud) {
-            if (err) {
-                return next(err);
-            }
-            if (!cloud) {
-                return next(new Error('Could not find cloud with id: ' + cloudId));
-            }
+            if (err) return next(err);
+            if (!cloud) return next(new Error('Could not find cloud with id: ' + cloudId));
+            if (cloud.isUserCloud) return next(new Error('Cannot add members to a User CLoud'), cloud);
+
             User.findById(userId, function (err, user) {
-                if (err) {
-                    return next(err);
-                }
-                if (!user) {
-                    return next(new Error('Could not add user to cloud because user with id: ' + user._id + ' does not exist in the database'));
-                }
+                if (err) return next(err);
+                if (!user) return next(new Error('Could not add user to cloud because user with id: ' + user._id + ' does not exist in the database'));
                 checkAndCreateCloudMemberLists(cloud);
                 if (cloud.owner.equals(user._id)) {
                     return next(new Error('User cannot be made a member of cloud because user with id ' + user._id + ' is the cloud owner'));
                 }
-                if (userHasWritePermissionInCloud(cloud, user._id)) {
+                if (userHasWritePermissionInCloud(cloud, user)) {
                     return next(new Error('User with id ' + user._id + 'already has write permissions for cloud with id ' + cloud._id));
                 }
-                if (!userIsCloudMember(cloud, user._id)) {
-                    cloud.members.push(user._id);
+                if (userIsCloudMember(cloud, user)) {
+                    cloud.membersWithWritePermissions.push(user._id);
+                    cloud.save(next);
+                } else {
+                    user.addCloudMembership(cloud._id, function (err, user) {
+                        cloud.members.push(user._id);
+                        cloud.membersWithWritePermissions.push(user._id);
+                        cloud.save(next);
+                    });
                 }
-                cloud.membersWithWritePermissions.push(user._id);
-
-                cloud.save(next);
-
             });
         });
     } catch (err) {
@@ -160,33 +159,33 @@ var addCloudMemberWithWritePermissions = function (cloudId, userId, next) {
 var removeCloudMember = function (cloudId, userId, next) {
     try {
         Cloud.findById(cloudId, function (err, cloud) {
-            if (err) {
-                return next(err);
-            }
-            if (!cloud) {
-                return next(new Error('Could not find cloud with id: ' + cloudId));
-            }
-            if (cloud.owner.equals(userId)) {
-                return next(new Error('Cannot remove cloud owner from cloud members'));
-            }
-            if (!userIsCloudMember(cloud, userId)) {
-                return next(new Error('User with Id ' + userId + ' is not a cloud member'));
-            } else {
-                var index = -1;
-                if (cloud.members) {
-                    index = cloud.members.indexOf(userId);
-                    if (index > -1) {
-                        cloud.members.splice(index, 1);
-                    }
+            if (err) return next(err);
+            if (!cloud) return next(new Error('Could not find cloud with id: ' + cloudId));
+            if (cloud.owner.equals(userId)) return next(new Error('Cannot remove cloud owner from cloud members'));
+            User.findById(userId, function (err, user) {
+                if (err) return next(err);
+                if (!userIsCloudMember(cloud, user)) {
+                    return next(new Error('User with Id ' + user._id + ' is not a cloud member'));
+                } else {
+                    user.removeCloudMembership(cloud._id, function (err, user) {
+                        if (err) return next(err);
+                        var index = -1;
+                        if (cloud.members) {
+                            index = cloud.members.indexOf(user._id);
+                            if (index > -1) {
+                                cloud.members.splice(index, 1);
+                            }
+                        }
+                        if (cloud.membersWithWritePermissions) {
+                            index = cloud.membersWithWritePermissions.indexOf(user._id);
+                            if (index > -1) {
+                                cloud.membersWithWritePermissions.splice(index, 1);
+                            }
+                        }
+                        cloud.save(next);
+                    });
                 }
-                if (cloud.membersWithWritePermissions) {
-                    index = cloud.membersWithWritePermissions.indexOf(userId);
-                    if (index > -1) {
-                        cloud.membersWithWritePermissions.splice(index, 1);
-                    }
-                }
-                cloud.save(next);
-            }
+            });
         });
     } catch (err) {
         return next(err);
@@ -194,7 +193,7 @@ var removeCloudMember = function (cloudId, userId, next) {
 };
 
 /**
- * Remove a user form a clouds write permissions list but keep them in the members list.
+ * Remove a user from a clouds write permissions list but keep them in the members list.
  *
  * @param cloudId - The objectId of the cloud that will have the member added to it
  * @param userId - The objectId of the user to be added to the clouds members list
@@ -204,30 +203,51 @@ var removeCloudMember = function (cloudId, userId, next) {
 var removeCloudMemberWritePermissions = function (cloudId, userId, next) {
     try {
         Cloud.findById(cloudId, function (err, cloud) {
-            if (err) {
-                return next(err);
-            }
-            if (!cloud) {
-                return next(new Error('Could not find cloud with id: ' + cloudId));
-            }
-            if (cloud.owner.equals(userId)) {
-                return next(new Error('Cannot remove write permissions of cloud owner'));
-            }
-            if (!userIsCloudMember(cloud, userId)) {
-                return next(new Error('User with Id ' + userId + ' is not a cloud member'));
-            }
-            else if (!userHasWritePermissionInCloud(cloud, userId)) {
-                return next(new Error('User with Id ' + userId + ' does not have write permissions'));
-            } else {
-                var index = -1;
-                if (cloud.membersWithWritePermissions) {
-                    index = cloud.membersWithWritePermissions.indexOf(userId);
-                    if (index > -1) {
-                        cloud.membersWithWritePermissions.splice(index, 1);
-                    }
+            if (err) return next(err);
+            if (!cloud) return next(new Error('Could not find cloud with id: ' + cloudId));
+            if (cloud.owner.equals(userId)) return next(new Error('Cannot remove write permissions of cloud owner'));
+            User.findById(userId, function (err, user) {
+                if (err) return next(err);
+                if (!user) return next(new Error('Could not find user with id: ' + userId));
+
+                if (!userIsCloudMember(cloud, user)) {
+                    return next(new Error('User with Id ' + user._id + ' is not a cloud member'));
                 }
-                cloud.save(next);
-            }
+                else if (!userHasWritePermissionInCloud(cloud, user)) {
+                    return next(new Error('User with Id ' + user._id + ' does not have write permissions'));
+                } else {
+                    var index = -1;
+                    if (cloud.membersWithWritePermissions) {
+                        index = cloud.membersWithWritePermissions.indexOf(user._id);
+                        if (index > -1) {
+                            cloud.membersWithWritePermissions.splice(index, 1);
+                        }
+                    }
+                    cloud.save(next);
+                }
+            });
+        });
+    } catch (err) {
+        log.error(err);
+        return next(err);
+    }
+};
+
+var getCloudMembers = function (cloudId, next) {
+    try {
+        Cloud.findById(cloudId).populate('members').exec(function (err, cloud) {
+            next(err, cloud.members);
+        });
+    } catch (err) {
+        log.error(err);
+        return next(err);
+    }
+};
+
+var getCloudMembersWithWritePermissions = function (cloudId, next) {
+    try {
+        Cloud.findById(cloudId).populate('membersWithWritePermissions').exec(function (err, cloud) {
+            next(err, cloud.membersWithWritePermissions);
         });
     } catch (err) {
         log.error(err);
@@ -243,5 +263,7 @@ module.exports = {
     addCloudMember: addCloudMember,
     addCloudMemberWithWritePermissions: addCloudMemberWithWritePermissions,
     removeCloudMember: removeCloudMember,
-    removeCloudMemberWritePermissions: removeCloudMemberWritePermissions
+    removeCloudMemberWritePermissions: removeCloudMemberWritePermissions,
+    getCloudMembers: getCloudMembers,
+    getCloudMembersWithWritePermissions: getCloudMembersWithWritePermissions
 };

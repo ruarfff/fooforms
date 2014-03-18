@@ -1,9 +1,11 @@
 /*jslint node: true */
 
 var App = require(global.config.apps.APP).App;
+var User = require(global.config.apps.USER).User;
 var Cloud = require('../models/cloud').Cloud;
 var log = require(global.config.apps.LOGGING).LOG;
 var cloudMembers = require('./cloudMembers');
+var cloudQuery = require('./cloudQuery');
 
 /**
  * Only allows updating of basic Cloud data.
@@ -12,7 +14,7 @@ var cloudMembers = require('./cloudMembers');
  * @param cloudJson
  * @param next
  */
-exports.updateCloud = function (cloudJson, next) {
+var updateCloud = function (cloudJson, next) {
     "use strict";
     try {
         Cloud.findByIdAndUpdate(cloudJson._id, {
@@ -29,6 +31,46 @@ exports.updateCloud = function (cloudJson, next) {
     }
 };
 
+var checkIfAppAlreadyPublished = function (appId, userId, next) {
+    "use strict";
+    try {
+        User.findById(userId).populate('cloudMemberships').exec(function (err, user) {
+            if (err) return (next(err));
+            if (!user) return (next(new Error('Could not find user with id ' + userId)));
+
+            cloudQuery.getUserClouds(user._id, function (err, clouds) {
+                if (err) return (next(err));
+                var cloudCount = 0;
+                var i;
+                if (clouds) {
+                    cloudCount = clouds.length;
+                    for (i = 0; i < cloudCount; i++) {
+                        if (clouds[i].apps) {
+                            if (clouds[i].apps.indexOf(appId) > -1) {
+                                return next(err, true);
+                            }
+                        }
+                    }
+                }
+                if (user.cloudMemberships) {
+                    cloudCount = user.cloudMemberships.length;
+                    for (i = 0; i < cloudCount; i++) {
+                        if (user.cloudMemberships[i].apps) {
+                            if (user.cloudMemberships[i].apps.indexOf(appId) > -1) {
+                                return next(err, true);
+                            }
+                        }
+                    }
+                }
+                return next(err, false);
+            });
+        });
+    } catch (err) {
+        log.error(err.toString());
+        next(err);
+    }
+};
+
 
 /**
  * Add a single app to a Cloud. Will not allow
@@ -38,7 +80,7 @@ exports.updateCloud = function (cloudJson, next) {
  * @param appId
  * @param next
  */
-exports.addAppToCloud = function (cloudId, appId, next) {
+var addAppToCloud = function (cloudId, appId, next) {
     "use strict";
     try {
         Cloud.findById(cloudId, function (err, cloud) {
@@ -48,23 +90,27 @@ exports.addAppToCloud = function (cloudId, appId, next) {
             if (!cloud) {
                 return next(new Error('Cloud not find cloud with id ' + cloudId));
             }
-            App.findById(appId, function (err, app) {
-                if (err) {
-                    return next(err);
-                }
-                if (!app) {
-                    return next(new Error('Could not find app ' + appId));
-                }
+            App.findById(appId).populate('owner').exec(function (err, app) {
+                if (err) return next(err);
+                if (!app) return next(new Error('Could not find app ' + appId));
                 if (cloudMembers.userHasWritePermissionInCloud(cloud, app.owner)) {
                     if (!cloud.apps) {
                         cloud.apps = [];
                     }
-                    cloud.apps.push(app._id);
-                    cloud.save(next);
+                    checkIfAppAlreadyPublished(app._id, app.owner._id, function (err, published) {
+                        if (err) return next(err);
+                        if (published) {
+                            var appAlreadyPublishedError = new Error('App is already published to a Cloud.');
+                            appAlreadyPublishedError.http_code = 403; // Forbidden
+                            return next(appAlreadyPublishedError, cloud);
+                        }
+                        cloud.apps.push(app._id);
+                        cloud.save(next);
+                    });
                 } else {
-                    var error = new Error('App owner not authorised to publish to this cloud.');
-                    error.http_code = 403; // Forbidden
-                    return next(error, cloud);
+                    var notAuthorisedError = new Error('App owner not authorised to publish to this cloud.');
+                    notAuthorisedError.http_code = 403; // Forbidden
+                    return next(notAuthorisedError, cloud);
                 }
             });
 
@@ -82,7 +128,7 @@ exports.addAppToCloud = function (cloudId, appId, next) {
  * @param appId
  * @param next
  */
-exports.removeAppFromCloud = function (cloudId, appId, next) {
+var removeAppFromCloud = function (cloudId, appId, next) {
     "use strict";
     try {
         Cloud.findById(cloudId, function (err, cloud) {
@@ -117,7 +163,7 @@ exports.removeAppFromCloud = function (cloudId, appId, next) {
  * @param cloudId
  * @param next
  */
-exports.getCloudApps = function (cloudId, next) {
+var getCloudApps = function (cloudId, next) {
     "use strict";
     try {
         Cloud.findById(cloudId).populate('apps').exec(function (err, cloud) {
@@ -129,7 +175,13 @@ exports.getCloudApps = function (cloudId, next) {
     }
 };
 
-exports.getCloudAppNames = function (cloudId, next) {
+/**
+ * Get just the app names that were published to a cloud
+ *
+ * @param cloudId
+ * @param next
+ */
+var getCloudAppNames = function (cloudId, next) {
     "use strict";
     try {
         Cloud.findById(cloudId).populate('apps', 'name').exec(function (err, cloud) {
@@ -145,4 +197,12 @@ exports.getCloudAppNames = function (cloudId, next) {
         log.error(err);
         next(err);
     }
+};
+
+module.exports = {
+    updateCloud: updateCloud,
+    addAppToCloud: addAppToCloud,
+    removeAppFromCloud: removeAppFromCloud,
+    getCloudApps: getCloudApps,
+    getCloudAppNames: getCloudAppNames
 };

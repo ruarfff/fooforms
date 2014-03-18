@@ -40,6 +40,32 @@ var userSchema = new Schema({
     },
     provider: String,
     salt: String,
+    // List of Apps owned by User
+    apps: [
+        {
+            type: Schema.Types.ObjectId,
+            ref: 'App'
+        }
+    ],
+    // The user cloud
+    userCloud: {
+        type: Schema.Types.ObjectId,
+        ref: 'Cloud'
+    },
+    // List of Clouds owned by User
+    clouds: [
+        {
+            type: Schema.Types.ObjectId,
+            ref: 'Cloud'
+        }
+    ],
+    // List of Clouds that this User is a member of
+    cloudMemberships: [
+        {
+            type: Schema.Types.ObjectId,
+            ref: 'Cloud'
+        }
+    ],
     facebook: {},
     twitter: {},
     github: {},
@@ -138,13 +164,40 @@ userSchema.methods = {
             return '';
         }
         return crypto.createHmac('sha1', this.salt).update(password).digest('hex');
+    },
+
+    addCloudMembership: function (cloudId, next) {
+        if (!this.cloudMemberships) {
+            this.cloudMemberships = [];
+        }
+        if (this.cloudMemberships.indexOf(cloudId) > -1) {
+            var error = new Error('User is already a member of this Cloud');
+            error.http_code = 403;
+            return next(error, this);
+        } else {
+            this.cloudMemberships.push(cloudId);
+            this.save(next);
+        }
+    },
+
+    removeCloudMembership: function (cloudId, next) {
+        var index = -1;
+        if (this.cloudMemberships) {
+            index = this.cloudMemberships.indexOf(cloudId);
+        }
+        if (index > -1) {
+            this.cloudMemberships.splice(index, 1);
+            this.save(next);
+        } else {
+            var error = new Error('User is not a member of this Cloud');
+            error.http_code = 403;
+            return next(error, this);
+        }
     }
 };
 
 /**
- *
- * Query Helpers
- *
+ * Statics
  */
 
 userSchema.statics.findByDisplayName = function (displayName, next) {

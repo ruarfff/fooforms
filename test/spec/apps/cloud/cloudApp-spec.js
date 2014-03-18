@@ -26,10 +26,7 @@ describe('Publishing, Updating and Removing Apps in Clouds', function () {
     describe('Publishing App to User Cloud', function () {
         it('should update the app list with the new app if App Owner is Cloud Owner', function (done) {
             cloudLib.addAppToCloud(cloudSpecUtil.getCloud1Id(), cloudSpecUtil.getApp1Id(), function (err, cloud) {
-                if (err) {
-                    return done(err);
-                }
-                should.not.exist(err);
+                if (err) return done(err);
                 should.exist(cloud);
 
                 cloud._id.should.eql(cloudSpecUtil.getCloud1Id());
@@ -41,11 +38,9 @@ describe('Publishing, Updating and Removing Apps in Clouds', function () {
                 done();
             });
         });
-        it.skip('should update the app list with the new app if App Owner is not Cloud Owner but is in the writeable members list', function (done) {
+        it('should update the app list with the new app if App Owner is not Cloud Owner but is in the writeable members list', function (done) {
             cloudLib.addCloudMemberWithWritePermissions(cloudSpecUtil.getCloud1Id(), cloudSpecUtil.getUser2Id(), function (err, cloud) {
-                if (err) {
-                    return done(err);
-                }
+                if (err) return done(err);
                 should.exist(cloud);
                 cloud._id.should.eql(cloudSpecUtil.getCloud1Id());
                 cloud.owner.should.eql(cloudSpecUtil.getUser1Id());
@@ -59,7 +54,7 @@ describe('Publishing, Updating and Removing Apps in Clouds', function () {
                     should.exist(cloud);
 
                     cloud.should.have.property('apps').with.lengthOf(1);
-                    cloud.apps[0].should.eql(cloudSpecUtil.getApp1Id());
+                    cloud.apps[0].should.eql(cloudSpecUtil.getApp2Id());
 
                     done();
                 });
@@ -74,14 +69,41 @@ describe('Publishing, Updating and Removing Apps in Clouds', function () {
                 done();
             });
         });
+        it('should not add an App to a Cloud if the App is already in the Cloud', function (done) {
+            cloudLib.addAppToCloud(cloudSpecUtil.getCloud3Id(), cloudSpecUtil.getApp3Id(), function (err, cloud) {
+                if (err) return done(err);
+                should.exist(cloud);
+                cloudLib.addAppToCloud(cloudSpecUtil.getCloud3Id(), cloudSpecUtil.getApp3Id(), function (err, cloud) {
+                    should.exist(err);
+                    should.exist(cloud);
+                    cloud.apps.length.should.equal(1);
+                    done();
+                });
+            });
+        });
+        it('should not add an App to a Cloud if the App is already in another Cloud that the App Owner has write permissions for', function (done) {
+            cloudLib.addCloudMemberWithWritePermissions(cloudSpecUtil.getCloud4Id(), cloudSpecUtil.getUser3Id(), function (err, cloud) {
+                if (err) return done(err);
+                should.exist(cloud);
+                cloudLib.addAppToCloud(cloudSpecUtil.getCloud3Id(), cloudSpecUtil.getApp3Id(), function (err, cloud) {
+                    if (err) return done(err);
+                    should.exist(cloud);
+                    cloud.apps.length.should.equal(1)
+                    cloudLib.addAppToCloud(cloudSpecUtil.getCloud4Id(), cloudSpecUtil.getApp3Id(), function (err, cloud) {
+                        should.exist(err);
+                        should.exist(cloud);
+                        cloud.apps.length.should.equal(0);
+                        done();
+                    });
+                });
+            });
+        });
     });
 
     describe('Removing Apps from Cloud', function () {
         it('should remove an App from Cloud', function (done) {
             cloudLib.addAppToCloud(cloudSpecUtil.getCloud1Id(), cloudSpecUtil.getApp1Id(), function (err, cloud) {
-                if (err) {
-                    return done(err);
-                }
+                if (err) return done(err);
                 should.exist(cloud);
 
                 cloud._id.should.eql(cloudSpecUtil.getCloud1Id());
@@ -91,9 +113,7 @@ describe('Publishing, Updating and Removing Apps in Clouds', function () {
                 cloud.apps[0].should.eql(cloudSpecUtil.getApp1Id());
 
                 cloudLib.removeAppFromCloud(cloudSpecUtil.getCloud1Id(), cloudSpecUtil.getApp1Id(), function (err, cloud) {
-                    if (err) {
-                        return done(err);
-                    }
+                    if (err) return done(err);
                     should.exist(cloud);
                     should(cloud.apps.indexOf(cloudSpecUtil.getApp1Id()) === -1).ok;
                     done();
@@ -112,10 +132,7 @@ describe('Publishing, Updating and Removing Apps in Clouds', function () {
     describe('Cloud Apps retrieval', function () {
         it('should get all apps belonging to a cloud', function (done) {
             cloudLib.addAppToCloud(cloudSpecUtil.getCloud2Id(), cloudSpecUtil.getApp2Id(), function (err, cloud) {
-                if (err) {
-                    return done(err);
-                }
-                should.not.exist(err);
+                if (err) return done(err);
                 should.exist(cloud);
 
                 cloud._id.should.eql(cloudSpecUtil.getCloud2Id());
@@ -136,8 +153,33 @@ describe('Publishing, Updating and Removing Apps in Clouds', function () {
                 });
             });
         });
-        it.skip('should get a list of app names belonging to a cloud', function (done) {
+        it('should get a list of app names belonging to a cloud', function (done) {
+            cloudLib.addCloudMemberWithWritePermissions(cloudSpecUtil.getCloud4Id(), cloudSpecUtil.getUser2Id(), function (err, cloud) {
+                if (err) return done(err);
+                should.exist(cloud);
+                cloudLib.addCloudMemberWithWritePermissions(cloudSpecUtil.getCloud4Id(), cloudSpecUtil.getUser3Id(), function (err, cloud) {
+                    if (err) return done(err);
+                    should.exist(cloud);
+                    cloudLib.addAppToCloud(cloudSpecUtil.getCloud4Id(), cloudSpecUtil.getApp2Id(), function (err, cloud) {
+                        if (err) return done(err);
+                        should.exist(cloud);
+                        cloudLib.addAppToCloud(cloudSpecUtil.getCloud4Id(), cloudSpecUtil.getApp3Id(), function (err, cloud) {
+                            if (err) return done(err);
+                            should.exist(cloud);
+                            cloudLib.addAppToCloud(cloudSpecUtil.getCloud4Id(), cloudSpecUtil.getApp4Id(), function (err, cloud) {
+                                if (err) return done(err);
+                                should.exist(cloud);
 
+                                cloudLib.getCloudAppNames(cloud._id, function (err, names) {
+                                    if (err) return done(err);
+                                    should.exist(names);
+                                    done();
+                                });
+                            });
+                        });
+                    });
+                });
+            });
         });
     });
 

@@ -16,6 +16,7 @@ module.exports = {
     addAppToCloud: cloudApps.addAppToCloud,
     removeAppFromCloud: cloudApps.removeAppFromCloud,
     getCloudApps: cloudApps.getCloudApps,
+    getCloudAppNames: cloudApps.getCloudAppNames,
     getCloudById: cloudQuery.getCloudById,
     getAllClouds: cloudQuery.getAllClouds,
     getUserClouds: cloudQuery.getUserClouds,
@@ -27,5 +28,7 @@ module.exports = {
     removeCloudMemberWritePermissions: cloudMembers.removeCloudMemberWritePermissions,
     userIsCloudMember: cloudMembers.userIsCloudMember,
     userHasWritePermissionInCloud: cloudMembers.userHasWritePermissionInCloud,
-    checkAndCreateCloudMemberLists: cloudMembers.checkAndCreateCloudMemberLists
+    checkAndCreateCloudMemberLists: cloudMembers.checkAndCreateCloudMemberLists,
+    getCloudMembers: cloudMembers.getCloudMembers,
+    getCloudMembersWithWritePermissions: cloudMembers.getCloudMembersWithWritePermissions
 };

@@ -5,7 +5,7 @@ var path = require('path');
 var should = require('should');
 var testUtil = require('../../spec-util');
 
-describe('Application creation funcitons', function () {
+describe('Application creation functions', function () {
     var database;
     var appLib;
 
