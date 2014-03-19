@@ -7,11 +7,9 @@ var specUtil = require('../../spec-util');
 var cloudSpecUtil = require('./cloud-spec-util');
 
 describe('Publishing, Updating and Removing Apps in Clouds', function () {
-    var database;
     var cloudLib;
 
     before(function () {
-        database = require(global.config.apps.DATABASE);
         cloudLib = require(global.config.apps.CLOUD);
     });
 
@@ -20,7 +18,7 @@ describe('Publishing, Updating and Removing Apps in Clouds', function () {
     });
 
     afterEach(function (done) {
-        specUtil.dropDatabase(database, done);
+        specUtil.dropDatabase(done);
     });
 
     describe('Publishing App to User Cloud', function () {

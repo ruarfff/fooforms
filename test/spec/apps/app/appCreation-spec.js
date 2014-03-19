@@ -11,12 +11,11 @@ describe('Application creation functions', function () {
 
 
     before(function () {
-        database = require(global.config.apps.DATABASE);
         appLib = require(global.config.apps.APP);
     });
 
     afterEach(function (done) {
-        testUtil.dropDatabase(database, done);
+        testUtil.dropDatabase(done);
     });
 
 

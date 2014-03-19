@@ -1,14 +1,12 @@
 /*jslint node: true */
 'use strict';
-process.env.NODE_ENV = process.env.NODE_ENV || 'development';
-global.config = require('./config/config');
-
+//process.env.NODE_ENV = process.env.NODE_ENV || 'development';
+//global.config = require('./config/config');
+//var database = require(global.config.apps.DATABASE);
 var path = require('path');
-var database = require(global.config.apps.DATABASE);
-
 var async = require('async');
 
-var log = require(global.config.apps.LOGGING).LOG;
+//var log = require(global.config.apps.LOGGING).LOG;
 
 module.exports = function (grunt) {
 
@@ -20,24 +18,32 @@ module.exports = function (grunt) {
         // Testing
         mochaTest: {
             test: {
-               /* options: {
+                options: {
+                    reporter: 'spec'
+                },
+                src: ['test/spec/**/*.js']
+            }
+        },
+        /*mochaTest: {
+            test: {
+                options: {
                     reporter: 'spec',
                     require: 'test/coverage/blanket',
                     clearRequireCache: true
                 },*/
-                src: ['test/**/*.js']
-            }/**,
-            coverage: {
-                options: {
-                    reporter: 'html-cov',
-                    quiet: true,
+             //   src: ['test/**/*.js']
+           // },
+           // coverage: {
+                //options: {
+                   // reporter: 'html-cov',
+                  //  quiet: true,
                     // specify a destination file to capture the mocha
                     // output (the quiet option does not suppress this)
-                    captureFile: 'frontend/public/coverage.html'
-                },*/
-                //src: ['test/spec/**/*.js']
-            //}
-        },
+                //    captureFile: 'frontend/public/coverage.html'
+              //  },
+            //    src: ['test/spec/**/*.js']
+          //  }
+        //},
         concurrent: {
             dev: {
                 tasks: ['watch', 'nodemon'],
@@ -143,7 +149,7 @@ module.exports = function (grunt) {
         } // End watch
     });
 
-    grunt.registerTask('dbdrop', 'drop the database', function () {
+  /*  grunt.registerTask('dbdrop', 'drop the database', function () {
         // async mode
         var done = this.async();
 
@@ -209,7 +215,7 @@ module.exports = function (grunt) {
         });
 
     });
-
+*/
 
     grunt.registerTask('default', 'start application in dev mode using watch and nodemon', ['concat:js', 'uglify', 'sass', 'mochaTest', 'concurrent']);
     grunt.registerTask('test', 'only run tests and generate coverage report', ['mochaTest', 'watch']);

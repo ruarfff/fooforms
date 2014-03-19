@@ -12,19 +12,17 @@ var App = require(global.config.apps.APP).App;
 var Cloud = require(global.config.apps.CLOUD).Cloud;
 
 describe('Cloud creation', function () {
-    var database;
     var cloudLib;
     var userLib;
 
     before(function () {
-        database = require(global.config.apps.DATABASE);
         cloudLib = require(global.config.apps.CLOUD);
         userLib = require(global.config.apps.USER);
     });
 
 
     afterEach(function (done) {
-        testUtil.dropDatabase(database, done);
+        testUtil.dropDatabase(done);
     });
 
     describe('Creating a cloud with valid inputs', function () {

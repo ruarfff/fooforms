@@ -7,11 +7,9 @@ var specUtil = require('../../spec-util');
 var cloudSpecUtil = require('./cloud-spec-util');
 
 describe('Querying Cloud Library to get Clouds and Cloud details', function () {
-    var database;
     var cloudLib;
 
     before(function () {
-        database = require(global.config.apps.DATABASE);
         cloudLib = require(global.config.apps.CLOUD);
     });
 
@@ -20,7 +18,7 @@ describe('Querying Cloud Library to get Clouds and Cloud details', function () {
     });
 
     afterEach(function (done) {
-        specUtil.dropDatabase(database, done);
+        specUtil.dropDatabase(done);
     });
 
     describe('Cloud retrieval', function () {

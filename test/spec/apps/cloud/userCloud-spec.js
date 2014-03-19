@@ -10,7 +10,6 @@ var User = require(global.config.apps.USER).User;
 var Cloud = require(global.config.apps.CLOUD).Cloud;
 
 describe('Cloud creation', function () {
-    var database;
     var cloudLib;
     var userLib;
 
@@ -19,7 +18,6 @@ describe('Cloud creation', function () {
     var sampleUserCloud = {};
 
     before(function () {
-        database = require(global.config.apps.DATABASE);
         cloudLib = require(global.config.apps.CLOUD);
         userLib = require(global.config.apps.USER);
     });
@@ -48,7 +46,7 @@ describe('Cloud creation', function () {
     });
 
     afterEach(function (done) {
-        testUtil.dropDatabase(database, done);
+        testUtil.dropDatabase(done);
     });
 
     describe('Creating a User cloud', function () {

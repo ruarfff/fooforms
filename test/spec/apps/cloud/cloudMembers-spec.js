@@ -7,12 +7,10 @@ var specUtil = require('../../spec-util');
 var cloudSpecUtil = require('./cloud-spec-util');
 
 describe('Adding, updating and removing cloud members', function () {
-    var database;
     var cloudLib;
     var User;
 
     before(function () {
-        database = require(global.config.apps.DATABASE);
         cloudLib = require(global.config.apps.CLOUD);
         User = require(global.config.apps.USER).User;
     });
@@ -22,7 +20,7 @@ describe('Adding, updating and removing cloud members', function () {
     });
 
     afterEach(function (done) {
-        specUtil.dropDatabase(database, done);
+        specUtil.dropDatabase(done);
     });
 
     describe('Checking if user is already a cloud member', function () {

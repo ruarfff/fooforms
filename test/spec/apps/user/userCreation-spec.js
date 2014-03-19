@@ -9,7 +9,6 @@ function getRandomInt(min, max) {
 }
 
 describe('User creation', function () {
-    var database;
     var userLib;
     var cloudLib;
 
@@ -20,7 +19,6 @@ describe('User creation', function () {
     var mockInvalidUser = {};
 
     before(function () {
-        database = require(global.config.apps.DATABASE);
         userLib = require(global.config.apps.USER);
         cloudLib = require(global.config.apps.CLOUD);
     });
@@ -78,7 +76,7 @@ describe('User creation', function () {
     });
 
     afterEach(function (done) {
-        specUtil.dropDatabase(database, done);
+        specUtil.dropDatabase(done);
     });
 
     describe('Creating a user with valid inputs', function () {

@@ -20,7 +20,7 @@
  *
  **/
 
-
+require('../../spec-util');
 var User = require(global.config.apps.USER).User;
 var App = require(global.config.apps.APP).App;
 var Cloud = require(global.config.apps.CLOUD).Cloud;
