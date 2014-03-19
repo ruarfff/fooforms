@@ -20,11 +20,11 @@ module.exports = function (grunt) {
         // Testing
         mochaTest: {
             test: {
-                options: {
+               /* options: {
                     reporter: 'spec',
                     require: 'test/coverage/blanket',
                     clearRequireCache: true
-                },
+                },*/
                 src: ['test/**/*.js']
             }/**,
             coverage: {
