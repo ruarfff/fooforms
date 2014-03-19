@@ -26,7 +26,7 @@ module.exports = function (grunt) {
                     clearRequireCache: true
                 },
                 src: ['test/**/*.js']
-            },
+            }/**,
             coverage: {
                 options: {
                     reporter: 'html-cov',
@@ -34,9 +34,9 @@ module.exports = function (grunt) {
                     // specify a destination file to capture the mocha
                     // output (the quiet option does not suppress this)
                     captureFile: 'frontend/public/coverage.html'
-                },
-                src: ['test/spec/**/*.js']
-            }
+                },*/
+                //src: ['test/spec/**/*.js']
+            //}
         },
         concurrent: {
             dev: {
