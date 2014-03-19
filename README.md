@@ -1,6 +1,8 @@
 fooforms
 ========
 
+![Codeship Status](https://www.codeship.io/projects/277fd250-91cd-0131-0d5d-5afe5ff02d17/status)
+
 To ensure all dependencies are installed once repository is pulled down:
 
 npm install (gets all dependencies to get the app up and running)
