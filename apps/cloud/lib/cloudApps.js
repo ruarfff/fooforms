@@ -5,7 +5,6 @@ var User = require(global.config.apps.USER).User;
 var Cloud = require('../models/cloud').Cloud;
 var log = require(global.config.apps.LOGGING).LOG;
 var cloudMembers = require('./cloudMembers');
-var cloudQuery = require('./cloudQuery');
 
 /**
  * Only allows updating of basic Cloud data.
@@ -37,7 +36,7 @@ var checkIfAppAlreadyPublished = function (appId, userId, next) {
         User.findById(userId).populate('cloudMemberships').exec(function (err, user) {
             if (err) return (next(err));
             if (!user) return (next(new Error('Could not find user with id ' + userId)));
-
+            var cloudQuery = require('./cloudQuery');
             cloudQuery.getUserClouds(user._id, function (err, clouds) {
                 if (err) return (next(err));
                 var cloudCount = 0;
