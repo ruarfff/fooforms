@@ -53,7 +53,7 @@ describe('Cloud creation', function () {
 
         it('should create a Cloud', function (done) {
 
-            userLib.createUserLocalStrategy(sampleUser, function (err, user) {
+            userLib.createUser(sampleUser, function (err, user) {
                 if (err) {
                     done(err);
                 } else {
@@ -74,7 +74,7 @@ describe('Cloud creation', function () {
 
         });
         it('should save Cloud with members', function (done) {
-            userLib.createUserLocalStrategy(sampleUser, function (err, user) {
+            userLib.createUser(sampleUser, function (err, user) {
                 if (err) {
                     done(err);
                 } else {
@@ -111,7 +111,7 @@ describe('Cloud creation', function () {
 
         });
         it('should create Cloud with members that have write permissions', function (done) {
-            userLib.createUserLocalStrategy(sampleUser, function (err, user) {
+            userLib.createUser(sampleUser, function (err, user) {
                 if (err) {
                     done(err);
                 } else {
@@ -182,7 +182,7 @@ describe('Cloud creation', function () {
 
 
         it('should not save and give an error when name is not provided', function (done) {
-            userLib.createUserLocalStrategy(sampleUser, function (err, user) {
+            userLib.createUser(sampleUser, function (err, user) {
                 if (err) {
                     done(err);
                 } else {
@@ -198,7 +198,7 @@ describe('Cloud creation', function () {
 
         });
         it('should not save and give and error when name is not unique', function (done) {
-            userLib.createUserLocalStrategy(sampleUser, function (err, user) {
+            userLib.createUser(sampleUser, function (err, user) {
                 if (err) {
                     done(err);
                 } else {

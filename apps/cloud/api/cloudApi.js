@@ -115,6 +115,21 @@ var deleteCloud = function (req, res) {
     }
 };
 
+var addAppToCloud = function (cloudId, appId, req, res) {
+    try {
+        cloudLib.addAppToCloud(cloudId, appId, function (err, cloud) {
+            if (err || !cloud) {
+                handleError(res, err, 409);
+            } else {
+                res.status(200);
+                res.send(cloud);
+            }
+        });
+    } catch (err) {
+        handleError(res, err, 500);
+    }
+};
+
 /**
  * A private utility method for handling errors in API calls.
  * TODO: Move this to some kind of reusable utility file.
@@ -143,7 +158,8 @@ module.exports = {
     getUserClouds: getUserClouds,
     getAllClouds: getAllClouds,
     update: updateCloud,
-    delete: deleteCloud
+    delete: deleteCloud,
+    addAppToCLoud: addAppToCloud
 };
 
 

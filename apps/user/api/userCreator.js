@@ -11,7 +11,7 @@ var userLib = require( global.config.apps.USER );
  */
 exports.create = function ( req, res ) {
     try {
-        var userDetails = {
+     /**   var userDetails = {
             displayName: req.displayName,
             name: {
                 familyName: req.familyName,
@@ -20,18 +20,18 @@ exports.create = function ( req, res ) {
             },
             email: req.email,
             password: req.password
-        };
-        userLib.createUserLocalStrategy( userDetails, function ( err, user ) {
+        };*/
+        userLib.createUser( req.body, function ( err, user ) {
             if ( err ) {
-                log.error( err.toString() );
+                log.error( err );
                 return res.render( authentication.signupPath, {
-                    errors: err.errors,
+                    errors: err.message,
                     user: user
                 } );
             }
         } );
     } catch ( err ) {
-        log.error( err.toString() );
+        log.error( err );
         res.status( 500 );
         res.send( err );
     }
