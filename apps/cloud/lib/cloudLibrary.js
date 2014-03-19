@@ -4,10 +4,10 @@
 var Cloud = require('../models/cloud').Cloud;
 var cloudCreator = require('./cloudCreator');
 var cloudApps = require('./cloudApps');
-var cloudQuery = require('./cloudQuery');
 var cloudMembers = require('./cloudMembers');
 var cloudErrors = require('./cloudErrors');
 var cloudDelete = require('./cloudDelete');
+var cloudQuery = require('./cloudQuery');
 
 module.exports = {
     Cloud: Cloud,
