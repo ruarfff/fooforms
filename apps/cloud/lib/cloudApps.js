@@ -36,7 +36,7 @@ var checkIfAppAlreadyPublished = function (appId, userId, next) {
         User.findById(userId).populate('cloudMemberships').exec(function (err, user) {
             if (err) return (next(err));
             if (!user) return (next(new Error('Could not find user with id ' + userId)));
-            var cloudQuery = require('./cloudQuery');
+            var cloudQuery = require('./cloudQueryHelper');
             cloudQuery.getUserClouds(user._id, function (err, clouds) {
                 if (err) return (next(err));
                 var cloudCount = 0;
