@@ -1,11 +1,11 @@
 {
     "database": {
         "hostname": "troup.mongohq.com",
-        "port": "10021",
+        "port": "10074",
         "username": "nodejitsu",
-        "password": "fb263814f1554b943bac04a4b0385037",
+        "password": "1cd8b978013c58c8b3ad5d17bc86464b",
         "name": "production",
-        "db": "nodejitsudb2043986390"
+        "db": "nodejitsudb2211308460"
     },
     "app": {
         "name": "FooForms"
