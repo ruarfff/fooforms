@@ -231,7 +231,7 @@ var seedCloudsInDatabase = function (done) {
         sampleApps[1].owner = user2._id;
         sampleApps[2].owner = user3._id;
         sampleApps[3].owner = user4._id;
-        // Batch insert the sampple apps
+        // Batch insert the sample apps
         App.create(sampleApps, function (err, app1, app2, app3, app4) {
             if (err) {
                 return done(err);

@@ -34,7 +34,7 @@ exports.updateProfile = function ( req, res ) {
                     log.debug( "updated " + user.displayName );
                     res.send( user );
                 } else {
-                    log.error( err.toString() );
+                    log.error( err );
                     res.status( 400 );
                     res.send( err );
                 }

@@ -13,10 +13,13 @@ exports.checkUserName = function ( req, res ) {
         } );
         return;
     }
-    userLib.checkDisplayName( displayName, function ( err, user ) {
+    // Checking if display name is available. This actually checks for the existence of a cloud
+    // with the same name as cloud names match new user names and must be unique.
+    userLib.checkDisplayName( displayName, function ( err, cloud ) {
         try {
-            if ( user ) {
-                if ( !_.isArray( user ) || user.length > 0 ) {
+            if ( cloud ) {
+                // Should not be possible to get more than one result but, you know.... just in case
+                if ( !_.isArray( cloud ) || cloud.length > 0 ) {
                     res.json( 403, {
                         isTaken: true
                     } );
@@ -24,17 +27,18 @@ exports.checkUserName = function ( req, res ) {
                 }
             }
             if ( err ) {
-                log.error( err.toString() );
-                res.json( 500, {
+                var responseCode = err.http_code || 500;
+                res.json( responseCode, {
                     error: err.message
                 } );
                 return;
             }
         } catch ( err ) {
-            log.error( err.toString() );
+            log.error( err );
             res.json( 500, {
                 error: err.message
             } );
+            return;
         }
         res.send( 200 );
     } );

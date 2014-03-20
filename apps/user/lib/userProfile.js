@@ -22,7 +22,7 @@ exports.userToProfile = function (user) {
             admin: user.admin
         };
     } catch (err) {
-        log.error( err.toString() );
+        log.error( err );
     }
     return profile;
-}
+};

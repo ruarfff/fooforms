@@ -88,7 +88,7 @@ describe('Publishing, Updating and Removing Apps in Clouds', function () {
                 cloudLib.addAppToCloud(cloudSpecUtil.getCloud3Id(), cloudSpecUtil.getApp3Id(), function (err, cloud) {
                     if (err) return done(err);
                     should.exist(cloud);
-                    cloud.apps.length.should.equal(1)
+                    cloud.apps.length.should.equal(1);
                     cloudLib.addAppToCloud(cloudSpecUtil.getCloud4Id(), cloudSpecUtil.getApp3Id(), function (err, cloud) {
                         should.exist(err);
                         should.exist(cloud);

@@ -45,12 +45,6 @@ describe('Cloud creation', function () {
             email: "testEmail1@email.com",
             password: "testPassword"
         };
-        sampleUserCloud = {
-            name: "sampleCloud",
-            description: "A sample cloud",
-            icon: "some/icon.png",
-            isUserCloud: true
-        };
     });
 
     afterEach(function (done) {
@@ -58,104 +52,44 @@ describe('Cloud creation', function () {
     });
 
     describe('Creating a User cloud', function () {
-
-
         it('should create a User Cloud', function (done) {
-
-            userLib.createUserLocalStrategy(sampleUser, function (err, user) {
-                if (err) {
-                    return done(err);
-                }
-                should.exist(user._id);
-                sampleUserCloud.owner = user._id;
-                cloudLib.createCloud(sampleUserCloud, function (err, cloud) {
-                    if (err) {
-                        done(err);
-                    }
-                    cloud.name.should.equal(sampleUserCloud.name);
-                    cloud.description.should.equal(sampleUserCloud.description);
-                    cloud.icon.should.equal(sampleUserCloud.icon);
+            userLib.createUser(sampleUser, function (err, user) {
+                if (err) return done(err);
+                should.exist(user);
+                cloudLib.getCloudById(user.cloud, function (err, cloud) {
+                    if (err) return done(err);
+                    should.exist(cloud);
+                    cloud.name.should.equal(user.displayName);
+                    cloud.owner.should.eql(user._id);
+                    cloud.menuLabel.should.equal(user.displayName);
+                    cloud.icon.should.equal(user.photo);
+                    should(cloud.isPrivate).ok;
                     should(cloud.isUserCloud).ok;
-                    cloud.owner.should.equal(user._id);
                     should(cloud.members.length === 0).ok;
                     should(cloud.membersWithWritePermissions.length === 0).ok;
                     done();
                 });
-
-            });
-
-        });
-        it('should not create a User Cloud with members', function (done) {
-            userLib.createUserLocalStrategy(sampleUserAsMember, function (err, member) {
-                if (err) {
-                    return done(err);
-                }
-                should.exist(member);
-                userLib.createUserLocalStrategy(sampleUser, function (err, user) {
-                    if (err) {
-                        return done(err);
-                    }
-                    should.exist(user._id);
-                    sampleUserCloud.owner = user._id;
-                    sampleUserCloud.members = [member._id];
-                    cloudLib.createCloud(sampleUserCloud, function (err, cloud) {
-                        should.exist(err);
-                        should.not.exist(cloud);
-                        done();
-                    });
-
-                });
             });
         });
-        it('should not create a User Cloud with members with write permissions', function (done) {
-            userLib.createUserLocalStrategy(sampleUserAsMember, function (err, member) {
-                if (err) {
-                    return done(err);
-                }
-                should.exist(member);
-                userLib.createUserLocalStrategy(sampleUser, function (err, user) {
-                    if (err) {
-                        return done(err);
-                    }
-                    should.exist(user._id);
-                    sampleUserCloud.owner = user._id;
-                    sampleUserCloud.membersWithWritePermissions = [member._id];
-                    cloudLib.createCloud(sampleUserCloud, function (err, cloud) {
-                        should.exist(err);
-                        should.not.exist(cloud);
-                        done();
-                    });
-
-                });
-            });
-        });
-
     });
 
     describe('Updating a User Cloud', function () {
 
         it('should not allow addition of members', function (done) {
-
-            userLib.createUserLocalStrategy(sampleUserAsMember, function (err, member) {
+            userLib.createUser(sampleUserAsMember, function (err, member) {
                 if (err) {
                     return done(err);
                 }
                 should.exist(member);
-                userLib.createUserLocalStrategy(sampleUser, function (err, user) {
+                userLib.createUser(sampleUser, function (err, user) {
                     if (err) {
                         return done(err);
                     }
                     should.exist(user._id);
-                    sampleUserCloud.owner = user._id;
-                    cloudLib.createCloud(sampleUserCloud, function (err, cloud) {
-                        if (err) {
-                            done(err);
-                        }
-                        cloud.name.should.equal(sampleUserCloud.name);
-                        cloud.description.should.equal(sampleUserCloud.description);
-                        cloud.icon.should.equal(sampleUserCloud.icon);
+                    cloudLib.getCloudById(user.cloud, function (err, cloud) {
+                        if (err) done(err);
                         should(cloud.isUserCloud).ok;
-                        cloud.owner.should.equal(user._id);
+                        cloud.owner.should.eql(user._id);
                         should(cloud.members.length === 0).ok;
                         should(cloud.membersWithWritePermissions.length === 0).ok;
 
@@ -170,29 +104,22 @@ describe('Cloud creation', function () {
 
                 });
             });
-
         });
         it('should not allow addition of members with write permissions', function (done) {
-            userLib.createUserLocalStrategy(sampleUserAsMember, function (err, member) {
+            userLib.createUser(sampleUserAsMember, function (err, member) {
                 if (err) {
                     return done(err);
                 }
                 should.exist(member);
-                userLib.createUserLocalStrategy(sampleUser, function (err, user) {
+                userLib.createUser(sampleUser, function (err, user) {
                     if (err) {
                         return done(err);
                     }
                     should.exist(user._id);
-                    sampleUserCloud.owner = user._id;
-                    cloudLib.createCloud(sampleUserCloud, function (err, cloud) {
-                        if (err) {
-                            done(err);
-                        }
-                        cloud.name.should.equal(sampleUserCloud.name);
-                        cloud.description.should.equal(sampleUserCloud.description);
-                        cloud.icon.should.equal(sampleUserCloud.icon);
+                    cloudLib.getCloudById(user.cloud, function (err, cloud) {
+                        if (err) done(err);
                         should(cloud.isUserCloud).ok;
-                        cloud.owner.should.equal(user._id);
+                        cloud.owner.should.eql(user._id);
                         should(cloud.members.length === 0).ok;
                         should(cloud.membersWithWritePermissions.length === 0).ok;
 
@@ -206,14 +133,6 @@ describe('Cloud creation', function () {
                     });
 
                 });
-            });
-        });
-        it('should not save and give an error when owner is not provided', function (done) {
-            sampleUserCloud.owner = null;
-            cloudLib.createCloud(sampleUserCloud, function (err, cloud) {
-                should.not.exist(cloud);
-                should.exist(err);
-                done();
             });
         });
     });

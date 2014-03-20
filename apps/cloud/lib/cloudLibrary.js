@@ -7,9 +7,11 @@ var cloudDeleter = require('./cloudDeleter');
 var cloudApps = require('./cloudApps');
 var cloudQuery = require('./cloudQuery');
 var cloudMembers = require('./cloudMembers');
+var cloudErrors = require('./cloudErrors');
 
 module.exports = {
     Cloud: Cloud,
+    cloudErrors: cloudErrors,
     createCloud: cloudCreator.createCloud,
     deleteCloudById: cloudDeleter.deleteCloudById,
     updateCloud: cloudApps.updateCloud,

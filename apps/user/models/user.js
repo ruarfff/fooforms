@@ -36,29 +36,16 @@ var userSchema = new Schema({
         default: false
     },
     photo: {
-        type: String
+        type: String,
+        default: ''
     },
     provider: String,
     salt: String,
-    // List of Apps owned by User
-    apps: [
-        {
-            type: Schema.Types.ObjectId,
-            ref: 'App'
-        }
-    ],
     // The user cloud
-    userCloud: {
+    cloud: {
         type: Schema.Types.ObjectId,
         ref: 'Cloud'
     },
-    // List of Clouds owned by User
-    clouds: [
-        {
-            type: Schema.Types.ObjectId,
-            ref: 'Cloud'
-        }
-    ],
     // List of Clouds that this User is a member of
     cloudMemberships: [
         {

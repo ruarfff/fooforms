@@ -5,8 +5,6 @@ global.config = require('./config/config');
 
 var path = require('path');
 var database = require(global.config.apps.DATABASE);
-var User = require(path.join(global.config.apps.USER, 'models/user')).User;
-var Cloud = require(path.join(global.config.apps.CLOUD, 'models/cloud')).Cloud;
 
 var async = require('async');
 
@@ -174,10 +172,11 @@ module.exports = function (grunt) {
     });
 
     grunt.registerTask('adduser', 'add a user to the database', function (displayName, familyName, givenName, middleName, emailaddress, password, admin, provider) {
-        var done = this.async();
-        // convert adm string to bool
+       var done = this.async();
+        var userLib = require(global.config.apps.USER);
+        // convert admin string to bool
         admin = (admin === "true");
-        var user = new User(
+        var user =
             {
                 displayName: displayName,
                 name: {
@@ -189,85 +188,22 @@ module.exports = function (grunt) {
                 password: password,
                 admin: admin,
                 provider: provider
-            }
-        );
+            };
         database.openConnection();
         log.debug(user.displayName);
         log.debug(user.email);
 
-        user.save(function (err) {
+        userLib.createUser(user, function (err, user) {
             database.closeConnection();
             if (err) {
                 log.error('Error: ' + err);
                 done(false);
-            } else {
+            } else if(!user) {
+                log.error('Error, user was not saved and no idea why');
+                done(false);
+            }
+            else {
                 log.debug('saved user: ' + user.displayName);
-                done();
-            }
-        });
-
-    });
-
-    grunt.registerTask('addCloud', 'add a cloud to the database', function (name, description, icon, menuLabel, type, owner) {
-
-        var allDone = this.async();
-        var done = this.async();
-        log.debug('Adding cloud: ' + name + ' - ' + description + ' - ' + icon + ' - ' + menuLabel + ' - ' + type + ' - ' + owner);
-
-        if (owner) {
-            log.debug('startng');
-
-            log.debug('Found one');
-
-            var cloud = new Cloud(
-                {
-                    name: name,
-                    description: description,
-                    icon: icon,
-                    menuLabel: menuLabel
-                }
-            );
-            database.openConnection();
-            log.debug(cloud.name);
-
-            cloud.save(function (err) {
-                database.closeConnection();
-                if (err) {
-                    log.error('Error: ' + err);
-                    done(false);
-                } else {
-                    log.debug('saved cloud: ' + cloud.name);
-                    done();
-                }
-            });
-
-        } else {
-            log.error('owner cannot be Null');
-        }
-    });
-
-    grunt.registerTask('addApp', 'add an app to the database', function (name, description, icon, menuLabel, type, owner) {
-
-        var done = this.async();
-        var app = new App(
-            {
-                name: name,
-                description: description,
-                icon: icon,
-                menuLabel: menuLabel,
-                owner: owner
-            }
-        );
-        database.openConnection();
-        log.debug(app.name);
-
-        app.save(function (err) {
-            database.closeConnection();
-            if (err) {
-                log.error('Error: ' + err);
-                done(false);
-            } else {
-                log.debug('saved app: ' + app.name);
                 done();
             }
         });

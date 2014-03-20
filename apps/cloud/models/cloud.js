@@ -24,7 +24,7 @@ var CloudSchema = new Schema({
     // Visual aid
     menuLabel: String,
     // If Private, cloud only accessible by members. Visible to all otherwise
-    private: {
+    isPrivate: {
         type: Boolean,
         default: false
     },
