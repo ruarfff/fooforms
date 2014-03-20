@@ -4,14 +4,10 @@
 var env = process.env.NODE_ENV;
 process.env.NODE_ENV = 'test'; // Setting NODE_ENV to test ensures the test config (/config/env/test.json) gets loaded
 global.config = require('../../config/config'); // Load the test config and assign it to global
-var database = require(global.config.apps.DATABASE);;
-
-var init = function () {
-
-};
+var database = require(global.config.apps.DATABASE)();
 
 var tearDown = function () {
-    global.config = {}; // Make sure no test confgurations remain loaded.
+    global.config = {}; // Make sure no test configurations remain loaded.
     process.env.NODE_ENV = env; // Switch back the NODE_ENV to whatever it was before the tests were run.
 };
 
@@ -45,15 +41,13 @@ var dropDatabase = function (done) {
 };
 
 before(function (done) {
-    //init();
-    //database
     openDatabase(done);
     dropDatabase(done);
 });
 
 after(function (done) {
     tearDown();
-    closeDatabase(done)
+    closeDatabase(done);
 });
 
 

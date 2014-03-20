@@ -1,12 +1,19 @@
 /*jslint node: true */
 'use strict';
-//process.env.NODE_ENV = process.env.NODE_ENV || 'development';
-//global.config = require('./config/config');
-//var database = require(global.config.apps.DATABASE);
 var path = require('path');
 var async = require('async');
 
-//var log = require(global.config.apps.LOGGING).LOG;
+// WARNING! If the dev db config is changed in the main configuration it should be changed here too.
+// Setting the config here was overriding the test config on CI environments
+// TODO: Will try to come up with a better way to handle this
+var devDbConfig = {
+    "hostname": "localhost",
+    "port": "27017",
+    "username": "",
+    "password": "",
+    "name": "",
+    "db": "dev"
+};
 
 module.exports = function (grunt) {
 
@@ -16,34 +23,26 @@ module.exports = function (grunt) {
     grunt.initConfig({
         pkg: grunt.file.readJSON('package.json'),
         // Testing
-        mochaTest: {
-            test: {
-                options: {
-                    reporter: 'spec'
-                },
-                src: ['test/spec/**/*.js']
-            }
-        },
-        /*mochaTest: {
+       mochaTest: {
             test: {
                 options: {
                     reporter: 'spec',
                     require: 'test/coverage/blanket',
                     clearRequireCache: true
-                },*/
-             //   src: ['test/**/*.js']
-           // },
-           // coverage: {
-                //options: {
-                   // reporter: 'html-cov',
-                  //  quiet: true,
-                    // specify a destination file to capture the mocha
-                    // output (the quiet option does not suppress this)
-                //    captureFile: 'frontend/public/coverage.html'
-              //  },
-            //    src: ['test/spec/**/*.js']
-          //  }
-        //},
+                },
+                src: ['test/**/*.js']
+            },
+            coverage: {
+                options: {
+                    reporter: 'html-cov',
+                    quiet: true,
+                     //specify a destination file to capture the mocha
+                     //output (the quiet option does not suppress this)
+                    captureFile: 'frontend/public/coverage.html'
+                },
+                src: ['test/spec/**/*.js']
+            }
+        },
         concurrent: {
             dev: {
                 tasks: ['watch', 'nodemon'],
@@ -149,7 +148,8 @@ module.exports = function (grunt) {
         } // End watch
     });
 
-  /*  grunt.registerTask('dbdrop', 'drop the database', function () {
+    grunt.registerTask('dbdrop', 'drop the database', function () {
+        var database = require('./apps/database')(devDbConfig);
         // async mode
         var done = this.async();
 
@@ -157,10 +157,10 @@ module.exports = function (grunt) {
             database.connection.db.dropDatabase(function (err) {
                 database.closeConnection();
                 if (err) {
-                    log.error('Error: ' + err);
+                    console.log('Error: ' + err);
                     done(false);
                 } else {
-                    log.debug('Successfully dropped db');
+                    console.log('Successfully dropped db');
                     done();
                 }
             });
@@ -169,6 +169,8 @@ module.exports = function (grunt) {
     });
 
     grunt.registerTask('dbseed', 'seed the database', function () {
+        process.env.NODE_ENV = process.env.NODE_ENV || 'development';
+        global.config = require('./config/config');
         grunt.task.run([
             'adduser:Ruairi:O Brien:Ruairi:Tomas:ruairi@fooforms.com:secret1:true:local',
             'adduser:Brian:McAuliffe:Brian:Lee:brian@fooforms.com:secret2:true:local',
@@ -179,7 +181,8 @@ module.exports = function (grunt) {
 
     grunt.registerTask('adduser', 'add a user to the database', function (displayName, familyName, givenName, middleName, emailaddress, password, admin, provider) {
        var done = this.async();
-        var userLib = require(global.config.apps.USER);
+        var database = require('./apps/database')(devDbConfig);
+        var userLib = require('./apps/user');
         // convert admin string to bool
         admin = (admin === "true");
         var user =
@@ -196,26 +199,26 @@ module.exports = function (grunt) {
                 provider: provider
             };
         database.openConnection();
-        log.debug(user.displayName);
-        log.debug(user.email);
+        console.log(user.displayName);
+        console.log(user.email);
 
         userLib.createUser(user, function (err, user) {
             database.closeConnection();
             if (err) {
-                log.error('Error: ' + err);
+                console.log('Error: ' + err);
                 done(false);
             } else if(!user) {
-                log.error('Error, user was not saved and no idea why');
+                console.log('Error, user was not saved and no idea why');
                 done(false);
             }
             else {
-                log.debug('saved user: ' + user.displayName);
+                console.log('saved user: ' + user.displayName);
                 done();
             }
         });
 
     });
-*/
+
 
     grunt.registerTask('default', 'start application in dev mode using watch and nodemon', ['concat:js', 'uglify', 'sass', 'mochaTest', 'concurrent']);
     grunt.registerTask('test', 'only run tests and generate coverage report', ['mochaTest']);

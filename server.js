@@ -16,7 +16,7 @@ var passport = require('passport');
 var path = require('path');
 var fs = require('fs');
 
-var database = require(global.config.apps.DATABASE);
+var database = require(global.config.apps.DATABASE)();
 var log = require(global.config.apps.LOGGING).LOG;
 
 var FooFormsServerApp = function () {
