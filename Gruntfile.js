@@ -87,7 +87,7 @@ module.exports = function (grunt) {
                     'frontend/src/js/calendar/**/*.js', 'frontend/src/js/cloud/**/*.js',
                     'frontend/src/js/dashboard/**/*.js', 'frontend/src/js/user/**/*.js'
                 ],
-                dest: 'frontend/public/js/main.min.js'
+                dest: 'frontend/public/js/main-min.js'
             }
         }, // End concat
         // Minimise and append public js files
@@ -108,10 +108,10 @@ module.exports = function (grunt) {
                     style: 'compressed'
                 },
                 files: {
-                    'frontend/public/css/main.min.css': 'frontend/src/sass/main.scss',
-                    'frontend/public/css/signup.min.css': 'frontend/src/sass/authentication/signup.scss',
-                    'frontend/public/css/login.min.css': 'frontend/src/sass/authentication/login.scss',
-                    'frontend/public/css/fooforms.min.css': 'frontend/src/sass/fooforms.scss'
+                    'frontend/public/css/main-min.css': 'frontend/src/sass/main.scss',
+                    'frontend/public/css/signup-min.css': 'frontend/src/sass/authentication/signup.scss',
+                    'frontend/public/css/login-min.css': 'frontend/src/sass/authentication/login.scss',
+                    'frontend/public/css/fooforms-min.css': 'frontend/src/sass/fooforms.scss'
                 }
             }
         }, // End SASS

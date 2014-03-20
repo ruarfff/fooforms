@@ -25,6 +25,7 @@ var appSchema = Schema({
     created: Date,
     lastModified: Date,
     owner: { type: Schema.Types.ObjectId, ref: 'User' },
+    posts: [ {type: Schema.Types.ObjectId, ref: 'Post'} ],
     url: String
 });
 

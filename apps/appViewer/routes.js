@@ -8,9 +8,13 @@ var authenticator = require(global.config.apps.AUTHENTICATION);
 
 var postApi = require(path.join(global.config.apps.APPVIEWER, 'api/postApi'));
 
-//var appBuilderApi = require(path.join(global.config.apps.USER, 'api/profile'));
 
 var routes = function (app) {
+
+    /*********************************************************************************
+     *  View Handling
+     *********************************************************************************/
+
 
     app.get('/partials/appViewer', authenticator.ensureAuthenticated, function (req, res) {
         var find = '/';
@@ -24,19 +28,14 @@ var routes = function (app) {
         });
     });
 
-
     /*********************************************************************************
-     *  App Retrieval
+     *  API
      *********************************************************************************/
 
     app.get('/api/posts/:post', function (req, res) {
         postApi.getPostById(req.params.app, res);
     });
 
-
-    /*********************************************************************************
-     *  API
-     *********************************************************************************/
 
     app.get('/api/posts', authenticator.ensureAuthenticated, function (req, res) {
         postApi.getUserPosts(req, res);
