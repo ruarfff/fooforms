@@ -12,24 +12,22 @@
 
         <div id="tabs">
             <div class="btn-group pull-right m5">
-                <button id='saveApp' ng-click="savePost(postObj)"
+                <button ng-click="deleteApp(postObj)"
                         class="btn btn-default btn-sm"><i class="fa fa-trash-o"></i> Delete
                 </button>
-                <button id='saveApp' ng-click="savePost(postObj)"
+                <button ng-click="copyApp(postObj)"
                         class="btn btn-default btn-sm"><i class="fa fa-copy"></i> Copy
                 </button>
-                <button id='saveApp' ng-click="savePost(postObj)"
+                <button ng-click="dontSaveApp(postObj)"
                         class="btn btn-default btn-sm"><i class="fa fa-reply"></i> Cancel
                 </button>
-                <button id='saveApp' ng-click="ng-click=" saveApp
-                (app)""
-                class="btn btn-default btn-sm"><i class="fa fa-save"></i> Save</button>
+                <button ng-click="saveApp(app)" class="btn btn-default btn-sm"><i class="fa fa-save"></i> Save</button>
             </div>
             <ul id='appTabs' class="nav nav-tabs">
                 <li class="active"><a data-target="#tabs-newApp" data-toggle="tab">Design</a></li>
-                <li><a data-target="#tabs-settings" data-toggle="tab">Settings</a></li>
-                <li><a data-target="#tabs-events" data-toggle="tab">Events</a></li>
-                <li><a data-target="#tabs-publish" data-toggle="tab">Publish</a></li>
+                <li><a data-target="#tabs-settings" data-toggle="tab">Sharing</a></li>
+                <li><a data-target="#tabs-events" data-toggle="tab">Form Events</a></li>
+                <li><a data-target="#tabs-publish" data-toggle="tab">Preview</a></li>
             </ul>
             <div class="tab-content white p5">
                 <div id="tabs-newApp" class="tab-pane active">
@@ -81,45 +79,117 @@
 
 
                 <div id="tabs-settings" class="tab-pane">
-                    <div class='alert alert-warning'><h4>Settings</h4>
-                            <pre class="ng-binding">
-     {{app | json}}
- </pre>
+                    <h4 class="text-info">User Access</h4>
+                    <ul class="list-group">
+                        <li class="list-group-item"
+                            ng-class="{'list-group-item-success' : app.sharing.type =='Private'}">
+                            <h4 class="list-group-item-heading"><input type="radio" ng-model="app.sharing.type"
+                                                                       value="Private"> Private</h4>
 
-                    </div>
+                            <p class="list-group-item-text">
+                                Your form will be visible to just you. Good for personal ToDo Lists, Notes, etc.
+                            </p>
+                        </li>
+                        <li class="list-group-item"
+                            ng-class="{'list-group-item-success' : app.sharing.type =='Shared'}">
+                            <h4 class="list-group-item-heading"><input type="radio" ng-model="app.sharing.type"
+                                                                       value="Shared"> Shared</h4>
 
+                            <p class="list-group-item-text">
+                                Users with access to the selected shared cloud will have access to your form.
+                                <br>Good for things like Helpdesks, Invoices, Tasks, Holiday Requests, etc.</p>
+
+                            <div ng-show="app.sharing.type =='Shared'">
+
+                                <div ng-show="clouds.length==0" class="alert">
+
+                                    <h5>You haven't created any shared folders yet.</h5>
+                                    <button class="btn btn-small btn-success" href="clouds">Create a Shared Folder
+                                    </button>
+                                </div>
+                            </div>
+                            <div ng-show="app.sharing.type =='Shared' && clouds.length>0" class="alert">
+                                <h5>Choose a Folder</h5>
+
+                                <div ng-repeat="cloud in clouds">
+                                    <input type="radio" ng-model="app.sharing.cloud" value="{{cloud.name}}">
+                                    {{cloud.name}}
+                                </div>
+
+                                <h5>Privileges</h5>
+                                <h6><input type="radio" ng-model="app.privileges" value="User"> Users can see just their
+                                    own posts.</h6>
+                                <h6><input type="radio" ng-model="app.privileges" value="All"> Users can see all posts.
+                                </h6>
+
+
+                            </div>
+                        </li>
+
+                        <li class="list-group-item">
+                            <h4 class="list-group-item-heading text-primary">External Website or Blog</h4>
+
+                            <p class="list-group-item-text">
+                                Both your private and shared forms can be published on external websites or blogs.
+                                <br><strong>Note:</strong> If you publish a private form on a website or blog, anyone
+                                can use the form but only you can see the form submissions.
+                            </p>
+                            <textarea class='form-control'>
+                                <iframe src="{{app.url}}"></iframe>
+                            </textarea>
+
+                        </li>
+                        <li class="list-group-item">
+                            <h4 class="list-group-item-heading text-primary">Form URL</h4>
+
+                            <p class="list-group-item-text">
+                                Share the link below in emails, etc. to give anyone access to your form.<br>
+
+                            </p>
+                            <h5><a href="{{app.url}}" target="_new">{{app.url}}</a></h5>
+
+
+                        </li>
+
+
+                    </ul>
                 </div>
 
 
                 <div id="tabs-events" class="tab-pane">
 
-                    <h4 class="fooHeading">Form Events</h4>
+                    <h4 class="text-info">Form Events</h4>
+                    <button class="btn btn-default">Add a Form Event</button>
+                    <div class="row">
+                        <div class="col-sm-2">When<select>
+                            <option>New Post</option>
+                            <option>Post Status Changes</option>
+                        </select>
+                        </div>
 
+                        <div class="col-sm-2">Then<select>
+                            <option>Send an Email</option>
+                            <option>Send a Status Notification</option>
+                        </select>
+                        </div>
+
+                        <div class="col-sm-8">
+                            <textarea class="form-control"></textarea>
+                        </div>
+                    </div>
                 </div>
 
 
                 <div id="tabs-publish" class="tab-pane">
-                    <div class='alert alert-warning'><h4>Publish</h4>
+                    <div class='alert alert-warning'><h4>Preview</h4>
 
                         <p>Choose one or more ways to publish your app.</p>
                     </div>
-                    <div class='m10 alert alert-info'>
-                        <h5>Add it to one or more clouds</h5>
 
-                        <p>Your app will be displayed in each of the following clouds</p>
 
-                        <div id='cloudList'>
-
-                        </div>
-                        <hr>
-
-                        <h5>Add it to a Website or Blog</h5>
-
-                        <p>Copy the following code to your page on your website.</p>
-                        <textarea class='large'>
-
-                        </textarea>
-                    </div>
+                     <pre class="ng-binding">
+     {{app | json}}
+ </pre>
 
                 </div>
             </div>

@@ -5,6 +5,7 @@ fooformsApp.controller('fieldsCtrl', ['$scope', '$http', 'DragDropHandler' , '$m
     Restangular.setBaseUrl('/api');
     Restangular.setDefaultHeaders({'Content-Type': 'application/json'});
     var appApi = Restangular.all('apps');
+    var cloudApi = Restangular.all('clouds');
 
 
     $http.get('/js/appBuilder/inputTypes.json').success(function (data) {
@@ -13,6 +14,15 @@ fooformsApp.controller('fieldsCtrl', ['$scope', '$http', 'DragDropHandler' , '$m
         $scope.icons = data.icons;
 
     });
+
+    var getClouds = function () {
+        cloudApi.getList().then(function (clouds) {
+            $scope.clouds = clouds;
+        });
+    };
+    getClouds();
+
+
     // the main object to store the app data
     $scope.app = appService.getApp();
     // some booleans to help track what we are editing, which tabs to enable, etc.

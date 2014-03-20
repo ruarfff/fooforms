@@ -71,13 +71,13 @@ hr {
   padding-top: 3px;
 }
 
-.list-group-item {
+.feed .list-group-item {
   border: 0px;
   border-top: 1px solid rgba(42, 100, 150, 0.3) !important;
   padding: 5px;
 }
 
-.list-group-item:last-child {
+.feed .list-group-item:last-child {
   border-bottom: 1px solid rgba(42, 100, 150, 0.3) !important;
 }
 
@@ -107,6 +107,10 @@ hr {
 
 .b0 {
   border: 0px;
+}
+
+.ml10 {
+  margin-left: 10px !important;
 }
 
 .clear {

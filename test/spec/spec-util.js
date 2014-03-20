@@ -34,7 +34,7 @@ exports.closeDatabase = function (database, done) {
 exports.dropDatabase = function (database, done) {
     database.connection.db.dropDatabase(function (err) {
         if (err) {
-            console.error('Error: ' + err);
+            console.error('Error: -' + err);
             return done(err);
         }
         console.log('Successfully dropped db');
