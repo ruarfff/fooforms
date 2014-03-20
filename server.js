@@ -8,7 +8,7 @@ var env = process.env.NODE_ENV = process.env.NODE_ENV || 'development';
  Putting configuration in to global scope. It is a singleton and saves requiring long path names all over the place.
  Sort of goes against best practice however so will look in to a better way of doing this.
  */
-global.config = require('./config/config');
+global.config = require('./config/config')(env);
 
 var http = require('http');
 var express = require('express');

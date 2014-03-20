@@ -170,7 +170,7 @@ module.exports = function (grunt) {
 
     grunt.registerTask('dbseed', 'seed the database', function () {
         process.env.NODE_ENV = process.env.NODE_ENV || 'development';
-        global.config = require('./config/config');
+        global.config = require('./config/config')();
         grunt.task.run([
             'adduser:Ruairi:O Brien:Ruairi:Tomas:ruairi@fooforms.com:secret1:true:local',
             'adduser:Brian:McAuliffe:Brian:Lee:brian@fooforms.com:secret2:true:local',
@@ -219,8 +219,8 @@ module.exports = function (grunt) {
 
     });
 
-
     grunt.registerTask('default', 'start application in dev mode using watch and nodemon', ['concat:js', 'uglify', 'sass', 'mochaTest', 'concurrent']);
     grunt.registerTask('test', 'only run tests and generate coverage report', ['mochaTest']);
     grunt.registerTask('skip-test', 'start application in dev mode using watch and nodemon', ['concat:js', 'uglify', 'sass', 'concurrent']);
+    grunt.registerTask('deploy', 'run application in production', ['concat:js', 'uglify', 'sass']);
 };

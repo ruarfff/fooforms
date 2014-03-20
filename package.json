@@ -15,7 +15,7 @@
     "homepage": "http://www.fooforms.com/",
     "repository": {
         "type": "git",
-        "url": "git@git.geekli.st:ruairitobrien/fooforms.git"
+        "url": "git@github.com/ruairitobrien/fooforms.git"
     },
     "engines": {
         "node": ">= 0.10.0",
@@ -59,5 +59,10 @@
     },
     "bundleDependencies": [],
     "private": true,
-    "main": "server.js"
+    "main": "server.js",
+    "subdomain": "fooforms",
+    "scripts": {
+        "predeploy": "grunt deploy",
+        "start": "node server.js"
+    }
 }

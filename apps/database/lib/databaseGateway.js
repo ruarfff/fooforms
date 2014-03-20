@@ -15,7 +15,6 @@ var database = function(databaseConfig) {
         databaseConfig = global.config.database;
     }
 
-
     name = databaseConfig.db;
     if (databaseConfig.username && databaseConfig.password) {
         url = "mongodb://" + databaseConfig.username + ":" + databaseConfig.password + "@" + databaseConfig.hostname + ":" + databaseConfig.port + "/" + databaseConfig.db;

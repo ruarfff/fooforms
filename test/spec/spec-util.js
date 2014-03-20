@@ -1,9 +1,9 @@
 /*jslint node: true */
 'use strict';
 
-var env = process.env.NODE_ENV;
+var env = process.env.NODE_ENV || "development";
 process.env.NODE_ENV = 'test'; // Setting NODE_ENV to test ensures the test config (/config/env/test.json) gets loaded
-global.config = require('../../config/config'); // Load the test config and assign it to global
+global.config = require('../../config/config')(); // Load the test config and assign it to global
 var database = require(global.config.apps.DATABASE)();
 
 var tearDown = function () {
