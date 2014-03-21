@@ -1,6 +1,6 @@
 {
     "name": "FooForms",
-    "version": "1.0.0-15",
+    "version": "1.0.0-16",
     "description": "Makes forms and stuff",
     "keywords": [
         "forms",
@@ -62,7 +62,6 @@
     "main": "server.js",
     "subdomain": "fooforms",
     "scripts": {
-        "prestart": "grunt deploy",
         "poststart": "grunt deploy",
         "start": "server.js"
     }
