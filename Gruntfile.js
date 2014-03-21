@@ -108,10 +108,10 @@ module.exports = function (grunt) {
                     style: 'compressed'
                 },
                 files: {
-                    'frontend/public/css/main-min.css': 'frontend/src/sass/main.scss',
-                    'frontend/public/css/signup-min.css': 'frontend/src/sass/authentication/signup.scss',
-                    'frontend/public/css/login-min.css': 'frontend/src/sass/authentication/login.scss',
-                    'frontend/public/css/fooforms-min.css': 'frontend/src/sass/fooforms.scss'
+                    'frontend/public/css/min/main.css': 'frontend/src/sass/main.scss',
+                    'frontend/public/css/min/signup.css': 'frontend/src/sass/authentication/signup.scss',
+                    'frontend/public/css/min/login.css': 'frontend/src/sass/authentication/login.scss',
+                    'frontend/public/css/min/fooforms.css': 'frontend/src/sass/fooforms.scss'
                 }
             }
         }, // End SASS
