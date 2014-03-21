@@ -32,7 +32,7 @@ var closeDatabase = function (done) {
 var dropDatabase = function (done) {
     database.connection.db.dropDatabase(function (err) {
         if (err) {
-            console.error('Error: ' + err);
+            console.error('Error: -' + err);
             return done(err);
         }
         console.log('Successfully dropped db');

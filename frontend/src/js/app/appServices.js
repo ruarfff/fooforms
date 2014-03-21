@@ -27,8 +27,8 @@ fooformsApp.service('appService', function () {
             this.app = {
                 "name": "Untitled App",
                 "icon": "/assets/icons/color/document.png",
-                "description": "My new app - it's totally awesome!",
-                "menuLabel": "Untitled App",
+                "description": "My new form!",
+                "menuLabel": "Untitled Form",
                 "btnLabel": "New Post",
                 "settings": {
                     "allowComments": true,
@@ -45,7 +45,9 @@ fooformsApp.service('appService', function () {
                 "version": 1,
                 "created": new Date(),
                 "lastModified": new Date(),
-                "owner": ""
+                "owner": "",
+                "sharing": {"type": "Private", "cloud": ""},
+                "privileges": "user"
             };
         }
         return this.app;
