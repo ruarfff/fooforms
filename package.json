@@ -1,6 +1,6 @@
 {
     "name": "FooForms",
-    "version": "1.0.0-16",
+    "version": "1.0.0-17",
     "description": "Makes forms and stuff",
     "keywords": [
         "forms",
@@ -18,7 +18,7 @@
         "url": "git@github.com/ruairitobrien/fooforms.git"
     },
     "engines": {
-        "node": ">= 0.10.0",
+        "node": ">= 0.11.0",
         "npm": ">= 1.0.0"
     },
     "dependencies": {
