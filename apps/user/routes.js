@@ -5,6 +5,7 @@ var path = require('path');
 var viewDir = path.join(global.config.apps.USER, 'views');
 var authenticator = require(global.config.apps.AUTHENTICATION);
 var userApi = require(path.join(global.config.apps.USER, 'api/userApi'));
+var userLib = require(global.config.apps.USER);
 
 var routes = function (app) {
 
@@ -38,16 +39,24 @@ var routes = function (app) {
         userApi.me(req, res);
     });
 
+    // route to test if the user is logged in or not
+    app.get('/api/user/loggedin', function(req, res) {
+        if(req.isAuthenticated()) {
+            return userApi.me(req, res);
+        }
+        res.send(401);
+    });
+
     app.put('/api/user/:id', authenticator.ensureAuthenticated, function (req, res) {
         if (req.user.id === req.params.id) {
-            userApi.updateProfile(req, res);
+            return userApi.updateProfile(req, res);
         }
+        res.send(403);
     });
 
     app.post('/api/user/check/username', function (req, res) {
         userApi.checkUserName(req, res);
     });
-
 
 };
 

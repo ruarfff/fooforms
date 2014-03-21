@@ -55,3 +55,20 @@ fooformsApp.config(function ($routeProvider, $locationProvider) {
             controller: 'appViewerCtrl'
         });
 });
+
+
+fooformsApp.controller('MainController', function ($scope, USER_ROLES, AuthService) {
+    $scope.user = null;
+    $scope.userRoles = USER_ROLES;
+    $scope.isAuthorized = AuthService.isAuthorized;
+
+    $scope.init = function () {
+        AuthService.checkUser(function (user) {
+            if(AuthService.isAuthenticated()) {
+                $scope.user = user;
+            } else {
+                alert('Noooooo!');
+            }
+        });
+    };
+});

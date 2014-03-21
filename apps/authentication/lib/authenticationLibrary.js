@@ -10,5 +10,6 @@ module.exports = {
     loginPath: loginPath,
     signupPath: signupPath,
     ensureAuthenticated: authenticator.ensureAuthenticated,
-    ensureAdmin: authenticator.ensureAdmin
+    ensureAdmin: authenticator.ensureAdmin,
+    ensureLoggedInApi: authenticator.ensureLoggedInApi
 };

@@ -102,7 +102,7 @@ var FooFormsServerApp = function () {
                 self.walk(rootModelsPath);
             }
         } catch (err) {
-            console.log(err.toString());
+            log.error(err);
         }
 
         // Look for and load any app models
@@ -116,7 +116,7 @@ var FooFormsServerApp = function () {
                         self.walk(modelsPath);
                     }
                 } catch (err) {
-                    console.log(err.toString());
+                    log.error(err);
                 }
             }
         });
@@ -124,7 +124,7 @@ var FooFormsServerApp = function () {
 
 
     /*  ================================================================  */
-    /*  Application server functions (main app logic here).                       */
+    /*  Application server functions (main app logic here).               */
     /*  ================================================================  */
 
 

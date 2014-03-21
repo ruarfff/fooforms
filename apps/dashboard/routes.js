@@ -8,9 +8,7 @@ var authLib = require(global.config.apps.AUTHENTICATION);
 var routes = function (app) {
 
     app.get('/partials/dashboard', authLib.ensureAuthenticated, function (req, res) {
-        res.render(viewDir + '/index', {
-            user: req.user
-        });
+        res.render(viewDir + '/index');
     });
 
 };
