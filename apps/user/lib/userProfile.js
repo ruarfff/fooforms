@@ -18,8 +18,7 @@ exports.userToProfile = function (user) {
             name: user.name,
             displayName: user.displayName,
             photo: user.photo,
-            email: user.email,
-            admin: user.admin
+            email: user.email
         };
     } catch (err) {
         log.error( err );

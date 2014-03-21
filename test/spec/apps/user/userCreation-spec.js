@@ -3,76 +3,15 @@
 var path = require('path');
 var should = require('should');
 var specUtil = require('../../spec-util');
-
-function getRandomInt(min, max) {
-    return Math.floor(Math.random() * (max - min + 1)) + min;
-}
+var userSpecUtil = require('./user-spec-util');
 
 describe('User creation', function () {
     var userLib;
     var cloudLib;
 
-    var mockValidUsers = [];
-    var mockInvalidUsers = [];
-
-    var mockValidUser = {};
-    var mockInvalidUser = {};
-
     before(function () {
         userLib = require(global.config.apps.USER);
         cloudLib = require(global.config.apps.CLOUD);
-    });
-
-    beforeEach(function () {
-        mockValidUsers = [
-            {
-                name: {
-                    familyName: "Test Family Name",
-                    givenName: "testGivenName",
-                    middleName: "_*^%$£@!"
-                },
-                displayName: "Happy",
-                email: "anemail@email.com",
-                password: "AVerySecurePassword123"
-            },
-            {
-                name: {
-                    familyName: "Joe",
-                    givenName: "John",
-                    middleName: "Harry"
-                },
-                displayName: "sample-user",
-                email: "testEmail1@email.com",
-                password: "testPassword"
-            },
-            {
-                name: {
-                    familyName: "Maryijshdsdhfsfhjksdjfh",
-                    givenName: "nsdknsdjknejew8973928e938",
-                    middleName: "jhdkjshfkjh kj n jjnjk "
-                },
-                displayName: "asampleusernamewithNum395",
-                email: "averylongemailaddress-938474_iohijoijojio@email.com",
-                password: "averylongtestPassword2983798749872398792837923874938274983798"
-            },
-            {
-                name: {
-                    familyName: "£hihiuhui",
-                    givenName: "0909823498",
-                    middleName: "23872873"
-                },
-                displayName: "489u9289388923",
-                email: "11229lalalalallal@email.co.uk",
-                password: "testPassword_&**&^%^*&£%$&"
-            }
-        ];
-        mockInvalidUsers = [{
-
-        }];
-
-        mockValidUser = mockValidUsers[getRandomInt(0, mockValidUsers.length - 1)];
-        mockInvalidUser = mockInvalidUsers[getRandomInt(0, mockInvalidUsers.length - 1)];
-
     });
 
     afterEach(function (done) {
@@ -81,24 +20,24 @@ describe('User creation', function () {
 
     describe('Creating a user with valid inputs', function () {
         it('should create a User', function (done) {
-            userLib.createUser(mockValidUser, function (err, user) {
+            var testUser = userSpecUtil.getMockValidUser();
+            userLib.createUser(testUser, function (err, user) {
                 if (err) return done(err);
                     should.exist(user);
-                    user.name.familyName.should.equal(mockValidUser.name.familyName);
-                    user.name.givenName.should.equal(mockValidUser.name.givenName);
-                    user.name.middleName.should.equal(mockValidUser.name.middleName);
-                    user.displayName.should.equal(mockValidUser.displayName.toLowerCase());
-                    user.password.should.not.equal(mockValidUser.password); // Password get encrypted
+                    user.name.familyName.should.equal(testUser.name.familyName);
+                    user.name.givenName.should.equal(testUser.name.givenName);
+                    user.name.middleName.should.equal(testUser.name.middleName);
+                    user.displayName.should.equal(testUser.displayName.toLowerCase());
+                    user.password.should.not.equal(testUser.password); // Password get encrypted
                     user.provider.should.equal('local');
                     user.admin.should.equal(false);
                     done();
-
-
             });
         });
 
         it('should create a User Cloud', function (done) {
-            userLib.createUser(mockValidUser, function (err, user) {
+            var testUser = userSpecUtil.getMockValidUser();
+            userLib.createUser(testUser, function (err, user) {
                 if (err) return done(err);
                 should.exist(user);
                 cloudLib.getCloudById(user.cloud, function (err, cloud) {
@@ -116,8 +55,9 @@ describe('User creation', function () {
         });
 
         it('with admin set to true should be admin and save without error', function (done) {
-            mockValidUser.admin = true;
-            userLib.createUser(mockValidUser, function (err, user) {
+            var testUser = userSpecUtil.getMockValidUser();
+            testUser.admin = true;
+            userLib.createUser(testUser, function (err, user) {
                 if (err) {
                     done(err);
                 } else {
@@ -130,13 +70,14 @@ describe('User creation', function () {
         });
 
         it('should not save and give an error when displayName is not unique', function (done) {
-            userLib.createUser(mockValidUser, function (err, user) {
+            var testUser = userSpecUtil.getMockValidUser();
+            userLib.createUser(testUser, function (err, user) {
                 if (err) {
                     done(err);
                 } else {
                     should.exist(user);
-                    user.displayName.should.equal(mockValidUser.displayName.toLowerCase());
-                    userLib.createUser(mockValidUser, function (err, user) {
+                    user.displayName.should.equal(testUser.displayName.toLowerCase());
+                    userLib.createUser(testUser, function (err, user) {
                         should.exist(err);
                         should.not.exist(user);
                         done();
@@ -148,9 +89,16 @@ describe('User creation', function () {
     });
 
 
-    describe('Creating a user with invalid inputs', function () {
-
-
-    });
+        describe('Creating a user with invalid inputs', function () {
+            it('should not create a user with invalid inputs', function (done) {
+                var testUser = userSpecUtil.getMockInvalidUser();
+                userLib.createUser(testUser, function (err, user) {
+                    should.exist(err);
+                    should.not.exist(user);
+                    done();
+                });
+            });
+            // TODO: Do better validation testing here
+        });
 
 });

@@ -41,12 +41,12 @@ appSchema.post('save', function () {
             this.url = 'apps/repo/' + this._id;
             this.save(function (err) {
                 if (err) {
-                    log.error(err.toString());
+                    log.error(err);
                 }
             });
         }
     } catch (err) {
-        log.error(err.toString());
+        log.error(err);
     }
 });
 

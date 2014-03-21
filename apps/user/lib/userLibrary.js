@@ -14,5 +14,6 @@ module.exports = {
     userErrors: userErrors,
     userToProfile: userProfile.userToProfile,
     checkDisplayName: userQuery.checkDisplayName,
+    checkEmail: userQuery.checkEmail,
     createUser: userCreator.createUser
 };

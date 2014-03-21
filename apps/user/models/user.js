@@ -188,11 +188,11 @@ userSchema.methods = {
  */
 
 userSchema.statics.findByDisplayName = function (displayName, next) {
-    this.find({ displayName: new RegExp(displayName, 'i') }, next);
+    this.findOne({ displayName: new RegExp(displayName, 'i') }, next);
 };
 
 userSchema.statics.findUserByEmail = function (email, next) {
-    this.find({ email: email }, next);
+    this.findOne({ email: email }, next);
 };
 
 exports.User = mongoose.model('User', userSchema);

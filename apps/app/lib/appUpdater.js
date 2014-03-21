@@ -24,5 +24,4 @@ exports.updateApp = function (appJson, next) {
         log.error(err.toString());
         next(err, null);
     }
-
 };

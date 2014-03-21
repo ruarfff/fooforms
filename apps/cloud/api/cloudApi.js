@@ -130,6 +130,10 @@ var addAppToCloud = function (cloudId, appId, req, res) {
     }
 };
 
+var addCloudMember = function() {
+
+};
+
 /**
  * A private utility method for handling errors in API calls.
  * TODO: Move this to some kind of reusable utility file.

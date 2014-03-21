@@ -1,6 +1,6 @@
 /*jslint node: true */
 'use strict';
-var postLib = require(global.config.apps.APPVIEWER);
+var appLib = require(global.config.apps.APP);
 var log = require(global.config.apps.LOGGING).LOG;
 
 
@@ -15,17 +15,12 @@ var createPost = function (req, res) {
             name: body.name,
             description: body.description || '',
             icon: body.icon || '',
-            owner: req.user.id,
             fields: body.fields
         };
         log.debug(JSON.stringify(postDetails));
-        postLib.createPost(postDetails, function (err, post) {
+        appLib.createPost(postDetails, req.appId, function (err, post) {
             if (err) {
                 var responseCode = 500;
-                if (err.code === 11000) {
-                    err.data = 'A post with that label already exists.';
-                    responseCode = 409;
-                }
                 handleError(res, err, responseCode);
             } else {
                 res.status(200);
@@ -40,12 +35,12 @@ var createPost = function (req, res) {
 
 var getPostById = function (req, res, id) {
     try {
-        postLib.getPostById(id, function (err, post) {
+        appLib.getPostById(id, function (err, post) {
             if (err || !post) {
                 handleError(res, err, 404);
             } else {
                 res.status(200);
-                res.send(cloud);
+                res.send(post);
             }
         });
     } catch (err) {
@@ -53,9 +48,13 @@ var getPostById = function (req, res, id) {
     }
 };
 
+var getAppPosts = function (req, res, appId) {
+
+};
+
 var getUserPosts = function (req, res) {
     try {
-        postLib.getUserPosts(req.user.id, function (err, posts) {
+        appLib.getUserPosts(req.user.id, function (err, posts) {
             if (err || !posts) {
                 handleError(res, err, 404);
             } else {
@@ -71,7 +70,7 @@ var getUserPosts = function (req, res) {
 
 var updatePost = function (req, res) {
     try {
-        postLib.updatePost(req.body, function (err, post) {
+        appLib.updatePost(req.body, function (err, post) {
             if (err || !post) {
                 handleError(res, err, 409);
             } else {
@@ -87,7 +86,7 @@ var updatePost = function (req, res) {
 var deletePost = function (req, res) {
     try {
         var id = req.body._id;
-        postLib.deletePostById(id, function (err, post) {
+        appLib.deletePostById(id, function (err, post) {
             if (err) {
                 handleError(res, err, 404);
             } else {
@@ -126,6 +125,7 @@ module.exports = {
     create: createPost,
     getPostById: getPostById,
     getUserPosts: getUserPosts,
+    getAppPosts: getAppPosts,
     update: updatePost,
     delete: deletePost
 };

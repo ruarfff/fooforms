@@ -6,7 +6,7 @@ var path = require('path');
 var viewDir = path.join(global.config.apps.APPVIEWER, 'views');
 var authenticator = require(global.config.apps.AUTHENTICATION);
 
-var postApi = require(path.join(global.config.apps.APPVIEWER, 'api/postApi'));
+var postApi = require(path.join(global.config.apps.APP, 'api/postApi'));
 
 
 var routes = function (app) {
@@ -33,12 +33,17 @@ var routes = function (app) {
      *********************************************************************************/
 
     app.get('/api/posts/:post', function (req, res) {
-        postApi.getPostById(req.params.app, res);
+        postApi.getPostById(req.params.post, res);
     });
 
 
     app.get('/api/posts', authenticator.ensureAuthenticated, function (req, res) {
         postApi.getUserPosts(req, res);
+
+    });
+
+    app.get('/api/posts/:app', authenticator.ensureAuthenticated, function (req, res) {
+        postApi.getAppPosts(req, res, req.params.app);
 
     });
 

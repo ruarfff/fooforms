@@ -6,14 +6,11 @@ var log = require(global.config.apps.LOGGING).LOG;
 exports.createApp = function (appJSON, next) {
     "use strict";
     try {
-        log.debug(JSON.stringify(appJSON));
         var app = new App(appJSON);
-        app.save(function (err) {
-            next(err, app);
-        });
+        app.save(next);
     } catch (err) {
-        log.error(err.toString());
-        next(err, null);
+        log.error(err);
+        next(err);
     }
 
 };

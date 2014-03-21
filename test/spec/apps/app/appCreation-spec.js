@@ -3,10 +3,10 @@
 
 var path = require('path');
 var should = require('should');
-var testUtil = require('../../spec-util');
+var specUtil = require('../../spec-util');
+var appSpecUtil = require('./app-spec-util');
 
 describe('Application creation functions', function () {
-    var database;
     var appLib;
 
 
@@ -15,13 +15,27 @@ describe('Application creation functions', function () {
     });
 
     afterEach(function (done) {
-        testUtil.dropDatabase(done);
+        specUtil.dropDatabase(done);
     });
 
 
     describe('Creating an app', function () {
-        it('with valid entries should save without error');
-        it('with invalid entries should not save and report an error');
+        it('with valid entries should save without error', function (done) {
+            var testApp = appSpecUtil.getMockValidApp();
+            appLib.createApp(testApp, function (err, app) {
+                if (err) return done(err);
+                should.exist(app);
+                done();
+            });
+        });
+        it('with invalid entries should not save and report an error', function (done) {
+            var testApp = appSpecUtil.getMockInvalidApp();
+            appLib.createApp(testApp, function (err, app) {
+                should.exist(err);
+                should.not.exist(app);
+                done();
+            });
+        });
     });
 
 

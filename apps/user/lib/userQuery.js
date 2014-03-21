@@ -3,5 +3,9 @@
 var log = require( global.config.apps.LOGGING ).LOG;
 
 exports.checkDisplayName = function ( displayName, next ) {
-    require( global.config.apps.CLOUD ).Cloud.findByName( { name: displayName.toLowerCase() }, next );
+    require( '../models/user' ).User.findByDisplayName( displayName.toLowerCase(), next );
+};
+
+exports.checkEmail = function ( email, next ) {
+    require( '../models/user' ).User.findUserByEmail( email, next );
 };
