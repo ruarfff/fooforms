@@ -1,10 +1,10 @@
 {
     "name": "FooForms",
-    "version": "1.0.0-7",
-    "description": "Makes forms n'stuff",
+    "version": "1.0.0-13",
+    "description": "Makes forms and stuff",
     "keywords": [
-        "Forms",
-        "Node.js",
+        "forms",
+        "node.js",
         "application"
     ],
     "author": {
@@ -62,6 +62,7 @@
     "main": "server.js",
     "subdomain": "fooforms",
     "scripts": {
+        "prestart": "grunt deploy",
         "start": "server.js"
     }
 }
