@@ -8,7 +8,7 @@
 
             <div class="panel-group" id="accordion">
 
-
+                <!-- Standard -->
                 <div class="panel panel-info">
                     <div class="panel-heading">
                         <h6 class="panel-title">
@@ -18,7 +18,35 @@
                             </a>
                         </h6>
                     </div>
-                    <div id="collapseOne" class="panel-collapse collapse in">
+                    <div id="collapseOne" class="panel-collapse collapse in row">
+                        <div class="panel-body fieldObject col-sm-4"
+                             ng-repeat="inputType in inputTypes | filterTypes:'standard'">
+
+                            <div class='btn btn-default'
+
+                                 ng-show="inputType.name"
+                                     draggable="inputType"
+                                     ng-border="showBorders(show)"
+                                     draggable-target="#appFields, .repeatBox"
+                                    >
+                            {{inputType.name}}
+                                </div>
+
+                        </div>
+                    </div>
+
+                </div>
+                <!-- USER & PEOPLE -->
+                <div class="panel panel-info">
+                    <div class="panel-heading">
+                        <h6 class="panel-title">
+                            <a class='center-block' data-toggle="collapse" data-parent="#accordion"
+                               data-target="#collapsePeople">
+                                Users & People
+                            </a>
+                        </h6>
+                    </div>
+                    <div id="collapsePeople" class="panel-collapse collapse in">
                         <div class="panel-body">
                             <div class="list-group">
                                 <div class='fieldObject list-group-item'
@@ -36,7 +64,7 @@
 
                 </div>
 
-
+                <!-- Money and Numbers -->
                 <div class="panel panel-info">
                     <div class="panel-heading">
                         <h6 class="panel-title">
@@ -64,6 +92,7 @@
                     </div>
 
                 </div>
+                <!-- Advanced -->
 
                 <div class="panel panel-info">
                     <div class="panel-heading">

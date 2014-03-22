@@ -1,11 +1,14 @@
-<div class="col-xs-12 col-sm-4 col-md-5 tall">
+<div class="col-xs-12 col-sm-4 col-md-4 slideLeft tall">
     <div id="postViewer" class="pageGroup">
 
         <div class="br0 b0 m0 alert alert-info">
             <button class="btn btn-default pull-right" ng-click="newPost()">
                 {{app.btnLabel}} <i class="fa fa-plus fa-lg"></i></button>
             <img class="icon pull-left" ng-src="{{app.icon}}">
-            <h4 class="inline">{{app.name}}</h4>
+            <h4 class="inline">{{app.name}}
+                <a href="appBuilder" ng-click='ng-click="updateApp(app)'><i
+                        class="fa fa-edit fa-lg"></i>
+                </a></h4>
 
             <p id='appDescription'>{{postObj.description}} </p>
 
@@ -20,9 +23,7 @@
                     <button class='btn btn-default' ng-click="addOptionObject($index)"><i
                             class="fa fa-th fa-lg"></i>
                     </button>
-                    <a class='btn btn-default' href="appBuilder" ng-click='ng-click="updateApp(app)'><i
-                            class="fa fa-edit fa-lg"></i>
-                    </a>
+
 
                 </div>
                 <input type="text" class="form-control" placeholder="Search...">
@@ -35,7 +36,7 @@
         </div>
         <div class="tab-content m0 p0">
             <div id="tabs-notifications" class="tab-pane active feed">
-            <div class="list-group">
+                <div class="list-group">
                     <div class="media list-group-item m0 br0"
                          ng-repeat="foo in posts" ng-click="viewPost($index)">
                         <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
@@ -56,10 +57,10 @@
 </div>
 
 
-<div class="col-xs-12 col-sm-8 col-md-7" id='mainView'>
-<div class="pageGroup">
+<div class="col-xs-12 col-sm-8 col-md-8 slideRight" id='mainView'>
+    <div class="pageGroup">
 
-        <div class="alert alert-info m0 br0 p5"><h5 class="inline">{{app.name}}</h5>
+        <div class="alert alert-info m0 br0 p10"><h5 class="inline">{{app.name}}</h5>
 
             <div class="btn-group pull-right">
                 <button id='saveApp' ng-click="savePost(postObj)"
@@ -90,7 +91,7 @@
                     <div id='appLayout' class="container">
 
                         <div class="row">
-                            <div class='col-sm-{{appField.boxSize}} under'
+                            <div class='col-sm-{{appField.boxSize}} under viewFormObject'
                                  ng-repeat="appField in postObj.fields track by $index"
                                  ng-show="appField.name"
                                     >

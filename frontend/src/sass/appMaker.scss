@@ -51,6 +51,7 @@
 .fieldObject {
 
   cursor: move;
+
 }
 
 div.fieldObject:hover {
@@ -69,8 +70,21 @@ div.fieldObject:hover {
 .appFormObject {
   margin: 0px;
   padding: 5px;
-  border: 1px solid #EFEFEF;
-  background: #fff;
+  border-top: 1px solid #fff;
+  border-right: 1px solid #cecece;
+  border-bottom: 1px solid #cecece;
+  border-left: 1px solid #fff;
+  background: #efefef;
+}
+
+.viewFormObject {
+  margin: 0px;
+  padding: 3px;
+  border-top: 1px solid #fff;
+  border-right: 1px solid #cecece;
+  border-bottom: 1px solid #cecece;
+  border-left: 1px solid #fff;
+  background: #efefef;
 }
 
 .appFormObject.selected {

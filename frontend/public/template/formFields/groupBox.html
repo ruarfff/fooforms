@@ -7,8 +7,13 @@
     </label>
 
     <div id='{{appField.id}}' class="row repeatBox"
+         subdroppable='appField.fields'
+         ng-update='updateSubObjects(from, repeatbox, to)'
+         ng-create='createSubObject(object,repeatbox, to)'
          ng-style="{'width': appField.size+'%'}"
          ng-model="appField.fields">
+
+
         <div class='col-sm-{{subField.boxSize}} under'
              ng-repeat="subField in appField.fields track by subField.id"
              ng-border="showBorders(show)"

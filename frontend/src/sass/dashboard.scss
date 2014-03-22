@@ -93,6 +93,10 @@ hr {
   padding: 5px !important;
 }
 
+.p10 {
+  padding: 10px !important;
+}
+
 .m0 {
   margin: 0px !important;
 }
@@ -138,6 +142,7 @@ ul.nav li > a > i.fa {
   margin-top: -3px;
   color: #666;
 }
+
 div.nav-profile, div.nav-search {
   display: inline;
   min-width: 100px;
@@ -167,7 +172,6 @@ li.profile > a {
 li.profile img {
   margin-right: 10px;
 }
-
 
 .in div.nav-profile {
   position: relative;
@@ -227,12 +231,47 @@ video {
   transform: scaleX(-1);
 }
 
+.slideRight {
+  position: absolute;
+  right: -2000px;
+  -webkit-animation: slideRight 0.5s forwards;
+  -webkit-animation-delay: 0.1s;
+  animation: slideRight 0.5s forwards;
+  animation-delay: 0.1s;
+}
+
 // Animations
-.slide.ng-enter, .slide.ng-leave {
-  -webkit-animation: fadeInLeft 1s;
-  -moz-animation: fadeInLeft 1s;
-  -ms-animation: fadeInLeft 1s;
-  animation: fadeInLeft 1s;
+.slideLeft {
+  position: absolute;
+  left: -2000px;
+  -webkit-animation: slide 0.5s forwards;
+  -webkit-animation-delay: 0.1s;
+  animation: slide 0.5s forwards;
+  animation-delay: 0.1s;
+}
+
+@-webkit-keyframes slide {
+  100% {
+    left: 0;
+  }
+}
+
+@keyframes slide {
+  100% {
+    left: 0;
+  }
+}
+
+@-webkit-keyframes slideRight {
+  100% {
+    right: 0;
+  }
+}
+
+@keyframes slideRight {
+  100% {
+    right: 0;
+  }
 }
 
 //Grid
