@@ -1,39 +1,36 @@
 /*jslint node: true */
-var Post = require('../models/post').Post;
+"use strict";
+
 var log = require(global.config.apps.LOGGING).LOG;
 
-exports.getPostById = function (id, next) {
-    "use strict";
+var getPostById = function (id, next) {
     try {
-        Post.findById(id, next);
+        require('../models/post').Post.findById(id, next);
     } catch (err) {
         log.error(err);
         next(err);
     }
 };
 
-exports.getAllPosts = function (next) {
-    "use strict";
+var getAllPosts = function (next) {
     try {
-        Post.find({}, next);
+        require('../models/post').Post.find({}, next);
     } catch (err) {
         log.error(err);
         next(err);
     }
 };
 
-exports.getUsersPosts = function (userId, next) {
-    "use strict";
+var getUserPosts = function (userId, next) {
     try {
-        Post.find({}, next);
+        require('../models/post').Post.find({}, next);
     } catch (err) {
         log.error(err);
         next(err);
     }
 };
 
-exports.getAppPosts = function (appId, next) {
-    "use strict";
+var getAppPosts = function (appId, next) {
     try {
         require('../models/app').App.findById(appId).populate('posts').exec(function (err, app) {
            next(err, app.posts);
@@ -42,4 +39,11 @@ exports.getAppPosts = function (appId, next) {
         log.error(err);
         next(err);
     }
+};
+
+module.exports = {
+    getAppPosts: getAppPosts,
+    getUserPosts: getUserPosts,
+    getAllPosts: getAllPosts,
+    getPostById: getPostById
 };

@@ -40,8 +40,8 @@
                 <li>
                     <hr>
                 </li>
-                <li ng-repeat="cloudItem in clouds"><a data-toggle="tab"
-                                                       data-target="#{{cloudItem._id}}">{{cloudItem.name}}</a>
+                <li ng-repeat="cloud in clouds"><a data-toggle="tab"
+                                                       data-target="#{{cloud._id}}">{{cloud.name}}</a>
                 </li>
 
             </ul>
@@ -131,17 +131,17 @@
                 </div>
 
 
-                <div ng-repeat="cloudDetail in clouds" class="tab-pane" id="{{cloudDetail._id}}">
+                <div ng-repeat="cloud in clouds" class="tab-pane" id="{{cloud._id}}">
 
                     <div class="panel panel-info">
                         <div class="panel-heading">
-                            <h3 class="panel-title">{{cloudDetail.name}}</h3>
+                            <h3 class="panel-title">{{cloud.name}}</h3>
                         </div>
                         <div class="panel-body">
 
 
                             <form novalidate class="css-form" role="form"
-                                  name="{{cloudDetail.name}}-form">
+                                  name="{{cloud.name}}-form">
                                 <div class="form-group">
                                     <label>Name</label>
                                     <input type="text" class="form-control" ng-model="cloudDetail.name"
@@ -177,12 +177,12 @@
                                     Delete
                                 </button>
                             </form>
-                            <div id="{{cloudDetail._id}}-error"
+                            <div id="{{cloud._id}}-error"
                                  class="alert alert-danger alert-dismissable"
-                                 ng-show="{{cloudDetail.name}}-form.$error">
+                                 ng-show="{{cloud.name}}-form.$error">
                                 <button type="button" class="close" data-dismiss="alert"
                                         aria-hidden="true">&times;</button>
-                                {{cloudDetail.name}}-form.$error
+                                {{cloud.name}}-form.$error
                             </div>
                         </div>
                     </div>

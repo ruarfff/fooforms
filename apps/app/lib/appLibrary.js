@@ -23,5 +23,5 @@ module.exports = {
     getAllApps: appQuery.getAllApps,
     createPost: postCreator.createPost,
     deletePostById: postDeleter.deletePostById,
-    getUsersPosts: postQuery.getUsersPosts
+    getUserPosts: postQuery.getUserPosts
 };

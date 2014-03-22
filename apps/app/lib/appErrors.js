@@ -1,6 +1,12 @@
 /*jslint node: true */
 "use strict";
 
+var ownerNotFoundError = new Error('Cloud not find application owner');
+ownerNotFoundError.http_code = 404;
+
+var folderNotFoundError = new Error('Could not find Folder to store form');
+folderNotFoundError.http_code = 404;
+
 var appNotFoundError = new Error('Could not find application');
 appNotFoundError.http_code = 404;
 
@@ -14,7 +20,9 @@ var postNotFoundError = new Error('Could not find post');
 postNotFoundError.http_code = 404;
 
 module.exports = {
-  appNotFoundError: appNotFoundError,
+    ownerNotFoundError: ownerNotFoundError,
+    folderNotFoundError: folderNotFoundError,
+    appNotFoundError: appNotFoundError,
     postNotCreatedError: postNotCreatedError,
     postDeletionError: postDeletionError,
     postNotFoundError: postNotFoundError

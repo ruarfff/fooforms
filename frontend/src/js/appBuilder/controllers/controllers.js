@@ -1,9 +1,8 @@
 /* Controllers */
 
-fooformsApp.controller('fieldsCtrl', ['$scope', '$http', 'DragDropHandler' , '$modal', 'Restangular', 'appService', function ($scope, $http, DragDropHandler, $modal, Restangular, appService) {
+fooformsApp.controller('fieldsCtrl', ['$scope', '$http', 'DragDropHandler' , '$modal', 'Restangular', 'appService', 'CloudService', 'Clouds', function ($scope, $http, DragDropHandler, $modal, Restangular, appService, CloudService, Clouds) {
     "use strict";
     var appApi = Restangular.all('apps');
-    var cloudApi = Restangular.all('clouds');
 
 
     $http.get('/js/appBuilder/inputTypes.json').success(function (data) {
@@ -13,14 +12,13 @@ fooformsApp.controller('fieldsCtrl', ['$scope', '$http', 'DragDropHandler' , '$m
 
     });
 
-    var getClouds = function () {
-        cloudApi.getList().then(function (clouds) {
-            $scope.clouds = clouds;
-        });
-    };
-    getClouds();
-
-
+    CloudService.getClouds(function(err) {
+        if(!err) {
+            $scope.clouds = Clouds.clouds;
+            $scope.privateClouds = Clouds.privateClouds;
+            $scope.publicClouds = Clouds.publicClouds;
+        }
+    });
     // the main object to store the app data
     $scope.app = appService.getApp();
     // some booleans to help track what we are editing, which tabs to enable, etc.
@@ -75,7 +73,7 @@ fooformsApp.controller('fieldsCtrl', ['$scope', '$http', 'DragDropHandler' , '$m
         } else {
             $scope.app.fields[$scope.nowEditing].fields[$scope.nowSubEditing].options.splice($index + 1, 0, {"label": ""});
         }
-    }
+    };
 // Used to add options to checkboxes i.e. Multiple selection
     $scope.addOptionObject = function ($index) {
         if ($scope.nowSubEditing == null) {
@@ -83,7 +81,7 @@ fooformsApp.controller('fieldsCtrl', ['$scope', '$http', 'DragDropHandler' , '$m
         } else {
             $scope.app.fields[$scope.nowEditing].fields[$scope.nowSubEditing].options.splice($index + 1, 0, {"label": "", "selected": false});
         }
-    }
+    };
 
 // removes options from selects, radios, etc....
     $scope.deleteOption = function ($index) {
@@ -100,12 +98,12 @@ fooformsApp.controller('fieldsCtrl', ['$scope', '$http', 'DragDropHandler' , '$m
         $scope.nowEditing = null;
         $scope.nowSubEditing = null;
         $scope.$apply();
-    }
+    };
 
     // should we show the default placeholder - i.e. - there are no formfields
     $scope.showPlaceHolder = function (container) {
         return container.length == 0
-    }
+    };
 
     // switch on/off the various option panels and track / highlight the selected form-fields
     $scope.editField = function (fieldId, subFieldId, objectType, $event) {
@@ -144,7 +142,7 @@ fooformsApp.controller('fieldsCtrl', ['$scope', '$http', 'DragDropHandler' , '$m
         angular.element('#appTabSettings').tab('show')
 
 
-    }
+    };
 
     // Set Calculation Field Options
     $scope.setCalculationField = function (selectedItem) {
@@ -154,7 +152,7 @@ fooformsApp.controller('fieldsCtrl', ['$scope', '$http', 'DragDropHandler' , '$m
         } else {
             $scope.app.fields[$scope.nowEditing].options.field1.item = "value";
         }
-    }
+    };
 
 
 //Icon Selection -  Modal Dialog

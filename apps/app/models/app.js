@@ -24,8 +24,9 @@ var appSchema = Schema({
     version: Number,
     created: Date,
     lastModified: Date,
-    owner: { type: Schema.Types.ObjectId, ref: 'User' },
+    owner: { type: Schema.Types.ObjectId, ref: 'User', required: true },
     posts: [ {type: Schema.Types.ObjectId, ref: 'Post'} ],
+    cloud: {type: Schema.Types.ObjectId, ref: 'Cloud'},
     url: String
 });
 

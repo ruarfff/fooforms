@@ -56,6 +56,7 @@ var getUserPosts = function (req, res) {
     try {
         appLib.getUserPosts(req.user.id, function (err, posts) {
             if (err || !posts) {
+                log.error(err);
                 handleError(res, err, 404);
             } else {
                 res.status(200);
@@ -63,6 +64,7 @@ var getUserPosts = function (req, res) {
             }
         });
     } catch (err) {
+        log.error(err);
         handleError(res, err, 500);
     }
 };
