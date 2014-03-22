@@ -24,11 +24,12 @@ exports.ensureAuthenticated = function check ( req, res, next ) {
  * @param next
  * @returns {*}
  */
-exports.ensureLoggedInApi = function check ( req, res, next ) {
-    if ( req.isAuthenticated() ) {
-        return next();
-    }
-    res.send(401);
+exports.ensureLoggedIn = function check ( req, res, next ) {
+    if (req.isAuthenticated()) return next();
+    res.statusCode = 401;
+    var json_resp = {};
+    if (req.method == 'GET') json_resp.returnTo = req.originalUrl
+    res.json(json_resp)
 };
 
 /**

@@ -13,7 +13,7 @@ var routes = function (app) {
      *  View Handlers
      *********************************************************************************/
 
-    app.get('/partials/profile', authenticator.ensureAuthenticated, function (req, res) {
+    app.get('/partials/profile', authenticator.ensureLoggedIn, function (req, res) {
         var user = req.user;
 
         res.render(path.join(viewDir, 'profile'), {
@@ -22,7 +22,7 @@ var routes = function (app) {
 
     });
 
-    app.get('/partials/people', authenticator.ensureAuthenticated, function (req, res) {
+    app.get('/partials/people', authenticator.ensureLoggedIn, function (req, res) {
         var user = req.user;
 
         res.render(path.join(viewDir, 'people'), {
@@ -35,7 +35,7 @@ var routes = function (app) {
      *  API
      *********************************************************************************/
 
-    app.get('/api/user/me', authenticator.ensureAuthenticated, function (req, res) {
+    app.get('/api/user/me', authenticator.ensureLoggedIn, function (req, res) {
         userApi.me(req, res);
     });
 
@@ -47,7 +47,7 @@ var routes = function (app) {
         res.send(401);
     });
 
-    app.put('/api/user/:id', authenticator.ensureAuthenticated, function (req, res) {
+    app.put('/api/user/:id', authenticator.ensureLoggedIn, function (req, res) {
         if (req.user.id === req.params.id) {
             return userApi.updateProfile(req, res);
         }

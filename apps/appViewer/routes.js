@@ -6,8 +6,6 @@ var path = require('path');
 var viewDir = path.join(global.config.apps.APPVIEWER, 'views');
 var authenticator = require(global.config.apps.AUTHENTICATION);
 
-var postApi = require(path.join(global.config.apps.APP, 'api/postApi'));
-
 
 var routes = function (app) {
 
@@ -16,7 +14,7 @@ var routes = function (app) {
      *********************************************************************************/
 
 
-    app.get('/partials/appViewer', authenticator.ensureAuthenticated, function (req, res) {
+    app.get('/partials/appViewer', authenticator.ensureLoggedIn, function (req, res) {
         var find = '/';
         var re = new RegExp(find, 'g');
 

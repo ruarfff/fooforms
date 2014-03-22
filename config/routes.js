@@ -15,11 +15,11 @@ var routes = function (app, passport) {
         res.render('index');
     });
 
-    app.get('/dashboard', authenticator.ensureAuthenticated, function (req, res) {
-        res.render('dashboard', {
-            user: req.user
-        });
-    });
+   // app.get('/dashboard', authenticator.ensureAuthenticated, function (req, res) {
+     //   res.render('dashboard', {
+       //     user: req.user
+       // });
+    //});
 
     require('../apps/admin/routes')(app);
     require('../apps/app/routes')(app);
@@ -33,13 +33,13 @@ var routes = function (app, passport) {
     require('../apps/appViewer/routes')(app);
     require('../apps/file/routes')(app);
 
-    app.get('/partials/userGuide', authenticator.ensureAuthenticated, function (req, res) {
+    app.get('/partials/userGuide', authenticator.ensureLoggedIn, function (req, res) {
         res.render('userGuide', {
             user: req.user
         });
     });
 
-    app.get('/partials/settings', authenticator.ensureAuthenticated, function (req, res) {
+    app.get('/partials/settings', authenticator.ensureLoggedIn, function (req, res) {
         res.render('settings', {
             user: req.user
         });

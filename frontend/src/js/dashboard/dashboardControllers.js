@@ -1,7 +1,5 @@
 fooformsApp.controller('DashboardCtrl', ['$scope', '$http' , '$modal', 'Restangular', 'appService', function ($scope, $http, $modal, Restangular, appService) {
     'use strict';
-    Restangular.setBaseUrl('/api');
-    Restangular.setDefaultHeaders({'Content-Type': 'application/json'});
     var appApi = Restangular.all('apps');
     var postApi = Restangular.all('posts');
     var cloudApi = Restangular.all('clouds');

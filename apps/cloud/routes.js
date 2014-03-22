@@ -13,7 +13,7 @@ var routes = function (app) {
      *  View Handlers
      *********************************************************************************/
 
-    app.get('/partials/clouds', authenticator.ensureAuthenticated, function (req, res) {
+    app.get('/partials/clouds', authenticator.ensureLoggedIn, function (req, res) {
         var user = req.user;
 
         res.render(path.join(viewDir, 'index'), {
@@ -24,23 +24,23 @@ var routes = function (app) {
      *  API
      *********************************************************************************/
 
-    app.get('/api/clouds', authenticator.ensureAuthenticated, function (req, res) {
+    app.get('/api/clouds', authenticator.ensureLoggedIn, function (req, res) {
         cloudApi.getUserClouds(req, res);
     });
 
-    app.get('/api/clouds/:id', authenticator.ensureAuthenticated, function (req, res) {
+    app.get('/api/clouds/:id', authenticator.ensureLoggedIn, function (req, res) {
         cloudApi.getCloudById(req, res, req.params.id);
     });
 
-    app.post('/api/clouds', authenticator.ensureAuthenticated, function (req, res) {
+    app.post('/api/clouds', authenticator.ensureLoggedIn, function (req, res) {
         cloudApi.create(req, res);
     });
 
-    app.put('/api/clouds', authenticator.ensureAuthenticated, function (req, res) {
+    app.put('/api/clouds', authenticator.ensureLoggedIn, function (req, res) {
         cloudApi.update(req, res);
     });
 
-    app.del('/api/clouds', authenticator.ensureAuthenticated, function (req, res) {
+    app.del('/api/clouds', authenticator.ensureLoggedIn, function (req, res) {
         cloudApi.delete(req, res);
     });
 

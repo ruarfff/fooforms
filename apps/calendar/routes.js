@@ -11,7 +11,7 @@ var routes = function (app) {
     /*********************************************************************************
      *  View Handlers
      *********************************************************************************/
-    app.get('/partials/calendar', authenticator.ensureAuthenticated, function (req, res) {
+    app.get('/partials/calendar', authenticator.ensureLoggedIn, function (req, res) {
         var user = req.user;
 
         res.render(path.join(viewDir, 'index'), {
@@ -23,7 +23,7 @@ var routes = function (app) {
      *  API
      *********************************************************************************/
 
-    app.get('/api/calendar', authenticator.ensureAuthenticated, function (req, res) {
+    app.get('/api/calendar', authenticator.ensureLoggedIn, function (req, res) {
 
 
     });

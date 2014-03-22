@@ -6,7 +6,7 @@ var authenticator = require(global.config.apps.AUTHENTICATION);
 
 var routes = function (app) {
 
-    app.get('/partials/admin', authenticator.ensureAuthenticated, function (req, res) {
+    app.get('/partials/admin', authenticator.ensureLoggedIn, function (req, res) {
         res.render(viewDir + '/index', {
             user: req.user,
             uptime: process.uptime(),

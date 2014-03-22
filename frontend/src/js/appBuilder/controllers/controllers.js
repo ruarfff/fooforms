@@ -2,8 +2,6 @@
 
 fooformsApp.controller('fieldsCtrl', ['$scope', '$http', 'DragDropHandler' , '$modal', 'Restangular', 'appService', function ($scope, $http, DragDropHandler, $modal, Restangular, appService) {
     "use strict";
-    Restangular.setBaseUrl('/api');
-    Restangular.setDefaultHeaders({'Content-Type': 'application/json'});
     var appApi = Restangular.all('apps');
     var cloudApi = Restangular.all('clouds');
 

@@ -13,7 +13,7 @@ var routes = function (app) {
     /*********************************************************************************
      *  View Handlers
      *********************************************************************************/
-    app.get('/partials/apps', authenticator.ensureAuthenticated, function (req, res) {
+    app.get('/partials/apps', authenticator.ensureLoggedIn, function (req, res) {
         var user = req.user;
 
         res.render(path.join(viewDir, 'index'), {
@@ -34,20 +34,20 @@ var routes = function (app) {
      *  API
      *********************************************************************************/
 
-    app.get('/api/apps', authenticator.ensureAuthenticated, function (req, res) {
+    app.get('/api/apps', authenticator.ensureLoggedIn, function (req, res) {
         appApi.getUserApps(req, res);
 
     });
 
-    app.post('/api/apps', authenticator.ensureAuthenticated, function (req, res) {
+    app.post('/api/apps', authenticator.ensureLoggedIn, function (req, res) {
         appApi.create(req, res);
     });
 
-    app.put('/api/apps', authenticator.ensureAuthenticated, function (req, res) {
+    app.put('/api/apps', authenticator.ensureLoggedIn, function (req, res) {
         appApi.update(req, res);
     });
 
-    app.delete('/api/apps', authenticator.ensureAuthenticated, function (req, res) {
+    app.delete('/api/apps', authenticator.ensureLoggedIn, function (req, res) {
         appApi.delete(req, res);
     });
     app.get('/api/posts/:post', function (req, res) {
@@ -55,26 +55,26 @@ var routes = function (app) {
     });
 
 
-    app.get('/api/posts', authenticator.ensureAuthenticated, function (req, res) {
+    app.get('/api/posts', authenticator.ensureLoggedIn, function (req, res) {
         postApi.getUserPosts(req, res);
 
     });
 
-    app.get('/api/posts/:app', authenticator.ensureAuthenticated, function (req, res) {
+    app.get('/api/posts/:app', authenticator.ensureLoggedIn, function (req, res) {
         postApi.getAppPosts(req, res, req.params.app);
 
     });
 
 
-    app.post('/api/posts', authenticator.ensureAuthenticated, function (req, res) {
+    app.post('/api/posts', authenticator.ensureLoggedIn, function (req, res) {
         postApi.create(req, res);
     });
 
-    app.put('/api/posts', authenticator.ensureAuthenticated, function (req, res) {
+    app.put('/api/posts', authenticator.ensureLoggedIn, function (req, res) {
         postApi.update(req, res);
     });
 
-    app.delete('/api/posts', authenticator.ensureAuthenticated, function (req, res) {
+    app.delete('/api/posts', authenticator.ensureLoggedIn, function (req, res) {
         postApi.delete(req, res);
     });
 

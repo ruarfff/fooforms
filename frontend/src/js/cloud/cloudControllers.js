@@ -1,7 +1,5 @@
 fooformsApp.controller('CloudCtrl', function ($scope, $route, Restangular) {
     "use strict";
-    Restangular.setBaseUrl('/api');
-    Restangular.setDefaultHeaders({'Content-Type': 'application/json'});
 
     var cloudApi = Restangular.all('clouds');
 
@@ -18,11 +16,25 @@ fooformsApp.controller('CloudCtrl', function ($scope, $route, Restangular) {
     $scope.nowEditing = 0;
     $scope.showBorders = function () {
 
-    }
+    };
 
     var updateCloudList = function () {
         cloudApi.getList().then(function (clouds) {
             $scope.clouds = clouds;
+
+            $scope.privateClouds = [];
+            $scope.publicClouds = [];
+
+            var index;
+            var count = clouds.length;
+
+            for(index = 0; index < count; index++) {
+               if(clouds[index].isPrivate) {
+                   $scope.privateClouds.push(clouds[index]);
+               } else {
+                   $scope.publicClouds.push(clouds[index]);
+               }
+            }
         });
     };
 
