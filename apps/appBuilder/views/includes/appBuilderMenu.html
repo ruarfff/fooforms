@@ -35,6 +35,7 @@
 
                         <div class="list-group">
                             <div class='fieldObject list-group-item btn-default'
+                                 ng-mousedown="openDesignTab()"
                                  ng-repeat="inputType in inputTypes | filterTypes:'standard'"
                                  ng-show="inputType.name"
                                  draggable="inputType"
@@ -53,7 +54,8 @@
 
                         <div class="list-group">
                             <div class='fieldObject list-group-item btn-default'
-                                 ng-repeat="inputType in inputTypes | filterTypes:'standard'"
+                                 ng-mousedown="openDesignTab()"
+                                 ng-repeat="inputType in inputTypes | filterTypes:'user'"
                                  ng-show="inputType.name"
                                  draggable="inputType"
                                  ng-border="showBorders(show)"
@@ -71,6 +73,7 @@
 
                         <div class="list-group">
                             <div class='fieldObject list-group-item btn-default'
+                                 ng-mousedown="openDesignTab()"
                                  ng-repeat="inputType in inputTypes | filterTypes:'number'"
                                  ng-show="inputType.name"
                                  draggable="inputType"
@@ -88,7 +91,8 @@
 
                         <div class="list-group">
                             <div class='fieldObject list-group-item btn-default'
-                                 ng-repeat="inputType in inputTypes | filterTypes:'standard'"
+                                 ng-mousedown="openDesignTab()"
+                                 ng-repeat="inputType in inputTypes | filterTypes:'files'"
                                  ng-show="inputType.name"
                                  draggable="inputType"
                                  ng-border="showBorders(show)"
@@ -105,6 +109,7 @@
 
                         <div class="list-group">
                             <div class='fieldObject list-group-item btn-default'
+                                 ng-mousedown="openDesignTab()"
                                  ng-repeat="inputType in inputTypes | filterTypes:'advanced'"
                                  ng-show="inputType.name"
                                  draggable="inputType"
@@ -122,6 +127,7 @@
 
                         <div class="list-group">
                             <div class='fieldObject list-group-item btn-default'
+                                 ng-mousedown="openEventTabs()"
                                  ng-repeat="eventType in formEvents"
                                  ng-show="eventType.name"
                                  draggable="eventType"

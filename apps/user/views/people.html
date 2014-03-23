@@ -1,5 +1,47 @@
-<div class="col-xs-12 col-sm-4 col-md-4 slideLeft tall ">
-    <%include ../../../frontend/views/includes/postView.html %>
+<div class="col-xs-12 col-sm-4 col-md-4 slideLeft">
+    <div id="pageViewer" class="pageGroup">
+
+        <div class="br0 alert alert-info b0 m0">
+
+
+            <img class="icon pull-left" ng-src="{{app.icon}}">
+            <h4 class="inline">{{user.displayName}}<a href="/profile/"><i class="fa fa-edit fa-lg"></i></a></h4>
+
+
+            <div class="input-group clear">
+                <div class="input-group-btn">
+                    <button class='btn btn-default' ng-click="setView('feed')"><i
+                            class="fa fa-list fa-lg"
+                            data-toggle="tooltip" data-placement="top" title="Display Posts as a regular feed"></i>
+                    </button>
+
+                    <button class='btn btn-default' ng-click="setView('grid')"><i
+                            class="fa fa-table fa-lg"
+                            data-toggle="tooltip" data-placement="top" title="Display Posts as a regular feed"></i>
+                    </button>
+                    <button class='btn btn-default' ng-click="setView('card')"><i
+                            class="fa fa-th fa-lg"></i>
+                    </button>
+                    <a class='btn btn-default' href="userGuide"><i class="fa fa-rocket fa-lg"></i>
+                    </a>
+
+                </div>
+                <input type="text" class="form-control" placeholder="Search...">
+      <span class="input-group-btn">
+        <button class="btn btn-default" type="button"><i class="fa fa-search"></i></button>
+      </span>
+            </div>
+
+
+        </div>
+        <div class="tab-content  m0 p0">
+            <div id="tabs-notifications" class="tab-pane active">
+                <div class="list-group">
+
+                </div>
+            </div>
+        </div>
+    </div>
 </div>
 <div class="col-xs-12 col-sm-8 col-md-8 slideRight" id='mainView'>
     <div class="pageGroup">
@@ -7,123 +49,18 @@
         <div id="tabs">
             <ul id='appTabs' class="nav nav-tabs">
                 <li class="active"><a data-target="#tabs-myapps" data-toggle="tab">People</a></li>
-                <li><a data-target="#tabs-download" data-toggle="tab">Share</a></li>
+
             </ul>
             <div class="tab-content white p5">
                 <div id="tabs-myapps" class="tab-pane fade in active">
 
                     <div class="row m5 p5">
-                        <div class="col-sm-4 col-md-3"
-                             ng-repeat="app in apps">
-                            <div id="thumb-{{app._id}}" ng-mouseenter="hover(app)"
-                                 ng-mouseleave="hover(app)">
-                                <a href="{{app.name}}"
-                                   ng-click="updateApp(app)">
-                                    <img src="{{app.icon}}" alt="{{app.name}}">
-                                </a>
 
-                                <div class="caption">
-                                    <h5><a class="center-block">{{app.name | uppercase}}</a></h5>
-                                </div>
-                                <a class="text-muted" href="appBuilder"
-                                   ng-click="updateApp(app)">Admin</a> | <a class="text-muted"
-                                                                            ng-click="deleteApp(app)">Delete</a>
-
-                            </div>
-                            <hr>
-                        </div>
                     </div>
 
                 </div>
 
 
-                <div id="tabs-download" class="tab-pane fade">
-
-
-                    <div class="row">
-
-                        <!-- Navigation Buttons -->
-                        <div class="col-md-3">
-                            <ul class="nav nav-pills nav-stacked" id="myTabs">
-                                <li class="active"><a data-toggle="tab" data-target="#featured">Featured Apps</a></li>
-                                <li><a data-toggle="tab" data-target="#communication">Communication</a></li>
-                                <li><a data-toggle="tab" data-target="#finance">Finance</a></li>
-                                <li><a data-toggle="tab" data-target="#contact">Contact</a></li>
-                                <li><a data-toggle="tab" data-target="#hr">HR</a></li>
-                                <li><a data-toggle="tab" data-target="#facebook">Facebook</a></li>
-                                <li><a data-toggle="tab" data-target="#software">Software Development</a></li>
-                                <li><a data-toggle="tab" data-target="#events">Events</a></li>
-                                <li><a data-toggle="tab" data-target="#dates">Calendar & Dates</a></li>
-                            </ul>
-                        </div>
-
-                        <!-- Content -->
-                        <div class="col-md-9">
-                            <div class="tab-content">
-                                <div class="tab-pane active" id="featured"><h4>Featured Apps</h4>
-
-                                    <div class="row m5 p5">
-                                        <div class="col-sm-4 col-md-4"
-                                             ng-repeat="app in apps">
-                                            <div class="thumbnail">
-                                                <img src="{{app.icon}}" alt="{{app.name}}">
-
-                                                <div class="caption">
-                                                    <a class="center-block">{{app.name | uppercase}}</a>
-                                                </div>
-
-                                                <i class="fa fa-star fa-fw"></i>
-                                                <i class="fa fa-star fa-fw"></i>
-                                                <i class="fa fa-star fa-fw"></i>
-                                                <i class="fa fa-star fa-fw"></i>
-                                                <i class="fa fa-star fa-fw"></i>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="tab-pane" id="communication"><h4>Communication</h4>
-
-                                    <div class="row m5 p5">
-                                        <div class="col-sm-4 col-md-4"
-                                             ng-repeat="app in apps">
-                                            <div class="thumbnail">
-                                                <img src="{{app.icon}}" alt="{{app.name}}">
-
-                                                <div class="caption">
-                                                    <a class="center-block">{{app.name | uppercase}}</a>
-                                                </div>
-
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="tab-pane" id="finance">Messages</div>
-                                <div class="tab-pane" id="contact">Messages</div>
-                                <div class="tab-pane" id="hr">Messages</div>
-                                <div class="tab-pane" id="facebook">Messages</div>
-                                <div class="tab-pane" id="software">Messages</div>
-                                <div class="tab-pane" id="events">Messages</div>
-                                <div class="tab-pane" id="dates">Messages</div>
-                            </div>
-                        </div>
-
-                    </div>
-
-
-                </div>
-                <div class="row">
-                    <div class="col-sm-2"></div>
-                    <div class="col-sm-8">
-                        <div class="alert alert-success">
-                            <h3 class="fooHeading">Create your own apps!</h3>
-
-                            <p>You can create your own form based apps using the FOOFORMS App Builder. </p>
-                            <a class="btn btn-success" href="appBuilder" ng-click="newApp()">Open the App
-                                Builder &raquo;</a>
-                        </div>
-                    </div>
-                    <div class="col-sm-2"></div>
-                </div>
             </div>
 
         </div>
