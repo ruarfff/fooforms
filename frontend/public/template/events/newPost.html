@@ -8,19 +8,19 @@
                 <label class="col-sm-2 control-label">From</label>
 
                 <div class="col-sm-4">
-                    <input type="email" class="form-control" placeholder="Email">
+                    <input type="email" class="form-control" placeholder="Email" ng-model="event.actionData.emailFrom">
                 </div>
             </div>
             <div class="form-group">
                 <label class="col-sm-2 control-label">To</label>
 
                 <div class="col-sm-4">
-                    <input type="email" class="form-control" placeholder="Email">
+                    <input type="email" class="form-control" placeholder="Email" ng-model="event.actionData.emailTo">
                 </div>
             </div>
 
             <div class="form-group">
-                <label class="col-sm-2 control-label">Email Title</label>
+                <label class="col-sm-2 control-label" ng-model="event.actionData.emailTitle">Email Title</label>
 
                 <div class="col-sm-10">
                     <input class="form-control">
@@ -30,7 +30,8 @@
                 <label class="col-sm-2 control-label">Email Body</label>
 
                 <div class="col-sm-10">
-                    <textarea class="form-control"></textarea>
+                    <textarea class="form-control"
+                              ng-model="event.actionData.emailContent"></textarea>
                 </div>
             </div>
         </form>

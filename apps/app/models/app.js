@@ -27,7 +27,10 @@ var appSchema = Schema({
     owner: { type: Schema.Types.ObjectId, ref: 'User', required: true },
     posts: [ {type: Schema.Types.ObjectId, ref: 'Post'} ],
     cloud: {type: Schema.Types.ObjectId, ref: 'Cloud'},
-    url: String
+    url: String,
+    formEvents: [],
+    sharing: {},
+    privileges: String
 });
 
 appSchema.pre('save', function (next) {
