@@ -24,9 +24,9 @@
                 <button ng-click="saveApp(app)" class="btn btn-default btn-sm"><i class="fa fa-save"></i> Save</button>
             </div>
             <ul id='appTabs' class="nav nav-tabs">
-                <li class="active"><a data-target="#tabs-newApp" data-toggle="tab">Design</a></li>
+                <li class="active"><a id="designTab" data-target="#tabs-newApp" data-toggle="tab">Design</a></li>
                 <li><a data-target="#tabs-settings" data-toggle="tab">Sharing</a></li>
-                <li><a data-target="#tabs-events" data-toggle="tab">Form Events</a></li>
+                <li><a id="eventsTab" data-target="#tabs-events" data-toggle="tab">Form Events</a></li>
                 <li><a data-target="#tabs-publish" data-toggle="tab">Preview</a></li>
             </ul>
             <div class="tab-content white p5">
@@ -159,24 +159,37 @@
                 <div id="tabs-events" class="tab-pane">
 
                     <h4 class="text-info">Form Events</h4>
-                    <button class="btn btn-default">Add a Form Event</button>
-                    <div class="row">
-                        <div class="col-sm-2">When<select>
-                            <option>New Post</option>
-                            <option>Post Status Changes</option>
-                        </select>
+
+                    <div class="appLayout container"
+                         ng-class="{ 'newForm': app.formEvents.length==0}">
+
+                        <div id='appEvents' class="row"
+                             droppable='app.formEvents'
+                             ng-update='updateEvents(from, to)'
+                             ng-create='createEvent(object, to)'
+                                >
+                            <div class='col-sm-12 under'
+                                 ng-repeat="event in app.formEvents track by $index"
+                                 ng-show="event.name"
+                                 ng-border="showBorders(show)"
+                                 ng-click="editEvent($index,null,'Field', $event)"
+                                 ng-class="{ 'selected': $index == nowEditing ,'dragging' : dragging}">
+                                <div class="btn-group pull-right onTop">
+
+                                    <button ng-click="editEvent($index, null, 'Field', $event)"
+                                            class='btn btn-xs btn-default'
+                                            >{{$index}}
+                                    </button>
+                                    <button ng-click='deleteEvent(event.id)'
+                                            class='btn btn-xs btn-danger'
+                                            ng-show="$index == nowEditing">X
+                                    </button>
+                                </div>
+                                <div ng-include='event.template' class="under"></div>
+                            </div>
                         </div>
 
-                        <div class="col-sm-2">Then<select>
-                            <option>Send an Email</option>
-                            <option>Send a Status Notification</option>
-                        </select>
                         </div>
-
-                        <div class="col-sm-8">
-                            <textarea class="form-control"></textarea>
-                        </div>
-                    </div>
                 </div>
 
 

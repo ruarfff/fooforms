@@ -323,6 +323,42 @@
 "value" : ""
 }
 ]
+,"events" :[
+{
+"type": "NewPost",
+"name": "New Post",
+"description": "Triggerd when a new post is created.",
+"action": "Email",
+"actionData": {
+"emailFrom": "",
+"emailTo": "",
+"emailTitle": "",
+"emailContent": ""},
+"template": "/template/events/newPost.html"
+},
+{
+"type": "updatePost",
+"name": "Post Updated",
+"description": "Triggerd when a post is updated.",
+"action": "Email",
+"actionData": {
+"emailFrom": "",
+"emailTo": "",
+"emailTitle": "",
+"emailContent": ""}
+},
+{
+"type": "statusChange",
+"name": "Status Change",
+"description": "Triggerd when the status of a post is changed.",
+"action": "Email",
+"actionData": {
+"emailFrom": "",
+"emailTo": "",
+"emailTitle": "",
+"emailContent": ""}
+}
+]
 ,
 "icons" :
 [

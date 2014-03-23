@@ -47,7 +47,8 @@ fooformsApp.service('appService', function () {
                 "lastModified": new Date(),
                 "owner": "",
                 "sharing": {"type": "Private", "cloud": ""},
-                "privileges": "user"
+                "privileges": "user",
+                "formEvents": []
             };
         }
         return this.app;
