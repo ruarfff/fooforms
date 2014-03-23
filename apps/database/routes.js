@@ -9,7 +9,7 @@ var authLib = require( global.config.apps.AUTHENTICATION );
 var routes = function ( app ) {
 
     // TODO: Move this to admin app
-    app.get( '/admin/database', authLib.ensureAdmin, function ( req, res ) {
+    app.get( '/admin/database', authLib.ensureLoggedIn, function ( req, res ) {
 
         database.connection.db.collectionNames( function ( err, names ) {
             res.render( viewDir + '/viewer', {

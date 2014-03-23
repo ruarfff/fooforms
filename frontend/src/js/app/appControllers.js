@@ -1,8 +1,6 @@
 fooformsApp.controller('AppsCtrl', ['$scope', 'Restangular', 'appService',
     function ($scope, Restangular, appService) {
         'use strict';
-        Restangular.setBaseUrl('/api');
-        Restangular.setDefaultHeaders({'Content-Type': 'application/json'});
         var appApi = Restangular.all('apps');
         $scope.appUrl = ''; // Temporary helper variable to view app JSON
         $scope.appName = '';

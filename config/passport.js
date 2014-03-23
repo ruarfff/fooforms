@@ -17,7 +17,7 @@ module.exports = function ( passport ) {
         try {
             done( null, user.id );
         } catch ( err ) {
-            log.error( err.toString() );
+            log.error( err );
         }
     } );
 
@@ -29,7 +29,7 @@ module.exports = function ( passport ) {
                 done( err, user );
             } );
         } catch ( err ) {
-            log.error( err.toString() );
+            log.error( err );
         }
     } );
 

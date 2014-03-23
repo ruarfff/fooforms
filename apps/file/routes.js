@@ -13,7 +13,7 @@ var routes = function (app) {
      *  View Handlers
      *********************************************************************************/
 
-    app.get('/partials/file', authenticator.ensureAuthenticated, function (req, res) {
+    app.get('/partials/file', authenticator.ensureLoggedIn, function (req, res) {
         var user = req.user;
 
         res.render(path.join(viewDir, 'index'), {
@@ -24,23 +24,23 @@ var routes = function (app) {
      *  API
      *********************************************************************************/
 
-    app.get('/api/file', authenticator.ensureAuthenticated, function (req, res) {
+    app.get('/api/file', authenticator.ensureLoggedIn, function (req, res) {
         fileApi.getUserFiles(req, res);
     });
 
-    app.get('/api/file/:id', authenticator.ensureAuthenticated, function (req, res) {
+    app.get('/api/file/:id', authenticator.ensureLoggedIn, function (req, res) {
         fileApi.getFileById(req, res, req.params.id);
     });
 
-    app.post('/api/file', authenticator.ensureAuthenticated, function (req, res) {
+    app.post('/api/file', authenticator.ensureLoggedIn, function (req, res) {
         fileApi.create(req, res);
     });
 
-    app.put('/api/file', authenticator.ensureAuthenticated, function (req, res) {
+    app.put('/api/file', authenticator.ensureLoggedIn, function (req, res) {
         fileApi.update(req, res);
     });
 
-    app.del('/api/file', authenticator.ensureAuthenticated, function (req, res) {
+    app.del('/api/file', authenticator.ensureLoggedIn, function (req, res) {
         fileApi.delete(req, res);
     });
 

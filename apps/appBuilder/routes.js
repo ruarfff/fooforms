@@ -10,7 +10,7 @@ var authentication = require(global.config.apps.AUTHENTICATION);
 
 var routes = function (app) {
 
-    app.get('/partials/appBuilder', authentication.ensureAuthenticated, function (req, res) {
+    app.get('/partials/appBuilder', authentication.ensureLoggedIn, function (req, res) {
         var find = '/';
         var re = new RegExp(find, 'g');
 

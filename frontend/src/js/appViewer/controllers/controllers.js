@@ -1,12 +1,7 @@
 /* Controllers */
 
-fooformsApp.controller('appViewerCtrl', ['$scope', '$http' , '$modal', 'Restangular', 'appService', function ($scope, $http, $modal, Restangular, appService) {
+fooformsApp.controller('appViewerCtrl', ['$scope', '$http' , '$modal', 'Restangular', 'appService','PostService', 'Posts', function ($scope, $http, $modal, Restangular, appService, PostService, Posts) {
     "use strict";
-    Restangular.setBaseUrl('/api');
-    Restangular.setDefaultHeaders({'Content-Type': 'application/json'});
-    var appApi = Restangular.all('apps');
-    var postApi = Restangular.all('posts');
-
 
     // the main object to store the app data
     $scope.app = appService.getApp();
@@ -15,24 +10,19 @@ fooformsApp.controller('appViewerCtrl', ['$scope', '$http' , '$modal', 'Restangu
     // some booleans to help track what we are editing, which tabs to enable, etc.
     // used in ng-show in appBuilderMenu
 
-    var getPosts = function () {
-        postApi.getList().then(function (posts) {
-            $scope.posts = posts;
-            if ($scope.posts.length > 10) { // change back to zero once posts filtered by app is done.
-                $scope.postObj = $scope.posts[0];
-            } else {
-                $scope.postObj = angular.copy($scope.app);
-                $scope.postObj.appId = $scope.postObj._id;
-                $scope.postObj._id = null;
-            }
-        });
-    };
+    PostService.getPosts(function (err) {
+       if(!err) {
+           $scope.posts = Posts.posts;
+           if ($scope.posts.length > 10) { // change back to zero once posts filtered by app is done.
+               $scope.postObj = $scope.posts[0];
+           } else {
+               $scope.postObj = angular.copy($scope.app);
+               $scope.postObj.appId = $scope.postObj._id;
+               $scope.postObj._id = null;
+           }
+       }
+    });
 
-    // Get all the existing apps and save them in the scope
-    getPosts();
-
-
-// End Icon Selection -  Modal Dialog
 
     $scope.savePost = function (postToSave) {
         console.log(JSON.stringify(postToSave));

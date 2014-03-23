@@ -1,10 +1,7 @@
-fooformsApp.controller('DashboardCtrl', ['$scope', '$http' , '$modal', 'Restangular', 'appService', function ($scope, $http, $modal, Restangular, appService) {
+fooformsApp.controller('DashboardCtrl', ['$scope', '$http' , '$modal', 'Restangular', 'appService', 'CloudService', 'Clouds', 'PostService', 'Posts', function ($scope, $http, $modal, Restangular, appService, CloudService, Clouds, PostService, Posts) {
     'use strict';
-    Restangular.setBaseUrl('/api');
-    Restangular.setDefaultHeaders({'Content-Type': 'application/json'});
     var appApi = Restangular.all('apps');
-    var postApi = Restangular.all('posts');
-    var cloudApi = Restangular.all('clouds');
+
 
     $scope.posts = {};
 
@@ -18,16 +15,6 @@ fooformsApp.controller('DashboardCtrl', ['$scope', '$http' , '$modal', 'Restangu
     $scope.gridOptions = { data: 'gridData' };
 
 
-    // some booleans to help track what we are editing, which tabs to enable, etc.
-    // used in ng-show in appBuilderMenu
-
-    var getPosts = function () {
-        postApi.getList().then(function (posts) {
-            $scope.posts = posts;
-            $scope.postObj = $scope.posts[0];
-            posts2Grid();
-        });
-    };
 
     var posts2Grid = function () {
 
@@ -38,7 +25,7 @@ fooformsApp.controller('DashboardCtrl', ['$scope', '$http' , '$modal', 'Restangu
 
                 var reduce = _.pick(field, 'label', 'value');
                 tempPosts.push(reduce);
-            })
+            });
             $scope.gridData.push(tempPosts);
 
         })
@@ -49,12 +36,6 @@ fooformsApp.controller('DashboardCtrl', ['$scope', '$http' , '$modal', 'Restangu
     var getApps = function () {
         appApi.getList().then(function (apps) {
             $scope.apps = apps;
-        });
-    };
-
-    var getClouds = function () {
-        cloudApi.getList().then(function (clouds) {
-            $scope.clouds = clouds;
         });
     };
 
@@ -76,10 +57,22 @@ fooformsApp.controller('DashboardCtrl', ['$scope', '$http' , '$modal', 'Restangu
                 $scope.selectedView = "/partials/dashboardCard.html";
                 break;
         }
-    }
+    };
+
+    CloudService.getClouds(function(err) {
+        if(!err) {
+            $scope.privateClouds = Clouds.privateClouds;
+            $scope.publicClouds = Clouds.publicClouds;
+        }
+    });
+    PostService.getPosts(function (err) {
+       if(!err) {
+           $scope.posts = Posts.posts;
+           $scope.postObj = $scope.posts[0];
+           posts2Grid();
+       }
+    });
 
     // Get all the existing apps and save them in the scope
-    getPosts();
     getApps();
-    getClouds();
 }]);

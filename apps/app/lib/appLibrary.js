@@ -9,6 +9,7 @@ var appUpdater = require('./appUpdater');
 var appQuery = require('./appQuery');
 var postCreator = require('./postCreator');
 var postDeleter = require('./postDeleter');
+var postQuery = require('./postQuery');
 
 module.exports = {
     App: App,
@@ -21,5 +22,6 @@ module.exports = {
     getAppsByUserId: appQuery.getAppsByUserId,
     getAllApps: appQuery.getAllApps,
     createPost: postCreator.createPost,
-    deletePostById: postDeleter.deletePostById
+    deletePostById: postDeleter.deletePostById,
+    getUserPosts: postQuery.getUserPosts
 };
