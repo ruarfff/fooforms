@@ -80,7 +80,12 @@ var getCloudPosts = function (cloudId, next) {
 var getAppPosts = function (appId, next) {
     try {
         require('../models/app').App.findById(appId).populate('posts').exec(function (err, app) {
-            next(err, app.posts);
+            if (err) return next(err);
+            if (app) {
+                next(err, app.posts);
+            } else {
+                return next(appErrors.appNotFoundError);
+            }
         });
     } catch (err) {
         log.error(err);
