@@ -1,23 +1,20 @@
-<div id="postViewer">
-    <div class="modal-footer">
-        <button class="btn" onclick="$('#postViewer').fadeOut();">Close</button>
-        <button class="btn btn-danger" onclick='deletePost()'>Delete</button>
-        <button class="btn btn-success" onclick='updatePost()'>Save changes</button>
-    </div>
-    <div>
-        <div id='nowViewingModal' class='nowViewing'>
-            <img src=''/>
+<div id='appLayout' class="container">
 
-            <h1 id="ModalLabel">Modal header</h1>
+    <div class="row">
+        <div class='col-sm-{{appField.boxSize}} under viewFormObject'
+             ng-repeat="appField in postObj.fields track by $index"
+             ng-show="appField.name"
+                >
+
+            <div ng-include='appField.template'></div>
         </div>
-        <div id='theModalFormDescription' class='alert alert-warning m0'>
-        </div>
-        <div id='formStatusMsg' class='alert alert-success m0 hide'>
-        </div>
+
+
     </div>
-    <div id='postContent' class="alert alert-info m0">
-        <img src='/assets/images/ajax-loader.gif'/>
-    </div>
+
 
 </div>
+
+
+
 
