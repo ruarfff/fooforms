@@ -62,6 +62,7 @@ var getCloudPosts = function (cloudId, next) {
         require(global.config.apps.CLOUD).Cloud.findById(cloudId).populate('apps').exec(function(err, cloud) {
             require('../models/app').App.populate(cloud.apps, 'posts', function(err, apps) {
                 if (err) return next(err);
+                if (!cloud) return next(appErrors.userCloudsNotFound);
                 var cloudPosts = [];
                 apps.forEach(function (app) {
                     app.posts.forEach(function (post) {

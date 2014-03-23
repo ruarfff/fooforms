@@ -96,6 +96,9 @@ fooformsApp.controller('MainController', function ($scope, $location, USER_ROLES
         AuthService.checkUser(function (user) {
             if (AuthService.isAuthenticated()) {
                 $scope.user = user;
+                if (!$scope.user.photo) {
+                    $scope.user.photo = '/assets/images/photo.jpg';
+                }
             } else {
                 window.location.href = '/login';
             }
