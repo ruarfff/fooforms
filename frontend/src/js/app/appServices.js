@@ -70,7 +70,7 @@ fooformsApp.service('Apps', function () {
         var count = this.apps.length;
 
         for (index = 0; index < count; index++) {
-            if(this.apps[index]._id == app._id) {
+            if (this.apps[index]._id == app._id) {
                 this.apps[index] = post;
             }
         }
@@ -81,7 +81,7 @@ fooformsApp.service('Apps', function () {
         var count = this.apps.length;
 
         for (index = 0; index < count; index++) {
-            if(this.apps[index]._id == app._id) {
+            if (this.apps[index]._id == app._id) {
                 this.apps.splice(index, 1);
             }
         }
@@ -92,7 +92,7 @@ fooformsApp.service('Apps', function () {
         var count = this.apps.length;
 
         for (index = 0; index < count; index++) {
-            if(this.apps[index]._id == id) {
+            if (this.apps[index]._id == id) {
                 return this.apps[index];
             }
         }
@@ -135,16 +135,6 @@ fooformsApp.service('Apps', function () {
             };
         }
         return this.app;
-    };
-    this.newPost = function () {
-        this.postObj = angular.copy(this.app);
-        this.postObj._id = null;
-        return this.postObj;
-    };
-
-    this.setPost = function (newPost) {
-        this.postObj = newPost;
-        return this.postObj;
     };
 
     return this;

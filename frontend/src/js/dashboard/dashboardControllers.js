@@ -2,12 +2,11 @@ fooformsApp.controller('DashboardCtrl', ['$scope', '$http' , '$modal', 'Restangu
     'use strict';
     // the main object to store the app data
     $scope.app = Apps.getCurrentApp();
-    $scope.posts = {};
+    $scope.posts = [];
     $scope.selectedView = "/partials/dashboardFeed.html";
 
     $scope.gridData = [];
     $scope.gridOptions = { data: 'gridData' };
-
 
 
     var posts2Grid = function () {
@@ -43,21 +42,21 @@ fooformsApp.controller('DashboardCtrl', ['$scope', '$http' , '$modal', 'Restangu
         }
     };
 
-    CloudService.getClouds(function(err) {
-        if(!err) {
+    CloudService.getClouds(function (err) {
+        if (!err) {
             $scope.privateClouds = Clouds.privateClouds;
             $scope.publicClouds = Clouds.publicClouds;
         }
     });
     PostService.getUserPosts(function (err) {
-       if(!err) {
-           $scope.posts = Posts.posts;
-           $scope.postObj = $scope.posts[0];
-           posts2Grid();
-       }
+        if (!err) {
+            $scope.posts = Posts.posts;
+            $scope.postObj = $scope.posts[0];
+            posts2Grid();
+        }
     });
     AppService.getUserApps(function (err) {
-        if(!err) {
+        if (!err) {
             $scope.apps = Apps.apps;
         }
     });

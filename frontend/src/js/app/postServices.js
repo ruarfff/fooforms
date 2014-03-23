@@ -41,7 +41,7 @@ fooformsApp.factory('PostService', function (Restangular, Posts) {
             });
         },
         getCloudPosts: function (cloud, next) {
-            postApi.getList(cloud._id).then(function (posts) {
+            Restangular.all('cloud/posts').getList({cloudId: cloud._id}).then(function (posts) {
                 Posts.updateAll(posts);
                 next();
             }, function (err) {
@@ -51,7 +51,7 @@ fooformsApp.factory('PostService', function (Restangular, Posts) {
             });
         },
         getAppPosts: function (app, next) {
-            postApi.getList(app._id).then(function (posts) {
+            Restangular.all('app/posts').getList({ appId: app._id}).then(function (posts) {
                 Posts.updateAll(posts);
                 next();
             }, function (err) {
@@ -64,6 +64,17 @@ fooformsApp.factory('PostService', function (Restangular, Posts) {
 });
 
 fooformsApp.service('Posts', function () {
+    this.newPost = function (app) {
+        this.postObj = angular.copy(app);
+        this.postObj.app = app._id;
+        this.postObj._id = null;
+        return this.postObj;
+    };
+
+    this.setPost = function (newPost) {
+        this.postObj = newPost;
+        return this.postObj;
+    };
     this.updateAll = function (posts) {
         this.posts = posts;
     };

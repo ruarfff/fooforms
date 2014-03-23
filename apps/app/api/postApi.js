@@ -10,6 +10,7 @@ var log = require(global.config.apps.LOGGING).LOG;
 var createPost = function (req, res) {
     try {
         log.debug('creating post');
+        log.debug(JSON.stringify(req.body));
         var body = req.body;
         var postDetails = {
             name: body.name,
@@ -17,7 +18,7 @@ var createPost = function (req, res) {
             icon: body.icon || '',
             fields: body.fields
         };
-        appLib.createPost(postDetails, req.appId, function (err, post) {
+        appLib.createPost(postDetails, req.body.app, function (err, post) {
             if (err || !post) {
                 var responseCode = 500;
                 handleError(res, err, responseCode);
@@ -50,7 +51,7 @@ var getPostById = function (req, res, id) {
 
 var getAppPosts = function (req, res, appId) {
     try {
-        appLib.getAppPosts(appId, function(err, posts) {
+        appLib.getAppPosts(appId, function (err, posts) {
             if (err || !posts) {
                 handleError(res, err, 404);
             } else {
@@ -65,14 +66,14 @@ var getAppPosts = function (req, res, appId) {
 
 var getCloudPosts = function (req, res, cloudId) {
     try {
-    appLib.getCloudPosts(cloudId, function(err, posts) {
-        if (err || !posts) {
-            handleError(res, err, 404);
-        } else {
-            res.status(200);
-            res.send(posts);
-        }
-    });
+        appLib.getCloudPosts(cloudId, function (err, posts) {
+            if (err || !posts) {
+                handleError(res, err, 404);
+            } else {
+                res.status(200);
+                res.send(posts);
+            }
+        });
     } catch (err) {
         handleError(res, err, 500);
     }

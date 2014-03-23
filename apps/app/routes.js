@@ -38,42 +38,40 @@ var routes = function (app) {
         appApi.getUserApps(req, res);
     });
 
+    app.get('/api/posts', authenticator.ensureLoggedIn, function (req, res) {
+        if (req.query.postId) {
+            postApi.getPostById(req.query.postId, res);
+        } else {
+            postApi.getUserPosts(req, res);
+        }
+    });
+
+    app.get('/api/app/posts', authenticator.ensureLoggedIn, function (req, res) {
+        postApi.getAppPosts(req, res, req.query.appId);
+    });
+
+    app.get('/api/cloud/posts', authenticator.ensureLoggedIn, function (req, res) {
+        postApi.getCloudPosts(req, res, req.query.cloudId);
+    });
+
     app.post('/api/apps', authenticator.ensureLoggedIn, function (req, res) {
         appApi.create(req, res);
-    });
-
-    app.put('/api/apps', authenticator.ensureLoggedIn, function (req, res) {
-        appApi.update(req, res);
-    });
-
-    app.delete('/api/apps', authenticator.ensureLoggedIn, function (req, res) {
-        appApi.delete(req, res);
-    });
-    app.get('/api/posts/:post', function (req, res) {
-        postApi.getPostById(req.params.post, res);
-    });
-
-
-    app.get('/api/posts', authenticator.ensureLoggedIn, function (req, res) {
-        postApi.getUserPosts(req, res);
-    });
-
-    app.get('/api/posts/:app', authenticator.ensureLoggedIn, function (req, res) {
-        postApi.getAppPosts(req, res, req.params.app);
-
-    });
-
-    app.get('/api/posts/:cloud', authenticator.ensureLoggedIn, function (req, res) {
-        postApi.getCloudPosts(req, res, req.params.cloud);
-
     });
 
     app.post('/api/posts', authenticator.ensureLoggedIn, function (req, res) {
         postApi.create(req, res);
     });
 
+    app.put('/api/apps', authenticator.ensureLoggedIn, function (req, res) {
+        appApi.update(req, res);
+    });
+
     app.put('/api/posts', authenticator.ensureLoggedIn, function (req, res) {
         postApi.update(req, res);
+    });
+
+    app.delete('/api/apps', authenticator.ensureLoggedIn, function (req, res) {
+        appApi.delete(req, res);
     });
 
     app.delete('/api/posts', authenticator.ensureLoggedIn, function (req, res) {

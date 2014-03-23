@@ -152,8 +152,7 @@ fooformsApp.controller('fieldsCtrl', ['$scope', '$http', 'DragDropHandler' , '$m
 
         }
         $event.stopPropagation();
-        angular.element('#appTabSettings').tab('show')
-
+        angular.element('#appTabSettings').tab('show');
 
     };
 
@@ -170,10 +169,10 @@ fooformsApp.controller('fieldsCtrl', ['$scope', '$http', 'DragDropHandler' , '$m
     $scope.openEventTabs = function () {
         angular.element('#eventsTab').tab('show');
         angular.element('#sideEventTab').tab('show');
-    }
+    };
     $scope.openDesignTab = function () {
         angular.element('#designTab').tab('show')
-    }
+    };
 
 //Icon Selection -  Modal Dialog
     $scope.open = function () {
@@ -198,9 +197,8 @@ fooformsApp.controller('fieldsCtrl', ['$scope', '$http', 'DragDropHandler' , '$m
     $scope.saveApp = function (appToSave) {
         console.log(JSON.stringify(appToSave));
         if (appToSave._id) {
-            // Post already exists on server
-            AppService.updateApp(appToSave, function(err) {
-                if(err) {
+            AppService.updateApp(appToSave, function (err) {
+                if (err) {
                     console.log(err.toString());
                 } else {
                     $scope.app = Apps.findById(appToSave._id);
@@ -209,7 +207,7 @@ fooformsApp.controller('fieldsCtrl', ['$scope', '$http', 'DragDropHandler' , '$m
             });
         } else {
             AppService.createApp(appToSave, function (err, appId) {
-                if(err) {
+                if (err) {
                     console.log(err.toString());
                 } else {
                     $scope.app = Apps.findById(appId);
