@@ -6,11 +6,12 @@ fooformsApp.controller('fieldsCtrl', ['$scope', '$http', 'DragDropHandler' , '$m
 
         $scope.inputTypes = data.inputTypes;
         $scope.icons = data.icons;
+        $scope.formEvents = data.events;
 
     });
 
-    CloudService.getClouds(function(err) {
-        if(!err) {
+    CloudService.getClouds(function (err) {
+        if (!err) {
             $scope.clouds = Clouds.clouds;
             $scope.privateClouds = Clouds.privateClouds;
             $scope.publicClouds = Clouds.publicClouds;
@@ -63,6 +64,21 @@ fooformsApp.controller('fieldsCtrl', ['$scope', '$http', 'DragDropHandler' , '$m
             return field.id == itemId;
         });
     }
+
+// Drag Drop Events
+    $scope.updateEvents = function (from, to) {
+
+        $scope.dragging = false;
+    };
+
+    $scope.createEvent = function (object, to) {
+        var newItem = angular.copy(object);
+        newItem.id = Math.ceil(Math.random() * 1000);
+        DragDropHandler.addObject(newItem, $scope.app.formEvents, to);
+        $scope.dragging = false;
+    };
+
+
 // Used to add options to selects, radios, i.e. Single selection
     $scope.addOption = function ($index) {
         if ($scope.nowSubEditing == null) {
@@ -151,6 +167,13 @@ fooformsApp.controller('fieldsCtrl', ['$scope', '$http', 'DragDropHandler' , '$m
         }
     };
 
+    $scope.openEventTabs = function () {
+        angular.element('#eventsTab').tab('show');
+        angular.element('#sideEventTab').tab('show');
+    }
+    $scope.openDesignTab = function () {
+        angular.element('#designTab').tab('show')
+    }
 
 //Icon Selection -  Modal Dialog
     $scope.open = function () {

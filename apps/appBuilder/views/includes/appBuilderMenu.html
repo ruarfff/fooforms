@@ -6,123 +6,147 @@
 <div class="tab-content white p5">
 <div id="appTabs-fields" class="tab-pane active">
 
-    <div class="panel-group" id="accordion">
 
-        <!-- Standard -->
-        <div class="panel panel-info">
-            <div class="panel-heading">
-                <h6 class="panel-title">
-                    <a class='center-block' data-toggle="collapse" data-parent="#accordion"
-                       data-target="#collapseOne">
-                        Standard
-                    </a>
-                </h6>
-            </div>
-            <div id="collapseOne" class="panel-collapse collapse in row">
-                <div class="panel-body fieldObject col-sm-4"
-                     ng-repeat="inputType in inputTypes | filterTypes:'standard'">
+    <div class="row">
 
-                    <div class='btn btn-default'
+        <!-- Navigation Buttons -->
+        <div class="col-sm-6">
+            <ul class="nav nav-pills nav-stacked" id="myTabs">
+                <li class="active"><a data-toggle="tab" data-target="#standard" ng-click="openDesignTab()">Standard</a>
+                </li>
+                <li><a data-toggle="tab" data-target="#users" ng-click="openDesignTab()">Users & People</a></li>
+                <li><a data-toggle="tab" data-target="#numbers" ng-click="openDesignTab()">Numbers & Money</a>
+                </li>
+                <li><a data-toggle="tab" data-target="#images" ng-click="openDesignTab()">Images & Files</a>
+                </li>
+                <li><a data-toggle="tab" data-target="#advanced" ng-click="openDesignTab()">Advanced</a></li>
+                <li><a id='sideEventTab' data-toggle="tab" data-target="#events" ng-click="openEventTabs()">Events</a>
+                </li>
 
-                         ng-show="inputType.name"
-                         draggable="inputType"
-                         ng-border="showBorders(show)"
-                         draggable-target="#appFields, .repeatBox"
-                            >
-                        {{inputType.name}}
-                    </div>
-
-                </div>
-            </div>
-
-        </div>
-        <!-- USER & PEOPLE -->
-        <div class="panel panel-info">
-            <div class="panel-heading">
-                <h6 class="panel-title">
-                    <a class='center-block' data-toggle="collapse" data-parent="#accordion"
-                       data-target="#collapsePeople">
-                        Users & People
-                    </a>
-                </h6>
-            </div>
-            <div id="collapsePeople" class="panel-collapse collapse in">
-                <div class="panel-body">
-                    <div class="list-group">
-                        <div class='fieldObject list-group-item'
-                             ng-repeat="inputType in inputTypes | filterTypes:'standard'"
-                             ng-show="inputType.name"
-                             draggable="inputType"
-                             ng-border="showBorders(show)"
-                             draggable-target="#appFields, .repeatBox"
-                                >
-                            {{inputType.name}}
-                        </div>
-                    </div>
-                </div>
-            </div>
-
+            </ul>
         </div>
 
-        <!-- Money and Numbers -->
-        <div class="panel panel-info">
-            <div class="panel-heading">
-                <h6 class="panel-title">
-                    <a class='center-block' data-toggle="collapse" data-parent="#accordion"
-                       data-target="#collapseTwo">
-                        Money & Numbers
-                    </a>
-                </h6>
-            </div>
-            <div id="collapseTwo" class="panel-collapse collapse">
-                <div class="panel-body">
-                    <div class="list-group">
-                        <div class='fieldObject list-group-item'
-                             ng-repeat="inputType2 in inputTypes | filterTypes:'number'"
-                             ng-show="inputType2.name"
-                             draggable="inputType2"
-                             ng-border="showBorders(show)"
-                             ng-showBorder="showBorders(show)"
-                             draggable-target="#appFields, .repeatBox"
-                                >
-                            {{inputType2.name}}
+        <!-- Content -->
+        <div class="col-sm-6">
+            <div class="tab-content">
+                <div class="tab-pane active" id="standard">
+
+                    <div class="m5 p5">
+
+                        <div class="list-group">
+                            <div class='fieldObject list-group-item btn-default'
+                                 ng-mousedown="openDesignTab()"
+                                 ng-repeat="inputType in inputTypes | filterTypes:'standard'"
+                                 ng-show="inputType.name"
+                                 draggable="inputType"
+                                 ng-border="showBorders(show)"
+                                 draggable-target="#appFields, .repeatBox"
+                                    >
+                                {{inputType.name}}
+                            </div>
                         </div>
+
                     </div>
                 </div>
-            </div>
+                <div class="tab-pane" id="users">
 
-        </div>
-        <!-- Advanced -->
+                    <div class="m5 p5">
 
-        <div class="panel panel-info">
-            <div class="panel-heading">
-                <h6 class="panel-title">
-                    <a class='center-block' data-toggle="collapse" data-parent="#accordion"
-                       data-target="#collapseThree">
-                        Advanced
-                    </a>
-                </h6>
-            </div>
-            <div id="collapseThree" class="panel-collapse collapse">
-                <div class="panel-body">
-                    <div class="list-group">
-                        <div class='fieldObject list-group-item'
-                             ng-repeat="inputType3 in inputTypes | filterTypes:'advanced'"
-                             ng-show="inputType3.name"
-                             draggable="inputType3"
-                             ng-border="showBorders(show)"
-                             ng-showBorder="showBorders(show)"
-                             draggable-target="#appFields, .repeatBox"
-                                >
-                            {{inputType3.name}}
+                        <div class="list-group">
+                            <div class='fieldObject list-group-item btn-default'
+                                 ng-mousedown="openDesignTab()"
+                                 ng-repeat="inputType in inputTypes | filterTypes:'user'"
+                                 ng-show="inputType.name"
+                                 draggable="inputType"
+                                 ng-border="showBorders(show)"
+                                 draggable-target="#appFields, .repeatBox"
+                                    >
+                                {{inputType.name}}
+                            </div>
                         </div>
+
                     </div>
                 </div>
-            </div>
 
+                <div class="tab-pane" id="numbers">
+                    <div class="m5 p5">
+
+                        <div class="list-group">
+                            <div class='fieldObject list-group-item btn-default'
+                                 ng-mousedown="openDesignTab()"
+                                 ng-repeat="inputType in inputTypes | filterTypes:'number'"
+                                 ng-show="inputType.name"
+                                 draggable="inputType"
+                                 ng-border="showBorders(show)"
+                                 draggable-target="#appFields, .repeatBox"
+                                    >
+                                {{inputType.name}}
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+                <div class="tab-pane" id="images">
+                    <div class="m5 p5">
+
+                        <div class="list-group">
+                            <div class='fieldObject list-group-item btn-default'
+                                 ng-mousedown="openDesignTab()"
+                                 ng-repeat="inputType in inputTypes | filterTypes:'files'"
+                                 ng-show="inputType.name"
+                                 draggable="inputType"
+                                 ng-border="showBorders(show)"
+                                 draggable-target="#appFields, .repeatBox"
+                                    >
+                                {{inputType.name}}
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+                <div class="tab-pane" id="advanced">
+                    <div class="m5 p5">
+
+                        <div class="list-group">
+                            <div class='fieldObject list-group-item btn-default'
+                                 ng-mousedown="openDesignTab()"
+                                 ng-repeat="inputType in inputTypes | filterTypes:'advanced'"
+                                 ng-show="inputType.name"
+                                 draggable="inputType"
+                                 ng-border="showBorders(show)"
+                                 draggable-target="#appFields, .repeatBox"
+                                    >
+                                {{inputType.name}}
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+                <div class="tab-pane" id="events">
+                    <div class="m5 p5">
+
+                        <div class="list-group">
+                            <div class='fieldObject list-group-item btn-default'
+                                 ng-mousedown="openEventTabs()"
+                                 ng-repeat="eventType in formEvents"
+                                 ng-show="eventType.name"
+                                 draggable="eventType"
+                                 ng-border="showBorders(show)"
+                                 draggable-target="#appEvents"
+                                    >
+                                {{eventType.name}}
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+
+            </div>
         </div>
 
     </div>
+
+
 </div>
 
 
