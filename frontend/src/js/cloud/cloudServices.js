@@ -7,17 +7,17 @@ fooformsApp.factory('CloudService', function (Restangular, Clouds) {
                 next();
             }, function (err) {
                 // TODO: Handle error
-                console.log(err.status);
+                console.log(err.toString());
                 next(err);
             });
         },
         createCloud: function (cloud, next) {
             cloudApi.post(cloud).then(function (res) {
                 Clouds.addOne(res.data);
-                next();
+                next(null, res.data._id);
             }, function (err) {
                 // TODO: Handle error
-                console.log(err.status);
+                console.log(err.toString());
                 next(err);
             });
         },
@@ -27,16 +27,16 @@ fooformsApp.factory('CloudService', function (Restangular, Clouds) {
                 next();
             }, function (err) {
                 // TODO: Handle error
-                console.log(err.status);
+                console.log(err.toString());
                 next(err);
             });
         },
         deleteCloud: function (cloud, next) {
             cloud.remove().then(function (res) {
-                Clouds.removeOne(res.data);
+                Clouds.removeOne(cloud);
                 next();
             }, function (err) {
-                console.log(err.status);
+                console.log(err.toString());
                 next(err);
             });
         }

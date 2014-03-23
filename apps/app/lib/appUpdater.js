@@ -25,3 +25,7 @@ exports.updateApp = function (appJson, next) {
         next(err, null);
     }
 };
+
+exports.moveAppToCloud = function (appId, cloudId, next) {
+
+};

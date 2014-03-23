@@ -10,6 +10,7 @@ var appQuery = require('./appQuery');
 var postCreator = require('./postCreator');
 var postDeleter = require('./postDeleter');
 var postQuery = require('./postQuery');
+var postUpdater = require('./postUpdater');
 
 module.exports = {
     App: App,
@@ -17,11 +18,16 @@ module.exports = {
     createApp: appCreator.createApp,
     deleteAppById: appDeleter.deleteAppById,
     updateApp: appUpdater.updateApp,
+    moveAppToCloud: appUpdater.moveAppToCloud,
     getAppById: appQuery.getAppById,
     getAppsByCloudId: appQuery.getAppsByCloudId,
     getAppsByUserId: appQuery.getAppsByUserId,
     getAllApps: appQuery.getAllApps,
     createPost: postCreator.createPost,
     deletePostById: postDeleter.deletePostById,
-    getUserPosts: postQuery.getUserPosts
+    updatePost: postUpdater.updatePost,
+    getUserPosts: postQuery.getUserPosts,
+    getPostById: postQuery.getPostById,
+    getAppPosts: postQuery.getAppPosts,
+    getCloudPosts: postQuery.getCloudPosts
 };

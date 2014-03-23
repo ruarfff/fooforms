@@ -36,7 +36,6 @@ var routes = function (app) {
 
     app.get('/api/apps', authenticator.ensureLoggedIn, function (req, res) {
         appApi.getUserApps(req, res);
-
     });
 
     app.post('/api/apps', authenticator.ensureLoggedIn, function (req, res) {
@@ -57,7 +56,6 @@ var routes = function (app) {
 
     app.get('/api/posts', authenticator.ensureLoggedIn, function (req, res) {
         postApi.getUserPosts(req, res);
-
     });
 
     app.get('/api/posts/:app', authenticator.ensureLoggedIn, function (req, res) {
@@ -65,6 +63,10 @@ var routes = function (app) {
 
     });
 
+    app.get('/api/posts/:cloud', authenticator.ensureLoggedIn, function (req, res) {
+        postApi.getCloudPosts(req, res, req.params.cloud);
+
+    });
 
     app.post('/api/posts', authenticator.ensureLoggedIn, function (req, res) {
         postApi.create(req, res);
@@ -77,8 +79,6 @@ var routes = function (app) {
     app.delete('/api/posts', authenticator.ensureLoggedIn, function (req, res) {
         postApi.delete(req, res);
     });
-
-
 
 };
 

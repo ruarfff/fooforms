@@ -17,9 +17,8 @@ var createPost = function (req, res) {
             icon: body.icon || '',
             fields: body.fields
         };
-        log.debug(JSON.stringify(postDetails));
         appLib.createPost(postDetails, req.appId, function (err, post) {
-            if (err) {
+            if (err || !post) {
                 var responseCode = 500;
                 handleError(res, err, responseCode);
             } else {
@@ -44,19 +43,15 @@ var getPostById = function (req, res, id) {
             }
         });
     } catch (err) {
+        log.error(err);
         handleError(res, err, 500);
     }
 };
 
 var getAppPosts = function (req, res, appId) {
-
-};
-
-var getUserPosts = function (req, res) {
     try {
-        appLib.getUserPosts(req.user.id, function (err, posts) {
+        appLib.getAppPosts(appId, function(err, posts) {
             if (err || !posts) {
-                log.error(err);
                 handleError(res, err, 404);
             } else {
                 res.status(200);
@@ -64,7 +59,36 @@ var getUserPosts = function (req, res) {
             }
         });
     } catch (err) {
-        log.error(err);
+        handleError(res, err, 500);
+    }
+};
+
+var getCloudPosts = function (req, res, cloudId) {
+    try {
+    appLib.getCloudPosts(cloudId, function(err, posts) {
+        if (err || !posts) {
+            handleError(res, err, 404);
+        } else {
+            res.status(200);
+            res.send(posts);
+        }
+    });
+    } catch (err) {
+        handleError(res, err, 500);
+    }
+};
+
+var getUserPosts = function (req, res) {
+    try {
+        appLib.getUserPosts(req.user.id, function (err, posts) {
+            if (err || !posts) {
+                handleError(res, err, 404);
+            } else {
+                res.status(200);
+                res.send(posts);
+            }
+        });
+    } catch (err) {
         handleError(res, err, 500);
     }
 };
@@ -113,7 +137,7 @@ var handleError = function (res, err, responseCode) {
         if (!responseCode) {
             responseCode = 500;
         }
-        log.error(err.toString());
+        log.error(err);
         res.status(responseCode);
         res.send(err);
     } catch (err) {
@@ -129,7 +153,8 @@ module.exports = {
     getUserPosts: getUserPosts,
     getAppPosts: getAppPosts,
     update: updatePost,
-    delete: deletePost
+    delete: deletePost,
+    getCloudPosts: getCloudPosts
 };
 
 

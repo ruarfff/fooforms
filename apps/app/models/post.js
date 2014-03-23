@@ -10,7 +10,7 @@ var postSchema = Schema({
     icon: String,
     menuLabel: String,
     app: { type: Schema.Types.ObjectId, ref: 'App' },
-    fields: {}
+    fields: []
 });
 
 

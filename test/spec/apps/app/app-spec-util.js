@@ -117,7 +117,28 @@ var resetPosts = function () {
             description: "Some Description",
             icon: "Some Icon",
             menuLabel: "MenuLabel",
-            fields: {}
+            fields: [ {}, {} , "" ]
+        },
+        {
+            name: "kjhksjfh^(&(&^%^(&",
+            description: "Some Description&(*(*OIHidjhweifhwipuehfpiweuhfpiwefgepwiu",
+            icon: "http://www.lkefnlkrfnrlkfnlrekfnrefnoifr.com/it.png",
+            menuLabel: "MenuLabelslknwflkwelkfjwekfjewpoijfo2ij4roi234jfoiewjfoijfoi43jfoi43jfoi3fj43oifjoi3fjnfion",
+            fields: [ {}, {}, {}, {}, {} ]
+        },
+        {
+            name: "S",
+            description: "n",
+            icon: "n",
+            menuLabel: "l",
+            fields: [ {} ]
+        },
+        {
+            name: "Some                           Name",
+            description: "Some                                       Description",
+            icon: "Some                       Icon",
+            menuLabel: "Menu                              Label",
+            fields: [ ]
         }
 
     ];

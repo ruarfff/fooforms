@@ -41,6 +41,7 @@ describe('Application creation functions', function () {
                     app.menuLabel.should.equal(testApp.menuLabel);
                     app.btnLabel.should.equal(testApp.btnLabel);
                     app.settings.should.eql(testApp.settings);
+                    app.fields.should.be.instanceof(Array).and.have.lengthOf(testApp.fields.length);
                     done();
                 });
             });

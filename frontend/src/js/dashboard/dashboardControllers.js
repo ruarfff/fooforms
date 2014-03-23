@@ -1,15 +1,9 @@
-fooformsApp.controller('DashboardCtrl', ['$scope', '$http' , '$modal', 'Restangular', 'appService', 'CloudService', 'Clouds', 'PostService', 'Posts', function ($scope, $http, $modal, Restangular, appService, CloudService, Clouds, PostService, Posts) {
+fooformsApp.controller('DashboardCtrl', ['$scope', '$http' , '$modal', 'Restangular', 'AppService', 'Apps', 'CloudService', 'Clouds', 'PostService', 'Posts', function ($scope, $http, $modal, Restangular, AppService, Apps, CloudService, Clouds, PostService, Posts) {
     'use strict';
-    var appApi = Restangular.all('apps');
-
-
-    $scope.posts = {};
-
-    $scope.selectedView = "/partials/dashboardFeed.html";
-
-
     // the main object to store the app data
-    $scope.app = appService.getApp();
+    $scope.app = Apps.getCurrentApp();
+    $scope.posts = {};
+    $scope.selectedView = "/partials/dashboardFeed.html";
 
     $scope.gridData = [];
     $scope.gridOptions = { data: 'gridData' };
@@ -17,7 +11,6 @@ fooformsApp.controller('DashboardCtrl', ['$scope', '$http' , '$modal', 'Restangu
 
 
     var posts2Grid = function () {
-
         angular.forEach($scope.posts, function (postEntry) {
             var map = _.pick(postEntry, 'menuLabel', 'fields');
             var tempPosts = [];
@@ -29,19 +22,10 @@ fooformsApp.controller('DashboardCtrl', ['$scope', '$http' , '$modal', 'Restangu
             $scope.gridData.push(tempPosts);
 
         })
-
-
-    }
-
-    var getApps = function () {
-        appApi.getList().then(function (apps) {
-            $scope.apps = apps;
-        });
     };
 
     $scope.updateApp = function (app) {
-        appService.setApp(app);
-
+        Apps.setCurrentApp(app);
     };
 
     $scope.setView = function (view) {
@@ -65,14 +49,17 @@ fooformsApp.controller('DashboardCtrl', ['$scope', '$http' , '$modal', 'Restangu
             $scope.publicClouds = Clouds.publicClouds;
         }
     });
-    PostService.getPosts(function (err) {
+    PostService.getUserPosts(function (err) {
        if(!err) {
            $scope.posts = Posts.posts;
            $scope.postObj = $scope.posts[0];
            posts2Grid();
        }
     });
+    AppService.getUserApps(function (err) {
+        if(!err) {
+            $scope.apps = Apps.apps;
+        }
+    });
 
-    // Get all the existing apps and save them in the scope
-    getApps();
 }]);

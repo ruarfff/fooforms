@@ -1,10 +1,7 @@
 /* Controllers */
 
-fooformsApp.controller('fieldsCtrl', ['$scope', '$http', 'DragDropHandler' , '$modal', 'Restangular', 'appService', 'CloudService', 'Clouds', function ($scope, $http, DragDropHandler, $modal, Restangular, appService, CloudService, Clouds) {
+fooformsApp.controller('fieldsCtrl', ['$scope', '$http', 'DragDropHandler' , '$modal', 'Restangular', 'AppService', 'Apps', 'CloudService', 'Clouds', function ($scope, $http, DragDropHandler, $modal, Restangular, AppService, Apps, CloudService, Clouds) {
     "use strict";
-    var appApi = Restangular.all('apps');
-
-
     $http.get('/js/appBuilder/inputTypes.json').success(function (data) {
 
         $scope.inputTypes = data.inputTypes;
@@ -20,7 +17,7 @@ fooformsApp.controller('fieldsCtrl', ['$scope', '$http', 'DragDropHandler' , '$m
         }
     });
     // the main object to store the app data
-    $scope.app = appService.getApp();
+    $scope.app = Apps.getCurrentApp();
     // some booleans to help track what we are editing, which tabs to enable, etc.
     // used in ng-show in appBuilderMenu
     $scope.nowEditing = null;
@@ -178,26 +175,31 @@ fooformsApp.controller('fieldsCtrl', ['$scope', '$http', 'DragDropHandler' , '$m
     $scope.saveApp = function (appToSave) {
         console.log(JSON.stringify(appToSave));
         if (appToSave._id) {
-            // App already exists on server
-            appToSave.put().then(function (res) {
-                console.log('update');
-            }, function (err) {
-                console.log(err.status);
+            // Post already exists on server
+            AppService.updateApp(appToSave, function(err) {
+                if(err) {
+                    console.log(err.toString());
+                } else {
+                    $scope.app = Apps.findById(appToSave._id);
+                    Apps.setCurrentApp($scope.app);
+                }
             });
         } else {
-            appApi.post(appToSave).then(function (res) {
-                console.log(JSON.stringify(res));
-                $scope.app = res;
-            }, function (err) {
-                console.log(err.status);
+            AppService.createApp(appToSave, function (err, appId) {
+                if(err) {
+                    console.log(err.toString());
+                } else {
+                    $scope.app = Apps.findById(appId);
+                    Apps.setCurrentApp($scope.app);
+                }
             });
         }
     };
 
     $scope.newApp = function (previousApp) {
         // TODO: Check if there are unsaved changes and warn
-        appService.resetApp();
-        $scope.app = appService.getApp();
+        Apps.resetCurrentApp();
+        $scope.app = Apps.getCurrentApp();
     }
 
 }])

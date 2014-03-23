@@ -19,11 +19,19 @@ postDeletionError.http_code = 500;
 var postNotFoundError = new Error('Could not find post');
 postNotFoundError.http_code = 404;
 
+var appOwnerNotFound = new Error('Could not find user');
+appOwnerNotFound.http_code = 404;
+
+var userCloudsNotFound = new Error('Could  not find user clouds');
+userCloudsNotFound.http_code = 404;
+
 module.exports = {
     ownerNotFoundError: ownerNotFoundError,
     folderNotFoundError: folderNotFoundError,
     appNotFoundError: appNotFoundError,
     postNotCreatedError: postNotCreatedError,
     postDeletionError: postDeletionError,
-    postNotFoundError: postNotFoundError
+    postNotFoundError: postNotFoundError,
+    appOwnerNotFound: appOwnerNotFound,
+    userCloudsNotFound: userCloudsNotFound
 };

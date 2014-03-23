@@ -1,18 +1,17 @@
-fooformsApp.controller('AppsCtrl', ['$scope', 'Restangular', 'appService',
-    function ($scope, Restangular, appService) {
+fooformsApp.controller('AppsCtrl', ['$scope', 'AppService', 'Apps',
+    function ($scope, AppService, Apps) {
         'use strict';
-        var appApi = Restangular.all('apps');
         $scope.appUrl = ''; // Temporary helper variable to view app JSON
         $scope.appName = '';
 
-        var updateAppList = function () {
-            appApi.getList().then(function (apps) {
-                $scope.apps = apps;
-            });
-        };
 
-        // Get all the existing apps and save them in the scope
-        updateAppList();
+        AppService.getUserApps(function (err) {
+            if(err) {
+                console.log(err.toString());
+            } else {
+                $scope.apps = Apps.apps;
+            }
+        });
 
         $scope.hover = function (app) {
             // Shows/hides the delete button on hover
@@ -25,26 +24,22 @@ fooformsApp.controller('AppsCtrl', ['$scope', 'Restangular', 'appService',
         };
 
         $scope.newApp = function () {
-            appService.resetApp();
-        }
+            Apps.resetCurrentApp();
+        };
 
         $scope.updateApp = function (app) {
-            appService.setApp(app);
+            Apps.setCurrentApp(app);
 
         };
 
         $scope.deleteApp = function (app) {
-            app.remove().then(function (res) {
-                // TODO: Do I need to check the response for anything
-                var index = $scope.apps.indexOf(app);
-
-                if (index > -1) {
-                    $scope.apps.splice(index, 1);
+          AppService.deleteApp(app, function (err) {
+                if(err) {
+                    console.log(err.toString());
+                } else {
+                    Apps.resetCurrentApp();
+                    $scope.apps = Apps.apps;
                 }
-            }, function (err) {
-                // This only gets called if there's an error response
-                console.log(err.status);
-                $("#thumb-" + app._id).effect("shake");
             });
         };
 
