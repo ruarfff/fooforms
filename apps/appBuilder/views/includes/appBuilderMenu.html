@@ -1,232 +1,233 @@
 <div id="appBuilderMenu">
-    <ul id='optionTabs' class="nav nav-tabs">
-        <li class="active"><a id='appTabFields' data-target="#appTabs-fields" data-toggle="tab">Fields</a></li>
-        <li><a id='appTabSettings' data-target="#appTabs-settings" data-toggle="tab">Settings</a></li>
-    </ul>
-    <div class="tab-content white p5">
-        <div id="appTabs-fields" class="tab-pane active">
+<ul id='optionTabs' class="nav nav-tabs">
+    <li class="active"><a id='appTabFields' data-target="#appTabs-fields" data-toggle="tab">Fields</a></li>
+    <li><a id='appTabSettings' data-target="#appTabs-settings" data-toggle="tab">Settings</a></li>
+</ul>
+<div class="tab-content white p5">
+<div id="appTabs-fields" class="tab-pane active">
 
 
-            <div class="row">
+    <div class="row">
 
-                <!-- Navigation Buttons -->
-                <div class="col-sm-6">
-                    <ul class="nav nav-pills nav-stacked" id="myTabs">
-                        <li class="active"><a data-toggle="tab" data-target="#standard" ng-click="openDesignTab()">Standard</a>
-                        </li>
-                        <li><a data-toggle="tab" data-target="#users" ng-click="openDesignTab()">Users & People</a></li>
-                        <li><a data-toggle="tab" data-target="#numbers" ng-click="openDesignTab()">Numbers & Money</a>
-                        </li>
-                        <li><a data-toggle="tab" data-target="#images" ng-click="openDesignTab()">Images & Files</a>
-                        </li>
-                        <li><a data-toggle="tab" data-target="#advanced" ng-click="openDesignTab()">Advanced</a></li>
-                        <li><a data-toggle="tab" data-target="#events" ng-click="openEventTabs()">Events</a></li>
+        <!-- Navigation Buttons -->
+        <div class="col-sm-6">
+            <ul class="nav nav-pills nav-stacked" id="myTabs">
+                <li class="active"><a data-toggle="tab" data-target="#standard" ng-click="openDesignTab()">Standard</a>
+                </li>
+                <li><a data-toggle="tab" data-target="#users" ng-click="openDesignTab()">Users & People</a></li>
+                <li><a data-toggle="tab" data-target="#numbers" ng-click="openDesignTab()">Numbers & Money</a>
+                </li>
+                <li><a data-toggle="tab" data-target="#images" ng-click="openDesignTab()">Images & Files</a>
+                </li>
+                <li><a data-toggle="tab" data-target="#advanced" ng-click="openDesignTab()">Advanced</a></li>
+                <li><a id='sideEventTab' data-toggle="tab" data-target="#events" ng-click="openEventTabs()">Events</a>
+                </li>
 
-                    </ul>
-                </div>
-
-                <!-- Content -->
-                <div class="col-sm-6">
-                    <div class="tab-content">
-                        <div class="tab-pane active" id="standard">
-
-                            <div class="m5 p5">
-
-                                <div class="list-group">
-                                    <div class='fieldObject list-group-item btn-default'
-                                         ng-repeat="inputType in inputTypes | filterTypes:'standard'"
-                                         ng-show="inputType.name"
-                                         draggable="inputType"
-                                         ng-border="showBorders(show)"
-                                         draggable-target="#appFields, .repeatBox"
-                                            >
-                                        {{inputType.name}}
-                                    </div>
-                                </div>
-
-                            </div>
-                        </div>
-                        <div class="tab-pane" id="users">
-
-                            <div class="m5 p5">
-
-                                <div class="list-group">
-                                    <div class='fieldObject list-group-item btn-default'
-                                         ng-repeat="inputType in inputTypes | filterTypes:'standard'"
-                                         ng-show="inputType.name"
-                                         draggable="inputType"
-                                     ng-border="showBorders(show)"
-                                     draggable-target="#appFields, .repeatBox"
-                                            >
-                                        {{inputType.name}}
-                                    </div>
-                                </div>
-
-                            </div>
-                    </div>
-
-                        <div class="tab-pane" id="numbers">
-                            <div class="m5 p5">
-
-                                <div class="list-group">
-                                    <div class='fieldObject list-group-item btn-default'
-                                         ng-repeat="inputType in inputTypes | filterTypes:'number'"
-                                         ng-show="inputType.name"
-                                         draggable="inputType"
-                                         ng-border="showBorders(show)"
-                                         draggable-target="#appFields, .repeatBox"
-                                            >
-                                        {{inputType.name}}
-                                    </div>
-                                </div>
-
-                            </div>
-                        </div>
-                        <div class="tab-pane" id="images">
-                            <div class="m5 p5">
-
-                                <div class="list-group">
-                                    <div class='fieldObject list-group-item btn-default'
-                                         ng-repeat="inputType in inputTypes | filterTypes:'standard'"
-                                     ng-show="inputType.name"
-                                     draggable="inputType"
-                                     ng-border="showBorders(show)"
-                                     draggable-target="#appFields, .repeatBox"
-                                        >
-                                    {{inputType.name}}
-                                </div>
-                            </div>
-
-                            </div>
-                    </div>
-                        <div class="tab-pane" id="advanced">
-                            <div class="m5 p5">
-
-                                <div class="list-group">
-                                    <div class='fieldObject list-group-item btn-default'
-                                         ng-repeat="inputType in inputTypes | filterTypes:'advanced'"
-                                         ng-show="inputType.name"
-                                         draggable="inputType"
-                                         ng-border="showBorders(show)"
-                                     draggable-target="#appFields, .repeatBox"
-                                        >
-                                        {{inputType.name}}
-                                    </div>
-                            </div>
-
-                            </div>
-                    </div>
-                        <div class="tab-pane" id="events">
-                            <div class="m5 p5">
-
-                                <div class="list-group">
-                                    <div class='fieldObject list-group-item btn-default'
-                                         ng-repeat="eventType in formEvents"
-                                         ng-show="eventType.name"
-                                         draggable="eventType"
-                                         ng-border="showBorders(show)"
-                                         draggable-target="#appEvents"
-                                            >
-                                        {{eventType.name}}
-                                    </div>
-                            </div>
-
-                            </div>
-                    </div>
-
-                </div>
-            </div>
-
-            </div>
-
-
+            </ul>
         </div>
 
+        <!-- Content -->
+        <div class="col-sm-6">
+            <div class="tab-content">
+                <div class="tab-pane active" id="standard">
 
-        <div id="appTabs-settings" class="tab-pane">
+                    <div class="m5 p5">
 
-            <div class='alert-info m5 p5' ng-show="nowEditing>=0">
-                <h6><span class="badge">{{nowEditing}}</span> <span>{{app.fields[nowEditing].name}} </span>
-            <span mg-show="nowSubEditing">
-            <span class="badge">{{nowSubEditing}}</span> <span>{{app.fields[nowEditing].fields[nowSubEditing].name}} </span></span>
-                </h6>
-            </div>
-
-            <!-- Settings Block for Standard Fields -->
-
-            <div id="FieldSettings" class="blockInsert" ng-show="showFieldSettings">
-
-
-                <div ng-include="app.fields[nowEditing].optionsTemplate"></div>
-
-            </div>
-            <!-- Settings Block for Group Fields -->
-
-            <div id="groupSettings" class="blockInsert" ng-show="showGroupSettings">
-
-                <div ng-include="app.fields[nowEditing].fields[nowSubEditing].groupOptions"></div>
-
-
-            </div>
-
-
-            <!-- Settings Block for Basic Application Settings -->
-
-            <div id="AppSettings" class="blockInsert" ng-show="showAppSettings">
-
-                <form class="form-horizontal container" role="form">
-                    <div class="form-group">
-                        <label class="col-sm-4 control-label">App Name</label>
-                        <input type='text' class="form-control" ng-model="app.name"/>
-                    </div>
-                    <div class="form-group">
-                        <label class="col-sm-4 control-label">Description</label>
-                        <input type='text' class="form-control" ng-model="app.description"/>
-                    </div>
-
-
-                    <div class="form-group">
-                        <label class="col-sm-4 control-label">Icon</label>
-
-                        <div>
-                            <img class='icon' ng-src="{{app.icon}}"/>
-                            <button class="btn btn-default" ng-click="open();">Change!</button>
-                        </div>
-                    </div>
-                    <div class="alert alert-info">
-                        <h4>Display Options</h4>
-
-                        <div class="form-group">
-                            <label class="col-sm-4 control-label">Menu Label</label>
-
-                            <div>
-                                <input type='text' ng-model="app.menuLabel"/>
+                        <div class="list-group">
+                            <div class='fieldObject list-group-item btn-default'
+                                 ng-repeat="inputType in inputTypes | filterTypes:'standard'"
+                                 ng-show="inputType.name"
+                                 draggable="inputType"
+                                 ng-border="showBorders(show)"
+                                 draggable-target="#appFields, .repeatBox"
+                                    >
+                                {{inputType.name}}
                             </div>
                         </div>
-                        <div class="form-group">
-                            <label class="col-sm-4 control-label">New Post - Button Label</label>
 
-                            <div>
-                                <input type='text' ng-model="app.btnLabel"/>
+                    </div>
+                </div>
+                <div class="tab-pane" id="users">
+
+                    <div class="m5 p5">
+
+                        <div class="list-group">
+                            <div class='fieldObject list-group-item btn-default'
+                                 ng-repeat="inputType in inputTypes | filterTypes:'standard'"
+                                 ng-show="inputType.name"
+                                 draggable="inputType"
+                                 ng-border="showBorders(show)"
+                                 draggable-target="#appFields, .repeatBox"
+                                    >
+                                {{inputType.name}}
                             </div>
                         </div>
-                        <div class="form-group">
-                            <label class="col-sm-4 control-label">Display Posts as</label>
 
-                            <input type="checkbox">Feed
-                            <input type="checkbox">Grid
-                            <input type="checkbox">Bucket
-
-                        </div>
-                        <div class="alert alert-info">Additional settings are available from the Application Settings
-                            tab
-                        </div>
                     </div>
-                </form>
+                </div>
+
+                <div class="tab-pane" id="numbers">
+                    <div class="m5 p5">
+
+                        <div class="list-group">
+                            <div class='fieldObject list-group-item btn-default'
+                                 ng-repeat="inputType in inputTypes | filterTypes:'number'"
+                                 ng-show="inputType.name"
+                                 draggable="inputType"
+                                 ng-border="showBorders(show)"
+                                 draggable-target="#appFields, .repeatBox"
+                                    >
+                                {{inputType.name}}
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+                <div class="tab-pane" id="images">
+                    <div class="m5 p5">
+
+                        <div class="list-group">
+                            <div class='fieldObject list-group-item btn-default'
+                                 ng-repeat="inputType in inputTypes | filterTypes:'standard'"
+                                 ng-show="inputType.name"
+                                 draggable="inputType"
+                                 ng-border="showBorders(show)"
+                                 draggable-target="#appFields, .repeatBox"
+                                    >
+                                {{inputType.name}}
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+                <div class="tab-pane" id="advanced">
+                    <div class="m5 p5">
+
+                        <div class="list-group">
+                            <div class='fieldObject list-group-item btn-default'
+                                 ng-repeat="inputType in inputTypes | filterTypes:'advanced'"
+                                 ng-show="inputType.name"
+                                 draggable="inputType"
+                                 ng-border="showBorders(show)"
+                                 draggable-target="#appFields, .repeatBox"
+                                    >
+                                {{inputType.name}}
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+                <div class="tab-pane" id="events">
+                    <div class="m5 p5">
+
+                        <div class="list-group">
+                            <div class='fieldObject list-group-item btn-default'
+                                 ng-repeat="eventType in formEvents"
+                                 ng-show="eventType.name"
+                                 draggable="eventType"
+                                 ng-border="showBorders(show)"
+                                 draggable-target="#appEvents"
+                                    >
+                                {{eventType.name}}
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+
             </div>
         </div>
 
     </div>
+
+
+</div>
+
+
+<div id="appTabs-settings" class="tab-pane">
+
+    <div class='alert-info m5 p5' ng-show="nowEditing>=0">
+        <h6><span class="badge">{{nowEditing}}</span> <span>{{app.fields[nowEditing].name}} </span>
+            <span mg-show="nowSubEditing">
+            <span class="badge">{{nowSubEditing}}</span> <span>{{app.fields[nowEditing].fields[nowSubEditing].name}} </span></span>
+        </h6>
+    </div>
+
+    <!-- Settings Block for Standard Fields -->
+
+    <div id="FieldSettings" class="blockInsert" ng-show="showFieldSettings">
+
+
+        <div ng-include="app.fields[nowEditing].optionsTemplate"></div>
+
+    </div>
+    <!-- Settings Block for Group Fields -->
+
+    <div id="groupSettings" class="blockInsert" ng-show="showGroupSettings">
+
+        <div ng-include="app.fields[nowEditing].fields[nowSubEditing].groupOptions"></div>
+
+
+    </div>
+
+
+    <!-- Settings Block for Basic Application Settings -->
+
+    <div id="AppSettings" class="blockInsert" ng-show="showAppSettings">
+
+        <form class="form-horizontal container" role="form">
+            <div class="form-group">
+                <label class="col-sm-4 control-label">App Name</label>
+                <input type='text' class="form-control" ng-model="app.name"/>
+            </div>
+            <div class="form-group">
+                <label class="col-sm-4 control-label">Description</label>
+                <input type='text' class="form-control" ng-model="app.description"/>
+            </div>
+
+
+            <div class="form-group">
+                <label class="col-sm-4 control-label">Icon</label>
+
+                <div>
+                    <img class='icon' ng-src="{{app.icon}}"/>
+                    <button class="btn btn-default" ng-click="open();">Change!</button>
+                </div>
+            </div>
+            <div class="alert alert-info">
+                <h4>Display Options</h4>
+
+                <div class="form-group">
+                    <label class="col-sm-4 control-label">Menu Label</label>
+
+                    <div>
+                        <input type='text' ng-model="app.menuLabel"/>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="col-sm-4 control-label">New Post - Button Label</label>
+
+                    <div>
+                        <input type='text' ng-model="app.btnLabel"/>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="col-sm-4 control-label">Display Posts as</label>
+
+                    <input type="checkbox">Feed
+                    <input type="checkbox">Grid
+                    <input type="checkbox">Bucket
+
+                </div>
+                <div class="alert alert-info">Additional settings are available from the Application Settings
+                    tab
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+
+</div>
 </div>
 <div class="m0 p5"></div>
 

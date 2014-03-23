@@ -13,8 +13,8 @@ fooformsApp.controller('fieldsCtrl', ['$scope', '$http', 'DragDropHandler' , '$m
 
     });
 
-    CloudService.getClouds(function(err) {
-        if(!err) {
+    CloudService.getClouds(function (err) {
+        if (!err) {
             $scope.clouds = Clouds.clouds;
             $scope.privateClouds = Clouds.privateClouds;
             $scope.publicClouds = Clouds.publicClouds;
@@ -171,7 +171,8 @@ fooformsApp.controller('fieldsCtrl', ['$scope', '$http', 'DragDropHandler' , '$m
     };
 
     $scope.openEventTabs = function () {
-        angular.element('#eventsTab').tab('show')
+        angular.element('#eventsTab').tab('show');
+        angular.element('#sideEventTab').tab('show');
     }
     $scope.openDesignTab = function () {
         angular.element('#designTab').tab('show')

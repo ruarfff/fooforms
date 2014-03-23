@@ -1,0 +1,40 @@
+<div class="alert alert-info m0 br0 p5"><h5>{{event.name}}</h5>
+
+    <p class="m0 p0">{{event.description}}</p>
+
+    <div class="p10 m0">
+        <form class="form-horizontal" role="form">
+            <div class="form-group">
+                <label class="col-sm-2 control-label">From</label>
+
+                <div class="col-sm-4">
+                    <input type="email" class="form-control" placeholder="Email" ng-model="event.actionData.emailFrom">
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="col-sm-2 control-label">To</label>
+
+                <div class="col-sm-4">
+                    <input type="email" class="form-control" placeholder="Email" ng-model="event.actionData.emailTo">
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label class="col-sm-2 control-label" ng-model="event.actionData.emailTitle">Email Title</label>
+
+                <div class="col-sm-10">
+                    <input class="form-control">
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="col-sm-2 control-label">Email Body</label>
+
+                <div class="col-sm-10">
+                    <textarea class="form-control"
+                              ng-model="event.actionData.emailContent"></textarea>
+                </div>
+            </div>
+        </form>
+
+    </div>
+</div>
