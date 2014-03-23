@@ -15,11 +15,32 @@ var routes = function (app, passport) {
         res.render('index');
     });
 
-   // app.get('/dashboard', authenticator.ensureAuthenticated, function (req, res) {
-     //   res.render('dashboard', {
-       //     user: req.user
-       // });
-    //});
+    app.get('/:username', function (req, res, next) {
+        console.log(req.params.username);
+        if (req.params.username === 'hello') {
+            res.send('Hello');
+        } else {
+            next();
+        }
+    });
+
+    app.get('/:username/:folder', function (req, res, next) {
+        var expected = 'hello/sir';
+        if (req.params.username + '/' + req.params.folder === expected) {
+            res.send('Hello Sir');
+        } else {
+            next();
+        }
+    });
+
+    app.get('/:username/:folder/:form', function (req, res, next) {
+        var expected = 'hello/sir/evening';
+        if (req.params.username + '/' + req.params.folder + '/' + req.params.form === expected) {
+            res.send('Hello sir, good evening.');
+        } else {
+            next();
+        }
+    });
 
     require('../apps/admin/routes')(app);
     require('../apps/app/routes')(app);
