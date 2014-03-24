@@ -42,7 +42,7 @@ appSchema.post('save', function () {
     try {
         if (this.wasNew) {
             //TODO: temporary solution hacked together for testing purposes
-            this.url = 'apps/repo/' + this._id;
+            this.url = 'forms/repo/' + this._id;
             this.save(function (err) {
                 if (err) {
                     log.error(err);
