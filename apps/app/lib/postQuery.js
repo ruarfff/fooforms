@@ -45,6 +45,7 @@ var getUserPosts = function (userId, next) {
                     });
                 },
                 function(err){
+
                     return next(err, userPosts);
                 }
             );

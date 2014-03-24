@@ -10,7 +10,19 @@ var fileSchema = new Schema({
     icon: String,
     mimeType: String,
     sizeKB: Number,
+    created: Date,
+    lastModified: Date,
     owner: { type: Schema.Types.ObjectId, ref: 'User' }
+});
+
+fileSchema.pre('save', function (next) {
+    if (!this.isNew) {
+        this.lastModified = new Date();
+        return next();
+    }
+    this.created = new Date();
+    this.lastModified = new Date();
+    return next();
 });
 
 exports.File = mongoose.model('File', fileSchema);

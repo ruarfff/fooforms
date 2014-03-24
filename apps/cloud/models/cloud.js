@@ -54,6 +54,8 @@ var CloudSchema = new Schema({
             ref: 'App'
         }
     ],
+    created: Date,
+    lastModified: Date,
     // A human readable description of the Cloud
     description: String,
     // URL to Icon to display in UI
@@ -83,6 +85,16 @@ CloudSchema.statics.findByName = function (name, next) {
 CloudSchema.statics.findByOwner = function (ownerId, next) {
     this.find({owner: ownerId}, next);
 };
+
+CloudSchema.pre('save', function (next) {
+    if (!this.isNew) {
+        this.lastModified = new Date();
+        return next();
+    }
+    this.created = new Date();
+    this.lastModified = new Date();
+    return next();
+});
 
 // Create the model
 var Cloud = mongoose.model('Cloud', CloudSchema);

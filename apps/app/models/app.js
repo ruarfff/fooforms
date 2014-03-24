@@ -35,6 +35,12 @@ var appSchema = Schema({
 
 appSchema.pre('save', function (next) {
     this.wasNew = this.isNew;
+    if (!this.isNew) {
+        this.lastModified = new Date();
+        return next();
+    }
+    this.created = new Date();
+    this.lastModified = new Date();
     next();
 });
 
