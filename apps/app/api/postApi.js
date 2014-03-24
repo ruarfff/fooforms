@@ -111,7 +111,13 @@ var updatePost = function (req, res) {
             } else {
                 res.status(200);
                 res.send(post);
+                appLib.doPostEvents('statusChange', req.body, function (err) {
+                    if (err) {
 
+                        log.error(err);
+                    }
+
+                })
 
             }
         });

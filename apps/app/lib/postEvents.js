@@ -31,11 +31,11 @@ var sendMail = function (from, to, subject, content, next) {
     }
 }
 
-var checkEmails = function (to, postJson, next) {
+var getFieldValue = function (fieldName, postJson) {
+    var fieldValue = null;
+    if (fieldName.indexOf("[[") >= 0) {
 
-    if (to.indexOf("[[") >= 0) {
-
-        var emailToField = to.replace("[[", "");
+        var emailToField = fieldName.replace("[[", "");
         emailToField = emailToField.replace("]]", "");
 
         for (var i in postJson.fields) {
@@ -43,13 +43,13 @@ var checkEmails = function (to, postJson, next) {
             var field = postJson.fields[i];
 
             if (field.name == emailToField) {
-                to = field.value;
+                fieldValue = field.value;
             }
 
         }
 
     }
-    next(to);
+    return fieldValue;
 
 
 }
@@ -62,25 +62,36 @@ exports.doPostEvents = function (trigger, postJson, next) {
         for (var i in postJson.formEvents) {
 
             var formEvent = postJson.formEvents[i];
-            if (formEvent.type = trigger) {
+            if (formEvent.type == trigger) {
+                var processEvent = false;
+                switch (trigger) {
+                    case "statusChange":
 
+                        if (getFieldValue(formEvent.actionData.statusField == getFieldValue(formEvent.actionData.statusValue){
+                            processEvent = true;
+                        }
+                        break;
 
+                    case "newPost" :
+                        processEvent = true;
+                        break
+
+                }
                 switch (formEvent.action) {
 
                     case  "Email":
                         var from = formEvent.actionData.emailFrom;
-                        var to = formEvent.actionData.emailTo;
+                        var to = getFieldValue(formEvent.actionData.emailTo, postJson);
                         var subject = formEvent.actionData.emailTitle;
                         var text = formEvent.actionData.emailContent;
 
-                        checkEmails(to, postJson, function (to) {
+                        to = getFieldValue(to, postJson);
 
-                            sendMail(from, to, subject, text, function (err) {
+                        sendMail(from, to, subject, text, function (err) {
                                 if (err) {
                                     log.error(err.toString());
                                 }
                             });
-                        });
 
 
                         break;
