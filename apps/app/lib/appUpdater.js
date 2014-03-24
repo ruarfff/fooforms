@@ -14,6 +14,7 @@ exports.updateApp = function (appJson, next) {
             btnLabel: appJson.btnLabel,
             settings: appJson.settings,
             fields: appJson.fields,
+            formEvents: appJson.formEvents,
             version: appJson.version,
             lastModified: appJson.lastModified,
             owner: appJson.owner

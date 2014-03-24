@@ -25,6 +25,14 @@ var createPost = function (req, res) {
             } else {
                 res.status(200);
                 res.send(post);
+
+                appLib.doPostEvents('newPost', req.body, function (err) {
+                    if (err) {
+
+                        log.error(err);
+                    }
+
+                })
             }
         });
     } catch (err) {
