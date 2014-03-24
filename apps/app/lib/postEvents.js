@@ -6,6 +6,15 @@ var log = require(global.config.apps.LOGGING).LOG;
 
 var mail = require("nodemailer").mail;
 
+// Newline to <br>
+function nl2br(str, is_xhtml) {
+
+    var breakTag = (is_xhtml || typeof is_xhtml === 'undefined') ? '<br ' + '/>' : '<br>'; // Adjust comment to avoid issue on phpjs.org display
+
+    return (str + '')
+        .replace(/([^>\r\n]?)(\r\n|\n\r|\r|\n)/g, '$1' + breakTag + '$2');
+}
+
 var sendMail = function (from, to, subject, content, next) {
     try {
         mail({
@@ -13,7 +22,7 @@ var sendMail = function (from, to, subject, content, next) {
             to: to, // list of receivers
             subject: subject, // Subject line
             text: content, // plaintext body
-            html: "<b>" + content + "</b>" // html body
+            html: nl2br(content, true) // html body
         });
         next(null);
     } catch (err) {
@@ -54,6 +63,7 @@ exports.doPostEvents = function (trigger, postJson, next) {
 
             var formEvent = postJson.formEvents[i];
             if (formEvent.type = trigger) {
+
 
                 switch (formEvent.action) {
 
