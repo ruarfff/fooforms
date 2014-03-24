@@ -448,7 +448,7 @@
 ]
 ,"events" :[
 {
-"type": "NewPost",
+"type": "newPost",
 "name": "New Post",
 "description": "Triggerd when a new post is created.",
 "action": "Email",
@@ -468,7 +468,8 @@
 "emailFrom": "",
 "emailTo": "",
 "emailTitle": "",
-"emailContent": ""}
+"emailContent": ""},
+"template": "/template/events/newPost.html"
 },
 {
 "type": "statusChange",
@@ -479,7 +480,8 @@
 "emailFrom": "",
 "emailTo": "",
 "emailTitle": "",
-"emailContent": ""}
+"emailContent": ""},
+"template": "/template/events/newPost.html"
 }
 ]
 ,

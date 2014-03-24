@@ -11,6 +11,7 @@ var postCreator = require('./postCreator');
 var postDeleter = require('./postDeleter');
 var postQuery = require('./postQuery');
 var postUpdater = require('./postUpdater');
+var postEvents = require('./postEvents');
 
 module.exports = {
     App: App,
@@ -29,5 +30,6 @@ module.exports = {
     getUserPosts: postQuery.getUserPosts,
     getPostById: postQuery.getPostById,
     getAppPosts: postQuery.getAppPosts,
-    getCloudPosts: postQuery.getCloudPosts
+    getCloudPosts: postQuery.getCloudPosts,
+    doPostEvents: postEvents.doPostEvents
 };
