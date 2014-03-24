@@ -46,9 +46,9 @@ var getUserPosts = function (userId, next) {
                     });
                 },
                 function(err){
-                    _.sortBy(userPosts, function (post) {
-                        return post.created;
-                    });
+                    userPosts = _.sortBy(userPosts, function (post) {
+                        return post._id;
+                    }).reverse();
 
                     return next(err, userPosts);
                 }
@@ -73,7 +73,7 @@ var getCloudPosts = function (cloudId, next) {
                         cloudPosts.push(post);
                     });
                 });
-                return next(err, cloudPosts);
+                return next(err, cloudPosts.reverse());
             });
         });
     } catch (err) {
@@ -87,7 +87,7 @@ var getAppPosts = function (appId, next) {
         require('../models/app').App.findById(appId).populate('posts').exec(function (err, app) {
             if (err) return next(err);
             if (app) {
-                next(err, app.posts);
+                next(err, app.posts.reverse());
             } else {
                 return next(appErrors.appNotFoundError);
             }
