@@ -15,21 +15,28 @@ var routes = function (app) {
 
 
     app.get('/partials/appViewer', authenticator.ensureLoggedIn, function (req, res) {
-        var find = '/';
-        var re = new RegExp(find, 'g');
-
-        var cloudName = req.originalUrl.replace(re, '');
-        res.render(viewDir + '/index', {
-            cloud: cloudName,
-            isCloud: 'false',
-            user: req.user
-        });
+        res.render(viewDir + '/index');
     });
 
     /*********************************************************************************
-     *  API
+     *  Embedded App Retrieval
      *********************************************************************************/
 
+    app.get('/forms/repo/:form', function (req, res) {
+        require(global.config.apps.APP).getAppById(req.params.form, function (err, app) {
+            if (err) res.send(500);
+            if (!app) res.send(404);
+
+            res.render(viewDir + '/embeddedApp', {
+                appId: app._id,
+                appName: app.name
+            });
+        });
+    });
+
+    app.get('/forms/repo/fetch/:form', function (req, res) {
+        require(global.config.apps.APP + '/api/appApi').getAppById(req.params.form, res);
+    });
 
 };
 
