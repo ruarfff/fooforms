@@ -2,10 +2,10 @@
     "database": {
         "hostname": "localhost",
         "port": "27017",
-        "username": "",
-        "password": "",
+        "username": "fooforms",
+        "password": "G0Fly09123*",
         "name": "",
-        "db": "dev"
+        "db": "prod"
     },
     "app": {
         "name": "FooForms"
