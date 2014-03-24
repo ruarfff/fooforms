@@ -25,7 +25,9 @@ var appSchema = Schema({
     created: Date,
     lastModified: Date,
     owner: { type: Schema.Types.ObjectId, ref: 'User', required: true },
-    posts: [ {type: Schema.Types.ObjectId, ref: 'Post'} ],
+    posts: [
+        {type: Schema.Types.ObjectId, ref: 'Post'}
+    ],
     cloud: {type: Schema.Types.ObjectId, ref: 'Cloud'},
     url: String,
     formEvents: [],
@@ -47,7 +49,7 @@ appSchema.pre('save', function (next) {
 appSchema.post('save', function () {
     try {
         if (this.wasNew) {
-            //TODO: temporary solution hacked together for testing purposes
+            //TODO: temporary solution hacked together for testing purposes (will probably end up being permanent, I just know it)
             this.url = 'forms/repo/' + this._id;
             this.save(function (err) {
                 if (err) {

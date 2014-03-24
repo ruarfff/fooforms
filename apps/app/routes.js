@@ -6,6 +6,7 @@ var viewDir = path.join(global.config.apps.APP, 'views');
 var authenticator = require(global.config.apps.AUTHENTICATION);
 var appApi = require(path.join(global.config.apps.APP, 'api/appApi'));
 var postApi = require(path.join(global.config.apps.APP, 'api/postApi'));
+var log = require(global.config.apps.LOGGING).LOG;
 
 
 var routes = function (app) {
@@ -31,19 +32,17 @@ var routes = function (app) {
     });
 
     app.get('/api/posts', authenticator.ensureLoggedIn, function (req, res) {
-        if (req.query.postId) {
-            postApi.getPostById(req.query.postId, res);
-        } else {
+        var scope = req.query.scope;
+        var id = req.query.id;
+        if (scope === 'post') {
+            postApi.getPostById(id, res);
+        } else if (scope === 'user') {
             postApi.getUserPosts(req, res);
+        } else if (scope === 'app') {
+            postApi.getAppPosts(req, res, id);
+        } else if (scope === 'cloud') {
+            postApi.getCloudPosts(req, res, id);
         }
-    });
-
-    app.get('/api/app/posts', authenticator.ensureLoggedIn, function (req, res) {
-        postApi.getAppPosts(req, res, req.query.appId);
-    });
-
-    app.get('/api/cloud/posts', authenticator.ensureLoggedIn, function (req, res) {
-        postApi.getCloudPosts(req, res, req.query.cloudId);
     });
 
     app.post('/api/apps', authenticator.ensureLoggedIn, function (req, res) {

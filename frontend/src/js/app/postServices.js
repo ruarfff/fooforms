@@ -3,8 +3,8 @@ fooformsApp.factory('PostService', function (Restangular, Posts) {
     return {
         createPost: function (post, next) {
             postApi.post(post).then(function (res) {
-                Posts.addOne(res.data);
-                next(null, res.data._id);
+                Posts.addOne(res);
+                next(null, res._id);
             }, function (err) {
                 // TODO: Handle error
                 console.log(err.toString());
@@ -31,7 +31,7 @@ fooformsApp.factory('PostService', function (Restangular, Posts) {
             });
         },
         getUserPosts: function (next) {
-            postApi.getList().then(function (posts) {
+            postApi.getList({ scope: 'user' }).then(function (posts) {
                 Posts.updateAll(posts);
                 next();
             }, function (err) {
@@ -41,7 +41,7 @@ fooformsApp.factory('PostService', function (Restangular, Posts) {
             });
         },
         getCloudPosts: function (cloud, next) {
-            Restangular.all('cloud/posts').getList({cloudId: cloud._id}).then(function (posts) {
+            postApi.getList({ scope: 'cloud', id: cloud._id }).then(function (posts) {
                 Posts.updateAll(posts);
                 next();
             }, function (err) {
@@ -51,7 +51,7 @@ fooformsApp.factory('PostService', function (Restangular, Posts) {
             });
         },
         getAppPosts: function (app, next) {
-            Restangular.all('app/posts').getList({ appId: app._id}).then(function (posts) {
+            postApi.getList({ scope: 'app', id: app._id }).then(function (posts) {
                 Posts.updateAll(posts);
                 next();
             }, function (err) {

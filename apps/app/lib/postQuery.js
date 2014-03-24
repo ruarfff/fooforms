@@ -4,6 +4,7 @@
 var log = require(global.config.apps.LOGGING).LOG;
 var appErrors = require('./appErrors');
 var async = require("async");
+var _ = require('underscore');
 
 
 var getPostById = function (id, next) {
@@ -45,11 +46,13 @@ var getUserPosts = function (userId, next) {
                     });
                 },
                 function(err){
+                    _.sortBy(userPosts, function (post) {
+                        return post.created;
+                    });
 
                     return next(err, userPosts);
                 }
             );
-
         });
 
     } catch (err) {
