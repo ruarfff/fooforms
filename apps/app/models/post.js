@@ -9,8 +9,20 @@ var postSchema = Schema({
     description: String,
     icon: String,
     menuLabel: String,
+    created: Date,
+    lastModified: Date,
     app: { type: Schema.Types.ObjectId, ref: 'App' },
     fields: []
+});
+
+postSchema.pre('save', function (next) {
+    if (!this.isNew) {
+        this.lastModified = new Date();
+        return next();
+    }
+    this.created = new Date();
+    this.lastModified = new Date();
+    next();
 });
 
 

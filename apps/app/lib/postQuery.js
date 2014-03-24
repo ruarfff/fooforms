@@ -4,6 +4,7 @@
 var log = require(global.config.apps.LOGGING).LOG;
 var appErrors = require('./appErrors');
 var async = require("async");
+var _ = require('underscore');
 
 
 var getPostById = function (id, next) {
@@ -45,10 +46,13 @@ var getUserPosts = function (userId, next) {
                     });
                 },
                 function(err){
+                    userPosts = _.sortBy(userPosts, function (post) {
+                        return post._id;
+                    }).reverse();
+
                     return next(err, userPosts);
                 }
             );
-
         });
 
     } catch (err) {
@@ -69,7 +73,7 @@ var getCloudPosts = function (cloudId, next) {
                         cloudPosts.push(post);
                     });
                 });
-                return next(err, cloudPosts);
+                return next(err, cloudPosts.reverse());
             });
         });
     } catch (err) {
@@ -83,7 +87,7 @@ var getAppPosts = function (appId, next) {
         require('../models/app').App.findById(appId).populate('posts').exec(function (err, app) {
             if (err) return next(err);
             if (app) {
-                next(err, app.posts);
+                next(err, app.posts.reverse());
             } else {
                 return next(appErrors.appNotFoundError);
             }

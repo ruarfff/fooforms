@@ -233,14 +233,31 @@ img.icon {
     var FooForm = angular.module('FooForm', []);
     FooForm.controller('FormCtrl', function ($scope, $http) {
         var appId = '<%- appId %>';
-        $http({method: 'GET', url: '/forms/repo/fetch/' + appId}).
-                success(function (data, status, headers, config) {
-                    $scope.form = data;
-                }).
-                error(function (data, status, headers, config) {
-                    $scope.error = status;
-                });
+        $http({
+            url: '/forms/repo/fetch/' + appId,
+            method: 'GET'
+        }).success(function (data, status, headers, config) {
+            $scope.post = data;
+            $scope.post.app = data._id;
+            $scope.post._id = null;
+        }).error(function (data, status, headers, config) {
+            $scope.error = status;
+        });
+        $scope.submit = function () {
+            $http({
+                url: '/forms/repo/post',
+                method: "POST",
+                data: $scope.post,
+                headers: {'Content-Type': 'application/json'}
+            }).success(function (data, status, headers, config) {
+                alert('sorted');
+            }).error(function (data, status, headers, config) {
+                alert('screwed');
+                $scope.status = status;
+            });
+        };
     });
+
 
 </script>
 </head>
@@ -250,13 +267,15 @@ img.icon {
 
     <div class="row">
         <div class='col-sm-{{appField.boxSize}} under viewFormObject'
-             ng-repeat="appField in form.fields track by $index"
-             ng-show="appField.name"
-                >
+             ng-repeat="appField in post.fields track by $index"
+             ng-show="appField.name">
 
-            <div ng-include='appField.template'></div>
+        <div ng-include='appField.template'></div>
         </div>
 
+        <button id='savePost' ng-click="submit()"
+                class="btn btn-default">{{post.btnLabel}}
+        </button>
 
     </div>
 

@@ -71,7 +71,7 @@ fooformsApp.service('Apps', function () {
 
         for (index = 0; index < count; index++) {
             if (this.apps[index]._id == app._id) {
-                this.apps[index] = post;
+                this.apps[index] = app;
             }
         }
         this.updateAll(this.apps);

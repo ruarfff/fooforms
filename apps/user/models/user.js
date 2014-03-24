@@ -53,6 +53,8 @@ var userSchema = new Schema({
             ref: 'Cloud'
         }
     ],
+    created: Date,
+    lastModified: Date,
     facebook: {},
     twitter: {},
     github: {},
@@ -98,8 +100,11 @@ var notNullOrEmpty = function (value) {
  */
 userSchema.pre('save', function (next) {
     if (!this.isNew) {
+        this.lastModified = new Date();
         return next();
     }
+    this.created = new Date();
+    this.lastModified = new Date();
     this._password = this.password;
     this.salt = this.makeSalt();
     this.password = this.encryptPassword(this.password);

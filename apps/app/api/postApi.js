@@ -107,7 +107,10 @@ var updatePost = function (req, res) {
     try {
         appLib.updatePost(req.body, function (err, post) {
             if (err || !post) {
-                handleError(res, err, 409);
+                if (!err.http_code) {
+                    err.http_code = 404;
+                }
+                handleError(res, err, err.http_code);
             } else {
                 res.status(200);
                 res.send(post);
