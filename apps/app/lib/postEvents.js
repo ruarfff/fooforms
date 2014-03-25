@@ -111,10 +111,10 @@ exports.doPostEvents = function (trigger, postJson, next) {
             }
         }
 
-
+        next(null);
     } catch (err) {
         log.error(err.toString());
-        next(err, null);
+        next(err);
     }
 
 };
