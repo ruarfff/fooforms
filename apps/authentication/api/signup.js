@@ -65,12 +65,12 @@ exports.signup = function ( req, res ) {
                     }
                 }
                 if ( err ) {
-                    log.error( err.toString() );
+                    log.error(err);
                     res.status( 500 );
                     return res.render( authLib.signupPath, { title: 'Sign Up', error: err.message } );
                 }
 
-                userLib.createUserLocalStrategy( userDetails, function ( err, user ) {
+                userLib.createUser(userDetails, function (err, user) {
                     if ( err || !user ) {
                         log.error( err.toString() );
                         res.status( 500 );
