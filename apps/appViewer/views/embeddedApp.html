@@ -5,33 +5,9 @@
 <title><%= appName %></title>
 <link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.1.1/css/bootstrap.min.css">
 <style>
-.white {
-    background-color: #fff;
-}
 
-.blockInsert {
-    background-color: #E5F1FD;
-    margin: 5px;
-    border: 1px solid #D2E5F7;
-    display: block;
-}
 
-#appTabs-fields {
-    max-width: 100%;
-    overflow: hidden;
-}
 
-#appHeading {
-    display: block;
-    border: 1px solid #efefef;
-    margin: 0px;
-    padding: 5px;
-}
-
-#appHeading.selected {
-    background: #F1FBFF;
-    border: 1px solid #D2E5F7;
-}
 
 #appHeading h2 {
     font-size: 16px;
@@ -70,37 +46,15 @@ div.fieldObject:hover {
     padding-bottom: 100px;
 }
 
-#appFields, #appEvents {
-    padding-bottom: 100px;
-}
 
-.appFormObject {
-    margin: 0px;
-    padding: 5px;
-    border-top: 1px solid #fff;
-    border-right: 1px solid #eee;
-    border-bottom: 1px solid #eee;
-    border-left: 1px solid #fff;
-    background: #f7f7f7;
-    min-height: 84px;
-}
 
 .viewFormObject {
     margin: 0px;
     padding: 3px;
-    border-top: 1px solid #fff;
-    border-right: 1px solid #cecece;
-    border-bottom: 1px solid #cecece;
-    border-left: 1px solid #fff;
-    background: #efefef;
+
 }
 
-.appFormObject.selected {
-    background: #F1FBFF;
-    border: 1px solid #D2E5F7;
-}
-
-/*placeholder for draggies*/
+    /*placeholder for draggies*/
 #appFields div.fieldObject, #appEvents div.fieldObject {
     clear: both !important;
     padding: 30px !important;
@@ -108,30 +62,9 @@ div.fieldObject:hover {
     border: 1px solid #EFE3AE;
 }
 
-.ui-sortable-placeholder {
-    visibility: visible !important;
-    border: 2px dashed #D2E5F7 !important;
-    display: block;
-    background: #fefefe !important;
-}
 
-.dragging {
-/ / background : #F1FBFF !important;
-    border: 1px solid #D2E5F7;
 
-}
 
-.appFormObject:hover {
-    border: 1px solid #D2E5F7;
-}
-
-/*icons and modal icon select dialog*/
-
-.icons {
-    list-style: none;
-    height: 400px;
-    overflow: scroll;
-}
 
 .icons a {
     border: 3px solid #fff;
@@ -150,42 +83,7 @@ img.icon {
     margin: 4px;
 }
 
-img.icon-xs {
-    max-width: 24px;
-}
 
-img.icon-sm {
-    max-width: 36px;
-}
-
-#saveAppForm {
-    display: block;
-    background: #FEF6D2;
-    border-top: 1px solid #EFE3AE;
-    border-bottom: 1px solid #EFE3AE;
-    margin-top: 20px;
-    padding-right: 20px;
-    line-height: 50px;
-    height: 50px;
-    text-align: right;
-}
-
-.repeatBox {
-    display: inline-block;
-    padding: 0px;
-    margin: 0px;
-    border: 2px dotted #D2E5F7;
-    background: #fff;
-    min-height: 90px;
-}
-
-.repeatBox:hover {
-    border: 2px solid #D2E5F7;
-}
-
-#saveApp {
-
-}
 
 label i.fa {
     font-size: 1.4em;
@@ -193,26 +91,8 @@ label i.fa {
     margin-left: 5px;
 }
 
-.onTop {
-    position: absolute !important;
-    z-index: 999999 !important;
-    float: right;
-    top: 2px;
-    right: 2px;
 
-}
 
-.underv {
-    position: relative !important;
-    z-index: 999998 !important;
-
-}
-
-.newForm {
-    background: url('/assets/images/appCanvas.png') top left no-repeat;
-    border: 2px dashed #D2E5F7;
-    min-height: 300px;
-}
 
 img.icon {
     max-height: 48px !important;
@@ -233,6 +113,8 @@ img.icon {
     var FooForm = angular.module('FooForm', []);
     FooForm.controller('FormCtrl', function ($scope, $http) {
         var appId = '<%- appId %>';
+        $scope.sorted = false;
+        $scope.errorPosting = false;
         $http({
             url: '/forms/repo/fetch/' + appId,
             method: 'GET'
@@ -250,11 +132,14 @@ img.icon {
                 data: $scope.post,
                 headers: {'Content-Type': 'application/json'}
             }).success(function (data, status, headers, config) {
-                alert('sorted');
-            }).error(function (data, status, headers, config) {
-                alert('screwed');
-                $scope.status = status;
-            });
+                        $scope.sorted = true;
+                        $scope.$apply();
+                    }).error(function (data, status, headers, config) {
+                        $scope.sorted = false;
+                        $scope.errorPosting = true;
+                        $scope.status = status;
+                        $scope.$apply();
+                    });
         };
     });
 
@@ -272,11 +157,27 @@ img.icon {
 
         <div ng-include='appField.template'></div>
         </div>
+    </div>
+    <div class="row" ng-show="errorPosting">
+        <div class="col-sm-12 p5 alert alert-success">
+            <h4>Oops!</h4>
 
-        <button id='savePost' ng-click="submit()"
-                class="btn btn-default">{{post.btnLabel}}
-        </button>
+            <p>There seems to have been an error processing your form. Please review and try again.<br>{{status}}</p>
+        </div>
+    </div>
+    <div class="row" ng-hide="sorted">
+        <div class="col-sm-12 p5 alert alert-info">
+            <button id='savePost' ng-click="submit()"
+                    class="btn btn-default pull-right">Submit
+            </button>
+        </div>
+    </div>
+    <div class="row" ng-show="sorted">
+        <div class="col-sm-12 p5 alert alert-success">
+            <h4>Thank you</h4>
 
+            <p>Your form has been received by us and we will be in contact with you shortly.</p>
+        </div>
     </div>
 
 </div>

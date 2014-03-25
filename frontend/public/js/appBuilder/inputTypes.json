@@ -439,7 +439,7 @@
 "description": "A special Post Status Field for attaching to Post Events..",
 "help": "Use it to gather text with multiple rows such as address or questions, etc.",
 "icon" : "fa fa-cogs",
-"template": "/template/formFields/radio.html",
+"template": "/template/formFields/status.html",
 "groupOptions": "/template/formFields/groupOptions/radio.html",
 "groupTemplate": "/template/formFields/groupBoxed/radio.html",
 "optionsTemplate": "/template/formFields/options/radio.html"
@@ -469,7 +469,7 @@
 "emailTo": "",
 "emailTitle": "",
 "emailContent": ""},
-"template": "/template/events/newPost.html"
+"template": "/template/events/updatePost.html"
 },
 {
 "type": "statusChange",
@@ -477,11 +477,13 @@
 "description": "Triggerd when the status of a post is changed.",
 "action": "Email",
 "actionData": {
+"statusField": "",
+"statusValue" : "",
 "emailFrom": "",
 "emailTo": "",
 "emailTitle": "",
 "emailContent": ""},
-"template": "/template/events/newPost.html"
+"template": "/template/events/statusChange.html"
 }
 ]
 ,

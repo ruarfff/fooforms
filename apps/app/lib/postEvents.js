@@ -6,6 +6,15 @@ var log = require(global.config.apps.LOGGING).LOG;
 
 var mail = require("nodemailer").mail;
 
+// Newline to <br>
+function nl2br(str, is_xhtml) {
+
+    var breakTag = (is_xhtml || typeof is_xhtml === 'undefined') ? '<br ' + '/>' : '<br>'; // Adjust comment to avoid issue on phpjs.org display
+
+    return (str + '')
+        .replace(/([^>\r\n]?)(\r\n|\n\r|\r|\n)/g, '$1' + breakTag + '$2');
+}
+
 var sendMail = function (from, to, subject, content, next) {
     try {
         mail({
@@ -13,7 +22,7 @@ var sendMail = function (from, to, subject, content, next) {
             to: to, // list of receivers
             subject: subject, // Subject line
             text: content, // plaintext body
-            html: "<b>" + content + "</b>" // html body
+            html: nl2br(content, true) // html body
         });
         next(null);
     } catch (err) {
@@ -22,11 +31,11 @@ var sendMail = function (from, to, subject, content, next) {
     }
 }
 
-var checkEmails = function (to, postJson, next) {
+var getFieldValue = function (fieldName, postJson) {
+    var fieldValue = null;
+    if (fieldName.indexOf("[[") >= 0) {
 
-    if (to.indexOf("[[") >= 0) {
-
-        var emailToField = to.replace("[[", "");
+        var emailToField = fieldName.replace("[[", "");
         emailToField = emailToField.replace("]]", "");
 
         for (var i in postJson.fields) {
@@ -34,13 +43,13 @@ var checkEmails = function (to, postJson, next) {
             var field = postJson.fields[i];
 
             if (field.name == emailToField) {
-                to = field.value;
+                fieldValue = field.value;
             }
 
         }
 
     }
-    next(to);
+    return fieldValue;
 
 
 }
@@ -53,24 +62,35 @@ exports.doPostEvents = function (trigger, postJson, next) {
         for (var i in postJson.formEvents) {
 
             var formEvent = postJson.formEvents[i];
-            if (formEvent.type = trigger) {
+            if (formEvent.type == trigger) {
+                var processEvent = false;
+                switch (trigger) {
+                    case "statusChange":
 
+                        if (getFieldValue(formEvent.actionData.statusField) == getFieldValue(formEvent.actionData.statusValue)) {
+                            processEvent = true;
+                        }
+                        break;
+
+                    case "newPost" :
+                        processEvent = true;
+                        break
+
+                }
                 switch (formEvent.action) {
 
                     case  "Email":
                         var from = formEvent.actionData.emailFrom;
-                        var to = formEvent.actionData.emailTo;
+                        var to = getFieldValue(formEvent.actionData.emailTo, postJson);
                         var subject = formEvent.actionData.emailTitle;
                         var text = formEvent.actionData.emailContent;
 
-                        checkEmails(to, postJson, function (to) {
 
-                            sendMail(from, to, subject, text, function (err) {
+                        sendMail(from, to, subject, text, function (err) {
                                 if (err) {
                                     log.error(err.toString());
                                 }
                             });
-                        });
 
 
                         break;

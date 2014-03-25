@@ -5,6 +5,22 @@
     <div class="p10 m0">
         <form class="form-horizontal" role="form">
             <div class="form-group">
+                <label class="col-sm-2 control-label">Status Field</label>
+
+                <div class="col-sm-4">
+                    <input type="text" class="form-control" placeholder="Status Field Name to Watch"
+                           ng-model="event.actionData.statusField">
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="col-sm-2 control-label">Status Value</label>
+
+                <div class="col-sm-4">
+                    <input type="text" class="form-control" placeholder="Status Value to Trigger Event"
+                           ng-model="event.actionData.statusValue">
+                </div>
+            </div>
+            <div class="form-group">
                 <label class="col-sm-2 control-label">From</label>
 
                 <div class="col-sm-4">
