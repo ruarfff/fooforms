@@ -42,6 +42,10 @@ fooformsApp.controller('DashboardCtrl', ['$scope', '$http' , '$modal', 'Restangu
         }
     };
 
+    $scope.viewPost = function (post) {
+        Apps.findById(post.app);
+    };
+
     CloudService.getClouds(function (err) {
         if (!err) {
             $scope.privateClouds = Clouds.privateClouds;
