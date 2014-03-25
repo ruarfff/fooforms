@@ -10,15 +10,11 @@ fooformsApp.controller('appViewerCtrl', ['$scope', '$http' , '$modal', 'Restangu
     PostService.getAppPosts($scope.app, function (err) {
         if (!err) {
             $scope.posts = Posts.posts;
-            if ($scope.posts.length > 0) { // change back to zero once posts filtered by app is done.
-                $scope.postObj = $scope.posts[0];
-            } else {
-                $scope.postObj = Posts.newPost($scope.app);
-            }
-
-            if (Posts.activePost && Posts.activePost._id) {
-                $scope.postObj = Posts.activePost;
-            }
+        }
+        if (Posts.activePost && Posts.activePost._id) {
+            $scope.postObj = Posts.activePost;
+        } else {
+            $scope.postObj = Posts.newPost($scope.app);
         }
     });
 

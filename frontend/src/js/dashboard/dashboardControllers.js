@@ -25,6 +25,7 @@ fooformsApp.controller('DashboardCtrl', ['$scope', '$location', '$http' , '$moda
 
     $scope.updateApp = function (app) {
         Apps.setCurrentApp(app);
+        Posts.activePost = null;
     };
 
     $scope.setView = function (view) {
