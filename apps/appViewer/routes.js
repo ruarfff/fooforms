@@ -34,15 +34,7 @@ var routes = function (app) {
                 icon: body.icon || '',
                 fields: body.fields
             };*/
-            require(global.config.apps.APP).createPost(req.body, body.app, function (err, post) {
-                if (err || !post) {
-                    var responseCode = 500;
-                    handleError(res, err, responseCode);
-                } else {
-                    res.status(200);
-                    res.send(post);
-                }
-            });
+            require(global.config.apps.APP + '/api/postApi').create(req, res);
         } catch (err) {
             handleError(res, err, 500);
         }
