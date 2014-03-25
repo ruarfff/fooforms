@@ -15,6 +15,10 @@ fooformsApp.controller('appViewerCtrl', ['$scope', '$http' , '$modal', 'Restangu
             } else {
                 $scope.postObj = Posts.newPost($scope.app);
             }
+
+            if (Posts.activePost && Posts.activePost._id) {
+                $scope.postObj = Posts.activePost;
+            }
         }
     });
 
