@@ -67,7 +67,7 @@ exports.doPostEvents = function (trigger, postJson, next) {
                 switch (trigger) {
                     case "statusChange":
 
-                        if (getFieldValue(formEvent.actionData.statusField == getFieldValue(formEvent.actionData.statusValue){
+                        if (getFieldValue(formEvent.actionData.statusField) == getFieldValue(formEvent.actionData.statusValue)) {
                             processEvent = true;
                         }
                         break;
@@ -85,7 +85,6 @@ exports.doPostEvents = function (trigger, postJson, next) {
                         var subject = formEvent.actionData.emailTitle;
                         var text = formEvent.actionData.emailContent;
 
-                        to = getFieldValue(to, postJson);
 
                         sendMail(from, to, subject, text, function (err) {
                                 if (err) {
