@@ -64,9 +64,8 @@ fooformsApp.controller('appViewerCtrl', ['$scope', '$http' , '$modal', 'Restangu
 
     $scope.viewPost = function (postIndex) {
         $scope.postObj = $scope.posts[postIndex];
-    }
+    };
 
-}])
-;
+}]);
 
 

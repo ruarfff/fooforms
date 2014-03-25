@@ -64,22 +64,23 @@ fooformsApp.factory('PostService', function (Restangular, Posts) {
 });
 
 fooformsApp.service('Posts', function () {
+    this.activePost = {};
     this.newPost = function (app) {
-        this.postObj = angular.copy(app);
-        this.postObj.app = app._id;
-        this.postObj._id = null;
-        return this.postObj;
+        this.activePost = angular.copy(app);
+        this.activePost.app = app._id;
+        this.activePost._id = null;
+        return this.activePost;
     };
 
     this.setPost = function (newPost) {
-        this.postObj = newPost;
-        return this.postObj;
+        this.activePost = newPost;
+        return this.activePost;
     };
     this.updateAll = function (posts) {
         this.posts = posts;
     };
     this.addOne = function (post) {
-        this.posts.push(post);
+        this.posts.unshift(post);
     };
     this.updateOne = function (post) {
         var index;
