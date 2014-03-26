@@ -31,12 +31,12 @@
 
 
         </div>
-        <div class="m0 p0">
-
-            <div class="list-group scroller">
-            <div class="media list-group-item m0 br0"
-                         ng-repeat="foo in posts" ng-click="viewPost($index)">
-                        <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+        <div class="tab-content  m0 p0">
+            <div id="tabs-notifications" class="tab-pane active">
+                <div class="list-group">
+                    <div class="media list-group-item m0 br0"
+                         ng-repeat="foo in posts" ng-click="viewPost(foo)">
+                    <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
                         <a class="pull-left" href="#">
                             <img class="media-object icon icon-sm" ng-src="{{foo.icon}}" alt="">
                         </a>
@@ -44,12 +44,12 @@
                         <div class="media-body">
                             <h5 class="media-heading">{{ foo.name }} - {{foo.fields[0].label}} -
                                 {{foo.fields[0].value}} </h5>
-                            {{foo.fields[1].label}}: {{foo.fields[1].value}}<br>
-                            {{foo.fields[2].label}}: {{foo.fields[2].value}}
+                            {{foo.fields[1].label}} - {{foo.fields[1].value}}
+                            {{foo.fields[2].label}} - {{foo.fields[2].value}}
                         </div>
                     </div>
                 </div>
-
+            </div>
         </div>
     </div>
 </div>

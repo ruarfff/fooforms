@@ -1,4 +1,4 @@
-fooformsApp.controller('DashboardCtrl', ['$scope', '$http' , '$modal', 'Restangular', 'AppService', 'Apps', 'CloudService', 'Clouds', 'PostService', 'Posts', function ($scope, $http, $modal, Restangular, AppService, Apps, CloudService, Clouds, PostService, Posts) {
+fooformsApp.controller('DashboardCtrl', ['$scope', '$location', '$http' , '$modal', 'Restangular', 'AppService', 'Apps', 'CloudService', 'Clouds', 'PostService', 'Posts', function ($scope, $location, $http, $modal, Restangular, AppService, Apps, CloudService, Clouds, PostService, Posts) {
     'use strict';
     // the main object to store the app data
     $scope.app = Apps.getCurrentApp();
@@ -25,6 +25,7 @@ fooformsApp.controller('DashboardCtrl', ['$scope', '$http' , '$modal', 'Restangu
 
     $scope.updateApp = function (app) {
         Apps.setCurrentApp(app);
+        Posts.activePost = null;
     };
 
     $scope.setView = function (view) {
@@ -40,6 +41,13 @@ fooformsApp.controller('DashboardCtrl', ['$scope', '$http' , '$modal', 'Restangu
                 $scope.selectedView = "/partials/dashboardCard.html";
                 break;
         }
+    };
+
+    $scope.viewPost = function (post) {
+        var app = Apps.findById(post.app);
+        Posts.activePost = post;
+        Apps.setCurrentApp(app);
+        $location.path(app.name);
     };
 
     CloudService.getClouds(function (err) {

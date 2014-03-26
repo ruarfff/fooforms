@@ -28,21 +28,13 @@ var routes = function (app) {
             log.debug('creating post');
             log.debug(JSON.stringify(req.body));
             var body = req.body;
-            var postDetails = {
+            /**var postDetails = {
                 name: body.name,
                 description: body.description || '',
                 icon: body.icon || '',
                 fields: body.fields
-            };
-            require(global.config.apps.APP).createPost(postDetails, body.app, function (err, post) {
-                if (err || !post) {
-                    var responseCode = 500;
-                    handleError(res, err, responseCode);
-                } else {
-                    res.status(200);
-                    res.send(post);
-                }
-            });
+            };*/
+            require(global.config.apps.APP + '/api/postApi').create(req, res);
         } catch (err) {
             handleError(res, err, 500);
         }
