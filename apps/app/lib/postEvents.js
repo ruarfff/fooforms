@@ -42,7 +42,7 @@ var getFieldValue = function (fieldName, postJson) {
 
             var field = postJson.fields[i];
 
-            if (field.name == emailToField) {
+            if (field.label == emailToField) {
                 fieldValue = field.value;
             }
 

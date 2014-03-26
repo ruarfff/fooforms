@@ -87,7 +87,7 @@ fooformsApp.service('Posts', function () {
         var count = this.posts.length;
 
         for (index = 0; index < count; index++) {
-            if(this.posts[index]._id == post._id) {
+            if (this.posts[index]._id == post._id) {
                 this.posts[index] = post;
             }
         }
@@ -98,7 +98,7 @@ fooformsApp.service('Posts', function () {
         var count = this.posts.length;
 
         for (index = 0; index < count; index++) {
-            if(this.posts[index]._id == post._id) {
+            if (this.posts[index]._id == post._id) {
                 this.posts.splice(index, 1);
             }
         }
@@ -109,7 +109,7 @@ fooformsApp.service('Posts', function () {
         var count = this.posts.length;
 
         for (index = 0; index < count; index++) {
-            if(this.posts[index]._id == id) {
+            if (this.posts[index]._id == id) {
                 return this.posts[index];
             }
         }

@@ -1,12 +1,12 @@
 /*jslint node: true*/
 "use strict";
 
-var userLib = require( global.config.apps.USER );
-var authLib = require( global.config.apps.AUTHENTICATION );
-var log = require( global.config.apps.LOGGING ).LOG;
-var _ = require( 'underscore' );
+var userLib = require(global.config.apps.USER);
+var authLib = require(global.config.apps.AUTHENTICATION);
+var log = require(global.config.apps.LOGGING).LOG;
+var _ = require('underscore');
 
-exports.signup = function ( req, res ) {
+exports.signup = function (req, res) {
     try {
         var body = req.body;
         var displayName = body.displayName;
@@ -25,73 +25,73 @@ exports.signup = function ( req, res ) {
             }
         };
 
-        log.debug( JSON.stringify( userDetails ) );
+        log.debug(JSON.stringify(userDetails));
 
         var error = null;
         // regexp from https://github.com/angular/angular.js/blob/master/src/ng/directive/input.js#L4
         var EMAIL_REGEXP = /^[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Za-z]{2,6}$/;
 
         // check for valid inputs
-        if ( !displayName || !email || !password || !verification ) {
+        if (!displayName || !email || !password || !verification) {
             error = 'All fields are required';
-        } else if ( displayName !== encodeURIComponent( displayName ) ) {
+        } else if (displayName !== encodeURIComponent(displayName)) {
             error = 'Username may not contain any non-url-safe characters';
-        } else if ( !email.match( EMAIL_REGEXP ) ) {
+        } else if (!email.match(EMAIL_REGEXP)) {
             error = 'Email is invalid';
-        } else if ( password !== verification ) {
+        } else if (password !== verification) {
             error = 'Passwords don\'t match';
         }
 
-        if ( error ) {
-            log.error( error );
-            res.status( 403 );
-            res.render( authLib.signupPath, {
+        if (error) {
+            log.error(error);
+            res.status(403);
+            res.render(authLib.signupPath, {
                 title: 'Sign Up',
                 error: error
-            } );
+            });
             return;
         }
 
         // check if username is already taken
-        userLib.checkDisplayName( displayName, function ( err, user ) {
-                if ( user ) {
-                    if ( !_.isArray( user ) || user.length > 0 ) {
-                        res.status( 403 );
-                        res.render( authLib.signupPath, {
+        userLib.checkDisplayName(displayName, function (err, user) {
+                if (user) {
+                    if (!_.isArray(user) || user.length > 0) {
+                        res.status(403);
+                        res.render(authLib.signupPath, {
                             title: 'Sign Up',
                             error: 'Username is already taken'
-                        } );
+                        });
                         return;
                     }
                 }
-                if ( err ) {
+                if (err) {
                     log.error(err);
-                    res.status( 500 );
-                    return res.render( authLib.signupPath, { title: 'Sign Up', error: err.message } );
+                    res.status(500);
+                    return res.render(authLib.signupPath, { title: 'Sign Up', error: err.message });
                 }
 
                 userLib.createUser(userDetails, function (err, user) {
-                    if ( err || !user ) {
-                        log.error( err.toString() );
-                        res.status( 500 );
-                        return res.render( authLib.signupPath, { title: 'Sign Up', error: err.message } );
+                    if (err || !user) {
+                        log.error(err.toString());
+                        res.status(500);
+                        return res.render(authLib.signupPath, { title: 'Sign Up', error: err.message });
                     }
 
-                    res.redirect( '/login' );
+                    res.redirect('/login');
 
-                } );
+                });
             }
         )
         ;
     }
     catch
-        ( err ) {
-        log.error( err.toString() );
-        res.status( 500 );
-        res.render( authLib.signupPath, {
+        (err) {
+        log.error(err.toString());
+        res.status(500);
+        res.render(authLib.signupPath, {
             title: 'Sign Up',
             error: err.message
-        } );
+        });
     }
 }
 ;
