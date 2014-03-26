@@ -1,5 +1,5 @@
-<div class="form-group clearfix alert alert-info">
-<label for="{{appField.id}}"><h4>{{appField.label}}</h4>
+<div class="form-group clearfix p5 bg-info">
+    <label for="{{appField.id}}"><h4>{{appField.label}}</h4>
         <i class="fa fa-question-circle"
            ng-hide="!appField.userInstructions"
            popover="{{appField.userInstructions}}"
@@ -10,7 +10,7 @@
         <span class="input-group-addon" ng-show="appField.required">*</span>
 
         <div class="row"
-             id="{{appField.id}}">{{appField.value}}
+             id="{{appField.id}}">{{appField.placeholder}}
         </div>
     </div>
 </div>
