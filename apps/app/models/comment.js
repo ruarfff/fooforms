@@ -4,19 +4,16 @@
 var mongoose = require('mongoose');
 var Schema = mongoose.Schema;
 
-var postSchema = Schema({
+var commentSchema = Schema({
     name: String,
-    description: String,
-    icon: String,
-    menuLabel: String,
+    content: String,
     created: Date,
     lastModified: Date,
-    app: { type: Schema.Types.ObjectId, ref: 'App' },
-    comments: [ { type: Schema.Types.ObjectId, ref: 'Comment' } ],
-    fields: []
+    post: { type: Schema.Types.ObjectId, ref: 'Post' },
+    commenter: { type: Schema.Types.ObjectId, ref: 'User' }
 });
 
-postSchema.pre('save', function (next) {
+commentSchema.pre('save', function (next) {
     if (!this.isNew) {
         this.lastModified = new Date();
         return next();
@@ -27,5 +24,5 @@ postSchema.pre('save', function (next) {
 });
 
 
-exports.Post = mongoose.model('Post', postSchema);
+exports.Comment = mongoose.model('Comment', commentSchema);
 

@@ -84,7 +84,7 @@ exports.doPostEvents = function (trigger, postJson, next) {
                         var to = getFieldValue(formEvent.actionData.emailTo, postJson);
                         var subject = formEvent.actionData.emailTitle;
                         var text = formEvent.actionData.emailContent;
-
+                        log.debug('EMail: From:' + from + ' To: ' + to + ' Subject: ' + subject + ' Text: ' + text);
 
                         sendMail(from, to, subject, text, function (err) {
                                 if (err) {
