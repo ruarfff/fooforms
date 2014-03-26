@@ -174,9 +174,12 @@ img.icon {
             <p>There seems to have been an error processing your form. Please review and try again.<br>{{status}}</p>
         </div>
     </div>
+    <div id="tandc" ng-model="post.tandc"></div>
     <div class="row" ng-hide="sorted">
         <div class="col-sm-12 p5 alert alert-info">
-        <button id='savePost' ng-click="submit()"
+            <input type="checkbox" ng-model="tandcAccepted">I accept the <a data-toggle="modal" data-target="#tandc">Terms
+            & Conditions</a>
+            <button id='savePost' ng-click="submit()"
                 class="btn btn-primary pull-right">Submit
         </button>
         </div>
