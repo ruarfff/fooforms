@@ -69,11 +69,12 @@ select.form-control {
     border: 1px solid #EFE3AE;
 }
 
+        textarea.tandc {
+            display: block;
+            min-height: 400px;
+        }
 
-
-
-
-.icons a {
+        .icons a {
     border: 3px solid #fff;
     display: inline-block;
     padding: 4px;
@@ -131,7 +132,6 @@ img.icon {
             $scope.post = data;
             $scope.post.app = data._id;
             $scope.post._id = null;
-                    $scope.post.settings.tandc = nl2br($scope.post.settings.tandc, false)
 
                 }).error(function (data, status, headers, config) {
             $scope.error = status;
