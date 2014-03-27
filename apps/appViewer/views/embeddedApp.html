@@ -155,7 +155,7 @@ img.icon {
         });
         $scope.submit = function () {
 
-            alert($scope.tandcAccepted);
+
             $http({
                 url: '/forms/repo/post',
                 method: "POST",
@@ -224,8 +224,8 @@ img.icon {
         <div class="col-sm-12 p5 alert alert-info">
             <input type="checkbox" ng-model="tandcAccepted"> I accept the <a data-toggle="modal" data-target="#tandc">Terms
             & Conditions</a>
-            <button id='savePost' ng-click="submit()"
-                class="btn btn-primary pull-right">Submit
+            <button id='savePost' ng-click="submit()" ng-disabled="{{!tandcAccepted}}"
+                    class="btn btn-primary pull-right">Submit
         </button>
         </div>
     </div>
