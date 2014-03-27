@@ -8,6 +8,13 @@
     <link rel="stylesheet" href="/vendor/font-awesome/css/font-awesome.min.css">
     <style>
 
+        .pl5 {
+            padding-left: 5px;
+        }
+
+        .pr5 {
+            padding-right: 5px;
+        }
 
         #appHeading h2 {
     font-size: 16px;
@@ -58,7 +65,7 @@ div.fieldObject:hover {
 }
 
         .modal.fade {
-            left: -25%;
+            bottom: -100%;
             -webkit-transition: opacity 0.3s linear, left 0.3s ease-out;
             -moz-transition: opacity 0.3s linear, left 0.3s ease-out;
             -o-transition: opacity 0.3s linear, left 0.3s ease-out;
@@ -224,7 +231,7 @@ img.icon {
         <div class="col-sm-12 p5 alert alert-info">
             <input type="checkbox" ng-model="tandcAccepted"> I accept the <a data-toggle="modal" data-target="#tandc">Terms
             & Conditions</a>
-            <button id='savePost' ng-click="submit()" ng-disabled="{{!tandcAccepted}}"
+            <button id='savePost' ng-click="submit()" ng-disabled="{{tandcAccepted==false}}"
                     class="btn btn-primary pull-right">Submit
         </button>
         </div>
