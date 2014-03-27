@@ -1,8 +1,8 @@
 <!DOCTYPE html>
 <html ng-app="FooForm">
 <head lang="en">
-<meta charset="UTF-8">
-<title><%= appName %></title>
+    <meta charset="UTF-8">
+    <title><%= appName %></title>
     <link rel="stylesheet" href="/vendor/css/bootstrap.min.css">
     <link rel="stylesheet" href="/vendor/css/bootstrap-theme.min.css">
     <link rel="stylesheet" href="/vendor/font-awesome/css/font-awesome.min.css">
@@ -17,52 +17,52 @@
         }
 
         #appHeading h2 {
-    font-size: 16px;
-    font-weight: bold;
-    line-height: 22px;
-    margin: 0px;
-    padding: 0px;
-    display: inline-block;
-}
+            font-size: 16px;
+            font-weight: bold;
+            line-height: 22px;
+            margin: 0px;
+            padding: 0px;
+            display: inline-block;
+        }
 
-#appHeading p {
-    margin: 0px;
-    padding: 0px;
-    font-size: 10px;
-    font-weight: normal;
-    line-height: 14px;
+        #appHeading p {
+            margin: 0px;
+            padding: 0px;
+            font-size: 10px;
+            font-weight: normal;
+            line-height: 14px;
 
-}
+        }
 
-#appTitle {
-    display: block;
-}
+        #appTitle {
+            display: block;
+        }
 
-.fieldObject {
+        .fieldObject {
 
-    display: block;
-}
+            display: block;
+        }
 
-div.fieldObject:hover {
-    background: #f8efc0;
-}
+        div.fieldObject:hover {
+            background: #f8efc0;
+        }
 
-#appLayout, .appLayout {
-    display: block;
-    padding-bottom: 0px;
-    background: #f7f7f7;
-    border: 1px solid #efefef;
-}
+        #appLayout, .appLayout {
+            display: block;
+            padding-bottom: 0px;
+            background: #f7f7f7;
+            border: 1px solid #efefef;
+        }
 
-.viewFormObject {
-    margin: 0px;
-    padding: 4px;
-    min-height: 84px;
-    border-top: 1px solid #fff;
-    border-left: 1px solid #fff;
-    border-right: 1px solid #ececec;
-    border-bottom: 1px solid #ececec;
-}
+        .viewFormObject {
+            margin: 0px;
+            padding: 4px;
+            min-height: 84px;
+            border-top: 1px solid #fff;
+            border-left: 1px solid #fff;
+            border-right: 1px solid #ececec;
+            border-bottom: 1px solid #ececec;
+        }
 
         .modal.fade {
             bottom: -100%;
@@ -77,20 +77,19 @@ div.fieldObject:hover {
             top: auto;
             bottom: 150px;
 
-            left: 10%;
         }
 
         select.form-control {
-    margin-right: 10px !important;
-}
+            margin-right: 10px !important;
+        }
 
-    /*placeholder for draggies*/
-#appFields div.fieldObject, #appEvents div.fieldObject {
-    clear: both !important;
-    padding: 30px !important;
-    border-radius: 0px !important;
-    border: 1px solid #EFE3AE;
-}
+            /*placeholder for draggies*/
+        #appFields div.fieldObject, #appEvents div.fieldObject {
+            clear: both !important;
+            padding: 30px !important;
+            border-radius: 0px !important;
+            border: 1px solid #EFE3AE;
+        }
 
         textarea.tandc {
             display: block;
@@ -99,95 +98,90 @@ div.fieldObject:hover {
         }
 
         .icons a {
-    border: 3px solid #fff;
-    display: inline-block;
-    padding: 4px;
-    margin: 0px;
-}
+            border: 3px solid #fff;
+            display: inline-block;
+            padding: 4px;
+            margin: 0px;
+        }
 
-.icons a:hover {
-    border: 3px solid #D2E5F7;
+        .icons a:hover {
+            border: 3px solid #D2E5F7;
 
-}
+        }
 
-img.icon {
-    max-width: 48px;
-    margin: 4px;
-}
+        img.icon {
+            max-width: 48px;
+            margin: 4px;
+        }
 
+        label i.fa {
+            font-size: 1.4em;
+            color: #185aa7;
+            margin-left: 5px;
+        }
 
+        img.icon {
+            max-height: 48px !important;
+            display: inline-block;
+            vertical-align: middle;
+        }
 
-label i.fa {
-    font-size: 1.4em;
-    color: #185aa7;
-    margin-left: 5px;
-}
-
-
-
-
-img.icon {
-    max-height: 48px !important;
-    display: inline-block;
-    vertical-align: middle;
-}
-
-.inline {
-    display: inline;
-}
+        .inline {
+            display: inline;
+        }
 
 
-</style>
+    </style>
     <script type="text/javascript" src="/vendor/js/jquery.js"></script>
     <script type="text/javascript" src="/vendor/js/jquery-ui.js"></script>
     <script type="text/javascript" src="/vendor/js/bootstrap.js"></script>
     <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/angularjs/1.2.15/angular.min.js"></script>
-<script>
+    <script>
 
-    var FooForm = angular.module('FooForm', []);
-    FooForm.controller('FormCtrl', function ($scope, $http) {
-        var appId = '<%- appId %>';
-        $scope.sorted = false;
-        $scope.errorPosting = false;
-        $http({
-            url: '/forms/repo/fetch/' + appId,
-            method: 'GET'
-        }).success(function (data, status, headers, config) {
-            $scope.post = data;
-            $scope.post.app = data._id;
-            $scope.post._id = null;
-
-                }).error(function (data, status, headers, config) {
-            $scope.error = status;
-        });
-        $scope.submit = function () {
-
-
+        var FooForm = angular.module('FooForm', []);
+        FooForm.controller('FormCtrl', function ($scope, $http) {
+            var appId = '<%- appId %>';
+            $scope.sorted = false;
+            $scope.errorPosting = false;
             $http({
-                url: '/forms/repo/post',
-                method: "POST",
-                data: $scope.post,
-                headers: {'Content-Type': 'application/json'}
+                url: '/forms/repo/fetch/' + appId,
+                method: 'GET'
             }).success(function (data, status, headers, config) {
-                        $scope.sorted = true;
-                        $scope.$apply();
+                        $scope.post = data;
+                        $scope.post.app = data._id;
+                        $scope.post._id = null;
+
                     }).error(function (data, status, headers, config) {
-                        $scope.sorted = false;
-                        $scope.errorPosting = true;
-                        $scope.status = status;
-                        $scope.$apply();
+                        $scope.error = status;
                     });
-        };
-    });
+            $scope.submit = function () {
 
-    function nl2br(str, is_xhtml) {
 
-        var breakTag = (is_xhtml || typeof is_xhtml === 'undefined') ? '<br ' + '/>' : '<br>'; // Adjust comment to avoid issue on phpjs.org display
+                $http({
+                    url: '/forms/repo/post',
+                    method: "POST",
+                    data: $scope.post,
+                    headers: {'Content-Type': 'application/json'}
+                }).success(function (data, status, headers, config) {
+                            $scope.sorted = true;
+                            $scope.$apply();
+                        }).error(function (data, status, headers, config) {
+                            $scope.sorted = false;
+                            $scope.errorPosting = true;
+                            $scope.status = status;
+                            $scope.$apply();
+                        });
+            };
+        });
 
-        return (str + '')
-                .replace(/([^>\r\n]?)(\r\n|\n\r|\r|\n)/g, '$1' + breakTag + '$2');
-    }
-</script>
+        function nl2br(str, is_xhtml) {
+
+            var breakTag = (is_xhtml || typeof is_xhtml === 'undefined') ? '<br ' + '/>' : '<br>'; // Adjust comment to avoid issue on phpjs.org display
+
+            return (str + '')
+                    .replace(/([^>\r\n]?)(\r\n|\n\r|\r|\n)/g, '$1' + breakTag + '$2');
+        }
+    </script>
 </head>
 <body ng-controller="FormCtrl">
 
@@ -198,7 +192,7 @@ img.icon {
              ng-repeat="appField in post.fields track by $index"
              ng-show="appField.name">
 
-        <div ng-include='appField.template'></div>
+            <div ng-include='appField.template'></div>
         </div>
     </div>
     <div class="row" ng-show="errorPosting">
@@ -211,7 +205,7 @@ img.icon {
 
 
     <div class="modal fade" id="tandc" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-    <div class="modal-dialog">
+        <div class="modal-dialog">
             <div class="modal-content">
                 <div class="modal-header">
                     <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
@@ -221,7 +215,7 @@ img.icon {
                     <textarea ng-model="post.settings.tandc" class="tandc form-control"></textarea>
                 </div>
                 <div class="modal-footer">
-                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
                 </div>
             </div>
         </div>
@@ -233,7 +227,7 @@ img.icon {
             & Conditions</a>
             <button id='savePost' ng-click="submit()" ng-disabled="!tandcAccepted"
                     class="btn btn-primary pull-right">Submit
-        </button>
+            </button>
         </div>
     </div>
     <div class="row" ng-show="sorted">
