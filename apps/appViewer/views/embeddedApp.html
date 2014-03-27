@@ -88,7 +88,7 @@ div.fieldObject:hover {
         textarea.tandc {
             display: block;
             min-height: 400px;
-            min-width: 500px !important;
+            min-width: 540px !important;
         }
 
         .icons a {
@@ -154,6 +154,8 @@ img.icon {
             $scope.error = status;
         });
         $scope.submit = function () {
+
+            alert($scope.tandcAccepted);
             $http({
                 url: '/forms/repo/post',
                 method: "POST",
