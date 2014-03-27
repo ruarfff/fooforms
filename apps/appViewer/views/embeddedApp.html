@@ -186,7 +186,7 @@ img.icon {
                 <div class="modal-body" ng-bind="post.tandc">
 
                 </div>
-                <div class="modal-footer">
+                <div class="modal-footer">{{post.name}}
                     <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
                 </div>
             </div>
@@ -195,7 +195,7 @@ img.icon {
 
     <div class="row" ng-hide="sorted">
         <div class="col-sm-12 p5 alert alert-info">
-            <input type="checkbox" ng-model="tandcAccepted">I accept the <a data-toggle="modal" data-target="#tandc">Terms
+            <input type="checkbox" ng-model="tandcAccepted"> I accept the <a data-toggle="modal" data-target="#tandc">Terms
             & Conditions</a>
             <button id='savePost' ng-click="submit()"
                 class="btn btn-primary pull-right">Submit
