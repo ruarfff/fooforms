@@ -18,7 +18,7 @@ function nl2br(str, is_xhtml) {
 var sendMail = function (from, to, subject, content, next) {
     try {
         mail({
-            from: "'FooForms Auto Notification' <notifier@fooforms.com>",
+            from: "Auto Notification <notifier@fooforms.com>",
             "reply_to": from, // sender address
             to: to, // list of receivers
             subject: subject, // Subject line
