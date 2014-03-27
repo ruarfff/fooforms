@@ -131,7 +131,9 @@ img.icon {
             $scope.post = data;
             $scope.post.app = data._id;
             $scope.post._id = null;
-        }).error(function (data, status, headers, config) {
+                    $scope.post.settings.tandc = nl2br($scope.post.settings.tandc, false)
+
+                }).error(function (data, status, headers, config) {
             $scope.error = status;
         });
         $scope.submit = function () {
@@ -152,7 +154,13 @@ img.icon {
         };
     });
 
+    function nl2br(str, is_xhtml) {
 
+        var breakTag = (is_xhtml || typeof is_xhtml === 'undefined') ? '<br ' + '/>' : '<br>'; // Adjust comment to avoid issue on phpjs.org display
+
+        return (str + '')
+                .replace(/([^>\r\n]?)(\r\n|\n\r|\r|\n)/g, '$1' + breakTag + '$2');
+    }
 </script>
 </head>
 <body ng-controller="FormCtrl">
