@@ -7,21 +7,26 @@ To ensure all dependencies are installed once repository is pulled down:
 
 npm install (gets all dependencies to get the app up and running)
 
-Required global dependencies:
+##Required global dependencies
 
 npm -g i grunt : See http://gruntjs.com/
 npm -g i grunt-cli : Allows command line access to grunt. Below is a list of grunt tasks currently available.
 
+##Some grunt tasks available
+
 grunt : Simply starts a file watch task to run tests on changes. Currently does nothing else.
 grunt dev : Start the application with nodemon and starts a file watch, running tests on file changes.
+grunt skip-test : Same as dev but skips all tests
+grunt deploy : for packaging, runs all preprocessors
+grunt test : runs some tests
 grunt dbdrop : drop the test database.
 grunt dbseed : seed the test database.
 
+##Things that need to be installed globally
+
 npm -g i nodemon : To run application and restart dev server when file changes are made. Is invoked with grunt dev.
 
-npm -g i jasmine-node : For testing. See https://github.com/mhevery/jasmine-node
-
-npm -g i istanbul : For code coverage reports.
+npm -g i mocha : For testing
 
 npm -g i yuidocjs : This generates documentation (assuming correct commenting syntax was used. See: http://yui.github.io/yuidoc/). To use, run yuidoc . from root of project.
 

@@ -8,7 +8,7 @@
     <meta name="author" content="">
     <link rel="shortcut icon" href="/assets/ico/favicon.png">
 
-    <title>FOOFORMS - Social Form Builder for Enterprise Social Networks</title>
+    <title><%= title %></title>
 
     <!-- Bootstrap core CSS -->
     <link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.0.3/css/bootstrap.min.css">
@@ -231,6 +231,11 @@
 <script src="https://code.jquery.com/jquery-1.10.2.min.js"></script>
 <script src="//netdna.bootstrapcdn.com/bootstrap/3.0.3/js/bootstrap.min.js"></script>
 <script src="/js/holder.js"></script>
+
+<% if (dev) { %>
+<script src="http://localhost:9000/livereload.js"></script>
+<% } %>
+
 </body>
 </html>
 
