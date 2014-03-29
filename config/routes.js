@@ -74,7 +74,9 @@ var routes = function (app, passport) {
     });
 
     app.get('*', authenticator.ensureAuthenticated, function (req, res) {
+        var dev = (process.env.NODE_ENV === 'development');
         res.render('dashboard', {
+            dev: dev,
             user: req.user
         });
     });

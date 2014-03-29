@@ -1,11 +1,111 @@
 <!DOCTYPE html>
 <html lang="en" ng-app="fooformsApp">
 <head>
-    <% include includes/header.html %>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <title>
+        FOOFORMS
+    </title>
+    <meta name="description" content="">
+    <meta name="viewport" content="width=device-width">
+
+
+    <!-- Bootstrap core CSS -->
+
+    <link rel="stylesheet" href="/vendor/css/bootstrap.min.css">
+    <link rel="stylesheet" href="/vendor/css/bootstrap-theme.min.css">
+    <link rel="stylesheet" href="/vendor/font-awesome/css/font-awesome.min.css">
+
+
+    <link rel="stylesheet" href="/css/main-min.css">
+    <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!--[if lt IE 9]>
+    <script type="text/javascript" src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+    <script type="text/javascript" src="https://oss.maxcdn.com/libs/respond.js/1.3.0/respond.min.js"></script>
+    <![endif]-->
+
+    <script type="text/javascript" src="/vendor/js/jquery.js"></script>
+    <script type="text/javascript" src="/vendor/js/jquery-ui.js"></script>
+    <script type="text/javascript" src="/vendor/js/bootstrap.js"></script>
+    <script type="text/javascript" src="/vendor/js/angular.js"></script>
+
+    <base href="/">
 </head>
 <body ng-controller="MainController" data-ng-init="init()" class="main-application">
 
-<% include includes/navBar.html %>
+<div class="navbar navbar-fixed-top navbar-inverse navbar-main" role="navigation">
+    <div class="container">
+        <div class="navbar-header">
+            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand" href="#">FOOFORMS</a>
+        </div>
+        <div class="collapse navbar-collapse">
+
+
+            <ul class="nav navbar-nav">
+                <li>
+                    <a href="dashboard"><i class="fa fa-dashboard"></i> Dashboard</a>
+                </li>
+
+                <li>
+                    <a href="apps"><i class="fa fa-th"></i> Forms</a>
+                </li>
+                <li>
+                    <a href="people"><i class="fa fa-group"></i> People</a>
+                </li>
+                <li>
+                    <a href="calendar"><i class="fa fa-calendar"></i> Dates</a>
+                </li>
+
+
+                <% if(user.admin){ %>
+                <li>
+
+                    <a href="admin"><i class="fa fa-flask"></i>Admin</a>
+                </li>
+                <% } %>
+
+
+            </ul>
+
+            <div class="nav-search">
+
+
+                <input type="text" placeholder="Search..." class="input-search"/>
+
+            </div>
+
+
+            <ul class="nav navbar-nav navbar-right">
+
+                <li class="dropdown profile" ng-cloak><a href="#" class="dropdown-toggle" data-toggle="dropdown">&nbsp;
+                    <img class="img-circle" src="{{user.photo}}"/>
+
+                    {{user.displayName}}
+
+                    <b class="caret"></b></a>
+                    <ul class="dropdown-menu">
+                        <li><a href="profile"><i class="fa fa-user"></i> Profile</a></li>
+                        <li><a href="clouds"><i class="fa fa-cloud"></i> Clouds</a></li>
+                        <li><a href="settings"><i class="fa fa-cogs"></i> Settings</a></li>
+                        <li class="divider"></li>
+                        <li><a onclick="location.href='logout'"><i class="fa fa-lock"></i>Logout</a></li>
+                    </ul>
+                </li>
+            </ul>
+
+
+        </div>
+        <!-- /.nav-collapse -->
+    </div>
+    <!-- /.container -->
+</div><!-- /.navbar -->
 
 <div class="container">
     <div id='fooforms' class="row" ng-view>
@@ -13,9 +113,21 @@
     </div>
 </div>
 
-<% include includes/footer.html %>
 
-<% include includes/scripts.html %>
+<script type="text/javascript" src="/vendor/js/underscore.js"></script>
+<script type="text/javascript" src="/vendor/js/angular-route.js"></script>
+<script type="text/javascript" src="/vendor/js/restangular.js"></script>
+<script type="text/javascript" src="/vendor/js/ui-bootstrap.js"></script>
+<script type="text/javascript" src="/vendor/js/angular-sanitize.js"></script>
+<script type="text/javascript" src="/vendor/js/ng-grid.js"></script>
+<script type="text/javascript" src="/vendor/js/fullcalendar.js"></script>
+<script type="text/javascript" src="/vendor/js/textAngular.js"></script>
+<script type="text/javascript" src="/js/main-min.js"></script>
+
+<% if (dev) { %>
+<script src="http://localhost:9000/livereload.js"></script>
+<% } %>
+
 
 </body>
 </html>
