@@ -50,6 +50,11 @@ module.exports = function (app, passport) {
         app.use(express.errorHandler({ dumpExceptions: true, showStack: true }));
     });
 
+    // staging only
+    app.configure('staging', function () {
+        app.use(express.errorHandler({ dumpExceptions: true, showStack: true }));
+    });
+
     // production only
     app.configure('production', function () {
         app.use(express.errorHandler());
