@@ -62,7 +62,7 @@
     "main": "server.js",
     "subdomain": "fooforms",
     "scripts": {
-        "poststart": "grunt deploy",
+        "prepublish": "grunt deploy",
         "start": "server.js"
     }
 }
