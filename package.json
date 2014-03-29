@@ -1,10 +1,10 @@
 {
-    "name": "FooForms",
-    "version": "0.1.0-19",
-    "description": "Makes forms and stuff",
+    "name": "fooforms",
+    "version": "0.1.0-1",
+    "description": "Form Maker",
     "keywords": [
         "forms",
-        "node.js",
+        "nodejs",
         "application"
     ],
     "author": {
@@ -18,7 +18,7 @@
         "url": "git@github.com/ruairitobrien/fooforms.git"
     },
     "engines": {
-        "node": ">= 0.11.0",
+        "node": ">= 0.10.26",
         "npm": ">= 1.0.0"
     },
     "dependencies": {
@@ -62,7 +62,7 @@
     "main": "server.js",
     "subdomain": "fooforms",
     "scripts": {
-        "prepublish": "grunt deploy",
+        "predeploy": "grunt deploy",
         "start": "server.js"
     }
 }
