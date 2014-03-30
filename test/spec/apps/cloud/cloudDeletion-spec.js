@@ -15,13 +15,18 @@ describe('Cloud creation', function () {
         cloudLib = require(global.config.apps.CLOUD);
     });
 
+    beforeEach(function (done) {
+        cloudSpecUtil.seedCloudsInDatabase(done);
+    });
 
     afterEach(function (done) {
         testUtil.dropDatabase(done);
     });
 
     describe('Deleting a cloud', function () {
-        it('should delete a Cloud and all apps within');
+        it.skip('should delete a Cloud and all apps within', function (done) {
+
+        });
     });
 
 });
