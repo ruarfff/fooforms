@@ -17,11 +17,17 @@
     <link rel="stylesheet" href="/css/min/signup.css">
 </head>
 <body>
-<div id='login'>
-    <div id='loginForm'>
+<div class='container'>
+    <div class='row slide' id="signup">
+        <div class="col-sm-12">
+        </div>
+    </div>
 
-        <div class="panel row">
-            <div class="panel-heading">Sign up</div>
+    <div class='row slide' id="signupForm">
+        <div class="col-sm-12">
+            <h2 class="text-info">Sign-up</h2>
+        </div>
+        <div class="col-sm-12">
 
             <% if (global.error) { %>
             <div class="alert-danger alert-dismissable">
@@ -32,43 +38,42 @@
 
             <form name="form" method="post" action="/signup" novalidate="novalidate">
                 <div class="form-group">
-                    <label for="displayName" class="control-label">Username</label>
+
                     <input type="text" name="displayName" id="displayName" placeholder="Username"
                            unique-username="unique-username" required="required" ng-model="displayName"
                            autofocus="autofocus"
                            class="form-control"/><i ng-show="busy" class="halflings-icon refresh rotating"></i><span
                         ng-show="form.displayName.$dirty &amp;&amp; form.displayName.$error.required"
                         class="help-block">Please choose a username</span><span
-                        ng-show="form.displayName.$dirty &amp;&amp; form.displayName.$error.isTaken" class="help-block">Username already taken</span><span
+                        ng-show="form.displayName.$dirty &amp;&amp; form.displayName.$error.isTaken" class="help-block alert alert-danger">Username already taken</span><span
                         ng-show="form.displayName.$dirty &amp;&amp; form.displayName.$error.invalidChars"
                         class="help-block">Username may not contain any non-url-safe characters</span>
                 </div>
                 <div class="form-group">
-                    <label for="email" class="control-label">Email</label>
+
                     <input type="email" ng-model="email" name="email" id="email" placeholder="Email" required="required"
                            class="form-control"/><span ng-show="form.email.$dirty &amp;&amp; form.email.$error.email"
                                                        class="help-block">Email is invalid</span>
                 </div>
                 <div class="form-group">
-                    <label for="givenName" class="control-label">Name</label>
+
                     <input type="text" ng-model="givenName" name="givenName" id="givenName" placeholder="First Name"
                            class="form-control"/>
-                    <input type="text" ng-model="middleName" name="middleName" id="middleName" placeholder="Middle Name"
-                           class="form-control"/>
+
                     <input type="text" ng-model="familyName" name="familyName" id="familyName" placeholder="Last Name"
                            class="form-control"/>
                 </div>
 
                 <div class="form-group">
-                    <label for="password" class="control-label">Password</label>
+
                     <input type="password" name="password" id="password" ng-model="password" required="required"
-                           match="verification" class="form-control"/><span
+                           match="verification" class="form-control" placeholder="Password"/><span
                         ng-show="form.password.$dirty &amp;&amp; form.password.$error.required" class="help-block">Please enter a password</span>
                 </div>
                 <div class="form-group">
-                    <label for="verification" class="control-label">Repeat password</label>
+
                     <input type="password" name="verification" id="verification" ng-model="verification"
-                           required="required"
+                           required="required" placeholder="Repeat Password"
                            match="password" class="form-control"/><span
                         ng-show="form.verification.$dirty &amp;&amp; form.verification.$error.required"
                         class="help-block">Please repeat your password</span><span
