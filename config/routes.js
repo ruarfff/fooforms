@@ -2,6 +2,7 @@
 'use strict';
 
 var authenticator = require(global.config.apps.AUTHENTICATION);
+var dev = (process.env.NODE_ENV === 'development');
 
 /**
  * Main configuration for all routes in application.
@@ -12,7 +13,10 @@ var authenticator = require(global.config.apps.AUTHENTICATION);
 var routes = function (app, passport) {
 
     app.get('/', function (req, res) {
-        res.render('index');
+        res.render('index', {
+            title: global.config.app.title,
+            dev: dev
+        });
     });
 
     app.get('/:username', function (req, res, next) {
@@ -74,7 +78,6 @@ var routes = function (app, passport) {
     });
 
     app.get('*', authenticator.ensureAuthenticated, function (req, res) {
-        var dev = (process.env.NODE_ENV === 'development');
         res.render('dashboard', {
             dev: dev,
             user: req.user

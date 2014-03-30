@@ -173,13 +173,13 @@ var removeCloudMember = function (cloudId, userId, next) {
                         if (cloud.members) {
                             index = cloud.members.indexOf(user._id);
                             if (index > -1) {
-                                cloud.members.splice(index, 1);
+                                cloud.members.pull(user._id);
                             }
                         }
                         if (cloud.membersWithWritePermissions) {
                             index = cloud.membersWithWritePermissions.indexOf(user._id);
                             if (index > -1) {
-                                cloud.membersWithWritePermissions.splice(index, 1);
+                                cloud.membersWithWritePermissions.pull(user._id);
                             }
                         }
                         cloud.save(next);

@@ -140,7 +140,7 @@ var removeAppFromCloud = function (cloudId, appId, next) {
             if (cloud.apps) {
                 var index = cloud.apps.indexOf(appId);
                 if (index > -1) {
-                    cloud.apps.splice(index, 1);
+                    cloud.apps.pull(appId);
                     cloud.save(next);
                 } else {
                     return next(new Error('App does not exist in cloud'), cloud);

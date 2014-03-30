@@ -18,7 +18,7 @@ exports.getAppsByCloudId = function (cloudId, next) {
     try {
 
     } catch (err) {
-        log.error(err.toString());
+        log.error(err);
         next(err, null);
     }
 };
@@ -30,7 +30,7 @@ exports.getAppsByUserId = function (userId, next) {
             next(err, apps);
         });
     } catch (err) {
-        log.error(err.toString());
+        log.error(err);
         next(err, null);
     }
 };
@@ -40,7 +40,7 @@ exports.getAllApps = function (next) {
     try {
 
     } catch (err) {
-        log.error(err.toString());
+        log.error(err);
         next(err, null);
     }
 };

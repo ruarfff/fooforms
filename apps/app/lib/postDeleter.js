@@ -21,7 +21,7 @@ exports.deletePostById = function (id, next) {
                         if (!app) next(appErrors.appNotFoundError);
                         var index = app.posts.indexOf(post._id);
                         if (index > -1) {
-                            app.posts.splice(index, 1);
+                            app.posts.pull(post._id);
                             app.save(function (err) {
                                 next(err, postThatShouldBeNull);
                             });

@@ -2,31 +2,52 @@
 
 var App = require('../models/app').App;
 var log = require(global.config.apps.LOGGING).LOG;
+var async = require("async");
 
 exports.deleteAppById = function (id, next) {
     "use strict";
     try {
-        App.findById(id, function (err, app) {
+        App.findById(id).populate('posts').exec(function (err, appToDelete) {
             if (err) {
-                next(err, app);
+                next(err, appToDelete);
             } else {
-                app.remove(function (err, cloud) {
+                var appPosts = appToDelete.posts;
+                appToDelete.remove(function (err, app) {
                     if (err) {
-                        next(err, cloud);
-                    } else {
-                        App.findById(cloud._id, function (err, appThatShouldBeNull) {
-                            if (appThatShouldBeNull) {
-                                err.code = 500;
-                                err.data = 'Error deleting app';
-                            }
-                            next(err, appThatShouldBeNull);
-                        });
+                        return next(err, app);
                     }
+                    App.findById(app._id, function (err, appThatShouldBeNull) {
+                        if (appThatShouldBeNull) {
+                            var appDeletionError = new Error('Error deleting app');
+                            appDeletionError.http_code = 500;
+                            log.error(appDeletionError);
+                            return next(appDeletionError);
+                        }
+                        if (err) {
+                            log.error(err);
+                            return next(err);
+                        }
+                        if (appPosts && appPosts.length > 0) {
+                            async.each(appPosts,
+                                function (post, done) {
+                                    post.remove(function (err) {
+                                        if (err) {
+                                            log.error(err);
+                                        }
+                                        return done();
+                                    });
+                                },
+                                function (err) {
+                                    next(err, appThatShouldBeNull);
+                                }
+                            );
+                        }
+                    });
                 });
             }
         });
     } catch (err) {
-        log.error(err.toString());
-        next(err, null);
+        log.error(err);
+        next(err);
     }
 };
