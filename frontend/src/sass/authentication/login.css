@@ -7,8 +7,7 @@ body {
   height: 100%;
   overflow: hidden;
   background: #efefef url(/assets/images/fooform.jpg) top left no-repeat;
-  /* IE9 SVG, needs conditional override of 'filter' to 'none' */
-}
+  /* IE9 SVG, needs conditional override of 'filter' to 'none' */ }
 
 #login {
   position: absolute;
@@ -17,14 +16,14 @@ body {
   text-align: left;
   width: 350px;
   height: 275px;
-  margin-left: -175px; /*half width*/
+  margin-left: -175px;
+  /*half width*/
   border-radius: 10px;
   border: 1px solid #efefef;
   color: #404040;
   background: #fff;
-  opacity:  .3;
-  z-index:  1;
-}
+  opacity: .3;
+  z-index: 1; }
 
 #loginForm {
   position: absolute;
@@ -33,13 +32,14 @@ body {
   text-align: left;
   width: 350px;
   height: 275px;
-  margin-left: -175px; /*half width*/
+  margin-left: -175px;
+  /*half width*/
   border-radius: 10px;
   color: #404040;
-  opacity:  1;
+  opacity: 1;
   padding-top: px;
-  z-index:  2;
-}
+  z-index: 2; }
+
 #signup {
   position: absolute;
   left: 50%;
@@ -47,14 +47,15 @@ body {
   text-align: left;
   width: 350px;
   height: 475px;
-  margin-left: -175px; /*half width*/
+  margin-left: -175px;
+  /*half width*/
   border-radius: 10px;
   border: 1px solid #efefef;
   color: #404040;
   background: #fff;
-  opacity:  .3;
-  z-index:  1;
-}
+  opacity: .3;
+  z-index: 1; }
+
 #signupForm {
   position: absolute;
   left: -50%;
@@ -62,22 +63,20 @@ body {
   text-align: left;
   width: 350px;
   height: 475px;
-  margin-left: -175px; /*half width*/
+  margin-left: -175px;
+  /*half width*/
   border-radius: 10px;
   color: #404040;
-  opacity:  1;
+  opacity: 1;
   padding-top: px;
-  z-index:  2;
-}
+  z-index: 2; }
 
 #loginForm h1 {
-  background:  #efefef;
-  opacity:  .7;
-}
+  background: #efefef;
+  opacity: .7; }
 
-input[type=text], input[type=password],input[type=submit]{
-margin-top:  10px;
-}
+input[type=text], input[type=password], input[type=submit] {
+  margin-top: 10px; }
 
 #invite {
   position: relative;
@@ -86,12 +85,11 @@ margin-top:  10px;
   text-align: left;
   width: 350px;
   height: 75px;
-  margin-left: -175px; /*half width*/
-  opacity:  .9;
+  margin-left: -175px;
+  /*half width*/
+  opacity: .9;
   color: #404040;
-  z-index:  1;
-}
-
+  z-index: 1; }
 
 .slide {
   position: relative;
@@ -100,26 +98,30 @@ margin-top:  10px;
   -webkit-animation: slide 0.3s forwards;
   -webkit-animation-delay: 0.1s;
   animation: slide 0.3s forwards;
-  animation-delay: 0.3s;
-}
+  animation-delay: 0.3s; }
+
 @-webkit-keyframes slide {
-  0% {left: 0}
-  25% { left: 40%; }
-  50% { left: 60%; }
-  100% { left: 50%;
-   }
+  0% {
+    left: 0; }
 
+  25% {
+    left: 40%; }
 
-}
+  50% {
+    left: 60%; }
+
+  100% {
+    left: 50%; } }
 
 @keyframes slide {
+  0% {
+    left: 0; }
 
-  0% {left: 0}
-  25% { left: 40%; }
-  50% { left: 60%; }
-  100% { left: 50%;
-  }
+  25% {
+    left: 40%; }
 
+  50% {
+    left: 60%; }
 
-
-}
+  100% {
+    left: 50%; } }
