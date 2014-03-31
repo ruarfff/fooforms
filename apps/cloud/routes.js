@@ -44,6 +44,30 @@ var routes = function (app) {
         cloudApi.delete(req, res);
     });
 
+    app.put('/api/clouds/:cloudId/members/add/:userId', authenticator.ensureLoggedIn, function (req, res) {
+        var cloudId = req.params.cloudId;
+        var userId = req.params.userId;
+        var permissions = req.query.permissions;
+
+        if(permissions && permissions === 'write') {
+            cloudApi.addMemberWithWritePermissions(cloudId, userId, req, res);
+        } else {
+            cloudApi.addMember(cloudId, userId, req, res);
+        }
+    });
+
+    app.put('/api/clouds/:cloudId/members/remove/:userId', authenticator.ensureLoggedIn, function (req, res) {
+        var cloudId = req.params.cloudId;
+        var userId = req.params.userId;
+        var permissions = req.query.permissions;
+
+        if(permissions && permissions === 'write') {
+            cloudApi.removeMemberWritePermissions(cloudId, userId, req, res);
+        } else {
+            cloudApi.removeMember(cloudId, userId, req, res);
+        }
+    });
+
 };
 
 module.exports = routes;

@@ -1,4 +1,5 @@
 /*jslint node: true */
+"use strict";
 
 var Cloud = require('../models/cloud').Cloud;
 var User = require(global.config.apps.USER).User;
@@ -13,7 +14,6 @@ var log = require(global.config.apps.LOGGING).LOG;
  * @returns {*}
  */
 var userIsCloudMember = function (cloud, user) {
-    "use strict";
     try {
         return (
             cloud.owner.equals(user._id) ||
@@ -34,7 +34,6 @@ var userIsCloudMember = function (cloud, user) {
  * @returns {*}
  */
 var userHasWritePermissionInCloud = function (cloud, user) {
-    "use strict";
     try {
         return (
             cloud.owner.equals(user._id) ||

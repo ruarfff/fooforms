@@ -130,8 +130,64 @@ var addAppToCloud = function (cloudId, appId, req, res) {
     }
 };
 
-var addCloudMember = function() {
+var addMember = function(cloudId, userId, req, res) {
+    try {
+        cloudLib.addCloudMember(cloudId, userId, function (err, cloud) {
+            if (err || !cloud) {
+                handleError(res, err, 409);
+            } else {
+                res.status(200);
+                res.send(cloud);
+            }
+        });
+    } catch (err) {
+        handleError(res, err, 500);
+    }
+};
 
+var addMemberWithWritePermissions = function (cloudId, userId, req, res) {
+    try {
+        cloudLib.addCloudMemberWithWritePermissions(cloudId, userId, function (err, cloud) {
+            if (err || !cloud) {
+                handleError(res, err, 409);
+            } else {
+                res.status(200);
+                res.send(cloud);
+            }
+        });
+    } catch (err) {
+        handleError(res, err, 500);
+    }
+};
+
+var removeMember = function (cloudId, userId, req, res) {
+    try {
+        cloudLib.removeCloudMember(cloudId, userId, function (err, cloud) {
+            if (err || !cloud) {
+                handleError(res, err, 409);
+            } else {
+                res.status(200);
+                res.send(cloud);
+            }
+        });
+    } catch (err) {
+        handleError(res, err, 500);
+    }
+};
+
+var removeMemberWritePermissions = function (cloudId, userId, req, res) {
+    try {
+        cloudLib.removeCloudMemberWritePermissions(cloudId, userId, function (err, cloud) {
+            if (err || !cloud) {
+                handleError(res, err, 409);
+            } else {
+                res.status(200);
+                res.send(cloud);
+            }
+        });
+    } catch (err) {
+        handleError(res, err, 500);
+    }
 };
 
 /**
@@ -163,7 +219,11 @@ module.exports = {
     getAllClouds: getAllClouds,
     update: updateCloud,
     delete: deleteCloud,
-    addAppToCLoud: addAppToCloud
+    addAppToCLoud: addAppToCloud,
+    addMember: addMember,
+    addMemberWithWritePermissions: addMemberWithWritePermissions,
+    removeMember: removeMember,
+    removeMemberWritePermissions: removeMemberWritePermissions
 };
 
 
