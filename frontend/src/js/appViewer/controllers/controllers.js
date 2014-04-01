@@ -6,6 +6,7 @@ fooformsApp.controller('appViewerCtrl', ['$scope', '$http' , '$modal', 'Restangu
     // the main object to store the app data
     $scope.app = Apps.getCurrentApp();
     $scope.posts = [];
+    $scope.showPostForm=false;
 
     PostService.getAppPosts($scope.app, function (err) {
         if (!err) {
@@ -16,10 +17,12 @@ fooformsApp.controller('appViewerCtrl', ['$scope', '$http' , '$modal', 'Restangu
         } else {
             $scope.postObj = Posts.newPost($scope.app);
         }
+        $scope.showPostForm=false;
     });
 
     $scope.newPost = function () {
         $scope.postObj = Posts.newPost($scope.app);
+        $scope.showPostForm=true;
     };
 
     $scope.savePost = function (postToSave) {
@@ -64,6 +67,7 @@ fooformsApp.controller('appViewerCtrl', ['$scope', '$http' , '$modal', 'Restangu
 
     $scope.viewPost = function (postIndex) {
         $scope.postObj = $scope.posts[postIndex];
+        $scope.showPostForm = true;
     };
 
 }]);

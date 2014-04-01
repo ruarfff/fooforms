@@ -44,10 +44,10 @@ module.exports = function ( passport ) {
                     return done( err );
                 }
                 if ( !user ) {
-                    return done( null, false, { message: 'Incorrect login.' } );
+                   return done( null, false, { error: 'Incorrect login.' } );
                 }
                 if ( !user.authenticate( password ) ) {
-                    return done( null, false, { message: 'Incorrect password.' } );
+                    return done( null, false, { error: 'Incorrect password.' } );
                 }
                 return done( null, user );
             } );
