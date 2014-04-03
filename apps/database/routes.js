@@ -6,7 +6,7 @@ var viewDir = path.join( global.config.apps.DATABASE, 'views' );
 var database = require( global.config.apps.DATABASE );
 var authLib = require( global.config.apps.AUTHENTICATION );
 
-var routes = function ( app ) {
+var routes = function ( app, passport ) {
 
     // TODO: Move this to admin app
     app.get( '/admin/database', authLib.ensureLoggedIn, function ( req, res ) {

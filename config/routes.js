@@ -46,17 +46,17 @@ var routes = function (app, passport) {
         }
     });
 
-    require('../apps/admin/routes')(app);
-    require('../apps/app/routes')(app);
+    require('../apps/admin/routes')(app, passport);
+    require('../apps/app/routes')(app, passport);
     require('../apps/authentication/routes')(app, passport);
-    require('../apps/cloud/routes')(app);
-    require('../apps/dashboard/routes')(app);
-    require('../apps/calendar/routes')(app);
-    require('../apps/database/routes')(app);
-    require('../apps/user/routes')(app);
-    require('../apps/appBuilder/routes')(app);
-    require('../apps/appViewer/routes')(app);
-    require('../apps/file/routes')(app);
+    require('../apps/cloud/routes')(app, passport);
+    require('../apps/dashboard/routes')(app, passport);
+    require('../apps/calendar/routes')(app, passport);
+    require('../apps/database/routes')(app, passport);
+    require('../apps/user/routes')(app, passport);
+    require('../apps/appBuilder/routes')(app, passport);
+    require('../apps/appViewer/routes')(app, passport);
+    require('../apps/file/routes')(app, passport);
 
     app.get('/partials/userGuide', authenticator.ensureLoggedIn, function (req, res) {
         res.render('userGuide', {

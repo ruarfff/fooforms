@@ -2,6 +2,7 @@
 'use strict';
 
 var log = require( global.config.apps.LOGGING ).LOG;
+var BasicStrategy = require('passport-http').BasicStrategy;
 var LocalStrategy = require( 'passport-local' ).Strategy;
 var GoogleStrategy = require( 'passport-google-oauth' ).OAuth2Strategy;
 var TwitterStrategy = require( 'passport-twitter' ).Strategy;
@@ -18,6 +19,7 @@ module.exports = function ( passport ) {
             done( null, user.id );
         } catch ( err ) {
             log.error( err );
+            done( err );
         }
     } );
 
@@ -30,6 +32,7 @@ module.exports = function ( passport ) {
             } );
         } catch ( err ) {
             log.error( err );
+            done( err );
         }
     } );
 
@@ -53,6 +56,20 @@ module.exports = function ( passport ) {
             } );
         }
     ) );
+
+    passport.use( new BasicStrategy(
+        function(username, password, done) {
+            User.findOne( { $or: [
+                { email: username },
+                { displayName: username }
+            ] }, function (err, user) {
+                if (err) { return done(err); }
+                if (!user) { return done(null, false); }
+                if (!user.authenticate(password)) { return done(null, false); }
+                return done(null, user);
+            });
+        }
+    ));
 
 // Passport strategies - Google Facebook and twitter
     passport.use( new GoogleStrategy( {

@@ -86,7 +86,7 @@ exports.signup = function (req, res) {
     }
     catch
         (err) {
-        log.error(err.toString());
+        log.error(err);
         res.status(500);
         res.render(authLib.signupPath, {
             title: 'Sign Up',

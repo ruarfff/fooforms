@@ -5,9 +5,9 @@ var path = require('path');
 var viewDir = path.join(global.config.apps.CLOUD, 'views');
 var authenticator = require(global.config.apps.AUTHENTICATION);
 var cloudApi = require(path.join(global.config.apps.CLOUD, 'api/cloudApi'));
+var log = require(global.config.apps.LOGGING).LOG;
 
-
-var routes = function (app) {
+var routes = function (app, passport) {
 
     /*********************************************************************************
      *  View Handlers
@@ -44,22 +44,22 @@ var routes = function (app) {
         cloudApi.delete(req, res);
     });
 
-    app.put('/api/clouds/:cloudId/members/add/:userId', authenticator.ensureLoggedIn, function (req, res) {
-        var cloudId = req.params.cloudId;
-        var userId = req.params.userId;
-        var permissions = req.query.permissions;
+    app.put('/api/clouds/members/add', passport.authenticate('basic', { session: false }), function (req, res) {
+        var cloudId = req.body.cloud._id;
+        var userId = req.body.userId;
+        var permissions = req.body.permissions;
 
         if(permissions && permissions === 'write') {
-            cloudApi.addMemberWithWritePermissions(cloudId, userId, req, res);
+              cloudApi.addMemberWithWritePermissions(cloudId, userId, req, res);
         } else {
             cloudApi.addMember(cloudId, userId, req, res);
         }
     });
 
-    app.put('/api/clouds/:cloudId/members/remove/:userId', authenticator.ensureLoggedIn, function (req, res) {
-        var cloudId = req.params.cloudId;
-        var userId = req.params.userId;
-        var permissions = req.query.permissions;
+    app.put('/api/clouds/members/remove', passport.authenticate('basic', { session: false }), function (req, res) {
+        var cloudId = req.body.cloud._id;
+        var userId = req.body.userId;
+        var permissions = req.body.permissions;
 
         if(permissions && permissions === 'write') {
             cloudApi.removeMemberWritePermissions(cloudId, userId, req, res);

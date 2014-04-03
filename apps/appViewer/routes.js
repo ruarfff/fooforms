@@ -8,7 +8,7 @@ var authenticator = require(global.config.apps.AUTHENTICATION);
 var log = require(global.config.apps.LOGGING).LOG;
 
 
-var routes = function (app) {
+var routes = function (app, passport) {
 
     /*********************************************************************************
      *  View Handling

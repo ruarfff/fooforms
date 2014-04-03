@@ -6,7 +6,7 @@ var viewDir = path.join(global.config.apps.CALENDAR, 'views');
 var authenticator = require(global.config.apps.AUTHENTICATION);
 
 
-var routes = function (app) {
+var routes = function (app, passport) {
 
     /*********************************************************************************
      *  View Handlers

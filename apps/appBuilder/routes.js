@@ -8,7 +8,7 @@ var authentication = require(global.config.apps.AUTHENTICATION);
 
 //var appBuilderApi = require(path.join(global.config.apps.USER, 'api/profile'));
 
-var routes = function (app) {
+var routes = function (app, passport) {
 
     app.get('/partials/appBuilder', authentication.ensureLoggedIn, function (req, res) {
         var find = '/';

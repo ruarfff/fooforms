@@ -7,7 +7,7 @@ var authenticator = require(global.config.apps.AUTHENTICATION);
 var userApi = require(path.join(global.config.apps.USER, 'api/userApi'));
 var userLib = require(global.config.apps.USER);
 
-var routes = function (app) {
+var routes = function (app, passport) {
 
     /*********************************************************************************
      *  View Handlers

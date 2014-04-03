@@ -4,7 +4,7 @@ var path = require('path');
 var viewDir = path.join(global.config.apps.ADMIN, 'views');
 var authenticator = require(global.config.apps.AUTHENTICATION);
 
-var routes = function (app) {
+var routes = function (app, passport) {
 
     app.get('/partials/admin', authenticator.ensureLoggedIn, function (req, res) {
         res.render(viewDir + '/index', {

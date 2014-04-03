@@ -9,7 +9,7 @@ var postApi = require(path.join(global.config.apps.APP, 'api/postApi'));
 var log = require(global.config.apps.LOGGING).LOG;
 
 
-var routes = function (app) {
+var routes = function (app, passport) {
 
     /*********************************************************************************
      *  View Handlers

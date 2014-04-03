@@ -7,7 +7,7 @@ var authenticator = require(global.config.apps.AUTHENTICATION);
 var fileApi = require(path.join(global.config.apps.FILE, 'api/fileApi'));
 
 
-var routes = function (app) {
+var routes = function (app, passport) {
 
     /*********************************************************************************
      *  View Handlers
