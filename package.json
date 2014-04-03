@@ -31,6 +31,7 @@
     "connect-flash": "~0.1.x",
     "view-helpers": "~0.1.x",
     "underscore": "~1.5.x",
+    "passport-http": "~0.2.x",
     "passport-google-oauth": "~0.1.x",
     "passport-twitter": "~1.0.x",
     "passport-facebook": "~1.0.x",
@@ -55,8 +56,7 @@
     "grunt-contrib-concat": "^0.3.0",
     "grunt-mocha-test": "^0.9.4",
     "blanket": "^1.1.6",
-    "should": "^3.1.3",
-    "passport-http": "^0.2.2"
+    "should": "^3.1.3"
   },
   "bundleDependencies": [],
   "private": true,
