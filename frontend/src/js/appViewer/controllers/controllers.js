@@ -18,11 +18,14 @@ fooformsApp.controller('appViewerCtrl', ['$scope', '$http' , '$modal', 'Restangu
             $scope.postObj = Posts.newPost($scope.app);
         }
         $scope.showPostForm=false;
+        $scope.setMessage('');
+
     });
 
     $scope.newPost = function () {
         $scope.postObj = Posts.newPost($scope.app);
         $scope.showPostForm=true;
+        $scope.setMessage('');
     };
 
     $scope.savePost = function (postToSave) {
@@ -32,18 +35,23 @@ fooformsApp.controller('appViewerCtrl', ['$scope', '$http' , '$modal', 'Restangu
             PostService.updatePost(postToSave, function (err) {
                 if (err) {
                     console.log(err.toString());
+                    $scope.setMessage('appViewer','alert-danger','','Something went wrong. It didn\'t save. Please try again..');
                 } else {
                     $scope.posts = Posts.posts;
                     $scope.postObj = Posts.findById(postToSave._id);
+                    $scope.setMessage('appViewer','alert-success','','All saved....nice one');
+
                 }
             });
         } else {
             PostService.createPost(postToSave, function (err, postId) {
                 if (err) {
                     console.log(err.toString());
+                    $scope.setMessage('appViewer','alert-danger','','Something went wrong. It didn\'t save. Please try again..');
                 } else {
                     $scope.posts = Posts.posts;
                     $scope.postObj = Posts.findById(postId);
+                    $scope.setMessage('appViewer','alert-success','','New post, created and saved!');
                 }
             });
         }
@@ -57,6 +65,7 @@ fooformsApp.controller('appViewerCtrl', ['$scope', '$http' , '$modal', 'Restangu
                 } else {
                     $scope.posts = Posts.posts;
                     $scope.postObj = Posts.newPost($scope.app);
+                    $scope.setMessage('appViewer','alert-danger','','Post deleted.!');
                 }
             });
         } else {
@@ -68,6 +77,8 @@ fooformsApp.controller('appViewerCtrl', ['$scope', '$http' , '$modal', 'Restangu
     $scope.viewPost = function (postIndex) {
         $scope.postObj = $scope.posts[postIndex];
         $scope.showPostForm = true;
+        $scope.setMessage('');
+
     };
 
 }]);

@@ -77,11 +77,11 @@
                 </button>
             </div>
         </div>
-        <div id='msgCenter' class="hide">
-            <div class="alert alert-block alert-info fade in m5">
-                <p>Saving your post, please stand by...</p>
+
+            <div class="alert fade in m0 br0 {{msgStatus}} "ng-show="activeMsgBox=='appViewer'">
+                <p ng-bind="msg"></p>
             </div>
-        </div>
+
 
         <div id="tabs">
 

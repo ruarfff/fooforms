@@ -92,6 +92,21 @@ fooformsApp.controller('MainController', function ($scope, $location, USER_ROLES
     $scope.userRoles = USER_ROLES;
     $scope.isAuthorized = AuthService.isAuthorized;
 
+    //Messaging throuhout App
+
+    $scope.activeMsgBox = ''; // any string --matches ng-show of various msgboxes.
+    $scope.msgStatus = ''; // used in class, so alert-danger, etc...
+    $scope.msgTitle = ''; // optional -
+    $scope.msg = ''; // optional, but pretty fucking stupid not to populate it
+
+    $scope.setMessage= function (msgBox,status,title,message){
+
+        $scope.activeMsgBox = msgBox;
+        $scope.msgStatus = status;
+        $scope.msgTitle = title;
+        $scope.msg = message;
+    };
+
     $scope.init = function () {
         AuthService.checkUser(function (user) {
             if (AuthService.isAuthenticated()) {
