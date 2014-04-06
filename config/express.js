@@ -32,7 +32,7 @@ module.exports = function (app, passport) {
         app.set('files', global.config.root + '/files');
         app.engine('.html', engine.__express);
         app.set('view engine', 'html');
-        app.use(express.favicon());
+        app.use(express.favicon(global.config.root + '/frontend/public/assets/ico/favicon.ico'));
         app.use(express.static(global.config.root + '/frontend/public'));
         app.use(express.json());
         app.use(express.urlencoded());
