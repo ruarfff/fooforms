@@ -23,8 +23,4 @@ describe('Application updating', function () {
         it('should give an error if the app to update does not exist');
     });
 
-    describe('Move an app', function () {
-       it('should move and app to a new cloud');
-    });
-
 });

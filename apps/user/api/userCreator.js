@@ -2,25 +2,19 @@
 'use strict';
 
 var authentication = require( global.config.apps.AUTHENTICATION );
-var log = require( global.config.apps.LOGGING ).LOG;
 var userLib = require( global.config.apps.USER );
+var apiUtil = require(global.config.apps.APIUTIL);
+var log = require( global.config.apps.LOGGING ).LOG;
 
 
 /**
- * Create new user
+ * Create a new user
+ *
+ * @param req
+ * @param res
  */
 exports.create = function ( req, res ) {
     try {
-     /**   var userDetails = {
-            displayName: req.displayName,
-            name: {
-                familyName: req.familyName,
-                givenName: req.givenName,
-                middleName: req.middleName
-            },
-            email: req.email,
-            password: req.password
-        };*/
         userLib.createUser( req.body, function ( err, user ) {
             if ( err ) {
                 log.error( err );
@@ -31,9 +25,7 @@ exports.create = function ( req, res ) {
             }
         } );
     } catch ( err ) {
-        log.error( err );
-        res.status( 500 );
-        res.send( err );
+        apiUtil.handleError(res, err);
     }
 };
 

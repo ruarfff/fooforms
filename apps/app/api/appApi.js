@@ -1,11 +1,16 @@
 /*jslint node: true */
 'use strict';
 var appLib = require(global.config.apps.APP);
+var apiUtil = require(global.config.apps.APIUTIL);
+var appErrors = require('../lib/appErrors');
 var log = require(global.config.apps.LOGGING).LOG;
 
 
 /**
- * Create new app
+ * Create a brand new app
+ *
+ * @param req
+ * @param res
  */
 var createApp = function (req, res) {
     try {
@@ -14,103 +19,110 @@ var createApp = function (req, res) {
         app.owner = req.user.id;
         appLib.createApp(app, function (err, app) {
             if (err) {
-                var responseCode = 500;
                 if (err.code === 11000) {
                     err.data = 'An app with that label already exists.';
-                    responseCode = 409;
+                    app.http_code = 409;
                 }
-                handleError(res, err, responseCode);
+                apiUtil.handleError(res, err);
             } else {
                 res.status(200);
                 res.send(app);
             }
         });
     } catch (err) {
-        handleError(res, err, 500);
+        apiUtil.handleError(res, err);
     }
 };
 
+/**
+ * Get all apps owned by a user
+ * @param req
+ * @param res
+ */
 var getUserApps = function (req, res) {
     try {
         appLib.getAppsByUserId(req.user.id, function (err, apps) {
-            if (err || !apps) {
-                handleError(res, err, 404);
+            if(!apps && !err) {
+                err = appErrors.appNotFoundError;
+            }
+            if (err) {
+                apiUtil.handleError(res, err);
             } else {
                 res.status(200);
                 res.send(apps);
             }
         });
     } catch (err) {
-        handleError(res, err, 500);
+        apiUtil.handleError(res, err);
     }
 };
 
+/**
+ *
+ * @param id
+ * @param res
+ */
 var getAppById = function (id, res) {
     try {
         appLib.getAppById(id, function (err, app) {
-            if (err || !app) {
-                handleError(res, err, 404);
+            if (!err && !app) {
+                err = appErrors.appNotFoundError;
+            }
+            if(err){
+                apiUtil.handleError(res, err);
             } else {
                 res.status(200);
                 res.send(app);
             }
         });
     } catch (err) {
-        handleError(res, err, 500);
+        apiUtil.handleError(res, err);
     }
 };
 
+/**
+ * Updates an app without affecting dynamic data like Posts.
+ *
+ * @param req
+ * @param res
+ */
 var updateApp = function (req, res) {
     try {
         appLib.updateApp(req.body, function (err, app) {
-            if (err || !app) {
-                handleError(res, err, 409);
+            if (!err && !app) {
+                err = appErrors.appNotFoundError;
+            }
+            if(err) {
+                apiUtil.handleError(res, err);
             } else {
                 res.status(200);
                 res.send(app);
             }
         });
     } catch (err) {
-
+        apiUtil.handleError(res, err);
     }
 };
 
+/**
+ * Remove an app and all posts in it.
+ *
+ * @param req
+ * @param res
+ */
 var deleteApp = function (req, res) {
     try {
         var id = req.body._id;
-        appLib.deleteAppById(id, function (err, app) {
+        appLib.deleteAppById(id, function (err) {
             if (err) {
-                handleError(res, err, 404);
+                apiUtil.handleError(res, err);
             } else {
                 res.send(200);
             }
         });
 
     } catch (err) {
-        handleError(res, err, 500);
-    }
-};
-
-/**
- * A private utility method for handling errors in API calls.
- * TODO: Move this to some kind of reusable utility file.
- * @param res - the response to send he error
- * @param err - The error object. Can be a message.
- * @param responseCode - The desired error response code. Defaults to 500 if empty.
- */
-var handleError = function (res, err, responseCode) {
-    try {
-        if (!responseCode) {
-            responseCode = 500;
-        }
-        if (err) {
-            log.error(err.toString());
-        }
-        res.status(responseCode);
-        res.send(err);
-    } catch (err) {
-        log.error(err);
-        res.send(500);
+        apiUtil.handleError(res, err);
     }
 };
 
@@ -122,8 +134,5 @@ module.exports = {
     update: updateApp,
     delete: deleteApp
 };
-
-
-
 
 

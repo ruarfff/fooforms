@@ -1,3 +1,6 @@
+/*jslint node: true */
+'use strict';
+
 var path = require('path');
 
 var rootPath = path.normalize(__dirname + '/../..');
@@ -15,6 +18,7 @@ var appBuilderDir = path.join(rootPath, 'apps/appBuilder');
 var appViewerDir = path.join(rootPath, 'apps/appViewer');
 var calendarDir = path.join(rootPath, 'apps/calendar');
 var fileDir = path.join(rootPath, 'apps/file');
+var apiUtilDir = path.join(rootPath, 'lib/util/api-util/apiUtil');
 
 /**
  * Enumerator to allow easy access to absolute application root paths.
@@ -31,7 +35,8 @@ var apps = {
     "APPBUILDER": appBuilderDir,
     "APPVIEWER": appViewerDir,
     "CALENDAR": calendarDir,
-    "FILE": fileDir
+    "FILE": fileDir,
+    "APIUTIL": apiUtilDir
 };
 
 module.exports = {

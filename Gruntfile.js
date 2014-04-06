@@ -43,14 +43,6 @@ module.exports = function (grunt) {
                 src: ['test/spec/**/*.js']
             }
         },
-        concurrent: {
-            dev: {
-                tasks: ['watch', 'nodemon'],
-                options: {
-                    logConcurrentOutput: true
-                }
-            }
-        },
         nodemon: {
             dev: {
                 script: 'server.js',
@@ -146,7 +138,15 @@ module.exports = function (grunt) {
                 tasks: ['mochaTest']
 
             }
-        } // End watch
+        }, // End watch
+        concurrent: {
+            dev: {
+                tasks: ['nodemon', 'watch'],
+                options: {
+                    logConcurrentOutput: true
+                }
+            }
+        }
     });
 
     grunt.registerTask('dbdrop', 'drop the database', function () {
@@ -220,9 +220,10 @@ module.exports = function (grunt) {
 
     });
 
-    grunt.registerTask('default', 'start application in dev mode using watch and nodemon', ['concat:js', 'uglify', 'sass', 'mochaTest', 'concurrent']);
-    grunt.registerTask('test-watch', 'only run tests and generate coverage report', ['concat:js', 'uglify', 'sass', 'mochaTest']);
-    grunt.registerTask('test', 'only run tests and generate coverage report', ['concat:js', 'uglify', 'sass', 'mochaTest', 'watch']);
-    grunt.registerTask('skip-test', 'start application in dev mode using watch and nodemon', ['concat:js', 'uglify', 'sass', 'concurrent']);
-    grunt.registerTask('deploy', 'run application in production', ['concat:js', 'uglify', 'sass']);
+    grunt.registerTask('deploy', 'deploy pre-processed assets', ['concat:js', 'uglify', 'sass']);
+    grunt.registerTask('default', 'start application in dev mode using watch and nodemon', ['deploy', 'mochaTest', 'concurrent']);
+    grunt.registerTask('test-watch', 'only run tests and generate coverage report', ['deploy', 'mochaTest']);
+    grunt.registerTask('test', 'only run tests and generate coverage report', ['deploy', 'mochaTest', 'watch']);
+    grunt.registerTask('skip-test', 'start application in dev mode using watch and nodemon', ['deploy', 'concurrent']);
+
 };

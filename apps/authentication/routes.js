@@ -17,6 +17,7 @@ var routes = function (app, passport) {
      * Show login form
      */
     app.get('/login', function (req, res) {
+        log.debug(JSON.stringify(req.flash('error')));
         res.render(authLib.loginPath, {
             title: 'Login',
             message: req.flash('error')
@@ -45,10 +46,10 @@ var routes = function (app, passport) {
     });
 
     app.post('/login',
-        passport.authenticate('local', { successRedirect: '/dashboard',
-            failureRedirect: '/login',
-            failureFlash: true })
-    );
+        passport.authenticate('local', {
+            failureFlash: true,
+            successRedirect: '/dashboard',
+            failureRedirect: '/login'}));
 
 
     app.post('/signup', function (req, res) {

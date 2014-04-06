@@ -16,6 +16,7 @@ module.exports = function ( passport ) {
 
     passport.serializeUser( function ( user, done ) {
         try {
+            log.debug('serializeUser');
             done( null, user.id );
         } catch ( err ) {
             log.error( err );
@@ -25,6 +26,7 @@ module.exports = function ( passport ) {
 
     passport.deserializeUser( function ( id, done ) {
         try {
+            log.debug('deserializeUser');
             User.findOne( {
                 _id: id
             }, function ( err, user ) {
@@ -39,18 +41,21 @@ module.exports = function ( passport ) {
 
     passport.use( new LocalStrategy(
         function ( username, password, done ) {
+            log.debug('TEST');
             User.findOne( { $or: [
                 { email: username },
                 { displayName: username }
             ] }, function ( err, user ) {
+                log.error(err);
+                log.debug(user);
                 if ( err ) {
                     return done( err );
                 }
                 if ( !user ) {
-                   return done( null, false, { error: 'Incorrect login.' } );
+                   return done( null, false, { message: 'Incorrect login.' } );
                 }
                 if ( !user.authenticate( password ) ) {
-                    return done( null, false, { error: 'Incorrect password.' } );
+                    return done( null, false, { message: 'Incorrect password.' } );
                 }
                 return done( null, user );
             } );

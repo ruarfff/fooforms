@@ -1,26 +1,31 @@
 /*jslint node: true */
 'use strict';
 
-var log = require( global.config.apps.LOGGING ).LOG;
 var userLib = require( global.config.apps.USER );
+var apiUtil = require(global.config.apps.APIUTIL);
+var userErrors = require('../lib/userErrors');
+var log = require( global.config.apps.LOGGING ).LOG;
 
 
 /**
  * Send current logged in user
+ *
+ * @param req
+ * @param res
  */
 exports.me = function ( req, res ) {
     try {
         res.jsonp( userLib.userToProfile( req.user ) || null );
     } catch ( err ) {
-        log.error( err.toString() );
-        res.status( 500 );
-        res.send( err );
+        apiUtil.handleError(res, err);
     }
-
 };
 
 /**
  * Update user profile
+ *
+ * @param req
+ * @param res
  */
 exports.updateProfile = function ( req, res ) {
     try {
@@ -30,18 +35,17 @@ exports.updateProfile = function ( req, res ) {
 
         userLib.User.findOneAndUpdate( query, updatedUser, {upsert: false, "new": false} ).exec(
             function ( err, user ) {
-                if ( !err ) {
+                if ( !err && !user ) {
+                    err = userErrors.userNotFoundError;
+                }
+                if(err) {
+                    apiUtil.handleError(res, err);
+                } else {
                     log.debug( "updated " + user.displayName );
                     res.send( user );
-                } else {
-                    log.error( err );
-                    res.status( 400 );
-                    res.send( err );
                 }
             } );
     } catch ( err ) {
-        log.error( err.toString() );
-        res.status( 500 );
-        res.send( err );
+        apiUtil.handleError(res, err);
     }
 };

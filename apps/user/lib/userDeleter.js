@@ -7,13 +7,17 @@ exports.deleteUserById = function (id, next) {
     "use strict";
     try {
         User.findById(id, function (err, user) {
-            if (err) next(err, user);
+            if (err) {
+                next(err, user);
+            }
 
             user.remove(function (err, user) {
-                if (err) next(err, user);
+                if (err) {
+                    next(err, user);
+                }
                 User.findById(user._id, function (err, userThatShouldBeNull) {
                     if (userThatShouldBeNull) {
-                        err.code = 500;
+                        err.http_code = 500;
                         err.data = 'Error deleting user';
                     }
                     next(err, userThatShouldBeNull);
@@ -22,8 +26,8 @@ exports.deleteUserById = function (id, next) {
             });
         });
     } catch (err) {
-        log.error(err.toString());
-        next(err, null);
+        log.error(err);
+        next(err);
     }
 
 };

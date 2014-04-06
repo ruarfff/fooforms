@@ -1,6 +1,9 @@
 /*jslint node: true*/
 "use strict";
 
+var userNotFoundError = new Error('User not found');
+userNotFoundError.http_code = 404;
+
 var invalidUserDetailsError = new Error('Invalid user details provided.');
 invalidUserDetailsError.http_code = 400;
 
@@ -17,6 +20,7 @@ var notImplementedError = new Error('Sorry, this feature has not been implemente
 notImplementedError.http_code = 501;
 
 module.exports = {
+    userNotFoundError: userNotFoundError,
     invalidUserDetailsError: invalidUserDetailsError,
     unknownUserCreationError: unknownUserCreationError,
     notImplementedError: notImplementedError,

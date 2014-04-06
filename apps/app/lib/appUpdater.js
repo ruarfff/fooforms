@@ -9,24 +9,19 @@ exports.updateApp = function (appJson, next) {
         App.findByIdAndUpdate(appJson._id, {
             name: appJson.name,
             icon: appJson.icon,
+            btnLabel: appJson.btnLabel,
             description: appJson.description,
             menuLabel: appJson.menuLabel,
-            btnLabel: appJson.btnLabel,
-            settings: appJson.settings,
             fields: appJson.fields,
+            url: appJson.url,
             formEvents: appJson.formEvents,
-            version: appJson.version,
-            lastModified: appJson.lastModified,
-            owner: appJson.owner
+            sharing: appJson.sharing,
+            privileges: appJson.privileges
         }, { multi: false }, function (err, app) {
             next(err, app);
         });
     } catch (err) {
-        log.error(err.toString());
-        next(err, null);
+        log.error(err);
+        next(err);
     }
-};
-
-exports.moveAppToCloud = function (appId, cloudId, next) {
-
 };

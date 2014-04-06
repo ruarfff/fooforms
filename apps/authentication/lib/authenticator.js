@@ -25,11 +25,15 @@ exports.ensureAuthenticated = function check ( req, res, next ) {
  * @returns {*}
  */
 exports.ensureLoggedIn = function check ( req, res, next ) {
-    if (req.isAuthenticated()) return next();
+    if (req.isAuthenticated()) {
+        return next();
+    }
     res.statusCode = 401;
     var json_resp = {};
-    if (req.method == 'GET') json_resp.returnTo = req.originalUrl
-    res.json(json_resp)
+    if (req.method === 'GET') {
+        json_resp.returnTo = req.originalUrl;
+    }
+    res.json(json_resp);
 };
 
 /**

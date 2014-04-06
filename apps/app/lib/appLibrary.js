@@ -19,7 +19,6 @@ module.exports = {
     createApp: appCreator.createApp,
     deleteAppById: appDeleter.deleteAppById,
     updateApp: appUpdater.updateApp,
-    moveAppToCloud: appUpdater.moveAppToCloud,
     getAppById: appQuery.getAppById,
     getAppsByCloudId: appQuery.getAppsByCloudId,
     getAppsByUserId: appQuery.getAppsByUserId,

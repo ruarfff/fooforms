@@ -33,9 +33,13 @@ var createUserLocalStrategy = function ( userJSON, next ) {
         var user = new User( userJSON );
         user.provider = 'local';
         user.save(function (err, user) {
-            if(err) return next(err);
+            if(err) {
+                return next(err);
+            }
             createUserCloud(user, function (err, cloud) {
-                if(err) return next(err);
+                if(err) {
+                    return next(err);
+                }
                 user.cloud = cloud._id;
                 user.save(next);
             });
@@ -63,8 +67,12 @@ var createUser = function ( userJSON, next ) {
                 return next(userErrors.notImplementedError);
             } else {
                 createUserLocalStrategy(userJSON, function (err, user) {
-                    if(err) return next(err);
-                    if(!user) return next(userErrors.unknownUserCreationError);
+                    if(err) {
+                        return next(err);
+                    }
+                    if(!user) {
+                        return next(userErrors.unknownUserCreationError);
+                    }
                     return next(err, user);
                 });
             }
