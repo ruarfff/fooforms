@@ -150,7 +150,7 @@ module.exports = function (grunt) {
     });
 
     grunt.registerTask('dbdrop', 'drop the database', function () {
-        var database = require('./apps/database')(devDbConfig);
+        var database = require('./modules/database')(devDbConfig);
         // async mode
         var done = this.async();
 
@@ -182,8 +182,8 @@ module.exports = function (grunt) {
 
     grunt.registerTask('adduser', 'add a user to the database', function (displayName, familyName, givenName, middleName, emailaddress, password, admin, provider) {
        var done = this.async();
-        var database = require('./apps/database')(devDbConfig);
-        var userLib = require('./apps/user');
+        var database = require('./modules/database')(devDbConfig);
+        var userLib = require('./modules/user');
         // convert admin string to bool
         admin = (admin === "true");
         var user =
