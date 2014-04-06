@@ -12,7 +12,7 @@ describe('Database configuration and connection', function () {
         });
 
         it('database config loads correctly', function () {
-            global.config.apps.DATABASE.should.equal(path.join(global.config.root, 'apps/database'));
+            global.config.apps.DATABASE.should.equal(path.join(global.config.root, 'modules/database'));
         });
 
         it('database is test', function () {
