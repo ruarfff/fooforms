@@ -5,12 +5,15 @@ var path = require('path');
 var should = require('should');
 var specUtil = require('../../spec-util');
 var cloudSpecUtil = require('./cloud-spec-util');
+var log = require(global.config.apps.LOGGING).LOG;
 
 describe('Publishing, Updating and Removing Apps in Clouds', function () {
     var cloudLib;
+    var cloudErrors;
 
     before(function () {
         cloudLib = require(global.config.apps.CLOUD);
+        cloudErrors = cloudLib.cloudErrors;
     });
 
     beforeEach(function (done) {
@@ -125,6 +128,129 @@ describe('Publishing, Updating and Removing Apps in Clouds', function () {
                 done();
             });
         });
+        it('should move an app from one cloud to another', function (done) {
+            cloudLib.addCloudMemberWithWritePermissions(cloudSpecUtil.getCloud1Id(), cloudSpecUtil.getUser2Id(), function (err, cloud) {
+                if (err) {
+                    return done(err);
+                }
+                should.exist(cloud);
+
+                cloudLib.addAppToCloud(cloud._id, cloudSpecUtil.getApp2Id(), function (err, cloud) {
+                    if (err) {
+                        return done(err);
+                    }
+                    should.exist(cloud);
+
+                    cloud.should.have.property('apps').with.lengthOf(1);
+                    cloud.apps[0].should.eql(cloudSpecUtil.getApp2Id());
+                    cloudLib.moveAppFromOneCloudToAnother(cloudSpecUtil.getCloud2Id(), cloudSpecUtil.getApp2Id(), function(err, cloud) {
+                        if (err) {
+                            return done(err);
+                        }
+                        should.exist(cloud);
+                        cloud.should.have.property('apps').with.lengthOf(1);
+                        cloud.apps[0].should.eql(cloudSpecUtil.getApp2Id());
+                        cloudLib.getCloudById(cloudSpecUtil.getCloud1Id(), function(err, cloud) {
+                            if (err) {
+                                return done(err);
+                            }
+                            should.exist(cloud);
+                            cloud.should.have.property('apps').with.lengthOf(0);
+                            done();
+                        });
+                    });
+                });
+            });
+        });
+        it('should not move an app from one cloud to another if the user does not have permissions on the cloud', function (done) {
+            cloudLib.addCloudMemberWithWritePermissions(cloudSpecUtil.getCloud2Id(), cloudSpecUtil.getUser3Id(), function (err, cloud) {
+                if (err) {
+                    return done(err);
+                }
+                should.exist(cloud);
+
+                cloudLib.addAppToCloud(cloud._id, cloudSpecUtil.getApp3Id(), function (err, cloud) {
+                    if (err) {
+                        return done(err);
+                    }
+                    should.exist(cloud);
+
+                    cloud.should.have.property('apps').with.lengthOf(1);
+                    cloud.apps[0].should.eql(cloudSpecUtil.getApp3Id());
+                    cloudLib.moveAppFromOneCloudToAnother(cloudSpecUtil.getCloud1Id(), cloudSpecUtil.getApp3Id(), function(err, cloudThatShouldNotExist) {
+                        should.exist(err);
+                        err.should.eql(cloudErrors.userNotAuthorisedToPublishError);
+                        should.not.exist(cloudThatShouldNotExist);
+                        cloudLib.getCloudById(cloud._id, function(err, cloud) {
+                            if (err) {
+                                return done(err);
+                            }
+                            should.exist(cloud);
+                            cloud.should.have.property('apps').with.lengthOf(1);
+                            cloud.apps[0].should.eql(cloudSpecUtil.getApp3Id());
+                            done();
+                        });
+                    });
+                });
+            });
+        });
+        it('should copy an app from one cloud to another', function (done) {
+            cloudLib.addCloudMemberWithWritePermissions(cloudSpecUtil.getCloud1Id(), cloudSpecUtil.getUser2Id(), function (err, cloud) {
+                if (err) {
+                    return done(err);
+                }
+                should.exist(cloud);
+
+                cloudLib.addAppToCloud(cloud._id, cloudSpecUtil.getApp2Id(), function (err, cloud) {
+                    if (err) {
+                        return done(err);
+                    }
+                    should.exist(cloud);
+
+                    cloud.should.have.property('apps').with.lengthOf(1);
+                    cloud.apps[0].should.eql(cloudSpecUtil.getApp2Id());
+                    cloudLib.copyAppToCLoud(cloudSpecUtil.getCloud2Id(), cloudSpecUtil.getApp2Id(), function(err, cloud) {
+                        if (err) {
+                            return done(err);
+                        }
+                        should.exist(cloud);
+                        cloud.should.have.property('apps').with.lengthOf(1);
+                        cloudLib.getCloudById(cloudSpecUtil.getCloud1Id(), function(err, cloud) {
+                            if (err) {
+                                return done(err);
+                            }
+                            should.exist(cloud);
+                            cloud.should.have.property('apps').with.lengthOf(1);
+                            cloud.apps[0].should.eql(cloudSpecUtil.getApp2Id());
+                            done();
+                        });
+                    });
+                });
+            });
+        });
+        it('should not copy an app from one cloud to another if user is not authorised on cloud', function (done) {
+            cloudLib.addCloudMemberWithWritePermissions(cloudSpecUtil.getCloud1Id(), cloudSpecUtil.getUser2Id(), function (err, cloud) {
+                if (err) {
+                    return done(err);
+                }
+                should.exist(cloud);
+
+                cloudLib.addAppToCloud(cloud._id, cloudSpecUtil.getApp2Id(), function (err, cloud) {
+                    if (err) {
+                        return done(err);
+                    }
+                    should.exist(cloud);
+
+                    cloud.should.have.property('apps').with.lengthOf(1);
+                    cloud.apps[0].should.eql(cloudSpecUtil.getApp2Id());
+                    cloudLib.copyAppToCLoud(cloudSpecUtil.getCloud4Id(), cloudSpecUtil.getApp2Id(), function(err, cloud) {
+                        should.exist(err);
+                        should.not.exist(cloud);
+                        done();
+                    });
+                });
+            });
+        });
     });
 
     describe('Cloud Apps retrieval', function () {
@@ -153,7 +279,9 @@ describe('Publishing, Updating and Removing Apps in Clouds', function () {
         });
         it('should get a list of app names belonging to a cloud', function (done) {
             cloudLib.addCloudMemberWithWritePermissions(cloudSpecUtil.getCloud4Id(), cloudSpecUtil.getUser2Id(), function (err, cloud) {
-                if (err) return done(err);
+                if (err) {
+                    return done(err);
+                }
                 should.exist(cloud);
                 cloudLib.addCloudMemberWithWritePermissions(cloudSpecUtil.getCloud4Id(), cloudSpecUtil.getUser3Id(), function (err, cloud) {
                     if (err) return done(err);

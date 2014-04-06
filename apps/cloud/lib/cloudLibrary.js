@@ -19,6 +19,8 @@ module.exports = {
     removeAppFromCloud: cloudApps.removeAppFromCloud,
     getCloudApps: cloudApps.getCloudApps,
     getCloudAppNames: cloudApps.getCloudAppNames,
+    copyAppToCLoud: cloudApps.copyAppToCLoud,
+    moveAppFromOneCloudToAnother: cloudApps.moveAppFromOneCloudToAnother,
     getCloudById: cloudQuery.getCloudById,
     getAllClouds: cloudQuery.getAllClouds,
     getUserClouds: cloudQuery.getUserClouds,

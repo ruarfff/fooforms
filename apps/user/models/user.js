@@ -193,7 +193,7 @@ userSchema.methods = {
  */
 
 userSchema.statics.findByDisplayName = function (displayName, next) {
-    this.findOne({ displayName: new RegExp(displayName, 'i') }, next);
+    this.findOne({ displayName: displayName }, next);
 };
 
 userSchema.statics.findUserByEmail = function (email, next) {

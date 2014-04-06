@@ -119,7 +119,30 @@ var addAppToCloud = function (cloudId, appId, req, res) {
     try {
         cloudLib.addAppToCloud(cloudId, appId, function (err, cloud) {
             if (err || !cloud) {
-                handleError(res, err, 409);
+                var errorCode = 409;
+                if(!cloud) {
+                    errorCode = 404;
+                }
+                handleError(res, err, errorCode);
+            } else {
+                res.status(200);
+                res.send(cloud);
+            }
+        });
+    } catch (err) {
+        handleError(res, err, 500);
+    }
+};
+
+var removeAppFromCloud = function (cloudId, appId, req, res) {
+    try {
+        cloudLib.removeAppFromCloud(cloudId, appId, function (err, cloud) {
+            if (err || !cloud) {
+                var errorCode = 409;
+                if(!cloud) {
+                    errorCode = 404;
+                }
+                handleError(res, err, errorCode);
             } else {
                 res.status(200);
                 res.send(cloud);
@@ -220,6 +243,7 @@ module.exports = {
     update: updateCloud,
     delete: deleteCloud,
     addAppToCLoud: addAppToCloud,
+    removeAppFromCloud: removeAppFromCloud,
     addMember: addMember,
     addMemberWithWritePermissions: addMemberWithWritePermissions,
     removeMember: removeMember,

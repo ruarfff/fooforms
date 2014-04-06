@@ -46,7 +46,7 @@ var routes = function (app, passport) {
 
     app.put('/api/clouds/members/add', passport.authenticate('basic', { session: false }), function (req, res) {
         var cloudId = req.body.cloud._id;
-        var userId = req.body.userId;
+        var userId = req.body.user._id;
         var permissions = req.body.permissions;
 
         if(permissions && permissions === 'write') {
@@ -58,7 +58,7 @@ var routes = function (app, passport) {
 
     app.put('/api/clouds/members/remove', passport.authenticate('basic', { session: false }), function (req, res) {
         var cloudId = req.body.cloud._id;
-        var userId = req.body.userId;
+        var userId = req.body.user._id;
         var permissions = req.body.permissions;
 
         if(permissions && permissions === 'write') {
@@ -66,6 +66,19 @@ var routes = function (app, passport) {
         } else {
             cloudApi.removeMember(cloudId, userId, req, res);
         }
+    });
+
+    app.put('/api/clouds/apps/add',  passport.authenticate('basic', { session: false }), function (req, res) {
+        var cloudId = req.body.cloud._id;
+        var appId = req.body.user.app._id;
+        cloudApi.addAppToCloud(appId, appId, req, res);
+
+    });
+
+    app.put('/api/clouds/apps/remove',  passport.authenticate('basic', { session: false }), function (req, res) {
+        var cloudId = req.body.cloud._id;
+        var appId = req.body.user.app._id;
+        cloudApi.removeAppFromCloud(cloudId, appId, req, res);
     });
 
 };

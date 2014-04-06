@@ -221,7 +221,7 @@ module.exports = function (grunt) {
     });
 
     grunt.registerTask('default', 'start application in dev mode using watch and nodemon', ['concat:js', 'uglify', 'sass', 'mochaTest', 'concurrent']);
-    grunt.registerTask('test', 'only run tests and generate coverage report', ['concat:js', 'uglify', 'sass', 'mochaTest']);
+    grunt.registerTask('test', 'only run tests and generate coverage report', ['concat:js', 'uglify', 'sass', 'mochaTest', 'watch']);
     grunt.registerTask('skip-test', 'start application in dev mode using watch and nodemon', ['concat:js', 'uglify', 'sass', 'concurrent']);
     grunt.registerTask('deploy', 'run application in production', ['concat:js', 'uglify', 'sass']);
 };

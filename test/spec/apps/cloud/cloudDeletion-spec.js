@@ -25,7 +25,18 @@ describe('Cloud creation', function () {
 
     describe('Deleting a cloud', function () {
         it.skip('should delete a Cloud and all apps within', function (done) {
+            cloudLib.addAppToCloud(cloudSpecUtil.getCloud1Id(), cloudSpecUtil.getApp1Id(), function (err, cloud) {
+                if (err) return done(err);
+                should.exist(cloud);
 
+                cloud._id.should.eql(cloudSpecUtil.getCloud1Id());
+                cloud.owner.should.eql(cloudSpecUtil.getUser1Id());
+
+                cloud.should.have.property('apps').with.lengthOf(1);
+                cloud.apps[0].should.eql(cloudSpecUtil.getApp1Id());
+
+                done();
+            });
         });
     });
 
