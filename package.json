@@ -1,68 +1,69 @@
 {
-    "name": "fooforms",
-    "version": "0.1.0-5",
-    "description": "Form Maker",
-    "keywords": [
-        "forms",
-        "nodejs",
-        "application"
-    ],
-    "author": {
-        "name": "FooForms",
-        "email": "info@fooforms.com",
-        "url": "http://www.fooforms.com/"
-    },
-    "homepage": "http://www.fooforms.com/",
-    "repository": {
-        "type": "git",
-        "url": "git@github.com/ruairitobrien/fooforms.git"
-    },
-    "engines": {
-        "node": ">= 0.10.26",
-        "npm": ">= 1.0.0"
-    },
-    "dependencies": {
-        "express": "3.x",
-        "ejs": "0.8.x",
-        "mongoose": "~3.8.x",
-        "mongodb": "~1.3.x",
-        "passport": "~0.2.x",
-        "passport-local": "~0.1.x",
-        "connect-flash": "~0.1.x",
-        "view-helpers": "~0.1.x",
-        "underscore": "~1.5.x",
-        "passport-google-oauth": "~0.1.x",
-        "passport-twitter": "~1.0.x",
-        "passport-facebook": "~1.0.x",
-        "passport-yahoo": "~0.3.x",
-        "passport-linkedin": "~0.1.x",
-        "async": "~0.2.x",
-        "log4js": "~0.6.x",
-        "nodemailer": "~0.6.x",
-        "mongoose-unique-validator": "^0.3.0"
-    },
-    "devDependencies": {
-        "grunt": "~0.4.x",
-        "grunt-nodemon": "~0.2.x",
-        "grunt-contrib-uglify": "~0.3.x",
-        "grunt-contrib-watch": "~0.5.x",
-        "grunt-concurrent": "~0.4.x",
-        "load-grunt-tasks": "~0.4.x",
-        "connect-modrewrite": "~0.5.x",
-        "grunt-shell": "~0.6.4",
-        "grunt-contrib-imagemin": "~0.5.0",
-        "grunt-contrib-sass": "~0.7.2",
-        "grunt-contrib-concat": "^0.3.0",
-        "grunt-mocha-test": "^0.9.4",
-        "blanket": "^1.1.6",
-        "should": "^3.1.3"
-    },
-    "bundleDependencies": [],
-    "private": true,
-    "main": "server.js",
-    "subdomain": "fooforms",
-    "scripts": {
-        "predeploy": "grunt deploy",
-        "start": "server.js"
-    }
+  "name": "fooforms",
+  "version": "0.1.0-5",
+  "description": "Form Maker",
+  "keywords": [
+    "forms",
+    "nodejs",
+    "application"
+  ],
+  "author": {
+    "name": "FooForms",
+    "email": "info@fooforms.com",
+    "url": "http://www.fooforms.com/"
+  },
+  "homepage": "http://www.fooforms.com/",
+  "repository": {
+    "type": "git",
+    "url": "git@github.com/ruairitobrien/fooforms.git"
+  },
+  "engines": {
+    "node": ">= 0.10.26",
+    "npm": ">= 1.0.0"
+  },
+  "dependencies": {
+    "express": "3.x",
+    "ejs": "0.8.x",
+    "mongoose": "~3.8.x",
+    "mongodb": "~1.3.x",
+    "passport": "~0.2.x",
+    "passport-local": "~0.1.x",
+    "connect-flash": "~0.1.x",
+    "view-helpers": "~0.1.x",
+    "underscore": "~1.5.x",
+    "passport-http": "~0.2.x",
+    "passport-google-oauth": "~0.1.x",
+    "passport-twitter": "~1.0.x",
+    "passport-facebook": "~1.0.x",
+    "passport-yahoo": "~0.3.x",
+    "passport-linkedin": "~0.1.x",
+    "async": "~0.2.x",
+    "log4js": "~0.6.x",
+    "nodemailer": "~0.6.x",
+    "mongoose-unique-validator": "^0.3.0"
+  },
+  "devDependencies": {
+    "grunt": "~0.4.x",
+    "grunt-nodemon": "~0.2.x",
+    "grunt-contrib-uglify": "~0.3.x",
+    "grunt-contrib-watch": "~0.5.x",
+    "grunt-concurrent": "~0.4.x",
+    "load-grunt-tasks": "~0.4.x",
+    "connect-modrewrite": "~0.5.x",
+    "grunt-shell": "~0.6.4",
+    "grunt-contrib-imagemin": "~0.5.0",
+    "grunt-contrib-sass": "~0.7.2",
+    "grunt-contrib-concat": "^0.3.0",
+    "grunt-mocha-test": "^0.9.4",
+    "blanket": "^1.1.6",
+    "should": "^3.1.3"
+  },
+  "bundleDependencies": [],
+  "private": true,
+  "main": "server.js",
+  "subdomain": "fooforms",
+  "scripts": {
+    "predeploy": "grunt deploy",
+    "start": "server.js"
+  }
 }

@@ -4,7 +4,7 @@ var path = require('path');
 var async = require('async');
 
 // WARNING! If the dev db config is changed in the main configuration it should be changed here too.
-// Setting the config here was overriding the test config on CI environments
+// Setting the global config here was overriding the test config on CI environments
 // TODO: Will try to come up with a better way to handle this
 var devDbConfig = {
     "hostname": "localhost",
@@ -41,14 +41,6 @@ module.exports = function (grunt) {
                     captureFile: 'frontend/public/coverage.html'
                 },
                 src: ['test/spec/**/*.js']
-            }
-        },
-        concurrent: {
-            dev: {
-                tasks: ['watch', 'nodemon'],
-                options: {
-                    logConcurrentOutput: true
-                }
             }
         },
         nodemon: {
@@ -135,22 +127,30 @@ module.exports = function (grunt) {
             },
             // No task here for views and public. Just livereload is run.
             views: {
-                files: ['frontend/views/**', 'apps/*/views/**']
+                files: ['frontend/views/**', 'modules/*/views/**']
             },
             public: {
                 files: ['frontend/public/**']
             },
             // Watch the js files that matter on the server and run tests when they are changed.
             tests: {
-                files: ['apps/**/*.js', 'test/spec/**'],
+                files: ['modules/**/*.js', 'test/spec/**'],
                 tasks: ['mochaTest']
 
             }
-        } // End watch
+        }, // End watch
+        concurrent: {
+            dev: {
+                tasks: ['nodemon', 'watch'],
+                options: {
+                    logConcurrentOutput: true
+                }
+            }
+        }
     });
 
     grunt.registerTask('dbdrop', 'drop the database', function () {
-        var database = require('./apps/database')(devDbConfig);
+        var database = require('./modules/database')(devDbConfig);
         // async mode
         var done = this.async();
 
@@ -182,8 +182,8 @@ module.exports = function (grunt) {
 
     grunt.registerTask('adduser', 'add a user to the database', function (displayName, familyName, givenName, middleName, emailaddress, password, admin, provider) {
        var done = this.async();
-        var database = require('./apps/database')(devDbConfig);
-        var userLib = require('./apps/user');
+        var database = require('./modules/database')(devDbConfig);
+        var userLib = require('./modules/user');
         // convert admin string to bool
         admin = (admin === "true");
         var user =
@@ -220,8 +220,10 @@ module.exports = function (grunt) {
 
     });
 
-    grunt.registerTask('default', 'start application in dev mode using watch and nodemon', ['concat:js', 'uglify', 'sass', 'mochaTest', 'concurrent']);
-    grunt.registerTask('test', 'only run tests and generate coverage report', ['concat:js', 'uglify', 'sass', 'mochaTest']);
-    grunt.registerTask('skip-test', 'start application in dev mode using watch and nodemon', ['concat:js', 'uglify', 'sass', 'concurrent']);
-    grunt.registerTask('deploy', 'run application in production', ['concat:js', 'uglify', 'sass']);
+    grunt.registerTask('deploy', 'deploy pre-processed assets', ['concat:js', 'uglify', 'sass']);
+    grunt.registerTask('default', 'start application in dev mode using watch and nodemon', ['deploy', 'mochaTest', 'concurrent']);
+    grunt.registerTask('test-nowatch', 'only run tests and generate coverage report', ['deploy', 'mochaTest']);
+    grunt.registerTask('test', 'only run tests and generate coverage report', ['deploy', 'mochaTest', 'watch']);
+    grunt.registerTask('skip-test', 'start application in dev mode using watch and nodemon', ['deploy', 'concurrent']);
+
 };

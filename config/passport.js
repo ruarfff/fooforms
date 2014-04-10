@@ -1,7 +1,8 @@
 /*jslint node: true */
 'use strict';
 
-var log = require( global.config.apps.LOGGING ).LOG;
+var log = require( global.config.modules.LOGGING ).LOG;
+var BasicStrategy = require('passport-http').BasicStrategy;
 var LocalStrategy = require( 'passport-local' ).Strategy;
 var GoogleStrategy = require( 'passport-google-oauth' ).OAuth2Strategy;
 var TwitterStrategy = require( 'passport-twitter' ).Strategy;
@@ -9,20 +10,23 @@ var FacebookStrategy = require( 'passport-facebook' ).Strategy;
 var YahooStrategy = require( 'passport-yahoo' ).Strategy;
 var LinkedInStrategy = require( 'passport-linkedin' ).Strategy;
 
-var User = require( global.config.apps.USER ).User;
+var User = require( global.config.modules.USER ).User;
 
 module.exports = function ( passport ) {
 
     passport.serializeUser( function ( user, done ) {
         try {
+            log.debug('serializeUser');
             done( null, user.id );
         } catch ( err ) {
             log.error( err );
+            done( err );
         }
     } );
 
     passport.deserializeUser( function ( id, done ) {
         try {
+            log.debug('deserializeUser');
             User.findOne( {
                 _id: id
             }, function ( err, user ) {
@@ -30,21 +34,25 @@ module.exports = function ( passport ) {
             } );
         } catch ( err ) {
             log.error( err );
+            done( err );
         }
     } );
 
 
     passport.use( new LocalStrategy(
         function ( username, password, done ) {
+            log.debug('TEST');
             User.findOne( { $or: [
                 { email: username },
                 { displayName: username }
             ] }, function ( err, user ) {
+                log.error(err);
+                log.debug(user);
                 if ( err ) {
                     return done( err );
                 }
                 if ( !user ) {
-                    return done( null, false, { message: 'Incorrect login.' } );
+                   return done( null, false, { message: 'Incorrect login.' } );
                 }
                 if ( !user.authenticate( password ) ) {
                     return done( null, false, { message: 'Incorrect password.' } );
@@ -53,6 +61,20 @@ module.exports = function ( passport ) {
             } );
         }
     ) );
+
+    passport.use( new BasicStrategy(
+        function(username, password, done) {
+            User.findOne( { $or: [
+                { email: username },
+                { displayName: username }
+            ] }, function (err, user) {
+                if (err) { return done(err); }
+                if (!user) { return done(null, false); }
+                if (!user.authenticate(password)) { return done(null, false); }
+                return done(null, user);
+            });
+        }
+    ));
 
 // Passport strategies - Google Facebook and twitter
     passport.use( new GoogleStrategy( {

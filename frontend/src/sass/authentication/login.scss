@@ -12,12 +12,12 @@ body {
 
 #login {
   position: absolute;
-  left: 50%;
+  left: -50%;
   top: 100px;
   text-align: left;
-  width: 350px;
+  width: 360px;
   height: 275px;
-  margin-left: -175px; /*half width*/
+  margin-left: -180px; /*half width*/
   border-radius: 10px;
   border: 1px solid #efefef;
   color: #404040;
@@ -28,12 +28,12 @@ body {
 
 #loginForm {
   position: absolute;
-  left: 50%;
+  left: -50%;
   top: 100px;
   text-align: left;
-  width: 350px;
+  width: 360px;
   height: 275px;
-  margin-left: -175px; /*half width*/
+  margin-left: -180px; /*half width*/
   border-radius: 10px;
   color: #404040;
   opacity:  1;
@@ -97,16 +97,14 @@ margin-top:  10px;
   position: relative;
   bottom: -20px;
   opacity: 0;
-  -webkit-animation: slide 0.3s forwards;
+  -webkit-animation: slide .7s forwards;
   -webkit-animation-delay: 0.1s;
-  animation: slide 0.3s forwards;
+  animation: slide .7s forwards;
   animation-delay: 0.3s;
 }
 @-webkit-keyframes slide {
-  0% {left: 0}
-  25% { left: 40%; }
-  50% { left: 60%; }
-  100% { left: 50%;
+  0% {left: 0;-webkit-transform:rotateY(190deg);}
+  100% { left: 50%;-webkit-transform:rotateY(0deg);
    }
 
 
@@ -114,10 +112,10 @@ margin-top:  10px;
 
 @keyframes slide {
 
-  0% {left: 0}
-  25% { left: 40%; }
-  50% { left: 60%; }
-  100% { left: 50%;
+  0% {left: 0;-webkit-transform:rotateY(90deg);}
+  25% { left: 30%; -webkit-transform:rotateY(45deg);}
+  50% { left: 60%; -webkit-transform:rotateY(12deg);}
+  100% { left: 50%;-webkit-transform:rotateY(0deg);
   }
 
 

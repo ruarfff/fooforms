@@ -1,7 +1,7 @@
 /*jslint node: true */
 'use strict';
 
-var authenticator = require(global.config.apps.AUTHENTICATION);
+var authenticator = require(global.config.modules.AUTHENTICATION);
 var dev = (process.env.NODE_ENV === 'development');
 
 /**
@@ -46,28 +46,24 @@ var routes = function (app, passport) {
         }
     });
 
-    require('../apps/admin/routes')(app);
-    require('../apps/app/routes')(app);
-    require('../apps/authentication/routes')(app, passport);
-    require('../apps/cloud/routes')(app);
-    require('../apps/dashboard/routes')(app);
-    require('../apps/calendar/routes')(app);
-    require('../apps/database/routes')(app);
-    require('../apps/user/routes')(app);
-    require('../apps/appBuilder/routes')(app);
-    require('../apps/appViewer/routes')(app);
-    require('../apps/file/routes')(app);
+    require('../modules/admin/routes')(app, passport);
+    require('../modules/app/routes')(app, passport);
+    require('../modules/authentication/routes')(app, passport);
+    require('../modules/cloud/routes')(app, passport);
+    require('../modules/dashboard/routes')(app, passport);
+    require('../modules/calendar/routes')(app, passport);
+    require('../modules/database/routes')(app, passport);
+    require('../modules/user/routes')(app, passport);
+    require('../modules/appBuilder/routes')(app, passport);
+    require('../modules/appViewer/routes')(app, passport);
+    require('../modules/file/routes')(app, passport);
 
     app.get('/partials/userGuide', authenticator.ensureLoggedIn, function (req, res) {
-        res.render('userGuide', {
-            user: req.user
-        });
+        res.render('userGuide');
     });
 
     app.get('/partials/settings', authenticator.ensureLoggedIn, function (req, res) {
-        res.render('settings', {
-            user: req.user
-        });
+        res.render('settings');
     });
 
     app.get('/404', function (req, res) {
