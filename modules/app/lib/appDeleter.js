@@ -40,6 +40,8 @@ exports.deleteAppById = function (id, next) {
                                     next(err);
                                 }
                             );
+                        } else {
+                            next();
                         }
                     });
                 });

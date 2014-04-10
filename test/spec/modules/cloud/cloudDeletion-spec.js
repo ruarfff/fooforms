@@ -8,7 +8,7 @@ var cloudSpecUtil = require('./cloud-spec-util');
 var log = require(global.config.modules.LOGGING).LOG;
 
 
-describe('Cloud creation', function () {
+describe('Cloud deletion', function () {
     var cloudLib;
     var appLib;
 
@@ -26,7 +26,7 @@ describe('Cloud creation', function () {
     });
 
     describe('Deleting a cloud', function () {
-        it.skip('should delete a Cloud and all apps within', function (done) {
+        it('should delete a Cloud and all apps within', function (done) {
             cloudLib.addAppToCloud(cloudSpecUtil.getCloud1Id(), cloudSpecUtil.getApp1Id(), function (err, cloud) {
                 if (err) {
                     return done(err);
@@ -40,10 +40,12 @@ describe('Cloud creation', function () {
                 cloud.apps[0].should.eql(cloudSpecUtil.getApp1Id());
                 cloudLib.deleteCloudById(cloud._id, function (err) {
                     should.not.exist(err);
-
+                    appLib.getAppById(cloudSpecUtil.getApp1Id(), function (err, app) {
+                        should.not.exist(err);
+                        should.not.exists(app);
+                        done();
+                    });
                 });
-
-                done();
             });
         });
     });

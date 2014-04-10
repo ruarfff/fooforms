@@ -26,9 +26,9 @@ var resetApps = function () {
             btnLabel: "Btn",
             settings: {},
             fields: [],
-            version: 1,
-            created: new Date(),
-            lastModified: new Date()
+            formEvents: [],
+            sharing: {test: 'test'},
+            privileges: 'none'
         },
         {
             name: "Some Other App",
@@ -38,9 +38,9 @@ var resetApps = function () {
             btnLabel: "Btndjjdknfkjsnf",
             settings: {aSetting: "somesetting", anotherSetting: "someothersetting"},
             fields: [ {}, {}, {} ],
-            version: 1,
-            created: new Date(),
-            lastModified: new Date()
+            formEvents: [],
+            sharing: {thing: 1},
+            privileges: 'some'
         },
         {
             name: "Some98908798&)(*&)*(& App",
@@ -50,9 +50,9 @@ var resetApps = function () {
             btnLabel: "Btwedwefwefewfn",
             settings: {aSetting: "somesetting", anotherSetting: "someothersetting", isaSetting: "somesetting", notanotherSetting: "someothersetting", notASetting: "somesetting", yetAnotherSetting: "someothersetting"},
             fields: [ {}, {} , {}, {}, "", "" ],
-            version: 1,
-            created: new Date(),
-            lastModified: new Date()
+            formEvents: [ {}, {} ],
+            sharing: {testing: '1', two: 'three'},
+            privileges: 'all'
         },
         {
             name: "Some App",
@@ -62,9 +62,9 @@ var resetApps = function () {
             btnLabel: "Btn___              90909 ",
             settings: {},
             fields: [],
-            version: 232,
-            created: new Date(),
-            lastModified: new Date()
+            formEvents: [ {} ],
+            sharing: {},
+            privileges: 'loads'
         }
     ];
 
@@ -76,9 +76,9 @@ var resetApps = function () {
             btnLabel: "Btn",
             settings: {},
             fields: [],
-            version: 1,
-            created: new Date(),
-            lastModified: new Date()
+            formEvents: [],
+            sharing: {},
+            privileges: ''
         },
         {
             icon: "An Icon",
@@ -87,9 +87,9 @@ var resetApps = function () {
             btnLabel: "Btn",
             settings: {},
             fields: [],
-            version: 1,
-            created: new Date(),
-            lastModified: new Date()
+            formEvents: [],
+            sharing: {},
+            privileges: ''
         },
         {
         },
@@ -100,9 +100,9 @@ var resetApps = function () {
             btnLabel: "Btn",
             settings: {},
             fields: [],
-            version: 1,
-            created: new Date(),
-            lastModified: new Date()
+            formEvents: [],
+            sharing: {},
+            privileges: ''
         }
     ];
 

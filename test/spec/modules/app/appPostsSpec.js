@@ -323,7 +323,49 @@ describe('Application Post functions', function () {
                     });
                 });
         });
-        it('should get all posts related to a cloud');
-        it('should return an empty array if cloud has no posts');
+        it('should get all posts related to a cloud', function (done) {
+            var testUser = userSpecUtil.getMockValidUser();
+            userLib.createUser(testUser, function (err, user) {
+                if (err) {
+                    return done(err);
+                }
+                should.exist(user);
+                createTestAppWithPosts(user._id, function (app) {
+                    if (err) {
+                        return done(err);
+                    }
+                    should.exist(app);
+                    app.posts.should.be.instanceof(Array).and.have.lengthOf(2);
+                    createTestAppWithPosts(user._id, function (app) {
+                        if (err) {
+                            return done(err);
+                        }
+                        should.exist(app);
+                        app.posts.should.be.instanceof(Array).and.have.lengthOf(2);
+                        appLib.getCloudPosts(user.cloud, function (err, posts) {
+                            should.not.exist(err);
+                            should.exist(posts);
+                            posts.should.be.instanceof(Array).and.have.lengthOf(4);
+                            done();
+                        });
+                    });
+                });
+            });
+        });
+        it('should return an empty array if cloud has no posts', function (done) {
+            var testUser = userSpecUtil.getMockValidUser();
+            userLib.createUser(testUser, function (err, user) {
+                if (err) {
+                    return done(err);
+                }
+                should.exist(user);
+                appLib.getCloudPosts(user.cloud, function (err, posts) {
+                    should.not.exist(err);
+                    should.exist(posts);
+                    posts.should.be.instanceof(Array).and.have.lengthOf(0);
+                    done();
+                });
+            });
+        });
     });
 });

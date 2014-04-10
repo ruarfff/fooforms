@@ -9,3 +9,7 @@ exports.checkDisplayName = function ( displayName, next ) {
 exports.checkEmail = function ( email, next ) {
     require( '../models/user' ).User.findUserByEmail( email, next );
 };
+
+exports.findUserById = function ( id, next ) {
+    require( '../models/user' ).User.findById( id, next );
+};

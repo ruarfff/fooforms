@@ -20,12 +20,16 @@ describe('User query', function () {
         it('should return a User if displayname exists', function (done) {
             var testUser = userSpecUtil.getMockValidUser();
             userLib.createUser(testUser, function (err, user) {
-                if (err) return done(err);
+                if (err) {
+                    return done(err);
+                }
                 should.exist(user);
                 user.displayName.should.equal(testUser.displayName.toLowerCase());
 
                 userLib.checkDisplayName(user.displayName, function (err, user) {
-                    if (err) return done(err);
+                    if (err) {
+                        return done(err);
+                    }
                     should.exist(user);
                     done();
                 });
@@ -34,7 +38,9 @@ describe('User query', function () {
         it('should not return a User if displayname does not exists', function (done) {
             var testUser = userSpecUtil.getMockValidUser();
             userLib.checkDisplayName(testUser.displayName, function (err, user) {
-                if (err) return done(err);
+                if (err) {
+                    return done(err);
+                }
                 should.not.exist(user);
                 done();
             });
@@ -45,12 +51,16 @@ describe('User query', function () {
         it('should return a User if email exists', function (done) {
             var testUser = userSpecUtil.getMockValidUser();
             userLib.createUser(testUser, function (err, user) {
-                if (err) return done(err);
+                if (err) {
+                    return done(err);
+                }
                 should.exist(user);
                 user.email.should.equal(testUser.email);
 
                 userLib.checkEmail(user.email, function (err, user) {
-                    if (err) return done(err);
+                    if (err) {
+                        return done(err);
+                    }
                     should.exist(user);
                     done();
                 });
@@ -59,7 +69,9 @@ describe('User query', function () {
         it('should not return a User if displayname does not exists', function (done) {
             var testUser = userSpecUtil.getMockValidUser();
             userLib.checkEmail(testUser.email, function (err, user) {
-                if (err) return done(err);
+                if (err) {
+                    return done(err);
+                }
                 should.not.exist(user);
                 done();
             });

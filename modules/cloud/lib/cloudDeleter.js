@@ -14,6 +14,10 @@ exports.deleteCloudById = function (id, next) {
             }
             var cloudApps = cloud.apps;
             cloud.remove(function (err, cloud) {
+                if (err) {
+                    log.error(err);
+                    return next(err, cloud);
+                }
                 Cloud.findById(cloud._id, function (err, cloudThatShouldBeNull) {
                     if (cloudThatShouldBeNull && !err) {
                         err.http_code = 500;
@@ -24,9 +28,10 @@ exports.deleteCloudById = function (id, next) {
                         return next(err);
                     }
                     if (cloudApps && cloudApps.length > 0) {
+                        var appLib = require(global.config.modules.APP);
                         async.each(cloudApps,
                             function (app, done) {
-                                app.remove(function (err) {
+                                appLib.deleteAppById(app._id, function (err) {
                                     if (err) {
                                         log.error(err);
                                     }
@@ -37,8 +42,9 @@ exports.deleteCloudById = function (id, next) {
                                 next(err);
                             }
                         );
+                    } else {
+                        return next();
                     }
-                    return next();
                 });
             });
         });

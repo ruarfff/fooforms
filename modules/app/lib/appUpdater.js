@@ -13,7 +13,6 @@ exports.updateApp = function (appJson, next) {
             description: appJson.description,
             menuLabel: appJson.menuLabel,
             fields: appJson.fields,
-            url: appJson.url,
             formEvents: appJson.formEvents,
             sharing: appJson.sharing,
             privileges: appJson.privileges

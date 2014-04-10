@@ -60,7 +60,7 @@ var getUserClouds = function (userId, next) {
             next(err, clouds);
         });
     } catch (err) {
-        log.error(err.toString());
+        log.error(err);
         next(err);
     }
 };

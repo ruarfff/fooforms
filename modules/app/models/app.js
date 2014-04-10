@@ -11,14 +11,23 @@ var appSchema = Schema({
         required: true,
         index: true
     },
-    icon: String,
-    description: String,
+    icon: {
+        type: String,
+        default: ''
+    },
+    description: {
+        type: String,
+        default: ''
+    },
     menuLabel: {
         type: String,
         required: true,
         index: true
     },
-    btnLabel: String,
+    btnLabel: {
+        type: String,
+        default: ''
+    },
     settings: {},
     fields: [],
     version: Number,
@@ -29,18 +38,26 @@ var appSchema = Schema({
         {type: Schema.Types.ObjectId, ref: 'Post'}
     ],
     cloud: {type: Schema.Types.ObjectId, ref: 'Cloud'},
-    url: String,
+    url: {
+        type: String,
+        default: ''
+    },
     formEvents: [],
     sharing: {},
-    privileges: String
+    privileges: {
+        type: String,
+        default: ''
+    }
 });
 
 appSchema.pre('save', function (next) {
     this.wasNew = this.isNew;
     if (!this.isNew) {
+        this.version = this.version + 1;
         this.lastModified = new Date();
         return next();
     }
+    this.version = 1;
     this.created = new Date();
     this.lastModified = new Date();
     next();

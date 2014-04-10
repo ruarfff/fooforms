@@ -7,6 +7,7 @@ var userProfile = require('./userProfile');
 var userCreator = require('./userCreator');
 var userQuery = require('./userQuery');
 var userErrors = require('./userErrors');
+var userDeleter = require('./userDeleter');
 
 
 module.exports = {
@@ -15,5 +16,7 @@ module.exports = {
     userToProfile: userProfile.userToProfile,
     checkDisplayName: userQuery.checkDisplayName,
     checkEmail: userQuery.checkEmail,
-    createUser: userCreator.createUser
+    findById: userQuery.findUserById,
+    createUser: userCreator.createUser,
+    deleteUserById: userDeleter.deleteUserById
 };
