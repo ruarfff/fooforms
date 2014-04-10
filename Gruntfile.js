@@ -4,7 +4,7 @@ var path = require('path');
 var async = require('async');
 
 // WARNING! If the dev db config is changed in the main configuration it should be changed here too.
-// Setting the config here was overriding the test config on CI environments
+// Setting the global config here was overriding the test config on CI environments
 // TODO: Will try to come up with a better way to handle this
 var devDbConfig = {
     "hostname": "localhost",
