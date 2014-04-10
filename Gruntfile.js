@@ -222,7 +222,7 @@ module.exports = function (grunt) {
 
     grunt.registerTask('deploy', 'deploy pre-processed assets', ['concat:js', 'uglify', 'sass']);
     grunt.registerTask('default', 'start application in dev mode using watch and nodemon', ['deploy', 'mochaTest', 'concurrent']);
-    grunt.registerTask('test-watch', 'only run tests and generate coverage report', ['deploy', 'mochaTest']);
+    grunt.registerTask('test-nowatch', 'only run tests and generate coverage report', ['deploy', 'mochaTest']);
     grunt.registerTask('test', 'only run tests and generate coverage report', ['deploy', 'mochaTest', 'watch']);
     grunt.registerTask('skip-test', 'start application in dev mode using watch and nodemon', ['deploy', 'concurrent']);
 
