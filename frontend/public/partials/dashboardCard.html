@@ -17,8 +17,7 @@
                                 class="fa fa-list fa-lg"></i>
                         </button>
 
-                        <button class='btn btn-default' ng-click="setView('grid')"><i
-                                class="fa fa-table fa-lg"></i></button>
+
                         <button class='btn btn-default' ng-click="setView('card')"><i
                                 class="fa fa-th fa-lg"></i>
                         </button>
@@ -36,12 +35,12 @@
         </div>
 
         <div class="row clearfix">
-            <div class="col-xs-12 col-sm-12 col-md-12">
-                <div class="pageGroup white clearfix">
+            <div class="col-xs-12 col-sm-12 col-md-12 container">
+                <div class="pageGroup white clearfix row">
 
-                    <div class="col-sm-12 col-md-6 col-lg-3"
+                    <div class="col-sm-12 col-md-6 col-lg-6"
                          ng-repeat="foo in posts" ng-click="viewPost(foo)">
-                        <div class="m5 pageGroup">
+                        <div class="m5">
                             <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
                             <a class="pull-left" href="{{app.name}}">
                                 <img class="media-object icon icon-sm" ng-src="{{foo.icon}}" alt="">
@@ -49,16 +48,18 @@
 
                             <div class="media-body">
                                 <h5 class="media-heading">{{ foo.name }} </h5>
-                                <ul class="list-group">
-                                    <li class="list-group-item" ng-repeat="field in foo.fields">{{field.label}}:
-                                        {{field.value}}
-                                    </li>
-
-                                </ul>
-
-
                             </div>
-                        </div>
+
+                                <div class="row">
+                                    <div class='col-xs-12 col-sm-{{appField.boxSize}} under viewFormObject'
+                                         ng-repeat="appField in foo.fields track by $index"
+                                         ng-show="appField.name"
+                                            >
+
+                                        <div ng-include='appField.template'></div>
+                                    </div>
+                            </div>
+
                     </div>
 
 
