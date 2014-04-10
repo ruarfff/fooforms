@@ -127,14 +127,14 @@ module.exports = function (grunt) {
             },
             // No task here for views and public. Just livereload is run.
             views: {
-                files: ['frontend/views/**', 'apps/*/views/**']
+                files: ['frontend/views/**', 'modules/*/views/**']
             },
             public: {
                 files: ['frontend/public/**']
             },
             // Watch the js files that matter on the server and run tests when they are changed.
             tests: {
-                files: ['apps/**/*.js', 'test/spec/**'],
+                files: ['modules/**/*.js', 'test/spec/**'],
                 tasks: ['mochaTest']
 
             }

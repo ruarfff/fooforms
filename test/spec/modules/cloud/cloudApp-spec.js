@@ -5,14 +5,14 @@ var path = require('path');
 var should = require('should');
 var specUtil = require('../../spec-util');
 var cloudSpecUtil = require('./cloud-spec-util');
-var log = require(global.config.apps.LOGGING).LOG;
+var log = require(global.config.modules.LOGGING).LOG;
 
 describe('Publishing, Updating and Removing Apps in Clouds', function () {
     var cloudLib;
     var cloudErrors;
 
     before(function () {
-        cloudLib = require(global.config.apps.CLOUD);
+        cloudLib = require(global.config.modules.CLOUD);
         cloudErrors = cloudLib.cloudErrors;
     });
 

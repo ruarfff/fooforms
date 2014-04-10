@@ -1,7 +1,7 @@
 /*jslint node: true */
 
 var App = require('../models/app').App;
-var log = require(global.config.apps.LOGGING).LOG;
+var log = require(global.config.modules.LOGGING).LOG;
 
 exports.updateApp = function (appJson, next) {
     "use strict";

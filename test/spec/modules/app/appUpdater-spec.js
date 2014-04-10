@@ -10,7 +10,7 @@ describe('Application updating', function () {
     var appLib;
 
     before(function () {
-        appLib = require(global.config.apps.APP);
+        appLib = require(global.config.modules.APP);
     });
 
     afterEach(function (done) {

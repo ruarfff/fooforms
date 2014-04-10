@@ -13,8 +13,8 @@ describe('Application creation functions', function () {
 
 
     before(function () {
-        appLib = require(global.config.apps.APP);
-        userLib = require(global.config.apps.USER);
+        appLib = require(global.config.modules.APP);
+        userLib = require(global.config.modules.USER);
     });
 
     afterEach(function (done) {

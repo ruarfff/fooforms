@@ -3,10 +3,10 @@
 
 var path = require('path');
 
-var viewDir = path.join(global.config.apps.APPVIEWER, 'views');
-var authenticator = require(global.config.apps.AUTHENTICATION);
-var apiUtil = require(global.config.apps.APIUTIL);
-var log = require(global.config.apps.LOGGING).LOG;
+var viewDir = path.join(global.config.modules.APPVIEWER, 'views');
+var authenticator = require(global.config.modules.AUTHENTICATION);
+var apiUtil = require(global.config.modules.APIUTIL);
+var log = require(global.config.modules.LOGGING).LOG;
 
 
 var routes = function (app, passport) {
@@ -33,7 +33,7 @@ var routes = function (app, passport) {
     });
 
     app.get('/forms/repo/:form', function (req, res) {
-        require(global.config.apps.APP).getAppById(req.params.form, function (err, app) {
+        require(global.config.modules.APP).getAppById(req.params.form, function (err, app) {
             if (err) {
                 res.send(500);
             }
@@ -48,7 +48,7 @@ var routes = function (app, passport) {
     });
 
     app.get('/forms/repo/fetch/:form', function (req, res) {
-        require(global.config.apps.APP + '/api/appApi').getAppById(req.params.form, res);
+        require(global.config.modules.APP + '/api/appApi').getAppById(req.params.form, res);
     });
 
 };

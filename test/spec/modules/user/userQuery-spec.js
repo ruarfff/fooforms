@@ -9,7 +9,7 @@ describe('User query', function () {
     var userLib;
 
     before(function () {
-        userLib = require(global.config.apps.USER);
+        userLib = require(global.config.modules.USER);
     });
 
     afterEach(function (done) {

@@ -10,7 +10,7 @@ describe('Querying Cloud Library to get Clouds and Cloud details', function () {
     var cloudLib;
 
     before(function () {
-        cloudLib = require(global.config.apps.CLOUD);
+        cloudLib = require(global.config.modules.CLOUD);
     });
 
     beforeEach(function (done) {

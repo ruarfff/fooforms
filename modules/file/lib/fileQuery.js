@@ -1,6 +1,6 @@
 /*jslint node: true */
 var File = require('../models/file').File;
-var log = require(global.config.apps.LOGGING).LOG;
+var log = require(global.config.modules.LOGGING).LOG;
 
 exports.getFileById = function (id, next) {
     "use strict";

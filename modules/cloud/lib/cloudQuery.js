@@ -1,6 +1,6 @@
 /*jslint node: true */
 var Cloud = require('../models/cloud').Cloud;
-var log = require(global.config.apps.LOGGING).LOG;
+var log = require(global.config.modules.LOGGING).LOG;
 
 var getCloudById = function (id, next) {
     "use strict";

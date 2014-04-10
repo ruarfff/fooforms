@@ -1,7 +1,7 @@
 /*jslint node: true */
 'use strict';
 var path = require( 'path' );
-var viewDir = path.join( global.config.apps.AUTHENTICATION, 'views' );
+var viewDir = path.join( global.config.modules.AUTHENTICATION, 'views' );
 var loginPath = path.join( viewDir, 'login' );
 var signupPath = path.join( viewDir, 'signup' );
 var authenticator = require( './authenticator' );

@@ -2,9 +2,9 @@
 'use strict';
 
 var path = require( 'path' );
-var viewDir = path.join( global.config.apps.DATABASE, 'views' );
-var database = require( global.config.apps.DATABASE );
-var authLib = require( global.config.apps.AUTHENTICATION );
+var viewDir = path.join( global.config.modules.DATABASE, 'views' );
+var database = require( global.config.modules.DATABASE );
+var authLib = require( global.config.modules.AUTHENTICATION );
 
 var routes = function ( app, passport ) {
 

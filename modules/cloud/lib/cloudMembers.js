@@ -2,8 +2,8 @@
 "use strict";
 
 var Cloud = require('../models/cloud').Cloud;
-var User = require(global.config.apps.USER).User;
-var log = require(global.config.apps.LOGGING).LOG;
+var User = require(global.config.modules.USER).User;
+var log = require(global.config.modules.LOGGING).LOG;
 
 /**
  * Checks a cloud to see if the user id corresponds to any cloud membership

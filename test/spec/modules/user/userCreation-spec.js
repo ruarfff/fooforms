@@ -10,8 +10,8 @@ describe('User creation', function () {
     var cloudLib;
 
     before(function () {
-        userLib = require(global.config.apps.USER);
-        cloudLib = require(global.config.apps.CLOUD);
+        userLib = require(global.config.modules.USER);
+        cloudLib = require(global.config.modules.CLOUD);
     });
 
     afterEach(function (done) {

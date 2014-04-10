@@ -1,9 +1,9 @@
 /*jslint node: true */
 'use strict';
-var appLib = require(global.config.apps.APP);
-var apiUtil = require(global.config.apps.APIUTIL);
+var appLib = require(global.config.modules.APP);
+var apiUtil = require(global.config.modules.APIUTIL);
 var appErrors = require('../lib/appErrors');
-var log = require(global.config.apps.LOGGING).LOG;
+var log = require(global.config.modules.LOGGING).LOG;
 
 
 /**

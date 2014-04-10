@@ -1,9 +1,9 @@
 /*jslint node: true*/
 "use strict";
 
-var userLib = require(global.config.apps.USER);
-var authLib = require(global.config.apps.AUTHENTICATION);
-var log = require(global.config.apps.LOGGING).LOG;
+var userLib = require(global.config.modules.USER);
+var authLib = require(global.config.modules.AUTHENTICATION);
+var log = require(global.config.modules.LOGGING).LOG;
 var _ = require('underscore');
 
 exports.signup = function (req, res) {

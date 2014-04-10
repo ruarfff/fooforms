@@ -3,7 +3,7 @@
 var Post = require('../models/post').Post;
 var App = require('../models/app').App;
 var appErrors = require('./appErrors');
-var log = require(global.config.apps.LOGGING).LOG;
+var log = require(global.config.modules.LOGGING).LOG;
 
 exports.deletePostById = function (id, next) {
     "use strict";

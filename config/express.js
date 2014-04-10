@@ -6,7 +6,7 @@ var engine = require('ejs');
 var flash = require('connect-flash');
 var helpers = require('view-helpers');
 var log4js = require('log4js');
-var log = require(global.config.apps.LOGGING).LOG;
+var log = require(global.config.modules.LOGGING).LOG;
 
 
 module.exports = function (app, passport) {

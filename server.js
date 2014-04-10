@@ -16,8 +16,8 @@ var passport = require('passport');
 var path = require('path');
 var fs = require('fs');
 
-var database = require(global.config.apps.DATABASE)();
-var log = require(global.config.apps.LOGGING).LOG;
+var database = require(global.config.modules.DATABASE)();
+var log = require(global.config.modules.LOGGING).LOG;
 
 var FooFormsServerApp = function () {
 
@@ -106,9 +106,9 @@ var FooFormsServerApp = function () {
         }
 
         // Look for and load any app models
-        var appsPath = path.join(global.config.root, 'modules');
-        fs.readdirSync(appsPath).forEach(function (appDir) {
-            var modelsPath = path.join(path.join(appsPath, appDir), 'models');
+        var modulesPath = path.join(global.config.root, 'modules');
+        fs.readdirSync(modulesPath).forEach(function (appDir) {
+            var modelsPath = path.join(path.join(modulesPath, appDir), 'models');
             if (fs.existsSync(rootModelsPath)) {
                 try {
                     var stat = fs.statSync(modelsPath);

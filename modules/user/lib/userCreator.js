@@ -1,7 +1,7 @@
 /*jslint node: true*/
 "use strict";
 
-var log = require( global.config.apps.LOGGING ).LOG;
+var log = require( global.config.modules.LOGGING ).LOG;
 var User = require('../models/user').User;
 var userErrors = require('./userErrors');
 
@@ -21,7 +21,7 @@ var createUserCloud = function (user, next) {
             icon: user.photo,
             isPrivate: true
         };
-        require(global.config.apps.CLOUD).createCloud(userCloud, next);
+        require(global.config.modules.CLOUD).createCloud(userCloud, next);
     } catch (err) {
         log.error(err);
         next(err);

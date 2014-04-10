@@ -1,10 +1,10 @@
 /*jslint node: true */
 "use strict";
 
-var App = require(global.config.apps.APP).App;
-var User = require(global.config.apps.USER).User;
+var App = require(global.config.modules.APP).App;
+var User = require(global.config.modules.USER).User;
 var Cloud = require('../models/cloud').Cloud;
-var log = require(global.config.apps.LOGGING).LOG;
+var log = require(global.config.modules.LOGGING).LOG;
 var cloudMembers = require('./cloudMembers');
 var cloudErrors = require('./cloudErrors');
 
@@ -288,7 +288,7 @@ var copyAppToCLoud = function(cloudId, appId, next) {
                         privileges: String
 
                     };
-                    require(global.config.apps.APP).createApp(appCopy, function (err, app) {
+                    require(global.config.modules.APP).createApp(appCopy, function (err, app) {
                         if(!err && !app) {
                             err = cloudErrors.appNotFoundError;
                         }

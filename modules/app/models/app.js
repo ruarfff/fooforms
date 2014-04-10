@@ -3,7 +3,7 @@
 
 var mongoose = require('mongoose');
 var Schema = mongoose.Schema;
-var log = require(global.config.apps.LOGGING).LOG;
+var log = require(global.config.modules.LOGGING).LOG;
 
 var appSchema = Schema({
     name: {

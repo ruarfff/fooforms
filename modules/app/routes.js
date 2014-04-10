@@ -2,11 +2,11 @@
 'use strict';
 
 var path = require('path');
-var viewDir = path.join(global.config.apps.APP, 'views');
-var authenticator = require(global.config.apps.AUTHENTICATION);
-var appApi = require(path.join(global.config.apps.APP, 'api/appApi'));
-var postApi = require(path.join(global.config.apps.APP, 'api/postApi'));
-var log = require(global.config.apps.LOGGING).LOG;
+var viewDir = path.join(global.config.modules.APP, 'views');
+var authenticator = require(global.config.modules.AUTHENTICATION);
+var appApi = require(path.join(global.config.modules.APP, 'api/appApi'));
+var postApi = require(path.join(global.config.modules.APP, 'api/postApi'));
+var log = require(global.config.modules.LOGGING).LOG;
 
 
 var routes = function (app, passport) {

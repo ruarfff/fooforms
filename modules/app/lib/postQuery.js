@@ -1,7 +1,7 @@
 /*jslint node: true */
 "use strict";
 
-var log = require(global.config.apps.LOGGING).LOG;
+var log = require(global.config.modules.LOGGING).LOG;
 var appErrors = require('./appErrors');
 var async = require("async");
 var _ = require('underscore');
@@ -27,7 +27,7 @@ var getAllPosts = function (next) {
 
 var getUserPosts = function (userId, next) {
     try {
-        require(global.config.apps.CLOUD).Cloud.find({owner: userId}).populate('apps').exec(function (err, clouds) {
+        require(global.config.modules.CLOUD).Cloud.find({owner: userId}).populate('apps').exec(function (err, clouds) {
             if (err) return next(err);
             if (!clouds) return next(appErrors.userCloudsNotFound);
 
@@ -63,7 +63,7 @@ var getUserPosts = function (userId, next) {
 
 var getCloudPosts = function (cloudId, next) {
     try {
-        require(global.config.apps.CLOUD).Cloud.findById(cloudId).populate('apps').exec(function(err, cloud) {
+        require(global.config.modules.CLOUD).Cloud.findById(cloudId).populate('apps').exec(function(err, cloud) {
             require('../models/app').App.populate(cloud.apps, 'posts', function(err, apps) {
                 if (err) return next(err);
                 if (!cloud) return next(appErrors.userCloudsNotFound);

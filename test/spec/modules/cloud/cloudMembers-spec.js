@@ -6,18 +6,16 @@ var should = require('should');
 var specUtil = require('../../spec-util');
 var cloudSpecUtil = require('./cloud-spec-util');
 
-
-var User = require(global.config.apps.USER).User;
-var App = require(global.config.apps.APP).App;
-var Cloud = require(global.config.apps.CLOUD).Cloud;
+var App = require(global.config.modules.APP).App;
+var Cloud = require(global.config.modules.CLOUD).Cloud;
 
 describe('Adding, updating and removing cloud members', function () {
     var cloudLib;
     var User;
 
     before(function () {
-        cloudLib = require(global.config.apps.CLOUD);
-        User = require(global.config.apps.USER).User;
+        cloudLib = require(global.config.modules.CLOUD);
+        User = require(global.config.modules.USER).User;
     });
 
     beforeEach(function (done) {

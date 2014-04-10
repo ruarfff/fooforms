@@ -25,7 +25,7 @@ var apiUtilDir = path.join(utilDir, 'apiUtil');
 /**
  * Enumerator to allow easy access to absolute application root paths.
  */
-var apps = {
+var modules = {
     "ADMIN": adminDir,
     "APP": appDir,
     "AUTHENTICATION": authenticationDir,
@@ -44,6 +44,6 @@ var apps = {
 module.exports = {
     root: rootPath,
     port: process.env.PORT || 3000,
-    apps: apps
+    modules: modules
 };
 

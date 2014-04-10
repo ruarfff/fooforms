@@ -1,7 +1,7 @@
 /*jslint node: true */
 'use strict';
-var userLib = require( global.config.apps.USER );
-var log = require( global.config.apps.LOGGING ).LOG;
+var userLib = require( global.config.modules.USER );
+var log = require( global.config.modules.LOGGING ).LOG;
 var _ = require( 'underscore' );
 
 exports.checkUserName = function ( req, res ) {

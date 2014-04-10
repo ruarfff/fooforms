@@ -4,7 +4,7 @@ var App = require('../models/app').App;
 var Post = require('../models/post').Post;
 var appErrors = require('./appErrors');
 
-var log = require(global.config.apps.LOGGING).LOG;
+var log = require(global.config.modules.LOGGING).LOG;
 
 exports.createPost = function (postJSON, appId, next) {
     "use strict";

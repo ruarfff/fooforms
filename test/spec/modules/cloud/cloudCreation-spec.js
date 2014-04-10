@@ -5,19 +5,19 @@ var path = require('path');
 var should = require('should');
 var testUtil = require('../../spec-util');
 var cloudSpecUtil = require('./cloud-spec-util');
-var log = require(global.config.apps.LOGGING).LOG;
+var log = require(global.config.modules.LOGGING).LOG;
 
-var User = require(global.config.apps.USER).User;
-var App = require(global.config.apps.APP).App;
-var Cloud = require(global.config.apps.CLOUD).Cloud;
+var User = require(global.config.modules.USER).User;
+var App = require(global.config.modules.APP).App;
+var Cloud = require(global.config.modules.CLOUD).Cloud;
 
 describe('Cloud creation', function () {
     var cloudLib;
     var userLib;
 
     before(function () {
-        cloudLib = require(global.config.apps.CLOUD);
-        userLib = require(global.config.apps.USER);
+        cloudLib = require(global.config.modules.CLOUD);
+        userLib = require(global.config.modules.USER);
     });
 
 

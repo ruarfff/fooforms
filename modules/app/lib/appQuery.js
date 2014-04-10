@@ -1,7 +1,7 @@
 /*jslint node: true */
 
 var App = require('../models/app').App;
-var log = require(global.config.apps.LOGGING).LOG;
+var log = require(global.config.modules.LOGGING).LOG;
 
 exports.getAppById = function (id, next) {
     "use strict";
@@ -16,10 +16,10 @@ exports.getAppById = function (id, next) {
 exports.getAppsByCloudId = function (cloudId, next) {
     "use strict";
     try {
-
+            next();
     } catch (err) {
         log.error(err);
-        next(err, null);
+        next(err);
     }
 };
 
@@ -31,16 +31,16 @@ exports.getAppsByUserId = function (userId, next) {
         });
     } catch (err) {
         log.error(err);
-        next(err, null);
+        next(err);
     }
 };
 
 exports.getAllApps = function (next) {
     "use strict";
     try {
-
+        next();
     } catch (err) {
         log.error(err);
-        next(err, null);
+        next(err);
     }
 };

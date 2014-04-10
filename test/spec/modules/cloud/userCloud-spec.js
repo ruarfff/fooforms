@@ -4,10 +4,10 @@
 var path = require('path');
 var should = require('should');
 var testUtil = require('../../spec-util');
-var log = require(global.config.apps.LOGGING).LOG;
+var log = require(global.config.modules.LOGGING).LOG;
 
-var User = require(global.config.apps.USER).User;
-var Cloud = require(global.config.apps.CLOUD).Cloud;
+var User = require(global.config.modules.USER).User;
+var Cloud = require(global.config.modules.CLOUD).Cloud;
 
 describe('Cloud creation', function () {
     var cloudLib;
@@ -18,8 +18,8 @@ describe('Cloud creation', function () {
     var sampleUserCloud = {};
 
     before(function () {
-        cloudLib = require(global.config.apps.CLOUD);
-        userLib = require(global.config.apps.USER);
+        cloudLib = require(global.config.modules.CLOUD);
+        userLib = require(global.config.modules.USER);
     });
 
     beforeEach(function () {

@@ -3,8 +3,8 @@
 
 var path = require('path');
 
-var viewDir = path.join(global.config.apps.APPBUILDER, 'views');
-var authentication = require(global.config.apps.AUTHENTICATION);
+var viewDir = path.join(global.config.modules.APPBUILDER, 'views');
+var authentication = require(global.config.modules.AUTHENTICATION);
 
 //var appBuilderApi = require(path.join(global.config.apps.USER, 'api/profile'));
 

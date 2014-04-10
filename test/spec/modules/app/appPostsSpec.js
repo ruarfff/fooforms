@@ -12,8 +12,8 @@ describe('Application Post functions', function () {
     var userLib;
 
     before(function () {
-        appLib = require(global.config.apps.APP);
-        userLib = require(global.config.apps.USER);
+        appLib = require(global.config.modules.APP);
+        userLib = require(global.config.modules.USER);
     });
 
     afterEach(function (done) {

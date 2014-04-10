@@ -1,7 +1,7 @@
 /*jslint node: true */
 'use strict';
 
-var authenticator = require(global.config.apps.AUTHENTICATION);
+var authenticator = require(global.config.modules.AUTHENTICATION);
 var dev = (process.env.NODE_ENV === 'development');
 
 /**
@@ -59,15 +59,11 @@ var routes = function (app, passport) {
     require('../modules/file/routes')(app, passport);
 
     app.get('/partials/userGuide', authenticator.ensureLoggedIn, function (req, res) {
-        res.render('userGuide', {
-            user: req.user
-        });
+        res.render('userGuide');
     });
 
     app.get('/partials/settings', authenticator.ensureLoggedIn, function (req, res) {
-        res.render('settings', {
-            user: req.user
-        });
+        res.render('settings');
     });
 
     app.get('/404', function (req, res) {

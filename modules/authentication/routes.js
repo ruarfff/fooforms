@@ -2,9 +2,9 @@
 'use strict';
 
 var path = require('path');
-var authApi = require(path.join(global.config.apps.AUTHENTICATION, 'api/authenticationApi'));
-var authLib = require(global.config.apps.AUTHENTICATION);
-var log = require(global.config.apps.LOGGING).LOG;
+var authApi = require(path.join(global.config.modules.AUTHENTICATION, 'api/authenticationApi'));
+var authLib = require(global.config.modules.AUTHENTICATION);
+var log = require(global.config.modules.LOGGING).LOG;
 
 
 var routes = function (app, passport) {

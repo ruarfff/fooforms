@@ -2,7 +2,7 @@
 
 var Post = require('../models/post').Post;
 var appErrors = require('./appErrors');
-var log = require(global.config.apps.LOGGING).LOG;
+var log = require(global.config.modules.LOGGING).LOG;
 
 var mail = require("nodemailer").mail;
 

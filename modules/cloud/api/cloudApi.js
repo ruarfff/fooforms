@@ -1,7 +1,7 @@
 /*jslint node: true */
 'use strict';
-var cloudLib = require(global.config.apps.CLOUD);
-var log = require(global.config.apps.LOGGING).LOG;
+var cloudLib = require(global.config.modules.CLOUD);
+var log = require(global.config.modules.LOGGING).LOG;
 
 
 /**

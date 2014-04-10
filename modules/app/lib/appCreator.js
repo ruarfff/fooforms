@@ -2,7 +2,7 @@
 
 var App = require('../models/app').App;
 var appErrors = require('./appErrors');
-var log = require(global.config.apps.LOGGING).LOG;
+var log = require(global.config.modules.LOGGING).LOG;
 
 exports.createApp = function (appJSON, next) {
     "use strict";
@@ -14,7 +14,7 @@ exports.createApp = function (appJSON, next) {
                 return next(err);
             }
             if (!app.cloud) {
-                var User = require(global.config.apps.USER).User;
+                var User = require(global.config.modules.USER).User;
                 User.findById(app.owner, function (err, user) {
                     if (err) {
                         return next(err);
@@ -23,7 +23,7 @@ exports.createApp = function (appJSON, next) {
                         return next(appErrors.ownerNotFoundError);
                     }
                     app.cloud = user.cloud;
-                    require(global.config.apps.CLOUD).addAppToCloud(app.cloud, app._id, function (err, cloud) {
+                    require(global.config.modules.CLOUD).addAppToCloud(app.cloud, app._id, function (err, cloud) {
                         if (err) {
                             return next(err);
                         }

@@ -1,7 +1,7 @@
 /*jslint node: true */
 
 var User = require('../models/user').User;
-var log = require(global.config.apps.LOGGING).LOG;
+var log = require(global.config.modules.LOGGING).LOG;
 
 exports.deleteUserById = function (id, next) {
     "use strict";

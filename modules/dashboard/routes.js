@@ -2,8 +2,8 @@
 'use strict';
 
 var path = require('path');
-var viewDir = path.join(global.config.apps.DASHBOARD, 'views');
-var authLib = require(global.config.apps.AUTHENTICATION);
+var viewDir = path.join(global.config.modules.DASHBOARD, 'views');
+var authLib = require(global.config.modules.AUTHENTICATION);
 
 var routes = function (app, passport) {
 

@@ -21,11 +21,11 @@
  **/
 
 require('../../spec-util');
-var User = require(global.config.apps.USER).User;
-var App = require(global.config.apps.APP).App;
-var Cloud = require(global.config.apps.CLOUD).Cloud;
+var User = require(global.config.modules.USER).User;
+var App = require(global.config.modules.APP).App;
+var Cloud = require(global.config.modules.CLOUD).Cloud;
 var should = require('should');
-var log = require(global.config.apps.LOGGING).LOG;
+var log = require(global.config.modules.LOGGING).LOG;
 
 // These 4 user ID values should be populated in the seedCloudsToDatabase method and made available
 // as convenience values for user lookup in tests

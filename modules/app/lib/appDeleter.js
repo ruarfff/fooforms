@@ -1,7 +1,7 @@
 /*jslint node: true */
 
 var App = require('../models/app').App;
-var log = require(global.config.apps.LOGGING).LOG;
+var log = require(global.config.modules.LOGGING).LOG;
 var async = require("async");
 
 exports.deleteAppById = function (id, next) {
@@ -9,19 +9,18 @@ exports.deleteAppById = function (id, next) {
     try {
         App.findById(id).populate('posts').exec(function (err, appToDelete) {
             if (err) {
-                next(err, appToDelete);
+                return next(err, appToDelete);
             } else {
                 var appPosts = appToDelete.posts;
                 appToDelete.remove(function (err, app) {
                     if (err) {
+                        log.error(err);
                         return next(err, app);
                     }
                     App.findById(app._id, function (err, appThatShouldBeNull) {
-                        if (appThatShouldBeNull) {
-                            var appDeletionError = new Error('Error deleting app');
-                            appDeletionError.http_code = 500;
-                            log.error(appDeletionError);
-                            return next(appDeletionError);
+                        if (appThatShouldBeNull && !err) {
+                            err = new Error('Error deleting app');
+                            err.http_code = 500;
                         }
                         if (err) {
                             log.error(err);
@@ -38,7 +37,7 @@ exports.deleteAppById = function (id, next) {
                                     });
                                 },
                                 function (err) {
-                                    next(err, appThatShouldBeNull);
+                                    next(err);
                                 }
                             );
                         }

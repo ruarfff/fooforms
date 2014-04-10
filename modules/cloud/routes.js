@@ -2,10 +2,10 @@
 'use strict';
 
 var path = require('path');
-var viewDir = path.join(global.config.apps.CLOUD, 'views');
-var authenticator = require(global.config.apps.AUTHENTICATION);
-var cloudApi = require(path.join(global.config.apps.CLOUD, 'api/cloudApi'));
-var log = require(global.config.apps.LOGGING).LOG;
+var viewDir = path.join(global.config.modules.CLOUD, 'views');
+var authenticator = require(global.config.modules.AUTHENTICATION);
+var cloudApi = require(path.join(global.config.modules.CLOUD, 'api/cloudApi'));
+var log = require(global.config.modules.LOGGING).LOG;
 
 var routes = function (app, passport) {
 

@@ -1,7 +1,7 @@
 /*jslint node: true */
 
 var Cloud = require('../models/cloud').Cloud;
-var log = require(global.config.apps.LOGGING).LOG;
+var log = require(global.config.modules.LOGGING).LOG;
 
 exports.createCloud = function (cloudJSON, next) {
     "use strict";

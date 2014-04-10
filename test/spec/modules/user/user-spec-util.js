@@ -100,7 +100,7 @@ var getMockValidUser = function() {
 var getMockInvalidUser = function() {
     resetUsers();
     return mockInvalidUser;
-}
+};
 
 module.exports = {
     getMockValidUser: getMockValidUser,
