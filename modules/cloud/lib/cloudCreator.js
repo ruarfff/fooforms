@@ -9,7 +9,7 @@ exports.createCloud = function (cloudJSON, next) {
         var _cloud = new Cloud(cloudJSON);
         _cloud.save(next);
     } catch (err) {
-        log.error(err.toString());
+        log.error(__filename, ' - ', err);
         next(err, null);
     }
 

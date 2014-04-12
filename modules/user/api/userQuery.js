@@ -34,7 +34,7 @@ exports.checkUserName = function ( req, res ) {
                 return;
             }
         } catch ( err ) {
-            log.error( err );
+            log.error( __filename, ' - ', err );
             res.json( 500, {
                 error: err.message
             } );

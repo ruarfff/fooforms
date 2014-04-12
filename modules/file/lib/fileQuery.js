@@ -9,7 +9,7 @@ exports.getFileById = function (id, next) {
             next(err, file);
         });
     } catch (err) {
-        log.error(err.toString());
+        log.error(__filename, ' - ', err);
         next(err, null);
     }
 };
@@ -21,7 +21,7 @@ exports.getAllFiles = function (next) {
             next(err, file);
         });
     } catch (err) {
-        log.error(err.toString());
+        log.error(__filename, ' - ', err);
         next(err, null);
     }
 };
@@ -33,7 +33,7 @@ exports.getUserFiles = function (userId, next) {
             next(err, files);
         });
     } catch (err) {
-        log.error(err.toString());
+        log.error(__filename, ' - ', err);
         next(err, null);
     }
 };

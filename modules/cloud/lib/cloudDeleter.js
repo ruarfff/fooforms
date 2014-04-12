@@ -7,15 +7,15 @@ var async = require("async");
 exports.deleteCloudById = function (id, next) {
     "use strict";
     try {
-        Cloud.findById(id).populate('apps').exec(function (err, cloud) {
+        Cloud.findById(id).populate('forms').exec(function (err, cloud) {
             if (err) {
-                log.error(err);
+                log.error(__filename, ' - ', err);
                 return next(err, cloud);
             }
-            var cloudApps = cloud.apps;
+            var cloudForms = cloud.forms;
             cloud.remove(function (err, cloud) {
                 if (err) {
-                    log.error(err);
+                    log.error(__filename, ' - ', err);
                     return next(err, cloud);
                 }
                 Cloud.findById(cloud._id, function (err, cloudThatShouldBeNull) {
@@ -24,16 +24,16 @@ exports.deleteCloudById = function (id, next) {
                         err.data = 'Error deleting cloud';
                     }
                     if (err) {
-                        log.error(err);
+                        log.error(__filename, ' - ', err);
                         return next(err);
                     }
-                    if (cloudApps && cloudApps.length > 0) {
-                        var appLib = require(global.config.modules.APP);
-                        async.each(cloudApps,
-                            function (app, done) {
-                                appLib.deleteAppById(app._id, function (err) {
+                    if (cloudForms && cloudForms.length > 0) {
+                        var formLib = require(global.config.modules.FORM);
+                        async.each(cloudForms,
+                            function (form, done) {
+                                formLib.deleteFormById(form._id, function (err) {
                                     if (err) {
-                                        log.error(err);
+                                        log.error(__filename, ' - ', err);
                                     }
                                     return done();
                                 });
@@ -49,7 +49,7 @@ exports.deleteCloudById = function (id, next) {
             });
         });
     } catch (err) {
-        log.error(err);
+        log.error(__filename, ' - ', err);
         next(err);
     }
 

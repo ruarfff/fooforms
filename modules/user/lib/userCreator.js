@@ -23,7 +23,7 @@ var createUserCloud = function (user, next) {
         };
         require(global.config.modules.CLOUD).createCloud(userCloud, next);
     } catch (err) {
-        log.error(err);
+        log.error(__filename, ' - ', err);
         next(err);
     }
 };
@@ -45,7 +45,7 @@ var createUserLocalStrategy = function ( userJSON, next ) {
             });
         });
     } catch ( err ) {
-        log.error(err);
+        log.error(__filename, ' - ', err);
         next(err);
     }
 };
@@ -81,7 +81,7 @@ var createUser = function ( userJSON, next ) {
             return next(userErrors.invalidUserDetailsError);
         }
     } catch ( err ) {
-        log.error(err);
+        log.error(__filename, ' - ', err);
         next(err);
     }
 };

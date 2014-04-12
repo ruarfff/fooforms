@@ -2,6 +2,7 @@
 'use strict';
 var cloudLib = require(global.config.modules.CLOUD);
 var log = require(global.config.modules.LOGGING).LOG;
+var apiUtil = require(global.config.modules.APIUTIL);
 
 
 /**
@@ -9,31 +10,29 @@ var log = require(global.config.modules.LOGGING).LOG;
  */
 var createCloud = function (req, res) {
     try {
-        log.debug('creating cloud');
         var body = req.body;
         var cloudDetails = {
             name: body.name,
+            owner: req.user.id,
+            menuLabel: body.menuLabel || '',
             description: body.description || '',
             icon: body.icon || '',
-            menuLabel: body.menuLabel || '',
-            owner: req.user.id
+            isPrivate: body.isPrivate || false
         };
-        log.debug(JSON.stringify(cloudDetails));
         cloudLib.createCloud(cloudDetails, function (err, cloud) {
             if (err) {
-                var responseCode = 500;
                 if (err.code === 11000) {
                     err.data = 'A cloud with that label already exists.';
-                    responseCode = 409;
+                    err.http_code = 409;
                 }
-                handleError(res, err, responseCode);
+                apiUtil.handleError(res, err);
             } else {
                 res.status(200);
                 res.send(cloud);
             }
         });
     } catch (err) {
-        handleError(res, err, 500);
+        apiUtil.handleError(res, err, __filename);
     }
 };
 
@@ -42,14 +41,14 @@ var getCloudById = function (req, res, id) {
     try {
         cloudLib.getCloudById(id, function (err, cloud) {
             if (err || !cloud) {
-                handleError(res, err, 404);
+                apiUtil.handleError(res, err, 404);
             } else {
                 res.status(200);
                 res.send(cloud);
             }
         });
     } catch (err) {
-        handleError(res, err, 500);
+        apiUtil.handleError(res, err);
     }
 };
 
@@ -57,14 +56,14 @@ var getUserClouds = function (req, res) {
     try {
         cloudLib.getUserClouds(req.user.id, function (err, clouds) {
             if (err || !clouds) {
-                handleError(res, err, 404);
+                apiUtil.handleError(res, err, 404);
             } else {
                 res.status(200);
                 res.send(clouds);
             }
         });
     } catch (err) {
-        handleError(res, err, 500);
+        apiUtil.handleError(res, err);
     }
 };
 
@@ -73,14 +72,14 @@ var getAllClouds = function (req, res) {
     try {
         cloudLib.getAllClouds(function (err, clouds) {
             if (err || !clouds) {
-                handleError(res, err, 404);
+                apiUtil.handleError(res, err, 404);
             } else {
                 res.status(200);
                 res.send(clouds);
             }
         });
     } catch (err) {
-        handleError(res, err, 500);
+        apiUtil.handleError(res, err);
     }
 };
 
@@ -88,14 +87,14 @@ var updateCloud = function (req, res) {
     try {
         cloudLib.updateCloud(req.body, function (err, cloud) {
             if (err || !cloud) {
-                handleError(res, err, 409);
+                apiUtil.handleError(res, err, 409);
             } else {
                 res.status(200);
                 res.send(cloud);
             }
         });
     } catch (err) {
-        handleError(res, err, 500);
+        apiUtil.handleError(res, err);
     }
 };
 
@@ -104,52 +103,52 @@ var deleteCloud = function (req, res) {
         var id = req.body._id;
         cloudLib.deleteCloudById(id, function (err, cloud) {
             if (err) {
-                handleError(res, err, 404);
+                apiUtil.handleError(res, err, 404);
             } else {
                 res.send(200);
             }
         });
 
     } catch (err) {
-        handleError(res, err, 500);
+        apiUtil.handleError(res, err);
     }
 };
 
-var addAppToCloud = function (cloudId, appId, req, res) {
+var addFormToCloud = function (cloudId, formId, req, res) {
     try {
-        cloudLib.addAppToCloud(cloudId, appId, function (err, cloud) {
+        cloudLib.addFormToCloud(cloudId, formId, function (err, cloud) {
             if (err || !cloud) {
                 var errorCode = 409;
                 if(!cloud) {
                     errorCode = 404;
                 }
-                handleError(res, err, errorCode);
+                apiUtil.handleError(res, err, errorCode);
             } else {
                 res.status(200);
                 res.send(cloud);
             }
         });
     } catch (err) {
-        handleError(res, err, 500);
+        apiUtil.handleError(res, err);
     }
 };
 
-var removeAppFromCloud = function (cloudId, appId, req, res) {
+var removeFormFromCloud = function (cloudId, formId, req, res) {
     try {
-        cloudLib.removeAppFromCloud(cloudId, appId, function (err, cloud) {
+        cloudLib.removeFormFromCloud(cloudId, formId, function (err, cloud) {
             if (err || !cloud) {
                 var errorCode = 409;
                 if(!cloud) {
                     errorCode = 404;
                 }
-                handleError(res, err, errorCode);
+                apiUtil.handleError(res, err, errorCode);
             } else {
                 res.status(200);
                 res.send(cloud);
             }
         });
     } catch (err) {
-        handleError(res, err, 500);
+        apiUtil.handleError(res, err);
     }
 };
 
@@ -157,14 +156,14 @@ var addMember = function(cloudId, userId, req, res) {
     try {
         cloudLib.addCloudMember(cloudId, userId, function (err, cloud) {
             if (err || !cloud) {
-                handleError(res, err, 409);
+                apiUtil.handleError(res, err, 409);
             } else {
                 res.status(200);
                 res.send(cloud);
             }
         });
     } catch (err) {
-        handleError(res, err, 500);
+        apiUtil.handleError(res, err);
     }
 };
 
@@ -172,14 +171,14 @@ var addMemberWithWritePermissions = function (cloudId, userId, req, res) {
     try {
         cloudLib.addCloudMemberWithWritePermissions(cloudId, userId, function (err, cloud) {
             if (err || !cloud) {
-                handleError(res, err, 409);
+                apiUtil.handleError(res, err, 409);
             } else {
                 res.status(200);
                 res.send(cloud);
             }
         });
     } catch (err) {
-        handleError(res, err, 500);
+        apiUtil.handleError(res, err);
     }
 };
 
@@ -187,14 +186,14 @@ var removeMember = function (cloudId, userId, req, res) {
     try {
         cloudLib.removeCloudMember(cloudId, userId, function (err, cloud) {
             if (err || !cloud) {
-                handleError(res, err, 409);
+                apiUtil.handleError(res, err, 409);
             } else {
                 res.status(200);
                 res.send(cloud);
             }
         });
     } catch (err) {
-        handleError(res, err, 500);
+        apiUtil.handleError(res, err);
     }
 };
 
@@ -202,35 +201,14 @@ var removeMemberWritePermissions = function (cloudId, userId, req, res) {
     try {
         cloudLib.removeCloudMemberWritePermissions(cloudId, userId, function (err, cloud) {
             if (err || !cloud) {
-                handleError(res, err, 409);
+                apiUtil.handleError(res, err, 409);
             } else {
                 res.status(200);
                 res.send(cloud);
             }
         });
     } catch (err) {
-        handleError(res, err, 500);
-    }
-};
-
-/**
- * A private utility method for handling errors in API calls.
- * TODO: Move this to some kind of reusable utility file.
- * @param res - the response to send he error
- * @param err - The error object. Can be a message.
- * @param responseCode - The desired error response code. Defaults to 500 if empty.
- */
-var handleError = function (res, err, responseCode) {
-    try {
-        if (!responseCode) {
-            responseCode = 500;
-        }
-        log.error(err.toString());
-        res.status(responseCode);
-        res.send(err);
-    } catch (err) {
-        log.error(err);
-        res.send(500);
+        apiUtil.handleError(res, err, __filename);
     }
 };
 
@@ -242,8 +220,8 @@ module.exports = {
     getAllClouds: getAllClouds,
     update: updateCloud,
     delete: deleteCloud,
-    addAppToCLoud: addAppToCloud,
-    removeAppFromCloud: removeAppFromCloud,
+    addFormToCLoud: addFormToCloud,
+    removeFormFromCloud: removeFormFromCloud,
     addMember: addMember,
     addMemberWithWritePermissions: addMemberWithWritePermissions,
     removeMember: removeMember,

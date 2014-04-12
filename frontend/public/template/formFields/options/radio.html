@@ -3,7 +3,7 @@
         <label class="col-sm-4 control-label">Field Label</label>
 
         <div class="col-sm-8">
-            <input type='text' class="form-control" ng-model="app.fields[nowEditing].label"/>
+            <input type='text' class="form-control" ng-model="form.fields[nowEditing].label"/>
         </div>
     </div>
     <div class="form-group">
@@ -11,7 +11,7 @@
 
         <div class="col-sm-8">
             <input type="range" name="points" min="1" max="12"
-                   ng-model="app.fields[nowEditing].boxSize">
+                   ng-model="form.fields[nowEditing].boxSize">
         </div>
     </div>
 
@@ -19,7 +19,7 @@
         <label class="col-sm-4 control-label">Required </label>
 
         <div class="col-sm-8">
-            <input type='checkbox' ng-model="app.fields[nowEditing].required"></label>
+            <input type='checkbox' ng-model="form.fields[nowEditing].required"></label>
         </div>
     </div>
 
@@ -28,7 +28,7 @@
 
         <div class="col-sm-8">
             <input type='text' class="form-control"
-                   ng-model="app.fields[nowEditing].userInstructions"/>
+                   ng-model="form.fields[nowEditing].userInstructions"/>
         </div>
     </div>
     <div class="form-group">
@@ -37,21 +37,21 @@
         <div class="col-sm-8">
             <label class="radio-inline">
                 <input type='radio'
-                       ng-model="app.fields[nowEditing].settings.display" value="Inline"> Inline
+                       ng-model="form.fields[nowEditing].settings.display" value="Inline"> Inline
             </label>
             <label class="radio-inline">
                 <input type='radio'
-                       ng-model="app.fields[nowEditing].settings.display" value="Stacked"> Stacked
+                       ng-model="form.fields[nowEditing].settings.display" value="Stacked"> Stacked
             </label>
         </div>
     </div>
     <div class="alert alert-info">
         <h6>Options</h6>
 
-        <div ng-repeat='option in app.fields[nowEditing].options track by $index'>
+        <div ng-repeat='option in form.fields[nowEditing].options track by $index'>
             <div class="input-group">
       <span class="input-group-addon">
-        <input type="radio" name="app.fields[nowEditing].id" ng-model="app.fields[nowEditing].selected"
+        <input type="radio" name="form.fields[nowEditing].id" ng-model="form.fields[nowEditing].selected"
                ng-value="option.label">
       </span>
                 <input type='text'

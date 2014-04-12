@@ -1,4 +1,5 @@
 /*jslint node: true */
+/*global describe, it, before, beforeEach, after, afterEach */
 'use strict';
 
 var path = require('path');
@@ -6,7 +7,6 @@ var should = require('should');
 var specUtil = require('../../spec-util');
 var cloudSpecUtil = require('./cloud-spec-util');
 
-var App = require(global.config.modules.APP).App;
 var Cloud = require(global.config.modules.CLOUD).Cloud;
 
 describe('Adding, updating and removing cloud members', function () {
@@ -29,10 +29,14 @@ describe('Adding, updating and removing cloud members', function () {
     describe('Checking if user is already a cloud member', function () {
         it('should return true if user is cloud owner', function (done) {
             cloudLib.Cloud.findById(cloudSpecUtil.getCloud4Id(), function (err, cloud) {
-                if (err) return done(err);
+                if (err) {
+                    return done(err);
+                }
                 should.exist(cloud);
                 User.findById(cloudSpecUtil.getUser4Id(), function (err, user) {
-                    if (err) return done(err);
+                    if (err) {
+                        return done(err);
+                    }
                     should.exist(user);
 
                     should(cloudLib.userIsCloudMember(cloud, user)).ok;
@@ -117,7 +121,9 @@ describe('Adding, updating and removing cloud members', function () {
                 should.exist(cloud);
 
                 User.findById(cloudSpecUtil.getUser1Id(), function (err, user) {
-                    if (err) return done(err);
+                    if (err) {
+                        return done(err);
+                    }
                     should.exist(user);
 
                     should(cloudLib.userIsCloudMember(cloud, user)).not.ok;
@@ -137,7 +143,9 @@ describe('Adding, updating and removing cloud members', function () {
                 }
                 should.exist(cloud);
                 User.findById(cloudSpecUtil.getUser3Id(), function (err, user) {
-                    if (err) return done(err);
+                    if (err) {
+                        return done(err);
+                    }
                     should.exist(user);
 
                     should(cloudLib.userIsCloudMember(cloud, user)).ok;
@@ -205,7 +213,9 @@ describe('Adding, updating and removing cloud members', function () {
                 }
                 should.exist(cloud);
                 User.findById(cloudSpecUtil.getUser3Id(), function (err, user) {
-                    if (err) return done(err);
+                    if (err) {
+                        return done(err);
+                    }
                     should.exist(user);
 
                     should(cloudLib.userIsCloudMember(cloud, user)).ok;
@@ -233,7 +243,9 @@ describe('Adding, updating and removing cloud members', function () {
                 }
                 should.exist(cloud);
                 User.findById(cloudSpecUtil.getUser3Id(), function (err, user) {
-                    if (err) return done(err);
+                    if (err) {
+                        return done(err);
+                    }
                     should.exist(user);
 
                     should(cloudLib.userIsCloudMember(cloud, user)).ok;
@@ -265,15 +277,21 @@ describe('Adding, updating and removing cloud members', function () {
     describe('Updating an existing members permissions in a cloud', function () {
         it('should give an existing standard user write permissions', function (done) {
             cloudLib.addCloudMember(cloudSpecUtil.getCloud2Id(), cloudSpecUtil.getUser3Id(), function (err, cloud) {
-                if (err) return done(err);
+                if (err) {
+                    return done(err);
+                }
                 should.exist(cloud);
                 User.findById(cloudSpecUtil.getUser3Id(), function (err, user) {
-                    if (err) return done(err);
+                    if (err) {
+                        return done(err);
+                    }
                     should.exist(user);
 
                     should(cloudLib.userIsCloudMember(cloud, user)).ok;
                     cloudLib.addCloudMemberWithWritePermissions(cloud._id, user._id, function (err, cloud) {
-                        if (err) return done(err);
+                        if (err) {
+                            return done(err);
+                        }
                         should.exist(cloud);
                         User.findById(cloudSpecUtil.getUser3Id(), function (err, user) {
                             if (err) return done(err);
@@ -292,14 +310,20 @@ describe('Adding, updating and removing cloud members', function () {
                 }
                 should.exist(cloud);
                 User.findById(cloudSpecUtil.getUser1Id(), function (err, user) {
-                    if (err) return done(err);
+                    if (err) {
+                        return done(err);
+                    }
                     should.exist(user);
                     should(cloudLib.userHasWritePermissionInCloud(cloud, user)).ok;
                     cloudLib.removeCloudMemberWritePermissions(cloud._id, user._id, function (err, cloud) {
-                        if (err) return done(err);
+                        if (err) {
+                            return done(err);
+                        }
                         should.exist(cloud);
                         User.findById(user._id, function (err, user) {
-                            if (err) return done(err);
+                            if (err) {
+                                return done(err);
+                            }
                             should.exist(user);
                             should(cloudLib.userHasWritePermissionInCloud(cloud, user)).not.ok;
                             done();

@@ -1,4 +1,5 @@
 /*jslint node: true */
+/*global describe, it, before, beforeEach, after, afterEach */
 'use strict';
 
 var path = require('path');
@@ -10,11 +11,11 @@ var log = require(global.config.modules.LOGGING).LOG;
 
 describe('Cloud deletion', function () {
     var cloudLib;
-    var appLib;
+    var formLib;
 
     before(function () {
         cloudLib = require(global.config.modules.CLOUD);
-        appLib = require(global.config.modules.APP);
+        formLib = require(global.config.modules.FORM);
     });
 
     beforeEach(function (done) {
@@ -26,8 +27,8 @@ describe('Cloud deletion', function () {
     });
 
     describe('Deleting a cloud', function () {
-        it('should delete a Cloud and all apps within', function (done) {
-            cloudLib.addAppToCloud(cloudSpecUtil.getCloud1Id(), cloudSpecUtil.getApp1Id(), function (err, cloud) {
+        it('should delete a Cloud and all forms within', function (done) {
+            cloudLib.addFormToCloud(cloudSpecUtil.getCloud1Id(), cloudSpecUtil.getForm1Id(), function (err, cloud) {
                 if (err) {
                     return done(err);
                 }
@@ -36,13 +37,13 @@ describe('Cloud deletion', function () {
                 cloud._id.should.eql(cloudSpecUtil.getCloud1Id());
                 cloud.owner.should.eql(cloudSpecUtil.getUser1Id());
 
-                cloud.should.have.property('apps').with.lengthOf(1);
-                cloud.apps[0].should.eql(cloudSpecUtil.getApp1Id());
+                cloud.should.have.property('forms').with.lengthOf(1);
+                cloud.forms[0].should.eql(cloudSpecUtil.getForm1Id());
                 cloudLib.deleteCloudById(cloud._id, function (err) {
                     should.not.exist(err);
-                    appLib.getAppById(cloudSpecUtil.getApp1Id(), function (err, app) {
+                    formLib.getFormById(cloudSpecUtil.getForm1Id(), function (err, form) {
                         should.not.exist(err);
-                        should.not.exists(app);
+                        should.not.exists(form);
                         done();
                     });
                 });

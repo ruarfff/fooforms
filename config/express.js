@@ -69,7 +69,7 @@ module.exports = function (app, passport) {
         }
 
         //Log it
-        log.error(err.stack);
+        log.error(__filename, ' - ', err);
 
         //Error page
         res.status(500).render('500', {

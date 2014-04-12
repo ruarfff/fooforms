@@ -1,6 +1,7 @@
 /*jslint node: true */
 'use strict';
 var fileLib = require(global.config.modules.FILE);
+var apiUtil = require(global.config.root + '/lib/util/apiUtil');
 var log = require(global.config.modules.LOGGING).LOG;
 
 
@@ -9,7 +10,6 @@ var log = require(global.config.modules.LOGGING).LOG;
  */
 var createFile = function (req, res) {
     try {
-        log.debug('creating file');
         var body = req.body;
         var fileName = req.files.file.filename;
         var mimeType = req.files.file.mime;
@@ -24,7 +24,6 @@ var createFile = function (req, res) {
             mimeType: req.files.file.mime || '',
             owner: req.user.id
         };
-        log.debug(JSON.stringify(fileDetails));
         fileLib.createFile(fileDetails, function (err, file) {
             if (err) {
                 var responseCode = 500;
@@ -32,14 +31,14 @@ var createFile = function (req, res) {
                     err.data = 'A file with that label already exists.';
                     responseCode = 409;
                 }
-                handleError(res, err, responseCode);
+               apiUtil.handleError(res, err, responseCode);
             } else {
                 res.status(200);
                 res.send(file);
             }
         });
     } catch (err) {
-        handleError(res, err, 500);
+        apiUtil.handleError(res, err, 500);
     }
 };
 
@@ -48,14 +47,14 @@ var getFileById = function (req, res, id) {
     try {
         fileLib.getFileById(id, function (err, file) {
             if (err || !file) {
-                handleError(res, err, 404);
+                apiUtil.handleError(res, err, 404);
             } else {
                 res.status(200);
                 res.send(file);
             }
         });
     } catch (err) {
-        handleError(res, err, 500);
+        apiUtil.handleError(res, err, 500);
     }
 };
 
@@ -70,7 +69,7 @@ var getUserFiles = function (req, res) {
             }
         });
     } catch (err) {
-        handleError(res, err, 500);
+        apiUtil.handleError(res, err, 500);
     }
 };
 
@@ -79,14 +78,14 @@ var getAllFiles = function (req, res) {
     try {
         fileLib.getAllFiles(function (err, files) {
             if (err || !files) {
-                handleError(res, err, 404);
+                apiUtil.handleError(res, err, 404);
             } else {
                 res.status(200);
                 res.send(files);
             }
         });
     } catch (err) {
-        handleError(res, err, 500);
+        apiUtil.handleError(res, err, 500);
     }
 };
 
@@ -94,14 +93,14 @@ var updateFile = function (req, res) {
     try {
         fileLib.updatefile(req.body, function (err, file) {
             if (err || !file) {
-                handleError(res, err, 409);
+                apiUtil.handleError(res, err, 409);
             } else {
                 res.status(200);
                 res.send(file);
             }
         });
     } catch (err) {
-        handleError(res, err, 500);
+        apiUtil.handleError(res, err, 500);
     }
 };
 
@@ -110,35 +109,14 @@ var deleteFile = function (req, res) {
         var id = req.body._id;
         fileLib.deletefileById(id, function (err, file) {
             if (err) {
-                handleError(res, err, 404);
+                apiUtil.handleError(res, err, 404);
             } else {
                 res.send(200);
             }
         });
 
     } catch (err) {
-        handleError(res, err, 500);
-    }
-};
-
-/**
- * A private utility method for handling errors in API calls.
- * TODO: Move this to some kind of reusable utility file.
- * @param res - the response to send he error
- * @param err - The error object. Can be a message.
- * @param responseCode - The desired error response code. Defaults to 500 if empty.
- */
-var handleError = function (res, err, responseCode) {
-    try {
-        if (!responseCode) {
-            responseCode = 500;
-        }
-        log.error(err.toString());
-        res.status(responseCode);
-        res.send(err);
-    } catch (err) {
-        log.error(err);
-        res.send(500);
+        apiUtil.handleError(res, err, 500);
     }
 };
 

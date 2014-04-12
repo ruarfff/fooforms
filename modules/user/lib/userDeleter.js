@@ -14,7 +14,7 @@ exports.deleteUserById = function (id, next) {
 
             user.remove(function (err, user) {
                 if (err) {
-                    log.error(err);
+                    log.error(__filename, ' - ', err);
                     next(err, user);
                 }
                 User.findById(user._id, function (err, userThatShouldBeNull) {
@@ -24,7 +24,7 @@ exports.deleteUserById = function (id, next) {
                         return next(err);
                     }
                     if(err) {
-                        log.error(err);
+                        log.error(__filename, ' - ', err);
                     }
                     var cloudLib = require(global.config.modules.CLOUD);
                     cloudLib.getUserClouds(user._id, function(err, clouds) {
@@ -33,7 +33,7 @@ exports.deleteUserById = function (id, next) {
                                 function (cloud, done) {
                                     cloudLib.deleteCloudById(cloud._id, function (err) {
                                         if (err) {
-                                            log.error(err);
+                                            log.error(__filename, ' - ', err);
                                         }
                                         return done();
                                     });
@@ -51,7 +51,7 @@ exports.deleteUserById = function (id, next) {
             });
         });
     } catch (err) {
-        log.error(err);
+        log.error(__filename, ' - ', err);
         next(err);
     }
 

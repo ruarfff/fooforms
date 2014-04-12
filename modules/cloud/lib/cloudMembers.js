@@ -21,7 +21,7 @@ var userIsCloudMember = function (cloud, user) {
             (user.cloudMemberships && (user.cloudMemberships.indexOf(cloud._id) > -1))
             );
     } catch (err) {
-        log.error(err);
+        log.error(__filename, ' - ', err);
     }
     return false;
 };
@@ -41,7 +41,7 @@ var userHasWritePermissionInCloud = function (cloud, user) {
             (user.cloudMemberships && (user.cloudMemberships.indexOf(cloud._id) > -1))
             );
     } catch (err) {
-        log.error(err);
+        log.error(__filename, ' - ', err);
     }
     return false;
 };
@@ -227,7 +227,7 @@ var removeCloudMemberWritePermissions = function (cloudId, userId, next) {
             });
         });
     } catch (err) {
-        log.error(err);
+        log.error(__filename, ' - ', err);
         return next(err);
     }
 };
@@ -238,7 +238,7 @@ var getCloudMembers = function (cloudId, next) {
             next(err, cloud.members);
         });
     } catch (err) {
-        log.error(err);
+        log.error(__filename, ' - ', err);
         return next(err);
     }
 };
@@ -249,7 +249,7 @@ var getCloudMembersWithWritePermissions = function (cloudId, next) {
             next(err, cloud.membersWithWritePermissions);
         });
     } catch (err) {
-        log.error(err);
+        log.error(__filename, ' - ', err);
         return next(err);
     }
 };

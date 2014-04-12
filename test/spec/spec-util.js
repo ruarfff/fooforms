@@ -1,4 +1,5 @@
 /*jslint node: true */
+/*global describe, it, before, beforeEach, after, afterEach */
 'use strict';
 
 var env = process.env.NODE_ENV || "development";
@@ -11,7 +12,7 @@ var tearDown = function () {
     process.env.NODE_ENV = env; // Switch back the NODE_ENV to whatever it was before the tests were run.
 };
 
-var openDatabase = function (done) {
+var openTestDatabase = function (done) {
     // This really doesn't save any code but ensures a single way of opening the db in case the method needs ot be changed later
     database.openConnection(function () {
         done();
@@ -41,7 +42,7 @@ var dropDatabase = function (done) {
 };
 
 before(function (done) {
-    openDatabase(done);
+    openTestDatabase(done);
     dropDatabase(done);
 });
 

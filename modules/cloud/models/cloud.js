@@ -23,6 +23,10 @@ var CloudSchema = new Schema({
     },
     // Visual aid
     menuLabel: String,
+    // A human readable description of the Cloud
+    description: String,
+    // URL to Icon to display in UI
+    icon: String,
     // If Private, cloud only accessible by members. Visible to all otherwise
     isPrivate: {
         type: Boolean,
@@ -47,19 +51,15 @@ var CloudSchema = new Schema({
             ref: 'User'
         }
     ],
-    // List of Apps stored in Cloud
-    apps: [
+    // List of Forms stored in Cloud
+    forms: [
         {
             type: Schema.Types.ObjectId,
-            ref: 'App'
+            ref: 'Form'
         }
     ],
     created: Date,
-    lastModified: Date,
-    // A human readable description of the Cloud
-    description: String,
-    // URL to Icon to display in UI
-    icon: String
+    lastModified: Date
 });
 
 // Mongoose doesn't enforce uniqueness by default. Using plugin.

@@ -68,17 +68,17 @@ var routes = function (app, passport) {
         }
     });
 
-    app.put('/api/clouds/apps/add',  passport.authenticate('basic', { session: false }), function (req, res) {
+    app.put('/api/clouds/forms/add',  passport.authenticate('basic', { session: false }), function (req, res) {
         var cloudId = req.body.cloud._id;
-        var appId = req.body.user.app._id;
-        cloudApi.addAppToCloud(appId, appId, req, res);
+        var formId = req.body.user.form._id;
+        cloudApi.addFormToCloud(cloudId, formId, req, res);
 
     });
 
-    app.put('/api/clouds/apps/remove',  passport.authenticate('basic', { session: false }), function (req, res) {
+    app.put('/api/clouds/forms/remove',  passport.authenticate('basic', { session: false }), function (req, res) {
         var cloudId = req.body.cloud._id;
-        var appId = req.body.user.app._id;
-        cloudApi.removeAppFromCloud(cloudId, appId, req, res);
+        var formId = req.body.user.form._id;
+        cloudApi.removeFormFromCloud(cloudId, formId, req, res);
     });
 
 };

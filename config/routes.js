@@ -6,7 +6,7 @@ var dev = (process.env.NODE_ENV === 'development');
 
 /**
  * Main configuration for all routes in application.
- * Any apps that are added should initialize their routes here.
+ * Any forms that are added should initialize their routes here.
  * @param app - The express object
  * @param passport - Passport object for authenticator
  */
@@ -20,7 +20,6 @@ var routes = function (app, passport) {
     });
 
     app.get('/:username', function (req, res, next) {
-        console.log(req.params.username);
         if (req.params.username === 'hello') {
             res.send('Hello');
         } else {
@@ -47,15 +46,15 @@ var routes = function (app, passport) {
     });
 
     require('../modules/admin/routes')(app, passport);
-    require('../modules/app/routes')(app, passport);
+    require('../modules/form/routes')(app, passport);
     require('../modules/authentication/routes')(app, passport);
     require('../modules/cloud/routes')(app, passport);
     require('../modules/dashboard/routes')(app, passport);
     require('../modules/calendar/routes')(app, passport);
     require('../modules/database/routes')(app, passport);
     require('../modules/user/routes')(app, passport);
-    require('../modules/appBuilder/routes')(app, passport);
-    require('../modules/appViewer/routes')(app, passport);
+    require('../modules/formBuilder/routes')(app, passport);
+    require('../modules/formViewer/routes')(app, passport);
     require('../modules/file/routes')(app, passport);
 
     app.get('/partials/userGuide', authenticator.ensureLoggedIn, function (req, res) {

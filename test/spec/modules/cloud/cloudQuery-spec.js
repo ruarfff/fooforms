@@ -1,4 +1,6 @@
 /*jslint node: true */
+/*global describe, it, before, beforeEach, after, afterEach */
+
 'use strict';
 
 var path = require('path');
@@ -96,7 +98,7 @@ describe('Querying Cloud Library to get Clouds and Cloud details', function () {
                     done();
                 });
             });
-        })
+        });
     });
 
     describe('Cloud data retrieval', function () {

@@ -78,7 +78,7 @@
 
                             <div class="list-group">
                                 <a href="{{cloud.name}}"
-                                   ng-click="updateApp(app)" class="list-group-item" ng-repeat="cloud in privateClouds">
+                                   ng-click="updateForm(form)" class="list-group-item" ng-repeat="cloud in privateClouds">
                                     <img src="/assets/icons/color/cloud.png" alt="{{cloud.name}}"
                                          class="icon icon-xs pull-left">
                                     <h5 class="list-group-item-heading">{{cloud.name}}</h5>
@@ -92,7 +92,7 @@
 
                             <div class="list-group">
                                 <a href="{{cloud.name}}"
-                                   ng-click="updateApp(app)" class="list-group-item" ng-repeat="cloud in publicClouds">
+                                   ng-click="updateForm(form)" class="list-group-item" ng-repeat="cloud in publicClouds">
                                     <img src="/assets/icons/color/cloud.png" alt="{{cloud.name}}"
                                          class="icon icon-xs pull-left">
                                     <h5 class="list-group-item-heading">{{cloud.name}}</h5>
@@ -109,16 +109,16 @@
                             </div>
                         </div>
                         <div class="col-sm-12 col-md-4">
-                            <a class="btn btn-default btn-xs m5 pull-right" href="appBuilder"><i class="fa fa-plus"></i></a>
+                            <a class="btn btn-default btn-xs m5 pull-right" href="formBuilder"><i class="fa fa-plus"></i></a>
                             <h4 class="text-info"><i class="fa fa-th"></i> Forms</h4>
 
                             <div class="list-group">
-                                <a href="{{app.name}}"
-                                   ng-click='updateApp(app)' class="list-group-item" ng-repeat="app in apps">
-                                    <img src="{{app.icon}}" alt="{{app.name}}" class="icon icon-xs pull-left">
-                                    <h5 class="list-group-item-heading">{{app.name}}</h5>
+                                <a href="{{form.name}}"
+                                   ng-click='updateForm(form)' class="list-group-item" ng-repeat="form in forms">
+                                    <img src="{{form.icon}}" alt="{{form.name}}" class="icon icon-xs pull-left">
+                                    <h5 class="list-group-item-heading">{{form.name}}</h5>
 
-                                    <p class="list-group-item-text">{{app.description}}</p>
+                                    <p class="list-group-item-text">{{form.description}}</p>
                                 </a>
                             </div>
 

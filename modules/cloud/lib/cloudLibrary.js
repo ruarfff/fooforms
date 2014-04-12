@@ -3,7 +3,7 @@
 
 var Cloud = require('../models/cloud').Cloud;
 var cloudCreator = require('./cloudCreator');
-var cloudApps = require('./cloudApps');
+var cloudForms = require('./cloudForms');
 var cloudMembers = require('./cloudMembers');
 var cloudErrors = require('./cloudErrors');
 var cloudDeleter = require('./cloudDeleter');
@@ -14,13 +14,13 @@ module.exports = {
     cloudErrors: cloudErrors,
     createCloud: cloudCreator.createCloud,
     deleteCloudById: cloudDeleter.deleteCloudById,
-    updateCloud: cloudApps.updateCloud,
-    addAppToCloud: cloudApps.addAppToCloud,
-    removeAppFromCloud: cloudApps.removeAppFromCloud,
-    getCloudApps: cloudApps.getCloudApps,
-    getCloudAppNames: cloudApps.getCloudAppNames,
-    copyAppToCLoud: cloudApps.copyAppToCLoud,
-    moveAppFromOneCloudToAnother: cloudApps.moveAppFromOneCloudToAnother,
+    updateCloud: cloudForms.updateCloud,
+    addFormToCloud: cloudForms.addFormToCloud,
+    removeFormFromCloud: cloudForms.removeFormFromCloud,
+    getCloudForms: cloudForms.getCloudForms,
+    getCloudFormNames: cloudForms.getCloudFormNames,
+    copyFormToCLoud: cloudForms.copyFormToCLoud,
+    moveFormFromOneCloudToAnother: cloudForms.moveFormFromOneCloudToAnother,
     getCloudById: cloudQuery.getCloudById,
     getAllClouds: cloudQuery.getAllClouds,
     getUserClouds: cloudQuery.getUserClouds,

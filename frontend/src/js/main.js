@@ -29,9 +29,9 @@ fooformsApp.config(function ($routeProvider, $locationProvider, RestangularProvi
             templateUrl: '/partials/clouds',
             controller: 'CloudCtrl'
         })
-        .when('/apps', {
-            templateUrl: '/partials/apps',
-            controller: 'AppsCtrl'
+        .when('/forms', {
+            templateUrl: '/partials/forms',
+            controller: 'FormsCtrl'
         })
         .when('/people', {
             templateUrl: '/partials/people'
@@ -52,17 +52,17 @@ fooformsApp.config(function ($routeProvider, $locationProvider, RestangularProvi
         .when('/admin', {
             templateUrl: '/partials/admin'
         })
-        .when('/appBuilder', {
-            templateUrl: '/partials/appBuilder',
-            controller: 'fieldsCtrl'
+        .when('/formBuilder', {
+            templateUrl: '/partials/formBuilder',
+            controller: 'FieldsCtrl'
         })
         .when('/posts', {
-            templateUrl: '/partials/appViewer',
-            controller: 'appViewerCtrl'
+            templateUrl: '/partials/formViewer',
+            controller: 'FormViewerCtrl'
         })
         .otherwise({
-            templateUrl: '/partials/appViewer',
-            controller: 'appViewerCtrl'
+            templateUrl: '/partials/formViewer',
+            controller: 'FormViewerCtrl'
         });
 }).factory('authHttpResponseInterceptor', ['$q', '$location', function ($q, $window) {
     return {
@@ -80,7 +80,7 @@ fooformsApp.config(function ($routeProvider, $locationProvider, RestangularProvi
             }
             return $q.reject(rejection);
         }
-    }
+    };
 }]).config(['$httpProvider', function ($httpProvider) {
     //Http Intercpetor to check auth failures for xhr requests
     $httpProvider.interceptors.push('authHttpResponseInterceptor');
@@ -92,8 +92,7 @@ fooformsApp.controller('MainController', function ($scope, $location, USER_ROLES
     $scope.userRoles = USER_ROLES;
     $scope.isAuthorized = AuthService.isAuthorized;
 
-    //Messaging throuhout App
-
+    //Messaging throughout App
     $scope.activeMsgBox = ''; // any string --matches ng-show of various msgboxes.
     $scope.msgStatus = ''; // used in class, so alert-danger, etc...
     $scope.msgTitle = ''; // optional -

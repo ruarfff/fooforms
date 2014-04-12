@@ -1,4 +1,5 @@
 /*jslint node: true */
+/*global describe, it, before, beforeEach, after, afterEach */
 'use strict';
 
 var path = require('path');
@@ -8,7 +9,6 @@ var cloudSpecUtil = require('./cloud-spec-util');
 var log = require(global.config.modules.LOGGING).LOG;
 
 var User = require(global.config.modules.USER).User;
-var App = require(global.config.modules.APP).App;
 var Cloud = require(global.config.modules.CLOUD).Cloud;
 
 describe('Cloud creation', function () {

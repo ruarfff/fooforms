@@ -21,7 +21,7 @@ exports.userToProfile = function (user) {
             email: user.email
         };
     } catch (err) {
-        log.error( err );
+        log.error( __filename, ' - ', err );
     }
     return profile;
 };

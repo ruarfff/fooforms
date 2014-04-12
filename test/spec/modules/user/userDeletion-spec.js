@@ -1,4 +1,5 @@
 /*jslint node: true */
+/*global describe, it, before, beforeEach, after, afterEach */
 'use strict';
 var path = require('path');
 var should = require('should');
@@ -19,7 +20,7 @@ describe('User deletion', function () {
     });
 
     describe('Deleting a User', function () {
-        it('should delete a User including all the users clouds and apps', function (done) {
+        it('should delete a User including all the users clouds', function (done) {
             var testUser = userSpecUtil.getMockValidUser();
             userLib.createUser(testUser, function (err, user) {
                 if (err) {

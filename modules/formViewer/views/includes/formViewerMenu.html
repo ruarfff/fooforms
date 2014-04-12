@@ -1,0 +1,186 @@
+<div id="formBuilderMenu">
+    <ul id='optionTabs' class="nav nav-tabs">
+        <li class="active"><a id='formTabFields' data-target="#formTabs-fields" data-toggle="tab">Fields</a></li>
+        <li><a id='formTabSettings' data-target="#formTabs-settings" data-toggle="tab">Settings</a></li>
+    </ul>
+    <div class="tab-content white p5">
+        <div id="formTabs-fields" class="tab-pane active">
+
+            <div class="panel-group" id="accordion">
+
+
+                <div class="panel panel-info">
+                    <div class="panel-heading">
+                        <h6 class="panel-title">
+                            <a class='center-block' data-toggle="collapse" data-parent="#accordion"
+                               data-target="#collapseOne">
+                                Standard
+                            </a>
+                        </h6>
+                    </div>
+                    <div id="collapseOne" class="panel-collapse collapse in">
+                        <div class="panel-body">
+                            <div class="list-group">
+                                <div class='fieldObject list-group-item'
+                                     ng-repeat="inputType in inputTypes | filterTypes:'standard'"
+                                     ng-show="inputType.name"
+                                     draggable="inputType"
+                                     ng-border="showBorders(show)"
+                                     draggable-target="#formFields, .repeatBox"
+                                        >
+                                    {{inputType.name}}
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+
+
+                <div class="panel panel-info">
+                    <div class="panel-heading">
+                        <h6 class="panel-title">
+                            <a class='center-block' data-toggle="collapse" data-parent="#accordion"
+                               data-target="#collapseTwo">
+                                Money & Numbers
+                            </a>
+                        </h6>
+                    </div>
+                    <div id="collapseTwo" class="panel-collapse collapse">
+                        <div class="panel-body">
+                            <div class="list-group">
+                                <div class='fieldObject list-group-item'
+                                     ng-repeat="inputType2 in inputTypes | filterTypes:'number'"
+                                     ng-show="inputType2.name"
+                                     draggable="inputType2"
+                                     ng-border="showBorders(show)"
+                                     ng-showBorder="showBorders(show)"
+                                     draggable-target="#formFields, .repeatBox"
+                                        >
+                                    {{inputType2.name}}
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+
+                <div class="panel panel-info">
+                    <div class="panel-heading">
+                        <h6 class="panel-title">
+                            <a class='center-block' data-toggle="collapse" data-parent="#accordion"
+                               data-target="#collapseThree">
+                                Advanced
+                            </a>
+                        </h6>
+                    </div>
+                    <div id="collapseThree" class="panel-collapse collapse">
+                        <div class="panel-body">
+                            <div class="list-group">
+                                <div class='fieldObject list-group-item'
+                                     ng-repeat="inputType3 in inputTypes | filterTypes:'advanced'"
+                                     ng-show="inputType3.name"
+                                     draggable="inputType3"
+                                     ng-border="showBorders(show)"
+                                     ng-showBorder="showBorders(show)"
+                                     draggable-target="#formFields, .repeatBox"
+                                        >
+                                    {{inputType3.name}}
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+
+            </div>
+        </div>
+
+
+        <div id="formTabs-settings" class="tab-pane">
+
+            <div class='alert-info m5 p5' ng-show="nowEditing>=0">
+                <h6><span class="badge">{{nowEditing}}</span> <span>{{form.fields[nowEditing].name}} </span>
+            <span mg-show="nowSubEditing">
+            <span class="badge">{{nowSubEditing}}</span> <span>{{form.fields[nowEditing].fields[nowSubEditing].name}} </span></span>
+                </h6>
+            </div>
+
+            <!-- Settings Block for Standard Fields -->
+
+            <div id="FieldSettings" class="blockInsert" ng-show="showFieldSettings">
+
+
+                <div ng-include="form.fields[nowEditing].optionsTemplate"></div>
+
+            </div>
+            <!-- Settings Block for Group Fields -->
+
+            <div id="groupSettings" class="blockInsert" ng-show="showGroupSettings">
+
+                <div ng-include="form.fields[nowEditing].fields[nowSubEditing].groupOptions"></div>
+
+
+            </div>
+
+
+            <!-- Settings Block for Basic form Settings -->
+
+            <div id="formSettings" class="blockInsert" ng-show="showFormSettings">
+
+                <form class="form-horizontal container" role="form">
+                    <div class="form-group">
+                        <label class="col-sm-4 control-label">Form Name</label>
+                        <input type='text' class="form-control" ng-model="form.name"/>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-sm-4 control-label">Description</label>
+                        <input type='text' class="form-control" ng-model="form.description"/>
+                    </div>
+
+
+                    <div class="form-group">
+                        <label class="col-sm-4 control-label">Icon</label>
+
+                        <div>
+                            <img class='icon' ng-src="{{form.icon}}"/>
+                            <button class="btn btn-default" ng-click="open();">Change!</button>
+                        </div>
+                    </div>
+                    <div class="alert alert-info">
+                        <h4>Display Options</h4>
+
+                        <div class="form-group">
+                            <label class="col-sm-4 control-label">Menu Label</label>
+
+                            <div>
+                                <input type='text' name='menuLabel' id='menuLabel' value='Untitled Form'/>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-sm-4 control-label">New Post - Button Label</label>
+
+                            <div>
+                                <input type='text' name='newButtonLabel' id='newButtonLabel' value='Create New'/>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-sm-4 control-label">Display Posts as</label>
+
+                            <input type="checkbox">Feed
+                            <input type="checkbox">Grid
+                            <input type="checkbox">Bucket
+
+                        </div>
+                        <div class="alert alert-info">Additional settings are available from the Form Settings
+                            tab
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+
+    </div>
+</div>
+<div class="m0 p5"></div>
+

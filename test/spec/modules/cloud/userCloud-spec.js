@@ -1,4 +1,6 @@
 /*jslint node: true */
+/*global describe, it, before, beforeEach, after, afterEach */
+
 'use strict';
 
 var path = require('path');
@@ -15,7 +17,6 @@ describe('Cloud creation', function () {
 
     var sampleUser = {};
     var sampleUserAsMember = {};
-    var sampleUserCloud = {};
 
     before(function () {
         cloudLib = require(global.config.modules.CLOUD);
@@ -52,10 +53,14 @@ describe('Cloud creation', function () {
     describe('Creating a User cloud', function () {
         it('should create a User Cloud', function (done) {
             userLib.createUser(sampleUser, function (err, user) {
-                if (err) return done(err);
+                if (err) {
+                    return done(err);
+                }
                 should.exist(user);
                 cloudLib.getCloudById(user.cloud, function (err, cloud) {
-                    if (err) return done(err);
+                    if (err) {
+                        return done(err);
+                    }
                     should.exist(cloud);
                     cloud.name.should.equal(user.displayName);
                     cloud.owner.should.eql(user._id);
@@ -85,7 +90,9 @@ describe('Cloud creation', function () {
                     }
                     should.exist(user._id);
                     cloudLib.getCloudById(user.cloud, function (err, cloud) {
-                        if (err) done(err);
+                        if (err) {
+                            return done(err);
+                        }
                         should(cloud.isUserCloud).ok;
                         cloud.owner.should.eql(user._id);
                         should(cloud.members.length === 0).ok;
@@ -115,7 +122,9 @@ describe('Cloud creation', function () {
                     }
                     should.exist(user._id);
                     cloudLib.getCloudById(user.cloud, function (err, cloud) {
-                        if (err) done(err);
+                        if (err) {
+                            return done(err);
+                        }
                         should(cloud.isUserCloud).ok;
                         cloud.owner.should.eql(user._id);
                         should(cloud.members.length === 0).ok;

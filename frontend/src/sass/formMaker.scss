@@ -1,0 +1,221 @@
+.white {
+  background-color: #fff;
+}
+
+.blockInsert {
+  background-color: #E5F1FD;
+  margin: 5px;
+  border: 1px solid #D2E5F7;
+  display: block;
+}
+
+#formTabs-fields {
+  max-width: 100%;
+  overflow: hidden;
+}
+
+#formHeading {
+  display: block;
+  border: 1px solid #efefef;
+  margin: 0px;
+  padding: 5px;
+}
+
+#formHeading.selected {
+  background: #F1FBFF;
+  border: 1px solid #D2E5F7;
+}
+
+#formHeading h2 {
+  font-size: 16px;
+  font-weight: bold;
+  line-height: 22px;
+  margin: 0px;
+  padding: 0px;
+  display: inline-block;
+}
+
+#formHeading p {
+  margin: 0px;
+  padding: 0px;
+  font-size: 10px;
+  font-weight: normal;
+  line-height: 14px;
+
+}
+
+#formTitle {
+  display: block;
+}
+
+.fieldObject {
+
+  cursor: move;
+  display: block;
+}
+
+div.fieldObject:hover {
+  background: #f8efc0;
+}
+
+#formLayout, .formLayout {
+  display: block;
+  padding-bottom: 100px;
+}
+
+#formFields, #formEvents {
+  padding-bottom: 100px;
+}
+
+.formObject {
+  margin: 0px;
+  padding: 5px;
+  border-top: 1px solid #fff;
+  border-right: 1px solid #eee;
+  border-bottom: 1px solid #eee;
+  border-left: 1px solid #fff;
+  background: #f7f7f7;
+  min-height: 87px;
+}
+
+.viewFormObject {
+  margin: 0px;
+  padding: 3px;
+  border-top: 1px solid #fff;
+  border-right: 1px solid #cecece;
+  border-bottom: 1px solid #cecece;
+  border-left: 1px solid #fff;
+  background: #efefef;
+  min-height: 87px;
+
+}
+
+.formObject.selected {
+  background: #F1FBFF;
+  border: 1px solid #D2E5F7;
+}
+
+/*placeholder for draggies*/
+#formFields div.fieldObject, #formEvents div.fieldObject {
+  clear: both !important;
+  padding: 30px !important;
+  border-radius: 0px !important;
+  border: 1px solid #EFE3AE;
+}
+
+.ui-sortable-placeholder {
+  visibility: visible !important;
+  border: 2px dashed #D2E5F7 !important;
+  display: block;
+  background: #fefefe !important;
+}
+
+.dragging {
+  //background: #F1FBFF !important;
+  border: 1px solid #D2E5F7;
+
+}
+
+.formObject:hover {
+  border: 1px solid #D2E5F7;
+}
+
+/*icons and modal icon select dialog*/
+
+.icons {
+  list-style: none;
+  height: 400px;
+  overflow: scroll;
+}
+
+.icons a {
+  border: 3px solid #fff;
+  display: inline-block;
+  padding: 4px;
+  margin: 0px;
+}
+
+.icons a:hover {
+  border: 3px solid #D2E5F7;
+
+}
+
+img.icon {
+  max-width: 48px;
+  margin: 4px;
+}
+
+img.icon-xs {
+  max-width: 24px;
+}
+
+img.icon-sm {
+  max-width: 36px;
+}
+
+#saveFormInput {
+  display: block;
+  background: #FEF6D2;
+  border-top: 1px solid #EFE3AE;
+  border-bottom: 1px solid #EFE3AE;
+  margin-top: 20px;
+  padding-right: 20px;
+  line-height: 50px;
+  height: 50px;
+  text-align: right;
+}
+
+.repeatBox {
+  display: inline-block;
+  padding: 0px;
+  margin: 0px;
+  border: 2px dotted #D2E5F7;
+  background: #fff;
+  min-height: 90px;
+}
+
+.repeatBox:hover {
+  border: 2px solid #D2E5F7;
+}
+
+#saveForm {
+
+}
+
+label i.fa {
+  font-size: 1.4em;
+  color: #185aa7;
+  margin-left: 5px;
+}
+
+.onTop {
+  position: absolute !important;
+  z-index: 999999 !important;
+  float: right;
+  top: 2px;
+  right: 2px;
+
+}
+
+.underv {
+  position: relative !important;
+  z-index: 999998 !important;
+
+}
+
+.newForm {
+  background: url('/assets/images/formCanvas.png') top left no-repeat;
+  border: 2px dashed #D2E5F7;
+  min-height: 300px;
+}
+
+img.icon {
+  max-height: 48px !important;
+  display: inline-block;
+  vertical-align: middle;
+}
+
+.inline {
+  display: inline;
+}
+

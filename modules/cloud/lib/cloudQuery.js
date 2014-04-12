@@ -9,7 +9,7 @@ var getCloudById = function (id, next) {
             next(err, cloud);
         });
     } catch (err) {
-        log.error(err.toString());
+        log.error(__filename, ' - ', err);
         next(err);
     }
 };
@@ -19,7 +19,7 @@ var getCloudByName = function (name, next) {
     try {
         Cloud.findByName(name, next);
     } catch (err) {
-        log.error(err.toString());
+        log.error(__filename, ' - ', err);
         next(err);
     }
 };
@@ -31,7 +31,7 @@ var getAllClouds = function (next) {
             next(err, cloud);
         });
     } catch (err) {
-        log.error(err.toString());
+        log.error(__filename, ' - ', err);
         next(err);
     }
 };
@@ -42,7 +42,7 @@ var getCloudOwner = function (cloudId, next) {
             next(err, cloud.owner);
         });
     } catch (err) {
-        log.error(err);
+        log.error(__filename, ' - ', err);
         return next(err);
     }
 };
@@ -60,7 +60,7 @@ var getUserClouds = function (userId, next) {
             next(err, clouds);
         });
     } catch (err) {
-        log.error(err);
+        log.error(__filename, ' - ', err);
         next(err);
     }
 };

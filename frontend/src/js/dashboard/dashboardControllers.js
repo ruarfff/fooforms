@@ -1,7 +1,7 @@
-fooformsApp.controller('DashboardCtrl', ['$scope', '$location', '$http' , '$modal', 'Restangular', 'AppService', 'Apps', 'CloudService', 'Clouds', 'PostService', 'Posts', function ($scope, $location, $http, $modal, Restangular, AppService, Apps, CloudService, Clouds, PostService, Posts) {
+fooformsApp.controller('DashboardCtrl', ['$scope', '$location', '$http' , '$modal', 'Restangular', 'FormService', 'Forms', 'CloudService', 'Clouds', 'PostService', 'Posts', function ($scope, $location, $http, $modal, Restangular, FormService, Forms, CloudService, Clouds, PostService, Posts) {
     'use strict';
-    // the main object to store the app data
-    $scope.app = Apps.getCurrentApp();
+    // the main object to store the form data
+    $scope.form = Forms.getCurrentForm();
     $scope.posts = [];
     $scope.selectedView = "/partials/dashboardFeed.html";
 
@@ -20,11 +20,11 @@ fooformsApp.controller('DashboardCtrl', ['$scope', '$location', '$http' , '$moda
             });
             $scope.gridData.push(tempPosts);
 
-        })
+        });
     };
 
-    $scope.updateApp = function (app) {
-        Apps.setCurrentApp(app);
+    $scope.updateForm = function (form) {
+        Forms.setCurrentForm(form);
         Posts.activePost = null;
     };
 
@@ -44,10 +44,10 @@ fooformsApp.controller('DashboardCtrl', ['$scope', '$location', '$http' , '$moda
     };
 
     $scope.viewPost = function (post) {
-        var app = Apps.findById(post.app);
+        var form = Forms.findById(post.form);
         Posts.activePost = post;
-        Apps.setCurrentApp(app);
-        $location.path(app.name);
+        Forms.setCurrentForm(form);
+        $location.path(form.name);
     };
 
     CloudService.getClouds(function (err) {
@@ -63,9 +63,9 @@ fooformsApp.controller('DashboardCtrl', ['$scope', '$location', '$http' , '$moda
             posts2Grid();
         }
     });
-    AppService.getUserApps(function (err) {
+    FormService.getUserForms(function (err) {
         if (!err) {
-            $scope.apps = Apps.apps;
+            $scope.forms = Forms.forms;
         }
     });
 

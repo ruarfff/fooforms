@@ -1,21 +1,21 @@
 <div class="form-group clearfix">
-    <label for="{{appField.id}}">{{appField.label}}
+    <label for="{{formField.id}}">{{formField.label}}
         <i class="fa fa-question-circle"
-           ng-hide="!appField.userInstructions"
-           popover="{{appField.userInstructions}}"
+           ng-hide="!formField.userInstructions"
+           popover="{{formField.userInstructions}}"
            popover-trigger="mouseenter"></i>
     </label>
 
-    <div id='{{appField.id}}' class="row repeatBox"
-         subdroppable='appField.fields'
+    <div id='{{formField.id}}' class="row repeatBox"
+         subdroppable='formField.fields'
          ng-update='updateSubObjects(from, repeatbox, to)'
          ng-create='createSubObject(object,repeatbox, to)'
-         ng-style="{'width': appField.size+'%'}"
-         ng-model="appField.fields">
+         ng-style="{'width': formField.size+'%'}"
+         ng-model="formField.fields">
 
 
         <div class='col-sm-{{subField.boxSize}} under'
-             ng-repeat="subField in appField.fields track by subField.id"
+             ng-repeat="subField in formField.fields track by subField.id"
              ng-border="showBorders(show)"
              ng-click="editField($parent.$index, $index, 'Group', $event)"
              ng-class="{ 'selected': $index== nowSubEditing ,'dragging' : dragging}">
@@ -24,7 +24,7 @@
         </div>
 
     </div>
-    <div class="input-group-btn" ng-show="appField.repeatable">
+    <div class="input-group-btn" ng-show="formField.repeatable">
         <button class='btn btn-default btn-sm' ng-click="addOption($index)"><i class="fa fa-plus fa-lg"></i>
         </button>
         <button class='btn btn-default btn-sm' ng-click="deleteOption($index)"><i class="fa fa-trash-o fa-lg"></i>
