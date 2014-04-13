@@ -16,7 +16,7 @@ exports.updateFile = function (fileJson, next) {
             next(err, file);
         });
     } catch (err) {
-        log.error(err.toString());
+        log.error(__filename, ' - ', err);
         next(err, null);
     }
 

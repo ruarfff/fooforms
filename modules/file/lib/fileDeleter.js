@@ -26,7 +26,7 @@ exports.deleteFileById = function (id, next) {
             }
         });
     } catch (err) {
-        log.error(err.toString());
+        log.error(__filename, ' - ', err);
         next(err, null);
     }
 

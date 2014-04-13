@@ -73,11 +73,14 @@ module.exports = function (grunt) {
                     separator: ';'
                 },
                 src: [
-                    'frontend/src/js/main.js', 'frontend/src/js/common/**/*.js',
-                    'frontend/src/js/app/**/*.js', 'frontend/src/js/appBuilder/**/*.js',
-                    'frontend/src/js/app/**/*.js', 'frontend/src/js/appViewer/**/*.js',
-                    'frontend/src/js/calendar/**/*.js', 'frontend/src/js/cloud/**/*.js',
-                    'frontend/src/js/dashboard/**/*.js', 'frontend/src/js/user/**/*.js',
+                    'frontend/src/js/main.js',
+                    'frontend/src/js/form/**/*.js',
+                    'frontend/src/js/formBuilder/**/*.js',
+                    'frontend/src/js/formViewer/**/*.js',
+                    'frontend/src/js/calendar/**/*.js',
+                    'frontend/src/js/folder/**/*.js',
+                    'frontend/src/js/dashboard/**/*.js',
+                    'frontend/src/js/user/**/*.js',
                     'frontend/src/js/authentication/**/*.js'
                 ],
                 dest: 'frontend/public/js/main-min.js'

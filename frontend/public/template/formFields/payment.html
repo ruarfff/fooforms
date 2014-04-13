@@ -1,13 +1,13 @@
 <div class="form-group clearfix">
-    <label for="{{appField.id}}">{{appField.label}}
+    <label for="{{formField.id}}">{{formField.label}}
         <i class="fa fa-question-circle"
-           ng-hide="!appField.userInstructions"
-           popover="{{appField.userInstructions}}"
+           ng-hide="!formField.userInstructions"
+           popover="{{formField.userInstructions}}"
            popover-trigger="mouseenter"></i>
     </label>
 
-    <div class="input-group" ng-style="{'width': appField.size+'%'}">
-        <form id="{{appField.id}}" action="" method="POST">
+    <div class="input-group" ng-style="{'width': formField.size+'%'}">
+        <form id="{{formField.id}}" action="" method="POST">
             <script
                     src="https://checkout.stripe.com/checkout.js" class="stripe-button"
                     data-key="pk_test_6pRNASCoBOKtIshFeQd4XMUh"

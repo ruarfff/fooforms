@@ -1,2 +1,2 @@
-{ "name": "app",
+{ "name": "calendar",
     "main": "./lib/calendarLibrary.js" }

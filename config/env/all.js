@@ -9,33 +9,33 @@ var utilDir = path.join(rootPath, 'lib/util');
 
 /* Convenience paths to modules and other components */
 var adminDir = path.join(modulesPath, 'admin');
-var appDir = path.join(modulesPath, 'app');
+var formDir = path.join(modulesPath, 'form');
 var authenticationDir = path.join(modulesPath, 'authentication');
-var cloudDir = path.join(modulesPath, 'cloud');
+var folderDir = path.join(modulesPath, 'folder');
 var dashboardDir = path.join(modulesPath, 'dashboard');
 var databaseDir = path.join(modulesPath, 'database');
 var loggingDir = path.join(modulesPath, 'logging');
 var userDir = path.join(modulesPath, 'user');
-var appBuilderDir = path.join(modulesPath, 'appBuilder');
-var appViewerDir = path.join(modulesPath, 'appViewer');
+var formBuilderDir = path.join(modulesPath, 'formBuilder');
+var formViewerDir = path.join(modulesPath, 'formViewer');
 var calendarDir = path.join(modulesPath, 'calendar');
 var fileDir = path.join(modulesPath, 'file');
 var apiUtilDir = path.join(utilDir, 'apiUtil');
 
 /**
- * Enumerator to allow easy access to absolute application root paths.
+ * Enumerator to allow easy access to absolute module root paths.
  */
 var modules = {
     "ADMIN": adminDir,
-    "APP": appDir,
+    "FORM": formDir,
     "AUTHENTICATION": authenticationDir,
-    "CLOUD": cloudDir,
+    "FOLDER": folderDir,
     "DASHBOARD": dashboardDir,
     "DATABASE": databaseDir,
     "LOGGING": loggingDir,
     "USER": userDir,
-    "APPBUILDER": appBuilderDir,
-    "APPVIEWER": appViewerDir,
+    "FORMBUILDER": formBuilderDir,
+    "FORMVIEWER": formViewerDir,
     "CALENDAR": calendarDir,
     "FILE": fileDir,
     "APIUTIL": apiUtilDir

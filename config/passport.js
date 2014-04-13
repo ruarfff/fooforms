@@ -16,24 +16,22 @@ module.exports = function ( passport ) {
 
     passport.serializeUser( function ( user, done ) {
         try {
-            log.debug('serializeUser');
             done( null, user.id );
         } catch ( err ) {
-            log.error( err );
+            log.error( __filename, ' - ', err );
             done( err );
         }
     } );
 
     passport.deserializeUser( function ( id, done ) {
         try {
-            log.debug('deserializeUser');
             User.findOne( {
                 _id: id
             }, function ( err, user ) {
                 done( err, user );
             } );
         } catch ( err ) {
-            log.error( err );
+            log.error( __filename, ' - ', err );
             done( err );
         }
     } );
@@ -41,14 +39,12 @@ module.exports = function ( passport ) {
 
     passport.use( new LocalStrategy(
         function ( username, password, done ) {
-            log.debug('TEST');
             User.findOne( { $or: [
                 { email: username },
                 { displayName: username }
             ] }, function ( err, user ) {
-                log.error(err);
-                log.debug(user);
                 if ( err ) {
+                    log.error(__filename, ' - ', err);
                     return done( err );
                 }
                 if ( !user ) {

@@ -8,7 +8,7 @@
                 <h4 class="inline">{{user.displayName}} <a href="/profile/"><i class="fa fa-edit fa-lg"></i></a></h4>
 
 
-                <p id='appDescription'>Awesome Tag Line</p>
+                <p id='formDescription'>Awesome Tag Line</p>
             </div>
             <div class="col-sm-8">
                 <div class="input-group">
@@ -43,7 +43,7 @@
                          ng-repeat="foo in posts" ng-click="viewPost(foo)">
                         <div class="m5 pageGroup">
                             <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
-                            <a class="pull-left" href="{{app.name}}">
+                            <a class="pull-left" href="{{form.name}}">
                                 <img class="media-object icon icon-sm" ng-src="{{foo.icon}}" alt="">
                             </a>
 

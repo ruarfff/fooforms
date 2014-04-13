@@ -1,14 +1,14 @@
 <div class="form-group clearfix  alert alert-info alert-foo">
-<label for="{{appField.id}}"><h4>{{appField.label}}</h4>
+<label for="{{formField.id}}"><h4>{{formField.label}}</h4>
         <i class="fa fa-question-circle"
-           ng-hide="!appField.userInstructions"
-           popover="{{appField.userInstructions}}"
+           ng-hide="!formField.userInstructions"
+           popover="{{formField.userInstructions}}"
            popover-trigger="mouseenter"></i>
     </label>
-    <div class="input-group" ng-style="{'width': appField.size+'%'}">
-        <span class="input-group-addon" ng-show="appField.required">*</span>
+    <div class="input-group" ng-style="{'width': formField.size+'%'}">
+        <span class="input-group-addon" ng-show="formField.required">*</span>
 
-        <p id="{{appField.id}}" class="pl5 pr5" ng-show="appField.placeholder">{{appField.placeholder}}
+        <p id="{{formField.id}}" class="pl5 pr5" ng-show="formField.placeholder">{{formField.placeholder}}
         </p>
     </div>
 </div>

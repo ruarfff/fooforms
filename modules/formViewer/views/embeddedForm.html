@@ -1,0 +1,249 @@
+<!DOCTYPE html>
+<html ng-app="FooForm">
+<head lang="en">
+    <meta charset="UTF-8">
+    <title><%= formName %></title>
+    <link rel="stylesheet" href="/vendor/css/bootstrap.min.css">
+    <link rel="stylesheet" href="/vendor/css/bootstrap-theme.min.css">
+    <link rel="stylesheet" href="/vendor/font-awesome/css/font-awesome.min.css">
+    <style>
+
+        .pl5 {
+            padding-left: 5px;
+        }
+
+        .pr5 {
+            padding-right: 5px;
+        }
+
+        .alert-foo {
+            padding-bottom: 5px !important;
+            margin-bottom: 0px !important;
+        }
+
+        #formHeading h2 {
+            font-size: 16px;
+            font-weight: bold;
+            line-height: 22px;
+            margin: 0px;
+            padding: 0px;
+            display: inline-block;
+        }
+
+        #formHeading p {
+            margin: 0px;
+            padding: 0px;
+            font-size: 10px;
+            font-weight: normal;
+            line-height: 14px;
+
+        }
+
+        #formTitle {
+            display: block;
+        }
+
+        .fieldObject {
+
+            display: block;
+        }
+
+        div.fieldObject:hover {
+            background: #f8efc0;
+        }
+
+        #formLayout, .formLayout {
+            display: block;
+            padding-bottom: 0px;
+            background: #f7f7f7;
+            border: 1px solid #efefef;
+        }
+
+        .viewFormObject {
+            margin: 0px;
+            padding: 4px;
+            min-height: 84px;
+            border-top: 1px solid #fff;
+            border-left: 1px solid #fff;
+            border-right: 1px solid #ececec;
+            border-bottom: 1px solid #ececec;
+        }
+
+        .modal.fade {
+            bottom: -100%;
+            -webkit-transition: opacity 0.3s linear, left 0.3s ease-out;
+            -moz-transition: opacity 0.3s linear, left 0.3s ease-out;
+            -o-transition: opacity 0.3s linear, left 0.3s ease-out;
+            transition: opacity 0.3s linear, left 0.3s ease-out;
+        }
+
+        .modal.fade.in {
+
+            top: auto;
+            bottom: 150px;
+
+        }
+
+        select.form-control {
+            margin-right: 10px !important;
+        }
+
+            /*placeholder for draggies*/
+        #formFields div.fieldObject, #formEvents div.fieldObject {
+            clear: both !important;
+            padding: 30px !important;
+            border-radius: 0px !important;
+            border: 1px solid #EFE3AE;
+        }
+
+        textarea.tandc {
+            display: block;
+            min-height: 400px;
+            min-width: 540px !important;
+        }
+
+        .icons a {
+            border: 3px solid #fff;
+            display: inline-block;
+            padding: 4px;
+            margin: 0px;
+        }
+
+        .icons a:hover {
+            border: 3px solid #D2E5F7;
+
+        }
+
+        img.icon {
+            max-width: 48px;
+            margin: 4px;
+        }
+
+        label i.fa {
+            font-size: 1.4em;
+            color: #185aa7;
+            margin-left: 5px;
+        }
+
+        img.icon {
+            max-height: 48px !important;
+            display: inline-block;
+            vertical-align: middle;
+        }
+
+        .inline {
+            display: inline;
+        }
+
+
+    </style>
+    <script type="text/javascript" src="/vendor/js/jquery.js"></script>
+    <script type="text/javascript" src="/vendor/js/jquery-ui.js"></script>
+    <script type="text/javascript" src="/vendor/js/bootstrap.js"></script>
+    <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/angularjs/1.2.15/angular.min.js"></script>
+    <script>
+
+        var FooForm = angular.module('FooForm', []);
+        FooForm.controller('FormCtrl', function ($scope, $http) {
+            var formId = '<%- formId %>';
+            $scope.sorted = false;
+            $scope.errorPosting = false;
+            $http({
+                url: '/forms/repo/fetch/' + formId,
+                method: 'GET'
+            }).success(function (data, status, headers, config) {
+                        $scope.post = data;
+                        $scope.post.form = data._id;
+                        $scope.post._id = null;
+
+                    }).error(function (data, status, headers, config) {
+                        $scope.error = status;
+                    });
+            $scope.submit = function () {
+
+
+                $http({
+                    url: '/forms/repo/post',
+                    method: "POST",
+                    data: $scope.post,
+                    headers: {'Content-Type': 'application/json'}
+                }).success(function (data, status, headers, config) {
+                            $scope.sorted = true;
+                            $scope.$apply();
+                        }).error(function (data, status, headers, config) {
+                            $scope.sorted = false;
+                            $scope.errorPosting = true;
+                            $scope.status = status;
+                            $scope.$apply();
+                        });
+            };
+        });
+
+        function nl2br(str, is_xhtml) {
+
+            var breakTag = (is_xhtml || typeof is_xhtml === 'undefined') ? '<br ' + '/>' : '<br>'; // Adjust comment to avoid issue on phpjs.org display
+
+            return (str + '')
+                    .replace(/([^>\r\n]?)(\r\n|\n\r|\r|\n)/g, '$1' + breakTag + '$2');
+        }
+    </script>
+</head>
+<body ng-controller="FormCtrl">
+
+<div id='formLayout' class="container">
+
+    <div class="row">
+        <div class='col-sm-{{formField.boxSize}} under viewFormObject'
+             ng-repeat="formField in post.fields track by $index"
+             ng-show="formField.name">
+
+            <div ng-include='formField.template'></div>
+        </div>
+    </div>
+    <div class="row" ng-show="errorPosting">
+        <div class="col-sm-12 p5 alert alert-success">
+            <h4>Oops!</h4>
+
+            <p>There seems to have been an error processing your form. Please review and try again.<br>{{status}}</p>
+        </div>
+    </div>
+
+
+    <div class="modal fade" id="tandc" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                    <h4 class="modal-title" id="myModalLabel">Terms & Conditions</h4>
+                </div>
+                <div class="modal-body input-group">
+                    <textarea ng-model="post.settings.tandc" class="tandc form-control"></textarea>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="row" ng-hide="sorted">
+        <div class="col-sm-12 p5 alert alert-info">
+            <input type="checkbox" ng-model="tandcAccepted"> I accept the <a data-toggle="modal" data-target="#tandc">Terms
+            & Conditions</a>
+            <button id='savePost' ng-click="submit()" ng-disabled="!tandcAccepted"
+                    class="btn btn-primary pull-right">Submit
+            </button>
+        </div>
+    </div>
+    <div class="row" ng-show="sorted">
+        <div class="col-sm-12 p5 alert alert-success">
+            <h4>Thank you</h4>
+
+            <p>Your form has been received by us and we will be in contact with you shortly.</p>
+        </div>
+    </div>
+
+</div>
+
+</body>
+</html>
