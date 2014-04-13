@@ -1,4 +1,4 @@
-/* Directives */
+/* global angular */
 
 angular.module('formBuilder')
 

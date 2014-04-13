@@ -21,21 +21,23 @@ var routes = function (app, passport) {
                 dev: dev
             });
         });
-/**
+
     app.route('/:username')
-        .get(authenticator.ensureAuthenticated, function (req, res, next) {
+        .get(function (req, res, next) {
             var username = req.params.username;
+            log.debug(username);
             // TODO: Need to figure out what to do here.....
             // If a user put another username in to the URL, what should render and how?
             if (req.user.displayName.equals(username)) {
-                res.render('dashboard', {
+                return res.render('dashboard', {
                     dev: dev,
                     user: req.user
                 });
             } else {
-                next();
+                return next();
             }
         });
+    /**
 
     app.route('/:username/:folder')
         .get(authenticator.ensureAuthenticated, function (req, res, next) {

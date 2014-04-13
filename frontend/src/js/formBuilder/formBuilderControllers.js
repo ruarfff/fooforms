@@ -1,6 +1,8 @@
+/* global angular */
+
 angular.module('formBuilder').controller('FieldsCtrl',
-    ['$scope', '$http', '$modal', 'DragDropHandler', 'Restangular', 'FormService', 'Forms', 'FolderService', 'Folders',
-        function ($scope, $http, $modal, DragDropHandler, Restangular, FormService, Forms, FolderService, Folders) {
+    ['$log', '$scope', '$http', '$modal', 'DragDropHandler', 'Restangular', 'FormService', 'Forms', 'FolderService', 'Folders', '_',
+        function ($log, $scope, $http, $modal, DragDropHandler, Restangular, FormService, Forms, FolderService, Folders, _) {
 
             "use strict";
             $http.get('/js/formBuilder/inputTypes.json').success(function (data) {
@@ -33,7 +35,7 @@ angular.module('formBuilder').controller('FieldsCtrl',
 
             $scope.updateObjects = function (from, to) {
                 var itemIds = _.pluck($scope.form.fields, 'id');
-                console.log(itemIds);
+                $log.error(itemIds);
                 $scope.dragging = false;
             };
 
@@ -45,9 +47,9 @@ angular.module('formBuilder').controller('FieldsCtrl',
             };
             $scope.deleteItem = function (itemId) {
                 $scope.form.fields = _.reject($scope.form.fields, function (field) {
-                    return field.id == itemId;
+                    return field.id === itemId;
                 });
-            }
+            };
             $scope.createSubObject = function (object, repeatBox, to) {
                 var newItem = angular.copy(object);
                 newItem.id = Math.ceil(Math.random() * 1000);
@@ -57,14 +59,14 @@ angular.module('formBuilder').controller('FieldsCtrl',
 
             $scope.updateSubObjects = function (repeatBox, from, to) {
                 var itemIds = _.pluck($scope.form.fields, 'id');
-                console.log(itemIds);
+                $log.error(itemIds);
                 $scope.dragging = false;
             };
             $scope.deleteSubItem = function (itemId) {
                 $scope.form.fields[$scope.nowEditing].fields = _.reject($scope.form.fields[$scope.nowEditing].fields, function (field) {
-                    return field.id == itemId;
+                    return field.id === itemId;
                 });
-            }
+            };
 
 // Drag Drop Events
             $scope.updateEvents = function (from, to) {
@@ -82,7 +84,7 @@ angular.module('formBuilder').controller('FieldsCtrl',
 
 // Used to add options to selects, radios, i.e. Single selection
             $scope.addOption = function ($index) {
-                if ($scope.nowSubEditing == null) {
+                if ($scope.nowSubEditing === null) {
                     $scope.form.fields[$scope.nowEditing].options.splice($index + 1, 0, {"label": ""});
                 } else {
                     $scope.form.fields[$scope.nowEditing].fields[$scope.nowSubEditing].options.splice($index + 1, 0, {"label": ""});
@@ -90,7 +92,7 @@ angular.module('formBuilder').controller('FieldsCtrl',
             };
 // Used to add options to checkboxes i.e. Multiple selection
             $scope.addOptionObject = function ($index) {
-                if ($scope.nowSubEditing == null) {
+                if ($scope.nowSubEditing === null) {
                     $scope.form.fields[$scope.nowEditing].options.splice($index + 1, 0, {"label": "", "selected": false});
                 } else {
                     $scope.form.fields[$scope.nowEditing].fields[$scope.nowSubEditing].options.splice($index + 1, 0, {"label": "", "selected": false});
@@ -99,7 +101,7 @@ angular.module('formBuilder').controller('FieldsCtrl',
 
 // removes options from selects, radios, etc....
             $scope.deleteOption = function ($index) {
-                if ($scope.nowSubEditing == null) {
+                if ($scope.nowSubEditing === null) {
                     $scope.form.fields[$scope.nowEditing].options.splice($index, 1);
                 } else {
                     $scope.form.fields[$scope.nowEditing].fields[$scope.nowSubEditing].options.splice($index, 1);
@@ -160,7 +162,7 @@ angular.module('formBuilder').controller('FieldsCtrl',
             // Set Calculation Field Options
             $scope.setCalculationField = function (selectedItem) {
 
-                if ($scope.nowSubEditing == null) {
+                if ($scope.nowSubEditing === null) {
                     $scope.form.fields[$scope.nowEditing].options.field1.item = selectedItem;
                 } else {
                     $scope.form.fields[$scope.nowEditing].options.field1.item = "value";
@@ -196,11 +198,10 @@ angular.module('formBuilder').controller('FieldsCtrl',
 // End Icon Selection -  Modal Dialog
 
             $scope.saveForm = function (formToSave) {
-                console.log(JSON.stringify(formToSave));
                 if (formToSave._id) {
                     FormService.updateForm(formToSave, function (err) {
                         if (err) {
-                            console.log(err.toString());
+                            $log.error(err.toString());
                         } else {
                             $scope.form = Forms.findById(formToSave._id);
                             Forms.setCurrentForm($scope.form);
@@ -209,7 +210,7 @@ angular.module('formBuilder').controller('FieldsCtrl',
                 } else {
                     FormService.createForm(formToSave, function (err, formId) {
                         if (err) {
-                            console.log(err.toString());
+                            $log.error(err.toString());
                         } else {
                             $scope.form = Forms.findById(formId);
                             Forms.setCurrentForm($scope.form);

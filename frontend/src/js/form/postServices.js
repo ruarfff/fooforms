@@ -1,4 +1,7 @@
-angular.module('form').factory('PostService', function (Restangular, Posts) {
+/* global angular */
+
+angular.module('form').factory('PostService', function ($log, Restangular, Posts) {
+    'use strict';
     var postApi = Restangular.all('posts');
     return {
         createPost: function (post, next) {
@@ -7,17 +10,16 @@ angular.module('form').factory('PostService', function (Restangular, Posts) {
                 next(null, res._id);
             }, function (err) {
                 // TODO: Handle error
-                console.log(err.toString());
+                $log.error(err.toString());
                 next(err);
             });
         },
         updatePost: function (post, next) {
             post.put().then(function (res) {
-                console.log('update');
                 Posts.updateOne(post);
                 next();
             }, function (err) {
-                console.log(err.toString());
+                $log.error(err.toString());
                 next(err);
             });
         },
@@ -26,7 +28,7 @@ angular.module('form').factory('PostService', function (Restangular, Posts) {
                 Posts.removeOne(post);
                 next();
             }, function (err) {
-                console.log(err.toString());
+                $log.error(err.toString());
                 next(err);
             });
         },
@@ -36,7 +38,7 @@ angular.module('form').factory('PostService', function (Restangular, Posts) {
                 next();
             }, function (err) {
                 // TODO: Handle error
-                console.log(err.toString());
+                $log.error(err.toString());
                 next(err);
             });
         },
@@ -46,7 +48,7 @@ angular.module('form').factory('PostService', function (Restangular, Posts) {
                 next();
             }, function (err) {
                 // TODO: Handle error
-                console.log(err.toString());
+                $log.error(err.toString());
                 next(err);
             });
         },
@@ -56,7 +58,7 @@ angular.module('form').factory('PostService', function (Restangular, Posts) {
                 next();
             }, function (err) {
                 // TODO: Handle error
-                console.log(err.toString());
+                $log.error(err.toString());
                 next(err);
             });
         }
@@ -64,6 +66,7 @@ angular.module('form').factory('PostService', function (Restangular, Posts) {
 });
 
 angular.module('form').service('Posts', function () {
+    'use strict';
     this.activePost = {};
     this.newPost = function (form) {
         this.activePost = angular.copy(form);
@@ -87,7 +90,7 @@ angular.module('form').service('Posts', function () {
         var count = this.posts.length;
 
         for (index = 0; index < count; index++) {
-            if (this.posts[index]._id == post._id) {
+            if (this.posts[index]._id === post._id) {
                 this.posts[index] = post;
             }
         }
@@ -98,7 +101,7 @@ angular.module('form').service('Posts', function () {
         var count = this.posts.length;
 
         for (index = 0; index < count; index++) {
-            if (this.posts[index]._id == post._id) {
+            if (this.posts[index]._id === post._id) {
                 this.posts.splice(index, 1);
             }
         }
@@ -109,7 +112,7 @@ angular.module('form').service('Posts', function () {
         var count = this.posts.length;
 
         for (index = 0; index < count; index++) {
-            if (this.posts[index]._id == id) {
+            if (this.posts[index]._id === id) {
                 return this.posts[index];
             }
         }

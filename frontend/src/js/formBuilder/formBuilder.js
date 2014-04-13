@@ -1,1 +1,3 @@
-angular.module('formBuilder', []);
+/* global angular */
+
+angular.module('formBuilder', ['underscore']);

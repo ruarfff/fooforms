@@ -74,6 +74,7 @@ module.exports = function (grunt) {
                 },
                 src: [
                     'frontend/src/js/main.js',
+                    'frontend/src/js/common/**/*.js',
                     'frontend/src/js/form/**/*.js',
                     'frontend/src/js/formBuilder/**/*.js',
                     'frontend/src/js/formViewer/**/*.js',

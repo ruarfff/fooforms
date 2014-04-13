@@ -1,4 +1,6 @@
-angular.module('form').factory('FormService', function (Restangular, Forms) {
+/* global angular */
+
+angular.module('form').factory('FormService', function ($log, Restangular, Forms) {
     'use strict';
     var formApi = Restangular.all('forms');
     return {
@@ -8,17 +10,16 @@ angular.module('form').factory('FormService', function (Restangular, Forms) {
                 next(null, res._id);
             }, function (err) {
                 // TODO: Handle error
-                console.log(err.toString());
+                $log.error(err.toString());
                 next(err);
             });
         },
         updateForm: function (form, next) {
             form.put().then(function (res) {
-                console.log('update');
                 Forms.updateOne(form);
                 next();
             }, function (err) {
-                console.log(err.toString());
+                $log.error(err.toString());
                 next(err);
             });
         },
@@ -27,7 +28,7 @@ angular.module('form').factory('FormService', function (Restangular, Forms) {
                 Forms.removeOne(form);
                 next();
             }, function (err) {
-                console.log(err.toString());
+                $log.error(err.toString());
                 next(err);
             });
         },
@@ -37,7 +38,7 @@ angular.module('form').factory('FormService', function (Restangular, Forms) {
                 next();
             }, function (err) {
                 // TODO: Handle error
-                console.log(err.toString());
+                $log.error(err.toString());
                 next(err);
             });
         },
@@ -47,14 +48,14 @@ angular.module('form').factory('FormService', function (Restangular, Forms) {
                 next();
             }, function (err) {
                 // TODO: Handle error
-                console.log(err.toString());
+                $log.error(err.toString());
                 next(err);
             });
         }
     };
 });
 
-angular.module('form').service('Forms', function () {
+angular.module('form').service('Forms', function (_) {
     'use strict';
     this.form = {};
     this.forms = [];
@@ -70,7 +71,7 @@ angular.module('form').service('Forms', function () {
         var count = this.forms.length;
 
         for (index = 0; index < count; index++) {
-            if (this.forms[index]._id == form._id) {
+            if (this.forms[index]._id === form._id) {
                 this.forms[index] = form;
             }
         }
@@ -81,7 +82,7 @@ angular.module('form').service('Forms', function () {
         var count = this.forms.length;
 
         for (index = 0; index < count; index++) {
-            if (this.forms[index]._id == form._id) {
+            if (this.forms[index]._id === form._id) {
                 this.forms.splice(index, 1);
             }
         }
@@ -92,7 +93,7 @@ angular.module('form').service('Forms', function () {
         var count = this.forms.length;
 
         for (index = 0; index < count; index++) {
-            if (this.forms[index]._id == id) {
+            if (this.forms[index]._id === id) {
                 return this.forms[index];
             }
         }

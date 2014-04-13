@@ -1,4 +1,5 @@
-// Filter form fields based on category
+/* global angular */
+
 angular.module('formBuilder')
     .filter('filterTypes', function () {
         'use strict';

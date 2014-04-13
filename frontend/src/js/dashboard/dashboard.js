@@ -1,1 +1,3 @@
-angular.module('dashboard', []);
+/* global angular */
+
+angular.module('dashboard', ['underscore', 'form']);

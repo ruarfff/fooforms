@@ -1,5 +1,7 @@
-angular.module('form').controller('FormsCtrl', ['$scope', 'FormService', 'Forms',
-    function ($scope, FormService, Forms) {
+/* global angular */
+
+angular.module('form').controller('FormsCtrl', ['$scope', '$log', 'FormService', 'Forms',
+    function ($scope, $log, FormService, Forms) {
         'use strict';
         $scope.formUrl = ''; // Temporary helper variable to view form JSON
         $scope.formName = '';
@@ -7,7 +9,7 @@ angular.module('form').controller('FormsCtrl', ['$scope', 'FormService', 'Forms'
 
         FormService.getUserForms(function (err) {
             if(err) {
-                console.log(err.toString());
+                $log.error(err.toString());
             } else {
                 $scope.forms = Forms.forms;
             }
@@ -35,7 +37,7 @@ angular.module('form').controller('FormsCtrl', ['$scope', 'FormService', 'Forms'
         $scope.deleteform = function (form) {
           FormService.deleteForm(form, function (err) {
                 if(err) {
-                    console.log(err.toString());
+                    $log.error(err.toString());
                 } else {
                     Forms.resetCurrentForm();
                     $scope.forms = Forms.forms;

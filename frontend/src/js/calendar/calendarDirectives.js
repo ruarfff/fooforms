@@ -7,10 +7,11 @@
  *       The calendar will watch any eventSource array and update itself when a change is made.
  *
  */
-
+/* global angular */
 angular.module('ui.calendar', [])
     .constant('uiCalendarConfig', {})
     .controller('uiCalendarCtrl', ['$scope', '$timeout', function ($scope, $timeout) {
+        'use strict';
 
         var sourceSerialId = 1,
             eventSerialId = 1,
@@ -167,6 +168,7 @@ angular.module('ui.calendar', [])
     }])
     .directive('uiCalendar', ['uiCalendarConfig', '$locale', function (uiCalendarConfig, $locale) {
         // Configure to use locale names by default
+        'use strict';
         var tValues = function (data) {
             // convert {0: "Jan", 1: "Feb", ...} to ["Jan", "Feb", ...]
             var r, k;

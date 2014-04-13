@@ -1,3 +1,5 @@
+/* global angular */
+
 angular.module('folder').controller('FolderCtrl', function ($scope, $route, Restangular, FolderService, Folders) {
     "use strict";
 

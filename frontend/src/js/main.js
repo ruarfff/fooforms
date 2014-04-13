@@ -1,8 +1,11 @@
+/*jslint node: true */
+/* global angular */
+
 var fooformsApp = angular.module('fooformsApp', [
     // Vendor dependencies
     'ngRoute', 'ngGrid', 'restangular', 'ui.bootstrap', 'textAngular', 'ui.calendar',
     // Custom dependencies
-    'dashboard', 'folder', 'form', 'formBuilder', 'formViewer', 'user'
+    'dashboard', 'folder', 'formBuilder', 'formViewer', 'user', 'authentication'
 ]);
 
 // configure our routes
