@@ -7,14 +7,15 @@
     </label>
 
     <div class="input-group" ng-style="{'width': appField.size+'%'}">
+        <a class="pull-left" href="#" ng-src="appField.src">
+            <img class="media-object" ng-show="appField.src">
+        </a>
         <span class="input-group-addon" ng-show="appField.required">*</span>
-        <img ng-src="appField.src"
-               class="form-image"
-               id="{{appField.id}}" ng-show="appField.src" ng-model="appField.value"/>
+
 
 
         <input type="file" name="uploadFile" id="uploadFile" class="hidden" ng-model="uploadFile"
-               ng-file-select="onFileSelect($files)">
+               ng-file-select="onFileSelect($files, appField)">
 
         <div class="input-group">
             <input type="text" class="form-control" ng-model="uploadFile.name" placeholder="Choose a File">
@@ -24,13 +25,7 @@
                 type="button"
                 onclick="$('#uploadFile').click();"><i class="fa fa-search-plus"></i> Browse
         </button>
-      <button class="btn btn-default"
-              ng-class="{'btn-danger' : allowUpload==false , 'btn-success' : allowUpload==true , 'btn-default' : uploadFile.length==0 }"
-              type="button"
-              id="uploadBtn"
-              ng-click="doFileUpload()"
-              ng-disabled="allowUpload==false || uploadFile.length==0"><i class="fa fa-upload"></i> Upload
-      </button>
+
       </span>
         </div>
         <div class="progress mt5 progress-striped" ng-class="{'fadeOutDelayed' : uploadProgress==100}" ng-show="uploadProgress>0">

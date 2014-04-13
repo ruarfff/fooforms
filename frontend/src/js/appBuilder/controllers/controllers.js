@@ -2,7 +2,7 @@
 
 fooformsApp.controller('fieldsCtrl', ['$scope', '$http', 'DragDropHandler' , '$modal', 'Restangular', 'AppService', 'Apps', 'CloudService', 'Clouds', function ($scope, $http, DragDropHandler, $modal, Restangular, AppService, Apps, CloudService, Clouds) {
     "use strict";
-    $http.get('/js/appBuilder/inputTypes.json').success(function (data) {
+    $http.get('/js/appBuilder/inputTypes.json?i=1').success(function (data) {
 
         $scope.inputTypes = data.inputTypes;
         $scope.icons = data.icons;

@@ -10,7 +10,7 @@
 
             <div class="input-group clear">
                 <div class="input-group-btn">
-                    <button class='btn btn-default' ng-click="setView('feed')"><i
+                    <button disabled class='btn btn-default' ng-click="setView('feed')"><i
                             class="fa fa-list fa-lg"></i>
                     </button>
 
@@ -33,7 +33,7 @@
         <div class="tab-content  m0 p0">
             <div id="tabs-notifications" class="tab-pane active">
                 <div class="list-group">
-                    <div class="media list-group-item m0 br0"
+                    <div class="media list-group-item feed-item m0 br0"
                          ng-repeat="foo in posts" ng-click="viewPost(foo)">
                         <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
                         <a class="pull-left" href="#">
@@ -73,7 +73,7 @@
 
                         <div class="col-sm-12 col-md-4">
                             <a class="btn btn-default btn-xs m5 pull-right" href="clouds"><i class="fa fa-plus"></i></a>
-                            <h4 class="text-info"><i class="fa fa-cloud"></i> Private Folders</h4>
+                            <h4 class="text-info"><i class="fa fa-lock"></i> Private Folders</h4>
 
                             <div class="list-group">
                                 <a href="{{cloud.name}}"
@@ -87,7 +87,21 @@
                             </div>
 
                             <a class="btn btn-default btn-xs m5 pull-right" href="clouds"><i class="fa fa-plus"></i></a>
-                            <h4 class="text-info"><i class="fa fa-cloud"></i> Shared Folders</h4>
+                            <h4 class="text-info"><i class="fa fa-users"></i> My Shared Folders</h4>
+
+                            <div class="list-group">
+                                <a href="{{cloud.name}}"
+                                   ng-click="updateApp(app)" class="list-group-item" ng-repeat="cloud in publicClouds">
+                                    <img src="/assets/icons/color/cloud.png" alt="{{cloud.name}}"
+                                         class="icon icon-xs pull-left">
+                                    <h5 class="list-group-item-heading">{{cloud.name}}</h5>
+
+                                    <p class="list-group-item-text">{{cloud.description}}</p>
+                                </a>
+                            </div>
+
+                            <a class="btn btn-default btn-xs m5 pull-right" href="clouds"><i class="fa fa-plus"></i></a>
+                            <h4 class="text-info"><i class="fa fa-cloud"></i> Folders Shared with me</h4>
 
                             <div class="list-group">
                                 <a href="{{cloud.name}}"

@@ -71,6 +71,9 @@ hr {
 .p5 {
   padding: 5px !important; }
 
+.pt5 {
+  padding-top: 5px !important; }
+
 .p10 {
   padding: 10px !important; }
 
@@ -753,6 +756,28 @@ div.fieldObject:hover {
   border-left: 1px solid #fff;
   background: #efefef;
   min-height: 87px; }
+
+.card {
+  display: block;
+  margin-bottom: 10px;
+  background: #ffffff;
+  border: 1px solid #9acfea;
+  cursor: pointer; }
+
+.viewCard {
+  padding: 3px;
+  background: #fff;
+  font-weight: normal;
+  font-size: .8em; }
+
+.card .media {
+  padding: 0px;
+  padding: 4px;
+  border-bottom: 1px solid #E5F1FD; }
+
+.feed-item {
+  border: 0px;
+  border-bottom: 1px solid #E5F1FD; }
 
 .appFormObject.selected {
   background: #F1FBFF;
