@@ -127,6 +127,15 @@ var FooFormsServerApp = function () {
     /*  Application server functions (main app logic here).               */
     /*  ================================================================  */
 
+    /**
+     *  Start the server (starts up the application).
+     */
+    self.start = function () {
+        http.createServer(self.app).listen(self.port, self.ipaddress, function () {
+            log.info(__filename, ' - ', '%s: Node server started on %s:%d ...',
+                new Date(Date.now()), self.ipaddress, self.port);
+        });
+    };
 
     /**
      *  Initializes the application.
@@ -144,17 +153,8 @@ var FooFormsServerApp = function () {
             require('./config/passport')(passport);
             require('./config/express')(self.app, passport);
             require('./config/routes')(self.app, passport);
-        });
-    };
 
-
-    /**
-     *  Start the server (starts up the application).
-     */
-    self.start = function () {
-        http.createServer(self.app).listen(self.port, self.ipaddress, function () {
-            log.info(__filename, ' - ', '%s: Node server started on %s:%d ...',
-                new Date(Date.now()), self.ipaddress, self.port);
+            self.start();
         });
     };
 
@@ -170,7 +170,6 @@ database.openConnection();
 log.info(__filename, ' - ', 'Starting web server...');
 var serverApp = new FooFormsServerApp();
 serverApp.initialize();
-serverApp.start();
 
 exports.serverApp = module.exports = serverApp;
 
