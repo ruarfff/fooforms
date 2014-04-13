@@ -1,3 +1,3 @@
 /* global angular */
 
-angular.module('authentication', []);
+angular.module('authentication', ['ngCookies']);

@@ -21,6 +21,7 @@ var routes = function (app, passport) {
                 dev: dev
             });
         });
+    /**
 
     app.route('/:username')
         .get(function (req, res, next) {
@@ -37,7 +38,6 @@ var routes = function (app, passport) {
                 return next();
             }
         });
-    /**
 
     app.route('/:username/:folder')
         .get(authenticator.ensureAuthenticated, function (req, res, next) {
