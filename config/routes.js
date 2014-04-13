@@ -15,9 +15,8 @@ var routes = function (app, passport) {
 
     app.route('/')
         .get(function (req, res) {
-            log.debug('rendering root');
             res.render('index', {
-                title: global.config.app.title,
+                title: global.config.app.name,
                 dev: dev
             });
         });
