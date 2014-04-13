@@ -20,7 +20,7 @@ module.exports = {
     deleteFormById: formDeleter.deleteFormById,
     updateForm: formUpdater.updateForm,
     getFormById: formQuery.getFormById,
-    getFormsByCloudId: formQuery.getFormsByCloudId,
+    getFormsByFolderId: formQuery.getFormsByFolderId,
     getFormsByUserId: formQuery.getFormsByUserId,
     getAllForms: formQuery.getAllForms,
     createPost: postCreator.createPost,
@@ -29,6 +29,6 @@ module.exports = {
     getUserPosts: postQuery.getUserPosts,
     getPostById: postQuery.getPostById,
     getFormPosts: postQuery.getFormPosts,
-    getCloudPosts: postQuery.getCloudPosts,
+    getFolderPosts: postQuery.getFolderPosts,
     doPostEvents: postEvents.doPostEvents
 };

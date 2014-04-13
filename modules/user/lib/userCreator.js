@@ -11,17 +11,17 @@ function validateEmail(email) {
     return re.test(email);
 }
 
-var createUserCloud = function (user, next) {
+var createUserFolder = function (user, next) {
     try {
-        var userCloud = {
+        var userFolder = {
             name: user.displayName,
             owner: user._id,
             menuLabel: user.displayName,
-            isUserCloud: true,
+            isUserFolder: true,
             icon: user.photo,
             isPrivate: true
         };
-        require(global.config.modules.CLOUD).createCloud(userCloud, next);
+        require(global.config.modules.FOLDER).createFolder(userFolder, next);
     } catch (err) {
         log.error(__filename, ' - ', err);
         next(err);
@@ -36,11 +36,11 @@ var createUserLocalStrategy = function ( userJSON, next ) {
             if(err) {
                 return next(err);
             }
-            createUserCloud(user, function (err, cloud) {
+            createUserFolder(user, function (err, folder) {
                 if(err) {
                     return next(err);
                 }
-                user.cloud = cloud._id;
+                user.folder = folder._id;
                 user.save(next);
             });
         });

@@ -25,9 +25,9 @@ fooformsApp.config(function ($routeProvider, $locationProvider, RestangularProvi
             templateUrl: '/partials/dashboard',
             controller: 'DashboardCtrl'
         })
-        .when('/clouds', {
-            templateUrl: '/partials/clouds',
-            controller: 'CloudCtrl'
+        .when('/folders', {
+            templateUrl: '/partials/folders',
+            controller: 'FolderCtrl'
         })
         .when('/forms', {
             templateUrl: '/partials/forms',

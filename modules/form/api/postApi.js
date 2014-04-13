@@ -94,11 +94,11 @@ var getFormPosts = function (req, res, formId) {
  *
  * @param req
  * @param res
- * @param cloudId
+ * @param folderId
  */
-var getCloudPosts = function (req, res, cloudId) {
+var getFolderPosts = function (req, res, folderId) {
     try {
-        formLib.getCloudPosts(cloudId, function (err, posts) {
+        formLib.getFolderPosts(folderId, function (err, posts) {
             if (!err && !posts) {
                 err = formErrors.postNotFoundError;
             }
@@ -180,7 +180,7 @@ module.exports = {
     getFormPosts: getFormPosts,
     update: updatePost,
     delete: deletePost,
-    getCloudPosts: getCloudPosts
+    getFolderPosts: getFolderPosts
 };
 
 

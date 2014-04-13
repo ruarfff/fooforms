@@ -40,8 +40,8 @@ fooformsApp.factory('PostService', function (Restangular, Posts) {
                 next(err);
             });
         },
-        getCloudPosts: function (cloud, next) {
-            postApi.getList({ scope: 'cloud', id: cloud._id }).then(function (posts) {
+        getFolderPosts: function (folder, next) {
+            postApi.getList({ scope: 'folder', id: folder._id }).then(function (posts) {
                 Posts.updateAll(posts);
                 next();
             }, function (err) {

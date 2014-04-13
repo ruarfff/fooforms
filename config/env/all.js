@@ -11,7 +11,7 @@ var utilDir = path.join(rootPath, 'lib/util');
 var adminDir = path.join(modulesPath, 'admin');
 var formDir = path.join(modulesPath, 'form');
 var authenticationDir = path.join(modulesPath, 'authentication');
-var cloudDir = path.join(modulesPath, 'cloud');
+var folderDir = path.join(modulesPath, 'folder');
 var dashboardDir = path.join(modulesPath, 'dashboard');
 var databaseDir = path.join(modulesPath, 'database');
 var loggingDir = path.join(modulesPath, 'logging');
@@ -29,7 +29,7 @@ var modules = {
     "ADMIN": adminDir,
     "FORM": formDir,
     "AUTHENTICATION": authenticationDir,
-    "CLOUD": cloudDir,
+    "FOLDER": folderDir,
     "DASHBOARD": dashboardDir,
     "DATABASE": databaseDir,
     "LOGGING": loggingDir,

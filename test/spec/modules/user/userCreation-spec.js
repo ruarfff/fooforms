@@ -8,11 +8,11 @@ var userSpecUtil = require('./user-spec-util');
 
 describe('User creation', function () {
     var userLib;
-    var cloudLib;
+    var folderLib;
 
     before(function () {
         userLib = require(global.config.modules.USER);
-        cloudLib = require(global.config.modules.CLOUD);
+        folderLib = require(global.config.modules.FOLDER);
     });
 
     afterEach(function (done) {
@@ -36,20 +36,20 @@ describe('User creation', function () {
             });
         });
 
-        it('should create a User Cloud', function (done) {
+        it('should create a User Folder', function (done) {
             var testUser = userSpecUtil.getMockValidUser();
             userLib.createUser(testUser, function (err, user) {
                 if (err) return done(err);
                 should.exist(user);
-                cloudLib.getCloudById(user.cloud, function (err, cloud) {
+                folderLib.getFolderById(user.folder, function (err, folder) {
                     if (err) return done(err);
-                    should.exist(cloud);
-                    cloud.name.should.equal(user.displayName);
-                    cloud.owner.should.eql(user._id);
-                    cloud.menuLabel.should.equal(user.displayName);
-                    cloud.icon.should.equal(user.photo);
-                    should(cloud.isPrivate).ok;
-                    should(cloud.isUserCloud).ok;
+                    should.exist(folder);
+                    folder.name.should.equal(user.displayName);
+                    folder.owner.should.eql(user._id);
+                    folder.menuLabel.should.equal(user.displayName);
+                    folder.icon.should.equal(user.photo);
+                    should(folder.isPrivate).ok;
+                    should(folder.isUserFolder).ok;
                     done();
                 });
             });

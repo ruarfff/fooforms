@@ -1,4 +1,4 @@
-fooformsApp.controller('DashboardCtrl', ['$scope', '$location', '$http' , '$modal', 'Restangular', 'FormService', 'Forms', 'CloudService', 'Clouds', 'PostService', 'Posts', function ($scope, $location, $http, $modal, Restangular, FormService, Forms, CloudService, Clouds, PostService, Posts) {
+fooformsApp.controller('DashboardCtrl', ['$scope', '$location', '$http' , '$modal', 'Restangular', 'FormService', 'Forms', 'FolderService', 'Folders', 'PostService', 'Posts', function ($scope, $location, $http, $modal, Restangular, FormService, Forms, FolderService, Folders, PostService, Posts) {
     'use strict';
     // the main object to store the form data
     $scope.form = Forms.getCurrentForm();
@@ -50,10 +50,10 @@ fooformsApp.controller('DashboardCtrl', ['$scope', '$location', '$http' , '$moda
         $location.path(form.name);
     };
 
-    CloudService.getClouds(function (err) {
+    FolderService.getFolders(function (err) {
         if (!err) {
-            $scope.privateClouds = Clouds.privateClouds;
-            $scope.publicClouds = Clouds.publicClouds;
+            $scope.privateFolders = Folders.privateFolders;
+            $scope.publicFolders = Folders.publicFolders;
         }
     });
     PostService.getUserPosts(function (err) {

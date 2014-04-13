@@ -37,7 +37,7 @@ var formSchema = Schema({
     posts: [
         {type: Schema.Types.ObjectId, ref: 'Post'}
     ],
-    cloud: {type: Schema.Types.ObjectId, ref: 'Cloud'},
+    folder: {type: Schema.Types.ObjectId, ref: 'Folder'},
     url: {
         type: String,
         default: ''

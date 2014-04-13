@@ -97,7 +97,7 @@
                                                            value="Shared"> Shared</h4>
 
                 <p class="list-group-item-text">
-                    Users with access to the selected shared cloud will have access to your form.
+                    Users with access to the selected shared folder will have access to your form.
                     <br>Good for things like Helpdesks, Invoices, Tasks, Holiday Requests, etc.</p>
 
                 <div ng-show="form.sharing.type =='Shared'">
@@ -112,9 +112,9 @@
                 <div ng-show="form.sharing.type =='Shared' && clouds.length>0" class="alert">
                     <h5>Choose a Folder</h5>
 
-                    <div ng-repeat="cloud in clouds">
-                        <input type="radio" ng-model="form.sharing.cloud" value="{{cloud.name}}">
-                        {{cloud.name}}
+                    <div ng-repeat="folder in clouds">
+                        <input type="radio" ng-model="form.sharing.folder" value="{{folder.name}}">
+                        {{folder.name}}
                     </div>
 
                     <h5>Privileges</h5>

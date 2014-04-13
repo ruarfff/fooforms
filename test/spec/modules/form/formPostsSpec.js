@@ -378,7 +378,7 @@ describe('Form Post functions', function () {
                     });
                 });
         });
-        it('should get all posts related to a cloud', function (done) {
+        it('should get all posts related to a folder', function (done) {
             var testUser = userSpecUtil.getMockValidUser();
             userLib.createUser(testUser, function (err, user) {
                 if (err) {
@@ -397,7 +397,7 @@ describe('Form Post functions', function () {
                         }
                         should.exist(form);
                         form.posts.should.be.instanceof(Array).and.have.lengthOf(2);
-                        formLib.getCloudPosts(user.cloud, function (err, posts) {
+                        formLib.getFolderPosts(user.folder, function (err, posts) {
                             should.not.exist(err);
                             should.exist(posts);
                             posts.should.be.instanceof(Array).and.have.lengthOf(4);
@@ -407,14 +407,14 @@ describe('Form Post functions', function () {
                 });
             });
         });
-        it('should return an empty array if cloud has no posts', function (done) {
+        it('should return an empty array if folder has no posts', function (done) {
             var testUser = userSpecUtil.getMockValidUser();
             userLib.createUser(testUser, function (err, user) {
                 if (err) {
                     return done(err);
                 }
                 should.exist(user);
-                formLib.getCloudPosts(user.cloud, function (err, posts) {
+                formLib.getFolderPosts(user.folder, function (err, posts) {
                     should.not.exist(err);
                     should.exist(posts);
                     posts.should.be.instanceof(Array).and.have.lengthOf(0);

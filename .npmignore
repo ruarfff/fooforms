@@ -6,3 +6,10 @@
 out
 *.sublime*
 
+.git*
+docs/
+test/
+logs/
+.DS_Store
+coverage.html
+

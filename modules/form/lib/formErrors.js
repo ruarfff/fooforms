@@ -1,7 +1,7 @@
 /*jslint node: true */
 "use strict";
 
-var ownerNotFoundError = new Error('Cloud not find form owner');
+var ownerNotFoundError = new Error('Folder not find form owner');
 ownerNotFoundError.http_code = 404;
 
 var folderNotFoundError = new Error('Could not find Folder to store form');
@@ -22,8 +22,8 @@ postNotFoundError.http_code = 404;
 var formOwnerNotFound = new Error('Could not find user');
 formOwnerNotFound.http_code = 404;
 
-var userCloudsNotFound = new Error('Could  not find user clouds');
-userCloudsNotFound.http_code = 404;
+var userFoldersNotFound = new Error('Could  not find user folders');
+userFoldersNotFound.http_code = 404;
 
 module.exports = {
     ownerNotFoundError: ownerNotFoundError,
@@ -33,5 +33,5 @@ module.exports = {
     postDeletionError: postDeletionError,
     postNotFoundError: postNotFoundError,
     formOwnerNotFound: formOwnerNotFound,
-    userCloudsNotFound: userCloudsNotFound
+    userFoldersNotFound: userFoldersNotFound
 };

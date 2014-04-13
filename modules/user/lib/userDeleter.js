@@ -26,12 +26,12 @@ exports.deleteUserById = function (id, next) {
                     if(err) {
                         log.error(__filename, ' - ', err);
                     }
-                    var cloudLib = require(global.config.modules.CLOUD);
-                    cloudLib.getUserClouds(user._id, function(err, clouds) {
-                        if (clouds && clouds.length > 0) {
-                            async.each(clouds,
-                                function (cloud, done) {
-                                    cloudLib.deleteCloudById(cloud._id, function (err) {
+                    var folderLib = require(global.config.modules.FOLDER);
+                    folderLib.getFolderFolders(user._id, function(err, folders) {
+                        if (folders && folders.length > 0) {
+                            async.each(folders,
+                                function (folder, done) {
+                                    folderLib.deleteFolderById(folder._id, function (err) {
                                         if (err) {
                                             log.error(__filename, ' - ', err);
                                         }

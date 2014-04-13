@@ -1,6 +1,6 @@
 fooformsApp.controller('FieldsCtrl',
-    ['$scope', '$http', '$modal', 'DragDropHandler', 'Restangular', 'FormService', 'Forms', 'CloudService', 'Clouds',
-        function ($scope, $http, $modal, DragDropHandler, Restangular, FormService, Forms, CloudService, Clouds) {
+    ['$scope', '$http', '$modal', 'DragDropHandler', 'Restangular', 'FormService', 'Forms', 'FolderService', 'Folders',
+        function ($scope, $http, $modal, DragDropHandler, Restangular, FormService, Forms, FolderService, Folders) {
 
             "use strict";
             $http.get('/js/formBuilder/inputTypes.json').success(function (data) {
@@ -11,11 +11,11 @@ fooformsApp.controller('FieldsCtrl',
 
             });
 
-            CloudService.getClouds(function (err) {
+            FolderService.getFolders(function (err) {
                 if (!err) {
-                    $scope.clouds = Clouds.clouds;
-                    $scope.privateClouds = Clouds.privateClouds;
-                    $scope.publicClouds = Clouds.publicClouds;
+                    $scope.folders = Folders.folders;
+                    $scope.privateFolders = Folders.privateFolders;
+                    $scope.publicFolders = Folders.publicFolders;
                 }
             });
             // the main object to store the form data

@@ -13,7 +13,7 @@ exports.getFormById = function (id, next) {
     }
 };
 
-exports.getFormsByCloudId = function (cloudId, next) {
+exports.getFormsByFolderId = function (folderId, next) {
     "use strict";
     try {
             next();

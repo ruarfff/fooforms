@@ -41,8 +41,8 @@ fooformsApp.factory('FormService', function (Restangular, Forms) {
                 next(err);
             });
         },
-        getCloudForms: function (cloud, next) {
-            formApi.getList(cloud._id).then(function (forms) {
+        getFolderForms: function (folder, next) {
+            formApi.getList(folder._id).then(function (forms) {
                 Forms.updateAll(forms);
                 next();
             }, function (err) {
@@ -129,7 +129,7 @@ fooformsApp.service('Forms', function () {
                 "created": new Date(),
                 "lastModified": new Date(),
                 "owner": "",
-                "sharing": {"type": "Private", "cloud": ""},
+                "sharing": {"type": "Private", "folder": ""},
                 "privileges": "user",
                 "formEvents": []
             };

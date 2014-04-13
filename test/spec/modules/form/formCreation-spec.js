@@ -39,7 +39,7 @@ describe('Form creation functions', function () {
                     }
                     should.exist(form);
                     form.owner.should.eql(user._id);
-                    form.cloud.should.eql(user.cloud);
+                    form.folder.should.eql(user.folder);
                     form.name.should.equal(testForm.name);
                     form.icon.should.equal(testForm.icon);
                     form.description.should.equal(testForm.description);

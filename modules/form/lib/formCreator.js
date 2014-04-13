@@ -13,7 +13,7 @@ exports.createForm = function (formJSON, next) {
             if (err) {
                 return next(err);
             }
-            if (!form.cloud) {
+            if (!form.folder) {
                 var User = require(global.config.modules.USER).User;
                 User.findById(form.owner, function (err, user) {
                     if (err) {
@@ -22,12 +22,12 @@ exports.createForm = function (formJSON, next) {
                     if (!user) {
                         return next(formErrors.ownerNotFoundError);
                     }
-                    form.cloud = user.cloud;
-                    require(global.config.modules.CLOUD).addFormToCloud(form.cloud, form._id, function (err, cloud) {
+                    form.folder = user.folder;
+                    require(global.config.modules.FOLDER).addFormToFolder(form.folder, form._id, function (err, folder) {
                         if (err) {
                             return next(err);
                         }
-                        if (!cloud) {
+                        if (!folder) {
                             return next(formErrors.folderNotFoundError);
                         }
                         return (next(err, form));

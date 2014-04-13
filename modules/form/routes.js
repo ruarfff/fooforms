@@ -40,8 +40,8 @@ var routes = function (app, passport) {
             postApi.getUserPosts(req, res);
         } else if (scope === 'form') {
             postApi.getFormPosts(req, res, id);
-        } else if (scope === 'cloud') {
-            postApi.getCloudPosts(req, res, id);
+        } else if (scope === 'folder') {
+            postApi.getFolderPosts(req, res, id);
         }
     });
 

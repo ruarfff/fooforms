@@ -27,20 +27,20 @@ var getAllPosts = function (next) {
 
 var getUserPosts = function (userId, next) {
     try {
-        require(global.config.modules.CLOUD).Cloud.find({owner: userId}).populate('forms').exec(function (err, clouds) {
+        require(global.config.modules.FOLDER).Folder.find({owner: userId}).populate('forms').exec(function (err, folders) {
             if (err) {
                 return next(err);
             }
 
-            if (!clouds) {
-                return next(formErrors.userCloudsNotFound);
+            if (!folders) {
+                return next(formErrors.userFoldersNotFound);
             }
 
             var userPosts = [];
 
-            async.each(clouds,
-                function(cloud, done){
-                    require('../models/form').Form.populate(cloud.forms, 'posts', function(err, forms) {
+            async.each(folders,
+                function(folder, done){
+                    require('../models/form').Form.populate(folder.forms, 'posts', function(err, forms) {
                         if (err) {
                             return done(err);
                         }
@@ -73,23 +73,23 @@ var getUserPosts = function (userId, next) {
     }
 };
 
-var getCloudPosts = function (cloudId, next) {
+var getFolderPosts = function (folderId, next) {
     try {
-        require(global.config.modules.CLOUD).Cloud.findById(cloudId).populate('forms').exec(function(err, cloud) {
-            require('../models/form').Form.populate(cloud.forms, 'posts', function(err, forms) {
+        require(global.config.modules.FOLDER).Folder.findById(folderId).populate('forms').exec(function(err, folder) {
+            require('../models/form').Form.populate(folder.forms, 'posts', function(err, forms) {
                 if (err) {
                     return next(err);
                 }
-                if (!cloud) {
-                    return next(formErrors.userCloudsNotFound);
+                if (!folder) {
+                    return next(formErrors.userFoldersNotFound);
                 }
-                var cloudPosts = [];
+                var folderPosts = [];
                 forms.forEach(function (form) {
                     form.posts.forEach(function (post) {
-                        cloudPosts.push(post);
+                        folderPosts.push(post);
                     });
                 });
-                return next(err, cloudPosts.reverse());
+                return next(err, folderPosts.reverse());
             });
         });
     } catch (err) {
@@ -121,5 +121,5 @@ module.exports = {
     getUserPosts: getUserPosts,
     getAllPosts: getAllPosts,
     getPostById: getPostById,
-    getCloudPosts: getCloudPosts
+    getFolderPosts: getFolderPosts
 };

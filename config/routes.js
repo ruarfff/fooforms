@@ -48,7 +48,7 @@ var routes = function (app, passport) {
     require('../modules/admin/routes')(app, passport);
     require('../modules/form/routes')(app, passport);
     require('../modules/authentication/routes')(app, passport);
-    require('../modules/cloud/routes')(app, passport);
+    require('./routes')(app, passport);
     require('../modules/dashboard/routes')(app, passport);
     require('../modules/calendar/routes')(app, passport);
     require('../modules/database/routes')(app, passport);

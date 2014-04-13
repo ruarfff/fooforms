@@ -13,13 +13,13 @@ exports.checkUserName = function ( req, res ) {
         } );
         return;
     }
-    // Checking if display name is available. This actually checks for the existence of a cloud
-    // with the same name as cloud names match new user names and must be unique.
-    userLib.checkDisplayName( displayName, function ( err, cloud ) {
+    // Checking if display name is available. This actually checks for the existence of a folder
+    // with the same name as folder names match new user names and must be unique.
+    userLib.checkDisplayName( displayName, function ( err, folder ) {
         try {
-            if ( cloud ) {
+            if ( folder ) {
                 // Should not be possible to get more than one result but, you know.... just in case
-                if ( !_.isArray( cloud ) || cloud.length > 0 ) {
+                if ( !_.isArray( folder ) || folder.length > 0 ) {
                     res.json( 403, {
                         isTaken: true
                     } );
