@@ -1,6 +1,6 @@
 {
   "name": "fooforms",
-  "version": "0.1.0-19",
+  "version": "0.1.0-20",
   "description": "Form Maker",
   "keywords": [
     "forms",
@@ -47,7 +47,8 @@
     "passport-yahoo": "^0.3.x",
     "static-favicon": "^1.0.2",
     "underscore": "^1.5.x",
-    "view-helpers": "^0.1.x"
+    "view-helpers": "^0.1.x",
+    "mkdirp": "^0.3.5"
   },
   "devDependencies": {
     "grunt": "^0.4.x",

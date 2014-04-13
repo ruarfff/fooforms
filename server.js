@@ -82,7 +82,7 @@ var FooFormsServerApp = function () {
             var stat = fs.statSync(newPath);
             if (stat.isFile()) {
                 if (/(.*)\.js/.test(file)) {
-                   // log.debug(__filename, ' - ', 'Requiring: ' + newPath);
+                    log.debug(__filename, ' - ', 'Requiring: ' + newPath);
                     require(newPath);
                 }
             } else if (stat.isDirectory()) {
@@ -102,7 +102,7 @@ var FooFormsServerApp = function () {
                 self.walk(rootModelsPath);
             }
         } catch (err) {
-            //log.error(__filename, ' - ', err);
+            log.error(__filename, ' - ', err);
         }
 
         // Look for and load any app models
@@ -116,7 +116,7 @@ var FooFormsServerApp = function () {
                         self.walk(modelsPath);
                     }
                 } catch (err) {
-                  //  log.error(__filename, ' - ', err);
+                    log.error(__filename, ' - ', err);
                 }
             }
         });
@@ -132,12 +132,19 @@ var FooFormsServerApp = function () {
      *  Initializes the application.
      */
     self.initialize = function () {
-        self.setupVariables();
-        self.setupTerminationHandlers();
-        self.bootstrapModels();
-        require('./config/passport')(passport);
-        require('./config/express')(self.app, passport);
-        require('./config/routes')(self.app, passport);
+        var mkdirp = require('mkdirp');
+        mkdirp(path.join(global.config.root, 'logs'), function(err) {
+            if(err) {
+                console.log(err.toString());
+                return;
+            }
+            self.setupVariables();
+            self.setupTerminationHandlers();
+            self.bootstrapModels();
+            require('./config/passport')(passport);
+            require('./config/express')(self.app, passport);
+            require('./config/routes')(self.app, passport);
+        });
     };
 
 
@@ -157,10 +164,10 @@ var FooFormsServerApp = function () {
 /**
  *  main():  Main code.
  */
-//log.info(__filename, ' - ', 'Running environment: ' + env);
-//log.info(__filename, ' - ', 'Initializing database connection...');
+log.info(__filename, ' - ', 'Running environment: ' + env);
+log.info(__filename, ' - ', 'Initializing database connection...');
 database.openConnection();
-//log.info(__filename, ' - ', 'Starting web server...');
+log.info(__filename, ' - ', 'Starting web server...');
 var serverApp = new FooFormsServerApp();
 serverApp.initialize();
 serverApp.start();
