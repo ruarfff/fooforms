@@ -1,4 +1,4 @@
-fooformsApp.controller('FolderCtrl', function ($scope, $route, Restangular, FolderService, Folders) {
+angular.module('folder').controller('FolderCtrl', function ($scope, $route, Restangular, FolderService, Folders) {
     "use strict";
 
     var folderUpdateCalback = function(err) {

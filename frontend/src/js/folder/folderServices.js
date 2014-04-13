@@ -1,4 +1,4 @@
-fooformsApp.factory('FolderService', function (Restangular, Folders) {
+angular.module('folder').factory('FolderService', function (Restangular, Folders) {
     var folderApi = Restangular.all('folders');
     return {
         getFolders: function (next) {
@@ -43,7 +43,7 @@ fooformsApp.factory('FolderService', function (Restangular, Folders) {
     };
 });
 
-fooformsApp.service('Folders', function () {
+angular.module('folder').service('Folders', function () {
     this.updateAll = function (folders) {
         this.folders = folders;
 

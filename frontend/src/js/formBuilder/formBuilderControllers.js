@@ -1,4 +1,4 @@
-fooformsApp.controller('FieldsCtrl',
+angular.module('formBuilder').controller('FieldsCtrl',
     ['$scope', '$http', '$modal', 'DragDropHandler', 'Restangular', 'FormService', 'Forms', 'FolderService', 'Folders',
         function ($scope, $http, $modal, DragDropHandler, Restangular, FormService, Forms, FolderService, Folders) {
 

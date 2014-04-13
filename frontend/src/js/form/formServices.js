@@ -1,4 +1,4 @@
-fooformsApp.factory('FormService', function (Restangular, Forms) {
+angular.module('form').factory('FormService', function (Restangular, Forms) {
     'use strict';
     var formApi = Restangular.all('forms');
     return {
@@ -54,7 +54,7 @@ fooformsApp.factory('FormService', function (Restangular, Forms) {
     };
 });
 
-fooformsApp.service('Forms', function () {
+angular.module('form').service('Forms', function () {
     'use strict';
     this.form = {};
     this.forms = [];

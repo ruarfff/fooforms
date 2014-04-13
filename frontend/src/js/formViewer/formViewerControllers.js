@@ -1,6 +1,7 @@
 /* Controllers */
 
-fooformsApp.controller('FormViewerCtrl', ['$scope', '$http' , '$modal', 'Restangular', 'FormService', 'Forms', 'PostService', 'Posts', function ($scope, $http, $modal, Restangular, FormService, Forms, PostService, Posts) {
+angular.module('formViewer')
+    .controller('FormViewerCtrl', ['$scope', '$http' , '$modal', 'Restangular', 'FormService', 'Forms', 'PostService', 'Posts', function ($scope, $http, $modal, Restangular, FormService, Forms, PostService, Posts) {
     "use strict";
 
     // the main object to store the form data

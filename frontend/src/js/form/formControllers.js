@@ -1,4 +1,4 @@
-fooformsApp.controller('FormsCtrl', ['$scope', 'FormService', 'Forms',
+angular.module('form').controller('FormsCtrl', ['$scope', 'FormService', 'Forms',
     function ($scope, FormService, Forms) {
         'use strict';
         $scope.formUrl = ''; // Temporary helper variable to view form JSON

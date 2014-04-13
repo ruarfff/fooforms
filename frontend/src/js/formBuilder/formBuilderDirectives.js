@@ -1,19 +1,21 @@
 /* Directives */
 
-fooformsApp.factory('DragDropHandler', [function () {
-    'use strict';
-    return {
-        dragObject: undefined,
-        addObject: function (object, objects, to) {
-            objects.splice(to, 0, object);
-        },
-        moveObject: function (objects, from, to) {
-            objects.splice(to, 0, objects.splice(from, 1)[0]);
-        }
-    };
-}]);
+angular.module('formBuilder')
 
-fooformsApp.factory('uploadHandler', [function () {
+    .factory('DragDropHandler', [function () {
+        'use strict';
+        return {
+            dragObject: undefined,
+            addObject: function (object, objects, to) {
+                objects.splice(to, 0, object);
+            },
+            moveObject: function (objects, from, to) {
+                objects.splice(to, 0, objects.splice(from, 1)[0]);
+            }
+        };
+    }])
+
+    .factory('uploadHandler', [function () {
         'use strict';
         return {
 
@@ -24,6 +26,7 @@ fooformsApp.factory('uploadHandler', [function () {
     }])
 
     .directive('draggable', ['DragDropHandler', function (DragDropHandler) {
+        'use strict';
         return {
             scope: {
                 draggable: '=',
@@ -52,6 +55,7 @@ fooformsApp.factory('uploadHandler', [function () {
     }])
 
     .directive('droppable', ['DragDropHandler', function (DragDropHandler) {
+        'use strict';
         return {
             scope: {
                 droppable: '=',
@@ -107,6 +111,7 @@ fooformsApp.factory('uploadHandler', [function () {
 // not used but may be useful some day......
 
     .directive('compile', function ($compile) {
+        'use strict';
         // directive factory creates a link function
         return function (scope, element, attrs) {
             scope.$watch(
@@ -131,6 +136,7 @@ fooformsApp.factory('uploadHandler', [function () {
 
 
     .directive('subdroppable', ['DragDropHandler', function (DragDropHandler) {
+        'use strict';
         return {
             scope: {
                 subdroppable: '=',
@@ -185,6 +191,7 @@ fooformsApp.factory('uploadHandler', [function () {
 
 
     .directive('uploadable', ['uploadHandler', function (uploadHandler) {
+        'use strict';
         return {
             scope: {
                 uploadable: '=',
@@ -220,4 +227,4 @@ fooformsApp.factory('uploadHandler', [function () {
                 });
             }
         };
-    }])
+    }]);

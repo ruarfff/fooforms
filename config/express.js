@@ -35,12 +35,6 @@ module.exports = function (app, passport) {
     app.set('showStackError', true);
     //Should be placed before express.static
     app.use(compress);
-
-    //Don't use logger for test env
-    if (process.env.NODE_ENV !== 'test') {
-        app.use(log4js.connectLogger(log, { level: 'auto' }));
-    }
-
     app.set('title', global.config.app.name);
     app.set('port', global.config.port);
     app.set('views', global.config.root + '/frontend/views');
@@ -49,7 +43,10 @@ module.exports = function (app, passport) {
     app.set('view engine', 'html');
     app.use(favicon(global.config.root + '/frontend/public/assets/ico/favicon.ico'));
     app.use(express.static(global.config.root + '/frontend/public'));
-    app.use(bodyParser());
+    //Don't use logger for test env
+    if (process.env.NODE_ENV !== 'test') {
+        app.use(log4js.connectLogger(log, { level: 'auto' }));
+    }
     app.use(bodyParser());
     app.use(methodOverride);
     app.use(cookieParser('f0of09m5s3ssi0n'));
@@ -59,29 +56,5 @@ module.exports = function (app, passport) {
     app.use(passport.initialize());
     app.use(passport.session());
     app.use(errorHandler);
-
-
-    app.use(function (err, req, res, next) {
-        //Treat as 404
-        if (err.message.indexOf('not found')) {
-            return next();
-        }
-
-        //Log it
-        log.error(__filename, ' - ', err);
-
-        //Error page
-        res.status(500).render('500', {
-            error: err.stack
-        });
-    });
-
-    //Assume 404 since no middleware responded
-    app.use(function (req, res) {
-        res.status(404).render('404', {
-            url: req.originalUrl,
-            error: 'Not found'
-        });
-    });
 
 };

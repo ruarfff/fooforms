@@ -102,17 +102,17 @@
 
                 <div ng-show="form.sharing.type =='Shared'">
 
-                    <div ng-show="clouds.length==0" class="alert">
+                    <div ng-show="folders.length==0" class="alert">
 
                         <h5>You haven't created any shared folders yet.</h5>
-                        <button class="btn btn-small btn-success" href="clouds">Create a Shared Folder
+                        <button class="btn btn-small btn-success" href="folders">Create a Shared Folder
                         </button>
                     </div>
                 </div>
-                <div ng-show="form.sharing.type =='Shared' && clouds.length>0" class="alert">
+                <div ng-show="form.sharing.type =='Shared' && folders.length>0" class="alert">
                     <h5>Choose a Folder</h5>
 
-                    <div ng-repeat="folder in clouds">
+                    <div ng-repeat="folder in folders">
                         <input type="radio" ng-model="form.sharing.folder" value="{{folder.name}}">
                         {{folder.name}}
                     </div>

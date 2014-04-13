@@ -40,7 +40,7 @@ var routes = function (app, passport) {
         fileApi.update(req, res);
     });
 
-    app.del('/api/file', authenticator.ensureLoggedIn, function (req, res) {
+    app.delete('/api/file', authenticator.ensureLoggedIn, function (req, res) {
         fileApi.delete(req, res);
     });
 

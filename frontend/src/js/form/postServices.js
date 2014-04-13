@@ -1,4 +1,4 @@
-fooformsApp.factory('PostService', function (Restangular, Posts) {
+angular.module('form').factory('PostService', function (Restangular, Posts) {
     var postApi = Restangular.all('posts');
     return {
         createPost: function (post, next) {
@@ -63,7 +63,7 @@ fooformsApp.factory('PostService', function (Restangular, Posts) {
     };
 });
 
-fooformsApp.service('Posts', function () {
+angular.module('form').service('Posts', function () {
     this.activePost = {};
     this.newPost = function (form) {
         this.activePost = angular.copy(form);
