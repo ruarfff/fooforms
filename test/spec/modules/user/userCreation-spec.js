@@ -6,6 +6,9 @@ var should = require('should');
 var specUtil = require('../../spec-util');
 var userSpecUtil = require('./user-spec-util');
 
+var defaultUserFolderName = 'MyPrivateFolder';
+var defaultSharedFolderName = 'MySharedFolder';
+
 describe('User creation', function () {
     var userLib;
     var folderLib;
@@ -39,15 +42,18 @@ describe('User creation', function () {
         it('should create a User Folder', function (done) {
             var testUser = userSpecUtil.getMockValidUser();
             userLib.createUser(testUser, function (err, user) {
-                if (err) return done(err);
+                if (err) {
+                    return done(err);
+                }
                 should.exist(user);
                 folderLib.getFolderById(user.folder, function (err, folder) {
-                    if (err) return done(err);
+                    if (err) {
+                        return done(err);
+                    }
                     should.exist(folder);
-                    folder.name.should.equal(user.displayName);
+                    folder.name.should.equal(defaultUserFolderName);
                     folder.owner.should.eql(user._id);
                     folder.menuLabel.should.equal(user.displayName);
-                    folder.icon.should.equal(user.photo);
                     should(folder.isPrivate).ok;
                     should(folder.isUserFolder).ok;
                     done();

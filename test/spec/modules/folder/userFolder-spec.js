@@ -9,6 +9,9 @@ var log = require(global.config.modules.LOGGING).LOG;
 var User = require(global.config.modules.USER).User;
 var Folder = require(global.config.modules.FOLDER).Folder;
 
+var defaultUserFolderName = 'MyPrivateFolder';
+var defaultSharedFolderName = 'MySharedFolder';
+
 describe('Folder creation', function () {
     var folderLib;
     var userLib;
@@ -60,10 +63,9 @@ describe('Folder creation', function () {
                         return done(err);
                     }
                     should.exist(folder);
-                    folder.name.should.equal(user.displayName);
+                    folder.name.should.equal(defaultUserFolderName);
                     folder.owner.should.eql(user._id);
                     folder.menuLabel.should.equal(user.displayName);
-                    folder.icon.should.equal(user.photo);
                     should(folder.isPrivate).ok;
                     should(folder.isUserFolder).ok;
                     should(folder.members.length === 0).ok;

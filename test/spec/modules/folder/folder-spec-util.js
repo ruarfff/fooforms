@@ -199,7 +199,7 @@ var sampleForms = [
     {
         name: "form4",
         icon: "icon",
-        description: "An form owned by User4",
+        description: "A form owned by User4",
         menuLabel: "app4 menu label",
         btnLabel: "Button label",
         settings: {},

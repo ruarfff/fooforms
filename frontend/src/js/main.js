@@ -64,10 +64,19 @@ fooformsApp
                 templateUrl: '/partials/formViewer',
                 controller: 'FormViewerCtrl'
             })
-            .otherwise({
+            .when('/:username', {
+                templateUrl: '/partials/profile',
+                controller: 'ProfileCtrl'
+            })
+            .when('/:username/:folder', {
+                templateUrl: '/partials/folders',
+                controller: 'FolderCtrl'
+            })
+            .when('/:username/:folder/:form', {
                 templateUrl: '/partials/formViewer',
                 controller: 'FormViewerCtrl'
-            });
+            })
+            .otherwise({redirectTo:'/'});
     })
     .config(['$httpProvider', function ($httpProvider) {
         'use strict';

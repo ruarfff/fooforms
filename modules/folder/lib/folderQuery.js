@@ -24,7 +24,7 @@ var getFolderByName = function (name, next) {
     }
 };
 
-var getAllFolder = function (next) {
+var getAllFolders = function (next) {
     try {
         Folder.find({}, function (err, folder) {
             next(err, folder);
@@ -66,7 +66,7 @@ var getUserFolders = function (userId, next) {
 module.exports = {
     getFolderById: getFolderById,
     getFolderByName: getFolderByName,
-    getAllFolders: getAllFolder,
+    getAllFolders: getAllFolders,
     getFolderOwner: getFolderOwner,
     getUserFolders: getUserFolders
 };

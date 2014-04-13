@@ -27,7 +27,7 @@ exports.deleteUserById = function (id, next) {
                         log.error(__filename, ' - ', err);
                     }
                     var folderLib = require(global.config.modules.FOLDER);
-                    folderLib.getFolderFolders(user._id, function(err, folders) {
+                    folderLib.getUserFolders(user._id, function(err, folders) {
                         if (folders && folders.length > 0) {
                             async.each(folders,
                                 function (folder, done) {

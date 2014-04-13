@@ -24,7 +24,7 @@ describe('Querying Folder Library to get Folders and Folder details', function (
 
     describe('Folder retrieval', function () {
         it('should return all folders in the database', function (done) {
-            folderLib.getAllFolder(function (err, folders) {
+            folderLib.getAllFolders(function (err, folders) {
                 if (err) {
                     return done(err);
                 }
@@ -61,7 +61,7 @@ describe('Querying Folder Library to get Folders and Folder details', function (
             });
         });
         it('should find all folders owned by a user', function (done) {
-            folderLib.getFolderFolders(folderSpecUtil.getUser4Id(), function (err, folders) {
+            folderLib.getUserFolders(folderSpecUtil.getUser4Id(), function (err, folders) {
                 if (err) {
                     return done(err);
                 }

@@ -21,34 +21,93 @@ var routes = function (app, passport) {
                 dev: dev
             });
         });
+/**
+    app.route('/:username')
+        .get(authenticator.ensureAuthenticated, function (req, res, next) {
+            var username = req.params.username;
+            // TODO: Need to figure out what to do here.....
+            // If a user put another username in to the URL, what should render and how?
+            if (req.user.displayName.equals(username)) {
+                res.render('dashboard', {
+                    dev: dev,
+                    user: req.user
+                });
+            } else {
+                next();
+            }
+        });
 
-    /**
-     router.get('/:username', function (req, res, next) {
-        if (req.params.username === 'hello') {
-            res.send('Hello');
-        } else {
-            next();
-        }
-    });
+    app.route('/:username/:folder')
+        .get(authenticator.ensureAuthenticated, function (req, res, next) {
+            var username = req.params.username;
+            var folderName = req.params.folder;
 
-     router.get('/:username/:folder', function (req, res, next) {
-        var expected = 'hello/sir';
-        if (req.params.username + '/' + req.params.folder === expected) {
-            res.send('Hello Sir');
-        } else {
-            next();
-        }
-    });
+            var folderLib = require(global.config.modules.FOLDER);
+            var userLib = require(global.config.modules.USER);
+            if (req.user.displayName.equals(username)) {
+                userLib.checkDisplayName(username, function (err, user) {
+                    if (err || !user) {
+                        res.status(404).render('404', {
+                            url: req.originalUrl,
+                            error: 'Not found'
+                        });
+                    } else {
+                        folderLib.getFolderByName(folderName, function(err, folder) {
+                           if(err || !folder || folder.owner != user._id){
+                               res.status(404).render('404', {
+                                   url: req.originalUrl,
+                                   error: 'Not found'
+                               });
+                           } else {
+                               res.render('dashboard', {
+                                   dev: dev,
+                                   user: req.user
+                               });
+                           }
+                        });
+                    }
+                });
+            } else {
+                next();
+            }
+        });
 
-     router.get('/:username/:folder/:form', function (req, res, next) {
-        var expected = 'hello/sir/evening';
-        if (req.params.username + '/' + req.params.folder + '/' + req.params.form === expected) {
-            res.send('Hello sir, good evening.');
-        } else {
-            next();
-        }
-    });
-     */
+    app.route('/:username/:folder/:form')
+        .get(authenticator.ensureAuthenticated, function (req, res, next) {
+            var username = req.params.username;
+            var folderName = req.params.folder;
+            var formName = req.params.form;
+
+            var folderLib = require(global.config.modules.FOLDER);
+            var userLib = require(global.config.modules.USER);
+            if (req.user.displayName.equals(username)) {
+                userLib.checkDisplayName(username, function (err, user) {
+                    if (err || !user) {
+                        res.status(404).render('404', {
+                            url: req.originalUrl,
+                            error: 'Not found'
+                        });
+                    } else {
+                        folderLib.getFolderByName(folderName, function(err, folder) {
+                            if(err || !folder || folder.owner != user._id){
+                                res.status(404).render('404', {
+                                    url: req.originalUrl,
+                                    error: 'Not found'
+                                });
+                            } else {
+                                res.render('dashboard', {
+                                    dev: dev,
+                                    user: req.user
+                                });
+                            }
+                        });
+                    }
+                });
+            } else {
+                next();
+            }
+        });
+**/
     require('../modules/admin/routes')(app, passport);
     require('../modules/authentication/routes')(app, passport);
     require('../modules/dashboard/routes')(app, passport);

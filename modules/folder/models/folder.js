@@ -12,7 +12,6 @@ var FolderSchema = new Schema({
     name: {
         type: String,
         required: true,
-        unique: true,
         index: true
     },
     // The reference to the owner of the folder
@@ -107,6 +106,10 @@ Folder.schema.path('members').validate(function (members) {
 Folder.schema.path('membersWithWritePermissions').validate(function (membersWithWritePermissions) {
     return !(this.isUserFolder && (membersWithWritePermissions && membersWithWritePermissions.length > 0));
 }, 'User Folder cannot have members');
+
+Folder.schema.path('name').validate(function (name) {
+    return true;
+}, 'User Folder cannot have more than one folder with this name');
 
 module.exports = {
     Folder: Folder
