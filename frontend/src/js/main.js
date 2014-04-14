@@ -41,7 +41,8 @@ fooformsApp
                 controller: 'FormsCtrl'
             })
             .when('/people', {
-                templateUrl: '/partials/people'
+                templateUrl: '/partials/people',
+                controller: 'PeopleCtrl'
             })
             .when('/calendar', {
                 templateUrl: '/partials/calendar'

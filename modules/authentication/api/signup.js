@@ -53,7 +53,7 @@ exports.signup = function (req, res) {
         }
 
         // check if username is already taken
-        userLib.checkDisplayName(displayName, function (err, user) {
+        userLib.findByDisplayName(displayName, function (err, user) {
                 if (user) {
                     if (!_.isArray(user) || user.length > 0) {
                         res.status(403);

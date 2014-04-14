@@ -191,7 +191,7 @@ var removeFolderMember = function (folderId, userId, next) {
                     return next(err);
                 }
                 if (!userIsFolderMember(folder, user)) {
-                    return next(new Error('User with Id ' + user._id + ' is not a folder member'));
+                    return next(new Error('User is not a folder member'));
                 } else {
                     user.removeFolderMembership(folder._id, function (err, user) {
                         if (err) {

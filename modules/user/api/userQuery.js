@@ -1,45 +1,78 @@
 /*jslint node: true */
 'use strict';
-var userLib = require( global.config.modules.USER );
-var log = require( global.config.modules.LOGGING ).LOG;
-var _ = require( 'underscore' );
+var userLib = require(global.config.modules.USER);
+var log = require(global.config.modules.LOGGING).LOG;
+var apiUtil = require(global.config.modules.APIUTIL);
 
-exports.checkUserName = function ( req, res ) {
+exports.checkUserName = function (req, res) {
     var displayName = req.body.displayName;
     // check if username contains non-url-safe characters
-    if ( displayName !== encodeURIComponent( displayName ) ) {
-        res.json( 403, {
+    if (displayName !== encodeURIComponent(displayName)) {
+        res.json(403, {
             invalidChars: true
-        } );
+        });
         return;
     }
-    // Checking if display name is available. This actually checks for the existence of a folder
-    // with the same name as folder names match new user names and must be unique.
-    userLib.checkDisplayName( displayName, function ( err, folder ) {
+    userLib.findByDisplayName(displayName, function (err, user) {
         try {
-            if ( folder ) {
-                // Should not be possible to get more than one result but, you know.... just in case
-                if ( !_.isArray( folder ) || folder.length > 0 ) {
-                    res.json( 403, {
-                        isTaken: true
-                    } );
-                    return;
-                }
-            }
-            if ( err ) {
-                var responseCode = err.http_code || 500;
-                res.json( responseCode, {
-                    error: err.message
-                } );
+            if (user) {
+                res.json(403, {
+                    isTaken: true
+                });
                 return;
             }
-        } catch ( err ) {
-            log.error( __filename, ' - ', err );
-            res.json( 500, {
+            if (err) {
+                var responseCode = err.http_code || 500;
+                res.json(responseCode, {
+                    error: err.message
+                });
+                return;
+            }
+        } catch (err) {
+            log.error(__filename, ' - ', err);
+            res.json(500, {
                 error: err.message
-            } );
+            });
             return;
         }
-        res.send( 200 );
-    } );
+        res.send(200);
+    });
+};
+
+exports.searchByDisplayName = function (req, res) {
+    try {
+        var displayName = req.body.displayName;
+        if(displayName) {
+            userLib.searchByDisplayName(apiUtil.escapeRegExpChars(displayName), function (err, users) {
+                if (err || !users || users.length < 1) {
+                    res.json(404, {
+                        error: 'user not found'
+                    });
+                    return;
+                }
+
+                var userPartials = [];
+
+                users.forEach( function (user) {
+                    var userPart = {
+                        displayName: user.displayName,
+                        photo: user.photo
+                    };
+                    userPartials.push(userPart);
+                });
+
+                res.json(200, userPartials);
+            });
+        } else {
+            res.json(404, {
+                error: 'user not found'
+            });
+        }
+    } catch (err) {
+        log.error(__filename, ' - ', err);
+        res.json(500, {
+            error: err.message
+        });
+
+    }
 };

@@ -26,7 +26,7 @@ var routes = function (app, passport) {
         .get(function (req, res, next) {
             var username = req.params.username;
 
-            require(global.config.modules.USER).checkDisplayName(username, function (err, user) {
+            require(global.config.modules.USER).findByDisplayName(username, function (err, user) {
 
                 if (!err || !user) {
                     err = new Error('User with name: ' + username + ' - not found.');
@@ -42,7 +42,7 @@ var routes = function (app, passport) {
 
             });
         });
-
+    /**
     app.route('/:username/:folder')
         .get(authenticator.ensureAuthenticated, function (req, res, next) {
             var username = req.params.username;
@@ -51,7 +51,7 @@ var routes = function (app, passport) {
             var folderLib = require(global.config.modules.FOLDER);
             var userLib = require(global.config.modules.USER);
 
-            require(global.config.modules.USER).checkDisplayName(username, function (err, user) {
+            require(global.config.modules.USER).findByDisplayName(username, function (err, user) {
 
                 if (!err || !user) {
                     err = new Error('User with name: ' + username + ' - not found.');
@@ -77,7 +77,7 @@ var routes = function (app, passport) {
 
 
         });
-    /**
+
      app.route('/:username/:folder/:form')
      .get(authenticator.ensureAuthenticated, function (req, res, next) {
             var username = req.params.username;
@@ -87,7 +87,7 @@ var routes = function (app, passport) {
             var folderLib = require(global.config.modules.FOLDER);
             var userLib = require(global.config.modules.USER);
             if (req.user.displayName.equals(username)) {
-                userLib.checkDisplayName(username, function (err, user) {
+                userLib.findByDisplayName(username, function (err, user) {
                     if (err || !user) {
                         res.status(404).render('404', {
                             url: req.originalUrl,

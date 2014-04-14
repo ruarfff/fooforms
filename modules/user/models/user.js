@@ -200,4 +200,8 @@ userSchema.statics.findUserByEmail = function (email, next) {
     this.findOne({ email: email }, next);
 };
 
+userSchema.statics.searchByDisplayName = function (searchText, next) {
+    this.find({displayName: new RegExp('^' + searchText, 'i')}, next);
+};
+
 exports.User = mongoose.model('User', userSchema);

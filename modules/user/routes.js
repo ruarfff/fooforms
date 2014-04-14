@@ -47,6 +47,10 @@ var routes = function (app, passport) {
         res.send(401);
     });
 
+    app.get('/api/users', passport.authenticate('basic', { session: false }), function(req, res) {
+        userApi.searchByUsername(req, res);
+    });
+
     app.put('/api/user/:id', authenticator.ensureLoggedIn, function (req, res) {
         if (req.user.id === req.params.id) {
             return userApi.updateProfile(req, res);
