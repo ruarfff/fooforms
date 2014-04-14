@@ -3,7 +3,7 @@
 
 var fooformsApp = angular.module('fooformsApp', [
     // Vendor dependencies
-    'ngRoute', 'ngGrid', 'restangular', 'ui.bootstrap', 'textAngular', 'ui.calendar',
+    'ngRoute', 'ngGrid', 'restangular', 'textAngular', 'ui.bootstrap', 'ui.calendar',
     // Custom dependencies
     'dashboard', 'folder', 'formBuilder', 'formViewer', 'user', 'authentication'
 ]);

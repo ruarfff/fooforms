@@ -115,7 +115,7 @@
                             <div class="list-group">
                                 <a href="{{form.name}}"
                                    ng-click='updateForm(form)' class="list-group-item" ng-repeat="form in forms">
-                                    <img src="{{form.icon}}" alt="{{form.name}}" class="icon icon-xs pull-left">
+                                    <img ng-src="{{form.icon}}" alt="{{form.name}}" class="icon icon-xs pull-left">
                                     <h5 class="list-group-item-heading">{{form.name}}</h5>
 
                                     <p class="list-group-item-text">{{form.description}}</p>

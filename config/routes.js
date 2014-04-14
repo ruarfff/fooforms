@@ -20,22 +20,27 @@ var routes = function (app, passport) {
                 dev: dev
             });
         });
-    /**
+
 
     app.route('/:username')
         .get(function (req, res, next) {
             var username = req.params.username;
-            log.debug(username);
-            // TODO: Need to figure out what to do here.....
-            // If a user put another username in to the URL, what should render and how?
-            if (req.user.displayName.equals(username)) {
+
+            require(global.config.modules.USER).checkDisplayName(username, function (err, user) {
+
+                if (!err || !user) {
+                    err = new Error('User with name: ' + username + ' - not found.');
+                    err.http_code = 404;
+                    return next();
+                }
+
+                log.debug(__filename + ' - ', 'rendering dashboard for user ' + username);
                 return res.render('dashboard', {
                     dev: dev,
                     user: req.user
                 });
-            } else {
-                return next();
-            }
+
+            });
         });
 
     app.route('/:username/:folder')
@@ -45,36 +50,36 @@ var routes = function (app, passport) {
 
             var folderLib = require(global.config.modules.FOLDER);
             var userLib = require(global.config.modules.USER);
-            if (req.user.displayName.equals(username)) {
-                userLib.checkDisplayName(username, function (err, user) {
-                    if (err || !user) {
+
+            require(global.config.modules.USER).checkDisplayName(username, function (err, user) {
+
+                if (!err || !user) {
+                    err = new Error('User with name: ' + username + ' - not found.');
+                    err.http_code = 404;
+                    return next();
+                }
+
+                folderLib.getFolderByName(folderName, function (err, folder) {
+                    if (err || !folder || (folder.owner != user._id)) {
                         res.status(404).render('404', {
                             url: req.originalUrl,
                             error: 'Not found'
                         });
                     } else {
-                        folderLib.getFolderByName(folderName, function(err, folder) {
-                           if(err || !folder || folder.owner != user._id){
-                               res.status(404).render('404', {
-                                   url: req.originalUrl,
-                                   error: 'Not found'
-                               });
-                           } else {
-                               res.render('dashboard', {
-                                   dev: dev,
-                                   user: req.user
-                               });
-                           }
+                        res.render('dashboard', {
+                            dev: dev,
+                            user: req.user
                         });
                     }
                 });
-            } else {
-                next();
-            }
-        });
 
-    app.route('/:username/:folder/:form')
-        .get(authenticator.ensureAuthenticated, function (req, res, next) {
+            });
+
+
+        });
+    /**
+     app.route('/:username/:folder/:form')
+     .get(authenticator.ensureAuthenticated, function (req, res, next) {
             var username = req.params.username;
             var folderName = req.params.folder;
             var formName = req.params.form;
@@ -108,7 +113,7 @@ var routes = function (app, passport) {
                 next();
             }
         });
-**/
+     **/
     require('../modules/admin/routes')(app, passport);
     require('../modules/authentication/routes')(app, passport);
     require('../modules/dashboard/routes')(app, passport);
