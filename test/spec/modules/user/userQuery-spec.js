@@ -27,7 +27,7 @@ describe('User query', function () {
                 should.exist(user);
                 user.displayName.should.equal(testUser.displayName.toLowerCase());
 
-                userLib.checkDisplayName(user.displayName, function (err, user) {
+                userLib.findByDisplayName(user.displayName, function (err, user) {
                     if (err) {
                         return done(err);
                     }
@@ -38,7 +38,7 @@ describe('User query', function () {
         });
         it('should not return a User if displayname does not exists', function (done) {
             var testUser = userSpecUtil.getMockValidUser();
-            userLib.checkDisplayName(testUser.displayName, function (err, user) {
+            userLib.findByDisplayName(testUser.displayName, function (err, user) {
                 if (err) {
                     return done(err);
                 }

@@ -13,7 +13,7 @@ var routes = function (app, passport) {
      *  View Handlers
      *********************************************************************************/
 
-    app.get('/partials/profile', authenticator.ensureLoggedIn, function (req, res) {
+    app.get('/partials/profile', passport.authenticate('basic', { session: false }), function (req, res) {
         var user = req.user;
 
         res.render(path.join(viewDir, 'profile'), {
@@ -22,7 +22,7 @@ var routes = function (app, passport) {
 
     });
 
-    app.get('/partials/people', authenticator.ensureLoggedIn, function (req, res) {
+    app.get('/partials/people', passport.authenticate('basic', { session: false }), function (req, res) {
         var user = req.user;
 
         res.render(path.join(viewDir, 'people'), {
@@ -35,19 +35,15 @@ var routes = function (app, passport) {
      *  API
      *********************************************************************************/
 
-    app.get('/api/user/me', authenticator.ensureLoggedIn, function (req, res) {
+    app.get('/api/user/me', passport.authenticate('basic', { session: false }), function (req, res) {
         userApi.me(req, res);
     });
 
-    // route to test if the user is logged in or not
-    app.get('/api/user/loggedin', function(req, res) {
-        if(req.isAuthenticated()) {
-            return userApi.me(req, res);
-        }
-        res.send(401);
+    app.get('/api/users', passport.authenticate('basic', { session: false }), function(req, res) {
+        userApi.searchByUsername(req, res);
     });
 
-    app.put('/api/user/:id', authenticator.ensureLoggedIn, function (req, res) {
+    app.put('/api/user/:id', passport.authenticate('basic', { session: false }), function (req, res) {
         if (req.user.id === req.params.id) {
             return userApi.updateProfile(req, res);
         }

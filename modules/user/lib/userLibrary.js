@@ -14,8 +14,9 @@ module.exports = {
     User: require('../models/user').User,
     userErrors: userErrors,
     userToProfile: userProfile.userToProfile,
-    checkDisplayName: userQuery.checkDisplayName,
+    findByDisplayName: userQuery.findByDisplayName,
     checkEmail: userQuery.checkEmail,
+    searchByDisplayName: userQuery.searchByDisplayName,
     findById: userQuery.findUserById,
     createUser: userCreator.createUser,
     deleteUserById: userDeleter.deleteUserById

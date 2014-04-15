@@ -12,7 +12,8 @@ module.exports = {
     me: profile.me,
     updateProfile: profile.updateProfile,
     create: userCreator.create,
-    checkUserName: userQuery.checkUserName
+    checkUserName: userQuery.checkUserName,
+    searchByUsername: userQuery.searchByDisplayName
 };
 
 

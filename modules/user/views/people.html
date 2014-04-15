@@ -1,3 +1,11 @@
+<!--<script type="text/ng-template" id="userSearchTemplate.html">
+    <a>
+        <img ng-src="{{match.model.photo}}" class="img-circle" width="16">
+        <span bind-html-unsafe="match.label | typeaheadHighlight:query"></span>
+    </a>
+</script>-->
+
+
 <div class="col-xs-12 col-sm-4 col-md-4 slideLeft">
     <div id="pageViewer" class="pageGroup">
 
@@ -55,7 +63,18 @@
                 <div id="tabs-myforms" class="tab-pane fade in active">
 
                     <div class="row m5 p5">
+                        <h4>Search Users</h4>
+                        <pre>Model: {{selectedUser | json}}</pre>
+                        <input type="text" ng-model="selectedUser" placeholder="Search for user by name" typeahead="user for user in users | filter:$viewValue | limitTo:6" typeahead-loading="loadingLocations" class="form-control">
+                        <i ng-show="loadingUsers" class="glyphicon glyphicon-refresh"></i>
 
+
+
+
+                        <h4>Asynchronous results</h4>
+                        <pre>Model: {{asyncSelected | json}}</pre>
+                        <input type="text" ng-model="asyncSelected" placeholder="Locations loaded via $http" typeahead="address for address in getLocation($viewValue) | filter:$viewValue" typeahead-loading="loadingLocations" class="form-control">
+                        <i ng-show="loadingLocations" class="glyphicon glyphicon-refresh"></i>
                     </div>
 
                 </div>

@@ -5,14 +5,6 @@ angular.module('authentication').factory('AuthService', ['$cookieStore', '$http'
     // Load data from cookie if it's there
     $http.defaults.headers.common['Authorization'] = 'Basic ' + $cookieStore.get('authdata');
     return {
-        checkUser: function (next) {
-            return $http
-                .get('/api/user/loggedin')
-                .then(function (res) {
-                    Session.create(res.data);
-                    return next(Session.user);
-                });
-        },
         login: function (credentials) {
             return $http
                 .post('/login', credentials)
@@ -20,8 +12,24 @@ angular.module('authentication').factory('AuthService', ['$cookieStore', '$http'
                     Session.create(res.data);
                 });
         },
+        checkUser: function (next) {
+            return $http
+                .get('/api/user/me')
+                .then(function (res) {
+                    Session.create(res.data);
+                    return next(Session.user);
+                });
+        },
         isAuthenticated: function () {
             return !!Session.user;
+        },
+        checkStoredCredentials: function () {
+            var encoded = $cookieStore.get('authdata');
+            if(encoded) {
+                $http.defaults.headers.common.Authorization = 'Basic ' + encoded;
+                return true;
+            }
+            return false;
         },
         setCredentials: function (username, password) {
             var encoded = Base64.encode(username + ':' + password);
@@ -48,6 +56,7 @@ angular.module('authentication').service('Session', function () {
 });
 
 angular.module('authentication').factory('Base64', function() {
+    "use strict";
     var keyStr = 'ABCDEFGHIJKLMNOP' +
         'QRSTUVWXYZabcdef' +
         'ghijklmnopqrstuv' +

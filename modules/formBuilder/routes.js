@@ -9,7 +9,7 @@ var authentication = require(global.config.modules.AUTHENTICATION);
 
 var routes = function (app, passport) {
 
-    app.get('/partials/formBuilder', authentication.ensureLoggedIn, function (req, res) {
+    app.get('/partials/formBuilder', passport.authenticate('basic', { session: false }), function (req, res) {
         var find = '/';
 
         res.render(viewDir + '/index', {

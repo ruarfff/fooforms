@@ -10,13 +10,18 @@
     <link rel="stylesheet" href="/vendor/css/bootstrap-theme.min.css">
     <link rel="stylesheet" href="/vendor/font-awesome/css/font-awesome.min.css">
     <link rel="stylesheet" href="/css/login-min.css">
-
+    <script type="text/javascript" src="/vendor/js/jquery.js"></script>
+    <script type="text/javascript" src="/vendor/js/bootstrap.js"></script>
+    <script type="text/javascript" src="/vendor/js/angular.js"></script>
+    <script type="text/javascript" src="/vendor/js/angular-cookies.js"></script>
+    <script type="text/javascript" src="/js/auth-min.js"></script>
 </head>
-<body>
+<body ng-app="authentication">
+
 <div class='container'>
     <div class='row slide' id="login">
         <div class="col-xs-12">
-            </div>
+        </div>
     </div>
 
     <div class='row slide' id="loginForm">
@@ -24,33 +29,36 @@
             <h2 class="text-info">Sign-in</h2>
         </div>
         <div class="col-xs-12">
-            <form action='/login' method='post' role="form">
+
+            <form role="form" ng-submit="login(credentials)" ng-controller="LoginCtrl">
                 <div class="form-group">
-                <input type='text' name='username'  ng-model="username"
-                       class="form-control input-lg"  placeholder="Enter your username">
-                <input type='password' class="form-control input-lg"   name='password'  ng-model="userPass" placeholder="Password">
-                <input type="submit" name='tryLogin' class="btn btn-success" value='Sign In'>
-                </div>  </form>
-        </div>
-        <div class="col-sm-12">
+                    <input type="text" id="username" name='username' class="form-control input-lg"
+                           placeholder="Enter your username"
+                           ng-model="credentials.username">
+                    <input type="password" id="password" class="form-control input-lg" name='password'
+                           placeholder="Password"
+                           ng-model="credentials.password">
+                    <input type="submit" id="submit" class="btn btn-success" value='Sign In'/>
+                </div>
+            </form>
 
-</div>
-</div>
-
-
-
-
-
-    <div class='row slide' id="invite">
-
-
-        <div class="col-sm-12 alert alert-info" >
-            Share your forms and discover a better way to collaborate with teams and clients - <a href='/signup' class='btn btn-primary btn-sm'>Sign
-            Up</a>
         </div>
 
+    </div>
+</div>
+
+
+<div class='row slide' id="invite">
+
+
+    <div class="col-sm-12 alert alert-info">
+        Share your forms and discover a better way to collaborate with teams and clients - <a href='/signup'
+                                                                                              class='btn btn-primary btn-sm'>SignUp</a>
+    </div>
+
 
 </div>
+
 </body>
 </html>
 

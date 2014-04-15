@@ -41,7 +41,8 @@ fooformsApp
                 controller: 'FormsCtrl'
             })
             .when('/people', {
-                templateUrl: '/partials/people'
+                templateUrl: '/partials/people',
+                controller: 'PeopleCtrl'
             })
             .when('/calendar', {
                 templateUrl: '/partials/calendar'
@@ -110,6 +111,9 @@ fooformsApp
     }])
     .controller('MainController', function ($scope, $location, USER_ROLES, AuthService, $upload) {
         'use strict';
+        if(!AuthService.checkStoredCredentials()) {
+            window.location = '/login';
+        }
         $scope.user = null;
         $scope.userRoles = USER_ROLES;
         $scope.isAuthorized = AuthService.isAuthorized;
