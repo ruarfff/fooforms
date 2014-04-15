@@ -1,7 +1,7 @@
 /* global angular */
 
-angular.module('form').controller('FormsCtrl', ['$scope', '$log', 'FormService', 'Forms',
-    function ($scope, $log, FormService, Forms) {
+angular.module('form').controller('FormsCtrl', ['$scope','$location', '$log', 'FormService', 'Forms',
+    function ($scope, $location, $log, FormService, Forms) {
         'use strict';
         $scope.formUrl = ''; // Temporary helper variable to view form JSON
         $scope.formName = '';
@@ -23,6 +23,11 @@ angular.module('form').controller('FormsCtrl', ['$scope', '$log', 'FormService',
         $scope.viewForm = function (form) {
             $scope.formUrl = form.url;
             $scope.formName = form.name;
+        };
+
+        $scope.openForm = function (form) {
+            Forms.setCurrentForm(form);
+            $location.path($scope.user.displayName + '/MyPrivateFolder/' + form.name);
         };
 
         $scope.newForm = function () {

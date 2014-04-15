@@ -13,7 +13,7 @@ var routes = function (app, passport) {
      *  View Handlers
      *********************************************************************************/
 
-    app.get('/partials/folders', authenticator.ensureLoggedIn, function (req, res) {
+    app.get('/partials/folder', authenticator.ensureLoggedIn, function (req, res) {
         var user = req.user;
 
         res.render(path.join(viewDir, 'index'), {

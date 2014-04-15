@@ -6,16 +6,16 @@
            popover-trigger="mouseenter"></i>
     </label>
 
-<<<<<<< HEAD
-    <div class="input-group" ng-style="{'width': appField.size+'%'}">
-        <span class="input-group-addon" ng-show="appField.required">*</span>
-        <img ng-src="appField.src"
-               class="form-image"
-               id="{{appField.id}}" ng-show="appField.src" ng-model="appField.value"/>
+    <div class="input-group" ng-style="{'width': formField.size+'%'}">
+        <a class="pull-left" href="#" ng-src="formField.src">
+            <img class="media-object" ng-show="formField.src">
+        </a>
+        <span class="input-group-addon" ng-show="formField.required">*</span>
+
 
 
         <input type="file" name="uploadFile" id="uploadFile" class="hidden" ng-model="uploadFile"
-               ng-file-select="onFileSelect($files)">
+               ng-file-select="onFileSelect($files, formField)">
 
         <div class="input-group">
             <input type="text" class="form-control" ng-model="uploadFile.name" placeholder="Choose a File">
@@ -25,18 +25,12 @@
                 type="button"
                 onclick="$('#uploadFile').click();"><i class="fa fa-search-plus"></i> Browse
         </button>
-      <button class="btn btn-default"
-              ng-class="{'btn-danger' : allowUpload==false , 'btn-success' : allowUpload==true , 'btn-default' : uploadFile.length==0 }"
-              type="button"
-              id="uploadBtn"
-              ng-click="doFileUpload()"
-              ng-disabled="allowUpload==false || uploadFile.length==0"><i class="fa fa-upload"></i> Upload
-      </button>
+
       </span>
         </div>
-        <div class="progress mt5 progress-striped" ng-class="{'fadeOutDelayed' : uploadProgress==100}" ng-show="uploadProgress>0">
-            <div class="progress-bar" ng-class="{'progress-bar-success' : uploadProgress==100}" role="progressbar" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100" style="width: {{uploadProgress+'%'}}">
-                {{uploadProgress+'%'}}
+        <div class="progress mt5 progress-striped" ng-class="{'fadeOutDelayed' : formField.progress==100}" ng-show="formField.progress>0">
+            <div class="progress-bar" ng-class="{'progress-bar-success' : formField.pProgress==100}" role="progressbar" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100" style="width: {{formField.progress+'%'}}">
+                {{formField.progress+'%'}}
             </div>
         </div>
 
@@ -51,15 +45,5 @@
 
 
 
-=======
-    <div class="input-group" ng-style="{'width': formField.size+'%'}">
-        <span class="input-group-addon" ng-show="formField.required">*</span>
-        <input type="file"
-               rows="{{formField.rows}}"
-               class="form-control"
-               id="{{formField.id}}"
-               placeholder="{{formField.placeholder}}"
-               ng-model="formField.value"/>
->>>>>>> 7c98326b1abe5ede58470e352000c5399daefef8
     </div>
 </div>

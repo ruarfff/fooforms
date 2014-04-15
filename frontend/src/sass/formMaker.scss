@@ -97,10 +97,15 @@ div.fieldObject:hover {
   cursor:  pointer;
 }
 .viewCard{
-  padding: 3px;
+  padding: 5px;
   background: #fff;
   font-weight:  normal;
   font-size:  .8em;
+}
+.viewCard input{
+  border:  0px;
+  font-size:  .9em;
+  padding: 0px;
 }
 
 .card .media{

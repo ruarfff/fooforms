@@ -6,6 +6,9 @@ angular.module('folder').service('Folders', function () {
     this.updateAll = function (folders) {
         this.folders = folders;
 
+        this.folder = {};
+
+
         this.privateFolders = [];
         this.publicFolders = [];
 
@@ -48,6 +51,40 @@ angular.module('folder').service('Folders', function () {
             }
         }
         this.updateAll(this.folders);
+    };
+
+
+
+
+    this.findById = function (id) {
+        var index;
+        var count = this.folders.length;
+
+        for (index = 0; index < count; index++) {
+            if (this.folders[index]._id === id) {
+                return this.folders[index];
+            }
+        }
+        return null;
+    };
+    this.resetCurrentFolder = function () {
+        this.folder = {};
+    };
+
+    this.setCurrentFolder = function (newFolder) {
+        this.folder = newFolder;
+    };
+    this.getCurrentFolder = function () {
+        if (_.isEmpty(this.folder)) {
+            this.folder = {
+                "name": "New Folder",
+                "icon": "/assets/icons/color/document.png",
+                "description": "My new folder!",
+                "menuLabel": "New Folder"
+
+            };
+        }
+        return this.folder;
     };
     return this;
 });
@@ -97,3 +134,4 @@ angular.module('folder').factory('FolderService', ['$log', 'Restangular', 'Folde
         }
     };
 }]);
+

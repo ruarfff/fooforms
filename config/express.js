@@ -48,6 +48,8 @@ module.exports = function (app, passport) {
         app.use(log4js.connectLogger(log, { level: 'auto' }));
     }
     app.use(bodyParser());
+    app.use(require('connect-multiparty')())
+
     app.use(methodOverride);
     app.use(cookieParser('f0of09m5s3ssi0n'));
     app.use(session({ secret: 'f0of09m5s3ssi0n' }));

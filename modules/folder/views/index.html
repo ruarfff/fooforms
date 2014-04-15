@@ -1,128 +1,92 @@
-<div class="col-xs-12 col-sm-8 col-md-8 pageGroup" id='mainView'>
-<div class="pageGroup">
-<div id="tabs">
-<ul id='folderTabs' class="nav nav-tabs" droppable="tabs"
-    ng-update='updateObjects(from, to)'
-    ng-create='createObject(object, to)'>
-    <li ng-repeat="tab in tabs" ng-class="{'active' : tab.active}"><a data-target="#{{tab.name}}_content"
-                                                                      id="{{tab.name}}"
-                                                                      data-toggle="tab">{{tab.name}}</a>
-    </li>
-</ul>
-<div class="tab-content white p5">
+<div class="col-xs-12 col-sm-4 col-md-4 slideLeft">
+    <div id="pageViewer" class="pageGroup">
 
-<div id="folders_content" class="tab-pane fade in active">
+        <div class="br0 alert alert-info b0 m0">
 
-    <div class="row m5 p5">
-        <div class="col-sm-4 col-md-3"
-             ng-repeat="folder in folders">
-            <div class="thumbnail">
-                <img src="/assets/icons/color/folder.png" alt="{{folder.name}} {{folder.description}}">
 
-                <div class="caption">
-                    <a class="center-block" title="{{folder.description}}">{{folder.name}}</a>
+            <img class="icon pull-left" ng-src="{{folder.icon}}">
+            <h4 class="inline">{{folder.name}}<a href="/formBuilder/"><i class="fa fa-edit fa-lg"></i></a></h4>
+
+
+            <p id='formDescription'>{{folder.description}}</p>
+
+            <div class="input-group clear">
+                <div class="input-group-btn">
+
+                    <a class='btn btn-default' href="userGuide"><i class="fa fa-rocket fa-lg"></i>
+                    </a>
+
                 </div>
+                <input type="text" class="form-control" placeholder="Search...">
+      <span class="input-group-btn">
+        <button class="btn btn-default" type="button"><i class="fa fa-search"></i></button>
+      </span>
+            </div>
 
+
+        </div>
+        <div class="alert alert-success list-group-item br0">
+            <h4 class="fooHeading">Create your own forms!</h4>
+
+            <p>Create your own form based forms using the FOOFORMS Form Builder. </p>
+            <a class="btn btn-success btn-sm" href="formBuilder" ng-click="newApp()">Open the Form Builder &raquo;</a>
+        </div>
+
+
+        <div class="tab-content  m0 p0">
+            <div id="tabs-notifications" class="tab-pane active">
+                <div class="list-group">
+                    <div class="list-group-item">
+                        <h4 class="text-info">My Forms</h4>
+                    </div>
+                    <div class="media list-group-item m0 br0"
+                         ng-repeat="form in forms" ng-click="updateForm(form)">
+
+                        <a class="pull-left" href="/{{user.displayName}}/{{folder.name}}/{{form.name}}">
+                            <img class="media-object icon icon-sm" ng-src="{{form.icon}}" alt="">
+                        </a>
+
+                        <div class="media-body">
+                            <h5 class="media-heading"></h5>
+                               <a href="/{{user.displayName}}/{{folder.name}}/{{form.name}}">{{ form.name }}</a>
+
+                            <p>{{form.description}}</p>
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
     </div>
 </div>
+<div class="col-xs-12 col-sm-8 col-md-8 slideRight hidden-xs" id='mainView'>
+    <div class="pageGroup">
 
-<div id="Settings_content" class="tab-pane fade">
-
-    <div class="row">
-
-        <!-- Navigation Buttons -->
-        <div class="col-md-3">
-            <ul class="nav nav-pills nav-stacked" id="myTabs">
-                <li class="active"><a data-toggle="tab" data-target="#newFolder">New Folder</a></li>
-                <li><a data-toggle="tab" data-target="#newTab">New Tab</a></li>
-                <li>
-                    <hr>
-                </li>
-                <li ng-repeat="folder in folders"><a data-toggle="tab"
-                                                       data-target="#{{folder._id}}">{{folder.name}}</a>
-                </li>
-
+        <div id="tabs">
+            <ul id='formTabs' class="nav nav-tabs">
+                <li class="active"><a data-target="#tabs-myforms" data-toggle="tab">Forms in {{folder.name}}</a></li>
+                <li><a data-target="#tabs-download" data-toggle="tab">Sharing & Permissions</a></li>
             </ul>
-        </div>
+            <div class="tab-content white p5">
+                <div id="tabs-myforms" class="tab-pane fade in active">
 
-        <!-- Content -->
-        <div class="col-md-9">
-            <div class="tab-content">
-                <div class="tab-pane active" id="newFolder">
+                    <div class="row m5 p5">
+                        <div class="col-xs-6 col-sm-4 col-md-3"
+                             ng-repeat="form in forms">
+                            <div id="thumb-{{form._id}}" ng-mouseenter="hover(form)"
+                                 ng-mouseleave="hover(form)">
+                                <a href="{{user.displayName + '/' + folder.name + '/' + form.name}}"
+                                   ng-click="updateForm(form)">
+                                    <img src="{{form.icon}}" alt="{{form.name}}">
+                                </a>
 
-                    <div class="panel panel-success">
-                        <div class="panel-heading">
-                            <h3 class="panel-title">New Folder</h3>
-                        </div>
-                        <div class="panel-body">
-                            <form novalidate class="css-form" role="form" name="createFolderForm">
-                                <div class="form-group">
-                                    <label for="folderName">Name</label>
-                                    <input type="text" class="form-control" id="folderName"
-                                           ng-model="newFolder.name" required
-                                           placeholder="Some awesome folder name"/><br/>
+                                <div class="caption">
+                                    <h5><a class="center-block" href="{{user.displayName + '/' + folder.name + '/' + form.name}}"
+                                           ng-click="updateForm(form)">{{form.name | uppercase}}</a></h5>
                                 </div>
-                                <div class="form-group">
-                                    <label for="folderDescription">Description</label>
-                                    <input type="text" class="form-control" id="folderDescription"
-                                           ng-model="newFolder.description"
-                                           placeholder="A detailed description that everyone will read"/>
-                                </div>
-                                <div class="form-group">
-                                    <label for="folderLabel">Label</label>
-                                    <input type="text" class="form-control" id="folderLabel"
-                                           ng-model="newFolder.menuLabel"
-                                           placeholder="Not sure about this one"/>
-                                </div>
-                                <div class="form-group">
-                                    <label for="folderIcon">Icon</label>
-                                    <input uploadable type="file" id="folderIcon" ng-model="newFolder.icon"/>
+                                <a class="text-muted" href="formBuilder"
+                                   ng-click="updateForm(form)">Admin</a> | <a class="text-muted"
+                                                                             ng-click="deleteForm(form)">Delete</a>
 
-                                    <p class="help-block">Whatever you do, don't try to upload a file.
-                                        We haven't implemented that
-                                        yet!.</p>
-                                </div>
-                                <button ng-click="createFolder(newFolder)" class="btn btn-success">Save
-                                </button>
-                            </form>
-                            <div id="createFolderForm-error" class="alert alert-danger alert-dismissable"
-                                 ng-show="createFolderFormError">
-                                <button type="button" class="close" data-dismiss="alert"
-                                        aria-hidden="true">&times;</button>
-                                {{createFolderFormError}}
-                            </div>
-
-                        </div>
-                    </div>
-
-                </div>
-
-                <div class="tab-pane" id="newTab">
-
-                    <div class="panel panel-success">
-                        <div class="panel-heading">
-                            <h3 class="panel-title">New Tab</h3>
-                        </div>
-                        <div class="panel-body">
-                            <form novalidate class="css-form" role="form" name="createTabForm">
-                                <div class="form-group">
-                                    <label for="tabName">Title</label>
-                                    <input type="text" class="form-control" id="tabName"
-                                           ng-model="newTab.name" required
-                                           placeholder="New Tab Name"/><br/>
-                                </div>
-
-
-                                <button ng-click="createTab(newTab)" class="btn btn-success">Save
-                                </button>
-                            </form>
-                            <div id="createTabForm-error" class="alert alert-danger alert-dismissable"
-                                 ng-show="createTabFormError">
-                                <button type="button" class="close" data-dismiss="alert"
-                                        aria-hidden="true">&times;</button>
-                                {{createTabFormError}}
                             </div>
 
                         </div>
@@ -131,91 +95,26 @@
                 </div>
 
 
-                <div ng-repeat="folder in folders" class="tab-pane" id="{{folder._id}}">
-
-                    <div class="panel panel-info">
-                        <div class="panel-heading">
-                            <h3 class="panel-title">{{folder.name}}</h3>
-                        </div>
-                        <div class="panel-body">
+                <div id="tabs-download" class="tab-pane fade">
 
 
-                            <form novalidate class="css-form" role="form"
-                                  name="{{folder.name}}-form">
-                                <div class="form-group">
-                                    <label>Name</label>
-                                    <input type="text" class="form-control" ng-model="folderDetail.name"
-                                           required
-                                           placeholder="Some awesome folder name"/><br/>
-                                </div>
-                                <div class="form-group">
-                                    <label>Description</label>
-                                    <input type="text" class="form-control"
-                                           ng-model="folderDetail.description"
-                                           placeholder="A detailed description that everyone will read"/>
-                                </div>
-                                <div class="form-group">
-                                    <label>Label</label>
-                                    <input type="text" class="form-control"
-                                           ng-model="folderDetail.menuLabel"
-                                           placeholder="Not sure about this one"/>
-                                </div>
-                                <div class="form-group">
-                                    <label>Icon</label>
-                                    <input type="text" class="form-control"
-                                           ng-model="folderDetail.icon"/>
 
-                                    <p class="help-block">Whatever you do, don't try to upload a
-                                        file. We haven't implemented
-                                        that
-                                        yet!.</p>
-                                </div>
-                                <button ng-click="updateFolder(folderDetail)" class="btn btn-default">
-                                    Update
-                                </button>
-                                <button ng-click="deleteFolder(folderDetail)" class="btn btn-danger">
-                                    Delete
-                                </button>
-                            </form>
-                            <div id="{{folder._id}}-error"
-                                 class="alert alert-danger alert-dismissable"
-                                 ng-show="{{folder.name}}-form.$error">
-                                <button type="button" class="close" data-dismiss="alert"
-                                        aria-hidden="true">&times;</button>
-                                {{folder.name}}-form.$error
-                            </div>
-                        </div>
-                    </div>
+
+
                 </div>
+
             </div>
+
         </div>
 
+
     </div>
 </div>
 
-<div ng-repeat="tab in tabs" id="{{tab.name}}_content" class="tab-pane fade">
-
-    <div class="form-group">
-
-        <textarea rows="10"
-                  class="form-control"
-                  id="{{tab.name}}_editor"
-                  placeholder="Enter Content..."></textarea>
-    </div>
-
-    <div class="form-group">
-        <button ng-click="saveTabContent()" class="btn btn-success">Save
-        </button>
-    </div>
 
 
-</div>
-</div>
-</div>
-</div>
-</div>
 
 
-<div class="col-xs-12 col-sm-4 col-md-4 tall ">
-    <%include ../../../frontend/views/includes/postView.html %>
-</div>
+
+
+

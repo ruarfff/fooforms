@@ -119,7 +119,8 @@
 "groupOptions": "/template/formFields/groupOptions/fileUpload.html",
 "optionsTemplate": "/template/formFields/options/fileUpload.html",
 "viewTemplate": "/template/formFields/view/imageUpload.html",
-"value" : ""
+"src" : "",
+"progress" : 0
 },
 {
 "type": "checkbox",

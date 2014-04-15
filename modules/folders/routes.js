@@ -70,14 +70,14 @@ var routes = function (app, passport) {
 
     app.put('/api/folders/forms/add',  passport.authenticate('basic', { session: false }), function (req, res) {
         var folderId = req.body.folder._id;
-        var formId = req.body.user.form._id;
+        var formId = req.body.form._id;
         folderApi.addFormToFolder(folderId, formId, req, res);
 
     });
 
     app.put('/api/folders/forms/remove',  passport.authenticate('basic', { session: false }), function (req, res) {
         var folderId = req.body.folder._id;
-        var formId = req.body.user.form._id;
+        var formId = req.body.form._id;
         folderApi.removeFormFromFolder(folderId, formId, req, res);
     });
 

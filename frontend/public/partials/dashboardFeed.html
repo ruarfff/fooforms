@@ -32,11 +32,11 @@
         </div>
         <div class="tab-content  m0 p0">
             <div id="tabs-notifications" class="tab-pane active">
-                <div class="list-group">
+                <div class="list-group feed">
                     <div class="media list-group-item feed-item m0 br0"
                          ng-repeat="foo in posts" ng-click="viewPost(foo)">
                         <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
-                        <a class="pull-left" href="#">
+                        <a class="pull-left" ng-click="viewPost(foo)">
                             <img class="media-object icon icon-sm" ng-src="{{foo.icon}}" alt="">
                         </a>
 
@@ -76,8 +76,8 @@
                             <h4 class="text-info"><i class="fa fa-folder"></i> Private Folders</h4>
 
                             <div class="list-group">
-                                <a href="{{folder.name}}"
-                                   ng-click="updateForm(form)" class="list-group-item" ng-repeat="folder in privateFolders">
+                                <a href="{{user.displayName + '/' + folder.name}}"
+                                   ng-click="updateFolder(folder)" class="list-group-item" ng-repeat="folder in privateFolders">
                                     <img src="/assets/icons/color/folder.png" alt="{{folder.name}}"
                                          class="icon icon-xs pull-left">
                                     <h5 class="list-group-item-heading">{{folder.name}}</h5>
@@ -90,8 +90,8 @@
                             <h4 class="text-info"><i class="fa fa-folder"></i> Shared Folders</h4>
 
                             <div class="list-group">
-                                <a href="{{folder.name}}"
-                                   ng-click="updateForm(form)" class="list-group-item" ng-repeat="folder in publicFolders">
+                                <a href="{{user.displayName + '/' + folder.name}}"
+                                   ng-click="updateFolder(folder)" class="list-group-item" ng-repeat="folder in publicFolders">
                                     <img src="/assets/icons/color/folder.png" alt="{{folder.name}}"
                                          class="icon icon-xs pull-left">
                                     <h5 class="list-group-item-heading">{{folder.name}}</h5>
@@ -112,7 +112,7 @@
                             <h4 class="text-info"><i class="fa fa-th"></i> Forms</h4>
 
                             <div class="list-group">
-                                <a href="{{form.name}}"
+                                <a href="{{user.displayName + '/' + form.sharing.folder + '/' + form.menuLabel}}"
                                    ng-click='updateForm(form)' class="list-group-item" ng-repeat="form in forms">
                                     <img src="{{form.icon}}" alt="{{form.name}}" class="icon icon-xs pull-left">
                                     <h5 class="list-group-item-heading">{{form.name}}</h5>

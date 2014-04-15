@@ -1,21 +1,21 @@
 <div class="form-group clearfix">
-    <label for="{{appField.id}}">{{appField.label}}
+    <label for="{{formField.id}}">{{formField.label}}
         <i class="fa fa-question-circle"
-           ng-hide="!appField.userInstructions"
-           popover="{{appField.userInstructions}}"
+           ng-hide="!formField.userInstructions"
+           popover="{{formField.userInstructions}}"
            popover-trigger="mouseenter"></i>
     </label>
 
-    <div class="input-group" ng-style="{'width': appField.size+'%'}">
-        <a class="pull-left" href="#" ng-src="appField.src">
-            <img class="media-object" ng-show="appField.src">
+    <div class="input-group" ng-style="{'width': formField.size+'%'}">
+        <a class="pull-left" href="#" ng-src="formField.src">
+            <img class="media-object" ng-show="formField.src">
         </a>
-        <span class="input-group-addon" ng-show="appField.required">*</span>
+        <span class="input-group-addon" ng-show="formField.required">*</span>
 
 
 
         <input type="file" name="uploadFile" id="uploadFile" class="hidden" ng-model="uploadFile"
-               ng-file-select="onFileSelect($files, appField)">
+               ng-file-select="onFileSelect($files, formField)">
 
         <div class="input-group">
             <input type="text" class="form-control" ng-model="uploadFile.name" placeholder="Choose a File">
@@ -28,9 +28,9 @@
 
       </span>
         </div>
-        <div class="progress mt5 progress-striped" ng-class="{'fadeOutDelayed' : uploadProgress==100}" ng-show="uploadProgress>0">
-            <div class="progress-bar" ng-class="{'progress-bar-success' : uploadProgress==100}" role="progressbar" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100" style="width: {{uploadProgress+'%'}}">
-                {{uploadProgress+'%'}}
+        <div class="progress mt5 progress-striped" ng-class="{'fadeOutDelayed' : formField.progress==100}" ng-show="formField.progress>0">
+            <div class="progress-bar" ng-class="{'progress-bar-success' : formField.pProgress==100}" role="progressbar" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100" style="width: {{formField.progress+'%'}}">
+                {{formField.progress+'%'}}
             </div>
         </div>
 
