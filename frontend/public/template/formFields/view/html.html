@@ -1,0 +1,14 @@
+<div class="form-group clearfix">
+    <label for="{{appField.id}}">{{appField.label}}
+        <i class="fa fa-question-circle"
+           ng-hide="!appField.userInstructions"
+           popover="{{appField.userInstructions}}"
+           popover-trigger="mouseenter"></i>
+    </label>
+
+    <div id="{{appField.id}}" ng-style="{'width': appField.size+'%'}"
+         text-angular
+         ng-model="appField.placeholder"
+         ng-model="appField.value">
+    </div>
+</div>

@@ -30,6 +30,11 @@ angular.module('dashboard').controller('DashboardCtrl', ['$scope', '$location', 
         Posts.activePost = null;
     };
 
+    $scope.updateFolder = function (folder) {
+        Folders.setCurrentFolder(folder);
+
+    };
+
     $scope.setView = function (view) {
 
         switch (view) {
@@ -49,7 +54,7 @@ angular.module('dashboard').controller('DashboardCtrl', ['$scope', '$location', 
         var form = Forms.findById(post.form);
         Posts.activePost = post;
         Forms.setCurrentForm(form);
-        $location.path(form.name);
+        $location.path($scope.user.displayName + '/MyPrivateFolder/' + form.name);
     };
 
     FolderService.getFolders(function (err) {

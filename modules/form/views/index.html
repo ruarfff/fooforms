@@ -4,11 +4,11 @@
         <div class="br0 alert alert-info b0 m0">
 
 
-            <img class="icon pull-left" ng-src="{{app.icon}}">
-            <h4 class="inline">User Name <a href="/profile/"><i class="fa fa-edit fa-lg"></i></a></h4>
+            <img class="icon pull-left" ng-src="{{form.icon}}">
+            <h4 class="inline">{{user.displayName}}<a href="/profile/"><i class="fa fa-edit fa-lg"></i></a></h4>
 
 
-            <p id='appDescription'>Awesome Tag Line</p>
+            <p id='formDescription'></p>
 
             <div class="input-group clear">
                 <div class="input-group-btn">
@@ -29,7 +29,7 @@
             <h4 class="fooHeading">Create your own forms!</h4>
 
             <p>Create your own form based apps using the FOOFORMS Form Builder. </p>
-            <a class="btn btn-success btn-sm" href="appBuilder" ng-click="newApp()">Open the Form Builder &raquo;</a>
+            <a class="btn btn-success btn-sm" href="formBuilder" ng-click="newForm()">Open the Form Builder &raquo;</a>
         </div>
 
 
@@ -40,16 +40,16 @@
                         <h4 class="text-info">My Forms</h4>
                     </div>
                     <div class="media list-group-item m0 br0"
-                         ng-repeat="app in apps" ng-click="updateApp(app)">
+                         ng-repeat="form in forms" ng-click="updateForm(form)">
 
-                        <a class="pull-left" href="/{{app.name}}">
-                            <img class="media-object icon icon-sm" ng-src="{{app.icon}}" alt="">
+                        <a class="pull-left" ng-click="updateForm(form)">
+                            <img class="media-object icon icon-sm" ng-src="{{form.icon}}" alt="">
                         </a>
 
                         <div class="media-body">
-                            <h5 class="media-heading">{{ app.name }}</h5>
+                            <h5 class="media-heading">{{ form.name }}</h5>
 
-                            <p>{{app.description}}</p>
+                            <p>{{form.description}}</p>
                         </div>
                     </div>
                 </div>
@@ -61,29 +61,28 @@
     <div class="pageGroup">
 
         <div id="tabs">
-            <ul id='appTabs' class="nav nav-tabs">
-                <li class="active"><a data-target="#tabs-myapps" data-toggle="tab">Forms</a></li>
+            <ul id='formTabs' class="nav nav-tabs">
+                <li class="active"><a data-target="#tabs-myforms" data-toggle="tab">Forms</a></li>
                 <li><a data-target="#tabs-download" data-toggle="tab">Discover New Forms</a></li>
             </ul>
             <div class="tab-content white p5">
-                <div id="tabs-myapps" class="tab-pane fade in active">
+                <div id="tabs-myforms" class="tab-pane fade in active">
 
                     <div class="row m5 p5">
                         <div class="col-xs-6 col-sm-4 col-md-3"
-                             ng-repeat="app in apps">
-                            <div id="thumb-{{app._id}}" ng-mouseenter="hover(app)"
-                                 ng-mouseleave="hover(app)">
-                                <a href="{{app.name}}"
-                                   ng-click="updateApp(app)">
-                                    <img ng-src="{{app.icon}}" alt="{{app.name}}">
+                             ng-repeat="form in forms">
+                            <div id="thumb-{{form._id}}" ng-mouseenter="hover(form)"
+                                 ng-mouseleave="hover(form)">
+                                <a ng-click="openForm(form)">
+                                    <img src="{{form.icon}}" alt="{{form.name}}">
                                 </a>
 
                                 <div class="caption">
-                                    <h5><a class="center-block">{{app.name | uppercase}}</a></h5>
+                                    <h5><a class="center-block">{{form.name | uppercase}}</a></h5>
                                 </div>
-                                <a class="text-muted" href="appBuilder"
-                                   ng-click="updateApp(app)">Admin</a> | <a class="text-muted"
-                                                                            ng-click="deleteApp(app)">Delete</a>
+                                <a class="text-muted" href="formBuilder"
+                                   ng-click="updateForm(form)">Admin</a> | <a class="text-muted"
+                                                                            ng-click="deleteApp(form)">Delete</a>
 
                             </div>
 
@@ -120,12 +119,12 @@
 
                                     <div class="row m5 p5">
                                         <div class="col-sm-4 col-md-4"
-                                             ng-repeat="app in apps">
+                                             ng-repeat="form in forms">
                                             <div class="thumbnail">
-                                                <img ng-src="{{app.icon}}" alt="{{app.name}}">
+                                                <img src="{{form.icon}}" alt="{{form.name}}">
 
                                                 <div class="caption">
-                                                    <a class="center-block">{{app.name | uppercase}}</a>
+                                                    <a class="center-block">{{form.name | uppercase}}</a>
                                                 </div>
 
                                                 <i class="fa fa-star fa-fw"></i>
@@ -141,12 +140,12 @@
 
                                     <div class="row m5 p5">
                                         <div class="col-sm-4 col-md-4"
-                                             ng-repeat="app in apps">
+                                             ng-repeat="form in forms">
                                             <div class="thumbnail">
-                                                <img ng-src="{{app.icon}}" alt="{{app.name}}">
+                                                <img src="{{form.icon}}" alt="{{form.name}}">
 
                                                 <div class="caption">
-                                                    <a class="center-block">{{app.name | uppercase}}</a>
+                                                    <a class="center-block">{{form.name | uppercase}}</a>
                                                 </div>
 
                                             </div>
@@ -167,19 +166,7 @@
 
 
                 </div>
-                <div class="row">
-                    <div class="col-sm-2"></div>
-                    <div class="col-sm-8">
-                        <div class="alert alert-success">
-                            <h3 class="fooHeading">Create your own apps!</h3>
 
-                            <p>You can create your own form based apps using the FOOFORMS App Builder. </p>
-                            <a class="btn btn-success" href="appBuilder" ng-click="newApp()">Open the App
-                                Builder &raquo;</a>
-                        </div>
-                    </div>
-                    <div class="col-sm-2"></div>
-                </div>
             </div>
 
         </div>

@@ -15,15 +15,7 @@ angular.module('formBuilder')
         };
     }])
 
-    .factory('uploadHandler', [function () {
-        'use strict';
-        return {
 
-            uploadObject: function (object, objects, to) {
-                objects.splice(to, 0, object);
-            }
-        };
-    }])
 
     .directive('draggable', ['DragDropHandler', function (DragDropHandler) {
         'use strict';
@@ -190,41 +182,6 @@ angular.module('formBuilder')
     }])
 
 
-    .directive('uploadable', ['uploadHandler', function (uploadHandler) {
-        'use strict';
-        return {
-            scope: {
-                uploadable: '=',
-                ngUpdate: '&',
-                ngCreate: '&',
-                ngBorder: '&'
-
-            },
-            link: function (scope, element, attrs) {
 
 
-                element.on("change", function (event, ui) {
-                    var repeatBox = angular.element(ui.item).scope().$index;
-                    var from = angular.element(ui.item).scope().$index;
-                    var to = element.children().index(ui.item);
 
-                    scope.$parent.nowEditing = from;
-                    scope.$parent.nowSubEditing = repeatBox;
-
-                    if (to >= 0) {
-                        scope.$apply(function () {
-                            if (angular.element(ui.item).scope().subField !== undefined) {
-                                uploadHandler.uploadObject(scope.subdroppable, from, to);
-                                scope.ngUpdate({
-                                    from: from,
-                                    to: to
-                                });
-
-                            }
-                        });
-                    }
-
-                });
-            }
-        };
-    }]);

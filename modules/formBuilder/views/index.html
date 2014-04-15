@@ -90,6 +90,15 @@
                 <p class="list-group-item-text">
                     Your form will be visible to just you. Good for personal ToDo Lists, Notes, etc.
                 </p>
+                <div ng-show="form.sharing.type =='Private' && folders.length>0" class="alert">
+                    <h5>Choose a Folder</h5>
+
+                    <div ng-repeat="folder in privateFolders">
+                        <input type="radio" ng-model="form.sharing.folder" value="{{folder.name}}">{{folder.id}}
+                        {{folder.name}}
+                    </div>
+
+                </div>
             </li>
             <li class="list-group-item"
                 ng-class="{'list-group-item-success' : form.sharing.type =='Shared'}">
@@ -112,7 +121,7 @@
                 <div ng-show="form.sharing.type =='Shared' && folders.length>0" class="alert">
                     <h5>Choose a Folder</h5>
 
-                    <div ng-repeat="folder in folders">
+                    <div ng-repeat="folder in publicFolders">
                         <input type="radio" ng-model="form.sharing.folder" value="{{folder.name}}">
                         {{folder.name}}
                     </div>
@@ -148,6 +157,10 @@
 
                 </p>
                 <h5><a href="{{form.url}}" target="_new">{{form.url}}</a></h5>
+
+                <h5><a href="{{user.displayName + '/' + form.sharing.folder + '/' + form.menuLabel}}" target="_new">
+                    {{user.displayName + '/' + form.sharing.folder + '/' + form.menuLabel}}
+                </a></h5>
 
 
             </li>

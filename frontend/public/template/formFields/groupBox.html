@@ -20,7 +20,7 @@
              ng-click="editField($parent.$index, $index, 'Group', $event)"
              ng-class="{ 'selected': $index== nowSubEditing ,'dragging' : dragging}">
 
-            <div ng-include="subField.groupTemplate"></div>
+            <div ng-include="{{'/template/formFields/groupBoxed/' + subField.template}}"></div>
         </div>
 
     </div>

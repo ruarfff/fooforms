@@ -1,9 +1,12 @@
 /* global angular */
 
-angular.module('folder').controller('FolderCtrl', function ($scope, $route, Restangular, FolderService, Folders) {
+angular.module('folder').controller('FolderCtrl', function ($scope, $route, Restangular, FolderService, Folders, Forms, FormService) {
     "use strict";
 
-    var folderUpdateCallback = function(err) {
+    $scope.folder = Folders.getCurrentFolder();
+
+
+    var folderUpdateCalback = function(err) {
         if(!err) {
             $scope.folders = Folders.folders;
             $scope.privateFolders = Folders.privateFolders;
@@ -12,8 +15,22 @@ angular.module('folder').controller('FolderCtrl', function ($scope, $route, Rest
     };
     FolderService.getFolders(folderUpdateCallback);
 
+    $scope.updateForm = function (form) {
+        Forms.setCurrentForm(form);
+        Posts.activePost = null;
+    };
+
+    FormService.getUserForms(function (err) {
+        if(err) {
+            $log.error(err.toString());
+        } else {
+            $scope.forms = Forms.forms;
+        }
+    });
+
+
     $scope.tabs = [
-        {name: "Folders", active: true},
+        {name: "Forms", active: true},
         {name: "Settings", active: false}
     ];
     $scope.nowEditing = 0;
@@ -44,6 +61,7 @@ angular.module('folder').controller('FolderCtrl', function ($scope, $route, Rest
         FolderService.updateFolder(folder, folderUpdateCallback);
     };
 
+
     // Delete and existing folder
     $scope.deleteFolder = function (folder) {
         FolderService.deleteFolder(folder, folderUpdateCallback);
@@ -73,4 +91,10 @@ angular.module('folder').controller('FolderCtrl', function ($scope, $route, Rest
         FolderService.removeMemberWritePermissionsFromFolder(folder, user, folderUpdateCallback);
     };
 
+    // Add a Form to a  folder
+    $scope.addFormToFolder = function (folder,form) {
+        FolderService.addFormToFolder(folder,form, folderUpdateCalback);
+    };
+
 });
+

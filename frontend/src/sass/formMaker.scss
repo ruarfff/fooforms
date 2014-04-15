@@ -89,6 +89,36 @@ div.fieldObject:hover {
   min-height: 87px;
 
 }
+.card{
+  display:  block;
+  margin-bottom: 10px;
+  background:  #ffffff;
+  border:1px solid #9acfea;
+  cursor:  pointer;
+}
+.viewCard{
+  padding: 5px;
+  background: #fff;
+  font-weight:  normal;
+  font-size:  .8em;
+}
+.viewCard input{
+  border:  0px;
+  font-size:  .9em;
+  padding: 0px;
+}
+
+.card .media{
+  padding:  0px;
+  padding: 4px;
+  border-bottom: 1px solid #E5F1FD;
+}
+
+.feed-item{
+  border:  0px;
+  border-bottom: 1px solid #E5F1FD;
+}
+
 
 .formObject.selected {
   background: #F1FBFF;
