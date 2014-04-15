@@ -22,8 +22,8 @@ var routes = function (app, passport) {
         });
 
 
-  /**  app.route('/:username')
-        .get(function (req, res, next) {
+  app.route('/:username')
+        .get(passport.authenticate( 'basic', {session: false} ), function (req, res, next) {
             var username = req.params.username;
 
             require(global.config.modules.USER).findByDisplayName(username, function (err, user) {
@@ -43,7 +43,7 @@ var routes = function (app, passport) {
             });
         });
     app.route('/:username/:folder')
-        .get(authenticator.ensureAuthenticated, function (req, res, next) {
+        .get(passport.authenticate( 'basic', {session: false} ), function (req, res, next) {
             var username = req.params.username;
             var folderName = req.params.folder;
 
@@ -76,7 +76,7 @@ var routes = function (app, passport) {
 
 
         });
-
+/**
      app.route('/:username/:folder/:form')
      .get(authenticator.ensureAuthenticated, function (req, res, next) {
             var username = req.params.username;
@@ -126,12 +126,12 @@ var routes = function (app, passport) {
     require('../modules/file/routes')(app, passport);
 
     app.route('/partials/userGuide')
-        .get(authenticator.ensureLoggedIn, function (req, res) {
+        .get(function (req, res) {
             res.render('userGuide');
         });
 
     app.route('/partials/settings')
-        .get(authenticator.ensureLoggedIn, function (req, res) {
+        .get(function (req, res) {
             res.render('settings');
         });
 
@@ -143,7 +143,6 @@ var routes = function (app, passport) {
             });
         });
 
-    //passport.authenticate( 'basic', {session: false, failureRedirect: '/login'}),
     app.route('*')
         .get(function (req, res) {
             res.render('dashboard', {
