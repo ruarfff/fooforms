@@ -74,7 +74,6 @@ var routes = function (app, passport) {
 
             });
 
-
         });
 /**
      app.route('/:username/:folder/:form')

@@ -6,7 +6,7 @@ angular.module('folder').controller('FolderCtrl', function ($scope, $route, Rest
     $scope.folder = Folders.getCurrentFolder();
 
 
-    var folderUpdateCalback = function(err) {
+    var folderUpdateCallback = function(err) {
         if(!err) {
             $scope.folders = Folders.folders;
             $scope.privateFolders = Folders.privateFolders;

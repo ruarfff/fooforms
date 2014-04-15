@@ -13,7 +13,7 @@ var routes = function (app, passport) {
      *  View Handlers
      *********************************************************************************/
 
-    app.get('/partials/folders', authenticator.ensureLoggedIn, function (req, res) {
+    app.get('/partials/folders', passport.authenticate('basic', { session: false }), function (req, res) {
         var user = req.user;
 
         res.render(path.join(viewDir, 'index'), {
@@ -24,23 +24,23 @@ var routes = function (app, passport) {
      *  API
      *********************************************************************************/
 
-    app.get('/api/folders', authenticator.ensureLoggedIn, function (req, res) {
+    app.get('/api/folders', passport.authenticate('basic', { session: false }), function (req, res) {
         folderApi.getUserFolders(req, res);
     });
 
-    app.get('/api/folders/:id', authenticator.ensureLoggedIn, function (req, res) {
+    app.get('/api/folders/:id', passport.authenticate('basic', { session: false }), function (req, res) {
         folderApi.getFolderById(req, res, req.params.id);
     });
 
-    app.post('/api/folders', authenticator.ensureLoggedIn, function (req, res) {
+    app.post('/api/folders', passport.authenticate('basic', { session: false }), function (req, res) {
         folderApi.create(req, res);
     });
 
-    app.put('/api/folders', authenticator.ensureLoggedIn, function (req, res) {
+    app.put('/api/folders', passport.authenticate('basic', { session: false }), function (req, res) {
         folderApi.update(req, res);
     });
 
-    app.delete('/api/folders', authenticator.ensureLoggedIn, function (req, res) {
+    app.delete('/api/folders', passport.authenticate('basic', { session: false }), function (req, res) {
         folderApi.delete(req, res);
     });
 
