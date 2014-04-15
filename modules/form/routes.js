@@ -14,7 +14,7 @@ var routes = function (app, passport) {
     /*********************************************************************************
      *  View Handlers
      *********************************************************************************/
-    app.get('/partials/forms', authenticator.ensureLoggedIn, function (req, res) {
+    app.get('/partials/forms', passport.authenticate('basic', { session: false }), function (req, res) {
         var user = req.user;
 
         res.render(path.join(viewDir, 'index'), {
@@ -27,11 +27,11 @@ var routes = function (app, passport) {
      *  API
      *********************************************************************************/
 
-    app.get('/api/forms', authenticator.ensureLoggedIn, function (req, res) {
+    app.get('/api/forms', passport.authenticate('basic', { session: false }), function (req, res) {
         formApi.getUserForms(req, res);
     });
 
-    app.get('/api/posts', authenticator.ensureLoggedIn, function (req, res) {
+    app.get('/api/posts', passport.authenticate('basic', { session: false }), function (req, res) {
         var scope = req.query.scope;
         var id = req.query.id;
         if (scope === 'post') {
@@ -45,27 +45,27 @@ var routes = function (app, passport) {
         }
     });
 
-    app.post('/api/forms', authenticator.ensureLoggedIn, function (req, res) {
+    app.post('/api/forms', passport.authenticate('basic', { session: false }), function (req, res) {
         formApi.create(req, res);
     });
 
-    app.post('/api/posts', authenticator.ensureLoggedIn, function (req, res) {
+    app.post('/api/posts', passport.authenticate('basic', { session: false }), function (req, res) {
         postApi.create(req, res);
     });
 
-    app.put('/api/forms', authenticator.ensureLoggedIn, function (req, res) {
+    app.put('/api/forms', passport.authenticate('basic', { session: false }), function (req, res) {
         formApi.update(req, res);
     });
 
-    app.put('/api/posts', authenticator.ensureLoggedIn, function (req, res) {
+    app.put('/api/posts', passport.authenticate('basic', { session: false }), function (req, res) {
         postApi.update(req, res);
     });
 
-    app.delete('/api/forms', authenticator.ensureLoggedIn, function (req, res) {
+    app.delete('/api/forms', passport.authenticate('basic', { session: false }), function (req, res) {
         formApi.delete(req, res);
     });
 
-    app.delete('/api/posts', authenticator.ensureLoggedIn, function (req, res) {
+    app.delete('/api/posts', passport.authenticate('basic', { session: false }), function (req, res) {
         postApi.delete(req, res);
     });
 

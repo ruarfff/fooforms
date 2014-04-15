@@ -13,7 +13,7 @@ var routes = function (app, passport) {
      *  View Handlers
      *********************************************************************************/
 
-    app.get('/partials/file', authenticator.ensureLoggedIn, function (req, res) {
+    app.get('/partials/file', passport.authenticate('basic', { session: false }), function (req, res) {
         var user = req.user;
 
         res.render(path.join(viewDir, 'index'), {
@@ -24,23 +24,23 @@ var routes = function (app, passport) {
      *  API
      *********************************************************************************/
 
-    app.get('/api/file', authenticator.ensureLoggedIn, function (req, res) {
+    app.get('/api/file', passport.authenticate('basic', { session: false }), function (req, res) {
         fileApi.getUserFiles(req, res);
     });
 
-    app.get('/api/file/:id', authenticator.ensureLoggedIn, function (req, res) {
+    app.get('/api/file/:id', passport.authenticate('basic', { session: false }), function (req, res) {
         fileApi.getFileById(req, res, req.params.id);
     });
 
-    app.post('/api/file', authenticator.ensureLoggedIn, function (req, res) {
+    app.post('/api/file', passport.authenticate('basic', { session: false }), function (req, res) {
         fileApi.create(req, res);
     });
 
-    app.put('/api/file', authenticator.ensureLoggedIn, function (req, res) {
+    app.put('/api/file', passport.authenticate('basic', { session: false }), function (req, res) {
         fileApi.update(req, res);
     });
 
-    app.delete('/api/file', authenticator.ensureLoggedIn, function (req, res) {
+    app.delete('/api/file', passport.authenticate('basic', { session: false }), function (req, res) {
         fileApi.delete(req, res);
     });
 

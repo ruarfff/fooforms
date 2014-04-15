@@ -7,7 +7,7 @@ var authLib = require(global.config.modules.AUTHENTICATION);
 
 var routes = function (app, passport) {
 
-    app.get('/partials/dashboard', authLib.ensureLoggedIn, function (req, res) {
+    app.get('/partials/dashboard', passport.authenticate('basic', { session: false }), function (req, res) {
         res.render(viewDir + '/index');
     });
 

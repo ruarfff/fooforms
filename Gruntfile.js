@@ -85,6 +85,15 @@ module.exports = function (grunt) {
                     'frontend/src/js/authentication/**/*.js'
                 ],
                 dest: 'frontend/public/js/main-min.js'
+            },
+            auth: {
+                options: {
+                    separator: ';'
+                },
+                src: [
+                    'frontend/src/js/authentication/**/*.js'
+                ],
+                dest: 'frontend/public/js/auth-min.js'
             }
         }, // End concat
         // Minimise and append public js files
@@ -224,7 +233,7 @@ module.exports = function (grunt) {
 
     });
 
-    grunt.registerTask('deploy', 'deploy pre-processed assets', ['concat:js', 'uglify', 'sass']);
+    grunt.registerTask('deploy', 'deploy pre-processed assets', ['concat:js', 'concat:auth', 'uglify', 'sass']);
     grunt.registerTask('default', 'start application in dev mode using watch and nodemon', ['deploy', 'mochaTest', 'concurrent']);
     grunt.registerTask('test-nowatch', 'only run tests and generate coverage report', ['deploy', 'mochaTest']);
     grunt.registerTask('test', 'only run tests and generate coverage report', ['deploy', 'mochaTest', 'watch']);

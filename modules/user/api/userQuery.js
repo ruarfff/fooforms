@@ -41,7 +41,7 @@ exports.checkUserName = function (req, res) {
 
 exports.searchByDisplayName = function (req, res) {
     try {
-        var displayName = req.body.displayName;
+        var displayName = req.query.displayName;
         if(displayName) {
             userLib.searchByDisplayName(apiUtil.escapeRegExpChars(displayName), function (err, users) {
                 if (err || !users || users.length < 1) {

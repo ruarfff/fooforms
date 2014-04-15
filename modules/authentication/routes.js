@@ -44,11 +44,7 @@ var routes = function (app, passport) {
         res.redirect('/');
     });
 
-    app.post('/login',
-        passport.authenticate('local', {
-            failureFlash: true,
-            successRedirect: '/dashboard',
-            failureRedirect: '/login'}));
+    app.post('/login', passport.authenticate('basic', { session: false }));
 
 
     app.post('/signup', function (req, res) {

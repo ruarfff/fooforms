@@ -13,15 +13,32 @@ angular.module('user')
         $scope.user.put();
     };
 })
-    .controller('PeopleCtrl', function ($scope, Restangular) {
+    .controller('PeopleCtrl', function ($scope, $http, Restangular) {
         "use strict";
-/**
+
         var users = [
-            {displayName: "Ann", photo: ""},
-            {displayName: "Adam", photo: ""},
-            {displayName: "Rob", photo: ""}
+            {displayName: "Ann", photo: "gvg"},
+            {displayName: "Adam", photo: "jhbh"},
+            {displayName: "Rob", photo: "kjhjk"}
         ];
 
-        $scope.selectedUser = undefined;
+        $scope.selectedUser = "";
         $scope.searchUsers = users;
-    });**/
+
+
+
+        $scope.getLocation = function(val) {
+            return $http.get('/api/users', {
+                params: {
+                    displayName: val
+                }
+            }).then(function(res){
+                var addresses = [];
+                angular.forEach(res.data, function(item){
+                    addresses.push(item.displayName);
+                });
+                return addresses;
+            });
+        };
+    });
+

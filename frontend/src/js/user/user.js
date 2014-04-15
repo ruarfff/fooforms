@@ -1,3 +1,3 @@
 /* global angular */
 
-angular.module('user', []);
+angular.module('user', ['ui.bootstrap']);

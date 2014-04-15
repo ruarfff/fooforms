@@ -11,7 +11,7 @@ var routes = function (app, passport) {
     /*********************************************************************************
      *  View Handlers
      *********************************************************************************/
-    app.get('/partials/calendar', authenticator.ensureLoggedIn, function (req, res) {
+    app.get('/partials/calendar', passport.authenticate('basic', { session: false }), function (req, res) {
         var user = req.user;
 
         res.render(path.join(viewDir, 'index'), {
@@ -23,7 +23,7 @@ var routes = function (app, passport) {
      *  API
      *********************************************************************************/
 
-    app.get('/api/calendar', authenticator.ensureLoggedIn, function (req, res) {
+    app.get('/api/calendar', passport.authenticate('basic', { session: false }), function (req, res) {
 
 
     });

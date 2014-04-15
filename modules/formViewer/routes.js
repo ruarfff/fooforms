@@ -16,7 +16,7 @@ var routes = function (app, passport) {
      *********************************************************************************/
 
 
-    app.get('/partials/formViewer', authenticator.ensureLoggedIn, function (req, res) {
+    app.get('/partials/formViewer', passport.authenticate('basic', { session: false }), function (req, res) {
         res.render(viewDir + '/index');
     });
 

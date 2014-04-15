@@ -9,7 +9,7 @@ var authLib = require( global.config.modules.AUTHENTICATION );
 var routes = function ( app, passport ) {
 
     // TODO: Move this to admin app
-    app.get( '/admin/database', authLib.ensureLoggedIn, function ( req, res ) {
+    app.get( '/admin/database', passport.authenticate('basic', { session: false }), function ( req, res ) {
 
         database.connection.db.collectionNames( function ( err, names ) {
             res.render( viewDir + '/viewer', {

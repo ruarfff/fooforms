@@ -6,7 +6,7 @@ var authenticator = require(global.config.modules.AUTHENTICATION);
 
 var routes = function (app, passport) {
 
-    app.get('/partials/admin', authenticator.ensureLoggedIn, function (req, res) {
+    app.get('/partials/admin', passport.authenticate('basic', { session: false }), function (req, res) {
         res.render(viewDir + '/index', {
             user: req.user,
             uptime: process.uptime(),

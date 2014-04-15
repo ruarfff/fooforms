@@ -22,7 +22,7 @@ var routes = function (app, passport) {
         });
 
 
-    app.route('/:username')
+  /**  app.route('/:username')
         .get(function (req, res, next) {
             var username = req.params.username;
 
@@ -42,7 +42,6 @@ var routes = function (app, passport) {
 
             });
         });
-    /**
     app.route('/:username/:folder')
         .get(authenticator.ensureAuthenticated, function (req, res, next) {
             var username = req.params.username;
@@ -144,11 +143,12 @@ var routes = function (app, passport) {
             });
         });
 
+    //passport.authenticate( 'basic', {session: false, failureRedirect: '/login'}),
     app.route('*')
-        .get(authenticator.ensureAuthenticated, function (req, res) {
+        .get(function (req, res) {
             res.render('dashboard', {
                 dev: dev,
-                user: req.user
+                user: req.user || ''
             });
         });
 

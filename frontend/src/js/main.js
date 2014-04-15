@@ -107,6 +107,9 @@ fooformsApp
     }])
     .controller('MainController', function ($scope, $location, USER_ROLES, AuthService) {
         'use strict';
+        if(!AuthService.checkStoredCredentials()) {
+            window.location = '/login';
+        }
         $scope.user = null;
         $scope.userRoles = USER_ROLES;
         $scope.isAuthorized = AuthService.isAuthorized;

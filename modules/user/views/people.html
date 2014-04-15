@@ -65,8 +65,16 @@
                     <div class="row m5 p5">
                         <h4>Search Users</h4>
                         <pre>Model: {{selectedUser | json}}</pre>
-                        <input type="text" ng-model="selectedUser" placeholder="Search for user by name" typeahead="user for user in searchUsers($viewValue) | filter:$viewValue | limitTo:6" typeahead-loading="loadingLocations" class="form-control">
+                        <input type="text" ng-model="selectedUser" placeholder="Search for user by name" typeahead="user for user in users | filter:$viewValue | limitTo:6" typeahead-loading="loadingLocations" class="form-control">
                         <i ng-show="loadingUsers" class="glyphicon glyphicon-refresh"></i>
+
+
+
+
+                        <h4>Asynchronous results</h4>
+                        <pre>Model: {{asyncSelected | json}}</pre>
+                        <input type="text" ng-model="asyncSelected" placeholder="Locations loaded via $http" typeahead="address for address in getLocation($viewValue) | filter:$viewValue" typeahead-loading="loadingLocations" class="form-control">
+                        <i ng-show="loadingLocations" class="glyphicon glyphicon-refresh"></i>
                     </div>
 
                 </div>
