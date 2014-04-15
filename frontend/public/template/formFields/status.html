@@ -1,16 +1,16 @@
 <div class="form-group clearfix">
-<label>{{appField.label}}
+<label>{{formField.label}}
         <i class="fa fa-question-circle"
-           ng-hide="!appField.userInstructions"
-           popover="{{appField.userInstructions}}"
+           ng-hide="!formField.userInstructions"
+           popover="{{formField.userInstructions}}"
            popover-trigger="mouseenter"></i>
     </label>
 
-    <div class="input-group" ng-style="{'width': appField.size+'%'}">
+    <div class="input-group" ng-style="{'width': formField.size+'%'}">
         <label class="btn m5"
-               ng-class="{ 'btn-success disabled': appField.selected == option.label ,'btn-default' : appField.selected != option.label}"
-               ng-repeat='option in appField.options'>
-            <input type="radio" name="appField.id" ng-model="appField.selected" ng-value="option.label">
+               ng-class="{ 'btn-success disabled': formField.selected == option.label ,'btn-default' : formField.selected != option.label}"
+               ng-repeat='option in formField.options'>
+            <input type="radio" name="formField.id" ng-model="formField.selected" ng-value="option.label">
             {{option.label}}
         </label>
 

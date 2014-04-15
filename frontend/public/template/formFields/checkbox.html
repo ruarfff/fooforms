@@ -1,16 +1,16 @@
 <div class="form-group clearfix">
-    <label for="{{appField.id}}">{{appField.label}}
+    <label for="{{formField.id}}">{{formField.label}}
         <i class="fa fa-question-circle"
-           ng-hide="!appField.userInstructions"
-           popover="{{appField.userInstructions}}"
+           ng-hide="!formField.userInstructions"
+           popover="{{formField.userInstructions}}"
            popover-trigger="mouseenter"></i>
     </label>
 
-    <div class="input-group" ng-style="{'width': appField.size+'%'}">
-        <label ng-class="{ 'checkbox-inline': appField.settings.display == 'Inline' ,'checkbox' : appField.settings.display == 'Stacked'}"
-               ng-repeat='option in appField.options'>
+    <div class="input-group" ng-style="{'width': formField.size+'%'}">
+        <label ng-class="{ 'checkbox-inline': formField.settings.display == 'Inline' ,'checkbox' : formField.settings.display == 'Stacked'}"
+               ng-repeat='option in formField.options'>
             <input type="checkbox" ng-model="option.selected"
-                   id="{{appField.id}}">{{option.label}}
+                   id="{{formField.id}}">{{option.label}}
         </label>
 
 

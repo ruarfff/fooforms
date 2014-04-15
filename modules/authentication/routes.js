@@ -17,7 +17,6 @@ var routes = function (app, passport) {
      * Show login form
      */
     app.get('/login', function (req, res) {
-        log.debug(JSON.stringify(req.flash('error')));
         res.render(authLib.loginPath, {
             title: 'Login',
             message: req.flash('error')

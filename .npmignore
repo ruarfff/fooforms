@@ -6,3 +6,8 @@
 out
 *.sublime*
 
+.git*
+docs/
+test/
+.DS_Store
+

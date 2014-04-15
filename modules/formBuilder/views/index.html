@@ -1,0 +1,226 @@
+<div class="col-xs-12 col-sm-4 col-md-4 tall slideLeft">
+    <% include includes/formBuilderMenu.html %>
+</div>
+<div class="col-xs-12 col-sm-8 col-md-8 slideRight" id='mainView'>
+<div class="pageGroup">
+
+<div id='msgCenter' class="hide">
+    <div class="alert alert-block alert-info fade in m5">
+        <p></p>
+    </div>
+</div>
+
+<div id="tabs">
+<div class="btn-group pull-right m5">
+    <button ng-click="deleteForm(postObj)"
+            class="btn btn-default btn-sm"><i class="fa fa-trash-o"></i> Delete
+    </button>
+    <button ng-click="copyForm(postObj)"
+            class="btn btn-default btn-sm"><i class="fa fa-copy"></i> Copy
+    </button>
+    <button ng-click="dontSaveForm(postObj)"
+            class="btn btn-default btn-sm"><i class="fa fa-reply"></i> Cancel
+    </button>
+    <button ng-click="saveForm(form)" class="btn btn-default btn-sm"><i class="fa fa-save"></i> Save</button>
+</div>
+<ul id='formTabs' class="nav nav-tabs">
+    <li class="active"><a id="designTab" data-target="#tabs-newForm" data-toggle="tab"
+                          ng-click="openDesignTab()">Design</a></li>
+    <li><a data-target="#tabs-settings" data-toggle="tab">Sharing</a></li>
+    <li><a id="eventsTab" data-target="#tabs-events" data-toggle="tab" ng-click="openEventTabs()">Form Events</a></li>
+    <li><a data-target="#tabs-publish" data-toggle="tab">Preview</a></li>
+</ul>
+<div class="tab-content white p5">
+    <div id="tabs-newForm" class="tab-pane active">
+        <div id='formHeading'
+             ng-class="{ 'selected': showFormSettings}"
+             ng-click="editField(null,null,'Form', $event)"><img class='icon'
+                                                                        ng-src="{{form.icon}}">
+
+            <h2 id='formName'>{{form.name}}</h2>
+
+            <p id='formDescription'>{{form.description}} </p>
+        </div>
+        <div id='formLayout' class="container"
+             ng-class="{ 'newForm': form.fields.length==0}">
+
+            <div id='formFields' class="row"
+                 droppable='form.fields'
+                 ng-update='updateObjects(from, to)'
+                 ng-create='createObject(object, to)'
+                    >
+                <div class='formObject col-sm-{{formField.boxSize}} under'
+                     ng-repeat="formField in form.fields track by $index"
+                     ng-show="formField.name"
+                     ng-border="showBorders(show)"
+                     ng-click="editField($index,null,'Field', $event)"
+                     ng-class="{ 'selected': $index == nowEditing ,'dragging' : dragging}">
+                    <div class="btn-group pull-right onTop">
+
+                        <button ng-click="editField($index, null, 'Field', $event)"
+                                class='btn btn-xs btn-default'
+                                >{{$index}}
+                        </button>
+                        <button ng-click='deleteItem(formField.id)'
+                                class='btn btn-xs btn-danger'
+                                ng-show="$index == nowEditing">X
+                        </button>
+                    </div>
+                    <div ng-include='formField.template' class="under"></div>
+                </div>
+
+
+            </div>
+
+
+        </div>
+
+
+    </div>
+
+
+    <div id="tabs-settings" class="tab-pane">
+        <h4 class="text-info">User Access</h4>
+        <ul class="list-group">
+            <li class="list-group-item"
+                ng-class="{'list-group-item-success' : form.sharing.type =='Private'}">
+                <h4 class="list-group-item-heading"><input type="radio" ng-model="form.sharing.type"
+                                                           value="Private"> Private</h4>
+
+                <p class="list-group-item-text">
+                    Your form will be visible to just you. Good for personal ToDo Lists, Notes, etc.
+                </p>
+            </li>
+            <li class="list-group-item"
+                ng-class="{'list-group-item-success' : form.sharing.type =='Shared'}">
+                <h4 class="list-group-item-heading"><input type="radio" ng-model="form.sharing.type"
+                                                           value="Shared"> Shared</h4>
+
+                <p class="list-group-item-text">
+                    Users with access to the selected shared folder will have access to your form.
+                    <br>Good for things like Helpdesks, Invoices, Tasks, Holiday Requests, etc.</p>
+
+                <div ng-show="form.sharing.type =='Shared'">
+
+                    <div ng-show="folders.length==0" class="alert">
+
+                        <h5>You haven't created any shared folders yet.</h5>
+                        <button class="btn btn-small btn-success" href="folders">Create a Shared Folder
+                        </button>
+                    </div>
+                </div>
+                <div ng-show="form.sharing.type =='Shared' && folders.length>0" class="alert">
+                    <h5>Choose a Folder</h5>
+
+                    <div ng-repeat="folder in folders">
+                        <input type="radio" ng-model="form.sharing.folder" value="{{folder.name}}">
+                        {{folder.name}}
+                    </div>
+
+                    <h5>Privileges</h5>
+                    <h6><input type="radio" ng-model="form.privileges" value="User"> Users can see just their
+                        own posts.</h6>
+                    <h6><input type="radio" ng-model="form.privileges" value="All"> Users can see all posts.
+                    </h6>
+
+
+                </div>
+            </li>
+
+            <li class="list-group-item">
+                <h4 class="list-group-item-heading text-primary">External Website or Blog</h4>
+
+                <p class="list-group-item-text">
+                    Both your private and shared forms can be published on external websites or blogs.
+                    <br><strong>Note:</strong> If you publish a private form on a website or blog, anyone
+                    can use the form but only you can see the form submissions.
+                </p>
+                <textarea class='form-control'>
+                    <iframe src="{{form.url}}"></iframe>
+                </textarea>
+
+            </li>
+            <li class="list-group-item">
+                <h4 class="list-group-item-heading text-primary">Form URL</h4>
+
+                <p class="list-group-item-text">
+                    Share the link below in emails, etc. to give anyone access to your form.<br>
+
+                </p>
+                <h5><a href="{{form.url}}" target="_new">{{form.url}}</a></h5>
+
+
+            </li>
+
+
+        </ul>
+    </div>
+
+
+    <div id="tabs-events" class="tab-pane">
+
+        <h4 class="text-info">Form Events</h4>
+
+        <div class="formLayout container"
+             ng-class="{ 'newForm': form.formEvents.length==0}">
+
+            <div id='formEvents' class="row"
+                 droppable='form.formEvents'
+                 ng-update='updateEvents(from, to)'
+                 ng-create='createEvent(object, to)'
+                    >
+                <div class='col-sm-12 under'
+                     ng-repeat="event in form.formEvents track by $index"
+                     ng-show="event.name"
+                     ng-border="showBorders(show)"
+                     ng-click="editEvent($index,null,'Field', $event)"
+                     ng-class="{ 'selected': $index == nowEditing ,'dragging' : dragging}">
+                    <div class="btn-group pull-right onTop">
+
+                        <button ng-click="editEvent($index, null, 'Field', $event)"
+                                class='btn btn-xs btn-default'
+                                >{{$index}}
+                        </button>
+                        <button ng-click='deleteEvent(event.id)'
+                                class='btn btn-xs btn-danger'
+                                ng-show="$index == nowEditing">X
+                        </button>
+                    </div>
+                    <div ng-include='event.template' class="under"></div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+
+    <div id="tabs-publish" class="tab-pane">
+        <div class='alert alert-warning'><h4>Preview</h4>
+
+            <p>Choose one or more ways to publish your form.</p>
+        </div>
+
+
+                     <pre class="ng-binding">
+     {{form | json}}
+ </pre>
+
+    </div>
+</div>
+<div id='saveFormInput'>
+    <button id='newForm' ng-click="newForm(form)" class="btn btn-warning">New Form
+    </button>
+    <button id='saveForm' ng-click="saveForm(form)" class="btn btn-success">Save Form
+    </button>
+</div>
+</div>
+
+
+</div>
+
+</div>
+
+
+
+
+

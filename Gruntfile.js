@@ -4,7 +4,7 @@ var path = require('path');
 var async = require('async');
 
 // WARNING! If the dev db config is changed in the main configuration it should be changed here too.
-// Setting the config here was overriding the test config on CI environments
+// Setting the global config here was overriding the test config on CI environments
 // TODO: Will try to come up with a better way to handle this
 var devDbConfig = {
     "hostname": "localhost",
@@ -73,11 +73,15 @@ module.exports = function (grunt) {
                     separator: ';'
                 },
                 src: [
-                    'frontend/src/js/main.js', 'frontend/src/js/common/**/*.js',
-                    'frontend/src/js/app/**/*.js', 'frontend/src/js/appBuilder/**/*.js',
-                    'frontend/src/js/app/**/*.js', 'frontend/src/js/appViewer/**/*.js',
-                    'frontend/src/js/calendar/**/*.js', 'frontend/src/js/cloud/**/*.js',
-                    'frontend/src/js/dashboard/**/*.js', 'frontend/src/js/user/**/*.js',
+                    'frontend/src/js/main.js',
+                    'frontend/src/js/common/**/*.js',
+                    'frontend/src/js/form/**/*.js',
+                    'frontend/src/js/formBuilder/**/*.js',
+                    'frontend/src/js/formViewer/**/*.js',
+                    'frontend/src/js/calendar/**/*.js',
+                    'frontend/src/js/folder/**/*.js',
+                    'frontend/src/js/dashboard/**/*.js',
+                    'frontend/src/js/user/**/*.js',
                     'frontend/src/js/authentication/**/*.js'
                 ],
                 dest: 'frontend/public/js/main-min.js'

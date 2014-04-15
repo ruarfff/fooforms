@@ -3,80 +3,171 @@
 
 var authenticator = require(global.config.modules.AUTHENTICATION);
 var dev = (process.env.NODE_ENV === 'development');
+var log = require(global.config.modules.LOGGING).LOG;
 
 /**
  * Main configuration for all routes in application.
- * Any apps that are added should initialize their routes here.
+ * Any forms that are added should initialize their routes here.
  * @param app - The express object
  * @param passport - Passport object for authenticator
  */
 var routes = function (app, passport) {
 
-    app.get('/', function (req, res) {
-        res.render('index', {
-            title: global.config.app.title,
-            dev: dev
+    app.route('/')
+        .get(function (req, res) {
+            log.debug('rendering root');
+            res.render('index', {
+                title: global.config.app.title,
+                dev: dev
+            });
         });
-    });
+    /**
 
-    app.get('/:username', function (req, res, next) {
-        console.log(req.params.username);
-        if (req.params.username === 'hello') {
-            res.send('Hello');
-        } else {
-            next();
-        }
-    });
+    app.route('/:username')
+        .get(function (req, res, next) {
+            var username = req.params.username;
+            log.debug(username);
+            // TODO: Need to figure out what to do here.....
+            // If a user put another username in to the URL, what should render and how?
+            if (req.user.displayName.equals(username)) {
+                return res.render('dashboard', {
+                    dev: dev,
+                    user: req.user
+                });
+            } else {
+                return next();
+            }
+        });
 
-    app.get('/:username/:folder', function (req, res, next) {
-        var expected = 'hello/sir';
-        if (req.params.username + '/' + req.params.folder === expected) {
-            res.send('Hello Sir');
-        } else {
-            next();
-        }
-    });
+    app.route('/:username/:folder')
+        .get(authenticator.ensureAuthenticated, function (req, res, next) {
+            var username = req.params.username;
+            var folderName = req.params.folder;
 
-    app.get('/:username/:folder/:form', function (req, res, next) {
-        var expected = 'hello/sir/evening';
-        if (req.params.username + '/' + req.params.folder + '/' + req.params.form === expected) {
-            res.send('Hello sir, good evening.');
-        } else {
-            next();
-        }
-    });
+            var folderLib = require(global.config.modules.FOLDER);
+            var userLib = require(global.config.modules.USER);
+            if (req.user.displayName.equals(username)) {
+                userLib.checkDisplayName(username, function (err, user) {
+                    if (err || !user) {
+                        res.status(404).render('404', {
+                            url: req.originalUrl,
+                            error: 'Not found'
+                        });
+                    } else {
+                        folderLib.getFolderByName(folderName, function(err, folder) {
+                           if(err || !folder || folder.owner != user._id){
+                               res.status(404).render('404', {
+                                   url: req.originalUrl,
+                                   error: 'Not found'
+                               });
+                           } else {
+                               res.render('dashboard', {
+                                   dev: dev,
+                                   user: req.user
+                               });
+                           }
+                        });
+                    }
+                });
+            } else {
+                next();
+            }
+        });
 
+    app.route('/:username/:folder/:form')
+        .get(authenticator.ensureAuthenticated, function (req, res, next) {
+            var username = req.params.username;
+            var folderName = req.params.folder;
+            var formName = req.params.form;
+
+            var folderLib = require(global.config.modules.FOLDER);
+            var userLib = require(global.config.modules.USER);
+            if (req.user.displayName.equals(username)) {
+                userLib.checkDisplayName(username, function (err, user) {
+                    if (err || !user) {
+                        res.status(404).render('404', {
+                            url: req.originalUrl,
+                            error: 'Not found'
+                        });
+                    } else {
+                        folderLib.getFolderByName(folderName, function(err, folder) {
+                            if(err || !folder || folder.owner != user._id){
+                                res.status(404).render('404', {
+                                    url: req.originalUrl,
+                                    error: 'Not found'
+                                });
+                            } else {
+                                res.render('dashboard', {
+                                    dev: dev,
+                                    user: req.user
+                                });
+                            }
+                        });
+                    }
+                });
+            } else {
+                next();
+            }
+        });
+**/
     require('../modules/admin/routes')(app, passport);
-    require('../modules/app/routes')(app, passport);
     require('../modules/authentication/routes')(app, passport);
-    require('../modules/cloud/routes')(app, passport);
     require('../modules/dashboard/routes')(app, passport);
     require('../modules/calendar/routes')(app, passport);
     require('../modules/database/routes')(app, passport);
     require('../modules/user/routes')(app, passport);
-    require('../modules/appBuilder/routes')(app, passport);
-    require('../modules/appViewer/routes')(app, passport);
+    require('../modules/folder/routes')(app, passport);
+    require('../modules/form/routes')(app, passport);
+    require('../modules/formBuilder/routes')(app, passport);
+    require('../modules/formViewer/routes')(app, passport);
     require('../modules/file/routes')(app, passport);
 
-    app.get('/partials/userGuide', authenticator.ensureLoggedIn, function (req, res) {
-        res.render('userGuide');
-    });
+    app.route('/partials/userGuide')
+        .get(authenticator.ensureLoggedIn, function (req, res) {
+            res.render('userGuide');
+        });
 
-    app.get('/partials/settings', authenticator.ensureLoggedIn, function (req, res) {
-        res.render('settings');
-    });
+    app.route('/partials/settings')
+        .get(authenticator.ensureLoggedIn, function (req, res) {
+            res.render('settings');
+        });
 
-    app.get('/404', function (req, res) {
-        res.status(404).render('404', {
-            url: req.originalUrl,
-            error: 'Not found'
+    app.route('/404')
+        .get(function (req, res) {
+            res.status(404).render('404', {
+                url: req.originalUrl,
+                error: 'Not found'
+            });
+        });
+
+    app.route('*')
+        .get(authenticator.ensureAuthenticated, function (req, res) {
+            res.render('dashboard', {
+                dev: dev,
+                user: req.user
+            });
+        });
+
+    app.use(function (err, req, res, next) {
+        //Treat as 404
+        if (err.message.indexOf('not found')) {
+            return next();
+        }
+
+        //Log it
+        log.error(__filename, ' - ', err);
+
+        //Error page
+        res.status(500).render('500', {
+            error: err.stack
         });
     });
 
-    app.get('*', authenticator.ensureAuthenticated, function (req, res) {
-        res.render('dashboard', {
-            dev: dev,
-            user: req.user
+    //Assume 404 since no middleware responded
+    app.use(function (req, res) {
+        res.status(404).render('404', {
+            url: req.originalUrl,
+            error: 'Not found'
         });
     });
 

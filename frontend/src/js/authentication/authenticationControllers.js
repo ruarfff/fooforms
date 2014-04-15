@@ -1,4 +1,8 @@
-fooformsApp.controller('LoginController', function ($scope, $rootScope, AUTH_EVENTS, AuthService) {
+/* global angular */
+
+angular.module('authentication').controller('LoginController', function ($scope, $rootScope, AUTH_EVENTS, AuthService) {
+    'use strict';
+
     $scope.credentials = {
         username: '',
         password: ''

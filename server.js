@@ -5,8 +5,8 @@
 var env = process.env.NODE_ENV = process.env.NODE_ENV || 'development';
 
 /*
- Putting configuration in to global scope. It is a singleton and saves requiring long path names all over the place.
- Sort of goes against best practice however so will look in to a better way of doing this (someday.....).
+ * Putting configuration in to global scope. It is a singleton and saves requiring long path names all over the place.
+ * Sort of goes against best practice however so will look in to a better way of doing this (someday.....).
  */
 global.config = require('./config/config')(env);
 
@@ -46,7 +46,7 @@ var FooFormsServerApp = function () {
      */
     self.terminator = function (sig) {
         if (typeof sig === "string") {
-            console.log('%s: Received %s - terminating app ...',
+            log.info(__filename, ' - ', '%s: Received %s - terminating app ...',
                 new Date(Date.now()), sig);
             process.exit(1);
         }
@@ -82,7 +82,7 @@ var FooFormsServerApp = function () {
             var stat = fs.statSync(newPath);
             if (stat.isFile()) {
                 if (/(.*)\.js/.test(file)) {
-                    console.log('Requiring: ' + newPath);
+                    log.debug(__filename, ' - ', 'Requiring: ' + newPath);
                     require(newPath);
                 }
             } else if (stat.isDirectory()) {
@@ -102,7 +102,7 @@ var FooFormsServerApp = function () {
                 self.walk(rootModelsPath);
             }
         } catch (err) {
-            log.error(err);
+            log.error(__filename, ' - ', err);
         }
 
         // Look for and load any app models
@@ -116,7 +116,7 @@ var FooFormsServerApp = function () {
                         self.walk(modelsPath);
                     }
                 } catch (err) {
-                    log.error(err);
+                    log.error(__filename, ' - ', err);
                 }
             }
         });
@@ -127,27 +127,34 @@ var FooFormsServerApp = function () {
     /*  Application server functions (main app logic here).               */
     /*  ================================================================  */
 
-
-    /**
-     *  Initializes the application.
-     */
-    self.initialize = function () {
-        self.setupVariables();
-        self.setupTerminationHandlers();
-        self.bootstrapModels();
-        require('./config/passport')(passport);
-        require('./config/express')(self.app, passport);
-        require('./config/routes')(self.app, passport);
-    };
-
-
     /**
      *  Start the server (starts up the application).
      */
     self.start = function () {
         http.createServer(self.app).listen(self.port, self.ipaddress, function () {
-            console.log('%s: Node server started on %s:%d ...',
+            log.info(__filename, ' - ', '%s: Node server started on %s:%d ...',
                 new Date(Date.now()), self.ipaddress, self.port);
+        });
+    };
+
+    /**
+     *  Initializes the application.
+     */
+    self.initialize = function () {
+        var mkdirp = require('mkdirp');
+        mkdirp(path.join(global.config.root, 'logs'), function(err) {
+            if(err) {
+                console.log(err.toString());
+                return;
+            }
+            self.setupVariables();
+            self.setupTerminationHandlers();
+            self.bootstrapModels();
+            require('./config/passport')(passport);
+            require('./config/express')(self.app, passport);
+            require('./config/routes')(self.app, passport);
+
+            self.start();
         });
     };
 
@@ -157,13 +164,12 @@ var FooFormsServerApp = function () {
 /**
  *  main():  Main code.
  */
-log.info('Running environment: ' + env);
-log.info('Initializing database connection...');
+log.info(__filename, ' - ', 'Running environment: ' + env);
+log.info(__filename, ' - ', 'Initializing database connection...');
 database.openConnection();
-log.info('Starting web server...');
+log.info(__filename, ' - ', 'Starting web server...');
 var serverApp = new FooFormsServerApp();
 serverApp.initialize();
-serverApp.start();
 
 exports.serverApp = module.exports = serverApp;
 

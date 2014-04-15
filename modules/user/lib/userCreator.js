@@ -5,25 +5,43 @@ var log = require( global.config.modules.LOGGING ).LOG;
 var User = require('../models/user').User;
 var userErrors = require('./userErrors');
 
+var defaultUserFolderName = 'MyPrivateFolder';
+var defaultSharedFolderName = 'MySharedFolder';
+
 // http://stackoverflow.com/questions/46155/validate-email-address-in-javascript
 function validateEmail(email) {
     var re = /^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
     return re.test(email);
 }
 
-var createUserCloud = function (user, next) {
+var createUserFolder = function (user, next) {
     try {
-        var userCloud = {
-            name: user.displayName,
+        var userFolder = {
+            name: defaultUserFolderName,
             owner: user._id,
             menuLabel: user.displayName,
-            isUserCloud: true,
-            icon: user.photo,
+            isUserFolder: true,
             isPrivate: true
         };
-        require(global.config.modules.CLOUD).createCloud(userCloud, next);
+        require(global.config.modules.FOLDER).createFolder(userFolder, next);
     } catch (err) {
-        log.error(err);
+        log.error(__filename, ' - ', err);
+        next(err);
+    }
+};
+
+var createDefaultSharedUserFolder = function (user, next) {
+    try {
+        var userSharedFolder = {
+            name: defaultSharedFolderName,
+            owner: user._id,
+            menuLabel: user.displayName,
+            isUserFolder: false,
+            isPrivate: false
+        };
+        require(global.config.modules.FOLDER).createFolder(userSharedFolder, next);
+    } catch (err) {
+        log.error(__filename, ' - ', err);
         next(err);
     }
 };
@@ -36,16 +54,18 @@ var createUserLocalStrategy = function ( userJSON, next ) {
             if(err) {
                 return next(err);
             }
-            createUserCloud(user, function (err, cloud) {
+            createUserFolder(user, function (err, folder) {
                 if(err) {
                     return next(err);
                 }
-                user.cloud = cloud._id;
-                user.save(next);
+                user.folder = folder._id;
+                createDefaultSharedUserFolder(user, function (err, folder) {
+                    user.save(next);
+                });
             });
         });
     } catch ( err ) {
-        log.error(err);
+        log.error(__filename, ' - ', err);
         next(err);
     }
 };
@@ -81,7 +101,7 @@ var createUser = function ( userJSON, next ) {
             return next(userErrors.invalidUserDetailsError);
         }
     } catch ( err ) {
-        log.error(err);
+        log.error(__filename, ' - ', err);
         next(err);
     }
 };

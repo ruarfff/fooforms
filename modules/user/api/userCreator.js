@@ -17,7 +17,7 @@ exports.create = function ( req, res ) {
     try {
         userLib.createUser( req.body, function ( err, user ) {
             if ( err ) {
-                log.error( err );
+                log.error( __filename, ' - ', err );
                 return res.render( authentication.signupPath, {
                     errors: err.message,
                     user: user

@@ -25,7 +25,7 @@ exports.signup = function (req, res) {
             }
         };
 
-        log.debug(JSON.stringify(userDetails));
+        log.debug(__filename, ' - ', JSON.stringify(userDetails));
 
         var error = null;
         // regexp from https://github.com/angular/angular.js/blob/master/src/ng/directive/input.js#L4
@@ -43,7 +43,7 @@ exports.signup = function (req, res) {
         }
 
         if (error) {
-            log.error(error);
+            log.error(__filename, ' - ', error);
             res.status(403);
             res.render(authLib.signupPath, {
                 title: 'Sign Up',
@@ -65,14 +65,14 @@ exports.signup = function (req, res) {
                     }
                 }
                 if (err) {
-                    log.error(err);
+                    log.error(__filename, ' - ', err);
                     res.status(500);
                     return res.render(authLib.signupPath, { title: 'Sign Up', error: err.message });
                 }
 
                 userLib.createUser(userDetails, function (err, user) {
                     if (err || !user) {
-                        log.error(err.toString());
+                        log.error(__filename, ' - ', err);
                         res.status(500);
                         return res.render(authLib.signupPath, { title: 'Sign Up', error: err.message });
                     }
@@ -86,7 +86,7 @@ exports.signup = function (req, res) {
     }
     catch
         (err) {
-        log.error(err);
+        log.error(__filename, ' - ', err);
         res.status(500);
         res.render(authLib.signupPath, {
             title: 'Sign Up',

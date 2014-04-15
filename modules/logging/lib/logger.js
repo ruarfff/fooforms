@@ -5,9 +5,17 @@ var log4js = require('log4js');
 var path = require('path');
 
 log4js.configure({
-    appenders: [
-        { type: 'console' },
-        { type: 'file', filename: path.join( global.config.root, "logs/fooforms.log" ), category: 'fooforms' }
+    "appenders": [
+        {
+            type: "console"
+        },
+        {
+            "type": "file",
+            "filename": path.join( global.config.root, "logs/fooforms.log" ),
+            "maxLogSize": 1024,
+            "backups": 3,
+            "category": "fooforms"
+        }
     ]
 });
 var logger = log4js.getLogger('fooforms');

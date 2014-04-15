@@ -41,7 +41,7 @@ exports.updateProfile = function ( req, res ) {
                 if(err) {
                     apiUtil.handleError(res, err);
                 } else {
-                    log.debug( "updated " + user.displayName );
+                    log.debug( __filename, ' - ', "updated " + user.displayName );
                     res.send( user );
                 }
             } );

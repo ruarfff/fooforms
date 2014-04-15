@@ -1,0 +1,2 @@
+{ "name": "folder",
+    "main": "./lib/folderLibrary.js" }

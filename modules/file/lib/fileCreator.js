@@ -6,13 +6,12 @@ var log = require(global.config.modules.LOGGING).LOG;
 exports.createFile = function (fileJSON, next) {
     "use strict";
     try {
-        log.debug(JSON.stringify(fileJSON));
         var file = new File(fileJSON);
         file.save(function (err) {
             next(err, file);
         });
     } catch (err) {
-        log.error(err.toString());
+        log.error(__filename, ' - ', err);
         next(err, null);
     }
 

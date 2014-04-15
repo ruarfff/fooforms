@@ -41,16 +41,16 @@ var userSchema = new Schema({
     },
     provider: String,
     salt: String,
-    // The user cloud
-    cloud: {
+    // The user folder
+    folder: {
         type: Schema.Types.ObjectId,
-        ref: 'Cloud'
+        ref: 'Folder'
     },
-    // List of Clouds that this User is a member of
-    cloudMemberships: [
+    // List of folders that this User is a member of
+    folderMemberships: [
         {
             type: Schema.Types.ObjectId,
-            ref: 'Cloud'
+            ref: 'Folder'
         }
     ],
     created: Date,
@@ -158,30 +158,30 @@ userSchema.methods = {
         return crypto.createHmac('sha1', this.salt).update(password).digest('hex');
     },
 
-    addCloudMembership: function (cloudId, next) {
-        if (!this.cloudMemberships) {
-            this.cloudMemberships = [];
+    addFolderMembership: function (folderId, next) {
+        if (!this.folderMemberships) {
+            this.folderMemberships = [];
         }
-        if (this.cloudMemberships.indexOf(cloudId) > -1) {
-            var error = new Error('User is already a member of this Cloud');
+        if (this.folderMemberships.indexOf(folderId) > -1) {
+            var error = new Error('User is already a member of this Folder');
             error.http_code = 403;
             return next(error, this);
         } else {
-            this.cloudMemberships.push(cloudId);
+            this.folderMemberships.push(folderId);
             this.save(next);
         }
     },
 
-    removeCloudMembership: function (cloudId, next) {
+    removeFolderMembership: function (folderId, next) {
         var index = -1;
-        if (this.cloudMemberships) {
-            index = this.cloudMemberships.indexOf(cloudId);
+        if (this.folderMemberships) {
+            index = this.folderMemberships.indexOf(folderId);
         }
         if (index > -1) {
-            this.cloudMemberships.splice(index, 1);
+            this.folderMemberships.splice(index, 1);
             this.save(next);
         } else {
-            var error = new Error('User is not a member of this Cloud');
+            var error = new Error('User is not a member of this Folder');
             error.http_code = 403;
             return next(error, this);
         }

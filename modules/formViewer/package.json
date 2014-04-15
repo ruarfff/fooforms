@@ -1,0 +1,2 @@
+{ "name": "formViewer",
+    "main": "./lib/formViewerLibrary.js" }

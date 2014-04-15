@@ -1,11 +1,12 @@
 <div class="form-group clearfix">
-    <label for="{{appField.id}}">{{appField.label}}
+    <label for="{{formField.id}}">{{formField.label}}
         <i class="fa fa-question-circle"
-           ng-hide="!appField.userInstructions"
-           popover="{{appField.userInstructions}}"
+           ng-hide="!formField.userInstructions"
+           popover="{{formField.userInstructions}}"
            popover-trigger="mouseenter"></i>
     </label>
 
+<<<<<<< HEAD
     <div class="input-group" ng-style="{'width': appField.size+'%'}">
         <span class="input-group-addon" ng-show="appField.required">*</span>
         <img ng-src="appField.src"
@@ -50,5 +51,15 @@
 
 
 
+=======
+    <div class="input-group" ng-style="{'width': formField.size+'%'}">
+        <span class="input-group-addon" ng-show="formField.required">*</span>
+        <input type="file"
+               rows="{{formField.rows}}"
+               class="form-control"
+               id="{{formField.id}}"
+               placeholder="{{formField.placeholder}}"
+               ng-model="formField.value"/>
+>>>>>>> 7c98326b1abe5ede58470e352000c5399daefef8
     </div>
 </div>
