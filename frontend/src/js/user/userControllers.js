@@ -15,29 +15,20 @@ angular.module('user')
 })
     .controller('PeopleCtrl', function ($scope, $http, Restangular) {
         "use strict";
-
-        var users = [
-            {displayName: "Ann", photo: "gvg"},
-            {displayName: "Adam", photo: "jhbh"},
-            {displayName: "Rob", photo: "kjhjk"}
-        ];
-
         $scope.selectedUser = "";
-        $scope.searchUsers = users;
 
 
-
-        $scope.getLocation = function(val) {
+        $scope.getUsers = function(val) {
             return $http.get('/api/users', {
                 params: {
                     displayName: val
                 }
             }).then(function(res){
-                var addresses = [];
+                var users = [];
                 angular.forEach(res.data, function(item){
-                    addresses.push(item.displayName);
+                    users.push(item.displayName);
                 });
-                return addresses;
+                return users;
             });
         };
     });
