@@ -13,15 +13,15 @@ var routes = function (app, passport) {
      *  View Handlers
      *********************************************************************************/
 
-    /**
-     * Show login form
-     */
-    app.get('/login', function (req, res) {
-        res.render(authLib.loginPath, {
-            title: 'Login',
-            message: req.flash('error')
+    app.route('/login')
+        .get(function (req, res) {
+            res.render(authLib.loginPath, {
+                title: 'Login',
+                message: req.flash('error')
+            });
+        }).post(passport.authenticate('basic', { session: false }), function (req, res) {
+            res.send(200);
         });
-    });
 
     /**
      * Show sign up form
@@ -35,17 +35,6 @@ var routes = function (app, passport) {
     /*********************************************************************************
      *  Local Handlers
      *********************************************************************************/
-
-    /**
-     * Logout
-     */
-    app.get('/logout', function (req, res) {
-        req.logout();
-        res.redirect('/');
-    });
-
-    app.post('/login', passport.authenticate('basic', { session: false }));
-
 
     app.post('/signup', function (req, res) {
         authApi.signup(req, res);

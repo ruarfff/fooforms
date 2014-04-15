@@ -5,12 +5,9 @@ angular.module('authentication').factory('AuthService', ['$cookieStore', '$http'
     // Load data from cookie if it's there
     $http.defaults.headers.common['Authorization'] = 'Basic ' + $cookieStore.get('authdata');
     return {
-        login: function (credentials) {
+        login: function () {
             return $http
-                .post('/login', credentials)
-                .then(function (res) {
-                    Session.create(res.data);
-                });
+                .post('/login');
         },
         checkUser: function (next) {
             return $http
@@ -26,7 +23,7 @@ angular.module('authentication').factory('AuthService', ['$cookieStore', '$http'
         checkStoredCredentials: function () {
             var encoded = $cookieStore.get('authdata');
             if(encoded) {
-                $http.defaults.headers.common.Authorization = 'Basic ' + encoded;
+                $http.defaults.headers.common['Authorization'] = 'Basic ' + $cookieStore.get('authdata');
                 return true;
             }
             return false;
