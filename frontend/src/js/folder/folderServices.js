@@ -94,6 +94,24 @@ angular.module('folder').factory('FolderService', ['$log', 'Restangular', 'Folde
                 $log.error(err.toString());
                 next(err);
             });
+        },
+        addFormToFolder: function (folder, form, next) {
+
+        },
+        removeFormFromFolder: function (folder, form, next) {
+
+        },
+        addMemberToFolder: function (folder, user, next) {
+
+        },
+        addMemberWithWritePermissionsToFolder: function (folder, user, next) {
+
+        },
+        removeMemberFromFolder: function (folder, user, next) {
+
+        },
+        removeMemberWritePermissionsFromFolder: function (folder, user, next) {
+
         }
     };
 }]);

@@ -6,7 +6,10 @@ var apiUtil = require(global.config.modules.APIUTIL);
 
 
 /**
- * Create new folder
+ * Create a new folder using details in request body
+ *
+ * @param req
+ * @param res
  */
 var createFolder = function (req, res) {
     try {
@@ -36,7 +39,13 @@ var createFolder = function (req, res) {
     }
 };
 
-
+/**
+ * Fetch a folder using the Mongo ObjectId string
+ *
+ * @param req
+ * @param res
+ * @param id
+ */
 var getFolderById = function (req, res, id) {
     try {
         folderLib.getFolderById(id, function (err, folder) {
@@ -52,6 +61,12 @@ var getFolderById = function (req, res, id) {
     }
 };
 
+/**
+ * Get all folders owned by a user
+ *
+ * @param req
+ * @param res
+ */
 var getUserFolders = function (req, res) {
     try {
         folderLib.getUserFolders(req.user.id, function (err, folders) {
@@ -67,22 +82,12 @@ var getUserFolders = function (req, res) {
     }
 };
 
-// Temporary helper function
-var getAllFolders = function (req, res) {
-    try {
-        folderLib.getAllFolders(function (err, folders) {
-            if (err || !folders) {
-                apiUtil.handleError(res, err, 404);
-            } else {
-                res.status(200);
-                res.send(folders);
-            }
-        });
-    } catch (err) {
-        apiUtil.handleError(res, err);
-    }
-};
-
+/**
+ * Update some folder details using data in the request body
+ *
+ * @param req
+ * @param res
+ */
 var updateFolder = function (req, res) {
     try {
         folderLib.updateFolder(req.body, function (err, folder) {
@@ -98,6 +103,12 @@ var updateFolder = function (req, res) {
     }
 };
 
+/**
+ * Delete a folder referenced by the Mongo Object Id string contained in the request body
+ *
+ * @param req
+ * @param res
+ */
 var deleteFolder = function (req, res) {
     try {
         var id = req.body._id;
@@ -114,6 +125,15 @@ var deleteFolder = function (req, res) {
     }
 };
 
+/**
+ * Add a form, referenced by Id, to the folder, also referenced by Id.
+ * This will remove a form from whatever folder it is in before this.
+ *
+ * @param folderId
+ * @param formId
+ * @param req
+ * @param res
+ */
 var addFormToFolder = function (folderId, formId, req, res) {
     try {
         folderLib.addFormToFolder(folderId, formId, function (err, folder) {
@@ -133,6 +153,13 @@ var addFormToFolder = function (folderId, formId, req, res) {
     }
 };
 
+/**
+ *
+ * @param folderId
+ * @param formId
+ * @param req
+ * @param res
+ */
 var removeFormFromFolder = function (folderId, formId, req, res) {
     try {
         folderLib.removeFormFromFolder(folderId, formId, function (err, folder) {
@@ -152,6 +179,14 @@ var removeFormFromFolder = function (folderId, formId, req, res) {
     }
 };
 
+/**
+ * Add a member with read permissions to a folder
+ *
+ * @param folderId
+ * @param userId
+ * @param req
+ * @param res
+ */
 var addMember = function(folderId, userId, req, res) {
     try {
         folderLib.addFolderMember(folderId, userId, function (err, folder) {
@@ -167,6 +202,14 @@ var addMember = function(folderId, userId, req, res) {
     }
 };
 
+/**
+ * Add a member or update an existing member with write permissions for the folder.
+ *
+ * @param folderId
+ * @param userId
+ * @param req
+ * @param res
+ */
 var addMemberWithWritePermissions = function (folderId, userId, req, res) {
     try {
         folderLib.addFolderMemberWithWritePermissions(folderId, userId, function (err, folder) {
@@ -182,6 +225,14 @@ var addMemberWithWritePermissions = function (folderId, userId, req, res) {
     }
 };
 
+/**
+ * Completely remove a member from a folder.
+ *
+ * @param folderId
+ * @param userId
+ * @param req
+ * @param res
+ */
 var removeMember = function (folderId, userId, req, res) {
     try {
         folderLib.removeFolderMember(folderId, userId, function (err, folder) {
@@ -197,6 +248,14 @@ var removeMember = function (folderId, userId, req, res) {
     }
 };
 
+/**
+ * Remove a members write permissions from a folder while leaving write permissions.
+ *
+ * @param folderId
+ * @param userId
+ * @param req
+ * @param res
+ */
 var removeMemberWritePermissions = function (folderId, userId, req, res) {
     try {
         folderLib.removeFolderMemberWritePermissions(folderId, userId, function (err, folder) {
@@ -212,12 +271,21 @@ var removeMemberWritePermissions = function (folderId, userId, req, res) {
     }
 };
 
+var copyFormToFolder;
+
+var moveFormFromOneFolderToAnother;
+
+var getFolderFormNames;
+
+var getFolderForms;
+
+var getFolderByName;
+
 
 module.exports = {
     create: createFolder,
     getFolderById: getFolderById,
     getUserFolders: getUserFolders,
-    getAllFolders: getAllFolders,
     update: updateFolder,
     delete: deleteFolder,
     addFormToFolder: addFormToFolder,

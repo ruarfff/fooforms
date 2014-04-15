@@ -3,14 +3,14 @@
 angular.module('folder').controller('FolderCtrl', function ($scope, $route, Restangular, FolderService, Folders) {
     "use strict";
 
-    var folderUpdateCalback = function(err) {
+    var folderUpdateCallback = function(err) {
         if(!err) {
             $scope.folders = Folders.folders;
             $scope.privateFolders = Folders.privateFolders;
             $scope.publicFolders = Folders.publicFolders;
         }
     };
-    FolderService.getFolders(folderUpdateCalback);
+    FolderService.getFolders(folderUpdateCallback);
 
     $scope.tabs = [
         {name: "Folders", active: true},
@@ -36,17 +36,41 @@ angular.module('folder').controller('FolderCtrl', function ($scope, $route, Rest
 
     // Create a new folder
     $scope.createFolder = function (folder) {
-        FolderService.createFolder(folder, folderUpdateCalback);
+        FolderService.createFolder(folder, folderUpdateCallback);
     };
 
     // Update and existing folder
     $scope.updateFolder = function (folder) {
-        FolderService.updateFolder(folder, folderUpdateCalback);
+        FolderService.updateFolder(folder, folderUpdateCallback);
     };
 
     // Delete and existing folder
     $scope.deleteFolder = function (folder) {
-        FolderService.deleteFolder(folder, folderUpdateCalback);
+        FolderService.deleteFolder(folder, folderUpdateCallback);
+    };
+
+    $scope.addFormToFolder = function (folder, form) {
+        FolderService.addFormToFolder(folder, form, folderUpdateCallback);
+    };
+
+    $scope.removeFormFromFolder = function (folder, form) {
+        FolderService.removeFormFromFolder(folder, form, folderUpdateCallback);
+    };
+
+    $scope.addMemberToFolder = function (folder, user) {
+        FolderService.addMemberToFolder(folder, user, folderUpdateCallback);
+    };
+
+    $scope.addMemberWithWritePermissionsToFolder = function (folder, user) {
+        FolderService.addMemberWithWritePermissionsToFolder(folder, user, folderUpdateCallback);
+    };
+
+    $scope.removeMemberFromFolder = function (folder, user) {
+        FolderService.removeMemberFromFolder(folder, user, folderUpdateCallback);
+    };
+
+    $scope.removeMemberWritePermissionsFromFolder = function (folder, user) {
+        FolderService.removeMemberWritePermissionsFromFolder(folder, user, folderUpdateCallback);
     };
 
 });
