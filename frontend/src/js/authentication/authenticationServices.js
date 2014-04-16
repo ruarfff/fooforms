@@ -20,13 +20,23 @@ angular.module('authentication').factory('AuthService', ['$cookieStore', '$http'
         isAuthenticated: function () {
             return !!Session.user;
         },
-        checkStoredCredentials: function () {
+        checkStoredCredentials: function (next) {
             var encoded = $cookieStore.get('authdata');
-            if(encoded) {
+            if (encoded) {
                 $http.defaults.headers.common['Authorization'] = 'Basic ' + $cookieStore.get('authdata');
-                return true;
+                return $http
+                    .get('/api/user/me')
+                    .success(function (data) {
+                        Session.create(data);
+                        next();
+                    }).
+                    error(function (data, status) {
+                        document.execCommand("ClearAuthenticationCache");
+                        $cookieStore.remove('authdata');
+                        $http.defaults.headers.common.Authorization = 'Basic ';
+                        next(new Error('Error ' + status));
+                    });
             }
-            return false;
         },
         setCredentials: function (username, password) {
             var encoded = Base64.encode(username + ':' + password);
@@ -52,7 +62,7 @@ angular.module('authentication').service('Session', function () {
     return this;
 });
 
-angular.module('authentication').factory('Base64', function() {
+angular.module('authentication').factory('Base64', function () {
     "use strict";
     var keyStr = 'ABCDEFGHIJKLMNOP' +
         'QRSTUVWXYZabcdef' +
