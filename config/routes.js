@@ -21,9 +21,47 @@ var routes = function (app, passport) {
             });
         });
 
+    app.route('/dashboard')
+        .get(function (req, res) {
+            res.render('dashboard', {
+                dev: dev,
+                user: req.user || ''
+            });
+        });
 
-  app.route('/:username')
-        .get(passport.authenticate( 'basic', {session: false} ), function (req, res, next) {
+    require('../modules/admin/routes')(app, passport);
+    require('../modules/authentication/routes')(app, passport);
+    require('../modules/dashboard/routes')(app, passport);
+    require('../modules/calendar/routes')(app, passport);
+    require('../modules/database/routes')(app, passport);
+    require('../modules/user/routes')(app, passport);
+    require('../modules/folder/routes')(app, passport);
+    require('../modules/form/routes')(app, passport);
+    require('../modules/formBuilder/routes')(app, passport);
+    require('../modules/formViewer/routes')(app, passport);
+    require('../modules/file/routes')(app, passport);
+
+    app.route('/partials/userGuide')
+        .get(passport.authenticate( 'basic', {session: false, failureRedirect:'/login'} ), function (req, res) {
+            res.render('userGuide');
+        });
+
+    app.route('/partials/settings')
+        .get(passport.authenticate( 'basic', {session: false, failureRedirect:'/login'} ), function (req, res) {
+            res.render('settings');
+        });
+
+    app.route('/404')
+        .get(function (req, res) {
+            res.status(404).render('404', {
+                url: req.originalUrl,
+                error: 'Not found'
+            });
+        });
+
+
+    app.route('/:username')
+        .get(passport.authenticate( 'basic', {session: false, failureRedirect:'/login'} ), function (req, res, next) {
             var username = req.params.username;
 
             require(global.config.modules.USER).findByDisplayName(username, function (err, user) {
@@ -43,7 +81,7 @@ var routes = function (app, passport) {
             });
         });
     app.route('/:username/:folder')
-        .get(passport.authenticate( 'basic', {session: false} ), function (req, res, next) {
+        .get(passport.authenticate( 'basic', {session: false, failureRedirect:'/login'} ), function (req, res, next) {
             var username = req.params.username;
             var folderName = req.params.folder;
 
@@ -75,71 +113,10 @@ var routes = function (app, passport) {
             });
 
         });
-/**
-     app.route('/:username/:folder/:form')
-     .get(authenticator.ensureAuthenticated, function (req, res, next) {
-            var username = req.params.username;
-            var folderName = req.params.folder;
-            var formName = req.params.form;
 
-            var folderLib = require(global.config.modules.FOLDER);
-            var userLib = require(global.config.modules.USER);
-            if (req.user.displayName.equals(username)) {
-                userLib.findByDisplayName(username, function (err, user) {
-                    if (err || !user) {
-                        res.status(404).render('404', {
-                            url: req.originalUrl,
-                            error: 'Not found'
-                        });
-                    } else {
-                        folderLib.getFolderByName(folderName, function(err, folder) {
-                            if(err || !folder || folder.owner != user._id){
-                                res.status(404).render('404', {
-                                    url: req.originalUrl,
-                                    error: 'Not found'
-                                });
-                            } else {
-                                res.render('dashboard', {
-                                    dev: dev,
-                                    user: req.user
-                                });
-                            }
-                        });
-                    }
-                });
-            } else {
-                next();
-            }
-        });
-     **/
-    require('../modules/admin/routes')(app, passport);
-    require('../modules/authentication/routes')(app, passport);
-    require('../modules/dashboard/routes')(app, passport);
-    require('../modules/calendar/routes')(app, passport);
-    require('../modules/database/routes')(app, passport);
-    require('../modules/user/routes')(app, passport);
-    require('../modules/folder/routes')(app, passport);
-    require('../modules/form/routes')(app, passport);
-    require('../modules/formBuilder/routes')(app, passport);
-    require('../modules/formViewer/routes')(app, passport);
-    require('../modules/file/routes')(app, passport);
-
-    app.route('/partials/userGuide')
-        .get(function (req, res) {
-            res.render('userGuide');
-        });
-
-    app.route('/partials/settings')
-        .get(function (req, res) {
-            res.render('settings');
-        });
-
-    app.route('/404')
-        .get(function (req, res) {
-            res.status(404).render('404', {
-                url: req.originalUrl,
-                error: 'Not found'
-            });
+    app.route('/:username/:folder/:form')
+        .get(passport.authenticate( 'basic', {session: false, failureRedirect:'/login'} ), function (req, res, next) {
+            next();
         });
 
     app.route('*')

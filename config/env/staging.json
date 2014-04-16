@@ -1,11 +1,11 @@
 {
     "database": {
-        "hostname": "troup.mongohq.com",
-        "port": "10074",
-        "username": "nodejitsu",
-        "password": "1cd8b978013c58c8b3ad5d17bc86464b",
+        "hostname": "candidate.15.mongolayer.com",
+        "port": "10061",
+        "username": "fooforms",
+        "password": "G0Fly09123*",
         "name": "",
-        "db": "nodejitsudb2211308460"
+        "db": "fooforms"
     },
     "app": {
         "name": "FooForms - Test"
