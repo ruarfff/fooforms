@@ -3,9 +3,11 @@
 angular.module('authentication').controller('LoginCtrl', function ($scope, $rootScope, AUTH_EVENTS, AuthService) {
     'use strict';
 
-    if(AuthService.checkStoredCredentials()) {
-        window.location = '/dashboard';
-    }
+    AuthService.checkStoredCredentials(function (err) {
+        if(!err) {
+            window.location = '/dashboard';
+        }
+    });
 
     $scope.credentials = {
         username: '',
