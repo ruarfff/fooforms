@@ -33,4 +33,9 @@ npm -g i yuidocjs : This generates documentation (assuming correct commenting sy
 SASS also needs to be installed. Ruby must be installed to use SASS.
 Install ruby and use GEM: gem install sass
 
+UI Testing
+
+npm -g i protractor
+webdriver-manager update
+
 May have forgot a few. Will update as I remember them.

@@ -1,3 +1,3 @@
 /* global angular */
 
-angular.module('folder', []);
+angular.module('folder', ['underscore']);

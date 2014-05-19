@@ -1,0 +1,23 @@
+{
+  "name": "fooforms",
+  "version": "0.1.0",
+  "homepage": "https://github.com/ruairitobrien/fooforms",
+  "authors": [
+    "Brian McAuliffe <brianmca@gmail.com>",
+    "Ruairi O Brien <ruairitobrien@gmail.com>"
+  ],
+  "description": "Makes forms",
+  "license": "Whichever gives us most money",
+  "private": true,
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "frontend/src/bower",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "angular": "1.3.x"
+  }
+}

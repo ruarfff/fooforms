@@ -1,6 +1,6 @@
 /* global angular */
 
-angular.module('folder').controller('FolderCtrl', function ($scope, $route, Restangular, FolderService, Folders, Forms, FormService) {
+angular.module('folder').controller('FolderCtrl', function ($scope, $route, $log, Restangular, FolderService, Folders, Forms, FormService) {
     "use strict";
 
     $scope.folder = Folders.getCurrentFolder();
@@ -17,7 +17,7 @@ angular.module('folder').controller('FolderCtrl', function ($scope, $route, Rest
 
     $scope.updateForm = function (form) {
         Forms.setCurrentForm(form);
-        Posts.activePost = null;
+        //Posts.activePost = null;
     };
 
     FormService.getUserForms(function (err) {
@@ -93,7 +93,7 @@ angular.module('folder').controller('FolderCtrl', function ($scope, $route, Rest
 
     // Add a Form to a  folder
     $scope.addFormToFolder = function (folder,form) {
-        FolderService.addFormToFolder(folder,form, folderUpdateCalback);
+        FolderService.addFormToFolder(folder,form, folderUpdateCallback);
     };
 
 });

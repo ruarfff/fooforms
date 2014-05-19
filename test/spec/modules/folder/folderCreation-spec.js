@@ -1,4 +1,5 @@
 /*jslint node: true */
+/* global describe, afterEach, before, it, beforeEach */
 'use strict';
 
 var path = require('path');

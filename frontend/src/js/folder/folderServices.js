@@ -1,6 +1,6 @@
 /* global angular */
 
-angular.module('folder').service('Folders', function () {
+angular.module('folder').service('Folders', function (_) {
     'use strict';
 
     this.updateAll = function (folders) {
