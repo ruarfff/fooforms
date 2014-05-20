@@ -30,7 +30,7 @@ module.exports = function (grunt) {
                     require: 'test/coverage/blanket',
                     clearRequireCache: true
                 },
-                src: ['test/**/*.js']
+                src: ['test/spec/**/*.js']
             },
             coverage: {
                 options: {
