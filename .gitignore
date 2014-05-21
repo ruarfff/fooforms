@@ -27,4 +27,4 @@ out
 coverage.html
 
 frontend/public/css/*-min.css
-frontend/public/js/*-min.js
+frontend/public/js/*.min.js

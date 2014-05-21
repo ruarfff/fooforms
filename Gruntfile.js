@@ -84,7 +84,7 @@ module.exports = function (grunt) {
                     'frontend/src/js/user/**/*.js',
                     'frontend/src/js/authentication/**/*.js'
                 ],
-                dest: 'frontend/public/js/main-min.js'
+                dest: 'frontend/public/js/main.min.js'
             },
             auth: {
                 options: {
@@ -93,7 +93,20 @@ module.exports = function (grunt) {
                 src: [
                     'frontend/src/js/authentication/**/*.js'
                 ],
-                dest: 'frontend/public/js/auth-min.js'
+                dest: 'frontend/public/js/auth.min.js'
+            },
+            // Vendor JS that needs to be included in head
+            vendorPre: {
+                options: {
+                    separator: ';'
+                },
+                src: [
+                    'frontend/src/bower/jquery/dist/jquery.js',
+                    'frontend/src/bower/jquery-ui/ui/jquery-ui.js',
+                    'frontend/src/bower/bootstrap/dist/js/bootstrap.js',
+                    'frontend/src/bower/angular/angular.js'
+                ],
+                dest: 'frontend/public/js/vendor.pre.min.js'
             }
         }, // End concat
         // Minimise and append public js files
@@ -103,7 +116,7 @@ module.exports = function (grunt) {
             },
             js: {
                 files: {
-                    //'frontend/public/js/main.min.js': ['frontend/public/js/main.min.js']
+                    'frontend/public/js/vendor.pre.min.js': ['frontend/public/js/vendor.pre.min.js']
                 }
             }
         }, // End Uglify
@@ -233,7 +246,7 @@ module.exports = function (grunt) {
 
     });
 
-    grunt.registerTask('deploy', 'deploy pre-processed assets', ['concat:js', 'concat:auth', 'uglify', 'sass']);
+    grunt.registerTask('deploy', 'deploy pre-processed assets', ['concat:js', 'concat:auth', 'concat:vendorPre', 'uglify', 'sass']);
     grunt.registerTask('default', 'start application in dev mode using watch and nodemon', ['deploy', 'mochaTest', 'concurrent']);
     grunt.registerTask('test-nowatch', 'only run tests and generate coverage report', ['deploy', 'mochaTest']);
     grunt.registerTask('test', 'only run tests and generate coverage report', ['deploy', 'mochaTest', 'watch']);
