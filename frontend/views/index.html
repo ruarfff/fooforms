@@ -15,6 +15,8 @@
     <link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.0.3/css/bootstrap.min.css">
     <link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.0.3/css/bootstrap-theme.min.css">
     <link rel="stylesheet" href="//netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.css">
+    <link href='http://fonts.googleapis.com/css?family=Play' rel='stylesheet' type='text/css'>
+    <link href='http://fonts.googleapis.com/css?family=Open+Sans+Condensed:300' rel='stylesheet' type='text/css'>
 
     <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
     <!--[if lt IE 9]>
@@ -28,10 +30,10 @@
 <!-- NAVBAR
 ================================================== -->
 <body>
-<div class="navbar-wrapper T09">
+<div class="navbar-wrapper">
 
 
-    <div class="navbar navbar-default navbar-fixed-top" role="navigation">
+    <div class="navbar navbar-default navbar-fixed-top navbar-foo" role="navigation">
         <div class="container">
             <div class="navbar-header">
                 <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
@@ -40,32 +42,17 @@
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
                 </button>
-                <a class="navbar-brand" href="#"><img class='logo' src="/assets/images/fooLogo.png"/>FOOFORMS</a>
+                <a class="navbar-brand" href="#"><i class="fa fa-signal fa-rotate-270 fa-big"></i><span class="text-foo">FOO</span>FORMS</a>
             </div>
             <div class="navbar-collapse collapse">
-                <ul class="nav navbar-nav">
-                    <li class="dropdown">
-                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">Features <b class="caret"></b></a>
-                        <ul class="dropdown-menu">
-                            <li><a href="#">Action</a></li>
-                            <li><a href="#">Another action</a></li>
-                            <li><a href="#">Something else here</a></li>
-                            <li class="divider"></li>
-                            <li class="dropdown-header">Nav header</li>
-                            <li><a href="#">Separated link</a></li>
-                            <li><a href="#">One more separated link</a></li>
-                        </ul>
-                    </li>
-                    <li><a href="#contact">Pricing</a></li>
-                    <li><a href="#contact">Developers</a></li>
-                    <li><a href="#contact">Partners & Resellers</a></li>
-                    <li><a href="#contact">Contact</a></li>
-                    <li><a href="#contact">Blog</a></li>
-                </ul>
-                <form class="navbar-form navbar-right">
+                <ul class="nav navbar-nav foo-menu navbar-right">
 
-                    <a href="/login" class="btn btn-default">Sign in</a>
-                </form>
+                    <li><a href="/about">About</a></li>
+                    <li><a href="/contact">Contact</a></li>
+                    <li><a href="/login" class="text-success">Sign in</a></li>
+
+                </ul>
+
             </div>
         </div>
     </div>
@@ -77,25 +64,38 @@
 ================================================== -->
 
 <div class="jumbotron">
-    <div class="item">
-        <img src="/assets/images/fooform.jpg" alt="First slide">
+    <div class="page-content">
+        <div class="row">
+            <div class="col-sm-12 col-md-8">
 
-        <div class="container">
-            <div class="carousel-caption">
 
-                <h1>Next Generation Social Intranet for Every Business.</h1>
+                <div class="item">
 
-                <h2>&raquo; Create forms and apps for things that matter.</h2>
 
-                <h2>&raquo; View them all through one social dashboard.</h2>
+                    <h1>Everything's a Form.</h1>
 
-                <h2>&raquo; Respond & engage instantly from any device.</h2>
+                    <h2>&raquo; <span class="text-primary">Create forms</span> for things that matter</h2>
 
-                <p><a class="btn btn-lg btn-default btn-lg" href="#" role="button">Try it Free Today</a></p>
+                    <h2>&raquo; Share forms with your team or customers</h2>
+
+                    <h2>&raquo; View form posts through one <span class="text-success">social dashboard</span></h2>
+
+                    <h2>&raquo; <span class="text-warning">Respond & engage</span> instantly from <span
+                            class="text-info">any device</span></h2>
+
+
+
+
+                </div>
+            </div>
+            <div class="col-sm-12 col-md-4">
+                <h4 class="text-muted pull-right">Request Access to Beta</h4>
+                <iframe src="http://fooforms.com/forms/repo/537f62e3b0eccc9714f19ba3"></iframe>
+                <h5 class="text-muted">Follow <a href="https://twitter.com/FOOFORMS">@fooforms</a> for status updates.</h5>
             </div>
         </div>
-    </div>
 
+    </div>
 </div>
 
 
@@ -107,41 +107,45 @@
 
     <!-- Three columns of text below the carousel -->
     <div class="row highlight">
-        <div class="col-sm-4">
-            <i class="fa fa-list-alt"></i>
+        <div class="page-content">
+            <div class="col-sm-4">
+                <i class="fa fa-list-alt fa-huge"></i>
 
-            <h2>Awesome Forms</h2>
+                <h2>Awesome Forms</h2>
 
-            <p>Pull ready-made forms from the form store to get up and running instantly or use the drag-n-drop form
-                builder
-                to create powerful form-based applications without writing a single line of code.
-            </p>
+                <p>Pull ready-made forms from the form store to get up and running instantly or use the <span class="text-info">drag-n-drop</span> form
+                    builder
+                    to create powerful form-based applications without writing a single line of code.
+                </p>
 
+            </div>
+            <!-- /.col-lg-4 -->
+            <div class="col-sm-4">
+                <i class="fa fa-cloud fa-huge"></i>
+
+                <h2>All in One Place</h2>
+
+                <p>On desktops, tablets or mobiles - the FOOFORMS social dashboard lets you keep track of everything in
+                    one
+                    place, no matter where you are.
+                    Get remote teams access to everything, everywhere, anytime.</p>
+
+            </div>
+            <!-- /.col-lg-4 -->
+            <div class="col-sm-4">
+                <i class="fa fa-users fa-huge"></i>
+
+                <h2>Respond & Engage</h2>
+
+                <p>Silence your Inbox and throw away those Excel Spreadsheets,
+                    FOOFORMS lets you create forms that work perfectly with your business processes from start to
+                    finish.</p>
+
+
+            </div>
+            <!-- /.col-lg-4 -->
         </div>
-        <!-- /.col-lg-4 -->
-        <div class="col-sm-4">
-            <i class="fa fa-folder-download"></i>
 
-            <h2>Everything in One Place</h2>
-
-            <p>On desktops, tablets or mobiles - the FOOFORMS social dashboard lets you keep track of everything in one
-                place, no matter where you are.
-                Get remote teams access to everything, everywhere, anytime.</p>
-
-        </div>
-        <!-- /.col-lg-4 -->
-        <div class="col-sm-4">
-            <i class="fa fa-users"></i>
-
-            <h2>Respond & Engage</h2>
-
-            <p>Silence your Inbox and throw away those Excel Spreadsheets,
-                FOOFORMS lets you create forms that work perfectly with your business processes from start to
-                finish.</p>
-
-
-        </div>
-        <!-- /.col-lg-4 -->
     </div>
     <!-- /.row -->
 
@@ -150,35 +154,40 @@
 
 
     <div class="row featurette">
+        <div class="page-content">
         <div class="col-md-5">
-            <img class="featurette-image img-responsive" src="/assets/images/devices.png"
+            <img class="featurette-image img-responsive" src="/assets/images/form-store.png"
                  alt="Generic placeholder image">
         </div>
         <div class="col-md-7">
-            <h2 class="featurette-heading">Want ready-to-go?. <span class="text-muted">Check out the form store.</span>
+            <h2 class="featurette-heading">Awesome Forms. <span class="text-muted">Check out the form store.</span>
             </h2>
 
-            <p class="lead">The form store has hundreds of free and premium app-forms that you can add to your dashboard
+            <p class="lead">The form store has plenty of ready-made forms that you can add to your dashboard
                 with just one click.
-                Try the Helpdesk, Invoice and HR Forms to get you started.</p>
+                Try the <span class="text-info">Helpdesk, Invoice and HR Forms</span> to get your team started.</p>
         </div>
+            </div>
     </div>
 
 
     <div class="row featurette lightOnDark">
+        <div class="page-content">
         <div class="col-md-7">
-            <h2 class="featurette-heading">View, update and respond to new form posts <span class="text-muted">with one dashboard.</span>
+            <h2 class="featurette-heading">View, update and respond to new form posts with<span class="text-highlight"> one dashboard</span>.
             </h2>
 
             <p class="lead">Form posts arrive like your twitter or facebook feed complete with all the social features
-                you'd expect such as comments and sharing.</p>
+                you'd expect such as <span class="text-warning">comments</span> and <span class="text-warning">sharing</span>.</p>
         </div>
         <div class="col-md-5">
-            <img class="featurette-image img-responsive" src="/assets/images/devices.png"
+            <img class="featurette-image img-responsive" src="/assets/images/dashboard.png"
                  alt="Generic placeholder image">
         </div>
+            </div>
     </div>
     <div class="row featurette">
+        <div class="page-content">
         <div class="col-md-7">
             <h2 class="featurette-heading">Try fooforms now. <span class="text-muted">It'll blow your mind.</span></h2>
 
@@ -192,35 +201,11 @@
             <img class="featurette-image img-responsive" src="/assets/images/devices.png"
                  alt="Generic placeholder image">
         </div>
+            </div>
     </div>
 
 
-    <!-- /END THE FEATURETTES -->
-    <div class="row featurette lightOnDark">
-        <div class="col-md-4">
 
-
-            <h3>about</h3>
-
-            <p>&copy; 2013 Company, Inc. &middot; <a href="#">Privacy</a> &middot; <a href="#">Terms</a></p>
-
-        </div>
-        <div class="col-md-4">
-
-
-            <h3>product</h3>
-
-            <p>&copy; 2013 Company, Inc. &middot; <a href="#">Privacy</a> &middot; <a href="#">Terms</a></p>
-
-        </div>
-        <div class="col-md-4">
-            <h3>contact</h3>
-
-
-            <p>&copy; 2013 Company, Inc. &middot; <a href="#">Privacy</a> &middot; <a href="#">Terms</a></p>
-
-        </div>
-    </div>
 
 </div>
 <!-- /.container -->
