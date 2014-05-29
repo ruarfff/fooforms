@@ -65,7 +65,8 @@
     "grunt-contrib-concat": "^0.4.x",
     "grunt-mocha-test": "^0.10.x",
     "blanket": "^1.1.x",
-    "should": "^3.1.x"
+    "should": "^3.1.x",
+    "grunt-bower-task": "^0.3.4"
   },
   "bundleDependencies": [],
   "private": true,
