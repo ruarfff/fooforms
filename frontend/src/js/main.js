@@ -3,12 +3,11 @@
 
 var fooformsApp = angular.module('fooformsApp', [
     // Vendor dependencies
-    'ngRoute', 'ngGrid', 'restangular', 'ui.bootstrap', 'textAngular', 'ui.calendar','angularFileUpload',
+    'ngRoute', 'ngGrid', 'restangular', 'ui.bootstrap', 'textAngular', 'ui.calendar', 'angularFileUpload',
     // Custom dependencies
     'dashboard', 'folder', 'formBuilder', 'formViewer', 'user', 'authentication'
 ]);
 
-// configure our routes
 fooformsApp
     .config(function ($routeProvider, $locationProvider, RestangularProvider) {
         'use strict';
@@ -31,10 +30,6 @@ fooformsApp
             .when('/dashboard', {
                 templateUrl: '/partials/dashboard',
                 controller: 'DashboardCtrl'
-            })
-            .when('/folders', {
-                templateUrl: '/partials/folders',
-                controller: 'FolderCtrl'
             })
             .when('/forms', {
                 templateUrl: '/partials/forms',
@@ -84,7 +79,7 @@ fooformsApp
                 templateUrl: '/partials/formViewer',
                 controller: 'FormViewerCtrl'
             })
-            .otherwise({redirectTo:'/'});
+            .otherwise({redirectTo: '/'});
     })
     .config(['$httpProvider', function ($httpProvider) {
         'use strict';
@@ -112,7 +107,7 @@ fooformsApp
     .controller('MainController', function ($scope, $location, USER_ROLES, AuthService, $upload) {
         'use strict';
         AuthService.checkStoredCredentials(function (err) {
-            if(err) {
+            if (err) {
                 window.location = '/login';
             }
         });
@@ -147,7 +142,7 @@ fooformsApp
             });
         };
 
-        $scope.onFileSelect = function($files,formObj) {
+        $scope.onFileSelect = function ($files, formObj) {
             //$files: an array of files selected, each file has name, size, and type.
             for (var i = 0; i < $files.length; i++) {
                 var file = $files[i];
@@ -156,18 +151,18 @@ fooformsApp
                     // method: POST or PUT,
                     // headers: {'header-key': 'header-value'},
                     // withCredentials: true,
-                    data: {formObj: formObj, file:file},
+                    data: {formObj: formObj, file: file},
                     file: file // or list of files: $files for html5 only
                     /* set the file formData name ('Content-Desposition'). Default is 'file' */
                     //fileFormDataName: myFile, //or a list of names for multiple files (html5).
                     /* customize how data is added to formData. See #40#issuecomment-28612000 for sample code */
                     //formDataAppender: function(formData, key, val){}
-                }).progress(function(evt) {
-                        formObj.progress = parseInt(100.0 * evt.loaded / evt.total);
-                    }).success(function(data, status, headers, config) {
-                        // file is uploaded successfully
-                       alert(data);
-                    });
+                }).progress(function (evt) {
+                    formObj.progress = parseInt(100.0 * evt.loaded / evt.total);
+                }).success(function (data, status, headers, config) {
+                    // file is uploaded successfully
+                    alert(data);
+                });
                 //.error(...)
                 //.then(success, error, progress);
                 //.xhr(function(xhr){xhr.upload.addEventListener(...)})// access and attach any event listener to XMLHttpRequest.

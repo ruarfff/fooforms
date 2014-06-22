@@ -1,6 +1,7 @@
 /* global angular */
 
-angular.module('form').controller('FormsCtrl', ['$scope','$location', '$log', 'FormService', 'Forms',
+angular.module('form').controller('FormsCtrl',
+    ['$scope','$location', '$log', 'FormService', 'Forms',
     function ($scope, $location, $log, FormService, Forms) {
         'use strict';
         $scope.formUrl = ''; // Temporary helper variable to view form JSON

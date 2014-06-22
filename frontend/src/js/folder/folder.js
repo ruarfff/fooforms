@@ -1,3 +1,3 @@
 /* global angular */
 
-angular.module('folder', ['underscore']);
+angular.module('folder', ['lodash']);

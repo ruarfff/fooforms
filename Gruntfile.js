@@ -100,18 +100,25 @@ module.exports = function (grunt) {
                 ],
                 dest: 'frontend/public/js/auth.min.js'
             },
-            // Vendor JS that needs to be included in head
-            vendorPre: {
+            // Vendor JS to be included just before body end
+            vendor: {
                 options: {
                     separator: ';'
                 },
                 src: [
-                    'frontend/src/bower/jquery/dist/jquery.js',
-                    'frontend/src/bower/jquery-ui/ui/jquery-ui.js',
-                    'frontend/src/bower/bootstrap/dist/js/bootstrap.js',
-                    'frontend/src/bower/angular/angular.js'
+                    'frontend/src/bower/jquery-ui/ui/minified/jquery-ui.min.js',
+                    'frontend/src/bower/ui-bootstrap/dist/ui-bootstrap-0.11.0.min.js',
+                    'frontend/src/bower/lodash/dist/lodash.min.js',
+                    'frontend/src/bower/restangular/dist/restangular.min.js',
+                    'frontend/src/bower/angular-route/angular-route.min.js',
+                    'frontend/src/bower/angular-sanitize/angular-sanitize.min.js',
+                    'frontend/src/bower/ng-grid/build/ng-grid.min.js',
+                    'frontend/src/bower/textAngular/dist/textAngular.min.js',
+                    'frontend/src/bower/angular-cookies/angular-cookies.min.js',
+                    'frontend/src/bower/moment/min/moment.min.js',
+                    'frontend/src/bower/fullcalendar/dist/fullcalendar.min.js'
                 ],
-                dest: 'frontend/public/js/vendor.pre.min.js'
+                dest: 'frontend/public/js/vendor.min.js'
             }
         }, // End concat
         // Minimise and append public js files
@@ -121,7 +128,7 @@ module.exports = function (grunt) {
             },
             js: {
                 files: {
-                    'frontend/public/js/vendor.pre.min.js': ['frontend/public/js/vendor.pre.min.js']
+                    'frontend/public/js/vendor.min.js': ['frontend/public/js/vendor.min.js']
                 }
             }
         }, // End Uglify
@@ -251,7 +258,7 @@ module.exports = function (grunt) {
 
     });
 
-    grunt.registerTask('deploy', 'deploy pre-processed assets', ['bower:install', 'concat:js', 'concat:auth', 'concat:vendorPre', 'uglify', 'sass']);
+    grunt.registerTask('deploy', 'deploy pre-processed assets', ['bower:install', 'newer:concat:js', 'newer:concat:auth', 'newer:concat:vendor', 'newer:uglify', 'sass']);
     grunt.registerTask('default', 'start application in dev mode using watch and nodemon', ['deploy', 'mochaTest', 'concurrent']);
     grunt.registerTask('test-nowatch', 'only run tests and generate coverage report', ['deploy', 'mochaTest']);
     grunt.registerTask('test', 'only run tests and generate coverage report', ['deploy', 'mochaTest', 'watch']);

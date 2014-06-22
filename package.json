@@ -18,7 +18,7 @@
     "url": "git@github.com/ruairitobrien/fooforms.git"
   },
   "engines": {
-    "node": ">= 0.10.26",
+    "node": ">= 0.10.28",
     "npm": ">= 1.0.0"
   },
   "dependencies": {
@@ -52,21 +52,22 @@
     "connect-multiparty": "^1.0.3"
   },
   "devDependencies": {
+    "blanket": "^1.1.x",
+    "connect-modrewrite": "^0.5.x",
     "grunt": "^0.4.x",
-    "grunt-nodemon": "^0.2.x",
+    "grunt-bower-task": "^0.3.4",
+    "grunt-concurrent": "^0.5.x",
+    "grunt-contrib-concat": "^0.4.x",
+    "grunt-contrib-imagemin": "^0.7.1",
+    "grunt-contrib-sass": "^0.7.x",
     "grunt-contrib-uglify": "^0.4.x",
     "grunt-contrib-watch": "^0.6.x",
-    "grunt-concurrent": "^0.5.x",
-    "load-grunt-tasks": "^0.4.x",
-    "connect-modrewrite": "^0.5.x",
-    "grunt-shell": "^0.6.x",
-    "grunt-contrib-imagemin": "^0.6.x",
-    "grunt-contrib-sass": "^0.7.x",
-    "grunt-contrib-concat": "^0.4.x",
     "grunt-mocha-test": "^0.10.x",
-    "blanket": "^1.1.x",
-    "should": "^3.1.x",
-    "grunt-bower-task": "^0.3.4"
+    "grunt-newer": "^0.7.0",
+    "grunt-nodemon": "^0.2.x",
+    "grunt-shell": "^0.6.x",
+    "load-grunt-tasks": "^0.4.x",
+    "should": "^3.1.x"
   },
   "bundleDependencies": [],
   "private": true,

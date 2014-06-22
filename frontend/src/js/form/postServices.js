@@ -1,6 +1,8 @@
 /* global angular */
 
-angular.module('form').factory('PostService', function ($log, Restangular, Posts) {
+angular.module('form').factory('PostService',
+    ['$log', 'Restangular', 'Posts',
+        function ($log, Restangular, Posts) {
     'use strict';
     var postApi = Restangular.all('posts');
     return {
@@ -63,7 +65,7 @@ angular.module('form').factory('PostService', function ($log, Restangular, Posts
             });
         }
     };
-});
+}]);
 
 angular.module('form').service('Posts', function () {
     'use strict';

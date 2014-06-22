@@ -1,3 +1,3 @@
 /* global angular */
 
-angular.module('form', ['underscore']);
+angular.module('form', ['lodash']);
