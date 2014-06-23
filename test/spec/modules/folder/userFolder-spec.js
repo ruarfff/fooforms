@@ -3,7 +3,7 @@
 
 var path = require('path');
 var should = require('should');
-var testUtil = require('../../spec-util');
+var testUtil = require('../spec-util');
 var log = require(global.config.modules.LOGGING).LOG;
 
 var User = require(global.config.modules.USER).User;

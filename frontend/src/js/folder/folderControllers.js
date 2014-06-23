@@ -7,22 +7,11 @@ angular.module('folder').controller('FolderCtrl',
 
             $scope.folder = Folders.getCurrentFolder();
 
-
-            var folderUpdateCallback = function (err) {
-                if (!err) {
-                    $scope.folders = Folders.folders;
-                    $scope.privateFolders = Folders.privateFolders;
-                    $scope.publicFolders = Folders.publicFolders;
-                }
-            };
-            FolderService.getFolders(folderUpdateCallback);
-
             $scope.updateForm = function (form) {
                 Forms.setCurrentForm(form);
-                //Posts.activePost = null;
             };
 
-            FormService.getUserForms(function (err) {
+            FormService.getFolderForms($scope.folder, function (err) {
                 if (err) {
                     $log.error(err.toString());
                 } else {
@@ -44,7 +33,7 @@ angular.module('folder').controller('FolderCtrl',
             $scope.newFolder = {};
             $scope.newTab = {};
 
-            // Create a new folder
+            // Create a new tab
             $scope.createTab = function (tab) {
                 $scope.tabs.push(angular.copy(tab));
                 $scope.$apply();

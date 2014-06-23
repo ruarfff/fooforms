@@ -3,7 +3,7 @@
 'use strict';
 var path = require('path');
 var should = require('should');
-var specUtil = require('../../spec-util');
+var specUtil = require('../spec-util');
 var userSpecUtil = require('./user-spec-util');
 
 describe('User deletion', function () {

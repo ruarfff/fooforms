@@ -4,7 +4,7 @@
 
 var path = require('path');
 var should = require('should');
-var specUtil = require('../../spec-util');
+var specUtil = require('../spec-util');
 var formSpecUtil = require('./form-spec-util');
 var userSpecUtil = require('../user/user-spec-util');
 var log = require(global.config.modules.LOGGING).LOG;

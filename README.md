@@ -18,7 +18,7 @@ grunt : Simply starts a file watch task to run tests on changes. Currently does 
 grunt dev : Start the application with nodemon and starts a file watch, running tests on file changes.
 grunt skip-test : Same as dev but skips all tests
 grunt deploy : for packaging, runs all preprocessors
-grunt test : runs some tests
+grunt test : runs some tests. This only runs mocha tests against node code
 grunt dbdrop : drop the test database.
 grunt dbseed : seed the test database.
 
@@ -39,3 +39,8 @@ npm -g i protractor
 webdriver-manager update
 
 May have forgot a few. Will update as I remember them.
+
+##nom script available
+
+npm test : runs frontend unit tests using karma and jasmine
+npm run protractor : runs the end to end tests

@@ -20,7 +20,7 @@
  *
  **/
 
-require('../../spec-util');
+require('../spec-util');
 var User = require(global.config.modules.USER).User;
 var Form = require(global.config.modules.FORM).Form;
 var Folder = require(global.config.modules.FOLDER).Folder;

@@ -30,7 +30,7 @@ module.exports = function (grunt) {
                     require: 'test/coverage/blanket',
                     clearRequireCache: true
                 },
-                src: ['test/spec/**/*.js']
+                src: ['test/spec/modules/**/*.js']
             },
             coverage: {
                 options: {
@@ -40,12 +40,12 @@ module.exports = function (grunt) {
                      //output (the quiet option does not suppress this)
                     captureFile: 'frontend/public/coverage.html'
                 },
-                src: ['test/spec/**/*.js']
+                src: ['test/spec/modules/**/*.js']
             }
         },
         bower: {
             install: {
-                //just run 'grunt bower:install'
+                // just run 'grunt bower:install', no code required here.
             }
         },
         nodemon: {
@@ -172,7 +172,7 @@ module.exports = function (grunt) {
             },
             // Watch the js files that matter on the server and run tests when they are changed.
             tests: {
-                files: ['modules/**/*.js', 'test/spec/**'],
+                files: ['modules/**/*.js', 'test/spec/modules/**'],
                 tasks: ['mochaTest']
 
             }

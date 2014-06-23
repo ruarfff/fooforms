@@ -4,7 +4,7 @@
 
 var path = require('path');
 var should = require('should');
-var specUtil = require('../../spec-util');
+var specUtil = require('../spec-util');
 var folderSpecUtil = require('./folder-spec-util');
 
 describe('Querying Folder Library to get Folders and Folder details', function () {
