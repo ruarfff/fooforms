@@ -118,7 +118,7 @@ module.exports = function (grunt) {
                     'frontend/src/bower/moment/min/moment.min.js',
                     'frontend/src/bower/fullcalendar/dist/fullcalendar.min.js'
                 ],
-                dest: 'frontend/public/js/vendor.min.js'
+                dest: 'frontend/public/js/vendor/vendor.min.js'
             }
         }, // End concat
         // Minimise and append public js files
@@ -128,7 +128,7 @@ module.exports = function (grunt) {
             },
             js: {
                 files: {
-                    'frontend/public/js/vendor.min.js': ['frontend/public/js/vendor.min.js']
+                    'frontend/public/js/vendor/vendor.min.js': ['frontend/public/js/vendor/vendor.min.js']
                 }
             }
         }, // End Uglify
@@ -258,7 +258,7 @@ module.exports = function (grunt) {
 
     });
 
-    grunt.registerTask('deploy', 'deploy pre-processed assets', ['bower:install', 'newer:concat:js', 'newer:concat:auth', 'newer:concat:vendor', 'newer:uglify', 'sass']);
+    grunt.registerTask('deploy', 'deploy pre-processed assets', ['newer:concat:js', 'newer:concat:auth', 'newer:concat:vendor', 'newer:uglify', 'sass']);
     grunt.registerTask('default', 'start application in dev mode using watch and nodemon', ['deploy', 'mochaTest', 'concurrent']);
     grunt.registerTask('test-nowatch', 'only run tests and generate coverage report', ['deploy', 'mochaTest']);
     grunt.registerTask('test', 'only run tests and generate coverage report', ['deploy', 'mochaTest', 'watch']);
