@@ -77,7 +77,6 @@
     "main": "server.js",
     "subdomain": "fooforms",
     "scripts": {
-        "predeploy": "grunt deploy-production",
         "start": "server.js"
     }
 }
