@@ -11,3 +11,7 @@ docs/
 test/
 .DS_Store
 
+frontend/src
+.bowerrc
+bower.json
+

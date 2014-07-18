@@ -77,6 +77,15 @@
     "main": "server.js",
     "subdomain": "fooforms",
     "scripts": {
-        "start": "server.js"
+        "predeploy": "grunt preprocessing",
+        "start": "server.js",
+        "prestart": "npm install",
+        "pretest": "npm install",
+        "test": "karma start test/karma.conf.js",
+        "test-single-run": "karma start test/karma.conf.js  --single-run",
+        "preupdate-webdriver": "npm install",
+        "update-webdriver": "webdriver-manager update",
+        "preprotractor": "npm run update-webdriver",
+        "protractor": "protractor test/protractor-conf.js"
     }
 }
