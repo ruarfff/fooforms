@@ -47,12 +47,19 @@ module.exports = function (app, passport) {
     if (process.env.NODE_ENV !== 'test') {
         app.use(log4js.connectLogger(log, { level: 'auto' }));
     }
-    app.use(bodyParser());
-    app.use(require('connect-multiparty')())
+
+    app.use(bodyParser.json());
+    app.use(bodyParser.urlencoded({
+        extended: true
+    }));
+
+    app.use(require('connect-multiparty')());
 
     app.use(methodOverride);
     app.use(cookieParser('f0of09m5s3ssi0n'));
-    app.use(session({ secret: 'f0of09m5s3ssi0n' }));
+    app.use(session({secret: 'f0of09m5s3ssi0n',
+        saveUninitialized: true,
+        resave: true}));
     app.use(flash());
     app.use(helpers(global.config.app.name));
     app.use(passport.initialize());
