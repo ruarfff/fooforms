@@ -141,8 +141,7 @@ module.exports = function (grunt) {
                 files: {
                     'frontend/public/css/main-min.css': 'frontend/src/sass/main.scss',
                     'frontend/public/css/signup-min.css': 'frontend/src/sass/authentication/signup.scss',
-                    'frontend/public/css/login-min.css': 'frontend/src/sass/authentication/login.scss',
-                    'frontend/public/css/fooforms-min.css': 'frontend/src/sass/fooforms.scss'
+                    'frontend/public/css/login-min.css': 'frontend/src/sass/authentication/login.scss'
                 }
             }
         }, // End SASS
@@ -168,7 +167,7 @@ module.exports = function (grunt) {
                 files: ['frontend/views/**', 'modules/*/views/**']
             },
             public: {
-                files: ['frontend/public/**']
+                files: ['frontend/public/css/**', 'frontend/public/js/**', 'frontend/public/template/**', 'frontend/public/partials/**']
             },
             // Watch the js files that matter on the server and run tests when they are changed.
             tests: {
@@ -259,6 +258,7 @@ module.exports = function (grunt) {
     });
 
     grunt.registerTask('deploy', 'deploy pre-processed assets', ['newer:concat:js', 'newer:concat:auth', 'newer:concat:vendor', 'newer:uglify', 'sass']);
+    grunt.registerTask('deploy-production', 'deploy pre-processed assets, customised a little for nodejitsu', ['concat:js', 'concat:auth', 'concat:vendor', 'uglify', 'sass']);
     grunt.registerTask('default', 'start application in dev mode using watch and nodemon', ['deploy', 'mochaTest', 'concurrent']);
     grunt.registerTask('test-nowatch', 'only run tests and generate coverage report', ['deploy', 'mochaTest']);
     grunt.registerTask('test', 'only run tests and generate coverage report', ['deploy', 'mochaTest', 'watch']);

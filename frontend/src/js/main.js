@@ -71,10 +71,6 @@ fooformsApp
                 templateUrl: '/partials/folder',
                 controller: 'FolderCtrl'
             })
-            .when('/:username/folders', {
-                templateUrl: '/partials/folders',
-                controller: 'FoldersCtrl'
-            })
             .when('/:username/:folder/:form', {
                 templateUrl: '/partials/formViewer',
                 controller: 'FormViewerCtrl'

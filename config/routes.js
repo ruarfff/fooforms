@@ -8,19 +8,20 @@ var log = require(global.config.modules.LOGGING).LOG;
 /**
  * Main configuration for all routes in application.
  * Any forms that are added should initialize their routes here.
+ *
  * @param app - The express object
  * @param passport - Passport object for authenticator
  */
 var routes = function (app, passport) {
 
-    app.route('/')
+    /**app.route('/')
         .get(function (req, res) {
             res.render('index', {
                 title: global.config.app.name,
                 dev: dev
             });
         });
-
+    */
     app.route('/dashboard')
         .get(function (req, res) {
             res.render('dashboard', {
@@ -97,7 +98,7 @@ var routes = function (app, passport) {
                 }
 
                 folderLib.getFolderByName(folderName, function (err, folder) {
-                    if (err || !folder || (folder.owner != user._id)) {
+                    if (err || !folder || (folder.owner !== user._id)) {
                         res.status(404).render('404', {
                             url: req.originalUrl,
                             error: 'Not found'

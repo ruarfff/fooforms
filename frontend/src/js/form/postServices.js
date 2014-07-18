@@ -11,7 +11,6 @@ angular.module('form').factory('PostService',
                 Posts.addOne(res);
                 next(null, res._id);
             }, function (err) {
-                // TODO: Handle error
                 $log.error(err.toString());
                 next(err);
             });
@@ -59,7 +58,6 @@ angular.module('form').factory('PostService',
                 Posts.updateAll(posts);
                 next();
             }, function (err) {
-                // TODO: Handle error
                 $log.error(err.toString());
                 next(err);
             });

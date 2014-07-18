@@ -62,6 +62,29 @@ var getFolderById = function (req, res, id) {
 };
 
 /**
+ * Fetch a folder using the folder name
+ *
+ * @param req
+ * @param res
+ * @param name
+ */
+var getFolderByName = function (req, res, name) {
+    try {
+        folderLib.getFolderByName(name, function (err, folder) {
+            if (err || !folder) {
+                apiUtil.handleError(res, err, 404);
+            } else {
+                res.status(200);
+                res.send(folder);
+            }
+        });
+    } catch (err) {
+        apiUtil.handleError(res, err);
+    }
+};
+
+
+/**
  * Get all folders owned by a user
  *
  * @param req
@@ -277,14 +300,27 @@ var moveFormFromOneFolderToAnother;
 
 var getFolderFormNames;
 
-var getFolderForms;
+var getFolderForms = function (req, res, id) {
+    try {
+        folderLib.getFolderForms(id, function (err, forms) {
+            if (err || !forms) {
+                apiUtil.handleError(res, err, 409);
+            } else {
+                res.status(200);
+                res.send(forms);
+            }
+        });
+    } catch (err) {
+        apiUtil.handleError(res, err, __filename);
+    }
+};
 
-var getFolderByName;
 
 
 module.exports = {
     create: createFolder,
     getFolderById: getFolderById,
+    getFolderByName: getFolderByName,
     getUserFolders: getUserFolders,
     update: updateFolder,
     delete: deleteFolder,

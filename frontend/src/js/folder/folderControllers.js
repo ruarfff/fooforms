@@ -1,23 +1,36 @@
 /* global angular */
 
-angular.module('folder').controller('FolderCtrl',
-    ['$scope', '$route', '$log', 'Restangular', 'FolderService', 'Folders', 'Forms', 'FormService',
-        function ($scope, $route, $log, Restangular, FolderService, Folders, Forms, FormService) {
+angular.module('folder')
+
+    .controller('FolderCtrl',
+    ['$scope', '$route', '$log', '$routeParams', 'Restangular', 'FolderService', 'Folders', 'Forms', 'FormService',
+        function ($scope, $route, $log, $routeParams, Restangular, FolderService, Folders, Forms, FormService) {
             "use strict";
 
-            $scope.folder = Folders.getCurrentFolder();
+            var folder = Restangular.one('folders', $routeParams.folder);
+
+            folder.get().then(
+
+            function (folder) {
+                $scope.folder = folder;
+
+                $scope.forms = Restangular.one('folders', folder._id).getList('forms');
+
+                /**FolderService.getFolderForms($scope.folder, function (err) {
+                    if (err) {
+                        $log.error(err.toString());
+                    } else {
+                        $scope.forms = Forms.forms;
+                    }
+                });**/
+            },
+            function (err) {
+                $log.error(err.toString());
+            });
 
             $scope.updateForm = function (form) {
                 Forms.setCurrentForm(form);
             };
-
-            FormService.getFolderForms($scope.folder, function (err) {
-                if (err) {
-                    $log.error(err.toString());
-                } else {
-                    $scope.forms = Forms.forms;
-                }
-            });
 
 
             $scope.tabs = [
@@ -41,6 +54,9 @@ angular.module('folder').controller('FolderCtrl',
                 $scope.newTab = {};
             };
 
+            var folderUpdateCallback = function () {
+
+            };
 
             // Create a new folder
             $scope.createFolder = function (folder) {

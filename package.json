@@ -1,6 +1,6 @@
 {
     "name": "fooforms",
-    "version": "0.1.0-21",
+    "version": "0.1.0-39",
     "description": "Form Maker",
     "keywords": [
         "forms",
@@ -76,21 +76,16 @@
     "private": true,
     "main": "server.js",
     "subdomain": "fooforms",
-
     "scripts": {
         "postinstall": "bower install",
-
         "prestart": "npm install",
-        "predeploy": "grunt deploy",
+        "predeploy": "grunt deploy-production",
         "start": "server.js",
-
         "pretest": "npm install",
         "test": "karma start test/karma.conf.js",
         "test-single-run": "karma start test/karma.conf.js  --single-run",
-
         "preupdate-webdriver": "npm install",
         "update-webdriver": "webdriver-manager update",
-
         "preprotractor": "npm run update-webdriver",
         "protractor": "protractor test/protractor-conf.js"
     }

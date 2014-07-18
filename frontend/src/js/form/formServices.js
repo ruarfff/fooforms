@@ -41,15 +41,6 @@ angular.module('form').factory('FormService',
                         $log.error(err.toString());
                         next(err);
                     });
-                },
-                getFolderForms: function (folder, next) {
-                    formApi.getList(folder._id).then(function (forms) {
-                        Forms.updateAll(forms);
-                        next();
-                    }, function (err) {
-                        $log.error(err.toString());
-                        next(err);
-                    });
                 }
             };
         }]);

@@ -28,8 +28,12 @@ var routes = function (app, passport) {
         folderApi.getUserFolders(req, res);
     });
 
-    app.get('/api/folders/:id', passport.authenticate('basic', { session: false }), function (req, res) {
-        folderApi.getFolderById(req, res, req.params.id);
+    app.get('/api/folders/:name', passport.authenticate('basic', { session: false }), function (req, res) {
+        folderApi.getFolderByName(req, res, req.params.name);
+    });
+
+    app.get('/api/folders/:id/forms', passport.authenticate('basic', { session: false }), function (req, res) {
+        folderApi.getFolderForms(req, res, req.params.id);
     });
 
     app.post('/api/folders', passport.authenticate('basic', { session: false }), function (req, res) {

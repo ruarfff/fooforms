@@ -30,11 +30,6 @@ angular.module('dashboard').controller('DashboardCtrl', ['$scope', '$location', 
         Posts.activePost = null;
     };
 
-    $scope.updateFolder = function (folder) {
-        Folders.setCurrentFolder(folder);
-
-    };
-
     $scope.setView = function (view) {
 
         switch (view) {

@@ -66,6 +66,19 @@ angular.module('folder').service('Folders',
             }
             return null;
         };
+
+        this.findByName = function (name) {
+            var index;
+            var count = this.folders.length;
+
+            for (index = 0; index < count; index++) {
+                if (this.folders[index].name === name) {
+                    return this.folders[index];
+                }
+            }
+            return null;
+        };
+
         this.resetCurrentFolder = function () {
             this.folder = {};
         };
@@ -98,6 +111,14 @@ angular.module('folder').factory('FolderService',
                     folderApi.getList().then(function (folders) {
                         Folders.updateAll(folders);
                         next();
+                    }, function (err) {
+                        $log.error(err.toString());
+                        next(err);
+                    });
+                },
+                getFolderForms: function (folder, next) {
+                    folder.getList('forms').then(function (forms) {
+                        next(forms);
                     }, function (err) {
                         $log.error(err.toString());
                         next(err);
