@@ -20,6 +20,7 @@ var formBuilderDir = path.join(modulesPath, 'formBuilder');
 var formViewerDir = path.join(modulesPath, 'formViewer');
 var calendarDir = path.join(modulesPath, 'calendar');
 var fileDir = path.join(modulesPath, 'file');
+var siteDir = path.join(modulesPath, 'site');
 var apiUtilDir = path.join(utilDir, 'apiUtil');
 
 /**
@@ -38,6 +39,7 @@ var modules = {
     "FORMVIEWER": formViewerDir,
     "CALENDAR": calendarDir,
     "FILE": fileDir,
+    "SITE": siteDir,
     "APIUTIL": apiUtilDir
 };
 

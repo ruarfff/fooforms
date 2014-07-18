@@ -14,14 +14,8 @@ var log = require(global.config.modules.LOGGING).LOG;
  */
 var routes = function (app, passport) {
 
-    /**app.route('/')
-        .get(function (req, res) {
-            res.render('index', {
-                title: global.config.app.name,
-                dev: dev
-            });
-        });
-    */
+    require('../modules/site/routes')(app, passport);
+
     app.route('/dashboard')
         .get(function (req, res) {
             res.render('dashboard', {

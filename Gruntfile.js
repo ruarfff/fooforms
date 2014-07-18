@@ -107,7 +107,7 @@ module.exports = function (grunt) {
                 },
                 src: [
                     'frontend/src/bower/jquery-ui/ui/minified/jquery-ui.min.js',
-                    'frontend/src/bower/ui-bootstrap/dist/ui-bootstrap-0.11.0.min.js',
+                    'frontend/src/bower/angular-bootstrap/ui-bootstrap.min.js',
                     'frontend/src/bower/lodash/dist/lodash.min.js',
                     'frontend/src/bower/restangular/dist/restangular.min.js',
                     'frontend/src/bower/angular-route/angular-route.min.js',
