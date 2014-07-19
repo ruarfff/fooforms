@@ -1,6 +1,6 @@
 {
     "name": "fooforms",
-    "version": "0.1.0-39",
+    "version": "0.1.0-41",
     "description": "Form Maker",
     "keywords": [
         "forms",
@@ -18,7 +18,7 @@
         "url": "git@github.com/ruairitobrien/fooforms.git"
     },
     "engines": {
-        "node": ">= 0.10.28",
+        "node": "0.10.x",
         "npm": ">= 1.0.0"
     },
     "dependencies": {

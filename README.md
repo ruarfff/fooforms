@@ -40,7 +40,7 @@ webdriver-manager update
 
 May have forgot a few. Will update as I remember them.
 
-##nom script available
+##npm script available
 
 npm test : runs frontend unit tests using karma and jasmine
 npm run protractor : runs the end to end tests
