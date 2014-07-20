@@ -19,6 +19,12 @@ var fs = require('fs');
 var database = require(global.config.modules.DATABASE)();
 var log = require(global.config.modules.LOGGING).LOG;
 
+process.on('uncaughtException', function(err) {
+    console.error('uncaughtException:', err.message);
+    console.error(err.stack);
+    process.exit(1);
+});
+
 var FooFormsServerApp = function () {
 
     //  Scope.
