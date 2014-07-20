@@ -2,7 +2,6 @@
 'use strict';
 
 var authenticator = require(global.config.modules.AUTHENTICATION);
-var dev = (process.env.NODE_ENV === 'development');
 var log = require(global.config.modules.LOGGING).LOG;
 
 /**
@@ -16,17 +15,10 @@ var routes = function (app, passport) {
 
     require('../modules/site/routes')(app, passport);
 
-    app.route('/dashboard')
-        .get(function (req, res) {
-            res.render('dashboard', {
-                dev: dev,
-                user: req.user || ''
-            });
-        });
+    require('../modules/dashboard/routes')(app, passport);
 
     require('../modules/admin/routes')(app, passport);
     require('../modules/authentication/routes')(app, passport);
-    require('../modules/dashboard/routes')(app, passport);
     require('../modules/calendar/routes')(app, passport);
     require('../modules/database/routes')(app, passport);
     require('../modules/user/routes')(app, passport);
@@ -36,15 +28,7 @@ var routes = function (app, passport) {
     require('../modules/formViewer/routes')(app, passport);
     require('../modules/file/routes')(app, passport);
 
-    app.route('/partials/userGuide')
-        .get(passport.authenticate( 'basic', {session: false, failureRedirect:'/login'} ), function (req, res) {
-            res.render('userGuide');
-        });
 
-    app.route('/partials/settings')
-        .get(passport.authenticate( 'basic', {session: false, failureRedirect:'/login'} ), function (req, res) {
-            res.render('settings');
-        });
 
     app.route('/404')
         .get(function (req, res) {
@@ -68,20 +52,18 @@ var routes = function (app, passport) {
                 }
 
                 log.debug(__filename + ' - ', 'rendering dashboard for user ' + username);
-                return res.render('dashboard', {
-                    dev: dev,
-                    user: req.user
-                });
+                // TODO: Do something better here, show user profile?
+                return res.redirect('/dashboard');
 
             });
         });
+
     app.route('/:username/:folder')
         .get(passport.authenticate( 'basic', {session: false, failureRedirect:'/login'} ), function (req, res, next) {
             var username = req.params.username;
             var folderName = req.params.folder;
 
             var folderLib = require(global.config.modules.FOLDER);
-            var userLib = require(global.config.modules.USER);
 
             require(global.config.modules.USER).findByDisplayName(username, function (err, user) {
 
@@ -98,10 +80,7 @@ var routes = function (app, passport) {
                             error: 'Not found'
                         });
                     } else {
-                        res.render('dashboard', {
-                            dev: dev,
-                            user: req.user
-                        });
+                        return res.redirect('/dashboard');
                     }
                 });
 
@@ -116,10 +95,8 @@ var routes = function (app, passport) {
 
     app.route('*')
         .get(function (req, res) {
-            res.render('dashboard', {
-                dev: dev,
-                user: req.user || ''
-            });
+            // TODO: Currently we just let the client handle things if we can't figure out what the request is. Should review.
+            return res.redirect('/dashboard');
         });
 
     app.use(function (err, req, res, next) {
