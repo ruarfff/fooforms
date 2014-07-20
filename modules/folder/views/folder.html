@@ -3,12 +3,11 @@
 
         <div class="br0 alert alert-info b0 m0">
 
-
             <img class="icon pull-left" ng-src="{{folder.icon}}">
             <h4 class="inline">{{folder.name}}<a href="/formBuilder/"><i class="fa fa-edit fa-lg"></i></a></h4>
 
 
-            <p id='formDescription'>{{folder.description}}</p>
+            <p id='folderDescription'>{{folder.description}}</p>
 
             <div class="input-group clear">
                 <div class="input-group-btn">
@@ -18,18 +17,18 @@
 
                 </div>
                 <input type="text" class="form-control" placeholder="Search...">
-      <span class="input-group-btn">
-        <button class="btn btn-default" type="button"><i class="fa fa-search"></i></button>
-      </span>
+                <span class="input-group-btn">
+                    <button class="btn btn-default" type="button"><i class="fa fa-search"></i></button>
+                 </span>
             </div>
 
-
         </div>
+
         <div class="alert alert-success list-group-item br0">
             <h4 class="fooHeading">Create your own forms!</h4>
 
             <p>Create your own form based forms using the FOOFORMS Form Builder. </p>
-            <a class="btn btn-success btn-sm" href="formBuilder" ng-click="newApp()">Open the Form Builder &raquo;</a>
+            <a class="btn btn-success btn-sm" href="formBuilder">Open the Form Builder &raquo;</a>
         </div>
 
 
@@ -43,12 +42,12 @@
                          ng-repeat="form in forms" ng-click="updateForm(form)">
 
                         <a class="pull-left" href="/{{user.displayName}}/{{folder.name}}/{{form.name}}">
-                            <img class="media-object icon icon-sm" ng-src="{{form.icon}}" alt="">
+                            <img class="media-object icon icon-sm" ng-src="{{form.icon}}" alt="form-icon">
                         </a>
 
                         <div class="media-body">
                             <h5 class="media-heading"></h5>
-                               <a href="/{{user.displayName}}/{{folder.name}}/{{form.name}}">{{ form.name }}</a>
+                            <a href="/{{user.displayName}}/{{folder.name}}/{{form.name}}">{{ form.name }}</a>
 
                             <p>{{form.description}}</p>
                         </div>
@@ -58,6 +57,7 @@
         </div>
     </div>
 </div>
+
 <div class="col-xs-12 col-sm-8 col-md-8 slideRight hidden-xs" id='mainView'>
     <div class="pageGroup">
 
@@ -72,20 +72,20 @@
                     <div class="row m5 p5">
                         <div class="col-xs-6 col-sm-4 col-md-3"
                              ng-repeat="form in forms">
-                            <div id="thumb-{{form._id}}" ng-mouseenter="hover(form)"
-                                 ng-mouseleave="hover(form)">
-                                <a href="{{user.displayName + '/' + folder.name + '/' + form.name}}"
+                            <div id="thumb-{{form._id}}">
+                                <a href="{{user.displayName}}/{{folder.name }}/{{form.name}}"
                                    ng-click="updateForm(form)">
-                                    <img src="{{form.icon}}" alt="{{form.name}}">
+                                    <img ng-src="{{form.icon}}" alt="{{form.name}}">
                                 </a>
 
                                 <div class="caption">
-                                    <h5><a class="center-block" href="{{user.displayName + '/' + folder.name + '/' + form.name}}"
+                                    <h5><a class="center-block"
+                                           href="{{user.displayName + '/' + folder.name + '/' + form.name}}"
                                            ng-click="updateForm(form)">{{form.name | uppercase}}</a></h5>
                                 </div>
                                 <a class="text-muted" href="formBuilder"
                                    ng-click="updateForm(form)">Admin</a> | <a class="text-muted"
-                                                                             ng-click="deleteForm(form)">Delete</a>
+                                                                              ng-click="deleteForm(form)">Delete</a>
 
                             </div>
 
@@ -96,9 +96,6 @@
 
 
                 <div id="tabs-download" class="tab-pane fade">
-
-
-
 
 
                 </div>

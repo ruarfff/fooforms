@@ -7,6 +7,9 @@ angular.module('folder')
         function ($scope, $route, $log, $routeParams, Restangular, FolderService, Folders, Forms, FormService) {
             "use strict";
 
+            $scope.folder = {};
+            $scope.forms = [];
+
             var folder = Restangular.one('folders', $routeParams.folder);
 
             folder.get().then(
@@ -14,7 +17,9 @@ angular.module('folder')
             function (folder) {
                 $scope.folder = folder;
 
-                $scope.forms = Restangular.one('folders', folder._id).getList('forms');
+                Restangular.one('folders', folder._id).getList('forms').then(function (forms) {
+                    $scope.forms = forms;
+                });
 
                 /**FolderService.getFolderForms($scope.folder, function (err) {
                     if (err) {

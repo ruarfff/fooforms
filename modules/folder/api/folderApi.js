@@ -322,6 +322,7 @@ module.exports = {
     getFolderById: getFolderById,
     getFolderByName: getFolderByName,
     getUserFolders: getUserFolders,
+    getFolderForms: getFolderForms,
     update: updateFolder,
     delete: deleteFolder,
     addFormToFolder: addFormToFolder,

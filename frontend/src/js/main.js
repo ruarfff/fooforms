@@ -16,7 +16,7 @@ fooformsApp
         RestangularProvider.setErrorInterceptor(
             function (res) {
                 if (res.status === 401) {
-                    window.location.href = '/login';
+                    window.location = '/login';
                 }
                 return false; // stop the promise chain
             });
@@ -94,7 +94,7 @@ fooformsApp
             responseError: function (rejection) {
                 if (rejection.status === 401) {
                     console.log("Response Error 401", rejection);
-                    window.location.href = '/login';
+                    window.location = '/login';
                 }
                 return $q.reject(rejection);
             }
@@ -102,11 +102,7 @@ fooformsApp
     }])
     .controller('MainController', function ($scope, $location, USER_ROLES, AuthService, $upload) {
         'use strict';
-        AuthService.checkStoredCredentials(function (err) {
-            if (err) {
-                window.location = '/login';
-            }
-        });
+
         $scope.user = null;
         $scope.userRoles = USER_ROLES;
         $scope.isAuthorized = AuthService.isAuthorized;
