@@ -7,6 +7,9 @@ process.env.NODE_ENV = 'test'; // Setting NODE_ENV to test ensures the test conf
 global.config = require('../../../config/config')(); // Load the test config and assign it to global
 var database = require(global.config.modules.DATABASE)();
 var mongoose = require('mongoose');
+// Nasty hack for testing with mocha -w ... see: https://github.com/LearnBoost/mongoose/issues/1251
+mongoose.models = {};
+mongoose.modelSchemas = {};
 var mockgoose = require('mockgoose');
 mockgoose(mongoose);
 

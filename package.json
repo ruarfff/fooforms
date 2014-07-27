@@ -34,7 +34,7 @@
     "log4js": "0.x.x",
     "method-override": "1.x.x",
     "mongodb": "1.3.x",
-    "mongoose": "3.8.x",
+    "mongoose": "3.8.14",
     "mongoose-unique-validator": "0.3.x",
     "nodemailer": "0.x.x",
     "passport": "0.x.x",
