@@ -50,9 +50,7 @@
     "underscore": "1.5.x",
     "view-helpers": "0.1.x",
     "mkdirp": "0.3.x",
-    "connect-multiparty": "1.0.x",
- 	"fooforms-membership": "git+ssh://git@github.com:ruairitobrien/fooforms-membership.git#master",
-    "fooforms-forms": "git+ssh://git@github.com:ruairitobrien/fooforms-forms.git#master"
+    "connect-multiparty": "1.0.x"
   },
   "devDependencies": {
     "blanket": "*",
@@ -76,7 +74,10 @@
     "protractor": "*",
     "should": "*"
   },
-  "bundleDependencies": [],
+  "bundledDependencies": [
+  	"fooforms-membership",
+    "fooforms-forms"
+    ],
   "private": true,
   "main": "server.js",
   "subdomain": "fooforms",
