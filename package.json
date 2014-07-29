@@ -83,8 +83,8 @@
   "subdomain": "fooforms",
   "scripts": {
     "predeploy": "grunt preprocessing",
-      "start": "node ./bin/www",
-    "prestart": "npm install",
+    "start": "node ./bin/www",
+    "prestart": "npm install && grunt deploy",
     "pretest": "npm install",
     "test": "karma start test/karma.conf.js",
     "test-single-run": "karma start test/karma.conf.js  --single-run",
