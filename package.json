@@ -57,7 +57,7 @@
     "bower": "*",
     "connect-modrewrite": "*",
     "grunt": "*",
-    "grunt-bower-task": "*",
+    "grunt-bower-install-simple": "^1.0.0",
     "grunt-concurrent": "*",
     "grunt-contrib-concat": "*",
     "grunt-contrib-imagemin": "*",
@@ -84,7 +84,6 @@
   "scripts": {
     "predeploy": "grunt preprocessing",
     "start": "node ./bin/www",
-    "prestart": "npm install && grunt deploy",
     "pretest": "npm install",
     "test": "karma start test/karma.conf.js",
     "test-single-run": "karma start test/karma.conf.js  --single-run",

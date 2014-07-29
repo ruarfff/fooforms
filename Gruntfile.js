@@ -43,14 +43,15 @@ module.exports = function (grunt) {
                 src: ['test/spec/modules/**/*.js']
             }
         },
-        bower: {
-            install: {
-                // just run 'grunt bower:install', no code required here.
+        "bower-install-simple": {
+            options: {
+                color:       true,
+                production:  false
             }
         },
         nodemon: {
             dev: {
-                script: 'server.js',
+                script: 'bin/www',
                 options: {
                     args: ['dev'],
                     nodeArgs: ['--debug'],
@@ -128,7 +129,7 @@ module.exports = function (grunt) {
             },
             js: {
                 files: {
-                    'frontend/public/js/vendor/vendor.min.js': ['frontend/public/js/vendor/vendor.min.js']
+                    'frontend/public/js/vendor.min.js': ['frontend/public/js/vendor.min.js']
                 }
             }
         }, // End Uglify
@@ -259,7 +260,7 @@ module.exports = function (grunt) {
     });
 
     grunt.registerTask('deploy', 'deploy pre-processed assets', ['newer:concat:js', 'newer:concat:auth', 'newer:concat:vendor', 'newer:uglify', 'sass']);
-    grunt.registerTask('preprocessing', 'deploy pre-processed assets, customised a little for nodejitsu', ['concat:js', 'concat:auth', 'concat:vendor', 'uglify', 'sass']);
+    grunt.registerTask('preprocessing', 'deploy pre-processed assets, customised a little for nodejitsu', ['bower-install-simple', 'concat:js', 'concat:auth', 'concat:vendor', 'uglify', 'sass']);
     grunt.registerTask('default', 'start application in dev mode using watch and nodemon', ['deploy', 'mochaTest', 'concurrent']);
     grunt.registerTask('test-nowatch', 'only run tests and generate coverage report', ['deploy', 'mochaTest']);
     grunt.registerTask('test', 'only run tests and generate coverage report', ['deploy', 'mochaTest', 'watch']);
