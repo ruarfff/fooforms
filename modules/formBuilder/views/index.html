@@ -1,8 +1,8 @@
-<div class="col-xs-12 col-sm-4 col-md-4 tall slideLeft fixed-top">
+<div class="feed-fixed" ng-class="{percentageScreen : sideMenuVisible, halfScreen :!sideMenuVisible}">
     <% include includes/formBuilderMenu.html %>
 </div>
-<div class="col-xs-12 col-sm-8 col-md-8 slideRight" id='mainView'>
-<div class="pageGroup">
+<div  class="feed-fixed-wide"  ng-class="{percentageScreenWide : sideMenuVisible, halfScreenWide :!sideMenuVisible}">
+
 
 <div id='msgCenter' class="hide">
     <div class="alert alert-block alert-info fade in m5">
@@ -30,31 +30,32 @@
     <li><a id="eventsTab" data-target="#tabs-events" data-toggle="tab" ng-click="openEventTabs()">Form Events</a></li>
     <li><a data-target="#tabs-publish" data-toggle="tab">Preview</a></li>
 </ul>
-<div class="tab-content white p5">
-    <div id="tabs-newForm" class="tab-pane active">
-        <div id='formHeading'
-             ng-class="{ 'selected': showFormSettings}"
-             ng-click="editField(null,null,'Form', $event)"><img class='icon'
+<div class="tab-content">
+    <div id="tabs-newForm" class="tab-pane active panel panel-default">
+        <div class="panel-heading"
+             ng-class="{ 'bg-warning': showFormSettings}"
+             ng-click="editField(null,null,'Form', $event)"><img class='icon pull-left'
                                                                         ng-src="{{form.icon}}">
 
-            <h2 id='formName'>{{form.name}}</h2>
+            <h4 id='formName'>{{form.name}}</h4>
 
             <p id='formDescription'>{{form.description}} </p>
         </div>
-        <div id='formLayout' class="container"
+        <div class='well' class="container-fluid"
              ng-class="{ 'newForm': form.fields.length==0}">
+            <form role="form">
 
             <div id='formFields' class="row"
                  droppable='form.fields'
                  ng-update='updateObjects(from, to)'
                  ng-create='createObject(object, to)'
                     >
-                <div class='formObject col-sm-{{formField.boxSize}} under'
+                <div class='col-sm-{{formField.boxSize}} under'
                      ng-repeat="formField in form.fields track by $index"
                      ng-show="formField.name"
                      ng-border="showBorders(show)"
                      ng-click="editField($index,null,'Field', $event)"
-                     ng-class="{ 'selected': $index == nowEditing ,'dragging' : dragging}">
+                     ng-class="{ 'bg-info': $index == nowEditing ,'dragging' : dragging}">
                     <div class="btn-group pull-right onTop">
 
                         <button ng-click="editField($index, null, 'Field', $event)"
@@ -66,12 +67,12 @@
                                 ng-show="$index == nowEditing">X
                         </button>
                     </div>
-                    <div ng-include='formField.template' class="under"></div>
+                    <div ng-include='formField.template' ></div>
                 </div>
 
 
             </div>
-
+            </form>
 
         </div>
 
@@ -208,9 +209,9 @@
 
 
     <div id="tabs-publish" class="tab-pane">
-        <div class='alert alert-warning'><h4>Preview</h4>
+        <div class='m10'>
 
-            <p>Choose one or more ways to publish your form.</p>
+           <iframe class="iframe-large" src="{{form.url}}"></iframe>
         </div>
 
 
@@ -220,16 +221,11 @@
 
     </div>
 </div>
-<div id='saveFormInput'>
-    <button id='newForm' ng-click="newForm(form)" class="btn btn-warning">New Form
-    </button>
-    <button id='saveForm' ng-click="saveForm(form)" class="btn btn-success">Save Form
-    </button>
-</div>
+
 </div>
 
 
-</div>
+
 
 </div>
 

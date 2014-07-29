@@ -13,8 +13,6 @@ results
 npm-debug.log
 node_modules
 
-frontend/src/bower
-
 .sass-cache
 
 # IDE Stuff
@@ -23,9 +21,12 @@ frontend/src/bower
 out
 *.sublime*
 
+frontend/src/bower
+
 # ignore auto generated files
 coverage.html
 
+frontend/public/site/css/*-min.css
 frontend/public/css/*-min.css
 frontend/public/js/*.min.js
-frontend/public/js/vendor/vendor.min.js
+frontend/public/js/vendor.min.js

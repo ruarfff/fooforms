@@ -16,7 +16,7 @@
 
 #formHeading {
   display: block;
-  border: 1px solid #efefef;
+  //border: 1px solid #efefef;
   margin: 0px;
   padding: 5px;
 }
@@ -59,6 +59,7 @@ div.fieldObject:hover {
 }
 
 #formLayout, .formLayout {
+  height: 1000px;
   display: block;
   padding-bottom: 100px;
 }
@@ -71,22 +72,24 @@ div.fieldObject:hover {
   margin: 0px;
   padding: 5px;
   border-top: 1px solid #fff;
-  border-right: 1px solid #eee;
-  border-bottom: 1px solid #eee;
+  border-right: 1px solid #fff;
+  border-bottom: 1px solid #fff;
   border-left: 1px solid #fff;
-  background: #f7f7f7;
+  background: #FFF;
   min-height: 87px;
+  display: inline;
 }
 
 .viewFormObject {
   margin: 0px;
-  padding: 3px;
-  border-top: 1px solid #fff;
-  border-right: 1px solid #cecece;
-  border-bottom: 1px solid #cecece;
-  border-left: 1px solid #fff;
-  background: #efefef;
+  padding: 5px;
+
   min-height: 87px;
+  color: #3B8686;
+
+}
+.viewFormObject input, .viewFormObject textarea, .viewFormObject select{
+border-radius: 0px;
 
 }
 .card{
@@ -127,7 +130,7 @@ div.fieldObject:hover {
 
 /*placeholder for draggies*/
 #formFields div.fieldObject, #formEvents div.fieldObject {
-  clear: both !important;
+
   padding: 30px !important;
   border-radius: 0px !important;
   border: 1px solid #EFE3AE;
@@ -143,7 +146,8 @@ div.fieldObject:hover {
 .dragging {
   //background: #F1FBFF !important;
   border: 1px solid #D2E5F7;
-
+z-index: 1000;
+  display: block;
 }
 
 .formObject:hover {
@@ -176,7 +180,7 @@ img.icon {
 }
 
 img.icon-xs {
-  max-width: 24px;
+  max-width: 24px !important;
 }
 
 img.icon-sm {
@@ -234,7 +238,7 @@ label i.fa {
 }
 
 .newForm {
-  background: url('/assets/images/formCanvas.png') top left no-repeat;
+  background: url('/assets/images/appCanvas.png') top left no-repeat;
   border: 2px dashed #D2E5F7;
   min-height: 300px;
 }

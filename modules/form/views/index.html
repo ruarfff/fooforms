@@ -1,43 +1,15 @@
 <div class="col-xs-12 col-sm-4 col-md-4 slideLeft">
     <div id="pageViewer" class="pageGroup">
 
-        <div class="br0 alert alert-info  alert-foo b0 m0">
 
-
-            <img class="icon pull-left img-circle" ng-src="{{form.icon}}">
-            <h4 class="inline">{{user.displayName}}<a href="/profile/"><i class="fa fa-edit fa-lg"></i></a></h4>
-
-
-            <p id='formDescription'></p>
-
-            <div class="input-group clear">
-                <div class="input-group-btn">
-
-                    <a class='btn btn-default' href="userGuide"><i class="fa fa-rocket fa-lg"></i>
-                    </a>
-
-                </div>
-                <input type="text" class="form-control" placeholder="Search...">
-      <span class="input-group-btn">
-        <button class="btn btn-default" type="button"><i class="fa fa-search"></i></button>
-      </span>
-            </div>
-
-
-        </div>
-        <div class="alert alert-info alert-foo br0">
-            <h4 class="fooHeading">Create your own forms in minutes!</h4>
-
-            <p>Create your own form based apps using the FOOFORMS Form Builder. </p>
-            <a class="btn btn-success btn-sm" href="formBuilder" ng-click="newForm()">Open the Form Builder &raquo;</a>
-        </div>
 
 
         <div class="tab-content  m0 p0">
             <div id="tabs-notifications" class="tab-pane active">
                 <div class="list-group feed">
-                    <div class="list-group-item feed-item">
-                        <h4 class="text-info">My Forms</h4>
+                    <div class="alert alert-info m0 br0">
+                        <h4 class="text-info">My Forms
+                        <a class="btn btn-default btn-sm pull-right" href="formBuilder" ng-click="newForm()">New Form</a></h4>
                     </div>
                     <div class="media list-group-item feed-item m0 br0"
                          ng-repeat="form in forms" ng-click="updateForm(form)">

@@ -109,6 +109,8 @@ angular.module('form').service('Forms',
                         "settings": {
                             "allowComments": true,
                             "status": "draft",
+"tandcWeb" : false,
+                    "tandcDashboard": false,
                             "displayOptions": [
                                 {
                                     "feed": true,

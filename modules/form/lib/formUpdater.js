@@ -15,7 +15,8 @@ exports.updateForm = function (formJson, next) {
             fields: formJson.fields,
             formEvents: formJson.formEvents,
             sharing: formJson.sharing,
-            privileges: formJson.privileges
+            privileges: formJson.privileges,
+            settings: formJson.settings
         }, { multi: false }, function (err, form) {
             next(err, form);
         });

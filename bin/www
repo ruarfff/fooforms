@@ -1,0 +1,9 @@
+#!/usr/bin/env node
+"use strict";
+
+var debug = require('debug')('express');
+var FooFormsServerApp = require('../server');
+var serverApp = new FooFormsServerApp();
+serverApp.initialize();
+
+

@@ -137,6 +137,7 @@ var FooFormsServerApp = function () {
      *  Start the server (starts up the application).
      */
     self.start = function () {
+        log.info(__filename, ' - ', 'Starting web server...');
         http.createServer(self.app).listen(self.port, self.ipaddress, function () {
             log.info(__filename, ' - ', '%s: Node server started on %s:%d ...',
                 new Date(Date.now()), self.ipaddress, self.port);
@@ -160,6 +161,10 @@ var FooFormsServerApp = function () {
             require('./config/express')(self.app, passport);
             require('./config/routes')(self.app, passport);
 
+            log.info(__filename, ' - ', 'Running environment: ' + env);
+            log.info(__filename, ' - ', 'Initializing database connection...');
+            database.openConnection();
+
             self.start();
         });
     };
@@ -167,15 +172,6 @@ var FooFormsServerApp = function () {
 };
 
 
-/**
- *  main():  Main code.
- */
-log.info(__filename, ' - ', 'Running environment: ' + env);
-log.info(__filename, ' - ', 'Initializing database connection...');
-database.openConnection();
-log.info(__filename, ' - ', 'Starting web server...');
-var serverApp = new FooFormsServerApp();
-serverApp.initialize();
 
-exports.serverApp = module.exports = serverApp;
+exports.serverApp = module.exports = FooFormsServerApp;
 

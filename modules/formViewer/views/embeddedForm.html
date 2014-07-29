@@ -15,6 +15,9 @@
         .pr5 {
             padding-right: 5px;
         }
+        .br0{
+            border-radius: 0px;
+        }
 
         .alert-foo {
             padding-bottom: 5px !important;
@@ -192,10 +195,10 @@
 
 <div id='formLayout' class="container">
 
-    <div class="row">
+    <div class="row"  ng-hide="sorted">
         <div class='col-sm-{{formField.boxSize}} under viewFormObject'
              ng-repeat="formField in post.fields track by $index"
-             ng-show="formField.name">
+             ng-show="!formField.adminOnly">
 
             <div ng-include='formField.template'></div>
         </div>
@@ -226,7 +229,7 @@
         </div>
     </div>
 
-    <div class="row" ng-hide="sorted">
+    <div class="row" ng-show="post.settings.tandcWeb" ng-hide="sorted">
         <div class="col-sm-12 p5 alert alert-info">
             <input type="checkbox" ng-model="tandcAccepted"> I accept the <a data-toggle="modal" data-target="#tandc">Terms
             & Conditions</a>
@@ -235,8 +238,16 @@
             </button>
         </div>
     </div>
+    <div class="row" ng-hide="post.settings.tandcWeb || sorted">
+        <div class="col-sm-12 p5">
+
+            <button id='savePost' ng-click="submit()"
+                    class="btn btn-primary">Submit
+            </button>
+        </div>
+    </div>
     <div class="row" ng-show="sorted">
-        <div class="col-sm-12 p5 alert alert-success">
+        <div class="col-sm-12 p5 alert alert-success br0">
             <h4>Thank you</h4>
 
             <p>Your form has been received by us and we will be in contact with you shortly.</p>

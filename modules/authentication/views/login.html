@@ -10,6 +10,8 @@
     <link rel="stylesheet" href="/vendor/bootstrap/css/bootstrap-theme.min.css">
     <link rel="stylesheet" href="/vendor/font-awesome/css/font-awesome.min.css">
     <link rel="stylesheet" href="/css/login-min.css">
+<link href='http://fonts.googleapis.com/css?family=Play' rel='stylesheet' type='text/css'>
+    <link href='http://fonts.googleapis.com/css?family=Open+Sans+Condensed:300' rel='stylesheet' type='text/css'>
     <script type="text/javascript" src="/vendor/jquery/jquery-2.1.1.min.js"></script>
     <script type="text/javascript" src="/vendor/bootstrap/js/bootstrap.min.js"></script>
     <script type="text/javascript" src="/vendor/angular/angular.min.js"></script>
@@ -23,27 +25,33 @@
     </div>
 
     <div class='row slide' id="loginForm">
-        <div class="col-xs-12">
-            <h2 class="text-info">Sign-in</h2>
+        <div class="col-xs-12 logo">
+            <i class="fa fa-signal fa-rotate-270 fa-big"></i><span class="text-foo">FOO</span>FORMS</a>
         </div>
         <div class="col-xs-12">
 
             <form role="form" ng-submit="login(credentials)" ng-controller="LoginCtrl">
                 <div class="form-group">
-                    <input type="text" id="username" name='username' class="form-control input-lg"
+                    <label for="username">User Name</label>
+                    <input type="text" id="username" name='username' class="form-control"
                            placeholder="Enter your username"
                            ng-model="credentials.username">
-                    <input type="password" id="password" class="form-control input-lg" name='password'
+                </div>
+                <div class="form-group">
+                    <label for="password">Password</label>
+                    <input type="password" id="password" class="form-control" name='password'
                            placeholder="Password"
                            ng-model="credentials.password">
-                    <input type="submit" id="submit" class="btn btn-success" value='Sign In'/>
+                    </div>
+                <div class="form-group">
+                    <input type="submit" id="submit" class="btn btn-default" value='Sign In'/>
                 </div>
             </form>
 
         </div>
 
     </div>
-</div>
+
 
 
 <div class='row slide' id="invite">
@@ -55,6 +63,7 @@
     </div>
 
 
+</div>
 </div>
 
 <script type="text/javascript" src="/vendor/angular/angular-cookies.min.js"></script>

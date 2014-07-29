@@ -118,7 +118,7 @@ module.exports = function (grunt) {
                     'frontend/src/bower/moment/min/moment.min.js',
                     'frontend/src/bower/fullcalendar/dist/fullcalendar.min.js'
                 ],
-                dest: 'frontend/public/js/vendor/vendor.min.js'
+                dest: 'frontend/public/js/vendor.min.js'
             }
         }, // End concat
         // Minimise and append public js files
@@ -139,6 +139,7 @@ module.exports = function (grunt) {
                     style: 'compressed'
                 },
                 files: {
+                    'frontend/public/site/css/fooforms-min.css': 'frontend/src/sass/fooforms.scss',
                     'frontend/public/css/main-min.css': 'frontend/src/sass/main.scss',
                     'frontend/public/css/signup-min.css': 'frontend/src/sass/authentication/signup.scss',
                     'frontend/public/css/login-min.css': 'frontend/src/sass/authentication/login.scss'

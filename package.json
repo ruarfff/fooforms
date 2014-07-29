@@ -21,19 +21,21 @@
     "node": "0.10.x",
     "npm": ">= 1.0.0"
   },
-
   "dependencies": {
     "async": "0.7.x",
     "body-parser": "1.0.x",
     "compression": "1.0.x",
     "connect-flash": "0.1.x",
+    "connect-multiparty": "1.0.x",
     "cookie-parser": "1.0.x",
+    "debug": "^1.0.4",
     "ejs": "1.0.x",
     "errorhandler": "1.0.x",
     "express": "4.x.x",
     "express-session": "1.0.x",
     "log4js": "0.x.x",
     "method-override": "1.0.x",
+    "mkdirp": "0.3.x",
     "mongodb": "1.3.x",
     "mongoose": "3.8.x",
     "mongoose-unique-validator": "0.3.x",
@@ -48,9 +50,7 @@
     "passport-yahoo": "0.x.x",
     "static-favicon": "1.0.x",
     "underscore": "1.5.x",
-    "view-helpers": "0.1.x",
-    "mkdirp": "0.3.x",
-    "connect-multiparty": "1.0.x"
+    "view-helpers": "0.1.x"
   },
   "devDependencies": {
     "blanket": "*",
@@ -75,15 +75,15 @@
     "should": "*"
   },
   "bundledDependencies": [
-  	"fooforms-membership",
+    "fooforms-membership",
     "fooforms-forms"
-    ],
+  ],
   "private": true,
-  "main": "server.js",
+  "main": "./bin/www",
   "subdomain": "fooforms",
   "scripts": {
     "predeploy": "grunt preprocessing",
-    "start": "server.js",
+      "start": "node ./bin/www",
     "prestart": "npm install",
     "pretest": "npm install",
     "test": "karma start test/karma.conf.js",

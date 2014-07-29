@@ -102,10 +102,16 @@ fooformsApp
     }])
     .controller('MainController', function ($scope, $location, USER_ROLES, AuthService, $upload) {
         'use strict';
-
+        AuthService.checkStoredCredentials(function (err) {
+            if(err) {
+                window.location = '/login';
+            }
+        });
         $scope.user = null;
         $scope.userRoles = USER_ROLES;
         $scope.isAuthorized = AuthService.isAuthorized;
+        $scope.sideMenuVisible = true;
+
 
         //Messaging throughout App
         $scope.activeMsgBox = ''; // any string --matches ng-show of various msgboxes.
@@ -134,7 +140,7 @@ fooformsApp
             });
         };
 
-        $scope.onFileSelect = function ($files, formObj) {
+        $scope.onFileSelect = function($files,formObj) {
             //$files: an array of files selected, each file has name, size, and type.
             for (var i = 0; i < $files.length; i++) {
                 var file = $files[i];
@@ -143,18 +149,18 @@ fooformsApp
                     // method: POST or PUT,
                     // headers: {'header-key': 'header-value'},
                     // withCredentials: true,
-                    data: {formObj: formObj, file: file},
+                    data: {formObj: formObj, file:file},
                     file: file // or list of files: $files for html5 only
                     /* set the file formData name ('Content-Desposition'). Default is 'file' */
                     //fileFormDataName: myFile, //or a list of names for multiple files (html5).
                     /* customize how data is added to formData. See #40#issuecomment-28612000 for sample code */
                     //formDataAppender: function(formData, key, val){}
-                }).progress(function (evt) {
-                    formObj.progress = parseInt(100.0 * evt.loaded / evt.total);
-                }).success(function (data, status, headers, config) {
-                    // file is uploaded successfully
-                    alert(data);
-                });
+                }).progress(function(evt) {
+                        formObj.progress = parseInt(100.0 * evt.loaded / evt.total);
+                    }).success(function(data, status, headers, config) {
+                        // file is uploaded successfully
+                       alert(data);
+                    });
                 //.error(...)
                 //.then(success, error, progress);
                 //.xhr(function(xhr){xhr.upload.addEventListener(...)})// access and attach any event listener to XMLHttpRequest.

@@ -47,9 +47,14 @@ angular.module('dashboard').controller('DashboardCtrl', ['$scope', '$location', 
 
     $scope.viewPost = function (post) {
         var form = Forms.findById(post.form);
-        Posts.activePost = post;
-        Forms.setCurrentForm(form);
-        $location.path($scope.user.displayName + '/MyPrivateFolder/' + form.name);
+        $scope.posts.activePost = post;
+        //Forms.setCurrentForm(form);
+
+        //$scope.postObj = $scope.posts[postIndex];
+        $scope.showPostForm = true;
+        //$scope.setMessage('');
+
+       // $location.path($scope.user.displayName + '/MyPrivateFolder/' + form.name);
     };
 
     FolderService.getFolders(function (err) {
@@ -61,7 +66,7 @@ angular.module('dashboard').controller('DashboardCtrl', ['$scope', '$location', 
     PostService.getUserPosts(function (err) {
         if (!err) {
             $scope.posts = Posts.posts;
-            $scope.postObj = $scope.posts[0];
+            $scope.activePost = $scope.posts[0];
             posts2Grid();
         }
     });
