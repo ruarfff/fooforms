@@ -1,8 +1,6 @@
 <div class="container-fluid">
 <div class="row">
-
-
-<div class="col-sm-12">
+<div class="col-sm-12 scrollPanel">
 
 <ul id='optionTabs' class="nav nav-tabs">
     <li class="active"><a id='formTabFields' data-target="#formTabs-fields" data-toggle="tab">Fields</a></li>
@@ -16,6 +14,7 @@
 
         <!-- Navigation Buttons -->
         <div class="col-sm-6">
+
             <ul class="nav nav-pills nav-stacked" id="myTabs">
                 <li class="active"><a class="br0" data-toggle="tab" data-target="#standard" ng-click="openDesignTab()">Standard</a>
                 </li>
@@ -37,105 +36,96 @@
         <!-- Content -->
         <div class="col-sm-6">
             <div class="tab-content">
-                <div class="tab-pane active" id="standard">
+                <div class="tab-pane active fieldButtons" id="standard">
 
-                    <div class="m5 p5">
 
-                        <div class="list-group">
-                            <div class='fieldObject btn m5 br0 btn-warning'
+                        <div ui-sortable="sortableOptions"
+                             ng-model="standardInputTypes"
+                             class="first list-group row apps-container">
+                            <div class='fieldObject btn btn-default m5 col-sm-12'
                                  ng-mousedown="openDesignTab()"
-                                 ng-repeat="inputType in inputTypes | filterTypes:'standard'"
+                                 ng-repeat="inputType in standardInputTypes"
                                  ng-show="inputType.name"
-                                 draggable="inputType"
-                                 ng-border="showBorders(show)"
-                                 draggable-target="#formFields, .repeatBox"
                                     >
                                 {{inputType.name}}
                             </div>
                         </div>
 
-                    </div>
+
                 </div>
                 <div class="tab-pane" id="users">
 
-                    <div class="m5 p5">
+                    <div ui-sortable="sortableOptions"
+                         ng-model="userInputTypes"
+                         class="first list-group row apps-container">
+                        <div class='fieldObject btn btn-default m5 col-sm-12'
 
-                        <div class="list-group">
-                            <div class='fieldObject btn m5 btn-default'
                                  ng-mousedown="openDesignTab()"
-                                 ng-repeat="inputType in inputTypes | filterTypes:'user'"
+                                 ng-repeat="inputType in userInputTypes"
                                  ng-show="inputType.name"
-                                 draggable="inputType"
                                  ng-border="showBorders(show)"
-                                 draggable-target="#formFields, .repeatBox"
                                     >
                                 {{inputType.name}}
                             </div>
                         </div>
 
-                    </div>
+
                 </div>
 
                 <div class="tab-pane" id="numbers">
-                    <div class="m5 p5">
-
-                        <div class="list-group">
-                            <div class='fieldObject btn m5 btn-default'
+                    <div ui-sortable="sortableOptions"
+                         ng-model="numberInputTypes"
+                         class="first list-group row apps-container">
+                        <div class='fieldObject btn btn-default m5 col-sm-12'
                                  ng-mousedown="openDesignTab()"
-                                 ng-repeat="inputType in inputTypes | filterTypes:'number'"
+                                 ng-repeat="inputType in numberInputTypes"
                                  ng-show="inputType.name"
-                                 draggable="inputType"
                                  ng-border="showBorders(show)"
-                                 draggable-target="#formFields, .repeatBox"
                                     >
                                 {{inputType.name}}
                             </div>
                         </div>
 
-                    </div>
+
                 </div>
                 <div class="tab-pane" id="images">
-                    <div class="m5 p5">
-
-                        <div class="list-group">
-                            <div class='fieldObject btn m5 btn-default'
-                                 ng-mousedown="openDesignTab()"
-                                 ng-repeat="inputType in inputTypes | filterTypes:'files'"
+                    <div ui-sortable="sortableOptions"
+                         ng-model="fileInputTypes"
+                         class="first list-group row apps-container">
+                        <div class='fieldObject btn btn-default m5 col-sm-12'
+                          ng-mousedown="openDesignTab()"
+                                 ng-repeat="inputType in fileInputTypes"
                                  ng-show="inputType.name"
-                                 draggable="inputType"
                                  ng-border="showBorders(show)"
-                                 draggable-target="#formFields, .repeatBox"
                                     >
                                 {{inputType.name}}
                             </div>
                         </div>
 
-                    </div>
+
                 </div>
                 <div class="tab-pane" id="advanced">
-                    <div class="m5 p5">
-
-                        <div class="list-group">
-                            <div class='fieldObject btn m5 btn-default'
+                    <div ui-sortable="sortableOptions"
+                         ng-model="advancedInputTypes"
+                         class="first list-group row apps-container">
+                      <div class='fieldObject btn m5 btn-default'
                                  ng-mousedown="openDesignTab()"
-                                 ng-repeat="inputType in inputTypes | filterTypes:'advanced'"
+                                 ng-repeat="inputType in advancedInputTypes"
                                  ng-show="inputType.name"
-                                 draggable="inputType"
                                  ng-border="showBorders(show)"
-                                 draggable-target="#formFields, .repeatBox"
                                     >
                                 {{inputType.name}}
                             </div>
                         </div>
 
-                    </div>
+
                 </div>
                 <div class="tab-pane" id="events">
-                    <div class="m5 p5">
-
-                        <div class="list-group">
-                            <div class='fieldObject btn m5 btn-default'
-                                 ng-mousedown="openEventTabs()"
+                    <div ui-sortable="sortableOptions"
+                         ng-model="inputTypes"
+                         class="first list-group row apps-container">
+                        <div class='fieldObject btn btn-default m5 col-sm-12'
+                            ng-mousedown="openEventTabs()"
                                  ng-repeat="eventType in formEvents"
                                  ng-show="eventType.name"
                                  draggable="eventType"
@@ -146,7 +136,7 @@
                             </div>
                         </div>
 
-                    </div>
+
                 </div>
 
             </div>
@@ -169,7 +159,7 @@
 
         <!-- Settings Block for Standard Fields -->
 
-        <div id="FieldSettings" class="panel-body" ng-show="showFieldSettings">
+        <div id="FieldSettings" class="appear panel-body" ng-show="showFieldSettings">
 
 
             <div ng-include="form.fields[nowEditing].optionsTemplate" class="appear"></div>
@@ -177,7 +167,7 @@
         </div>
         <!-- Settings Block for Group Fields -->
 
-        <div id="groupSettings" class="appear" ng-show="showGroupSettings">
+        <div id="groupSettings" class="appear panel-body" ng-show="showGroupSettings">
 
             <div ng-include="form.fields[nowEditing].fields[nowSubEditing].groupOptions"></div>
 
@@ -187,16 +177,15 @@
 
         <!-- Settings Block for Basic Form Settings -->
 
-        <div id="formSettings" class="appear" ng-show="showFormSettings">
+        <div id="formSettings" class="appear panel-body" ng-show="showFormSettings">
 
-            <form class="form-horizontal container-fluid" role="form">
+            <div class="form-horizontal container-fluid" role="form">
                 <div class="form-group">
                     <label class="col-sm-4 control-label">Form Name</label>
 
                     <div class="col-sm-8">
                         <input type='text' class="form-control" ng-model="form.name"/>
-                        <input type='text' ng-model="form.menuLabel"/>
-
+                        <input type='hidden' ng-model="form.menuLabel"/>
                     </div>
                 </div>
                 <div class="form-group">
@@ -212,33 +201,39 @@
                 <div class="form-group">
                     <label class="col-sm-4 control-label">Icon</label>
 
-                    <div>
+                    <div class="col-sm-8">
                         <img class='icon' ng-src="{{form.icon}}"/>
                         <button class="btn btn-default" ng-click="open();">Change!</button>
                     </div>
                 </div>
-                <div class="alert alert-info">
-                    <h4>Display Options</h4>
 
 
                     <div class="form-group">
-                        <label class="col-sm-4 control-label">New Post - Button Label</label>
+                        <label class="col-sm-4 control-label">New Post - Button</label>
 
-                        <div>
-                            <input type='text' ng-model="form.btnLabel"/>
+                        <div class="col-sm-8">
+                            <input type='text' class="form-control" ng-model="form.btnLabel"/>
                         </div>
                     </div>
                     <div class="form-group">
                         <label class="col-sm-4 control-label">Display Posts as</label>
+                        <div class="col-sm-8">
 
-                        <input type="checkbox">Feed
-                        <input type="checkbox">Grid
-                        <input type="checkbox">Bucket
+                        <label class="checkbox-inline"><input type="checkbox" value="feed">Feed</label>
+                        <label class="checkbox-inline"><input type="checkbox" value="list">List</label>
+
+                        <label class="checkbox-inline"><input type="checkbox" value="grid">Grid</label>
+
+                        <label class="checkbox-inline"><input type="checkbox" value="bucket">Bucket</label>
+
 
                     </div>
-                    <div class="form-group">
+          </div>
+                    <div class="panel-heading">
                         <h4>Require Acceptance of Terms & Conditions</h4>
-
+                        </div>
+            <div class="panel-body">
+                        <div class="form-group">
                         <label class="col-sm-6 control-label"><input type="checkbox" ng-model="form.settings.tandcWeb">
                             Web &
                             Blogs</label>
@@ -249,7 +244,10 @@
                         <textarea ng-model="form.settings.tandc"></textarea>
                     </div>
                 </div>
-            </form>
+            </div>
+        </div>
+        <div class="panel-footer">
+
         </div>
     </div>
 </div>

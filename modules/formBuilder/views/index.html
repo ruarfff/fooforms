@@ -2,7 +2,7 @@
     <% include includes/formBuilderMenu.html %>
 </div>
 <div  class="feed-fixed-wide"  ng-class="{percentageScreenWide : sideMenuVisible, halfScreenWide :!sideMenuVisible}">
-
+<div class=" container-fluid">
 
 <div id='msgCenter' class="hide">
     <div class="alert alert-block alert-info fade in m5">
@@ -42,20 +42,16 @@
             <p id='formDescription'>{{form.description}} </p>
         </div>
         <div class='well' class="container-fluid"
-             ng-class="{ 'newForm': form.fields.length==0}">
+             ng-class="{ 'newFormx': form.fields.length==0}">
             <form role="form">
 
-            <div id='formFields' class="row"
-                 droppable='form.fields'
-                 ng-update='updateObjects(from, to)'
-                 ng-create='createObject(object, to)'
+            <div ui-sortable="sortableOptions" ng-model="form.fields" id='formFields' class="connected-apps-container row"
                     >
-                <div class='col-sm-{{formField.boxSize}} under'
+                <div class='formObject plr5 col-sm-{{formField.boxSize}}'
                      ng-repeat="formField in form.fields track by $index"
                      ng-show="formField.name"
-                     ng-border="showBorders(show)"
                      ng-click="editField($index,null,'Field', $event)"
-                     ng-class="{ 'bg-info': $index == nowEditing ,'dragging' : dragging}">
+                     ng-class="{ 'bg-info': $index == nowEditing , 'dropped' : $index == dropped}">
                     <div class="btn-group pull-right onTop">
 
                         <button ng-click="editField($index, null, 'Field', $event)"
@@ -73,7 +69,6 @@
 
             </div>
             </form>
-
         </div>
 
 
@@ -228,7 +223,7 @@
 
 
 </div>
-
+</div>
 
 
 

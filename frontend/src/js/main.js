@@ -3,7 +3,7 @@
 
 var fooformsApp = angular.module('fooformsApp', [
     // Vendor dependencies
-    'ngRoute', 'ngGrid', 'restangular', 'ui.bootstrap', 'textAngular', 'ui.calendar', 'angularFileUpload',
+    'ngRoute', 'ngGrid', 'restangular', 'ui.bootstrap', 'textAngular', 'ui.calendar', 'angularFileUpload', 'ui.sortable',
     // Custom dependencies
     'dashboard', 'folder', 'formBuilder', 'formViewer', 'user', 'authentication'
 ]);
@@ -100,6 +100,14 @@ fooformsApp
             }
         };
     }])
+    .controller('HeadController', function ($scope, $location, USER_ROLES, AuthService, $upload) {
+        $scope.stylesheet = 'bootstrap';
+
+        $scope.swapStyle = function(style){
+            alert('here');
+            $scope.stylesheet = style;
+        }
+    })
     .controller('MainController', function ($scope, $location, USER_ROLES, AuthService, $upload) {
         'use strict';
         AuthService.checkStoredCredentials(function (err) {

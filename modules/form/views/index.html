@@ -1,76 +1,18 @@
-<div class="col-xs-12 col-sm-4 col-md-4 slideLeft">
-    <div id="pageViewer" class="pageGroup">
+
+<div class="col-sm-12 hidden-xs" id='mainView'>
 
 
 
 
-        <div class="tab-content  m0 p0">
-            <div id="tabs-notifications" class="tab-pane active">
-                <div class="list-group feed">
-                    <div class="alert alert-info m0 br0">
-                        <h4 class="text-info">My Forms
-                        <a class="btn btn-default btn-sm pull-right" href="formBuilder" ng-click="newForm()">New Form</a></h4>
-                    </div>
-                    <div class="media list-group-item feed-item m0 br0"
-                         ng-repeat="form in forms" ng-click="updateForm(form)">
-
-                        <a class="pull-left" ng-click="updateForm(form)">
-                            <img class="media-object icon icon-sm" ng-src="{{form.icon}}" alt="">
-                        </a>
-
-                        <div class="media-body">
-                            <h5 class="media-heading">{{ form.name }}</h5>
-
-                            <p>{{form.description}}</p>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-</div>
-<div class="col-xs-12 col-sm-8 col-md-8 slideRight hidden-xs" id='mainView'>
-    <div class="pageGroup">
-
-        <div id="tabs">
-            <ul id='formTabs' class="nav nav-tabs">
-                <li class="active"><a data-target="#tabs-myforms" data-toggle="tab">Forms</a></li>
-                <li><a data-target="#tabs-download" data-toggle="tab">Discover New Forms</a></li>
-            </ul>
-            <div class="tab-content white p5">
-                <div id="tabs-myforms" class="tab-pane fade in active">
-
-                    <div class="row m5 p5">
-                        <div class="col-xs-6 col-sm-4 col-md-3"
-                             ng-repeat="form in forms">
-                            <div id="thumb-{{form._id}}" ng-mouseenter="hover(form)"
-                                 ng-mouseleave="hover(form)">
-                                <a ng-click="openForm(form)">
-                                    <img src="{{form.icon}}" alt="{{form.name}}">
-                                </a>
-
-                                <div class="caption">
-                                    <h5><a class="center-block">{{form.name | uppercase}}</a></h5>
-                                </div>
-                                <a class="text-muted" href="formBuilder"
-                                   ng-click="updateForm(form)">Admin</a> | <a class="text-muted"
-                                                                            ng-click="deleteApp(form)">Delete</a>
-
-                            </div>
-
-                        </div>
-                    </div>
-
-                </div>
-
-
-                <div id="tabs-download" class="tab-pane fade">
-
-
-                    <div class="row">
 
                         <!-- Navigation Buttons -->
                         <div class="col-md-3">
+
+
+                          <div class="well">
+                                &nbsp;<a class="btn btn-success" href="formBuilder" ng-click="newForm()">New Form</a>
+                          </div>
+
                             <ul class="nav nav-pills nav-stacked" id="myTabs">
                                 <li class="active"><a data-toggle="tab" data-target="#featured">Featured Apps</a></li>
                                 <li><a data-toggle="tab" data-target="#communication">Communication</a></li>
@@ -90,15 +32,16 @@
                                 <div class="tab-pane active" id="featured"><h4>Featured Apps</h4>
 
                                     <div class="row m5 p5">
-                                        <div class="col-sm-4 col-md-4"
+                                        <div class="col-sm-3 col-md-3"
                                              ng-repeat="form in forms">
                                             <div class="thumbnail">
+                                                <a href="appBuilder" ng-click="updateForm(form)">
                                                 <img src="{{form.icon}}" alt="{{form.name}}">
 
                                                 <div class="caption">
-                                                    <a class="center-block">{{form.name | uppercase}}</a>
+                                                   {{form.name | uppercase}}
                                                 </div>
-
+</a>
                                                 <i class="fa fa-star fa-fw"></i>
                                                 <i class="fa fa-star fa-fw"></i>
                                                 <i class="fa fa-star fa-fw"></i>
@@ -111,7 +54,7 @@
                                 <div class="tab-pane" id="communication"><h4>Communication</h4>
 
                                     <div class="row m5 p5">
-                                        <div class="col-sm-4 col-md-4"
+                                        <div class="col-sm-3 col-md-3"
                                              ng-repeat="form in forms">
                                             <div class="thumbnail">
                                                 <img src="{{form.icon}}" alt="{{form.name}}">
@@ -139,10 +82,6 @@
 
                 </div>
 
-            </div>
-
-        </div>
 
 
-    </div>
-</div>
+

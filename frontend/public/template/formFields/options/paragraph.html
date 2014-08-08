@@ -1,9 +1,17 @@
-<form class="form-horizontal container" role="form">
+<form class="form-horizontal" role="form">
     <div class="form-group">
-        <label class="col-sm-4 control-label">Field Label</label>
+        <label class="col-sm-4 control-label">Heading</label>
 
         <div class="col-sm-8">
             <input type='text' class="form-control" ng-model="form.fields[nowEditing].label"/>
+        </div>
+    </div>
+    <div class="form-group">
+        <label class="col-sm-4 control-label">Content</label>
+
+        <div class="col-sm-8">
+            <textarea class="form-control"
+                   ng-model="form.fields[nowEditing].placeholder"/></textarea>
         </div>
     </div>
     <div class="form-group">
@@ -14,44 +22,37 @@
                    ng-model="form.fields[nowEditing].boxSize">
         </div>
     </div>
-    <div class="form-group">
-        <label class="col-sm-4 control-label">Field size</label>
 
-        <div class="col-sm-8">
-            <input type="range" name="points" min="10" max="100" ng-model="form.fields[nowEditing].size">
 
-        </div>
-    </div>
-    <div class="form-group">
-        <label class="col-sm-4 control-label">Rows</label>
-
-        <div class="col-sm-8">
-            <input type="range" name="points" min="2" max="20" ng-model="form.fields[nowEditing].rows">
-
-        </div>
-    </div>
 
     <div class="form-group">
-        <label class="col-sm-4 control-label">Required </label>
-
-        <div class="col-sm-8">
-            <input type='checkbox' ng-model="form.fields[nowEditing].required"></label>
-        </div>
-    </div>
-    <div class="form-group">
-        <label class="col-sm-4 control-label">Placeholder</label>
-
-        <div class="col-sm-8">
-            <input type='text' class="form-control"
-                   ng-model="form.fields[nowEditing].placeholder"/>
-        </div>
-    </div>
-    <div class="form-group">
-        <label class="col-sm-4 control-label">Instructions for user</label>
-
-        <div class="col-sm-8">
-            <input type='text' class="form-control"
-                   ng-model="form.fields[nowEditing].userInstructions"/>
+        <label class="col-sm-4 control-label">Style</label>
+</div>
+    <div>
+         <label class="bg-default col-sm-2">
+            <input type='radio' class="form-control" name="style_{{nowEditing}}"
+                   ng-model="form.fields[nowEditing].style" value="default"/> Default
+            </label>
+            <label class="bg-primary col-sm-2">
+                <input type='radio' class="form-control" name="style_{{nowEditing}}"
+                       ng-model="form.fields[nowEditing].style" value="primary"/> Primary
+            </label>
+            <label class="bg-info col-sm-2">
+                <input type='radio' class="form-control" name="style_{{nowEditing}}"
+                       ng-model="form.fields[nowEditing].style" value="info"/> Info
+            </label>
+            <label class="bg-success col-sm-2">
+                <input type='radio' class="form-control" name="style_{{nowEditing}}"
+                       ng-model="form.fields[nowEditing].style" value="success"/> Success
+            </label>
+            <label class="bg-warning col-sm-2">
+                <input type='radio' class="form-control" name="style_{{nowEditing}}"
+                       ng-model="form.fields[nowEditing].style" value="warning"/> Warning
+            </label>
+            <label class="bg-danger col-sm-2">
+                <input type='radio' class="form-control" name="style_{{nowEditing}}"
+                       ng-model="form.fields[nowEditing].style" value="danger"/> Danger
+            </label>
         </div>
     </div>
 </form>

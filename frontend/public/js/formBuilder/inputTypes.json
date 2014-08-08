@@ -19,6 +19,7 @@
 "groupOptions": "/template/formFields/groupOptions/textbox.html",
 "optionsTemplate": "/template/formFields/options/textbox.html",
 "viewTemplate": "/template/formFields/view/textbox.html",
+"groupViewTemplate": "/template/formFields/groupView/textbox.html",
 "value" : ""
 },
 {
@@ -39,6 +40,7 @@
 "groupOptions": "/template/formFields/groupOptions/textarea.html",
 "optionsTemplate": "/template/formFields/options/textarea.html",
 "viewTemplate": "/template/formFields/view/textarea.html",
+"groupViewTemplate": "/template/formFields/groupView/textarea.html",
 "value" : ""
 },
 {
@@ -59,6 +61,7 @@
 "optionsTemplate": "/template/formFields/options/email.html",
 "groupOptions": "/template/formFields/groupOptions/email.html",
 "viewTemplate": "/template/formFields/view/email.html",
+"groupViewTemplate": "/template/formFields/groupView/email.html",
 "value" : ""
 },
 {
@@ -79,7 +82,8 @@
 "groupTemplate": "/template/formFields/groupBoxed/select.html",
 "groupOptions": "/template/formFields/groupOptions/select.html",
 "optionsTemplate": "/template/formFields/options/select.html",
-"viewTemplate": "/template/formFields/view/select.html"
+"viewTemplate": "/template/formFields/view/select.html",
+"groupViewTemplate": "/template/formFields/groupView/select.html"
 },
 {
 "type": "file",
@@ -99,6 +103,7 @@
 "groupOptions": "/template/formFields/groupOptions/fileUpload.html",
 "optionsTemplate": "/template/formFields/options/fileUpload.html",
 "viewTemplate": "/template/formFields/view/fileUpload.html",
+"groupViewTemplate": "/template/formFields/groupView/fileUpload.html",
 "value" : ""
 },
 {
@@ -119,6 +124,7 @@
 "groupOptions": "/template/formFields/groupOptions/fileUpload.html",
 "optionsTemplate": "/template/formFields/options/fileUpload.html",
 "viewTemplate": "/template/formFields/view/imageUpload.html",
+"groupViewTemplate": "/template/formFields/groupView/imageUpload.html",
 "src" : "",
 "progress" : 0
 },
@@ -143,6 +149,7 @@
 "groupTemplate": "/template/formFields/groupBoxed/checkbox.html",
 "optionsTemplate": "/template/formFields/options/checkbox.html",
 "viewTemplate": "/template/formFields/view/checkbox.html",
+"groupViewTemplate": "/template/formFields/groupView/checkbox.html",
 "value" : ""
 },
 {
@@ -166,7 +173,8 @@
 "groupOptions": "/template/formFields/groupOptions/radio.html",
 "groupTemplate": "/template/formFields/groupBoxed/radio.html",
 "optionsTemplate": "/template/formFields/options/radio.html",
-"viewTemplate": "/template/formFields/view/radio.html"
+"viewTemplate": "/template/formFields/view/radio.html",
+"groupViewTemplate": "/template/formFields/groupView/radio.html"
 }
 ,
 {
@@ -178,7 +186,7 @@
 "boxSize" : 12,
 "required" : false, "adminOnly" : false,
 "rows" : false,
-"options" : false,
+"style" : "default",
 "description": "A file upload box.",
 "help": "Use it to gather text with multiple rows such as address or questions, etc.",
 "icon" : "fa fa-cogs",
@@ -187,6 +195,7 @@
 "groupTemplate": "/template/formFields/groupBoxed/paragraph.html",
 "optionsTemplate": "/template/formFields/options/paragraph.html",
 "viewTemplate": "/template/formFields/view/paragraph.html",
+"groupViewTemplate": "/template/formFields/groupView/paragraph.html",
 "value" : ""
 }
 ,
@@ -208,6 +217,7 @@
 "groupTemplate": "/template/formFields/groupBoxed/html.html",
 "optionsTemplate": "/template/formFields/options/html.html",
 "viewTemplate": "/template/formFields/view/html.html",
+"groupViewTemplate": "/template/formFields/groupView/html.html",
 "value" : ""
 }
 ,
@@ -222,6 +232,7 @@
 "rows" : false,
 "options" : false,
 "fields" : [],
+"repeaters": [],
 "description": "A group box.",
 "help": "Use it to group items in a single container or  to enable the user to 'add' additional line items to the form, such as invoice items, etc.",
 "icon" : "fa fa-cogs",
@@ -229,7 +240,8 @@
 "groupOptions": "/template/formFields/groupOptions/groupBox.html",
 "groupTemplate": "/template/formFields/groupBoxed/groupBox.html",
 "optionsTemplate": "/template/formFields/options/groupBox.html",
-"viewTemplate": "/template/formFields/view/groupBox.html"
+"viewTemplate": "/template/formFields/view/groupBox.html",
+"groupViewTemplate": "/template/formFields/groupView/groupBox.html"
 },
 {
 "type": "number",
@@ -250,6 +262,7 @@
 "groupTemplate": "/template/formFields/groupBoxed/number.html",
 "optionsTemplate": "/template/formFields/options/number.html",
 "viewTemplate": "/template/formFields/view/number.html",
+"groupViewTemplate": "/template/formFields/groupView/number.html",
 "value" : ""
 },
 {
@@ -271,6 +284,7 @@
 "groupTemplate": "/template/formFields/groupBoxed/currency.html",
 "optionsTemplate": "/template/formFields/options/currency.html",
 "viewTemplate": "/template/formFields/view/currency.html",
+"groupViewTemplate": "/template/formFields/groupView/currency.html",
 "value" : ""
 },
 {
@@ -294,6 +308,7 @@
 "groupTemplate": "/template/formFields/groupBoxed/calculation.html",
 "optionsTemplate": "/template/formFields/options/calculation.html",
 "viewTemplate": "/template/formFields/view/calculation.html",
+"groupViewTemplate": "/template/formFields/groupView/calculation.html",
 "value" : ""
 },
 {
@@ -315,6 +330,7 @@
 "groupOptions": "/template/formFields/groupOptions/color.html",
 "optionsTemplate": "/template/formFields/options/color.html",
 "viewTemplate": "/template/formFields/view/color.html",
+"groupViewTemplate": "/template/formFields/groupView/color.html",
 "value" : ""
 },
 {
@@ -336,6 +352,7 @@
 "groupOptions": "/template/formFields/groupOptions/date.html",
 "optionsTemplate": "/template/formFields/options/date.html",
 "viewTemplate": "/template/formFields/view/date.html",
+"groupViewTemplate": "/template/formFields/groupView/date.html",
 "value" : ""
 },
 {
@@ -357,6 +374,7 @@
 "groupTemplate": "/template/formFields/groupBoxed/payment.html",
 "optionsTemplate": "/template/formFields/options/payment.html",
 "viewTemplate": "/template/formFields/view/payment.html",
+"groupViewTemplate": "/template/formFields/groupView/payment.html",
 "value" : ""
 },
 {
@@ -378,6 +396,7 @@
 "groupOptions": "/template/formFields/groupOptions/textbox.html",
 "optionsTemplate": "/template/formFields/options/textbox.html",
 "viewTemplate": "/template/formFields/view/textbox.html",
+"groupViewTemplate": "/template/formFields/groupView/textbox.html",
 "value" : ""
 },
 {
@@ -399,6 +418,7 @@
 "groupOptions": "/template/formFields/groupOptions/textbox.html",
 "optionsTemplate": "/template/formFields/options/textbox.html",
 "viewTemplate": "/template/formFields/view/textbox.html",
+"groupViewTemplate": "/template/formFields/groupView/textbox.html",
 "value" : ""
 },
 {
@@ -420,6 +440,7 @@
 "groupOptions": "/template/formFields/groupOptions/textbox.html",
 "optionsTemplate": "/template/formFields/options/textbox.html",
 "viewTemplate": "/template/formFields/view/textbox.html",
+"groupViewTemplate": "/template/formFields/groupView/textbox.html",
 "value" : ""
 },
 {
@@ -441,6 +462,7 @@
 "groupOptions": "/template/formFields/groupOptions/textbox.html",
 "optionsTemplate": "/template/formFields/options/textbox.html",
 "viewTemplate": "/template/formFields/view/textbox.html",
+"groupViewTemplate": "/template/formFields/groupView/textbox.html",
 "value" : ""
 },
 {
@@ -462,6 +484,7 @@
 "groupOptions": "/template/formFields/groupOptions/textbox.html",
 "optionsTemplate": "/template/formFields/options/textbox.html",
 "viewTemplate": "/template/formFields/view/textbox.html",
+"groupViewTemplate": "/template/formFields/groupView/textbox.html",
 "value" : ""
 },
 {
@@ -485,7 +508,8 @@
 "groupOptions": "/template/formFields/groupOptions/radio.html",
 "groupTemplate": "/template/formFields/groupBoxed/radio.html",
 "optionsTemplate": "/template/formFields/options/status.html",
-"viewTemplate": "/template/formFields/view/status.html"
+"viewTemplate": "/template/formFields/view/status.html",
+"groupViewTemplate": "/template/formFields/groupView/status.html"
 }
 
 ]

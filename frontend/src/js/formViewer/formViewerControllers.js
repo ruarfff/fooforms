@@ -8,6 +8,7 @@ angular.module('formViewer')
     $scope.form = Forms.getCurrentForm();
     $scope.posts = [];
     $scope.showPostForm=false;
+        $scope.postView = 'feed';
 
     PostService.getFormPosts($scope.form, function (err) {
         if (!err) {
@@ -80,6 +81,13 @@ angular.module('formViewer')
         $scope.setMessage('');
 
     };
+        $scope.addRepeat = function(groupBox,field){
+            $scope.postObj.fields[groupBox].repeaters.push(angular.copy($scope.postObj.fields[groupBox].fields));
+
+        }
+        $scope.removeRepeat = function(groupBox,field){
+
+        }
 
 }]);
 

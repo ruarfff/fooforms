@@ -1,11 +1,11 @@
 <!DOCTYPE html>
 <html lang="en" ng-app="fooformsApp">
-<head>
+<head ng-controller="HeadController">
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
     <title>
-        FOOFORMS - Awesome Stuff for your Forms
+        FOOFORMS - Form Based Collaboration for Teams
     </title>
     <meta name="description" content="">
     <meta name="viewport" content="width=device-width">
@@ -39,7 +39,7 @@
 <body ng-controller="MainController" data-ng-init="init()" class="main-application">
 <div id="wrap">
 <div class="navbar-wrapper">
-<div class="navbar navbar-inverse navbar-fixed-top" role="navigation">
+<div class="navbar navbar-inverse navbar-fixed-top navbar-foo" role="navigation">
     <div class="container-fluid">
         <div class="navbar-header">
             <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
@@ -64,8 +64,10 @@
                 </li>
 <li>
     {{ posts.length }} New Posts
-</li>
-
+</li><li>
+                <a href="/forms" class="inline pull-right">
+                    <i class="fa fa-cog" ng-click="postView='list';"></i>Forms</a>
+                </li>
 
             </ul>
 
@@ -103,14 +105,12 @@
 </div>
 <div id='sideMenu' class="sideMenu" ng-controller = "DashboardCtrl" ng-class="{showMenu : sideMenuVisible, hideMenu: !sideMenuVisible}">
 
+    <div class="company">
+        Company Name & Logo
+    </div>
 
+    <ul class="nav nav-pills nav-stacked scroll m0 p0 l0" >
 
-    <ul class="nav nav-pills nav-stacked" >
-        <li>
-            <div class="company">
-Company Name & Logo
-            </div>
-        </li>
         <li>
             <a href="dashboard"><i class="fa fa-dashboard"></i> Dashboard <span class="badge pull-right">42</span></a>
 
@@ -118,17 +118,16 @@ Company Name & Logo
 
         <li>
             <a ng-click="isCollapsed = !isCollapsed"><i class="fa fa-th"></i> Forms
-                <span class="caret"></span></a>
+                <span class="caret"></span>
 
-            <ul class="nav nav-pills nav-stacked"  collapse="isCollapsed">
+            </a>
+            <ul class="nav nav-pills nav-stacked ml5"  collapse="isCollapsed">
+
                 <li ng-repeat="form in forms">
-
                     <a href="{{user.displayName + '/' + form.sharing.folder + '/' + form.menuLabel}}"
                        ng-click='updateForm(form)' >
                         <img ng-src="{{form.icon}}" alt="{{form.name}}" class="icon icon-xs">
                         {{form.name}}
-
-
                     </a></li>
             </ul>
         </li>

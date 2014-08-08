@@ -1,5 +1,5 @@
-.white {
-  background-color: #fff;
+.form-control{
+  padding: 4px 2px 4px 4px;
 }
 
 .blockInsert {
@@ -21,10 +21,6 @@
   padding: 5px;
 }
 
-#formHeading.selected {
-  background: #F1FBFF;
-  border: 1px solid #D2E5F7;
-}
 
 #formHeading h2 {
   font-size: 16px;
@@ -49,14 +45,13 @@
 }
 
 .fieldObject {
-
+  width: 100%;
   cursor: move;
   display: block;
+  margin: 0px;
+  border: 1px solid #202020;
 }
 
-div.fieldObject:hover {
-  background: #f8efc0;
-}
 
 #formLayout, .formLayout {
   height: 1000px;
@@ -69,29 +64,10 @@ div.fieldObject:hover {
 }
 
 .formObject {
-  margin: 0px;
-  padding: 5px;
-  border-top: 1px solid #fff;
-  border-right: 1px solid #fff;
-  border-bottom: 1px solid #fff;
-  border-left: 1px solid #fff;
-  background: #FFF;
-  min-height: 87px;
-  display: inline;
+  display: block;
 }
 
-.viewFormObject {
-  margin: 0px;
-  padding: 5px;
 
-  min-height: 87px;
-  color: #3B8686;
-
-}
-.viewFormObject input, .viewFormObject textarea, .viewFormObject select{
-border-radius: 0px;
-
-}
 .card{
   display:  block;
   margin-bottom: 10px;
@@ -123,36 +99,88 @@ border-radius: 0px;
 }
 
 
-.formObject.selected {
-  background: #F1FBFF;
-  border: 1px solid #D2E5F7;
-}
+
 
 /*placeholder for draggies*/
 #formFields div.fieldObject, #formEvents div.fieldObject {
 
-  padding: 30px !important;
-  border-radius: 0px !important;
-  border: 1px solid #EFE3AE;
+  display: block;
+
 }
 
 .ui-sortable-placeholder {
   visibility: visible !important;
-  border: 2px dashed #D2E5F7 !important;
-  display: block;
-  background: #fefefe !important;
+  display: block !important;
+  background: #2E3135 !important;
+height: 50px;
+  -webkit-animation: placeHolder 0.3s forwards;
+  animation: placeHolder 0.3s forwards;
+}
+.fieldButtons .ui-sortable-placeholder {
+  visibility: visible !important;
+  display: block !important;
+  background: #2E3135 !important;
+  min-height: 30px;
+  max-height: 30px;
 }
 
-.dragging {
-  //background: #F1FBFF !important;
-  border: 1px solid #D2E5F7;
-z-index: 1000;
-  display: block;
+@-webkit-keyframes placeHolder {
+  0%{
+    height: 25px;
+  }100% {
+       min-height: 87px;
+    height: auto;
+   }
 }
 
-.formObject:hover {
-  border: 1px solid #D2E5F7;
+@keyframes placeHolder {
+  0%{
+    height: 25px;
+  }100% {
+       min-height: 87px;
+     height: auto;
+   }
 }
+
+
+.dropped {
+  -webkit-animation: dropped 0.5s forwards;
+  animation: dropped 0.5s forwards;
+}
+@-webkit-keyframes dropped {
+  0%{
+    margin-left: 15px;
+    margin-right: -15px;
+  }100% {
+ margin-left: 0px;
+  margin-right: 0px;
+  }
+}
+
+@keyframes dropped {
+  0%{
+    margin-left: 15px;
+    margin-right: -15px;
+  }100% {
+     margin-left: 0px;
+     margin-right: 0px;
+   }
+}
+ .ui-sortable-helper {
+   visibility: visible !important;
+   display: block !important;
+   background: #485563 !important;
+   min-height: 87px;
+}
+
+.fieldButtons  .ui-sortable-helper {
+  visibility: visible !important;
+  display: block !important;
+  background: #485563 !important;
+  min-height: 30px;
+}
+
+
 
 /*icons and modal icon select dialog*/
 
@@ -181,46 +209,36 @@ img.icon {
 
 img.icon-xs {
   max-width: 24px !important;
+  margin: 0px 4px;
 }
 
 img.icon-sm {
   max-width: 36px;
 }
 
-#saveFormInput {
-  display: block;
-  background: #FEF6D2;
-  border-top: 1px solid #EFE3AE;
-  border-bottom: 1px solid #EFE3AE;
-  margin-top: 20px;
-  padding-right: 20px;
-  line-height: 50px;
-  height: 50px;
-  text-align: right;
-}
 
 .repeatBox {
   display: inline-block;
   padding: 0px;
   margin: 0px;
-  border: 2px dotted #D2E5F7;
-  background: #fff;
+  border: 1px dotted #D2E5F7;
+  background: #485563 !important;
+
   min-height: 90px;
 }
 
 .repeatBox:hover {
-  border: 2px solid #D2E5F7;
+  border: 1px solid #D2E5F7;
 }
 
-#saveForm {
 
-}
 
 label i.fa {
   font-size: 1.4em;
   color: #185aa7;
   margin-left: 5px;
 }
+
 
 .onTop {
   position: absolute !important;
@@ -241,6 +259,7 @@ label i.fa {
   background: url('/assets/images/appCanvas.png') top left no-repeat;
   border: 2px dashed #D2E5F7;
   min-height: 300px;
+  width: 100%;
 }
 
 img.icon {
@@ -250,6 +269,9 @@ img.icon {
 }
 
 .inline {
-  display: inline;
+  display: inline !important;
+}
+.inline-block {
+  display: inline-block !important;
 }
 

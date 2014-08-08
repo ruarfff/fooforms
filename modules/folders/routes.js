@@ -2,9 +2,9 @@
 'use strict';
 
 var path = require('path');
-var viewDir = path.join(global.config.modules.FOLDER, 'views');
+var viewDir = path.join(global.config.modules.FOLDERS, 'views');
 var authenticator = require(global.config.modules.AUTHENTICATION);
-var folderApi = require(path.join(global.config.modules.FOLDER, 'api/folderApi'));
+var folderApi = require(path.join(global.config.modules.FOLDERS, 'api/folderApi'));
 var log = require(global.config.modules.LOGGING).LOG;
 
 var routes = function (app, passport) {

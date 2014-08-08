@@ -1,14 +1,4 @@
-<div class="form-group clearfix  alert alert-info alert-foo">
-<label for="{{formField.id}}"><h4>{{formField.label}}</h4>
-        <i class="fa fa-question-circle"
-           ng-hide="!formField.userInstructions"
-           popover="{{formField.userInstructions}}"
-           popover-trigger="mouseenter"></i>
-    </label>
-    <div class="input-group" ng-style="{'width': formField.size+'%'}">
-        <span class="input-group-addon" ng-show="formField.required">*</span>
-
-        <p id="{{formField.id}}" class="pl5 pr5" ng-show="formField.placeholder">{{formField.placeholder}}
-        </p>
-    </div>
+<div class="panel panel-{{formField.style}}" ng-style="{'width': formField.size+'%'}">
+    <div class="panel-heading"><h4>{{formField.label}}</h4></div>
+    <div class="panel-body" >{{formField.placeholder}}</div>
 </div>

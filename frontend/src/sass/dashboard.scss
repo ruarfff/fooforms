@@ -5,26 +5,30 @@
 html,
 body {
   overflow-x: hidden; /* Prevent scroll on narrow devices */
-height: 100%;
+min-height: 100%;
   position: absolute;
   top: 0;
   left: 0;
   right: 0;
-  bottom: 0;
+
 }
 
-body::-webkit-scrollbar {
-  width: 1em;
+::-webkit-scrollbar
+{
+  width: 12px;  /* for vertical scrollbars */
+  height: 12px; /* for horizontal scrollbars */
 }
 
-body::-webkit-scrollbar-track {
-  -webkit-box-shadow: inset 0 0 6px rgba(150,0,0,0.3);
+::-webkit-scrollbar-track
+{
+  background: rgba(0, 0, 0, 0.1);
 }
 
-body::-webkit-scrollbar-thumb {
-  background-color: #ff7700;
-  outline: 1px solid slategrey;
+::-webkit-scrollbar-thumb
+{
+  background: #6D7A76;
 }
+
 
 #footer {
   height: 42px;
@@ -44,7 +48,9 @@ footer {
 
 body {
   margin: 0px;
-  background: #2E3135;
+  //background: #222325;
+ //background: #566574;
+  background:  #353E46;
   padding: 52px 0 0 0px;
 }
 #wrap {
@@ -60,12 +66,12 @@ hr {
 }
 
 .company{
-  background: #202020;
+  background: rgba(0,0,0,.2);
   display: block;
-  min-height: 100px;
+  min-height: 103px;
   max-height: 150px;
   text-align: center;
-  border: 2px solid #404040;
+  padding: 2px;
 }
 /*
 / pageGroup
@@ -108,16 +114,16 @@ hr {
 
 .feed-fixed{
   position: fixed;
-bottom: 20px;
-  top: 55px;
+bottom: 42px;
+  top: 45px;
   overflow: hidden;
   padding:0px;
 }
 
 .feed-fixed-wide{
   position: fixed;
-  bottom: 20px;
-  top: 55px;
+  bottom: 42px;
+  top: 45px;
   overflow: auto;
 
   padding:0px;
@@ -131,8 +137,8 @@ bottom: 20px;
 
 .scroll{
    position: absolute;
-   top: 100px;
-   bottom: 24px;
+   top: 102px;
+   bottom: 0px;
    left: 20px;
    right: 0;
    display: block;
@@ -141,21 +147,33 @@ bottom: 20px;
    width: auto;
 
  }
-.scroll2{
+.scrollPanel{
   position: absolute;
-  top: 120px;
-  bottom: 24px;
+  top: 0px;
+  bottom: 0px;
   left: 20px;
   right: 0;
   display: block;
   overflow: auto;
   height: auto;
   width: auto;
-
 }
+
+.scroll2{
+   position: absolute;
+   top: 120px;
+   bottom: 0px;
+   left: 20px;
+   right: 0;
+   display: block;
+   overflow: auto;
+   height: auto;
+   width: auto;
+
+ }
 .panel-feed{
-border-left: 4px solid #2E3135;
-  border-right: 4px solid #2E3135;
+border-left: 4px solid #353E46;
+  border-right: 1px solid #353E46;
 width: 100%;
   display: block;
 }
@@ -190,6 +208,47 @@ width: 100%;
   cursor: pointer;
  color: #fff;
 }
+.feedTable{
+  background: #4e5d6c;
+  color: #ebebeb;
+font-size: .9em;
+}
+.feedOdd{
+  background: #4e5d6c;
+  border-left:1px solid #4e5d6c;
+  border-top: 1px solid #4e5d6c !important;
+  border-bottom:1px solid rgba(0,0,0,.3)  !important;
+}
+.feedEven{
+  background: #485563;
+  border-left:1px solid #485563;
+  border-top: 1px solid #485563 !important;
+  border-bottom:1px solid rgba(0,0,0,.3)  !important;
+}
+
+.feedOdd:hover, .feedEven:hover{
+  border-left: 1px solid #bf5a16;
+}
+.feedTable span.text-muted{
+  color: rgba(255,255,255,0.6) !important;
+}
+
+
+input[type=text], input[type=date], textarea, select, input[type=checkbox]{
+  background: rgba(0,0,0,0.1) !important;
+  color: rgba(255,255,255,0.8) !important;
+  border-width: 0px;
+}
+
+input[type=text]:focus,
+input[type=date]:focus,
+textarea:focus,
+select:focus,
+input[type=checkbox]:focus{
+  background: rgba(255,255,255,0.8) !important;
+  color: rgba(0,0,0,0.6) !important;
+  border-width: 1px;
+}
 
 /*
 / Simple / Common Overrides
@@ -199,6 +258,26 @@ width: 100%;
   border: 0px;
   height: 650px;
 
+}
+.odd{
+padding: 4px 0px;
+  background: rgba(255,255,255,0.1) !important;
+
+}
+.even{
+  padding: 4px 0px;
+  background: rgba(0,0,0,0.2) !important;
+
+}
+.odd .form-group, .even .form-group{
+  margin-bottom: 0px;
+}
+.plr5{
+  padding-left: 5px;
+  padding-right: 5px;
+}
+.m2{
+  margin: 2px;
 }
 .m5 {
   margin: 5px !important;
@@ -230,17 +309,27 @@ width: 100%;
 .b0 {
   border: 0px;
 }
+.ml2{
+  margin-left: 2px;
+}
 .ml5 {
   margin-left: 5px !important;
 }
 .ml10 {
   margin-left: 10px !important;
 }
-
+.text-opacity-5{
+  opacity: 0.5 !important;
+}
 .clear {
   clear: both;
 }
-
+.l0{
+  left: 0 !important;
+}
+.bg-highlight{
+  background: rgba(255,255,255,0.2);
+}
 .fixed-top{
   position: fixed !important;
   top: 76px;
@@ -289,12 +378,7 @@ width: 100%;
   //background: #fff;
 }
 .navbar-foo{
-  margin: 5px auto 0;
-  border-left: 0px;
-  border-right: 0px;
-  -webkit-box-shadow: none;
-  box-shadow: none;
- // background: #fff;
+border-bottom-width: 5px;
 }
 
 .foo-menu{
@@ -409,13 +493,16 @@ li.profile img {
 
 .sideMenu{
   position: fixed;
-  top: 55px;
+  top: 45px;
   left: 0;
-  bottom: 30px;
+  bottom: 42px;
   width: 15%;
  // border-right: 1px solid #efefef;
   //background: #fff;
   overflow: auto;
+  z-index: 10001;
+  background: rgba(0,0,0,.2);
+  font-size: .9em;
 }
 
 .sideMenu ul li a{
@@ -423,6 +510,15 @@ li.profile img {
   //color: #444;
   font-weight: 300 !important;
   text-shadow: none;
+  border-bottom: 1px solid rgba(0,0,0,.1);
+}
+.sideMenu ul li a ul li a{
+  // border-bottom: 1px solid #efefef;
+  //color: #444;
+  font-weight: 300 !important;
+  text-shadow: none;
+  height: 20px;
+  padding: 2px 4px;
 }
 .showMenu{
   left: 0;

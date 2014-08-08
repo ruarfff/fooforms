@@ -1,17 +1,32 @@
 /* global angular */
 
 angular.module('formBuilder').controller('FieldsCtrl',
-    ['$log', '$scope', '$http', '$modal', 'DragDropHandler', 'Restangular', 'FormService', 'Forms', 'FolderService', 'Folders', '_',
-        function ($log, $scope, $http, $modal, DragDropHandler, Restangular, FormService, Forms, FolderService, Folders, _) {
+    ['$log', '$scope', '$http', '$modal', 'DragDropHandler', 'Restangular', 'FormService', 'Forms', 'FolderService', 'Folders', '_', '$filter',
+        function ($log, $scope, $http, $modal, DragDropHandler, Restangular, FormService, Forms, FolderService, Folders, _, $filter) {
 
             "use strict";
             $http.get('/js/formBuilder/inputTypes.json').success(function (data) {
 
-                $scope.inputTypes = data.inputTypes;
+                $scope.inputTypes = angular.copy(data.inputTypes);
+
+
                 $scope.icons = data.icons;
                 $scope.formEvents = data.events;
 
+                $scope.resetInputTypes();
+
             });
+
+            $scope.resetInputTypes = function(){
+                $scope.inputTypesRefresh = angular.copy($scope.inputTypes);
+
+                $scope.userInputTypes = $filter('filterTypes')($scope.inputTypesRefresh,'user');
+                $scope.numberInputTypes = $filter('filterTypes')($scope.inputTypesRefresh,'number');
+                $scope.fileInputTypes = $filter('filterTypes')($scope.inputTypesRefresh,'files');
+                $scope.advancedInputTypes = $filter('filterTypes')($scope.inputTypesRefresh,'advanced');
+                $scope.standardInputTypes = $filter('filterTypes')($scope.inputTypesRefresh,'standard');
+            }
+
 
             FolderService.getFolders(function (err) {
                 if (!err) {
@@ -25,18 +40,74 @@ angular.module('formBuilder').controller('FieldsCtrl',
             // some booleans to help track what we are editing, which tabs to enable, etc.
             // used in ng-show in formBuilderMenu
             $scope.nowEditing = null;
+            $scope.dropped = null;
             $scope.nowSubEditing = null;
             $scope.showFieldSettings = false;
             $scope.showGroupSettings = false;
             $scope.showFormSettings = false;
             $scope.dragging = false;
 
+            $scope.formFieldx = [];
+
+
+            $scope.sortableOptions = {
+                connectWith: ".connected-apps-container, .repeat-apps-container",
+             cursorAt: { left: 15 , top: 15},
+                "opacity": 0.7,
+                distance: 5,forceHelperSize: true,
+                helper: "clone",
+                appendTo: 'body',
+                zIndex: 99999999,
+                scroll: true,
+                stop: function (e, ui) {
+                    $scope.$apply(function(){
+                        $scope.resetInputTypes();
+                        $scope.dropped = $scope.nowEditing = ui.item.sortable.dropindex;
+                        $scope.form.fields[$scope.nowEditing].id = new Date().getTime();
+                        $scope.lastChanged();
+                    });
+                    // if the element is removed from the first container
+
+                }
+                };
+
+                $scope.repeatSortableOptions = {
+                connectWith: ".connected-repeat-container",
+                cursorAt: { left: 15 , top: 15},
+                "opacity": 0.7,
+                distance: 5,forceHelperSize: true,
+                helper: "clone",
+                appendTo: 'body',
+                zIndex: 99999999,
+                scroll: true,
+                stop: function (e, ui) {
+                    $scope.$apply(function(){
+                        $scope.resetInputTypes();
+                        $scope.dropped = $scope.nowEditing = ui.item.sortable.dropindex;
+                        $scope.lastChanged();
+                    });
+                    // if the element is removed from the first container
+
+
+                }
+
+            };
+$scope.lastChanged = function(){
+    var lastChanged = new Date().getTime();
+    $scope.form.lastChanged = lastChanged;
+}
+
+
+
             //following are all called from the directives droppable or subdroppable
 
             $scope.updateObjects = function (from, to) {
-                var itemIds = _.pluck($scope.form.fields, 'id');
-                $log.error(itemIds);
+                //var itemIds = _.pluck($scope.form.fields, 'id');
+               // $log.error(itemIds);
+                $scope.form.fields.splice(to, 0, $scope.form.fields.splice(from, 1)[0]);
                 $scope.dragging = false;
+
+
             };
 
             $scope.createObject = function (object, to) {

@@ -1,15 +1,15 @@
 <div class="form-group clearfix">
-    <label>{{appField.label}}
+    <label>{{formField.label}}
         <i class="fa fa-question-circle"
-           ng-hide="!appField.userInstructions"
-           popover="{{appField.userInstructions}}"
+           ng-hide="!formField.userInstructions"
+           popover="{{formField.userInstructions}}"
            popover-trigger="mouseenter"></i>
     </label>
 
-    <div class="input-group" ng-style="{'width': appField.size+'%'}">
-        <label ng-class="{ 'radio-inline': appField.settings.display == 'Inline' ,'radio' : appField.settings.display == 'Stacked'}"
-               ng-repeat='option in appField.options'>
-            <input type="radio" name="appField.id" ng-model="appField.selected" ng-value="option.label">{{option.label}}
+    <div class="input-group" ng-style="{'width': formField.size+'%'}">
+        <label ng-class="{ 'radio-inline': formField.settings.display == 'Inline' ,'radio' : formField.settings.display == 'Stacked'}"
+               ng-repeat='option in formField.options track by $index'>
+            <input type="radio" name="{{formField.id}}" ng-model="formField.selected" ng-value="option.label">{{option.label}}
         </label>
 
 

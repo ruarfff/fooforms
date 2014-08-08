@@ -5,7 +5,7 @@ angular.module('dashboard').controller('DashboardCtrl', ['$scope', '$location', 
     // the main object to store the form data
     $scope.form = Forms.getCurrentForm();
     $scope.posts = [];
-    $scope.selectedView = "/partials/dashboardFeed";
+    $scope.postView = 'feed';
 
     $scope.gridData = [];
     $scope.gridOptions = { data: 'gridData' };
@@ -30,19 +30,9 @@ angular.module('dashboard').controller('DashboardCtrl', ['$scope', '$location', 
         Posts.activePost = null;
     };
 
-    $scope.setView = function (view) {
+    $scope.updateFolder = function (folder) {
+        Folders.setCurrentFolder(folder);
 
-        switch (view) {
-            case "feed" :
-                $scope.selectedView = "/partials/dashboardFeed";
-                break;
-            case "grid" :
-                $scope.selectedView = "/partials/dashboardGrid";
-                break;
-            case "card" :
-                $scope.selectedView = "/partials/dashboardCard";
-                break;
-        }
     };
 
     $scope.viewPost = function (post) {

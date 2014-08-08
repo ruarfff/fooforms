@@ -6,29 +6,34 @@
            popover-trigger="mouseenter"></i>
     </label>
 
-    <div id='{{formField.id}}' class="row repeatBox"
-         subdroppable='formField.fields'
-         ng-update='updateSubObjects(from, repeatbox, to)'
-         ng-create='createSubObject(object,repeatbox, to)'
-         ng-style="{'width': formField.size+'%'}"
-         ng-model="formField.fields">
+    <div ui-sortable="sortableOptions" ng-model="formField.fields" id='{{formField.id}}' class="repeat-apps-container col-sm-12 repeatBox"
+            >
+        <div class='formObject col-sm-{{subField.boxSize}}'
 
-
-        <div class='col-sm-{{subField.boxSize}} under'
-             ng-repeat="subField in formField.fields track by subField.id"
-             ng-border="showBorders(show)"
              ng-click="editField($parent.$index, $index, 'Group', $event)"
-             ng-class="{ 'selected': $index== nowSubEditing ,'dragging' : dragging}">
+             ng-class="{ 'bg-info': $index== nowSubEditing ,'dropped' : $index == nowSubEditing}"
+             ng-repeat="subField in formField.fields track by $index">
+            <div class="btn-group pull-right onTop">
 
-            <div ng-include="{{'/template/formFields/groupBoxed/' + subField.template}}"></div>
+                <button ng-click="editField($parent.$index, $index, 'Group', $event)"
+                        class='btn btn-xs btn-default'
+                        >{{$index}}
+                </button>
+                <button ng-click='deleteSubItem(subField.id)'
+                        class='btn btn-xs btn-danger'
+                        ng-show="$index == nowEditing">X
+                </button>
+            </div>
+            <div ng-include="subField.groupTemplate" ></div>
         </div>
 
-    </div>
-    <div class="input-group-btn" ng-show="formField.repeatable">
-        <button class='btn btn-default btn-sm' ng-click="addOption($index)"><i class="fa fa-plus fa-lg"></i>
-        </button>
-        <button class='btn btn-default btn-sm' ng-click="deleteOption($index)"><i class="fa fa-trash-o fa-lg"></i>
-        </button>
 
     </div>
+
+<div ng-show="formField.repeatable">
+    <button class="btn btn-default" ng-click="addRepeat($index,0);">+</button>
 </div>
+
+
+</div>
+

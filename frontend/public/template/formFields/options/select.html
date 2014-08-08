@@ -1,4 +1,4 @@
-<form class="form-horizontal container" role="form">
+<form class="form-horizontal" role="form">
     <div class="form-group">
         <label class="col-sm-4 control-label">Field Label</label>
 
@@ -48,7 +48,7 @@
                    ng-model="form.fields[nowEditing].userInstructions"/>
         </div>
     </div>
-    <div class="alert alert-info">
+
         <h6>Options</h6>
 
         <div ng-repeat='option in form.fields[nowEditing].options track by $index'>
@@ -73,7 +73,6 @@
 
         </div>
 
-    </div>
     </div>
 
 

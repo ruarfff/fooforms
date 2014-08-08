@@ -2,7 +2,7 @@
 
 angular.module('formBuilder')
 
-    .factory('DragDropHandler', [function () {
+    .factory('DragDropHandler', [function ($scope) {
         'use strict';
         return {
             dragObject: undefined,
@@ -10,7 +10,7 @@ angular.module('formBuilder')
                 objects.splice(to, 0, object);
             },
             moveObject: function (objects, from, to) {
-                objects.splice(to, 0, objects.splice(from, 1)[0]);
+               // objects.splice(to, 0, objects.splice(from, 1)[0]);
             }
         };
     }])
@@ -65,19 +65,22 @@ angular.module('formBuilder')
 
                 });
                 element.on("sortdeactivate", function (event, ui) {
-                    try {
+
                         var from = angular.element(ui.item).scope().$index;
                         scope.$parent.nowEditing = from;
                         var to = element.children().index(ui.item);
+                        scope.$apply(function(){
+                            if (to >= 0) {
 
-                        if (to >= 0) {
-                            scope.$apply(function () {
                                 if (from >= 0) {
-                                    DragDropHandler.moveObject(scope.droppable, from, to);
+                                    //DragDropHandler.moveObject(scope.droppable, from, to);
+
                                     scope.ngUpdate({
                                         from: from,
                                         to: to
                                     });
+
+
 
                                 } else {
                                     scope.ngCreate({
@@ -87,13 +90,13 @@ angular.module('formBuilder')
                                     ui.item.remove();
 
                                 }
-                            });
 
-                        }
-                    } catch (e) {
-                        alert(e);
-                    }
-                    scope.$parent.$apply();
+
+                            }
+                        });
+
+
+
                 });
 
             }
