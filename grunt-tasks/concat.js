@@ -8,16 +8,7 @@ module.exports = function (grunt) {
                 stripBanners: true
             },
             src: [
-                'frontend/src/js/main.js',
-                'frontend/src/js/common/**/*.js',
-                'frontend/src/js/form/**/*.js',
-                'frontend/src/js/formBuilder/**/*.js',
-                'frontend/src/js/formViewer/**/*.js',
-                'frontend/src/js/calendar/**/*.js',
-                'frontend/src/js/folder/**/*.js',
-                'frontend/src/js/dashboard/**/*.js',
-                'frontend/src/js/user/**/*.js',
-                'frontend/src/js/authentication/**/*.js'
+                'frontend/public/js/app/**/*.js'
             ],
             dest: 'frontend/public/js/main.min.js'
         },
@@ -26,7 +17,7 @@ module.exports = function (grunt) {
                 separator: ';'
             },
             src: [
-                'frontend/src/js/authentication/**/*.js'
+                'frontend/public/js/app/authentication/**/*.js'
             ],
             dest: 'frontend/public/js/auth.min.js'
         },

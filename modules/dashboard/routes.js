@@ -3,6 +3,7 @@
 
 var path = require('path');
 var viewDir = path.join(global.config.modules.DASHBOARD, 'views');
+var assets = require('../../config/assets');
 
 var routes = function (app, passport) {
 
@@ -10,7 +11,8 @@ var routes = function (app, passport) {
         .get(function (req, res) {
             res.render(viewDir + '/index', {
                 dev: (process.env.NODE_ENV === 'development'),
-                user: req.user || ''
+                user: req.user || '',
+                assets: assets
             });
         });
 
