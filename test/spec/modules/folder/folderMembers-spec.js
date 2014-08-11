@@ -21,8 +21,8 @@ describe('Adding, updating and removing folder members', function () {
         folderSpecUtil.seedFoldersInDatabase(done);
     });
 
-    afterEach(function (done) {
-        specUtil.dropDatabase(done);
+    afterEach(function () {
+        specUtil.dropDatabase();
     });
 
     describe('Checking if user is already a folder member', function () {

@@ -21,8 +21,8 @@ describe('Folder deletion', function () {
         folderSpecUtil.seedFoldersInDatabase(done);
     });
 
-    afterEach(function (done) {
-        testUtil.dropDatabase(done);
+    afterEach(function () {
+        testUtil.dropDatabase();
     });
 
     describe('Deleting a folder', function () {

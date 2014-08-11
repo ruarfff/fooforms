@@ -1,2 +1,3 @@
-{ "name": "dashboard",
-    "main": "./lib/dashboardLibrary.js" }
+{
+    "name": "dashboard"
+}

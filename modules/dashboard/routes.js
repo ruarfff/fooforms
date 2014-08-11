@@ -2,7 +2,7 @@
 'use strict';
 
 var path = require('path');
-var viewDir = path.join(global.config.modules.DASHBOARD, 'views');
+var viewDir = path.join(__dirname, 'views');
 var assets = require('../../config/assets');
 
 var routes = function (app, passport) {

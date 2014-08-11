@@ -20,8 +20,8 @@ describe('Publishing, Updating and Removing Forms in Folders', function () {
         folderSpecUtil.seedFoldersInDatabase(done);
     });
 
-    afterEach(function (done) {
-        specUtil.dropDatabase(done);
+    afterEach(function () {
+        specUtil.dropDatabase();
     });
 
     describe('Publishing Form to User Folder', function () {

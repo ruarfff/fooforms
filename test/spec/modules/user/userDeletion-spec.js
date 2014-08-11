@@ -15,8 +15,8 @@ describe('User deletion', function () {
         folderLib = require(global.config.modules.FOLDER);
     });
 
-    afterEach(function (done) {
-        specUtil.dropDatabase(done);
+    afterEach(function () {
+        specUtil.dropDatabase();
     });
 
     describe('Deleting a User', function () {

@@ -21,7 +21,7 @@ var database = function(databaseConfig) {
     } else {
         url = "mongodb://" + databaseConfig.hostname + ":" + databaseConfig.port + "/" + databaseConfig.db;
     }
-    var rootPath = path.normalize(__dirname + '/../../../');
+    var rootPath = path.normalize(__dirname + '/../');
     var mongoModule = path.join(rootPath, 'node_modules/mongodb');
 
     return {
@@ -70,7 +70,7 @@ var database = function(databaseConfig) {
                 }
             });
         }
-    }
+    };
 };
 
 module.exports = database;
