@@ -16,7 +16,7 @@ var passport = require('passport');
 var path = require('path');
 var fs = require('fs');
 
-var database = require('./config/databaseGateway')();
+var database = require('./database/databaseGateway')();
 var log = require(global.config.modules.LOGGING).LOG;
 
 process.on('uncaughtException', function(err) {

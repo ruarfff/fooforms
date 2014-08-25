@@ -72,7 +72,8 @@
     "karma": "*",
     "mockgoose": "*",
     "protractor": "*",
-    "should": "*"
+    "should": "*",
+    "supertest": "^0.13.0"
   },
   "bundledDependencies": [
     "fooforms-membership",
