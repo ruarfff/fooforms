@@ -1,11 +1,6 @@
 {
     "database": {
-        "hostname": "localhost",
-        "port": "27017",
-        "username": "",
-        "password": "",
-        "name": "",
-        "db": "dev"
+        "url": "mongodb://localhost:27017/dev"
     },
     "app": {
         "name": "FooForms - Development"

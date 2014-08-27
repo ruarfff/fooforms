@@ -28,6 +28,7 @@ describe('Signup Routes', function () {
     var email = 'user@test.com';
     var password = 'pass';
     var confirmPass = 'pass';
+    var wrongConfirmPass = 'wrong';
 
 
     beforeEach(function () {
@@ -46,7 +47,7 @@ describe('Signup Routes', function () {
 
     describe('POST /signup', function () {
         it('responds with 200 and json', function (done) {
-           request(app)
+            request(app)
                 .post('/signup')
                 .send({ email: email, displayName: displayName,
                     password: password, confirmPass: confirmPass })
@@ -59,6 +60,32 @@ describe('Signup Routes', function () {
                 .post('/signup')
                 .send({ email: '', displayName: displayName,
                     password: password, confirmPass: confirmPass })
+                .set('Accept', 'application/json')
+                .expect('Content-Type', /json/)
+                .expect(400, done);
+        });
+        it('responds with an error when no displayName is provided', function (done) {
+            request(app)
+                .post('/signup')
+                .send({ email: email, displayName: '',
+                    password: password, confirmPass: confirmPass })
+                .set('Accept', 'application/json')
+                .expect('Content-Type', /json/)
+                .expect(400, done);
+        });
+        it('responds with an error when no password is provided', function (done) {
+            request(app)
+                .post('/signup')
+                .send({ email: email, displayName: displayName })
+                .set('Accept', 'application/json')
+                .expect('Content-Type', /json/)
+                .expect(400, done);
+        });
+        it('responds with an error when passwords do not match', function (done) {
+            request(app)
+                .post('/signup')
+                .send({ email: email, displayName: displayName,
+                    password: password, confirmPass: wrongConfirmPass })
                 .set('Accept', 'application/json')
                 .expect('Content-Type', /json/)
                 .expect(400, done);

@@ -6,23 +6,14 @@ var mongoose = require('mongoose');
 
 var database = function(databaseConfig) {
     var connection = mongoose.connection,
-        name = 'db',
         connected = false,
-        url = 'not set',
         errorMessage = '';
 
     if(!databaseConfig) {
         databaseConfig = global.config.database;
     }
 
-    name = databaseConfig.db;
-
-    if (databaseConfig.username && databaseConfig.password) {
-        url = "mongodb://" + databaseConfig.username + ":" + databaseConfig.password + "@" + databaseConfig.hostname + ":" + databaseConfig.port + "/" + databaseConfig.db;
-    } else {
-        url = "mongodb://" + databaseConfig.hostname + ":" + databaseConfig.port + "/" + databaseConfig.db;
-    }
-    url = 'mongodb://fooforms:G0Fly09123*@candidate.15.mongolayer.com:10061,candidate.14.mongolayer.com:10061/fooforms';
+    var url = databaseConfig.url;
 
 
     var rootPath = path.normalize(__dirname + '/../');
@@ -33,7 +24,6 @@ var database = function(databaseConfig) {
         MongoClient: require(mongoModule).MongoClient,
         ObjectID: require(mongoModule).ObjectID,
         BSON: require(mongoModule).BSONPure,
-        name: name,
         url: url,
         connected: connected,
         errorMessage: errorMessage,

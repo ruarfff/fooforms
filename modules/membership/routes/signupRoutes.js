@@ -3,8 +3,6 @@
 var express = require('express');
 var router = express.Router();
 var signupController = require('../controllers/signupController');
-var Membership = require('fooforms-membership');
-var mongoose = require('mongoose');
 
 router.route('/')
     .all(function (req, res, next) {
@@ -17,14 +15,7 @@ router.route('/')
         next(new Error('not implemented'));
     })
     .post(function (req, res, next) {
-        var membership = new Membership(mongoose);
-
-        membership.register(req.body, function (err, result) {
-            if (err) {
-                return next(err);
-            }
-            return res.send(result);
-        });
+        signupController.signup(req, res, next);
     })
     .delete(function (req, res, next) {
         next(new Error('not implemented'));

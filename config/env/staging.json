@@ -1,14 +1,9 @@
 {
     "database": {
-        "hostname": "candidate.15.mongolayer.com",
-        "port": "10061",
-        "username": "fooforms",
-        "password": "G0Fly09123*",
-        "name": "",
-        "db": "fooforms"
+        "url": "mongodb://fooforms:G0Fly09123*@candidate.15.mongolayer.com:10061,candidate.14.mongolayer.com:10061/fooforms"
     },
     "app": {
-        "name": "FooForms - Test"
+        "name": "FooForms - Staging"
     },
     "facebook": {
         "clientID": "549767738378698",

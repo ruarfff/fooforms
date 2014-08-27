@@ -1,11 +1,6 @@
 {
     "database": {
-        "hostname": "localhost",
-        "port": "27017",
-        "username": "",
-        "password": "",
-        "name": "",
-        "db": "production"
+        "url": "mongodb://fooforms:G0Fly09123*@candidate.15.mongolayer.com:10061,candidate.14.mongolayer.com:10061/fooforms"
     },
     "app": {
         "name": "FooForms"
