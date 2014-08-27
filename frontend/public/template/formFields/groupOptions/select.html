@@ -48,10 +48,24 @@
                    ng-model="form.fields[nowEditing].fields[nowSubEditing].userInstructions"/>
         </div>
     </div>
-    <div class="alert alert-info">
         <h6>Options</h6>
 
-        <div ng-repeat='option in form.fields[nowEditing].fields[nowSubEditing].options track by $index'>
+    <div class="form-group">
+        <label class="col-sm-4 control-label">Link options to a list</label>
+
+        <div class="col-sm-8">
+            <label><input type='checkbox' ng-model="form.fields[nowEditing].fields[nowSubEditing].list.enabled"></label>
+            <label class="pull-right"><select class="form-control" ng-show="form.fields[nowEditing].fields[nowSubEditing].list.enabled"
+                    ng-model="form.fields[nowEditing].fields[nowSubEditing].list.selected"
+                    ng-options="column for column in form.fields[nowEditing].list.columns"></select></label>
+
+        </div>
+    </div>
+
+
+
+    <div ng-hide="form.fields[nowEditing].fields[nowSubEditing].list.enabled"
+            ng-repeat='option in form.fields[nowEditing].fields[nowSubEditing].options track by $index'>
 
             <div class="input-group">
       <span class="input-group-addon">
@@ -73,7 +87,6 @@
 
         </div>
 
-    </div>
     </div>
 
 

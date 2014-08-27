@@ -86,6 +86,7 @@ module.exports = function (grunt) {
                     'frontend/src/js/formViewer/**/*.js',
                     'frontend/src/js/calendar/**/*.js',
                     'frontend/src/js/folder/**/*.js',
+                    'frontend/src/js/folders/**/*.js',
                     'frontend/src/js/dashboard/**/*.js',
                     'frontend/src/js/user/**/*.js',
                     'frontend/src/js/authentication/**/*.js'
@@ -113,11 +114,12 @@ module.exports = function (grunt) {
                     'frontend/src/bower/restangular/dist/restangular.min.js',
                     'frontend/src/bower/angular-route/angular-route.min.js',
                     'frontend/src/bower/angular-sanitize/angular-sanitize.min.js',
-                    'frontend/src/bower/ng-grid/build/ng-grid.min.js',
                     'frontend/src/bower/textAngular/dist/textAngular.min.js',
                     'frontend/src/bower/angular-cookies/angular-cookies.min.js',
                     'frontend/src/bower/moment/min/moment.min.js',
-                    'frontend/src/bower/fullcalendar/dist/fullcalendar.min.js'
+                    'frontend/src/bower/fullcalendar/dist/fullcalendar.min.js',
+                    'frontend/src/bower/trNgGrid/trNgGrid.min.js'
+
                 ],
                 dest: 'frontend/public/js/vendor.min.js'
             }

@@ -10,6 +10,9 @@ angular.module('formViewer')
     $scope.showPostForm=false;
         $scope.postView = 'feed';
 
+$scope.gridData=[];
+
+
     PostService.getFormPosts($scope.form, function (err) {
         if (!err) {
             $scope.posts = Posts.posts;
@@ -21,6 +24,7 @@ angular.module('formViewer')
         }
         $scope.showPostForm=false;
         $scope.setMessage('');
+        $scope.posts2Grid();
 
     });
 
@@ -56,6 +60,9 @@ angular.module('formViewer')
                 }
             });
         }
+        //Update the grid
+        $scope.posts2Grid();
+
     };
 
     $scope.deletePost = function (postToDelete) {
@@ -73,6 +80,8 @@ angular.module('formViewer')
             // Post was never saved
             $scope.postObj = Posts.newPost($scope.form);
         }
+        //Update the grid
+        $scope.posts2Grid();
     };
 
     $scope.viewPost = function (postIndex) {
@@ -88,6 +97,55 @@ angular.module('formViewer')
         $scope.removeRepeat = function(groupBox,field){
 
         }
+
+
+
+        //Grid Related
+        $scope.stGridHeight = function(){
+
+            return{'height': (window.innerHeight - 170)}
+        }
+
+        $scope.posts2Grid = function () {
+            angular.forEach($scope.posts, function (postEntry) {
+                var map = _.pick(postEntry, 'menuLabel', 'fields');
+                var entry = {};
+                angular.forEach(map.fields, function (field) {
+
+                    var reduce = _.pick(field, 'label', 'value', 'type','selected', 'options');
+                    var safeLabel=reduce.label.replace(/\s+/g, "_");
+
+                    switch(reduce.type){
+                        case "radio":
+                        case "status":
+                            entry[safeLabel]=reduce.selected;
+                            break;
+                        case "textarea":
+                            entry[safeLabel]=reduce.value;
+                            break;
+                        case "checkbox":
+                            var selectedOptions = "";
+                            for (var i = 0; i< reduce.options.length; i++){
+                                if (reduce.options[i].selected){
+                                    selectedOptions+=reduce.options[i].label + ": ";
+                                }
+                           }
+                            entry[safeLabel]=selectedOptions;
+                            break;
+                        default:
+                            entry[safeLabel]=reduce.value;
+                            break;
+                    }
+
+
+
+
+                });
+                $scope.gridData.push(entry);
+
+            });
+        };
+
 
 }]);
 

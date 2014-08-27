@@ -32,6 +32,10 @@ var routes = function (app, passport) {
         fileApi.getFileById(req, res, req.params.id);
     });
 
+    app.post('/api/file/import', passport.authenticate('basic', { session: false }), function (req, res) {
+        fileApi.import(req, res);
+    });
+
     app.post('/api/file', passport.authenticate('basic', { session: false }), function (req, res) {
         fileApi.create(req, res);
     });

@@ -9,10 +9,6 @@ body {
   width: 100%;
   height: 100%;
   overflow: hidden;
-  background: #EFEFEF;
-
-
-
 }
 
 input:-webkit-autofill, textarea:-webkit-autofill, select:-webkit-autofill {
@@ -42,10 +38,6 @@ text-align: center;
   width: 360px;
   height: 325px;
   margin-left: -180px; /*half width*/
-  border-radius: 10px;
-  border: 5px solid #ff7700;
-  color: #404040;
-  background: #fff;
 
   z-index:  1;
 }
@@ -58,13 +50,10 @@ text-align: center;
   width: 360px;
   height: 305px;
   margin-left: -180px; /*half width*/
-  border-radius: 10px;
-  color: #404040;
-  background: #fff;
   opacity:  1;
   padding-top: 0px;
   z-index:  2;
-  border: 5px solid #68b3af;
+
 }
 #signup {
   position: absolute;
@@ -74,10 +63,6 @@ text-align: center;
   width: 350px;
   height: 475px;
   margin-left: -175px; /*half width*/
-  border-radius: 10px;
-  border: 1px solid #efefef;
-  color: #404040;
-  background: #fff;
   opacity:  .3;
   z-index:  1;
 }
@@ -89,19 +74,19 @@ text-align: center;
   width: 350px;
   height: 475px;
   margin-left: -175px; /*half width*/
-  border-radius: 10px;
-  color: #404040;
   opacity:  1;
   padding-top: px;
   z-index:  2;
 }
 
-
-
-input[type=text], input[type=password],input[type=submit]{
-margin-top:  10px;
+input:-webkit-autofill{
+  background: #FFF;
 }
 
+.input-inline input{
+  width: 49%;
+  display: inline;
+}
 #invite {
   position: relative;
   left: 50%;

@@ -5,25 +5,8 @@ angular.module('dashboard').controller('DashboardCtrl', ['$scope', '$location', 
     // the main object to store the form data
     $scope.form = Forms.getCurrentForm();
     $scope.posts = [];
-    $scope.postView = 'feed';
+    $scope.postView = 'list';
 
-    $scope.gridData = [];
-    $scope.gridOptions = { data: 'gridData' };
-
-
-    var posts2Grid = function () {
-        angular.forEach($scope.posts, function (postEntry) {
-            var map = _.pick(postEntry, 'menuLabel', 'fields');
-            var tempPosts = [];
-            angular.forEach(map.fields, function (field) {
-
-                var reduce = _.pick(field, 'label', 'value');
-                tempPosts.push(reduce);
-            });
-            $scope.gridData.push(tempPosts);
-
-        });
-    };
 
     $scope.updateForm = function (form) {
         Forms.setCurrentForm(form);
@@ -56,8 +39,8 @@ angular.module('dashboard').controller('DashboardCtrl', ['$scope', '$location', 
     PostService.getUserPosts(function (err) {
         if (!err) {
             $scope.posts = Posts.posts;
-            $scope.activePost = $scope.posts[0];
-            posts2Grid();
+            $scope.viewPost($scope.posts[0]);
+
         }
     });
     FormService.getUserForms(function (err) {

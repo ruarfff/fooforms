@@ -101,38 +101,13 @@ $scope.lastChanged = function(){
 
             //following are all called from the directives droppable or subdroppable
 
-            $scope.updateObjects = function (from, to) {
-                //var itemIds = _.pluck($scope.form.fields, 'id');
-               // $log.error(itemIds);
-                $scope.form.fields.splice(to, 0, $scope.form.fields.splice(from, 1)[0]);
-                $scope.dragging = false;
 
-
-            };
-
-            $scope.createObject = function (object, to) {
-                var newItem = angular.copy(object);
-                newItem.id = Math.ceil(Math.random() * 1000);
-                DragDropHandler.addObject(newItem, $scope.form.fields, to);
-                $scope.dragging = false;
-            };
             $scope.deleteItem = function (itemId) {
                 $scope.form.fields = _.reject($scope.form.fields, function (field) {
                     return field.id === itemId;
                 });
             };
-            $scope.createSubObject = function (object, repeatBox, to) {
-                var newItem = angular.copy(object);
-                newItem.id = Math.ceil(Math.random() * 1000);
-                DragDropHandler.addObject(newItem, $scope.form.fields[repeatBox].fields, to);
-                $scope.dragging = false;
-            };
 
-            $scope.updateSubObjects = function (repeatBox, from, to) {
-                var itemIds = _.pluck($scope.form.fields, 'id');
-                $log.error(itemIds);
-                $scope.dragging = false;
-            };
             $scope.deleteSubItem = function (itemId) {
                 $scope.form.fields[$scope.nowEditing].fields = _.reject($scope.form.fields[$scope.nowEditing].fields, function (field) {
                     return field.id === itemId;
@@ -268,6 +243,28 @@ $scope.lastChanged = function(){
 
 // End Icon Selection -  Modal Dialog
 
+
+            //Icon Selection -  Modal Dialog
+            $scope.openListManager = function () {
+
+                var modalInstance = $modal.open({
+                    templateUrl: '/partials/listManager.html',
+                    controller: ModalListManagerCtrl,
+                    size: "modal-lg",
+                    resolve: {
+                        list: function () {
+                            return $scope.form.fields[$scope.nowEditing].list;
+                        }
+                    }
+                });
+
+                modalInstance.result.then(function (list) {
+                    $scope.form.fields[$scope.nowEditing].list = list;
+                });
+            };
+
+// End Icon Selection -  Modal Dialog
+
             $scope.saveForm = function (formToSave) {
                 if (formToSave._id) {
                     FormService.updateForm(formToSave, function (err) {
@@ -314,5 +311,99 @@ var ModalInstanceCtrl = function ($scope, $modalInstance, icons) {
     $scope.cancel = function () {
         $modalInstance.dismiss('cancel');
     };
+
+};
+
+var ModalListManagerCtrl = function ($scope, $modalInstance, list, $upload) {
+    'use strict';
+
+    $scope.listData = angular.copy(list);
+
+
+    $scope.saveList = function () {
+
+        $modalInstance.close($scope.listData);
+    };
+
+    $scope.cancel = function () {
+        $modalInstance.dismiss('cancel');
+    };
+
+    $scope.uploadFile = [];
+    $scope.uploadProgress = 50;
+    $scope.message ={show: false};
+
+
+    $scope.setMessage = function(show,title,body,style){
+
+        $scope.message.show = show;
+        $scope.message.title = title;
+        $scope.message.body = body;
+        $scope.message.alertStyle = style;
+
+    }
+
+    $scope.browse = function(){
+
+        angular.element('#uploadFile').click()
+
+    }
+
+    $scope.onFileSelect = function(selectedFile){
+        $scope.uploadProgress = 0;
+        $scope.setMessage(false);
+
+        $scope.uploadFile = selectedFile[0];
+
+        if ($scope.uploadFile.type != 'text/csv'){
+
+            $scope.allowUpload = false;
+            $scope.setMessage(true,'Invalid File Format','FOOFORMS expects a .csv file. Please ensure you have saved your file in .csv format','alert-danger');
+        }else{
+
+            $scope.allowUpload = true;
+            $scope.doFileUpload();
+        }
+        angular.element('#browseBtn').blur();
+
+
+    }
+
+    $scope.doFileUpload = function(){
+        $scope.uploadProgress = 1;
+
+        $scope.upload = $upload.upload({
+            url: '/api/file/import', //upload.php script, node.js route, or servlet url
+            // method: POST or PUT,
+            // headers: {'header-key': 'header-value'},
+            // withCredentials: true,
+            data: {file: $scope.uploadFile}
+
+        }).progress(function(evt) {
+                $scope.uploadProgress = (parseInt(100.0 * evt.loaded / evt.total));
+            }).success(function(data, status, headers, config) {
+                // file is uploaded successfully
+                $scope.uploadFile = [];
+                $scope.allowUpload = null;
+                if (data.err){
+                    $scope.setMessage(true,'CSV File Failed Validation',data.err,'alert-danger');
+
+                }else{
+                    $scope.listData.columns = data[0].items;
+                    data.splice(0,1);
+                    $scope.listData.rows = data;
+                }
+
+            }).error(function(err){
+                alert(err);
+            });
+
+
+
+    }
+
+
+
+
 
 };

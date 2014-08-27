@@ -185,7 +185,7 @@
 
                     <div class="col-sm-8">
                         <input type='text' class="form-control" ng-model="form.name"/>
-                        <input type='hidden' ng-model="form.menuLabel"/>
+                        <input type='text' ng-model="form.menuLabel" ng-value="{{form.name + '_label'}}"/>
                     </div>
                 </div>
                 <div class="form-group">

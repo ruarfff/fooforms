@@ -23,6 +23,7 @@ var routes = function (app, passport) {
     require('../modules/database/routes')(app, passport);
     require('../modules/user/routes')(app, passport);
     require('../modules/folder/routes')(app, passport);
+    require('../modules/folders/routes')(app, passport);
     require('../modules/form/routes')(app, passport);
     require('../modules/formBuilder/routes')(app, passport);
     require('../modules/formViewer/routes')(app, passport);

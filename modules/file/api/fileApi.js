@@ -10,18 +10,13 @@ var log = require(global.config.modules.LOGGING).LOG;
  */
 var createFile = function (req, res) {
     try {
-        var body = req.body;
-        var fileName = req.files.file.filename;
-        var mimeType = req.files.file.mime;
-        var fileSize = req.files.file.size;
-        var internalName = new ObjectID().toHexString();
-
+        var internalName = fileLib.makeFileName();
 
         var fileDetails = {
-            name: req.files.file.filename,
-            internalName: body.description || '',
-            icon: body.icon || '',
-            mimeType: req.files.file.mime || '',
+            name: req.files.file.name,
+            internalName: internalName,
+            icon: req.body.icon || '',
+            mimeType: req.files.file.type || '',
             owner: req.user.id
         };
         fileLib.createFile(fileDetails, function (err, file) {
@@ -120,6 +115,28 @@ var deleteFile = function (req, res) {
     }
 };
 
+var importFile = function (req, res) {
+    try {
+
+
+        fileLib.importFile(req.files.file, function (err, file) {
+            if (err) {
+                var responseCode = 500;
+                if (err.code === 11000) {
+                    err.data = 'Error Parsing the CSV File.';
+                    responseCode = 409;
+                }
+                apiUtil.handleError(res, err, responseCode);
+            } else {
+                res.status(200);
+                res.send(file);
+            }
+        });
+    } catch (err) {
+        apiUtil.handleError(res, err, 500);
+    }
+};
+
 
 module.exports = {
     create: createFile,
@@ -127,7 +144,8 @@ module.exports = {
     getUserFiles: getUserFiles,
     getAllFiles: getAllFiles,
     update: updateFile,
-    delete: deleteFile
+    delete: deleteFile,
+    import: importFile
 };
 
 

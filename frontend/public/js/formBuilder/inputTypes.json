@@ -232,6 +232,14 @@
 "rows" : false,
 "options" : false,
 "fields" : [],
+"list": {
+"enabled" : false,
+"columns" : ["Column A", "Column B", "Another Column"],
+"rows" :[
+["Data A1","Data B1","Data C1"],
+["Data A2","Data B2","Data C2"]
+]
+},
 "repeaters": [],
 "description": "A group box.",
 "help": "Use it to group items in a single container or  to enable the user to 'add' additional line items to the form, such as invoice items, etc.",

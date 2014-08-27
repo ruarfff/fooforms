@@ -3,9 +3,9 @@
 <head lang="en">
     <meta charset="UTF-8">
     <title><%= formName %></title>
-    <link rel="stylesheet" href="/vendor/css/bootstrap.min.css">
-    <link rel="stylesheet" href="/vendor/css/bootstrap-theme.min.css">
-    <link rel="stylesheet" href="/vendor/font-awesome/css/font-awesome.min.css">
+    <link rel="stylesheet" href="/vendor/bootstrap/css/bootstrap.min.css">
+    <link rel="stylesheet" href="/vendor/bootstrap/css/bootstrap-theme.css">
+    <link rel="stylesheet" href="/vendor/font-awsome/font-awesome/css/font-awesome.min.css">
     <style>
 
         .pl5 {
@@ -17,6 +17,9 @@
         }
         .br0{
             border-radius: 0px;
+        }
+        .b0{
+            border: 0px;
         }
 
         .alert-foo {
@@ -41,7 +44,10 @@
             line-height: 14px;
 
         }
-
+.radio, .checkbox{
+    margin-left: 20px;
+    margin-right: 20px;
+}
         #formTitle {
             display: block;
         }
@@ -54,7 +60,9 @@
         div.fieldObject:hover {
             background: #f8efc0;
         }
-
+.inline{
+    display: inline-block;
+}
         #formLayout, .formLayout {
             display: block;
             padding-bottom: 0px;
@@ -140,9 +148,9 @@
 
 
     </style>
-    <script type="text/javascript" src="/vendor/js/jquery.js"></script>
+    <script type="text/javascript" src="/vendor/jquery/jquery-2.1.1.min.js"></script>
     <script type="text/javascript" src="/vendor/js/jquery-ui.js"></script>
-    <script type="text/javascript" src="/vendor/js/bootstrap.js"></script>
+    <script type="text/javascript" src="/vendor/bootstrap/js/bootstrap.js"></script>
     <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/angularjs/1.2.15/angular.min.js"></script>
     <script>
 
@@ -194,6 +202,13 @@
 <body ng-controller="FormCtrl">
 
 <div id='formLayout' class="container">
+    <form role="form" class="panel panel-info b0">
+
+        <div class="panel-heading text-info">
+            <img class="icon pull-left" ng-src="{{post.icon}}" alt="">
+            <h4 class="inline p0 text-info">{{post.name}}</h4><p class="text-primary">{{ post.description}}</p>
+            </div>
+        <div class="panel-body">
 
     <div class="row"  ng-hide="sorted">
         <div class='col-sm-{{formField.boxSize}} under viewFormObject'
@@ -203,6 +218,7 @@
             <div ng-include='formField.template'></div>
         </div>
     </div>
+        </div></form>
     <div class="row" ng-show="errorPosting">
         <div class="col-sm-12 p5 alert alert-success">
             <h4>Oops!</h4>

@@ -39,11 +39,11 @@
             </label>
         </div>
     </div>
-    <div class="alert alert-info">
+    <div class="">
         <h6>Options</h6>
 
         <div ng-repeat='option in form.fields[nowEditing].options track by $index'>
-            <div class="input-group">
+            <div class="input-group input-group-sm">
       <span class="input-group-addon">
         <input type="checkbox" name="form.fields[nowEditing].id"
                ng-model='form.fields[nowEditing].options[$index].selected'>

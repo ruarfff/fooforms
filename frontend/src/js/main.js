@@ -3,9 +3,9 @@
 
 var fooformsApp = angular.module('fooformsApp', [
     // Vendor dependencies
-    'ngRoute', 'ngGrid', 'restangular', 'ui.bootstrap', 'textAngular', 'ui.calendar', 'angularFileUpload', 'ui.sortable',
+    'ngRoute', 'trNgGrid', 'restangular', 'ui.bootstrap', 'textAngular', 'ui.calendar', 'angularFileUpload', 'ui.sortable',
     // Custom dependencies
-    'dashboard', 'folder', 'formBuilder', 'formViewer', 'user', 'authentication'
+    'dashboard', 'folder','folders', 'formBuilder', 'formViewer', 'user', 'authentication'
 ]);
 
 fooformsApp
@@ -34,7 +34,11 @@ fooformsApp
             .when('/forms', {
                 templateUrl: '/partials/forms',
                 controller: 'FormsCtrl'
+            }).when('/team-folders', {
+                templateUrl: '/partials/folders',
+                controller: 'FoldersCtrl'
             })
+
             .when('/people', {
                 templateUrl: '/partials/people',
                 controller: 'PeopleCtrl'

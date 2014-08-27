@@ -1,8 +1,8 @@
 /* global angular */
 
-angular.module('folder')
+angular.module('folders')
 
-    .controller('FolderCtrl',
+    .controller('FoldersCtrl',
     ['$scope', '$route', '$log', '$routeParams', 'Restangular', 'FolderService', 'Folders', 'Forms', 'FormService',
         function ($scope, $route, $log, $routeParams, Restangular, FolderService, Folders, Forms, FormService) {
             "use strict";
@@ -20,28 +20,7 @@ angular.module('folder')
             });
 
 
-            var folder = Restangular.one('folders', $routeParams.folder);
 
-            folder.get().then(
-
-            function (folder) {
-                $scope.folder = folder;
-
-                Restangular.one('folders', folder._id).getList('forms').then(function (forms) {
-                    $scope.forms = forms;
-                });
-
-                /**FolderService.getFolderForms($scope.folder, function (err) {
-                    if (err) {
-                        $log.error(err.toString());
-                    } else {
-                        $scope.forms = Forms.forms;
-                    }
-                });**/
-            },
-            function (err) {
-                $log.error(err.toString());
-            });
 
             $scope.updateForm = function (form) {
                 Forms.setCurrentForm(form);
@@ -49,8 +28,8 @@ angular.module('folder')
 
 
             $scope.tabs = [
-                {name: "Forms", active: true},
-                {name: "Settings", active: false}
+                {name: "Folders", active: true},
+                {name: "New", active: false}
             ];
             $scope.nowEditing = 0;
             $scope.showBorders = function () {

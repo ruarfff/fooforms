@@ -10,6 +10,7 @@ min-height: 100%;
   top: 0;
   left: 0;
   right: 0;
+
 }
 
 ::-webkit-scrollbar
@@ -20,26 +21,24 @@ min-height: 100%;
 
 ::-webkit-scrollbar-track
 {
-  background: rgba(255, 255, 255, 0.4);
+  background: rgba(0, 0, 0, 0.1);
 }
 
 ::-webkit-scrollbar-thumb
 {
-  // background: #aadef0;
-  background: #ddd;
+  background: #6D7A76;
 }
 
 
 #footer {
-  height: 21px;
+  height: 42px;
   position: fixed;
   margin: 0 auto 0;
   width: 100%;
   bottom: 0;
 }
 footer {
-  padding: 0px;
-  padding-top: 30px;
+  padding: 30px 0;
 }
 
 /*
@@ -49,33 +48,32 @@ footer {
 
 body {
   margin: 0px;
+  background: #E5F1FD;
  //background: #566574;
   //background:  #353E46;
-  padding: 56px 0 0 0px;
+  padding: 52px 0 0 0px;
 }
 #wrap {
   min-height: 100%;
   height: auto !important;
   height: 100%;
-  margin: 0 auto -22px;
+  margin: 0 auto -42px;
 }
+hr {
+  border: 0;
+  border: 1px solid #D2E5F7 !important;
 
-
+}
 
 .company{
+  background: #fff;
   display: block;
+  max-height: 150px;
   text-align: center;
-  width: 100%;
-  overflow-x: hidden;
-  margin-bottom: 0px;
-  min-height: 150px;
-  padding: 5%;
+  padding: 0px;
 }
 .company img{
-  padding: 2px;
-border: 4px solid #FFF;
-  border-radius: 15px;
-width: 100%;
+  max-height: 106px;
 }
 /*
 / pageGroup
@@ -84,12 +82,31 @@ width: 100%;
 */
 
 
+.pageGroup {
+
+
+}
 
 /*
 / Styles for Tabs within pageGroup
 */
 
+.nav-tabs > li.active > a, .nav-tabs > li.active > a:hover, .nav-tabs > li.active > a:focus {
 
+
+ // border-bottom: 1px solid #fff !important;
+}
+
+.nav-tabs {
+
+
+}
+
+.input-dark{
+  background: #2E3135;
+  color: #efefef;
+  border: 0px;
+}
 .feed {
   border: 0px !important;
   padding: 0px;
@@ -99,16 +116,16 @@ width: 100%;
 
 .feed-fixed{
   position: fixed;
-bottom: 22px;
-  top: 55px;
+bottom: 42px;
+  top: 45px;
   overflow: hidden;
   padding:0px;
 }
 
 .feed-fixed-wide{
   position: fixed;
-  bottom: 22px;
-  top: 55px;
+  bottom: 42px;
+  top: 45px;
   overflow: auto;
 
   padding:0px;
@@ -122,7 +139,7 @@ bottom: 22px;
 
 .scroll{
    position: absolute;
-   top: 96px;
+   top: 102px;
    bottom: 0px;
    left: 20px;
    right: 0;
@@ -130,26 +147,13 @@ bottom: 22px;
    overflow: auto;
    height: auto;
    width: auto;
+
  }
-.scrollSidebar{
-  position: absolute;
-  top: 136px;
-  bottom: 0px;
-  left: 10px;
-  right: 0;
-  display: block;
-  overflow: auto;
-  height: auto;
-  width: auto;
-  background: rgba(255,255,255,.5);
-  margin: 5% !important;
-  border-radius: 10px;
-}
 .scrollPanel{
   position: absolute;
   top: 0px;
   bottom: 0px;
-  left: 10px;
+  left: 20px;
   right: 0;
   display: block;
   overflow: auto;
@@ -159,9 +163,9 @@ bottom: 22px;
 
 .scroll2{
    position: absolute;
-   top: 105px;
+   top: 120px;
    bottom: 0px;
-   left: 10px;
+   left: 20px;
    right: 0;
    display: block;
    overflow: auto;
@@ -169,17 +173,15 @@ bottom: 22px;
    width: auto;
 
  }
-
 .panel-feed{
+border-left: 4px solid #353E46;
+  border-right: 1px solid #353E46;
 width: 100%;
   display: block;
-  margin-bottom: 5px;
 }
-.panel-feed .panel-heading{
-background: transparent !important;
-}
+
 .panel-feed:hover{
-  border-left: 1px solid #bf5a16;
+  border-left: 4px solid #bf5a16;
 }
 
 .icon-feed{
@@ -200,7 +202,7 @@ background: transparent !important;
 .feed .feed-item {
   //background: #fff;
   margin: 4px;
-  border-radius: 0px;
+  border-radius: 4px;
   margin-top: 5px;
   margin-bottom: 0px;
 }
@@ -208,52 +210,45 @@ background: transparent !important;
   cursor: pointer;
  color: #fff;
 }
-input[type=text], input[type=date], input[type=email], textarea, select, input[type=checkbox] {
-  background: #FFF !important;
-  border-width: 1px;
-}
-
-.radio,.checkbox {
-  position: relative;
-  display: block;
-  min-height: 21px;
-  margin: 5px 15px;
-}
 .feedTable{
-  background: none;
-
+  background: #4e5d6c;
+  color: #ebebeb;
+font-size: .9em;
 }
 .feedOdd{
-  background: #FFF;
-
+  background: #4e5d6c;
+  border-left:1px solid #4e5d6c;
+  border-top: 1px solid #4e5d6c !important;
+  border-bottom:1px solid rgba(0,0,0,.3)  !important;
 }
 .feedEven{
-  background: rgba(255,255,255,.5);
-
+  background: #485563;
+  border-left:1px solid #485563;
+  border-top: 1px solid #485563 !important;
+  border-bottom:1px solid rgba(0,0,0,.3)  !important;
 }
 
 .feedOdd:hover, .feedEven:hover{
   border-left: 1px solid #bf5a16;
 }
 .feedTable span.text-muted{
-  color: rgba(0,0,0,0.6) !important;
+  color: rgba(255,255,255,0.6) !important;
 }
 
-.panel{
-  border: 0px !important;
-}
 
 input[type=text], input[type=date], input[type=email], textarea, select, input[type=checkbox]{
-  background: #fff !important;
-
-  border-width: 1px;}
+  background: rgba(0,0,0,0.1) !important;
+  color: rgba(255,255,255,0.8) !important;
+  border-width: 0px;
+}
 
 input[type=text]:focus,
 input[type=date]:focus,
 textarea:focus,
 select:focus,
 input[type=checkbox]:focus{
-
+  background: rgba(255,255,255,0.8) !important;
+  color: rgba(0,0,0,0.6) !important;
   border-width: 1px;
 }
 
@@ -279,9 +274,6 @@ padding: 4px 0px;
 .odd .form-group, .even .form-group{
   margin-bottom: 0px;
 }
-.pl15p{
-  padding-left: 15%;
-}
 .plr5{
   padding-left: 5px;
   padding-right: 5px;
@@ -291,12 +283,6 @@ padding: 4px 0px;
 }
 .m5 {
   margin: 5px !important;
-}
-.mr5 {
-   margin-right: 5px !important;
- }
-.mr15 {
-  margin-right: 15px !important;
 }
 
 .p5 {
@@ -334,9 +320,6 @@ padding: 4px 0px;
 .ml10 {
   margin-left: 10px !important;
 }
-.light-gray{
-  background: #f9f9f9;
-}
 .text-opacity-5{
   opacity: 0.5 !important;
 }
@@ -345,42 +328,6 @@ padding: 4px 0px;
 }
 .l0{
   left: 0 !important;
-}
-.gridWrapper{
-  position: absolute;
-  display: block;
- top: 80px;
-  bottom: 30px;
-  overflow: scroll;
-  background: #fff;
-  right: 10px;
-  left: 10px;
-}
-.foo-grid {
-  position: relative;
-  display: block;
-  width: 100%;
-}
-.foo-grid th{
-  background: #EEE;
-  font-weight: 300;
-
-}
-.foo-grid th .text-muted{
-font-size: .8em;
-  color: #fff;
-display: inline-block;
-}
-.foo-grid td{
-  vertical-align: middle;
-
-}
-.foo-grid th input{
- padding: 2px;
-  font-size: 10px;
-  line-height: 10px;
-  height: 16px;
-
 }
 .bg-highlight{
   background: rgba(255,255,255,0.2);
@@ -418,9 +365,7 @@ display: inline-block;
 
 }
 .text-foo {
- color: #0279d2;
-  font-size: 1.2em;
-  text-shadow: 0px 1px rgba(255,255,255,.3);
+ // color: #3B8686;
 }
 .navbar-wrapper {
   position: fixed;
@@ -430,8 +375,12 @@ display: inline-block;
   margin : 0 auto 0;
  // border-top: 5px solid #68B3AF;
  // border-bottom: 1px solid #e7e7e7;
+  height: 56px;
   display: block;
   //background: #fff;
+}
+.navbar-foo{
+border-bottom-width: 5px;
 }
 
 .foo-menu{
@@ -546,33 +495,32 @@ li.profile img {
 
 .sideMenu{
   position: fixed;
-  top: 0px;
+  top: 45px;
   left: 0;
-  bottom: 22px;
+  bottom: 42px;
   width: 15%;
  // border-right: 1px solid #efefef;
   //background: #fff;
   overflow: auto;
   z-index: 10001;
-
+  background: rgba(0,0,0,.2);
+  font-size: .9em;
 }
 
 .sideMenu ul li a{
  // border-bottom: 1px solid #efefef;
-  color: #888;
+  //color: #444;
   font-weight: 300 !important;
   text-shadow: none;
-  margin-bottom: 2px;
-  background: #fff;
+  border-bottom: 1px solid rgba(0,0,0,.1);
 }
-.sideMenu ul li  ul li a{
+.sideMenu ul li a ul li a{
   // border-bottom: 1px solid #efefef;
   //color: #444;
   font-weight: 300 !important;
   text-shadow: none;
-border-bottom: 1px solid #fff;
-  background: rgba(255,255,255,.1) !important;
-  margin-bottom: 0px;
+  height: 20px;
+  padding: 2px 4px;
 }
 .showMenu{
   left: 0;
@@ -614,23 +562,7 @@ border-bottom: 1px solid #fff;
 }
 .percentageScreen{
   width: 35% !important;
-  padding-left: 10px;
-  -webkit-transition:0.3s linear all;
-  -moz-transition:0.3s linear all;
-  -o-transition:0.3s linear all;
-  transition:0.3s linear all;
-}
-.fullScreen{
-  width: 100% !important;
-  padding-left: 10px;
-  -webkit-transition:0.3s linear all;
-  -moz-transition:0.3s linear all;
-  -o-transition:0.3s linear all;
-  transition:0.3s linear all;
-}
-.percentageFullScreen{
-  width: 85% !important;
-  padding-left: 10px;
+  padding-left: 15px;
   -webkit-transition:0.3s linear all;
   -moz-transition:0.3s linear all;
   -o-transition:0.3s linear all;

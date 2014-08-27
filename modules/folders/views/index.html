@@ -11,47 +11,39 @@
 </ul>
 <div class="tab-content white p5">
 
-<div id="folders_content" class="tab-pane fade in active">
+<div id="Folders_content" class="tab-pane fade in active">
 
     <div class="row m5 p5">
         <div class="col-sm-4 col-md-3"
-             ng-repeat="folder in folders">
+             ng-repeat="privateFolder in privateFolders">
             <div class="thumbnail">
                 <img src="/assets/icons/color/folder.png" alt="{{folder.name}} {{folder.description}}">
 
-                <div class="caption">
-                    <a class="center-block" title="{{folder.description}}">{{folder.name}}</a>
-                </div>
+
+
+                   {{privateFolder.name}}
+
+
+            </div>
+        </div>
+        <div class="col-sm-4 col-md-3"
+             ng-repeat="publicFolder in publicFolders">
+            <div class="thumbnail">
+                <img src="/assets/icons/color/folder.png" alt="{{folder.name}} {{folder.description}}">
+
+
+
+                {{publicFolder.name}}
+
 
             </div>
         </div>
     </div>
 </div>
 
-<div id="Settings_content" class="tab-pane fade">
+<div id="New_content" class="tab-pane fade">
 
     <div class="row">
-
-        <!-- Navigation Buttons -->
-        <div class="col-md-3">
-            <ul class="nav nav-pills nav-stacked" id="myTabs">
-                <li class="active"><a data-toggle="tab" data-target="#newFolder">New Folder</a></li>
-                <li><a data-toggle="tab" data-target="#newTab">New Tab</a></li>
-                <li>
-                    <hr>
-                </li>
-                <li ng-repeat="folder in folders"><a data-toggle="tab"
-                                                       data-target="#{{folder._id}}">{{folder.name}}</a>
-                </li>
-
-            </ul>
-        </div>
-
-        <!-- Content -->
-        <div class="col-md-9">
-            <div class="tab-content">
-                <div class="tab-pane active" id="newFolder">
-
                     <div class="panel panel-success">
                         <div class="panel-heading">
                             <h3 class="panel-title">New Folder</h3>
@@ -99,123 +91,21 @@
 
                 </div>
 
-                <div class="tab-pane" id="newTab">
-
-                    <div class="panel panel-success">
-                        <div class="panel-heading">
-                            <h3 class="panel-title">New Tab</h3>
-                        </div>
-                        <div class="panel-body">
-                            <form novalidate class="css-form" role="form" name="createTabForm">
-                                <div class="form-group">
-                                    <label for="tabName">Title</label>
-                                    <input type="text" class="form-control" id="tabName"
-                                           ng-model="newTab.name" required
-                                           placeholder="New Tab Name"/><br/>
-                                </div>
 
 
-                                <button ng-click="createTab(newTab)" class="btn btn-success">Save
-                                </button>
-                            </form>
-                            <div id="createTabForm-error" class="alert alert-danger alert-dismissable"
-                                 ng-show="createTabFormError">
-                                <button type="button" class="close" data-dismiss="alert"
-                                        aria-hidden="true">&times;</button>
-                                {{createTabFormError}}
-                            </div>
 
-                        </div>
-                    </div>
-
-                </div>
-
-
-                <div ng-repeat="folder in folders" class="tab-pane" id="{{folder._id}}">
-
-                    <div class="panel panel-info">
-                        <div class="panel-heading">
-                            <h3 class="panel-title">{{folder.name}}</h3>
-                        </div>
-                        <div class="panel-body">
-
-
-                            <form novalidate class="css-form" role="form"
-                                  name="{{folder.name}}-form">
-                                <div class="form-group">
-                                    <label>Name</label>
-                                    <input type="text" class="form-control" ng-model="folderDetail.name"
-                                           required
-                                           placeholder="Some awesome folder name"/><br/>
-                                </div>
-                                <div class="form-group">
-                                    <label>Description</label>
-                                    <input type="text" class="form-control"
-                                           ng-model="folderDetail.description"
-                                           placeholder="A detailed description that everyone will read"/>
-                                </div>
-                                <div class="form-group">
-                                    <label>Label</label>
-                                    <input type="text" class="form-control"
-                                           ng-model="folderDetail.menuLabel"
-                                           placeholder="Not sure about this one"/>
-                                </div>
-                                <div class="form-group">
-                                    <label>Icon</label>
-                                    <input type="text" class="form-control"
-                                           ng-model="folderDetail.icon"/>
-
-                                    <p class="help-block">Whatever you do, don't try to upload a
-                                        file. We haven't implemented
-                                        that
-                                        yet!.</p>
-                                </div>
-                                <button ng-click="updateFolder(folderDetail)" class="btn btn-default">
-                                    Update
-                                </button>
-                                <button ng-click="deleteFolder(folderDetail)" class="btn btn-danger">
-                                    Delete
-                                </button>
-                            </form>
-                            <div id="{{folder._id}}-error"
-                                 class="alert alert-danger alert-dismissable"
-                                 ng-show="{{folder.name}}-form.$error">
-                                <button type="button" class="close" data-dismiss="alert"
-                                        aria-hidden="true">&times;</button>
-                                {{folder.name}}-form.$error
-                            </div>
-                        </div>
-                    </div>
-                </div>
             </div>
         </div>
 
     </div>
 </div>
 
-<div ng-repeat="tab in tabs" id="{{tab.name}}_content" class="tab-pane fade">
 
-    <div class="form-group">
 
-        <textarea rows="10"
-                  class="form-control"
-                  id="{{tab.name}}_editor"
-                  placeholder="Enter Content..."></textarea>
-    </div>
-
-    <div class="form-group">
-        <button ng-click="saveTabContent()" class="btn btn-success">Save
-        </button>
-    </div>
 
 
 </div>
 </div>
 </div>
 </div>
-</div>
 
-
-<div class="col-xs-12 col-sm-4 col-md-4 tall ">
-    <%include ../../../frontend/views/includes/postView.html %>
-</div>

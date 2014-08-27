@@ -7,7 +7,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
 
     <link rel="stylesheet" href="/vendor/bootstrap/css/bootstrap.min.css">
-    <link rel="stylesheet" href="/vendor/bootstrap/css/bootstrap-theme.min.css">
     <link rel="stylesheet" href="/vendor/font-awesome/css/font-awesome.min.css">
     <link rel="stylesheet" href="/css/login-min.css">
 <link href='http://fonts.googleapis.com/css?family=Play' rel='stylesheet' type='text/css'>
@@ -25,45 +24,43 @@
     </div>
 
     <div class='row slide' id="loginForm">
-        <div class="col-xs-12 logo">
-            <i class="fa fa-signal fa-rotate-270 fa-big"></i><span class="text-foo">FOO</span>FORMS</a>
-        </div>
-        <div class="col-xs-12">
-
-            <form role="form" ng-submit="login(credentials)" ng-controller="LoginCtrl">
-                <div class="form-group">
-                    <label for="username">User Name</label>
-                    <input type="text" id="username" name='username' class="form-control"
-                           placeholder="Enter your username"
-                           ng-model="credentials.username">
-                </div>
-                <div class="form-group">
-                    <label for="password">Password</label>
-                    <input type="password" id="password" class="form-control" name='password'
-                           placeholder="Password"
-                           ng-model="credentials.password">
+        <div class="panel panel-info">
+            <div class="panel-heading">
+                <h4>FOOFORMS</h4>
+            </div>
+            <div class="panel-body">
+                <form role="form" class="form" ng-submit="login(credentials)" ng-controller="LoginCtrl">
+                    <div class="form-group">
+                        <label for="username">User Name</label>
+                        <input type="text" id="username" name='username' class="form-control input-lg"
+                               placeholder="Enter your username"
+                               ng-model="credentials.username">
                     </div>
-                <div class="form-group">
-                    <input type="submit" id="submit" class="btn btn-default" value='Sign In'/>
-                </div>
-            </form>
+                    <div class="form-group">
+                        <label for="password">Password</label>
+                        <input type="password" id="password" class="form-control input-lg" name='password'
+                               placeholder="Password"
+                               ng-model="credentials.password">
+                    </div>
+                    <div class="form-group">
+                        <input type="submit" id="submit" class="btn btn-primary" value='Sign In'/>
+                    </div>
+                </form>
+            </div>
+            <div class="panel-heading">
+                Share Your Forms, Be More Awesome!
+                <a href='/signup' class='btn btn-default btn-sm text-primary'>Try FOOFORMS</a>
 
+            </div>
         </div>
 
+
+
     </div>
 
 
 
-<div class='row slide' id="invite">
 
-
-    <div class="col-sm-12 alert alert-info">
-        Share your forms and discover a better way to collaborate with teams and clients - <a href='/signup'
-                                                                                              class='btn btn-primary btn-sm'>SignUp</a>
-    </div>
-
-
-</div>
 </div>
 
 <script type="text/javascript" src="/vendor/angular/angular-cookies.min.js"></script>
