@@ -5,7 +5,6 @@
 var env = process.env.NODE_ENV || "development";
 process.env.NODE_ENV = 'test'; // Setting NODE_ENV to test ensures the test config (/config/env/test.json) gets loaded
 global.config = require('../../../config/config')(); // Load the test config and assign it to global
-var database = require(global.config.modules.DATABASE)();
 var mongoose = require('mongoose');
 // Nasty hack for testing with mocha -w ... see: https://github.com/LearnBoost/mongoose/issues/1251
 mongoose.models = {};
@@ -19,13 +18,12 @@ var tearDown = function () {
 };
 
 
-var dropDatabase = function (done) {
+var dropDatabase = function () {
     mockgoose.reset();
-    return done();
 };
 
-before(function (done) {
-    dropDatabase(done);
+before(function () {
+    dropDatabase();
 });
 
 after(function () {
@@ -34,6 +32,5 @@ after(function () {
 
 
 module.exports = {
-    database: database,
     dropDatabase: dropDatabase
 };

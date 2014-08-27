@@ -13,8 +13,8 @@ describe('User creation', function () {
         userLib = require(global.config.modules.USER);
     });
 
-    afterEach(function (done) {
-        specUtil.dropDatabase(done);
+    afterEach(function () {
+        specUtil.dropDatabase();
     });
 
     describe('Getting a User profile', function () {

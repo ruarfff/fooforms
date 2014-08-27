@@ -17,8 +17,8 @@ describe('Form Post functions', function () {
         userLib = require(global.config.modules.USER);
     });
 
-    afterEach(function (done) {
-        specUtil.dropDatabase(done);
+    afterEach(function () {
+        specUtil.dropDatabase();
     });
 
     var createTestFormWithUser = function (next) {

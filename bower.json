@@ -18,6 +18,7 @@
     "tests"
   ],
   "dependencies": {
+    "es5-shim": "~4.0.1",
     "angular-file-upload": "~0.5.6",
     "bootstrap": "~3.1.1",
     "jquery-ui": "~1.10.4",
@@ -34,5 +35,8 @@
   },
   "keywords": [
     "forms"
-  ]
+  ],
+  "resolutions": {
+    "es5-shim": "~4.0.1"
+  }
 }

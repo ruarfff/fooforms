@@ -1,2 +1,0 @@
-{ "name": "database",
-    "main": "./lib/databaseGateway.js" }

@@ -47,8 +47,8 @@ describe('Folder creation', function () {
         };
     });
 
-    afterEach(function (done) {
-        testUtil.dropDatabase(done);
+    afterEach(function () {
+        testUtil.dropDatabase();
     });
 
     describe('Creating a User folder', function () {

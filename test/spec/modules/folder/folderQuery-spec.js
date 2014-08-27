@@ -18,8 +18,8 @@ describe('Querying Folder Library to get Folders and Folder details', function (
         folderSpecUtil.seedFoldersInDatabase(done);
     });
 
-    afterEach(function (done) {
-        specUtil.dropDatabase(done);
+    afterEach(function () {
+        specUtil.dropDatabase();
     });
 
     describe('Folder retrieval', function () {

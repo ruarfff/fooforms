@@ -16,12 +16,16 @@ var database = function(databaseConfig) {
     }
 
     name = databaseConfig.db;
+
     if (databaseConfig.username && databaseConfig.password) {
         url = "mongodb://" + databaseConfig.username + ":" + databaseConfig.password + "@" + databaseConfig.hostname + ":" + databaseConfig.port + "/" + databaseConfig.db;
     } else {
         url = "mongodb://" + databaseConfig.hostname + ":" + databaseConfig.port + "/" + databaseConfig.db;
     }
-    var rootPath = path.normalize(__dirname + '/../../../');
+    url = 'mongodb://fooforms:G0Fly09123*@candidate.15.mongolayer.com:10061,candidate.14.mongolayer.com:10061/fooforms';
+
+
+    var rootPath = path.normalize(__dirname + '/../');
     var mongoModule = path.join(rootPath, 'node_modules/mongodb');
 
     return {
@@ -70,7 +74,7 @@ var database = function(databaseConfig) {
                 }
             });
         }
-    }
+    };
 };
 
 module.exports = database;

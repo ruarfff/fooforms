@@ -18,8 +18,8 @@ describe('User creation', function () {
         folderLib = require(global.config.modules.FOLDER);
     });
 
-    afterEach(function (done) {
-        specUtil.dropDatabase(done);
+    afterEach(function () {
+        specUtil.dropDatabase();
     });
 
     describe('Creating a user with valid inputs', function () {

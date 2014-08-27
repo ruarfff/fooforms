@@ -23,11 +23,6 @@ var routes = function (app, passport) {
      *  API
      *********************************************************************************/
 
-    app.get('/api/calendar', passport.authenticate('basic', { session: false }), function (req, res) {
-
-
-    });
-
 };
 
 module.exports = routes;

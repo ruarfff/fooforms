@@ -1,0 +1,34 @@
+{
+    "core": {
+        "js": {
+            "dashboard": [
+                "/js/app/main.js",
+                "/js/app/authentication/authentication.js",
+                "/js/app/authentication/authenticationConstants.js",
+                "/js/app/authentication/authenticationControllers.js",
+                "/js/app/authentication/authenticationServices.js",
+                "/js/app/calendar/calendarDirectives.js",
+                "/js/app/common/lodashWrapper.js",
+                "/js/app/dashboard/dashboard.js",
+                "/js/app/dashboard/dashboardControllers.js",
+                "/js/app/folder/folder.js",
+                "/js/app/folder/folderControllers.js",
+                "/js/app/folder/folderServices.js",
+                "/js/app/form/form.js",
+                "/js/app/form/formControllers.js",
+                "/js/app/form/formServices.js",
+                "/js/app/form/postServices.js",
+                "/js/app/formBuilder/formBuilder.js",
+                "/js/app/formBuilder/formBuilderControllers.js",
+                "/js/app/formBuilder/formBuilderDirectives.js",
+                "/js/app/formBuilder/formBuilderFilters.js",
+                "/js/app/formBuilder/uiSortable.js",
+                "/js/app/formViewer/formViewer.js",
+                "/js/app/formViewer/formViewerControllers.js",
+                "/js/app/user/user.js",
+                "/js/app/user/userControllers.js",
+                "/js/app/user/userServices.js"
+            ]
+        }
+    }
+}
