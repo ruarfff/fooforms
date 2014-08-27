@@ -28,11 +28,14 @@
     "connect-flash": "0.1.x",
     "connect-multiparty": "1.0.x",
     "cookie-parser": "1.0.x",
+    "csv": "^0.4.0",
     "debug": "^1.0.4",
     "ejs": "1.0.x",
     "errorhandler": "1.0.x",
     "express": "4.x.x",
     "express-session": "1.0.x",
+    "fooforms-forms": "git+ssh://git@github.com:ruairitobrien/fooforms-forms.git#master",
+    "fooforms-membership": "git+ssh://git@github.com:ruairitobrien/fooforms-membership.git#master",
     "log4js": "0.x.x",
     "method-override": "1.0.x",
     "mkdirp": "0.3.x",
@@ -50,9 +53,7 @@
     "passport-yahoo": "0.x.x",
     "static-favicon": "1.0.x",
     "underscore": "1.5.x",
-    "view-helpers": "0.1.x",
-    "fooforms-membership": "git+ssh://git@github.com:ruairitobrien/fooforms-membership.git#master",
-    "fooforms-forms": "git+ssh://git@github.com:ruairitobrien/fooforms-forms.git#master"
+    "view-helpers": "0.1.x"
   },
   "devDependencies": {
     "blanket": "*",
