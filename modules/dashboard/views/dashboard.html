@@ -76,20 +76,13 @@
 
 <div class="feed-fixed-wide"  ng-class="{percentageScreenWide : sideMenuVisible, halfScreenWide :!sideMenuVisible}">
 
-
-
-
-        <div class="alert fade in m0 br0 {{msgStatus}} "ng-show="activeMsgBox=='formViewer'">
-            <p ng-bind="msg"></p>
-        </div>
-
-
-
-
-                    <div class="container-fluid">
+ <div class="container-fluid" ng-if="posts">
 
                         <div class="row">
 <div class="col-sm-12">
+    <div class="alert fade in m0 br0 {{msgStatus}} "ng-show="activeMsgBox=='formViewer'">
+        <p ng-bind="msg"></p>
+    </div>
                         <form role="form" class="panel panel-default">
 
                                     <div class="panel-heading">
@@ -97,16 +90,16 @@
                                         <h4 class="inline-block">{{posts.activePost.name}}</h4>
                                         <div class="btn-group pull-right">
                                             <button id='deletePost' ng-click="deletePost(postObj)"
-                                                    class="btn btn-default btn-xs"><i class="fa fa-trash-o"></i> Delete
+                                                    class="btn btn-default btn-sm"><i class="fa fa-trash-o"></i> Delete
                                             </button>
                                             <button id='copyPost' ng-click="copyPost(postObj)"
-                                                    class="btn btn-default btn-xs"><i class="fa fa-copy"></i> Copy
+                                                    class="btn btn-default btn-sm"><i class="fa fa-copy"></i> Copy
                                             </button>
                                             <button id='cancelPost' ng-click="cancelPost(postObj)"
-                                                    class="btn btn-default btn-xs"><i class="fa fa-reply"></i> Cancel
+                                                    class="btn btn-default btn-sm"><i class="fa fa-reply"></i> Cancel
                                             </button>
                                             <button id='savePost' ng-click="savePost(postObj)"
-                                                    class="btn btn-default btn-xs"><i class="fa fa-save"></i> Save
+                                                    class="btn btn-success btn-sm"><i class="fa fa-save"></i> Save
                                             </button>
                                         </div>
                                     <hr class="m10">
@@ -131,7 +124,27 @@
 
                     </div>
 
+<div class="container-fluid" ng-if="posts.length==0">
+    <div class="row">
+        <div class="col-sm-12">
 
+            <div class="panel panel-success">
+                <div class="panel-heading">
+                  <h3>Hey newbie....welcome</h3>
+                </div>
+                <div class="panel-body">
+                    <p>We're so happy you decided to try FOOFORMS.</p>
+                    <h4>Getting started</h4>
+
+                    <p>Jump right in and get your first forms up and running.<br> You can build from scratch or simply grab a totally awesome ready made solution.</p>
+                    <a class="btn btn-success" href="/forms">Add Forms</a>
+                    <p>Next : Create some teams. Teams help you define who sees which forms.</p>
+                    <a class="btn btn-success" href="/team-folders">Create Teams</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
 
 
 </div>

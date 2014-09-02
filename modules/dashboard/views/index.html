@@ -39,7 +39,7 @@
 <base href="/">
 </head>
 <body ng-controller="MainController" data-ng-init="init()" class="main-application">
-<div id="wrap">
+<div id="wrap" ng-controller = "DashboardCtrl">
 <div class="navbar-wrapper" >
 <div class="navbar navbar-default navbar-fixed-top navbar-foo" role="navigation">
     <div class="container-fluid"  ng-class="{withSideMenu : sideMenuVisible, withoutSideMenu :!sideMenuVisible}">
@@ -64,14 +64,45 @@
                     <a class="navbar-brand" href="#"><span class="text-foo">FOOFORMS</span></a>
                 </li>
 
-                <li>
-                <a href="/forms" class="inline pull-right">
-                    <i class="fa fa-cog" ng-click="postView='list';"></i>Forms</a>
+                <li class="dropdown">
+                <a class="inline pull-right dropdown-toggle">
+                    <i class="fa fa-th"></i>Forms<b class="caret"></b></a>
+                    <ul class="dropdown-menu">
+                        <li ng-repeat="form in forms">
+                            <a href="{{user.displayName + '/' + form.sharing.folder + '/' + form.menuLabel}}"
+                               ng-click='updateForm(form)' >
+                                <img ng-src="{{form.icon}}" alt="{{form.name}}" class="icon icon-xs">
+                                {{form.name}}
+                            </a></li>
+                        <li class="divider"></li>
+                        <li><a href="/forms"><i class="fa fa-cogs"></i> Manage Forms</a></li>
+
+
+                    </ul>
                 </li>
 
-                <li>
-                    <a href="/team-folders" class="inline pull-right">
-                        <i class="fa fa-sitemap" ng-click="postView='list';"></i>Team Folders</a>
+                <li class="dropdown">
+                    <a class="inline pull-right dropdown-toggle">
+                        <i class="fa fa-sitemap"></i>Team Folders  <b class="caret"></b></a>
+                    <ul class="dropdown-menu">
+                        <li ng-repeat="privateFolder in privateFolders">
+                            <a href="/folder/{{privateFolder.menuLabel}}"
+                               ng-click='updateFolder(privateFolder)' >
+                                <img ng-src="{{privateFolder.icon}}" alt="{{privateFolder.name}}" class="icon icon-xs">
+                                {{privateFolder.name}}
+                            </a></li>
+                        <li class="divider"></li>
+                        <li ng-repeat="publicFolder in publicFolders">
+                            <a href="/folder/{{publicFolder.menuLabel}}"
+                               ng-click='updateFolder(publicFolder)' >
+                                <img ng-src="{{publicFolder.icon}}" alt="{{publicFolder.name}}" class="icon icon-xs">
+                                {{publicFolder.name}}
+                            </a></li>
+                        <li class="divider"></li>
+                        <li><a href="/team-folders"><i class="fa fa-cogs"></i> Manage Team Folders</a></li>
+
+
+                    </ul>
                 </li>
 
                 <li>
@@ -95,7 +126,7 @@
             </div>
             <ul class="nav navbar-nav navbar-right">
 
-                <li class="dropdown profile" ng-cloak><a href="#" class="dropdown-toggle" data-toggle="dropdown">&nbsp;
+                <li class="dropdown profile" ng-cloak><a href="#" class="dropdown-toggle">&nbsp;
                     <img class="img-circle" ng-src="{{user.photo}}"/>
 
                     {{user.displayName}}
@@ -118,7 +149,7 @@
     <!-- /.container -->
 </div><!-- /.navbar -->
 </div>
-<div id='sideMenu' class="sideMenu" ng-controller = "DashboardCtrl" ng-class="{showMenu : sideMenuVisible, hideMenu: !sideMenuVisible}">
+<div id='sideMenu' class="sideMenu"  ng-class="{showMenu : sideMenuVisible, hideMenu: !sideMenuVisible}">
 
     <div class="company">
         <img src="/assets/images/logo.png">

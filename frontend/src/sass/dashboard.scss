@@ -122,9 +122,9 @@ bottom: 22px;
 
 .scroll{
    position: absolute;
-   top: 96px;
+   top: 99px;
    bottom: 0px;
-   left: 20px;
+   left: 10px;
    right: 0;
    display: block;
    overflow: auto;
@@ -345,6 +345,14 @@ padding: 4px 0px;
 }
 .l0{
   left: 0 !important;
+}
+.hr-condensed{
+  padding: 0px;
+  margin: 4px 0px;
+}
+
+.darker{
+  background: rgba(0,0,0,.2);
 }
 .gridWrapper{
   position: absolute;

@@ -182,7 +182,33 @@ angular.module('formBuilder')
                 });
             }
         };
-    }])
+    }]).directive('uploader', [function() {
+
+        return {
+            restrict: 'E',
+            scope: {
+
+                formField: '=formField'
+
+            },
+            controller: ['$scope', function ($scope) {
+
+                $doUpload = function(){
+                    alert('pressed');
+                }
+
+            }],
+            link: function(scope, elem, attrs, ctrl) {
+
+                // link function
+                // here you should register listeners
+
+            },
+            replace: false,
+            templateUrl: '/partials/uploader.html'
+        };
+
+    }]);
 
 
 

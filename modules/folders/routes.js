@@ -9,7 +9,7 @@ var log = require(global.config.modules.LOGGING).LOG;
 
 var routes = function (app, passport) {
 
-    var x = 1;
+
     /*********************************************************************************
      *  View Handlers
      *********************************************************************************/

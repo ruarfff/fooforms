@@ -25,6 +25,7 @@
             <span class="label label-default" ng-click="postView='feed';"><i class="fa fa-square"></i></span>
             <span class="label label-default" ng-click="postView='list';"><i class="fa fa-bars"></i></span>
             <span class="label label-default" ng-click="postView='grid';"><i class="fa fa-table"></i></span>
+            <span class="label label-default" ng-click="postView='custom';"><i class="fa fa-file-o"></i></span>
             </span>
         </div>
 <div class="panel-body clearfix" ng-style="{{stGridHeight()}}">
@@ -45,7 +46,7 @@
      ng-class="{percentageScreen : sideMenuVisible, halfScreen :!sideMenuVisible}">
 
 
-        <div class="panel panel-default ml5">
+        <div class="panel panel-default">
             <div class="panel-heading">
             <button class="btn btn-primary pull-right" ng-click="newPost()">
                 {{form.btnLabel}} <i class="fa fa-plus fa-lg"></i></button>
@@ -54,37 +55,40 @@
                 <a href="formBuilder" ng-click="updateForm(form)"><i class="fa fa-edit fa-lg"></i>
                 </a></h4>
 
-            <p id='formDescription'>{{form.description}} </p> <span class="label label-info">All</span>
-
-
-                <span class="" ng-repeat="field in form.fields" ng-show="field.type=='status'">
-                    <span class="label label-default" ng-repeat="option in field.options">{{option.label}}</span>
-
-
-</span>
+            <p id='formDescription'>{{form.description}} </p>
 
                 <span class="label label-default"><i class="fa fa-search"></i></span>
                 <span class="label label-default" ng-click="postView='feed';"><i class="fa fa-square"></i></span>
                 <span class="label label-default" ng-click="postView='list';"><i class="fa fa-bars"></i></span>
                 <span class="label label-default" ng-click="postView='grid';"><i class="fa fa-table"></i></span>
-      </span>
-</div>
+                <span class="label label-default" ng-click="postView='custom';"><i class="fa fa-file-o"></i></span>
+<hr class="hr-condensed">
+                <span class="label label-info">All</span>
+
+
+                <div class="m5 p0 inline" ng-repeat="field in form.fields" ng-show="field.type=='status'">
+                    <span class="label darker m5" ng-repeat="option in field.options">
+                         {{option.label}}
+                </span> </div>
+            </div>
+
+
+
 
 
         </div>
 
 <div class="scroll">
 
-                <div ng-show="postView=='feed'" class="panel panel-default panel-feed"
+ <div ng-show="postView=='feed'" class="panel panel-default panel-feed"
                      ng-repeat="foo in posts" ng-click="viewPost($index)">
 
-                    <div class="panel-heading"><label class="label label-info pull-right mr5" ng-repeat="field in foo.fields" ng-show="field.type=='status'">{{ field.selected}}</label>
+<div class="panel-heading"><label class="label label-info pull-right mr5" ng-repeat="field in foo.fields" ng-show="field.type=='status'">{{ field.selected}}</label>
 
-                        <a class="pull-left" ng-click="viewPost($index)">
-                            <img class="media-object icon icon-feed" ng-src="{{foo.icon}}" alt="">
-
-                        </a>&nbsp;{{foo.fields[0].value}}
-                    </div>
+<a class="pull-left" ng-click="viewPost($index)">
+<img class="media-object icon icon-feed" ng-src="{{foo.icon}}" alt="">
+</a>&nbsp;{{foo.fields[0].value}}
+</div>
 
                             <div class="panel-body">
                                 {{foo.fields[0].label}}:
@@ -143,16 +147,16 @@
 
                         <div class="btn-group pull-right">
                             <button id='deletePost' ng-click="deletePost(postObj)"
-                                    class="btn btn-default btn-xs"><i class="fa fa-trash-o"></i> Delete
+                                    class="btn btn-default btn-sm"><i class="fa fa-trash-o"></i> Delete
                             </button>
                             <button id='copyPost' ng-click="copyPost(postObj)"
-                                    class="btn btn-default btn-xs"><i class="fa fa-copy"></i> Copy
+                                    class="btn btn-default btn-sm"><i class="fa fa-copy"></i> Copy
                             </button>
                             <button id='cancelPost' ng-click="cancelPost(postObj)"
-                                    class="btn btn-default btn-xs"><i class="fa fa-reply"></i> Cancel
+                                    class="btn btn-default btn-sm"><i class="fa fa-reply"></i> Cancel
                             </button>
                             <button id='savePost' ng-click="savePost(postObj)"
-                                    class="btn btn-default btn-xs"><i class="fa fa-save"></i> Save
+                                    class="btn btn-success btn-sm"><i class="fa fa-save"></i> Save
                             </button>
                         </div>
                     <hr class="m10">
@@ -175,6 +179,48 @@
 
     </div>
 
+
+
+
+</div>
+
+<div class="col-sm-12"
+     ng-show="postView=='custom'"
+        >
+
+
+    <div class="panel panel-default m0 mr15">
+        <div class="panel-heading m0">
+            <button class="btn btn-primary pull-right" ng-click="newPost()">
+                {{form.btnLabel}} <i class="fa fa-plus fa-lg"></i></button>
+            <img class="icon  pull-left" ng-src="{{form.icon}}">
+            <h4 class="inline">{{form.name}}
+                <a href="formBuilder" ng-click="updateForm(form)"><i class="fa fa-edit fa-lg"></i>
+                </a></h4>
+
+            <p>{{form.description}} </p> <span class="label label-info">All</span>
+
+
+                <span class="" ng-repeat="field in form.fields" ng-show="field.type=='status'">
+                    <span class="label label-default" ng-repeat="option in field.options">{{option.label}}</span>
+
+
+</span>
+
+            <span class="label label-default"><i class="fa fa-search"></i></span>
+            <span class="label label-default" ng-click="postView='feed';"><i class="fa fa-square"></i></span>
+            <span class="label label-default" ng-click="postView='list';"><i class="fa fa-bars"></i></span>
+            <span class="label label-default" ng-click="postView='grid';"><i class="fa fa-table"></i></span>
+            <span class="label label-default" ng-click="postView='custom';"><i class="fa fa-file-o"></i></span>
+            </span>
+        </div>
+        <div class="panel-body clearfix" ng-style="{{stGridHeight()}}">
+
+                <div compile="form.settings.customView"></div>
+
+        </div>
+
+    </div>
 
 
 

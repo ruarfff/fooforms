@@ -45,12 +45,15 @@
 }
 
 .fieldObject {
-  width: 100%;
   cursor: move;
   display: block;
-  margin: 0px 2px;
+background: rgba(4,4,4,.05);
 }
 
+.fooform .fieldObject{
+  width: 100%;
+  clear: both;
+}
 
 #formLayout, .formLayout {
   height: 1000px;

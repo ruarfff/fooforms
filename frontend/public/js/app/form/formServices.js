@@ -101,23 +101,26 @@ angular.module('form').service('Forms',
             this.getCurrentForm = function () {
                 if (_.isEmpty(this.form)) {
                     this.form = {
-                        "name": "Untitled Form",
+                        "name": "",
                         "icon": "/assets/icons/color/document.png",
                         "description": "My new form!",
-                        "menuLabel": "Untitled Form",
+                        "menuLabel": "",
                         "btnLabel": "New Post",
                         "settings": {
                             "allowComments": true,
                             "status": "draft",
-"tandcWeb" : false,
-                    "tandcDashboard": false,
-                            "displayOptions": [
+                            "tandcWeb" : false,
+                            "tandcDashboard": false,
+                            "displayOptions":
                                 {
                                     "feed": true,
+                                    "list": true,
                                     "grid": true,
-                                    "card": true
+                                    "custom": false
+
                                 }
-                            ]
+                            ,
+                            "customView": ''
                         },
                         "fields": [],
                         "version": 1,
@@ -127,6 +130,7 @@ angular.module('form').service('Forms',
                         "sharing": {"type": "Private", "folder": ""},
                         "privileges": "user",
                         "formEvents": []
+
                     };
                 }
                 return this.form;
