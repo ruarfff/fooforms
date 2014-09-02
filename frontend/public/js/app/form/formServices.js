@@ -120,7 +120,8 @@ angular.module('form').service('Forms',
 
                                 }
                             ,
-                            "customView": ''
+                            "customView": '',
+                            "customPostView":''
                         },
                         "fields": [],
                         "version": 1,
