@@ -110,18 +110,19 @@ angular.module('form').service('Forms',
                             "allowComments": true,
                             "status": "draft",
                             "tandcWeb" : false,
-                            "tandcDashboard": false,
+                            "tandcContent": '',
                             "displayOptions":
                                 {
                                     "feed": true,
                                     "list": true,
                                     "grid": true,
-                                    "custom": false
+                                    "customDashboard": false,
+                                    "customForm": false
 
                                 }
                             ,
-                            "customView": '',
-                            "customPostView":''
+                            "customDashboardHtml": '<div>Custom Dashboard View</div>',
+                            "customFormHtml":'<div>Custom Form View</div>'
                         },
                         "fields": [],
                         "version": 1,

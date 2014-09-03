@@ -12,21 +12,21 @@
                 <a href="formBuilder" ng-click="updateForm(form)"><i class="fa fa-edit fa-lg"></i>
                 </a></h4>
 
-            <p>{{form.description}} </p> <span class="label label-info">All</span>
-
-
-                <span class="" ng-repeat="field in form.fields" ng-show="field.type=='status'">
-                    <span class="label label-default" ng-repeat="option in field.options">{{option.label}}</span>
-
-
-</span>
+            <p id='formDescription'>{{form.description}} </p>
 
             <span class="label label-default"><i class="fa fa-search"></i></span>
-            <span class="label label-default" ng-click="postView='feed';"><i class="fa fa-square"></i></span>
-            <span class="label label-default" ng-click="postView='list';"><i class="fa fa-bars"></i></span>
-            <span class="label label-default" ng-click="postView='grid';"><i class="fa fa-table"></i></span>
-            <span class="label label-default" ng-click="postView='custom';"><i class="fa fa-file-o"></i></span>
-            </span>
+            <span ng-show="form.settings.displayOptions.feed" class="label label-default" ng-click="postView='feed';"><i class="fa fa-square"></i></span>
+            <span ng-show="form.settings.displayOptions.list" class="label label-default" ng-click="postView='list';"><i class="fa fa-bars"></i></span>
+            <span ng-show="form.settings.displayOptions.grid" class="label label-default" ng-click="postView='grid';"><i class="fa fa-table"></i></span>
+            <span ng-show="form.settings.displayOptions.customDashboard" class="label label-default" ng-click="postView='custom';"><i class="fa fa-file-o"></i></span>
+            <hr class="hr-condensed">
+            <span class="label label-info">All</span>
+
+
+            <div class="m5 p0 inline" ng-repeat="field in form.fields" ng-show="field.type=='status'">
+                    <span class="label darker m5" ng-repeat="option in field.options">
+                         {{option.label}}
+                </span> </div>
         </div>
 <div class="panel-body clearfix" ng-style="{{stGridHeight()}}">
     <div class="gridWrapper">
@@ -58,10 +58,10 @@
             <p id='formDescription'>{{form.description}} </p>
 
                 <span class="label label-default"><i class="fa fa-search"></i></span>
-                <span class="label label-default" ng-click="postView='feed';"><i class="fa fa-square"></i></span>
-                <span class="label label-default" ng-click="postView='list';"><i class="fa fa-bars"></i></span>
-                <span class="label label-default" ng-click="postView='grid';"><i class="fa fa-table"></i></span>
-                <span class="label label-default" ng-click="postView='custom';"><i class="fa fa-file-o"></i></span>
+                <span ng-show="form.settings.displayOptions.feed" class="label label-default" ng-click="postView='feed';"><i class="fa fa-square"></i></span>
+                <span ng-show="form.settings.displayOptions.list" class="label label-default" ng-click="postView='list';"><i class="fa fa-bars"></i></span>
+                <span ng-show="form.settings.displayOptions.grid" class="label label-default" ng-click="postView='grid';"><i class="fa fa-table"></i></span>
+                <span ng-show="form.settings.displayOptions.customDashboard" class="label label-default" ng-click="postView='custom';"><i class="fa fa-file-o"></i></span>
 <hr class="hr-condensed">
                 <span class="label label-info">All</span>
 
@@ -198,25 +198,25 @@
                 <a href="formBuilder" ng-click="updateForm(form)"><i class="fa fa-edit fa-lg"></i>
                 </a></h4>
 
-            <p>{{form.description}} </p> <span class="label label-info">All</span>
-
-
-                <span class="" ng-repeat="field in form.fields" ng-show="field.type=='status'">
-                    <span class="label label-default" ng-repeat="option in field.options">{{option.label}}</span>
-
-
-</span>
+            <p id='formDescription'>{{form.description}} </p>
 
             <span class="label label-default"><i class="fa fa-search"></i></span>
-            <span class="label label-default" ng-click="postView='feed';"><i class="fa fa-square"></i></span>
-            <span class="label label-default" ng-click="postView='list';"><i class="fa fa-bars"></i></span>
-            <span class="label label-default" ng-click="postView='grid';"><i class="fa fa-table"></i></span>
-            <span class="label label-default" ng-click="postView='custom';"><i class="fa fa-file-o"></i></span>
-            </span>
+            <span ng-show="form.settings.displayOptions.feed" class="label label-default" ng-click="postView='feed';"><i class="fa fa-square"></i></span>
+            <span ng-show="form.settings.displayOptions.list" class="label label-default" ng-click="postView='list';"><i class="fa fa-bars"></i></span>
+            <span ng-show="form.settings.displayOptions.grid" class="label label-default" ng-click="postView='grid';"><i class="fa fa-table"></i></span>
+            <span ng-show="form.settings.displayOptions.customDashboard" class="label label-default" ng-click="postView='custom';"><i class="fa fa-file-o"></i></span>
+            <hr class="hr-condensed">
+            <span class="label label-info">All</span>
+
+
+            <div class="m5 p0 inline" ng-repeat="field in form.fields" ng-show="field.type=='status'">
+                    <span class="label darker m5" ng-repeat="option in field.options">
+                         {{option.label}}
+                </span> </div>
         </div>
         <div class="panel-body clearfix" ng-style="{{stGridHeight()}}">
 
-                <div compile="form.settings.customView"></div>
+                <div compile="form.settings.customDashboardHtml"></div>
 
         </div>
 

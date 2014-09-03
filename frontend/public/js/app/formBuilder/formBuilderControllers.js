@@ -244,7 +244,7 @@ $scope.lastChanged = function(){
 // End Icon Selection -  Modal Dialog
 
 
-            //Icon Selection -  Modal Dialog
+            //List Selection -  Modal Dialog
             $scope.openListManager = function () {
 
                 var modalInstance = $modal.open({
@@ -260,6 +260,24 @@ $scope.lastChanged = function(){
 
                 modalInstance.result.then(function (list) {
                     $scope.form.fields[$scope.nowEditing].list = list;
+                });
+            };
+
+            $scope.openEditor = function (field) {
+
+                var modalInstance = $modal.open({
+                    templateUrl: '/partials/htmlEditor.html',
+                    controller: ModalEditorCtrl,
+                    size: "modal-lg",
+                    resolve: {
+                        fieldData: function () {
+                            return $scope.form.settings[field];
+                        }
+                    }
+                });
+
+                modalInstance.result.then(function (returnedContent) {
+                    $scope.form.settings[field] = returnedContent;
                 });
             };
 
@@ -293,8 +311,27 @@ $scope.lastChanged = function(){
                 $scope.form = Forms.getCurrentForm();
             };
 
-        }])
-;
+        }]);
+
+
+
+
+var ModalEditorCtrl = function ($scope, $modalInstance, fieldData) {
+    'use strict';
+
+    $scope.fieldDatax = angular.copy(fieldData);
+
+
+    $scope.ok = function (datax) {
+        $modalInstance.close(datax);
+    };
+
+    $scope.cancel = function () {
+        $modalInstance.dismiss('cancel');
+    };
+
+};
+
 
 var ModalInstanceCtrl = function ($scope, $modalInstance, icons) {
     'use strict';

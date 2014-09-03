@@ -6,9 +6,8 @@
            popover-trigger="mouseenter"></i>
     </label>
 
-    <div id="{{formField.id}}" ng-style="{'width': formField.size+'%'}"
-         text-angular
-         ng-model="formField.placeholder"
+    <div id="{{formField.id}}" ng-style="{'width': formField.size+'%', height: formField.rows}">
+         <div text-angular
          ng-model="formField.value">
-    </div>
+    </div> </div>
 </div>

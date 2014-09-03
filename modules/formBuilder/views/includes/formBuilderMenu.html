@@ -186,8 +186,8 @@
                         <label class="col-sm-4 control-label">Form Name</label>
 
                         <div class="col-sm-8">
-                            <input type='text' class="form-control" ng-model="form.name"/>
-                            <input type='text' ng-model="form.menuLabel" ng-value="{{form.name + '_label'}}"/>
+                            <input type='text' class="form-control" ng-model="form.name" placeholder="Choose a name for your form"/>
+                            <input type='text' ng-model="form.menuLabel"/>
                         </div>
                     </div>
                     <div class="form-group">
@@ -226,33 +226,34 @@
 
                             <label class="checkbox-inline"><input type="checkbox" ng-model="form.settings.displayOptions.grid">Grid</label>
 
-                            <label class="checkbox-inline"><input type="checkbox" ng-model="form.settings.displayOptions.custom">Custom</label>
-
-
                         </div>
                     </div>
-                    <div class="form-group" ng-show="form.settings.displayOptions.custom">
+                    <div class="form-group">
                         <label class="col-sm-4 control-label">Custom Dashboard</label>
                         <div class="col-sm-8">
-                            <textarea ng-model="form.settings.customView" class="form-control"></textarea>
+                            <label class="checkbox-inline"><input type="checkbox" ng-model="form.settings.displayOptions.customDashboard">&nbsp;</label>
+                            <button class="btn btn-xs btn-default pull-right" ng-click="openEditor('customDashboardHtml')" ng-show="form.settings.displayOptions.customDashboard">Open Editor</button>
                         </div>
+                    </div>
+                    <div class="form-group">
                         <label class="col-sm-4 control-label">Custom Form</label>
 
                         <div class="col-sm-8">
-                            <textarea ng-model="form.settings.customPostView" class="form-control"></textarea>
+                            <label class="checkbox-inline"><input type="checkbox" ng-model="form.settings.displayOptions.customForm">&nbsp;</label>
+                            <button class="btn btn-xs btn-default pull-right" ng-click="openEditor('customFormHtml')" ng-show="form.settings.displayOptions.customForm">Open Editor</button>
                         </div>
                     </div>
-                    <div class="panel-heading">
-                        <h4>Terms & Conditions</h4>
+
+                <div class="form-group">
+                    <label class="col-sm-4 control-label">Terms & Conditions</label>
+                    <div class="col-sm-8">
+                        <label class="checkbox-inline"><input type="checkbox" ng-model="form.settings.tandcWeb">&nbsp;</label>
+                    <button class="btn btn-xs btn-default pull-right" ng-click="openEditor('tandccontent')" ng-show="form.settings.tandcWeb">Edit T&C's</button>
+</div>
                     </div>
-                    <div class="panel-body">
+
                         <div class="form-group">
-                            <label class="checkbox-inline"><input type="checkbox" ng-model="form.settings.tandcWeb">
-                                Web &
-                                Blogs</label>
-                            <label class="checkbox-inline"><input type="checkbox"
-                                                                         ng-model="form.settings.tandcDashboard">
-                                Dashboard</label>
+
 
                             <textarea ng-model="form.settings.tandc" class="form-control"></textarea>
                         </div>
