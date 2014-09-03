@@ -110,7 +110,7 @@ angular.module('form').service('Forms',
                             "allowComments": true,
                             "status": "draft",
                             "tandcWeb" : false,
-                            "tandcContent": '',
+                            "tandcHtml": '',
                             "displayOptions":
                                 {
                                     "feed": true,

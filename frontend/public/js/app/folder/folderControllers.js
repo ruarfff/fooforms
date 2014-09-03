@@ -20,6 +20,9 @@ angular.module('folder')
             });
 
 
+
+
+
             var folder = Restangular.one('folders', $routeParams.folder);
 
             folder.get().then(
@@ -31,13 +34,7 @@ angular.module('folder')
                     $scope.forms = forms;
                 });
 
-                /**FolderService.getFolderForms($scope.folder, function (err) {
-                    if (err) {
-                        $log.error(err.toString());
-                    } else {
-                        $scope.forms = Forms.forms;
-                    }
-                });**/
+
             },
             function (err) {
                 $log.error(err.toString());
