@@ -52,6 +52,7 @@
     "passport-twitter": "1.x.x",
     "passport-yahoo": "0.x.x",
     "static-favicon": "1.0.x",
+    "swagger-node-express": "^2.1.0",
     "underscore": "1.5.x",
     "view-helpers": "0.1.x"
   },
