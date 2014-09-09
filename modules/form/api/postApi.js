@@ -58,7 +58,7 @@ var getPostById = function (req, res, id) {
                 apiUtil.handleError(res, err);
             } else {
 
-                formLib.Post.populate(post, 'comments', function(err, posts) {
+                formLib.Post.populate(post, 'comments', function(err, post) {
                     if (err) {
                         apiUtil.handleError(res, err);
                     }
