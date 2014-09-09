@@ -10,7 +10,8 @@ angular.module('formViewer')
     $scope.showPostForm=false;
         $scope.postView = 'feed';
 
-$scope.gridData=[];
+        $scope.gridData=[];
+        $scope.gridSelectedPost = [];
 
 
     PostService.getFormPosts($scope.form, function (err) {
@@ -90,6 +91,9 @@ $scope.gridData=[];
         $scope.setMessage('');
 
     };
+
+
+
         $scope.addRepeat = function(groupBox,field){
             $scope.postObj.fields[groupBox].repeaters.push(angular.copy($scope.postObj.fields[groupBox].fields));
 
@@ -107,10 +111,14 @@ $scope.gridData=[];
         }
 
         $scope.posts2Grid = function () {
+            var counter=0;
             angular.forEach($scope.posts, function (postEntry) {
                 var map = _.pick(postEntry, 'menuLabel', 'fields');
                 var entry = {};
+                entry['id']=counter;
+                counter++;
                 angular.forEach(map.fields, function (field) {
+
 
                     var reduce = _.pick(field, 'label', 'value', 'type','selected', 'options');
                     var safeLabel=reduce.label.replace(/\s+/g, "_");
@@ -145,6 +153,17 @@ $scope.gridData=[];
 
             });
         };
+
+        $scope.$watch('gridSelectedPost[0]', function (value) {
+
+
+            if(typeof (value )!= 'undefined'){
+                $scope.postObj = $scope.posts[value.id];
+
+            }
+
+        });
+
 
 
 }]);
