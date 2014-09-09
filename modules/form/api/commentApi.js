@@ -36,7 +36,6 @@ var createComment = function (req, res) {
                             res.send(comment);
                         }
                     });
-
             }
         });
     } catch (err) {

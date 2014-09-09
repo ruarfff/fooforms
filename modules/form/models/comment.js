@@ -10,7 +10,7 @@ var commentSchema = Schema({
     created: Date,
     lastModified: Date,
     post: { type: Schema.Types.ObjectId, ref: 'Post' },
-    commenter: { type: Schema.Types.ObjectId, ref: 'User' }
+    commenter: [{ type: Schema.Types.ObjectId, ref: 'User' }]
 });
 
 commentSchema.pre('save', function (next) {
