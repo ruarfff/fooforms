@@ -57,8 +57,22 @@ var getPostById = function (req, res, id) {
             if(err) {
                 apiUtil.handleError(res, err);
             } else {
-                res.status(200);
-                res.send(post);
+
+                formLib.Post.populate(post, 'comments', function(err, post) {
+                    if (err) {
+                        apiUtil.handleError(res, err);
+                    }
+                    var options = {
+                        path: 'comments.commenter',
+                        model: 'User'
+                    };
+
+                    formLib.Comment.populate(post, options, function (err, post) {
+                        res.status(200);
+                        res.send(post);
+                    });
+                });
+
             }
         });
     } catch (err) {
@@ -81,8 +95,22 @@ var getFormPosts = function (req, res, formId) {
             if(err) {
                 apiUtil.handleError(res, err);
             } else {
-                res.status(200);
-                res.send(posts);
+
+                formLib.Post.populate(posts, 'comments', function(err, posts) {
+                    if (err) {
+                        apiUtil.handleError(res, err);
+                    }
+                    var options = {
+                        path: 'comments.commenter',
+                        model: 'User'
+                    };
+
+                    formLib.Comment.populate(posts, options, function (err, posts) {
+                        res.status(200);
+                        res.send(posts);
+                    });
+                });
+
             }
         });
     } catch (err) {
@@ -105,8 +133,22 @@ var getFolderPosts = function (req, res, folderId) {
             if(err) {
                 apiUtil.handleError(res, err);
             } else {
-                res.status(200);
-                res.send(posts);
+
+                formLib.Post.populate(posts, 'comments', function(err, posts) {
+                    if (err) {
+                        apiUtil.handleError(res, err);
+                    }
+                    var options = {
+                        path: 'comments.commenter',
+                        model: 'User'
+                    };
+
+                    formLib.Comment.populate(posts, options, function (err, posts) {
+                        res.status(200);
+                        res.send(posts);
+                    });
+                });
+
             }
         });
     } catch (err) {
@@ -123,8 +165,22 @@ var getUserPosts = function (req, res) {
             if(err) {
                 apiUtil.handleError(res, err);
             } else {
-                res.status(200);
-                res.send(posts);
+
+                formLib.Post.populate(posts, 'comments', function(err, posts) {
+                    if (err) {
+                        apiUtil.handleError(res, err);
+                    }
+                    var options = {
+                        path: 'comments.commenter',
+                        model: 'User'
+                    };
+
+                    formLib.Comment.populate(posts, options, function (err, posts) {
+                        res.status(200);
+                        res.send(posts);
+                    });
+                });
+
             }
         });
     } catch (err) {

@@ -31,7 +31,6 @@ if (env === 'development' || env === 'staging') {
 
 
 module.exports = function (app, passport) {
-
     app.set('showStackError', true);
     //Should be placed before express.static
     app.use(compress);

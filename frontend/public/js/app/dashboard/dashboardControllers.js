@@ -27,7 +27,29 @@ angular.module('dashboard').controller('DashboardCtrl', ['$scope', '$location', 
         $scope.showPostForm = true;
         //$scope.setMessage('');
 
-       // $location.path($scope.user.displayName + '/MyPrivateFolder/' + form.name);
+        // $location.path($scope.user.displayName + '/MyPrivateFolder/' + form.name);
+    };
+
+    $scope.postComment = function (comment) {
+        try {
+            if (comment.content) {
+                comment.post = $scope.posts.activePost._id;
+                $http.post(
+                    '/api/comment',
+                    comment
+                ).success(function (data) {
+                        $scope.posts.activePost.comments.push(data);
+                        console.log(data);
+                    }).
+                    error(function (err) {
+                        console.log(err);
+                    });
+            } else {
+                alert('no content');
+            }
+        } catch (err) {
+            console.log(err);
+        }
     };
 
     FolderService.getFolders(function (err) {

@@ -126,17 +126,16 @@
 
                  <div class="panel-heading">
                      <span ng-show="posts.activePost.comments.length>0">{{ posts.activePost.comments.length }} comments</span>
-                     <span>No comments - be the first</span>
+                     <span ng-show="posts.activePost.comments.length<1">No comments - be the first</span>
 
-                     <textarea class="form-control b0"></textarea>
-                     <button class="btn btn-info btn-xs pt5">Post comment</button>
+                     <textarea class="form-control b0" ng-model="comment.content"></textarea>
+                     <button class="btn btn-info btn-xs pt5" ng-click="postComment(comment)">Post comment</button>
 
                  </div>
                  <div class="panel-body">
 
-
                      <div class="comment" ng-repeat="comment in posts.activePost.comments">
-                         {{comment.postedBy}} {{comment.postDate}}
+                         {{comment.commenter}} {{comment.created}}
                          {{comment.content}}
                      </div>
                  </div>

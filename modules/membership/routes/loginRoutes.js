@@ -2,7 +2,9 @@
 
 var express = require('express');
 var router = express.Router();
-var signupController = require('../controllers/signupController');
+
+var passport = require('passport');
+//var loginController = require('../controllers/loginController');
 
 router.route('/')
     .all(function (req, res, next) {
@@ -11,8 +13,8 @@ router.route('/')
     .put(function (req, res, next) {
         next(new Error('not implemented'));
     })
-    .post(function (req, res, next) {
-        signupController.signup(req, res, next);
+    .post(passport.authenticate('basic', { session: false }), function (req, res) {
+        res.send(200);
     })
     .delete(function (req, res, next) {
         next(new Error('not implemented'));

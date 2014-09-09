@@ -37,14 +37,6 @@ describe('Signup Routes', function () {
         mockgoose.reset();
     });
 
-    describe('GET /signup', function () {
-        it('responds with 200', function (done) {
-            request(app)
-                .get('/signup')
-                .expect(200, done);
-        });
-    });
-
     describe('POST /signup', function () {
         it('responds with 200 and json', function (done) {
             request(app)

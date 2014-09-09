@@ -6,7 +6,13 @@ var viewDir = path.join(global.config.modules.FORM, 'views');
 var authenticator = require(global.config.modules.AUTHENTICATION);
 var formApi = require(path.join(global.config.modules.FORM, 'api/formApi'));
 var postApi = require(path.join(global.config.modules.FORM, 'api/postApi'));
+var commentApi = require(path.join(global.config.modules.FORM, 'api/commentApi'));
 var log = require(global.config.modules.LOGGING).LOG;
+
+
+
+var express = require('express');
+var router = express.Router();
 
 
 var routes = function (app, passport) {
@@ -69,6 +75,9 @@ var routes = function (app, passport) {
         postApi.delete(req, res);
     });
 
+    app.post('/api/comment', passport.authenticate('basic', { session: false }), function (req, res) {
+        commentApi.create(req, res);
+    });
 };
 
 module.exports = routes;
