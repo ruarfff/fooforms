@@ -25,6 +25,9 @@ formOwnerNotFound.http_code = 404;
 var userFoldersNotFound = new Error('Could  not find user folders');
 userFoldersNotFound.http_code = 404;
 
+var commentNotCreatedError = new Error('Could not create comment');
+commentNotCreatedError.http_code = 400;
+
 module.exports = {
     ownerNotFoundError: ownerNotFoundError,
     folderNotFoundError: folderNotFoundError,

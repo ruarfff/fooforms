@@ -3,6 +3,7 @@
 
 var mongoose = require('mongoose');
 var Schema = mongoose.Schema;
+var Post = require('./post');
 
 var commentSchema = Schema({
     content: String,
