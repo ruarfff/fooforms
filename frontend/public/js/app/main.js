@@ -116,6 +116,7 @@ fooformsApp
         'use strict';
         AuthService.checkStoredCredentials(function (err) {
             if(err) {
+                console.log(err);
                 window.location = '/login';
             }
         });
