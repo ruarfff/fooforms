@@ -135,8 +135,11 @@
                  <div class="panel-body">
 
                      <div class="comment" ng-repeat="comment in posts.activePost.comments">
-                         {{comment.commenter}} {{comment.created}}
-                         {{comment.content}}
+                         <blockquote>
+                             <p>{{comment.content}}</p>
+                             <footer><cite title="{{comment.commenter[0].displayName}}">{{comment.commenter[0].displayName}}</cite> on {{comment.created | date:'medium'}}</footer>
+                         </blockquote>
+
                      </div>
                  </div>
              </form>
