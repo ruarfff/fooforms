@@ -321,7 +321,12 @@ padding: 4px 0px;
 .br0 {
   border-radius: 0px !important;
 }
-
+.br10 {
+  border-radius: 10px !important;
+}
+.br15 {
+  border-radius: 15px !important;
+}
 .b0 {
   border: 0px;
 }
@@ -357,7 +362,7 @@ padding: 4px 0px;
 .gridWrapper{
   position: absolute;
   display: block;
- top: 80px;
+ top: 108px;
   bottom: 30px;
   overflow: scroll;
   background: #fff;
@@ -664,6 +669,8 @@ border-bottom: 1px solid #fff;
   transition:0.3s linear all;
 }
 
+
+
 video {
   width: 100%;
   padding: 5px;
@@ -695,6 +702,71 @@ video {
   animation-delay: 0.1s;
 }
 
+.panel-slider{
+  position: fixed;
+  right: 100%;
+  left:100% ;
+  top: 120px;
+  bottom: -20px;
+  width: 50%;
+  overflow: scroll;
+  z-index: 200;
+  background: #FAFAFA;
+
+  -moz-background-clip: padding;
+  -webkit-background-clip: padding-box;
+  background-clip: padding-box;
+  font-size: .9em;
+  -moz-box-shadow: -5px 10px 21px rgba(39,50,57,.29);
+  -webkit-box-shadow: -5px 10px 21px rgba(39,50,57,.29);
+  box-shadow: -5px 10px 21px rgba(39,50,57,.29);
+
+  -webkit-transition:0.5s linear all;
+  -moz-transition:0.5s linear all;
+  -o-transition:0.5s linear all;
+  transition:0.5s linear all;
+}
+
+.panel-slider .panel-heading{
+ background: #f5f5f5 !important;
+}
+
+.panel-slider .panel-body{
+  position: absolute;
+  top: 60px;
+  bottom: 60px;
+  overflow: scroll;
+}
+.panel-slider .panel-footer{
+  position: absolute;
+  height: 60px;
+  padding: 10px;
+  bottom: 0px;
+  display: block;
+  width: 100%;
+
+
+}
+
+.slidePanelIn{
+
+  -webkit-transition:0.2s linear all;
+  -moz-transition:0.2s linear all;
+  -o-transition:0.2s linear all;
+  transition:0.2s linear all;
+  right: 0 !important;
+  left: 50%;
+}
+
+.slidePanelOut{
+
+  -webkit-transition:0.2s linear all;
+  -moz-transition:0.2s linear all;
+  -o-transition:0.2s linear all;
+  transition:0.2s linear all;
+  right: 100% !important;
+
+}
 .appear {
   opacity: .5;
   -webkit-animation: appear 0.3s forwards;
