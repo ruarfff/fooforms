@@ -166,7 +166,7 @@ angular.module('formViewer')
 
         $scope.filterStatus = function(option) {
             $scope.posts.forEach(function (post) {
-                if(post.)
+                // TODO: filtering of some sort
                 post.hide = false;
             });
         };

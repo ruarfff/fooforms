@@ -19,15 +19,18 @@ angular.module('dashboard').controller('DashboardCtrl', ['$scope', '$location', 
     };
 
     $scope.viewPost = function (post) {
-        var form = Forms.findById(post.form);
-        $scope.posts.activePost = post;
-        //Forms.setCurrentForm(form);
+        if (post) {
+            var form = Forms.findById(post.form);
+            $scope.posts.activePost = post;
+            //Forms.setCurrentForm(form);
 
-        //$scope.postObj = $scope.posts[postIndex];
-        $scope.showPostForm = true;
-        //$scope.setMessage('');
+            //$scope.postObj = $scope.posts[postIndex];
+            $scope.showPostForm = true;
+            //$scope.setMessage('');
 
-        // $location.path($scope.user.displayName + '/MyPrivateFolder/' + form.name);
+            // $location.path($scope.user.displayName + '/MyPrivateFolder/' + form.name);
+        }
+
     };
 
     $scope.postComment = function (comment) {
