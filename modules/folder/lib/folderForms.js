@@ -4,7 +4,7 @@
 var Form = require(global.config.modules.FORM).Form;
 var User = require(global.config.modules.USER).User;
 var Folder = require('../models/folder').Folder;
-var log = require(global.config.modules.LOGGING).LOG;
+var log = require('fooforms-logging').LOG;
 var folderMembers = require('./folderMembers');
 var folderErrors = require('./folderErrors');
 

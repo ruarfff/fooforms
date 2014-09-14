@@ -1,7 +1,7 @@
 /*jslint node: true */
 
 var Folder = require('../models/folder').Folder;
-var log = require(global.config.modules.LOGGING).LOG;
+var log = require('fooforms-logging').LOG;
 
 exports.createFolder = function (folderJSON, next) {
     "use strict";

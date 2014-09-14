@@ -1,7 +1,7 @@
 /*jslint node: true */
 "use strict";
 
-var log = require(global.config.modules.LOGGING).LOG;
+var log = require('fooforms-logging').LOG;
 var formErrors = require('./formErrors');
 var async = require("async");
 var _ = require('underscore');

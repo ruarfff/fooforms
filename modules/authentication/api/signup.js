@@ -3,7 +3,7 @@
 
 var userLib = require(global.config.modules.USER);
 var authLib = require(global.config.modules.AUTHENTICATION);
-var log = require(global.config.modules.LOGGING).LOG;
+var log = require('fooforms-logging').LOG;
 var _ = require('underscore');
 
 exports.signup = function (req, res) {

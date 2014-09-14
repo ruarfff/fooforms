@@ -1,7 +1,7 @@
 /*jslint node: true */
 'use strict';
 var folderLib = require(global.config.modules.FOLDER);
-var log = require(global.config.modules.LOGGING).LOG;
+var log = require('fooforms-logging').LOG;
 var apiUtil = require(global.config.modules.APIUTIL);
 
 

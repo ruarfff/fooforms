@@ -17,9 +17,9 @@ var path = require('path');
 var fs = require('fs');
 
 var database = require('./database/databaseGateway')();
-var log = require(global.config.modules.LOGGING).LOG;
+var log = require('fooforms-logging').LOG;
 
-process.on('uncaughtException', function(err) {
+process.on('uncaughtException', function (err) {
     console.error('uncaughtException:', err.message);
     console.error(err.stack);
     process.exit(1);
@@ -149,8 +149,9 @@ var FooFormsServerApp = function () {
      */
     self.initialize = function () {
         var mkdirp = require('mkdirp');
-        mkdirp(path.join(global.config.root, 'logs'), function(err) {
-            if(err) {
+        mkdirp(path.join(global.config.root, 'logs'), function (err) {
+            if (err) {
+                // Console log here since the log util will fail on this error
                 console.log(err.toString());
                 return;
             }
@@ -163,14 +164,21 @@ var FooFormsServerApp = function () {
 
             log.info(__filename, ' - ', 'Running environment: ' + env);
             log.info(__filename, ' - ', 'Initializing database connection...');
-            database.openConnection();
+            database.openConnection(
+                // OK
+                function () {
+                    log.info(__filename, ' - ', 'Database connected to ' + database.url);
+                },
+                //Error
+                function () {
+                    log.error(__filename, ' - ', 'Database failed to connected to ' + database.url);
+                });
 
             self.start();
         });
     };
 
 };
-
 
 
 exports.serverApp = module.exports = FooFormsServerApp;

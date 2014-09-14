@@ -3,7 +3,7 @@
 var Comment = require('../models/comment').Comment;
 var Post = require('../models/post').Post;
 var formErrors = require('./formErrors');
-var log = require(global.config.modules.LOGGING).LOG;
+var log = require('fooforms-logging').LOG;
 
 exports.createComment = function (commentJSON, next) {
     "use strict";

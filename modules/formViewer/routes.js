@@ -6,7 +6,7 @@ var path = require('path');
 var viewDir = path.join(global.config.modules.FORMVIEWER, 'views');
 var authenticator = require(global.config.modules.AUTHENTICATION);
 var apiUtil = require(global.config.modules.APIUTIL);
-var log = require(global.config.modules.LOGGING).LOG;
+var log = require('fooforms-logging').LOG;
 
 
 var routes = function (app, passport) {

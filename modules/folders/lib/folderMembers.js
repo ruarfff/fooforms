@@ -3,7 +3,7 @@
 
 var Folder = require('../models/folder').Folder;
 var User = require(global.config.modules.USER).User;
-var log = require(global.config.modules.LOGGING).LOG;
+var log = require('fooforms-logging').LOG;
 
 /**
  * Checks a folder to see if the user id corresponds to any folder membership

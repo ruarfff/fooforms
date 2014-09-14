@@ -1,8 +1,8 @@
 /*jslint node: true */
 'use strict';
 var userLib = require(global.config.modules.USER);
-var log = require(global.config.modules.LOGGING).LOG;
 var apiUtil = require(global.config.modules.APIUTIL);
+var log = require('fooforms-logging').LOG;
 
 exports.checkUserName = function (req, res) {
     var displayName = req.body.displayName;

@@ -3,7 +3,7 @@
 var Post = require('../models/post').Post;
 var Form = require('../models/form').Form;
 var formErrors = require('./formErrors');
-var log = require(global.config.modules.LOGGING).LOG;
+var log = require('fooforms-logging').LOG;
 
 exports.deletePostById = function (id, next) {
     "use strict";

@@ -4,7 +4,7 @@
 var userLib = require( global.config.modules.USER );
 var apiUtil = require(global.config.modules.APIUTIL);
 var userErrors = require('../lib/userErrors');
-var log = require( global.config.modules.LOGGING ).LOG;
+var log = require('fooforms-logging').LOG;
 
 
 /**

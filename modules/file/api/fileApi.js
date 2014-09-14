@@ -2,7 +2,7 @@
 'use strict';
 var fileLib = require(global.config.modules.FILE);
 var apiUtil = require(global.config.root + '/lib/util/apiUtil');
-var log = require(global.config.modules.LOGGING).LOG;
+var log = require('fooforms-logging').LOG;
 
 
 /**

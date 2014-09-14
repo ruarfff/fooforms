@@ -29,6 +29,7 @@ describe('Signup Routes', function () {
     var password = 'pass';
     var confirmPass = 'pass';
     var wrongConfirmPass = 'wrong';
+    var organisationName = 'fooforms';
 
 
     beforeEach(function () {
@@ -42,7 +43,7 @@ describe('Signup Routes', function () {
             request(app)
                 .post('/signup')
                 .send({ email: email, displayName: displayName,
-                    password: password, confirmPass: confirmPass })
+                    password: password, confirmPass: confirmPass, organisationName: organisationName })
                 .set('Accept', 'application/json')
                 .expect('Content-Type', /json/)
                 .expect(200, done);
@@ -51,7 +52,7 @@ describe('Signup Routes', function () {
             request(app)
                 .post('/signup')
                 .send({ email: '', displayName: displayName,
-                    password: password, confirmPass: confirmPass })
+                    password: password, confirmPass: confirmPass, organisationName: organisationName })
                 .set('Accept', 'application/json')
                 .expect('Content-Type', /json/)
                 .expect(400, done);
@@ -60,7 +61,7 @@ describe('Signup Routes', function () {
             request(app)
                 .post('/signup')
                 .send({ email: email, displayName: '',
-                    password: password, confirmPass: confirmPass })
+                    password: password, confirmPass: confirmPass, organisationName: organisationName })
                 .set('Accept', 'application/json')
                 .expect('Content-Type', /json/)
                 .expect(400, done);
@@ -77,7 +78,16 @@ describe('Signup Routes', function () {
             request(app)
                 .post('/signup')
                 .send({ email: email, displayName: displayName,
-                    password: password, confirmPass: wrongConfirmPass })
+                    password: password, confirmPass: wrongConfirmPass, organisationName: organisationName })
+                .set('Accept', 'application/json')
+                .expect('Content-Type', /json/)
+                .expect(400, done);
+        });
+        it('responds with an error when no organisation name provided', function (done) {
+            request(app)
+                .post('/signup')
+                .send({ email: email, displayName: displayName,
+                    password: password, confirmPass: confirmPass })
                 .set('Accept', 'application/json')
                 .expect('Content-Type', /json/)
                 .expect(400, done);

@@ -2,7 +2,7 @@
 'use strict';
 var formLib = require(global.config.modules.FORM);
 var apiUtil = require(global.config.modules.APIUTIL);
-var log = require(global.config.modules.LOGGING).LOG;
+var log = require('fooforms-logging').LOG;
 
 
 /**

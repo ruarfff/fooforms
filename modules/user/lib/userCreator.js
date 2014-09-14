@@ -1,7 +1,7 @@
 /*jslint node: true*/
 "use strict";
 
-var log = require( global.config.modules.LOGGING ).LOG;
+var log = require('fooforms-logging').LOG;
 var User = require('../models/user').User;
 var userErrors = require('./userErrors');
 
