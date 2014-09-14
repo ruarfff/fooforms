@@ -1,7 +1,7 @@
 /*jslint node: true */
 'use strict';
 var formLib = require(global.config.modules.FORM);
-var apiUtil = require(global.config.modules.APIUTIL);
+var errorResponseHandler = require('fooforms-rest').errorResponseHandler;
 var log = require('fooforms-logging').LOG;
 
 
@@ -22,7 +22,7 @@ var createComment = function (req, res) {
 
         formLib.createComment(commentDetails, function (err, comment) {
             if(err) {
-                apiUtil.handleError(res, err);
+                errorResponseHandler.handleError(res, err);
             } else {
 
                 formLib.Comment
@@ -30,7 +30,7 @@ var createComment = function (req, res) {
                     .populate('commenter')
                     .exec(function (err, comment) {
                         if(err) {
-                            apiUtil.handleError(res, err);
+                            errorResponseHandler.handleError(res, err);
                         } else {
                             res.status(200);
                             res.send(comment);
@@ -39,7 +39,7 @@ var createComment = function (req, res) {
             }
         });
     } catch (err) {
-        apiUtil.handleError(res, err);
+        errorResponseHandler.handleError(res, err);
     }
 };
 

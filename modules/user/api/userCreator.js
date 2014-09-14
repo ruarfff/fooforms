@@ -3,7 +3,7 @@
 
 var authentication = require( global.config.modules.AUTHENTICATION );
 var userLib = require( global.config.modules.USER );
-var apiUtil = require(global.config.modules.APIUTIL);
+var errorResponseHandler = require('fooforms-rest').errorResponseHandler;
 var log = require('fooforms-logging').LOG;
 
 
@@ -25,7 +25,7 @@ exports.create = function ( req, res ) {
             }
         } );
     } catch ( err ) {
-        apiUtil.handleError(res, err);
+        errorResponseHandler.handleError(res, err);
     }
 };
 

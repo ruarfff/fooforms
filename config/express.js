@@ -4,15 +4,14 @@
 var engine = require('ejs');
 var flash = require('connect-flash');
 var helpers = require('view-helpers');
-var logger = require('fooforms-logging').expressLogger;
-
-
 var express = require('express');
 var bodyParser = require('body-parser');
 var cookieParser = require('cookie-parser');
 var favicon = require('static-favicon');
 var session = require('express-session');
 var methodOverride = require('method-override')();
+var logger = require('fooforms-logging').expressLogger;
+
 var errorHandler;
 var compress = require('compression')({
     filter: function (req, res) {

@@ -2,7 +2,7 @@
 'use strict';
 var folderLib = require(global.config.modules.FOLDER);
 var log = require('fooforms-logging').LOG;
-var apiUtil = require(global.config.modules.APIUTIL);
+var errorResponseHandler = require('fooforms-rest').errorResponseHandler;
 
 
 /**
@@ -28,14 +28,14 @@ var createFolder = function (req, res) {
                     err.data = 'A folder with that label already exists.';
                     err.http_code = 409;
                 }
-                apiUtil.handleError(res, err);
+                errorResponseHandler.handleError(res, err);
             } else {
                 res.status(200);
                 res.send(folder);
             }
         });
     } catch (err) {
-        apiUtil.handleError(res, err, __filename);
+        errorResponseHandler.handleError(res, err, __filename);
     }
 };
 
@@ -50,14 +50,16 @@ var getFolderById = function (req, res, id) {
     try {
         folderLib.getFolderById(id, function (err, folder) {
             if (err || !folder) {
-                apiUtil.handleError(res, err, 404);
+                if(!err){err = new Error('folder not found');}
+                err.http_code = 404;
+                errorResponseHandler.handleError(res, err, __filename);
             } else {
                 res.status(200);
                 res.send(folder);
             }
         });
     } catch (err) {
-        apiUtil.handleError(res, err);
+        errorResponseHandler.handleError(res, err, __filename);
     }
 };
 
@@ -72,14 +74,16 @@ var getFolderByName = function (req, res, name) {
     try {
         folderLib.getFolderByName(name, function (err, folder) {
             if (err || !folder) {
-                apiUtil.handleError(res, err, 404);
+                if(!err){err = new Error('folder not found');}
+                err.http_code = 404;
+                errorResponseHandler.handleError(res, err, __filename);
             } else {
                 res.status(200);
                 res.send(folder);
             }
         });
     } catch (err) {
-        apiUtil.handleError(res, err);
+        errorResponseHandler.handleError(res, err, __filename);
     }
 };
 
@@ -94,14 +98,16 @@ var getUserFolders = function (req, res) {
     try {
         folderLib.getUserFolders(req.user.id, function (err, folders) {
             if (err || !folders) {
-                apiUtil.handleError(res, err, 404);
+                if(!err){err = new Error('folders not found')}
+                err.http_code = 404;
+                errorResponseHandler.handleError(res, err);
             } else {
                 res.status(200);
                 res.send(folders);
             }
         });
     } catch (err) {
-        apiUtil.handleError(res, err);
+        errorResponseHandler.handleError(res, err, __filename);
     }
 };
 
@@ -115,14 +121,16 @@ var updateFolder = function (req, res) {
     try {
         folderLib.updateFolder(req.body, function (err, folder) {
             if (err || !folder) {
-                apiUtil.handleError(res, err, 409);
+                if(!err){err = new Error('could not update folder')}
+                err.http_code = 409;
+                errorResponseHandler.handleError(res, err, __filename);
             } else {
                 res.status(200);
                 res.send(folder);
             }
         });
     } catch (err) {
-        apiUtil.handleError(res, err);
+        errorResponseHandler.handleError(res, err, __filename);
     }
 };
 
@@ -137,14 +145,14 @@ var deleteFolder = function (req, res) {
         var id = req.body._id;
         folderLib.deleteFolderById(id, function (err, folder) {
             if (err) {
-                apiUtil.handleError(res, err, 404);
+                errorResponseHandler.handleError(res, err, __filename);
             } else {
                 res.send(200);
             }
         });
 
     } catch (err) {
-        apiUtil.handleError(res, err);
+        errorResponseHandler.handleError(res, err, __filename);
     }
 };
 
@@ -161,18 +169,21 @@ var addFormToFolder = function (folderId, formId, req, res) {
     try {
         folderLib.addFormToFolder(folderId, formId, function (err, folder) {
             if (err || !folder) {
-                var errorCode = 409;
-                if(!folder) {
-                    errorCode = 404;
+                if(!err) {
+                    err = new Error('could not add form to folder');
                 }
-                apiUtil.handleError(res, err, errorCode);
+                err.http_code = 409;
+                if(!folder) {
+                    err.http_code = 404;
+                }
+                errorResponseHandler.handleError(res, err, __filename);
             } else {
                 res.status(200);
                 res.send(folder);
             }
         });
     } catch (err) {
-        apiUtil.handleError(res, err);
+        errorResponseHandler.handleError(res, err, __filename);
     }
 };
 
@@ -187,18 +198,21 @@ var removeFormFromFolder = function (folderId, formId, req, res) {
     try {
         folderLib.removeFormFromFolder(folderId, formId, function (err, folder) {
             if (err || !folder) {
-                var errorCode = 409;
-                if(!folder) {
-                    errorCode = 404;
+                if(!err) {
+                    err = new Error('could not remove form from folder');
                 }
-                apiUtil.handleError(res, err, errorCode);
+                err.http_code = 409;
+                if(!folder) {
+                    err.http_code = 404;
+                }
+                errorResponseHandler.handleError(res, err, __filename);
             } else {
                 res.status(200);
                 res.send(folder);
             }
         });
     } catch (err) {
-        apiUtil.handleError(res, err);
+        errorResponseHandler.handleError(res, err, __filename);
     }
 };
 
@@ -214,14 +228,21 @@ var addMember = function(folderId, userId, req, res) {
     try {
         folderLib.addFolderMember(folderId, userId, function (err, folder) {
             if (err || !folder) {
-                apiUtil.handleError(res, err, 409);
+                if(!err) {
+                    err = new Error('could not add memebr to folder');
+                }
+                err.http_code = 409;
+                if(!folder) {
+                    err.http_code = 404;
+                }
+                errorResponseHandler.handleError(res, err, __filename);
             } else {
                 res.status(200);
                 res.send(folder);
             }
         });
     } catch (err) {
-        apiUtil.handleError(res, err);
+        errorResponseHandler.handleError(res, err, __filename);
     }
 };
 
@@ -237,14 +258,21 @@ var addMemberWithWritePermissions = function (folderId, userId, req, res) {
     try {
         folderLib.addFolderMemberWithWritePermissions(folderId, userId, function (err, folder) {
             if (err || !folder) {
-                apiUtil.handleError(res, err, 409);
+                if(!err) {
+                    err = new Error('could not add member with write permissions to folder');
+                }
+                err.http_code = 409;
+                if(!folder) {
+                    err.http_code = 404;
+                }
+                errorResponseHandler.handleError(res, err, __filename);
             } else {
                 res.status(200);
                 res.send(folder);
             }
         });
     } catch (err) {
-        apiUtil.handleError(res, err);
+        errorResponseHandler.handleError(res, err, __filename);
     }
 };
 
@@ -260,14 +288,21 @@ var removeMember = function (folderId, userId, req, res) {
     try {
         folderLib.removeFolderMember(folderId, userId, function (err, folder) {
             if (err || !folder) {
-                apiUtil.handleError(res, err, 409);
+                if(!err) {
+                    err = new Error('could not remove member from folder');
+                }
+                err.http_code = 409;
+                if(!folder) {
+                    err.http_code = 404;
+                }
+                errorResponseHandler.handleError(res, err, __filename);
             } else {
                 res.status(200);
                 res.send(folder);
             }
         });
     } catch (err) {
-        apiUtil.handleError(res, err);
+        errorResponseHandler.handleError(res, err, __filename);
     }
 };
 
@@ -283,14 +318,21 @@ var removeMemberWritePermissions = function (folderId, userId, req, res) {
     try {
         folderLib.removeFolderMemberWritePermissions(folderId, userId, function (err, folder) {
             if (err || !folder) {
-                apiUtil.handleError(res, err, 409);
+                if(!err) {
+                    err = new Error('could not remove memebrs write permissions from folder');
+                }
+                err.http_code = 409;
+                if(!folder) {
+                    err.http_code = 404;
+                }
+                errorResponseHandler.handleError(res, err, __filename);
             } else {
                 res.status(200);
                 res.send(folder);
             }
         });
     } catch (err) {
-        apiUtil.handleError(res, err, __filename);
+        errorResponseHandler.handleError(res, err, __filename);
     }
 };
 
@@ -304,14 +346,16 @@ var getFolderForms = function (req, res, id) {
     try {
         folderLib.getFolderForms(id, function (err, forms) {
             if (err || !forms) {
-                apiUtil.handleError(res, err, 409);
+                if(!err){err = new Error('folders not found')}
+                err.http_code = 404;
+                errorResponseHandler.handleError(res, err);
             } else {
                 res.status(200);
                 res.send(forms);
             }
         });
     } catch (err) {
-        apiUtil.handleError(res, err, __filename);
+        errorResponseHandler.handleError(res, err, __filename);
     }
 };
 

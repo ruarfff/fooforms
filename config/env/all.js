@@ -5,7 +5,6 @@ var path = require('path');
 
 var rootPath = path.normalize(__dirname + '/../..');
 var modulesPath = path.join(rootPath, 'modules');
-var utilDir = path.join(rootPath, 'lib/util');
 
 /* Convenience paths to modules and other components */
 var adminDir = path.join(modulesPath, 'admin');
@@ -20,7 +19,6 @@ var formViewerDir = path.join(modulesPath, 'formViewer');
 var calendarDir = path.join(modulesPath, 'calendar');
 var fileDir = path.join(modulesPath, 'file');
 var siteDir = path.join(modulesPath, 'site');
-var apiUtilDir = path.join(utilDir, 'apiUtil');
 
 /**
  * Enumerator to allow easy access to absolute module root paths.
@@ -37,8 +35,7 @@ var modules = {
     "FORMVIEWER": formViewerDir,
     "CALENDAR": calendarDir,
     "FILE": fileDir,
-    "SITE": siteDir,
-    "APIUTIL": apiUtilDir
+    "SITE": siteDir
 };
 
 module.exports = {

@@ -1,7 +1,7 @@
 /*jslint node: true */
 'use strict';
 var userLib = require(global.config.modules.USER);
-var apiUtil = require(global.config.modules.APIUTIL);
+var stringUtil = require('fooforms-rest').stringUtil;
 var log = require('fooforms-logging').LOG;
 
 exports.checkUserName = function (req, res) {
@@ -43,7 +43,7 @@ exports.searchByDisplayName = function (req, res) {
     try {
         var displayName = req.query.displayName;
         if(displayName) {
-            userLib.searchByDisplayName(apiUtil.escapeRegExpChars(displayName), function (err, users) {
+            userLib.searchByDisplayName(stringUtil.escapeRegExpChars(displayName), function (err, users) {
                 if (err || !users || users.length < 1) {
                     res.json(404, {
                         error: 'user not found'
