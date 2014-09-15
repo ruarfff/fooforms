@@ -71,7 +71,7 @@
             <button id='copyPost' ng-click="copyPost(postObj)"
                     class="btn btn-default btn-sm"><i class="fa fa-copy"></i> Copy
             </button>
-            <button id='cancelPost' ng-click="cancelPost(postObj)"
+            <button id='cancelPost' ng-click="gridSelectedPost=[]"
                     class="btn btn-default btn-sm"><i class="fa fa-reply"></i> Cancel
             </button>
             <button id='savePost' ng-click="savePost(postObj)"
@@ -124,7 +124,7 @@
             <span ng-show="form.settings.displayOptions.customDashboard || true" class="label label-default"
                   ng-click="postView='custom';"><i class="fa fa-file-o"></i></span>
             <hr class="hr-condensed">
-            <<span class="label label-info" ng-click="filterStatusOff()">All</span>
+            <span class="label label-info" ng-click="filterStatusOff()">All</span>
 
 
             <div class="m5 p0 inline" ng-repeat="field in form.fields" ng-show="field.type=='status'">
@@ -136,10 +136,10 @@
 
     </div>
 
-    <div class="scroll">
+    <div class="scroll" ng-hide="foo.hide">
 
         <div ng-show="postView=='feed'" class="panel panel-default panel-feed ng-hide"
-             ng-repeat="foo in posts" ng-click="viewPost($index)" ng-hide="foo.hide">
+             ng-repeat="foo in posts" ng-click="viewPost($index)">
 
             <div class="panel-heading"><label class="label label-info pull-right mr5" ng-repeat="field in foo.fields"
                                               ng-show="field.type=='status'">{{ field.selected}}</label>
@@ -163,10 +163,10 @@
 
 
         <table ng-show="postView=='list'" class="table feedTable m0 p0 ng-hide" ng-repeat="foo in posts"
-               ng-click="viewPost($index)" ng-hide="foo.hide">
+               ng-click="viewPost($index)">
             <tr
                     ng-class-odd="'feedOdd'" ng-class-even="'feedEven'">
-                <td>
+                <td>{{postView}}
                     <img class="media-object icon icon-feed pull-left" ng-src="{{foo.icon}}" alt="">
                     <span class="pull-right text-muted">{{foo.lastModified | date : 'HH:mm'}} </span>
 
@@ -190,7 +190,7 @@
       halfScreenWide :!sideMenuVisible}">
 
 
-    <div class="alert fade in br0 {{msgStatus}} " ng-show="activeMsgBox=='formViewer'">
+    <div class="alert fade-in br0 m0 {{msgStatus}} " ng-show="activeMsgBox=='formViewer'">
         <p ng-bind="msg"></p>
     </div>
 

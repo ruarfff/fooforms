@@ -111,6 +111,7 @@ angular.module('formViewer')
         }
 
         $scope.posts2Grid = function () {
+            $scope.gridData=[];
             var counter=0;
             angular.forEach($scope.posts, function (postEntry) {
                 var map = _.pick(postEntry, 'menuLabel', 'fields');
