@@ -24,11 +24,11 @@
             <span ng-show="form.settings.displayOptions.customDashboard || true" class="label label-default"
                   ng-click="postView='custom';"><i class="fa fa-file-o"></i></span>
             <hr class="hr-condensed">
-            <span class="label label-info">All</span>
+            <span class="label label-info" ng-click="filterStatusOff()">All</span>
 
 
             <div class="m5 p0 inline" ng-repeat="field in form.fields" ng-show="field.type=='status'">
-                    <span class="label darker m5" ng-repeat="option in field.options">
+                    <span class="label darker m5" ng-repeat="option in field.options" ng-click="filterStatus(option)">
                          {{option.label}}
                 </span></div>
         </div>
@@ -124,11 +124,11 @@
             <span ng-show="form.settings.displayOptions.customDashboard || true" class="label label-default"
                   ng-click="postView='custom';"><i class="fa fa-file-o"></i></span>
             <hr class="hr-condensed">
-            <span class="label label-info">All</span>
+            <<span class="label label-info" ng-click="filterStatusOff()">All</span>
 
 
             <div class="m5 p0 inline" ng-repeat="field in form.fields" ng-show="field.type=='status'">
-                    <span class="label darker m5" ng-repeat="option in field.options">
+                    <span class="label darker m5" ng-repeat="option in field.options" ng-click="filterStatus(option)">
                          {{option.label}}
                 </span></div>
         </div>
@@ -138,8 +138,8 @@
 
     <div class="scroll">
 
-        <div ng-show="postView=='feed'" class="panel panel-default panel-feed"
-             ng-repeat="foo in posts" ng-click="viewPost($index)">
+        <div ng-show="postView=='feed'" class="panel panel-default panel-feed ng-hide"
+             ng-repeat="foo in posts" ng-click="viewPost($index)" ng-hide="foo.hide">
 
             <div class="panel-heading"><label class="label label-info pull-right mr5" ng-repeat="field in foo.fields"
                                               ng-show="field.type=='status'">{{ field.selected}}</label>
@@ -162,8 +162,8 @@
         </div>
 
 
-        <table ng-show="postView=='list'" class="table feedTable m0 p0" ng-repeat="foo in posts"
-               ng-click="viewPost($index)">
+        <table ng-show="postView=='list'" class="table feedTable m0 p0 ng-hide" ng-repeat="foo in posts"
+               ng-click="viewPost($index)" ng-hide="foo.hide">
             <tr
                     ng-class-odd="'feedOdd'" ng-class-even="'feedEven'">
                 <td>
@@ -293,11 +293,11 @@
             <span ng-show="form.settings.displayOptions.customDashboard || true" class="label label-default"
                   ng-click="postView='custom';"><i class="fa fa-file-o"></i></span>
             <hr class="hr-condensed">
-            <span class="label label-info">All</span>
+            <span class="label label-info" ng-click="filterStatusOff()">All</span>
 
 
             <div class="m5 p0 inline" ng-repeat="field in form.fields" ng-show="field.type=='status'">
-                    <span class="label darker m5" ng-repeat="option in field.options">
+                    <span class="label darker m5" ng-repeat="option in field.options" ng-click="filterStatus(option)">
                          {{option.label}}
                 </span></div>
         </div>

@@ -164,6 +164,20 @@ angular.module('formViewer')
 
         });
 
+        $scope.filterStatus = function(option) {
+            $scope.posts.forEach(function (post) {
+                // TODO: filtering of some sort
+                post.hide = false;
+            });
+        };
+
+        $scope.filterStatusOff = function() {
+            $scope.posts.forEach(function (post) {
+               post.hide = false;
+            });
+
+        };
+
 
 
 }]);

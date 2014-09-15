@@ -5,8 +5,8 @@ var path = require('path');
 
 var viewDir = path.join(global.config.modules.FORMVIEWER, 'views');
 var authenticator = require(global.config.modules.AUTHENTICATION);
-var apiUtil = require(global.config.modules.APIUTIL);
-var log = require(global.config.modules.LOGGING).LOG;
+var errorResponseHandler = require('fooforms-rest').errorResponseHandler;
+var log = require('fooforms-logging').LOG;
 
 
 var routes = function (app, passport) {
@@ -28,22 +28,25 @@ var routes = function (app, passport) {
         try {
             require(global.config.modules.FORM + '/api/postApi').create(req, res);
         } catch (err) {
-            apiUtil.handleError(res, err);
+            errorResponseHandler.handleError(res, err);
         }
     });
 
     app.get('/forms/repo/:form', function (req, res) {
         require(global.config.modules.FORM).getFormById(req.params.form, function (err, form) {
             if (err) {
-                res.send(500);
+                errorResponseHandler.handleError(res, err);
             }
-            if (!form) {
-                res.send(404);
+            else if (!form) {
+                err = new Error('form not found');
+                err.http_code = 404;
+                errorResponseHandler.handleError(res, err);
+            } else {
+                res.render(viewDir + '/embeddedForm', {
+                    formId: form._id,
+                    formName: form.name
+                });
             }
-            res.render(viewDir + '/embeddedForm', {
-                formId: form._id,
-                formName: form.name
-            });
         });
     });
 

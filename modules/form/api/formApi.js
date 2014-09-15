@@ -1,9 +1,9 @@
 /*jslint node: true */
 'use strict';
 var formLib = require(global.config.modules.FORM);
-var apiUtil = require(global.config.modules.APIUTIL);
+var errorResponseHandler = require('fooforms-rest').errorResponseHandler;
 var formErrors = require('../lib/formErrors');
-var log = require(global.config.modules.LOGGING).LOG;
+var log = require('fooforms-logging').LOG;
 
 
 /**
@@ -20,16 +20,16 @@ var createForm = function (req, res) {
             if (err) {
                 if (err.code === 11000) {
                     err.data = 'A form with that label already exists.';
-                    form.http_code = 409;
+                    err.http_code = 409;
                 }
-                apiUtil.handleError(res, err);
+                errorResponseHandler.handleError(res, err);
             } else {
                 res.status(200);
                 res.send(form);
             }
         });
     } catch (err) {
-        apiUtil.handleError(res, err);
+        errorResponseHandler.handleError(res, err);
     }
 };
 
@@ -45,14 +45,14 @@ var getUserForms = function (req, res) {
                 err = formErrors.formNotFoundError;
             }
             if (err) {
-                apiUtil.handleError(res, err);
+                errorResponseHandler.handleError(res, err);
             } else {
                 res.status(200);
                 res.send(forms);
             }
         });
     } catch (err) {
-        apiUtil.handleError(res, err);
+        errorResponseHandler.handleError(res, err);
     }
 };
 
@@ -68,14 +68,14 @@ var getFormById = function (id, res) {
                 err = formErrors.formNotFoundError;
             }
             if(err){
-                apiUtil.handleError(res, err);
+                errorResponseHandler.handleError(res, err);
             } else {
                 res.status(200);
                 res.send(form);
             }
         });
     } catch (err) {
-        apiUtil.handleError(res, err);
+        errorResponseHandler.handleError(res, err);
     }
 };
 
@@ -92,14 +92,14 @@ var updateForm = function (req, res) {
                 err = formErrors.formNotFoundError;
             }
             if(err) {
-                apiUtil.handleError(res, err);
+                errorResponseHandler.handleError(res, err);
             } else {
                 res.status(200);
                 res.send(form);
             }
         });
     } catch (err) {
-        apiUtil.handleError(res, err);
+        errorResponseHandler.handleError(res, err);
     }
 };
 
@@ -114,14 +114,14 @@ var deleteForm = function (req, res) {
         var id = req.body._id;
         formLib.deleteFormById(id, function (err) {
             if (err) {
-                apiUtil.handleError(res, err);
+                errorResponseHandler.handleError(res, err);
             } else {
                 res.send(200);
             }
         });
 
     } catch (err) {
-        apiUtil.handleError(res, err);
+        errorResponseHandler.handleError(res, err);
     }
 };
 

@@ -3,7 +3,7 @@
 var Form = require('../models/form').Form;
 var Post = require('../models/post').Post;
 var formErrors = require('./formErrors');
-var log = require(global.config.modules.LOGGING).LOG;
+var log = require('fooforms-logging').LOG;
 
 exports.createPost = function (postJSON, formId, next) {
     "use strict";

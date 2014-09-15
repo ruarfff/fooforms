@@ -1,7 +1,7 @@
 /*jslint node: true */
 
 var File = require('../models/file').File;
-var log = require(global.config.modules.LOGGING).LOG;
+var log = require('fooforms-logging').LOG;
 var fs = require('fs');
 var csv = require('csv');
 var parse = csv.parse;

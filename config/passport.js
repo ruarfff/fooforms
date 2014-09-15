@@ -1,7 +1,7 @@
 /*jslint node: true */
 'use strict';
 
-var log = require( global.config.modules.LOGGING ).LOG;
+var log = require('fooforms-logging').LOG;
 var BasicStrategy = require('passport-http').BasicStrategy;
 var LocalStrategy = require( 'passport-local' ).Strategy;
 var GoogleStrategy = require( 'passport-google-oauth' ).OAuth2Strategy;

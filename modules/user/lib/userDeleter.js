@@ -2,7 +2,7 @@
 
 var User = require('../models/user').User;
 var async = require("async");
-var log = require(global.config.modules.LOGGING).LOG;
+var log = require('fooforms-logging').LOG;
 
 exports.deleteUserById = function (id, next) {
     "use strict";

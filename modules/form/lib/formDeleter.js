@@ -1,7 +1,7 @@
 /*jslint node: true */
 
 var Form = require('../models/form').Form;
-var log = require(global.config.modules.LOGGING).LOG;
+var log = require('fooforms-logging').LOG;
 var async = require("async");
 
 exports.deleteFormById = function (id, next) {

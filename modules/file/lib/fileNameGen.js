@@ -1,7 +1,7 @@
 /*jslint node: true */
 
 var File = require('../models/file').File;
-var log = require(global.config.modules.LOGGING).LOG;
+var log = require('fooforms-logging').LOG;
 
 exports.makeFileName = function () {
     var timestamp = (new Date().getTime() / 1000 | 0).toString(16);

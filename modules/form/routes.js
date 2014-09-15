@@ -7,7 +7,7 @@ var authenticator = require(global.config.modules.AUTHENTICATION);
 var formApi = require(path.join(global.config.modules.FORM, 'api/formApi'));
 var postApi = require(path.join(global.config.modules.FORM, 'api/postApi'));
 var commentApi = require(path.join(global.config.modules.FORM, 'api/commentApi'));
-var log = require(global.config.modules.LOGGING).LOG;
+var log = require('fooforms-logging').LOG;
 
 
 

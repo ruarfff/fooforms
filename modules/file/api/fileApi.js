@@ -1,9 +1,12 @@
 /*jslint node: true */
 'use strict';
 var fileLib = require(global.config.modules.FILE);
-var apiUtil = require(global.config.root + '/lib/util/apiUtil');
-var log = require(global.config.modules.LOGGING).LOG;
+var errorResponseHandler = require('fooforms-rest').errorResponseHandler;
+var log = require('fooforms-logging').LOG;
 var fs = require('fs');
+
+var apiUtil = require(global.config.root + '/lib/util/apiUtil');
+
 
 /**
  * Create new file
@@ -43,10 +46,8 @@ var createFile = function (req, res) {
                 }
             });
         });
-
-
     } catch (err) {
-        apiUtil.handleError(res, err, 500);
+        errorResponseHandler.handleError(res, err, __filename);
     }
 };
 
@@ -55,8 +56,10 @@ var getFileById = function (req, res, id) {
     try {
         fileLib.getFileById(id, function (err, file) {
             if (err || !file) {
-                apiUtil.handleError(res, err, 404);
-            } else {
+                if(!err){new Error('file not found');}
+                err.http_code = 404;
+                errorResponseHandler.handleError(res, err, __filename);
+            }else {
                 var filePath =global.config.root +'/uploads/'+ file.internalName;
                 fs.readFile(filePath, function (err, data) {
                     if (err){
@@ -72,7 +75,7 @@ var getFileById = function (req, res, id) {
             }
         });
     } catch (err) {
-        apiUtil.handleError(res, err, 500);
+        errorResponseHandler.handleError(res, err, __filename);
     }
 };
 
@@ -80,14 +83,16 @@ var getUserFiles = function (req, res) {
     try {
         fileLib.getUserFiles(req.user.id, function (err, files) {
             if (err || !files) {
-                handleError(res, err, 404);
+                if(!err){new Error('file not found');}
+                err.http_code = 404;
+                errorResponseHandler.handleError(res, err, __filename);
             } else {
                 res.status(200);
                 res.send(files);
             }
         });
     } catch (err) {
-        apiUtil.handleError(res, err, 500);
+        errorResponseHandler.handleError(res, err, __filename);
     }
 };
 
@@ -96,45 +101,49 @@ var getAllFiles = function (req, res) {
     try {
         fileLib.getAllFiles(function (err, files) {
             if (err || !files) {
-                apiUtil.handleError(res, err, 404);
+                if(!err){new Error('file not found');}
+                err.http_code = 404;
+                errorResponseHandler.handleError(res, err, __filename);
             } else {
                 res.status(200);
                 res.send(files);
             }
         });
     } catch (err) {
-        apiUtil.handleError(res, err, 500);
+        errorResponseHandler.handleError(res, err, __filename);
     }
 };
 
 var updateFile = function (req, res) {
     try {
-        fileLib.updatefile(req.body, function (err, file) {
+        fileLib.updateFile(req.body, function (err, file) {
             if (err || !file) {
-                apiUtil.handleError(res, err, 409);
+                if(!err){new Error('could not update file');}
+                err.http_code = 409;
+                errorResponseHandler.handleError(res, err, __filename);
             } else {
                 res.status(200);
                 res.send(file);
             }
         });
     } catch (err) {
-        apiUtil.handleError(res, err, 500);
+        errorResponseHandler.handleError(res, err, __filename);
     }
 };
 
 var deleteFile = function (req, res) {
     try {
         var id = req.body._id;
-        fileLib.deletefileById(id, function (err, file) {
+        fileLib.deleteFileById(id, function (err, file) {
             if (err) {
-                apiUtil.handleError(res, err, 404);
+                errorResponseHandler.handleError(res, err, __filename);
             } else {
                 res.send(200);
             }
         });
 
     } catch (err) {
-        apiUtil.handleError(res, err, 500);
+        errorResponseHandler.handleError(res, err, __filename);
     }
 };
 
@@ -144,19 +153,18 @@ var importFile = function (req, res) {
 
         fileLib.importFile(req.files.file, function (err, file) {
             if (err) {
-                var responseCode = 500;
                 if (err.code === 11000) {
                     err.data = 'Error Parsing the CSV File.';
-                    responseCode = 409;
+                    err.http_code = 409;
                 }
-                apiUtil.handleError(res, err, responseCode);
+                errorResponseHandler.handleError(res, err, __filename);
             } else {
                 res.status(200);
                 res.send(file);
             }
         });
     } catch (err) {
-        apiUtil.handleError(res, err, 500);
+        errorResponseHandler.handleError(res, err, __filename);
     }
 };
 

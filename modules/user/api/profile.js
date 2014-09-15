@@ -2,9 +2,9 @@
 'use strict';
 
 var userLib = require( global.config.modules.USER );
-var apiUtil = require(global.config.modules.APIUTIL);
+var errorResponseHandler = require('fooforms-rest').errorResponseHandler;
 var userErrors = require('../lib/userErrors');
-var log = require( global.config.modules.LOGGING ).LOG;
+var log = require('fooforms-logging').LOG;
 
 
 /**
@@ -17,7 +17,7 @@ exports.me = function ( req, res ) {
     try {
         res.jsonp( userLib.userToProfile( req.user ) || null );
     } catch ( err ) {
-        apiUtil.handleError(res, err);
+        errorResponseHandler.handleError(res, err);
     }
 };
 
@@ -39,13 +39,13 @@ exports.updateProfile = function ( req, res ) {
                     err = userErrors.userNotFoundError;
                 }
                 if(err) {
-                    apiUtil.handleError(res, err);
+                    errorResponseHandler.handleError(res, err);
                 } else {
                     log.debug( __filename, ' - ', "updated " + user.displayName );
                     res.send( user );
                 }
             } );
     } catch ( err ) {
-        apiUtil.handleError(res, err);
+        errorResponseHandler.handleError(res, err);
     }
 };

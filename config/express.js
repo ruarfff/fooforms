@@ -4,16 +4,14 @@
 var engine = require('ejs');
 var flash = require('connect-flash');
 var helpers = require('view-helpers');
-var log4js = require('log4js');
-var log = require(global.config.modules.LOGGING).LOG;
-
-
 var express = require('express');
 var bodyParser = require('body-parser');
 var cookieParser = require('cookie-parser');
 var favicon = require('static-favicon');
 var session = require('express-session');
 var methodOverride = require('method-override')();
+var logger = require('fooforms-logging').expressLogger;
+
 var errorHandler;
 var compress = require('compression')({
     filter: function (req, res) {
@@ -44,7 +42,7 @@ module.exports = function (app, passport) {
     app.use(express.static(global.config.root + '/frontend/public'));
     //Don't use logger for test env
     if (process.env.NODE_ENV !== 'test') {
-        app.use(log4js.connectLogger(log, { level: 'auto' }));
+        app.use(logger);
     }
 
     app.use(bodyParser.json());

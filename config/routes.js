@@ -2,7 +2,7 @@
 'use strict';
 
 var authenticator = require(global.config.modules.AUTHENTICATION);
-var log = require(global.config.modules.LOGGING).LOG;
+var log = require('fooforms-logging').LOG;
 
 /**
  * Main configuration for all routes in application.

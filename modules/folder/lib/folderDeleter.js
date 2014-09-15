@@ -1,7 +1,7 @@
 /*jslint node: true */
 
 var Folder = require('../models/folder').Folder;
-var log = require(global.config.modules.LOGGING).LOG;
+var log = require('fooforms-logging').LOG;
 var async = require("async");
 
 exports.deleteFolderById = function (id, next) {

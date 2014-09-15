@@ -1,6 +1,6 @@
 /*jslint node: true */
 'use strict';
-var log = require( global.config.modules.LOGGING ).LOG;
+var log = require('fooforms-logging').LOG;
 
 /**
  * Finds a single user by looking for a full match in the display name.

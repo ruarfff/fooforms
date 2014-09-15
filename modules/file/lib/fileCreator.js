@@ -1,7 +1,7 @@
 /*jslint node: true */
 
 var File = require('../models/file').File;
-var log = require(global.config.modules.LOGGING).LOG;
+var log = require('fooforms-logging').LOG;
 
 exports.createFile = function (fileJSON, next) {
     "use strict";

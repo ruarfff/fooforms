@@ -1,9 +1,9 @@
 /*jslint node: true */
 'use strict';
 var formLib = require(global.config.modules.FORM);
-var apiUtil = require(global.config.modules.APIUTIL);
+var errorResponseHandler = require('fooforms-rest').errorResponseHandler;
 var formErrors = require('../lib/formErrors');
-var log = require(global.config.modules.LOGGING).LOG;
+var log = require('fooforms-logging').LOG;
 
 
 /**
@@ -25,7 +25,7 @@ var createPost = function (req, res) {
                 err = formErrors.postNotFoundError;
             }
             if(err) {
-                apiUtil.handleError(res, err);
+                errorResponseHandler.handleError(res, err);
             } else {
                 res.status(200);
                 res.send(post);
@@ -38,7 +38,7 @@ var createPost = function (req, res) {
             }
         });
     } catch (err) {
-        apiUtil.handleError(res, err);
+        errorResponseHandler.handleError(res, err);
     }
 };
 
@@ -55,12 +55,12 @@ var getPostById = function (req, res, id) {
                 err = formErrors.postNotFoundError;
             }
             if(err) {
-                apiUtil.handleError(res, err);
+                errorResponseHandler.handleError(res, err);
             } else {
 
                 formLib.Post.populate(post, 'comments', function(err, post) {
                     if (err) {
-                        apiUtil.handleError(res, err);
+                        errorResponseHandler.handleError(res, err);
                     }
                     var options = {
                         path: 'comments.commenter',
@@ -76,7 +76,7 @@ var getPostById = function (req, res, id) {
             }
         });
     } catch (err) {
-        apiUtil.handleError(res, err);
+        errorResponseHandler.handleError(res, err);
     }
 };
 
@@ -93,12 +93,12 @@ var getFormPosts = function (req, res, formId) {
                 err = formErrors.postNotFoundError;
             }
             if(err) {
-                apiUtil.handleError(res, err);
+                errorResponseHandler.handleError(res, err);
             } else {
 
                 formLib.Post.populate(posts, 'comments', function(err, posts) {
                     if (err) {
-                        apiUtil.handleError(res, err);
+                        errorResponseHandler.handleError(res, err);
                     }
                     var options = {
                         path: 'comments.commenter',
@@ -114,7 +114,7 @@ var getFormPosts = function (req, res, formId) {
             }
         });
     } catch (err) {
-        apiUtil.handleError(res, err);
+        errorResponseHandler.handleError(res, err);
     }
 };
 
@@ -131,12 +131,12 @@ var getFolderPosts = function (req, res, folderId) {
                 err = formErrors.postNotFoundError;
             }
             if(err) {
-                apiUtil.handleError(res, err);
+                errorResponseHandler.handleError(res, err);
             } else {
 
                 formLib.Post.populate(posts, 'comments', function(err, posts) {
                     if (err) {
-                        apiUtil.handleError(res, err);
+                        errorResponseHandler.handleError(res, err);
                     }
                     var options = {
                         path: 'comments.commenter',
@@ -152,7 +152,7 @@ var getFolderPosts = function (req, res, folderId) {
             }
         });
     } catch (err) {
-        apiUtil.handleError(res, err);
+        errorResponseHandler.handleError(res, err);
     }
 };
 
@@ -163,12 +163,12 @@ var getUserPosts = function (req, res) {
                 err = formErrors.postNotFoundError;
             }
             if(err) {
-                apiUtil.handleError(res, err);
+                errorResponseHandler.handleError(res, err);
             } else {
 
                 formLib.Post.populate(posts, 'comments', function(err, posts) {
                     if (err) {
-                        apiUtil.handleError(res, err);
+                        errorResponseHandler.handleError(res, err);
                     }
                     var options = {
                         path: 'comments.commenter',
@@ -184,7 +184,7 @@ var getUserPosts = function (req, res) {
             }
         });
     } catch (err) {
-        apiUtil.handleError(res, err);
+        errorResponseHandler.handleError(res, err);
     }
 };
 
@@ -196,7 +196,7 @@ var updatePost = function (req, res) {
                 err = formErrors.postNotFoundError;
             }
             if(err) {
-                apiUtil.handleError(res, err);
+                errorResponseHandler.handleError(res, err);
             } else {
                 res.status(200);
                 res.send(post);
@@ -208,7 +208,7 @@ var updatePost = function (req, res) {
             }
         });
     } catch (err) {
-        apiUtil.handleError(res, err);
+        errorResponseHandler.handleError(res, err);
     }
 };
 
@@ -217,14 +217,14 @@ var deletePost = function (req, res) {
         var id = req.body._id;
         formLib.deletePostById(id, function (err) {
             if (err) {
-                apiUtil.handleError(res, err);
+                errorResponseHandler.handleError(res, err);
             } else {
                 res.send(200);
             }
         });
 
     } catch (err) {
-        apiUtil.handleError(res, err);
+        errorResponseHandler.handleError(res, err);
     }
 };
 
