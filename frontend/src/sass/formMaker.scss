@@ -47,7 +47,7 @@
 .fieldObject {
   cursor: move;
   display: block;
-background: rgba(4,4,4,.05);
+background: rgba(245, 235, 220, 0.05);
 }
 
 .fooform .fieldObject{
@@ -113,15 +113,15 @@ background: rgba(4,4,4,.05);
 .ui-sortable-placeholder {
   visibility: visible !important;
   display: block !important;
-  background: #2E3135 !important;
-height: 50px;
+  background: #f5f5f5 !important;
+height: 30px;
   -webkit-animation: placeHolder 0.3s forwards;
   animation: placeHolder 0.3s forwards;
 }
 .fieldButtons .ui-sortable-placeholder {
   visibility: visible !important;
   display: block !important;
-  background: #2E3135 !important;
+  background: #f5eabe !important;
   min-height: 30px;
   max-height: 30px;
 }
@@ -171,18 +171,72 @@ height: 50px;
  .ui-sortable-helper {
    visibility: visible !important;
    display: block !important;
-   background: #485563 !important;
+   background: #d9edf7 !important;
    min-height: 87px;
+   -moz-background-clip: padding;
+   -webkit-background-clip: padding-box;
+   background-clip: padding-box;
+
+   -moz-box-shadow: 0 9px 21px rgba(39,50,57,.29);
+   -webkit-box-shadow: 0 9px 21px rgba(39,50,57,.29);
+   box-shadow: 0 9px 21px rgba(39,50,57,.29);
+
+
 }
 
 .fieldButtons  .ui-sortable-helper {
   visibility: visible !important;
   display: block !important;
-  background: #485563 !important;
+  background: #FFF !important;
   min-height: 30px;
+
+  -moz-background-clip: padding;
+  -webkit-background-clip: padding-box;
+  background-clip: padding-box;
+
+  -moz-box-shadow: 0 9px 21px rgba(39,50,57,.29);
+  -webkit-box-shadow: 0 9px 21px rgba(39,50,57,.29);
+  box-shadow: 0 9px 21px rgba(39,50,57,.29);
+
+
 }
 
+.zoomBox:hover {
 
+  -moz-background-clip: padding;
+  -webkit-background-clip: padding-box;
+  background-clip: padding-box;
+
+  -moz-box-shadow: 0 9px 21px rgba(39,50,57,.29);
+  -webkit-box-shadow: 0 9px 21px rgba(39,50,57,.29);
+  box-shadow: 0 9px 21px rgba(39,50,57,.29);
+  -webkit-transform: scale(1.05);
+  -moz-transform: scale(1.05);
+  -o-transform: scale(1.05);
+  -ms-transform: scale(1.05);
+  transform: scale(1.05);
+}
+.zoomBox {
+  margin: 10px;
+  -moz-background-clip: padding;
+  -webkit-background-clip: padding-box;
+  background-clip: padding-box;
+  background-color: #fff;
+
+  /* float: left; */
+  overflow: hidden;
+  display: inline-block;
+  -webkit-transition: 0.2s ease-in-out;
+  -moz-transition: 0.2s ease-in-out;
+  -ms-transition: 0.2s ease-in-out;
+  -o-transition: 0.2s ease-in-out;
+  transition: 0.2s ease-in-out;
+
+  -webkit-animation: slide .3s forwards;
+  -webkit-animation-timing-function: ease-out;
+  animation: slide .3s forwards;
+
+}
 
 /*icons and modal icon select dialog*/
 
@@ -224,7 +278,7 @@ img.icon-sm {
   padding: 0px;
   margin: 0px;
   border: 1px dotted #D2E5F7;
-  background: #485563 !important;
+  background: #fff !important;
 
   min-height: 90px;
 }

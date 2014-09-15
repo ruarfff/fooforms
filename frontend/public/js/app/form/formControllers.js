@@ -40,7 +40,7 @@ angular.module('form').controller('FormsCtrl',
 
         };
 
-        $scope.deleteform = function (form) {
+        $scope.deleteForm = function (form) {
           FormService.deleteForm(form, function (err) {
                 if(err) {
                     $log.error(err.toString());

@@ -311,6 +311,40 @@ $scope.lastChanged = function(){
                 $scope.form = Forms.getCurrentForm();
             };
 
+            $scope.deleteForm = function (form) {
+
+                if (confirm('Are you sure you want to delete this form?')) {
+                    FormService.deleteForm(form, function (err) {
+                        if(err) {
+                            $log.error(err.toString());
+                        } else {
+                            Forms.resetCurrentForm();
+                            $scope.form = Forms.getCurrentForm();
+                        }
+                    });
+                }
+
+
+            };
+
+            $scope.copyForm = function (form) {
+
+                if (confirm('Are you sure you want to copy this form?')) {
+                    var tempForm = Forms.getCurrentForm();
+                    Forms.resetCurrentForm();
+                    $scope.form = Forms.getCurrentForm();
+                    $scope.form.name = tempForm.name + ' (copy)';
+                    $scope.form.description = tempForm.description;
+                    $scope.form.btnLabel = tempForm.btnLabel;
+                    $scope.form.icon = tempForm.icon;
+                    $scope.form.settings = tempForm.settings;
+                    $scope.form.fields = tempForm.fields;
+                    $scope.form.events = tempForm.events;
+                }
+
+
+            };
+
         }]);
 
 

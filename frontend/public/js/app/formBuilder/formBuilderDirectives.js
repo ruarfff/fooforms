@@ -182,26 +182,61 @@ angular.module('formBuilder')
                 });
             }
         };
-    }]).directive('uploader', [function() {
+    }]).directive('uploader', ['$upload',function($upload) {
 
         return {
             restrict: 'E',
             scope: {
 
-                formField: '=formField'
+                formField: '=formField',
+                message: '=message',
+                onFileSelect: "&onFileSelect",
+                doFileUpload: "&doFileUpload"
 
             },
-            controller: ['$scope', function ($scope) {
-
-                $doUpload = function(){
-                    alert('pressed');
-                }
-
-            }],
             link: function(scope, elem, attrs, ctrl) {
 
-                // link function
-                // here you should register listeners
+
+                scope.onFileSelect= function(selectedFile){
+
+                    scope.uploadFile = selectedFile[0];
+
+
+                    scope.doFileUpload();
+
+                };
+
+                scope.doFileUpload = function(){
+
+
+                    scope.upload = $upload.upload({
+                        url: '/api/file', //upload.php script, node.js route, or servlet url
+                        // method: POST or PUT,
+                        // headers: {'header-key': 'header-value'},
+                        // withCredentials: true,
+                        data: {file: scope.uploadFile}
+
+                    }).progress(function(evt) {
+                        scope.formField.progress = (parseInt(100.0 * evt.loaded / evt.total));
+                    }).success(function(data, status, headers, config) {
+                        // file is uploaded successfully
+                        scope.uploadFile = [];
+                        scope.allowUpload = null;
+                        if (data.err){
+                            setMessage(true,'File Failed Validation',data.err,'alert-danger');
+
+                        }else{
+                            scope.formField.value = data;
+
+                        }
+
+                    }).error(function(err){
+                        alert(err);
+                    });
+
+
+
+                }
 
             },
             replace: false,

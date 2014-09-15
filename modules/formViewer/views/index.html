@@ -53,7 +53,7 @@
 </div>
 
 
-<div class="panel-slider"
+<div class="panel-slider hidden-print"
 
         ng-class="{slidePanelIn: gridSelectedPost.length>0,
     slidePanelOut: gridSelectedPost.length==0}">
@@ -98,7 +98,7 @@
 </div>
 
 
-<div class="feed-fixed"
+<div class="feed-fixed hidden-print"
      ng-show="postView=='feed' || postView=='list'"
      ng-class="{percentageScreen : sideMenuVisible, halfScreen :!sideMenuVisible}">
 
@@ -149,11 +149,13 @@
                 </a>&nbsp;{{foo.fields[0].value}}
             </div>
 
-            <div class="panel-body">
-                {{foo.fields[0].label}}:
-                {{foo.fields[0].value}}<br>
-                {{foo.fields[1].label}}: {{foo.fields[1].value}}<br>
-                {{foo.fields[2].label}}: {{foo.fields[2].value}}
+            <div ng-repeat="field in foo.fields track by $index">
+                    <span ng-show="(field.type=='text' || field.type=='textarea') && $index <5">
+                        <span class='label'> {{ field.label }} </span> {{ field.value}}</span>
+
+                <img class="img-feed" style="max-width:100%;"
+                     src="/api/file/{{field.value._id}}" ng-show="field.value.mimeType=='image/jpeg'">
+
             </div>
 
 

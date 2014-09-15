@@ -40,7 +40,7 @@
 </head>
 <body ng-controller="MainController" data-ng-init="init()" class="main-application">
 <div id="wrap" ng-controller = "DashboardCtrl">
-<div class="navbar-wrapper" >
+<div class="navbar-wrapper hidden-print" >
 <div class="navbar navbar-default navbar-fixed-top navbar-foo" role="navigation">
     <div class="container-fluid"  ng-class="{withSideMenu : sideMenuVisible, withoutSideMenu :!sideMenuVisible}">
         <div class="navbar-header">
@@ -149,7 +149,7 @@
     <!-- /.container -->
 </div><!-- /.navbar -->
 </div>
-<div id='sideMenu' class="sideMenu"  ng-class="{showMenu : sideMenuVisible, hideMenu: !sideMenuVisible}">
+<div id='sideMenu' class="sideMenu hidden-print"  ng-class="{showMenu : sideMenuVisible, hideMenu: !sideMenuVisible}">
 
     <div class="company">
         <img src="/assets/images/logo.png">
@@ -207,7 +207,7 @@
 
 
 </div>
-<div id="footer">
+<div id="footer hidden-print">
    <div class="panel panel-default">
        <div class="panel-heading">
 

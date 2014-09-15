@@ -815,4 +815,61 @@ video {
   }
 }
 
+.zoomBox:hover {
 
+  -moz-background-clip: padding;
+  -webkit-background-clip: padding-box;
+  background-clip: padding-box;
+
+  -moz-box-shadow: 0 9px 21px rgba(39,50,57,.29);
+  -webkit-box-shadow: 0 9px 21px rgba(39,50,57,.29);
+  box-shadow: 0 9px 21px rgba(39,50,57,.29);
+  -webkit-transform: scale(1.05);
+  -moz-transform: scale(1.05);
+  -o-transform: scale(1.05);
+  -ms-transform: scale(1.05);
+  transform: scale(1.05);
+}
+.zoomBox {
+  margin: 10px;
+  -moz-background-clip: padding;
+  -webkit-background-clip: padding-box;
+  background-clip: padding-box;
+  background-color: #fff;
+
+  /* float: left; */
+  overflow: hidden;
+  display: inline-block;
+  -webkit-transition: 0.2s ease-in-out;
+  -moz-transition: 0.2s ease-in-out;
+  -ms-transition: 0.2s ease-in-out;
+  -o-transition: 0.2s ease-in-out;
+  transition: 0.2s ease-in-out;
+
+  -webkit-animation: slide .3s forwards;
+  -webkit-animation-timing-function: ease-out;
+  animation: slide .3s forwards;
+
+}
+
+.fadeOutDelayed{
+  -webkit-animation: fadeOut 1s forwards;
+  -webkit-animation-delay: 3s;
+  animation: fadeOut 1s forwards;
+  animation-delay: 0.1s;
+}
+
+
+@-webkit-keyframes fadeOut {
+  0% {opacity: 1;}
+  100% { opacity: 0; display: none; height: 0px;width: 0px;}
+}
+
+@keyframes fadeOut {
+  0% {opacity: 1;}
+  100% { opacity: 0; display: none; height: 0px;width: 0px;}
+}
+
+.comment{
+  background: #fff;
+}

@@ -3,7 +3,7 @@
 var fileLib = require(global.config.modules.FILE);
 var apiUtil = require(global.config.root + '/lib/util/apiUtil');
 var log = require(global.config.modules.LOGGING).LOG;
-
+var fs = require('fs');
 
 /**
  * Create new file
@@ -19,19 +19,32 @@ var createFile = function (req, res) {
             mimeType: req.files.file.type || '',
             owner: req.user.id
         };
-        fileLib.createFile(fileDetails, function (err, file) {
-            if (err) {
-                var responseCode = 500;
-                if (err.code === 11000) {
-                    err.data = 'A file with that label already exists.';
-                    responseCode = 409;
+
+        fs.readFile(req.files.file.path, function (err, data) {
+
+            var newPath =global.config.root +'/uploads/'+ internalName;
+            fs.writeFile(newPath, data, function (err) {
+                if (err){
+                    res.json(err);
+                }else{
+                    fileLib.createFile(fileDetails, function (err, file) {
+                        if (err) {
+                            var responseCode = 500;
+                            if (err.code === 11000) {
+                                err.data = 'A file with that label already exists.';
+                                responseCode = 409;
+                            }
+                            apiUtil.handleError(res, err, responseCode);
+                        } else {
+                            res.status(200);
+                            res.send(file);
+                        }
+                    });
                 }
-               apiUtil.handleError(res, err, responseCode);
-            } else {
-                res.status(200);
-                res.send(file);
-            }
+            });
         });
+
+
     } catch (err) {
         apiUtil.handleError(res, err, 500);
     }
@@ -44,8 +57,18 @@ var getFileById = function (req, res, id) {
             if (err || !file) {
                 apiUtil.handleError(res, err, 404);
             } else {
-                res.status(200);
-                res.send(file);
+                var filePath =global.config.root +'/uploads/'+ file.internalName;
+                fs.readFile(filePath, function (err, data) {
+                    if (err){
+                        res.sendfile(img404);
+                    }else{
+                        res.setHeader("Content-Type", file.mimeType);
+                        res.writeHead(200);
+                        res.end(data);
+                    }
+                });
+
+
             }
         });
     } catch (err) {

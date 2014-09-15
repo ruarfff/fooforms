@@ -76,6 +76,7 @@ angular.module('form').service('Forms',
                 for (index = 0; index < count; index++) {
                     if (this.forms[index]._id === form._id) {
                         this.forms.splice(index, 1);
+                        break;
                     }
                 }
                 this.updateAll(this.forms);
