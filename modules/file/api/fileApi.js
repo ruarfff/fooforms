@@ -4,6 +4,7 @@ var fileLib = require(global.config.modules.FILE);
 var errorResponseHandler = require('fooforms-rest').errorResponseHandler;
 var log = require('fooforms-logging').LOG;
 var fs = require('fs');
+
 var apiUtil = require(global.config.root + '/lib/util/apiUtil');
 
 
@@ -74,8 +75,6 @@ var getFileById = function (req, res, id) {
             }
         });
     } catch (err) {
-        res.sendfile(img404);
-
         errorResponseHandler.handleError(res, err, __filename);
     }
 };
