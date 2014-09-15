@@ -74,6 +74,8 @@ var getFileById = function (req, res, id) {
             }
         });
     } catch (err) {
+        res.sendfile(img404);
+
         errorResponseHandler.handleError(res, err, __filename);
     }
 };
