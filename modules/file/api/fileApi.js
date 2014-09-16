@@ -5,9 +5,6 @@ var errorResponseHandler = require('fooforms-rest').errorResponseHandler;
 var log = require('fooforms-logging').LOG;
 var fs = require('fs');
 
-var apiUtil = require(global.config.root + '/lib/util/apiUtil');
-
-
 /**
  * Create new file
  */
