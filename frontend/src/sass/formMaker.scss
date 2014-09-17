@@ -47,7 +47,8 @@
 .fieldObject {
   cursor: move;
   display: block;
-background: rgba(245, 235, 220, 0.05);
+background: #f5f5f5;
+
 }
 
 .fooform .fieldObject{
@@ -112,11 +113,13 @@ background: rgba(245, 235, 220, 0.05);
 
 .ui-sortable-placeholder {
   visibility: visible !important;
-  display: block !important;
-  background: #f5f5f5 !important;
-height: 30px;
-  -webkit-animation: placeHolder 0.3s forwards;
-  animation: placeHolder 0.3s forwards;
+  display: inline-block !important;
+  background: #fff !important;
+min-height: 87px !important;
+  opacity: 1;
+border: 1px solid #f5f5f5;
+  margin: 0px;
+wisth: 100%;
 }
 .fieldButtons .ui-sortable-placeholder {
   visibility: visible !important;
