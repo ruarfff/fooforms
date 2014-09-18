@@ -6,6 +6,8 @@ angular.module('dashboard').controller('DashboardCtrl', ['$scope', '$location', 
     $scope.form = Forms.getCurrentForm();
     $scope.posts = [];
     $scope.postView = 'list';
+    $scope.currentPostIndex = 0;
+    $scope.doingPostApi = false;
 
 
     $scope.updateForm = function (form) {
@@ -18,21 +20,61 @@ angular.module('dashboard').controller('DashboardCtrl', ['$scope', '$location', 
 
     };
 
-    $scope.viewPost = function (post) {
+    $scope.viewPost = function (post, index) {
         if (post) {
             var form = Forms.findById(post.form);
             $scope.posts.activePost = post;
-            //Forms.setCurrentForm(form);
 
-            //$scope.postObj = $scope.posts[postIndex];
+            $scope.currentPostIndex = index;
+
             $scope.showPostForm = true;
             //$scope.setMessage('');
 
-            // $location.path($scope.user.displayName + '/MyPrivateFolder/' + form.name);
+
         }
 
     };
 
+
+    $scope.savePost = function (postToSave) {
+        $scope.doingPostApi = true;
+        if (postToSave._id) {
+            // Post already exists on server
+            PostService.updatePost(postToSave, function (err) {
+                if (err) {
+                    console.log(err.toString());
+                    $scope.setMessage('formViewer','alert-danger','','Something went wrong. It didn\'t save. Please try again..');
+                } else {
+                    $scope.posts = Posts.posts;
+                    $scope.posts.activePost  = Posts.findById(postToSave._id);
+
+                }
+                $scope.doingPostApi = false;
+            });
+        }
+
+
+    };
+
+    $scope.deletePost = function (postToDelete) {
+        $scope.doingPostApi = true;
+        if (postToDelete._id) {
+            PostService.deletePost(postToDelete, function (err) {
+                if (err) {
+                    console.log(err.toString());
+                } else {
+                    $scope.posts = Posts.posts;
+                    $scope.viewPost($scope.posts[$scope.currentPostIndex]);
+                    $scope.setMessage('formViewer','alert-danger','','Post deleted.!');
+                }
+                $scope.doingPostApi = false;
+            });
+        } else {
+            // Post was never saved
+            $scope.postObj = Posts.newPost($scope.form);
+        }
+
+    };
     $scope.postComment = function (comment) {
         try {
             if (comment.content) {

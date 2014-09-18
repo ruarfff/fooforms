@@ -11,6 +11,7 @@ angular.module('user')
     $scope.update = function (user) {
         $scope.user = angular.copy(user);
         $scope.user.put();
+        $scope.$parent.$parent.user = angular.copy($scope.user);
     };
 })
     .controller('PeopleCtrl', function ($scope, $http, Restangular) {

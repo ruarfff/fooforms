@@ -127,8 +127,8 @@
             <ul class="nav navbar-nav navbar-right">
 
                 <li class="dropdown profile" ng-cloak><a href="#" class="dropdown-toggle">&nbsp;
-                    <img class="img-circle" ng-src="{{user.photo}}"/>
-
+                    <img ng-show="user.photo!='/assets/images/photo.jpg'" class="img-circle" ng-src="/api/file/{{user.photo}}"/>
+                    <img ng-show="user.photo=='/assets/images/photo.jpg'" class="img-circle" ng-src="/assets/images/photo.jpg"/>
                     {{user.displayName}}
 
                     <b class="caret"></b></a>
@@ -210,7 +210,9 @@
 <div id="footer hidden-print">
    <div class="panel panel-default">
        <div class="panel-heading">
-
+           <div class="alert fade in m0 br0 {{msgStatus}} " ng-show="activeMsgBox=='formViewer'">
+               <p ng-bind="msg"></p>
+           </div>
        </div>
    </div>
 </div>

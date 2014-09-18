@@ -243,9 +243,65 @@ angular.module('formBuilder')
             templateUrl: '/partials/uploader.html'
         };
 
+    }]).directive('profileUploader', ['$upload',function($upload) {
+
+        return {
+            restrict: 'E',
+            scope: {
+
+                user: '=user',
+                message: '=message',
+                onFileSelect: "&onFileSelect",
+                doFileUpload: "&doFileUpload"
+
+            },
+            link: function(scope, elem, attrs, ctrl) {
+
+
+                scope.onFileSelect= function(selectedFile){
+
+                    scope.uploadFile = selectedFile[0];
+
+
+                    scope.doFileUpload();
+
+                };
+
+                scope.doFileUpload = function(){
+
+
+                    scope.upload = $upload.upload({
+                        url: '/api/file', //upload.php script, node.js route, or servlet url
+                        // method: POST or PUT,
+                        // headers: {'header-key': 'header-value'},
+                        // withCredentials: true,
+                        data: {file: scope.uploadFile}
+
+                    }).progress(function(evt) {
+                        //scope.formField.progress = (parseInt(100.0 * evt.loaded / evt.total));
+                    }).success(function(data, status, headers, config) {
+                        // file is uploaded successfully
+                        scope.uploadFile = [];
+                        scope.allowUpload = null;
+                        if (data.err){
+                            setMessage(true,'File Failed Validation',data.err,'alert-danger');
+
+                        }else{
+                            scope.user.photo= data._id;
+
+                        }
+
+                    }).error(function(err){
+                        alert(err);
+                    });
+
+
+
+                }
+
+            },
+            replace: false,
+            templateUrl: '/partials/profileUploader.html'
+        };
+
     }]);
-
-
-
-
-

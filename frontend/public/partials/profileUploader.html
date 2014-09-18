@@ -1,0 +1,32 @@
+
+
+    <div class="thumbnail">
+
+            <img class="media-object"  src="/api/file/{{user.photo}}">
+
+        <div class="caption">
+        <button class="btn btn-default"
+                id="browseBtn"
+                type="button"
+                onclick="$('#uploadFile').click();">Upload a new photo
+        </button>
+
+
+    <div class="input-group" >
+
+        <input type="file" name="uploadFile" id="uploadFile" class="hidden" ng-model="uploadFile"
+               ng-file-select="onFileSelect($files, user)">
+
+        <div class="input-group">
+            <input type="text" class="hidden" ng-model="uploadFile.name" placeholder="Choose a File">
+
+        </div>
+        <div class="progress mt5 progress-striped" ng-class="{'fadeOutDelayed' : formField.progress==100}" ng-show="formField.progress>0">
+            <div class="progress-bar" ng-class="{'progress-bar-success' : formField.progress==100}" role="progressbar" aria-valuenow="{{formField.progress}}" aria-valuemin="0" aria-valuemax="100" style="width: {{formField.progress+'%'}}">
+                {{formField.progress+'%'}}
+            </div>
+        </div>
+
+
+    </div>   </div>
+    </div>

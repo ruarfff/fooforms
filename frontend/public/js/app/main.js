@@ -120,7 +120,7 @@ fooformsApp
                 window.location = '/login';
             }
         });
-        $scope.user = null;
+        //$scope.user = null;
         $scope.userRoles = USER_ROLES;
         $scope.isAuthorized = AuthService.isAuthorized;
         $scope.sideMenuVisible = true;
@@ -130,7 +130,7 @@ fooformsApp
         $scope.activeMsgBox = ''; // any string --matches ng-show of various msgboxes.
         $scope.msgStatus = ''; // used in class, so alert-danger, etc...
         $scope.msgTitle = ''; // optional -
-        $scope.msg = ''; // optional, but pretty fucking stupid not to populate it
+        $scope.msg = ''; // optional, but pretty stupid not to populate it
 
         $scope.setMessage = function (msgBox, status, title, message) {
 

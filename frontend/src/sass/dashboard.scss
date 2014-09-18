@@ -178,8 +178,8 @@ width: 100%;
 .panel-feed .panel-heading{
 background: transparent !important;
 }
-.panel-feed:hover{
-  border-left: 1px solid #bf5a16;
+.panel-feed:hover, .panel-feed-selected{
+  background: #E7FAE9 !important;
 }
 
 .icon-feed{
@@ -233,7 +233,8 @@ input[type=text], input[type=date], input[type=email], textarea, select, input[t
 }
 
 .feedOdd:hover, .feedEven:hover{
-  border-left: 1px solid #bf5a16;
+  background: #E7FAE9 !important;
+
 }
 .feedTable span.text-muted{
   color: rgba(0,0,0,0.6) !important;
@@ -785,6 +786,39 @@ video {
   100% {
     opacity: 1;
   }
+}
+
+
+
+.slideUp {
+  margin-left: 0px;
+  -webkit-transition:0.3s linear all;
+  -moz-transition:0.3s linear all;
+  -o-transition:0.3s linear all;
+  transition:0.3s linear all;
+}
+.slideUp.ng-hide {
+  opacity:0;
+  margin-left: -100px;
+}
+
+.slideUp.ng-show {
+  margin-left: 0px;
+  opacity:1;
+}
+
+.slideDown {
+  margin-left: -20px;
+
+}
+.slideDown.ng-hide {
+  margin-left: -20px;
+  opacity:0;
+}
+
+.slideDown.ng-show {
+  margin-left: 0px;
+  opacity:1;
 }
 
 @-webkit-keyframes slide {

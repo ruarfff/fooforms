@@ -13,7 +13,8 @@ exports.updatePost = function (postJson, next) {
             icon: postJson.icon || '',
             menuLabel: postJson.menuLabel || '',
             form: postJson.form,
-            fields: postJson.fields
+            fields: postJson.fields,
+            lastModified: new Date()
         }, { multi: false }, function (err, post) {
             if (!err && !post) {
                 return next(formErrors.postNotFoundError);

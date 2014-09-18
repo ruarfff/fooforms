@@ -52,56 +52,59 @@ var getFieldValue = function (fieldName, postJson) {
 
 exports.doPostEvents = function (trigger, postJson, next) {
     try {
+if (postJson.hasOwnProperty('formEvents')) {
+    postJson.formEvents.forEach(function (formEvent) {
+        if (formEvent.type === trigger) {
+            var processEvent = false;
+            switch (trigger) {
+                case "statusChange":
 
-        postJson.formEvents.forEach(function (formEvent) {
-            if (formEvent.type === trigger) {
-                var processEvent = false;
-                switch (trigger) {
-                    case "statusChange":
-
-                        if (getFieldValue(formEvent.actionData.statusField) === getFieldValue(formEvent.actionData.statusValue)) {
-                            processEvent = true;
-                        }
-                        break;
-
-                    case "newPost" :
+                    if (getFieldValue(formEvent.actionData.statusField) === getFieldValue(formEvent.actionData.statusValue)) {
                         processEvent = true;
-                        break;
+                    }
+                    break;
 
-                }
-                switch (formEvent.action) {
+                case "newPost" :
+                    processEvent = true;
+                    break;
 
-                    case  "Email":
-                        var from = formEvent.actionData.emailFrom;
-                        var to = getFieldValue(formEvent.actionData.emailTo, postJson);
-                        var subject = formEvent.actionData.emailTitle;
-                        var text = formEvent.actionData.emailContent;
-                        log.debug(__filename, ' - ', 'EMail: From:' + from + ' To: ' + to + ' Subject: ' + subject + ' Text: ' + text);
-
-                        sendMail(from, to, subject, text, function (err) {
-                            if (err) {
-                                log.error(__filename, ' - ', err);
-                            }
-                        });
-
-
-                        break;
-
-                    case "API":
-                        // Do some funky Rest API stuff to some far flung server
-
-                        break;
-
-                    case "Launch":
-
-                    // Launch Inter-continental Ballistic Missiles!!
-
-
-                }
             }
-        });
+            switch (formEvent.action) {
 
-        next();
+                case  "Email":
+                    var from = formEvent.actionData.emailFrom;
+                    var to = getFieldValue(formEvent.actionData.emailTo, postJson);
+                    var subject = formEvent.actionData.emailTitle;
+                    var text = formEvent.actionData.emailContent;
+                    log.debug(__filename, ' - ', 'EMail: From:' + from + ' To: ' + to + ' Subject: ' + subject + ' Text: ' + text);
+
+                    sendMail(from, to, subject, text, function (err) {
+                        if (err) {
+                            log.error(__filename, ' - ', err);
+                        }
+                    });
+
+
+                    break;
+
+                case "API":
+                    // Do some funky Rest API stuff to some far flung server
+
+                    break;
+
+                case "Launch":
+
+                // Launch Inter-continental Ballistic Missiles!!
+
+
+            }
+        }
+    });
+
+    next();
+}else{
+    next();
+}
     } catch (err) {
         log.error(__filename, ' - ', err);
         next(err);
