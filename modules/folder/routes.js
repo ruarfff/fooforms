@@ -3,7 +3,6 @@
 
 var path = require('path');
 var viewDir = path.join(global.config.modules.FOLDER, 'views');
-var authenticator = require(global.config.modules.AUTHENTICATION);
 var folderApi = require(path.join(global.config.modules.FOLDER, 'api/folderApi'));
 var log = require('fooforms-logging').LOG;
 
@@ -20,9 +19,17 @@ var routes = function (app, passport) {
             user: user
         });
     });
+    
+    app.get('/partials/folders', passport.authenticate('basic', { session: false }), function (req, res) {
+        res.render(path.join(viewDir, 'index'));
+    });
+    
     /*********************************************************************************
      *  API
      *********************************************************************************/
+app.get('/api/folders/:id', passport.authenticate('basic', { session: false }), function (req, res) {
+        folderApi.getFolderById(req, res, req.params.id);
+    });
 
     app.get('/api/folders', passport.authenticate('basic', { session: false }), function (req, res) {
         folderApi.getUserFolders(req, res);

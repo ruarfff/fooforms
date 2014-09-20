@@ -2,7 +2,6 @@
 "use strict";
 
 var Form = require(global.config.modules.FORM).Form;
-var User = require(global.config.modules.USER).User;
 var Folder = require('../models/folder').Folder;
 var log = require('fooforms-logging').LOG;
 var folderMembers = require('./folderMembers');
@@ -65,16 +64,6 @@ var checkIfFormAlreadyPublished = function (formId, userId, next) {
                         if (folders[i].forms) {
                             if (folders[i].forms.indexOf(formId) > -1) {
                                 return next(err, folders[i]);
-                            }
-                        }
-                    }
-                }
-                if (user.folderMemberships) {
-                    folderCount = user.folderMemberships.length;
-                    for (i = 0; i < folderCount; i++) {
-                        if (user.folderMemberships[i].forms) {
-                            if (user.folderMemberships[i].forms.indexOf(formId) > -1) {
-                                return next(err, user.folderMemberships[i]);
                             }
                         }
                     }

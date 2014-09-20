@@ -359,6 +359,23 @@ var getFolderForms = function (req, res, id) {
     }
 };
 
+// Temporary helper function
+var getAllFolders = function (req, res) {
+    try {
+        folderLib.getAllFolders(function (err, folders) {
+            if (err || !folders) {
+                if(!err) {err = new Error('folder not found');}
+                err.http_code = 404;
+                errorResponseHandler.handleError(res, err);
+            } else {
+                res.status(200);
+                res.send(folders);
+            }
+        });
+    } catch (err) {
+        errorResponseHandler.handleError(res, err);
+    }
+};
 
 
 module.exports = {
@@ -369,6 +386,7 @@ module.exports = {
     getFolderForms: getFolderForms,
     update: updateFolder,
     delete: deleteFolder,
+    getAllFolders: getAllFolders,
     addFormToFolder: addFormToFolder,
     removeFormFromFolder: removeFormFromFolder,
     addMember: addMember,

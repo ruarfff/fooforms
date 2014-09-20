@@ -33,8 +33,6 @@ describe('Signup Routes', function () {
 
 
     beforeEach(function () {
-        mongoose.models = {};
-        mongoose.modelSchemas = {};
         mockgoose.reset();
     });
 

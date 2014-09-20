@@ -1,7 +1,6 @@
 /*jslint node: true */
 'use strict';
 
-var authenticator = require(global.config.modules.AUTHENTICATION);
 var log = require('fooforms-logging').LOG;
 
 /**
@@ -13,17 +12,9 @@ var log = require('fooforms-logging').LOG;
  */
 var routes = function (app, passport) {
 
-    require('../modules/site/routes')(app, passport);
-
-    require('../modules/dashboard/routes')(app, passport);
-
     require('../modules/admin/routes')(app, passport);
-    require('../modules/authentication/routes')(app, passport);
     require('../modules/calendar/routes')(app, passport);
-    require('../modules/user/routes')(app, passport);
     require('../modules/folder/routes')(app, passport);
-    require('../modules/folders/routes')(app, passport);
-    require('../modules/form/routes')(app, passport);
     require('../modules/formBuilder/routes')(app, passport);
     require('../modules/formViewer/routes')(app, passport);
     require('../modules/file/routes')(app, passport);
@@ -39,6 +30,7 @@ var routes = function (app, passport) {
         });
 
 
+    /**
     app.route('/:username')
         .get(passport.authenticate( 'basic', {session: false, failureRedirect:'/login'} ), function (req, res, next) {
             var username = req.params.username;
@@ -92,7 +84,7 @@ var routes = function (app, passport) {
         .get(passport.authenticate( 'basic', {session: false, failureRedirect:'/login'} ), function (req, res, next) {
             next();
         });
-
+*/
     app.route('*')
         .get(function (req, res) {
             // TODO: Currently we just let the client handle things if we can't figure out what the request is. Should review.

@@ -2,9 +2,11 @@
 'use strict';
 
 var BasicStrategy = require('passport-http').BasicStrategy;
+var db = require('mongoose').connection;
+var Membership = require('fooforms-membership');
 
 
-module.exports = function ( passport, membership ) {
+module.exports = function ( passport ) {
 
     passport.serializeUser( function ( user, done ) {
         try {
@@ -16,7 +18,7 @@ module.exports = function ( passport, membership ) {
 
     passport.deserializeUser( function ( id, done ) {
         try {
-            membership.findUserById(id, done);
+            new Membership(db).findUserById(id, done);
         } catch ( err ) {
             done( err );
         }
@@ -24,7 +26,12 @@ module.exports = function ( passport, membership ) {
 
     passport.use( new BasicStrategy(
         function(username, password, done) {
-            membership.authenticate(username, password, done);
+            try {
+                new Membership(db).authenticate(username, password, done);
+            } catch (err) {
+                console.log(err);
+            }
+
         }
     ));
 

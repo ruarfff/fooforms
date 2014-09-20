@@ -1,11 +1,10 @@
-var signupRoutes = require('routes/signupRoutes');
-var loginRoutes = require('routes/loginRoutes');
+var signupRoutes = require('./routes/signupRoutes');
+var loginRoutes = require('./routes/loginRoutes');
+var userRoutes = require('./routes/userRoutes');
+var passport = require('./passportConfig');
 
-var Signup = function () {
+exports.signupRoutes = signupRoutes;
+exports.loginRoutes = loginRoutes;
+exports.userRoutes = userRoutes;
+exports.passport = passport;
 
-    this.signupRoutes = signupRoutes;
-    this.loginRoutes = loginRoutes;
-
-};
-
-module.exports = Signup;

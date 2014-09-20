@@ -1,10 +1,10 @@
 var Membership = require('fooforms-membership');
-var mongoose = require('mongoose');
+var db = require('mongoose').connection;
 
 exports.login = function (req, res, next) {
     "use strict";
 
-    var membership = new Membership(mongoose);
+    var membership = new Membership(db);
 
     membership.login(req.body, function (err, result) {
         console.log(err);

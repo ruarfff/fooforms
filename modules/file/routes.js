@@ -3,7 +3,6 @@
 
 var path = require('path');
 var viewDir = path.join(global.config.modules.FILE, 'views');
-var authenticator = require(global.config.modules.AUTHENTICATION);
 var fileApi = require(path.join(global.config.modules.FILE, 'api/fileApi'));
 
 

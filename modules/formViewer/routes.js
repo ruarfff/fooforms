@@ -4,7 +4,6 @@
 var path = require('path');
 
 var viewDir = path.join(global.config.modules.FORMVIEWER, 'views');
-var authenticator = require(global.config.modules.AUTHENTICATION);
 var errorResponseHandler = require('fooforms-rest').errorResponseHandler;
 var log = require('fooforms-logging').LOG;
 

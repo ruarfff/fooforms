@@ -2,7 +2,6 @@
 "use strict";
 
 var Folder = require('../models/folder').Folder;
-var User = require(global.config.modules.USER).User;
 var log = require('fooforms-logging').LOG;
 
 /**
@@ -13,12 +12,11 @@ var log = require('fooforms-logging').LOG;
  * @param user - User to check if is a member
  * @returns {*}
  */
-var userIsFolderMember = function (folder, user) {
+var userIsFolderMember = function (folder, userId) {
     try {
         return (
-            folder.owner.equals(user._id) ||
-            (folder.members && (folder.members.indexOf(user._id) > -1)) &&
-            (user.folderMemberships && (user.folderMemberships.indexOf(folder._id) > -1))
+            folder.owner.equals(userId) ||
+            (folder.members && (folder.members.indexOf(userId) > -1))
             );
     } catch (err) {
         log.error(__filename, ' - ', err);
@@ -33,12 +31,11 @@ var userIsFolderMember = function (folder, user) {
  * @param user - User to check for write permissions
  * @returns {*}
  */
-var userHasWritePermissionInFolder = function (folder, user) {
+var userHasWritePermissionInFolder = function (folder, userId) {
     try {
         return (
-            folder.owner.equals(user._id) ||
-            (folder.membersWithWritePermissions && (folder.membersWithWritePermissions.indexOf(user._id) > -1)) &&
-            (user.folderMemberships && (user.folderMemberships.indexOf(folder._id) > -1))
+            folder.owner.equals(userId) ||
+            (folder.membersWithWritePermissions && (folder.membersWithWritePermissions.indexOf(userId) > -1))
             );
     } catch (err) {
         log.error(__filename, ' - ', err);
@@ -83,27 +80,15 @@ var addFolderMember = function (folderId, userId, next) {
                 return next(new Error('Cannot add members to a user folder'), folder);
             }
 
-            User.findById(userId, function (err, user) {
-                if (err) {
-                    return next(err);
-                }
-                if (!user) {
-                    return next(new Error('Could not add user to folder because user with id: ' + user._id + ' does not exist in the database'));
-                }
+            if (folder.owner.equals(user._id)) {
+                return next(new Error('User cannot be made a member of folder because user with id ' + user._id + ' is the folder owner'));
+            }
+            if (userIsFolderMember(folder, user)) {
+                return next(new Error('User with id ' + user._id + ' is already a folder member'));
+            }
+            folder.members.push(user._id);
+            folder.save(next);
 
-                checkAndCreateFolderMemberLists(folder);
-
-                if (folder.owner.equals(user._id)) {
-                    return next(new Error('User cannot be made a member of folder because user with id ' + user._id + ' is the folder owner'));
-                }
-                if (userIsFolderMember(folder, user)) {
-                    return next(new Error('User with id ' + user._id + ' is already a folder member'));
-                }
-                user.addFolderMembership(folder._id, function (err, user) {
-                    folder.members.push(user._id);
-                    folder.save(next);
-                });
-            });
         });
 
     } catch (err) {
@@ -133,31 +118,21 @@ var addFolderMemberWithWritePermissions = function (folderId, userId, next) {
                 return next(new Error('Cannot add members to a User Folder'), folder);
             }
 
-            User.findById(userId, function (err, user) {
-                if (err) {
-                    return next(err);
-                }
-                if (!user) {
-                    return next(new Error('Could not add user to folder because user with id: ' + user._id + ' does not exist in the database'));
-                }
-                checkAndCreateFolderMemberLists(folder);
-                if (folder.owner.equals(user._id)) {
-                    return next(new Error('User cannot be made a member of folder because user with id ' + user._id + ' is the folder owner'));
-                }
-                if (userHasWritePermissionInFolder(folder, user)) {
-                    return next(new Error('User with id ' + user._id + 'already has write permissions for folder with id ' + folder._id));
-                }
-                if (userIsFolderMember(folder, user)) {
-                    folder.membersWithWritePermissions.push(user._id);
-                    folder.save(next);
-                } else {
-                    user.addFolderMembership(folder._id, function (err, user) {
-                        folder.members.push(user._id);
-                        folder.membersWithWritePermissions.push(user._id);
-                        folder.save(next);
-                    });
-                }
-            });
+            if (folder.owner.equals(userId)) {
+                return next(new Error('User cannot be made a member of folder because user with id ' + userId + ' is the folder owner'));
+            }
+            if (userHasWritePermissionInFolder(folder, user)) {
+                return next(new Error('User with id ' + userId + 'already has write permissions for folder with id ' + folder._id));
+            }
+            if (userIsFolderMember(folder, user)) {
+                folder.membersWithWritePermissions.push(userId);
+                folder.save(next);
+            } else {
+                folder.members.push(user._id);
+                folder.membersWithWritePermissions.push(userId);
+                folder.save(next);
+
+            }
         });
     } catch (err) {
         return next(err);
@@ -186,34 +161,20 @@ var removeFolderMember = function (folderId, userId, next) {
             if (folder.owner.equals(userId)) {
                 return next(new Error('Cannot remove folder owner from folder members'));
             }
-            User.findById(userId, function (err, user) {
-                if (err) {
-                    return next(err);
+            var index = -1;
+            if (folder.members) {
+                index = folder.members.indexOf(userId);
+                if (index > -1) {
+                    folder.members.pull(userId);
                 }
-                if (!userIsFolderMember(folder, user)) {
-                    return next(new Error('User is not a folder member'));
-                } else {
-                    user.removeFolderMembership(folder._id, function (err, user) {
-                        if (err) {
-                            return next(err);
-                        }
-                        var index = -1;
-                        if (folder.members) {
-                            index = folder.members.indexOf(user._id);
-                            if (index > -1) {
-                                folder.members.pull(user._id);
-                            }
-                        }
-                        if (folder.membersWithWritePermissions) {
-                            index = folder.membersWithWritePermissions.indexOf(user._id);
-                            if (index > -1) {
-                                folder.membersWithWritePermissions.pull(user._id);
-                            }
-                        }
-                        folder.save(next);
-                    });
+            }
+            if (folder.membersWithWritePermissions) {
+                index = folder.membersWithWritePermissions.indexOf(userId);
+                if (index > -1) {
+                    folder.membersWithWritePermissions.pull(userId);
                 }
-            });
+            }
+            folder.save(next);
         });
     } catch (err) {
         return next(err);
@@ -240,30 +201,21 @@ var removeFolderMemberWritePermissions = function (folderId, userId, next) {
             if (folder.owner.equals(userId)) {
                 return next(new Error('Cannot remove write permissions of folder owner'));
             }
-            User.findById(userId, function (err, user) {
-                if (err) {
-                    return next(err);
-                }
-                if (!user) {
-                    return next(new Error('Could not find user with id: ' + userId));
-                }
-
-                if (!userIsFolderMember(folder, user)) {
-                    return next(new Error('User with Id ' + user._id + ' is not a folder member'));
-                }
-                else if (!userHasWritePermissionInFolder(folder, user)) {
-                    return next(new Error('User with Id ' + user._id + ' does not have write permissions'));
-                } else {
-                    var index = -1;
-                    if (folder.membersWithWritePermissions) {
-                        index = folder.membersWithWritePermissions.indexOf(user._id);
-                        if (index > -1) {
-                            folder.membersWithWritePermissions.splice(index, 1);
-                        }
+            if (!userIsFolderMember(folder, userId)) {
+                return next(new Error('User with Id ' + userId + ' is not a folder member'));
+            }
+            else if (!userHasWritePermissionInFolder(folder, userId)) {
+                return next(new Error('User with Id ' + userId + ' does not have write permissions'));
+            } else {
+                var index = -1;
+                if (folder.membersWithWritePermissions) {
+                    index = folder.membersWithWritePermissions.indexOf(userId);
+                    if (index > -1) {
+                        folder.membersWithWritePermissions.splice(index, 1);
                     }
-                    folder.save(next);
                 }
-            });
+                folder.save(next);
+            }
         });
     } catch (err) {
         log.error(__filename, ' - ', err);

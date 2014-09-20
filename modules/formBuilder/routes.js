@@ -4,7 +4,6 @@
 var path = require('path');
 
 var viewDir = path.join(global.config.modules.FORMBUILDER, 'views');
-var authentication = require(global.config.modules.AUTHENTICATION);
 
 
 var routes = function (app, passport) {

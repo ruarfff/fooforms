@@ -3,7 +3,6 @@
 
 var path = require('path');
 var viewDir = path.join(global.config.modules.CALENDAR, 'views');
-var authenticator = require(global.config.modules.AUTHENTICATION);
 
 
 var routes = function (app, passport) {
@@ -11,7 +10,7 @@ var routes = function (app, passport) {
     /*********************************************************************************
      *  View Handlers
      *********************************************************************************/
-    app.get('/partials/calendar', passport.authenticate('basic', { session: false }), function (req, res) {
+    app.get('/partials/calendar', function (req, res) {
         var user = req.user;
 
         res.render(path.join(viewDir, 'index'), {
