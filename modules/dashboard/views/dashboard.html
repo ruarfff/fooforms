@@ -37,8 +37,8 @@
              ng-repeat="foo in posts track by $index" ng-click="viewPost(foo, $index)">
 
             <div class="panel-heading">
-                <span class="pull-right text-muted">{{foo.lastModified | date : 'HH:mm'}} </span>
-                <label class="label label-info pull-right mr5" ng-repeat="field in foo.fields"
+                <span class="pull-right text-muted">{{foo.name}}, {{foo.lastModified | date : 'HH:mm'}} </span>
+                <label class="label label-default pull-right mr5" ng-repeat="field in foo.fields"
                        ng-show="field.type=='status'">{{ field.selected}}</label>
 
                 <a ng-click="viewPost(foo)">
@@ -53,7 +53,7 @@
             <div class="panel-body">
                 <div ng-repeat="field in foo.fields track by $index">
                     <span ng-show="(field.type=='text' || field.type=='textarea') && $index <5">
-                        <span class='label'> {{ field.label }} </span> {{ field.value}}</span>
+                        <span class='label label-foo'> {{ field.label }} </span> {{ field.value}}</span>
 
                     <img class="img-feed" style="max-width:100%;"
                          src="{{'/api/file/'+ field.value._id }}" ng-if="field.value.mimeType=='image/jpeg'">
@@ -71,12 +71,14 @@
                 ng-class="{ 'panel-feed-selected': posts.activePost._id == foo._id }">
                 <td class="b0" >
                     <img class="media-object icon icon-feed pull-left" ng-src="{{foo.icon}}" alt="">
-                    <span class="pull-right text-muted">{{foo.lastModified | date : 'HH:mm'}} </span>
-                    <label class="label label-default pull-right mr5" ng-repeat="field in foo.fields"
+                    <span>{{foo.fields[0].value}}</span>
+
+                    <span class="pull-right text-muted">{{foo.name}}, {{foo.lastModified | date : 'HH:mm'}} </span>
+                    <br><label class="label label-default pull-right" ng-repeat="field in foo.fields"
                            ng-if="field.type=='status'">{{ field.selected}}</label>
 
-                    <span>{{foo.fields[0].value}}</span><br> <span class="text-muted"> {{foo.fields[1].value}} - <i>
-                    {{foo.fields[2].value}} </i></span>
+                     <div class="text-muted"> {{foo.fields[1].value}} - <i>
+                    {{foo.fields[2].value}} </i></div>
                 </td>
             </tr>
         </table>

@@ -155,33 +155,33 @@
         <img src="/assets/images/logo.png">
     </div>
 
-    <ul class="nav nav-pills nav-stacked scrollSidebar l0" >
-
+    <ul class="nav nav-pills nav-stacked scrollSidebar ml0" >
         <li>
-            <a href="dashboard"><i class="fa fa-dashboard"></i> Dashboard <span class="badge pull-right">42</span></a>
-
+           <div><a href="dashboard"><i class="fa fa-dashboard"></i></a></div><div><a href="dashboard">Dashboard</a></div>
         </li>
-
         <li>
-            <a ng-click="isCollapsed = !isCollapsed"><i class="fa fa-th"></i> Forms
-                <span class="caret"></span>
+            <div><a ng-click="isCollapsed = !isCollapsed"><i class="fa fa-th"></i></a></div>
+            <div><a ng-click="isCollapsed = !isCollapsed">Forms<span class="caret"></span></a></div>
+            <ul class="nav nav-pills nav-stacked ml0"  collapse="isCollapsed">
 
-            </a>
-            <ul class="nav nav-pills nav-stacked ml5"  collapse="isCollapsed">
-
-                <li ng-repeat="form in forms">
+                <li ng-repeat="form in forms"><div>
                     <a href="{{user.displayName + '/' + form.sharing.folder + '/' + form.menuLabel}}"
                        ng-click='updateForm(form)' >
                         <img ng-src="{{form.icon}}" alt="{{form.name}}" class="icon icon-xs">
+                    </a>
+                </div><div>
+                    <a href="{{user.displayName + '/' + form.sharing.folder + '/' + form.menuLabel}}"
+                       ng-click='updateForm(form)' >
                         {{form.name}}
-                    </a></li>
+                    </a>
+                </div></li>
             </ul>
         </li>
         <li>
-            <a href="people"><i class="fa fa-group"></i> People</a>
+            <div><a href="people"><i class="fa fa-group"></i></a></div><div><a href="people">People</a></div>
         </li>
         <li>
-            <a href="calendar"><i class="fa fa-calendar"></i> Dates</a>
+            <div><a href="calendar"><i class="fa fa-calendar"></i></a></div><div><a href="calendar">Dates</a></div>
         </li>
 
 
@@ -207,14 +207,12 @@
 
 
 </div>
-<div id="footer hidden-print">
-   <div class="panel panel-default">
-       <div class="panel-heading">
-           <div class="alert fade in m0 br0 {{msgStatus}} " ng-show="activeMsgBox=='formViewer'">
+<div id="footer" class="hidden-print p0 m0">
+
+           <div class="alert fade in m0 p5 br0 {{msgStatus}} " ng-show="activeMsgBox=='formViewer'">
                <p ng-bind="msg"></p>
            </div>
-       </div>
-   </div>
+
 </div>
 <script type="text/javascript" src="/js/vendor.min.js"></script>
 
