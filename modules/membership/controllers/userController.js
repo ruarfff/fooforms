@@ -4,10 +4,10 @@ var log = require('fooforms-logging').LOG;
 var stringUtil = require('fooforms-rest').stringUtil;
 var statusCodes = require('fooforms-rest').statusCodes;
 var userProfile = require('../lib/userProfile');
+var membership = new Membership(db);
 
 
 exports.findUserById = function (req, res, next) {
-    var membership = new Membership(db);
     membership.findUserById(req.params.user, function (err, result) {
         if(err){next(err);}
         if (result.success) {
@@ -19,7 +19,6 @@ exports.findUserById = function (req, res, next) {
 };
 
 exports.listByUserName = function (req, res, next) {
-    var membership = new Membership(db);
     var displayName = req.query.username || '';
     membership.searchUsers({displayName: new RegExp('^' + stringUtil.escapeRegExpChars(displayName), 'i')}, function (err, result) {
         if(err) {
@@ -41,7 +40,6 @@ exports.listByUserName = function (req, res, next) {
 };
 
 exports.updateUser = function (req, res, next) {
-    var membership = new Membership(db);
     membership.updateUser(req.body, function (err, result) {
        if(err){next(err);}
         if(result.success) {
@@ -53,7 +51,6 @@ exports.updateUser = function (req, res, next) {
 };
 
 exports.checkUserName = function (req, res, next) {
-    var membership = new Membership(db);
     membership.checkDisplayNameExists(req.params.username, function (err, exists) {
         if(err){
             next(err);

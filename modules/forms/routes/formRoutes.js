@@ -17,11 +17,19 @@ router.get('/partials/forms', function (req, res) {
 });
 
 router.get('/:form', function(req, res, next) {
-    formController.findFormById(req, res, next);
+    formController.findById(req, res, next);
 });
 
 router.post('', function (req, res, next) {
-   formController.createForm(req, res, next);
+   formController.create(req, res, next);
+});
+
+router.put('/:form', function (req, res, next) {
+   formController.update(req, res, next);
+});
+
+router.delete('/:form', function (req, res, next) {
+    formController.remove(req, res, next);
 });
 
 /**
@@ -46,24 +54,14 @@ var routes = function (app, passport) {
         }
     });
 
-    app.post('/api/forms', passport.authenticate('basic', { session: false }), function (req, res) {
-        formApi.create(req, res);
-    });
 
     app.post('/api/posts', passport.authenticate('basic', { session: false }), function (req, res) {
         postApi.create(req, res);
     });
 
-    app.put('/api/forms', passport.authenticate('basic', { session: false }), function (req, res) {
-        formApi.update(req, res);
-    });
 
     app.put('/api/posts', passport.authenticate('basic', { session: false }), function (req, res) {
         postApi.update(req, res);
-    });
-
-    app.delete('/api/forms', passport.authenticate('basic', { session: false }), function (req, res) {
-        formApi.delete(req, res);
     });
 
     app.delete('/api/posts', passport.authenticate('basic', { session: false }), function (req, res) {

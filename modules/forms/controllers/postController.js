@@ -4,12 +4,12 @@ var statusCodes = require('fooforms-rest').statusCodes;
 var fooForm = new FooForm(db);
 
 exports.create = function (req, res, next) {
-    fooForm.createForm(req.body, function (err, result) {
+    fooForm.createPost(req.body, function (err, result) {
         if (err) {
             return next(err);
         }
         if (result.success) {
-            res.location('/forms/' + result.form._id);
+            res.location('/posts/' + result.post._id);
             res.status(statusCodes.CREATED).json(result);
         } else {
             res.status(statusCodes.BAD_REQUEST).json(result);
@@ -18,7 +18,7 @@ exports.create = function (req, res, next) {
 };
 
 exports.findById = function (req, res, next) {
-    fooForm.findFormById(req.params.form, function (err, result) {
+    fooForm.findPostById(req.params.post, function (err, result) {
         if (err) {
             next(err);
         }
@@ -31,15 +31,16 @@ exports.findById = function (req, res, next) {
 };
 
 exports.update = function (req, res, next) {
-    if(req.body && req.body._id !== req.params.form) {
-        req.body._id = req.params.form;
+    if(req.body && req.body._id !== req.params.post) {
+        req.body._id = req.params.post;
     }
-    fooForm.updateForm(req.body, function (err, result) {
+
+    fooForm.updatePost(req.body, function (err, result) {
         if (err) {
             next(err);
         }
         if (result.success) {
-            res.send(result.form);
+            res.send(result.post);
         } else {
             res.status(statusCodes.BAD_REQUEST).json(result.message);
         }
@@ -47,7 +48,7 @@ exports.update = function (req, res, next) {
 };
 
 exports.remove = function (req, res, next) {
-    fooForm.deleteForm({_id: req.params.form}, function (err, result) {
+    fooForm.deletePost({_id: req.params.post}, function (err, result) {
         if (err) {
             next(err);
         }
