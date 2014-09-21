@@ -2,106 +2,10 @@
 
 angular.module('formBuilder')
 
-    .factory('DragDropHandler', [function ($scope) {
-        'use strict';
-        return {
-            dragObject: undefined,
-            addObject: function (object, objects, to) {
-                objects.splice(to, 0, object);
-            },
-            moveObject: function (objects, from, to) {
-               // objects.splice(to, 0, objects.splice(from, 1)[0]);
-            }
-        };
-    }])
 
 
 
-    .directive('draggable', ['DragDropHandler', function (DragDropHandler) {
-        'use strict';
-        return {
-            scope: {
-                draggable: '=',
-                ngBorder: '&'
-            },
-            link: function (scope, element, attrs) {
-                element.draggable({
-                    connectToSortable: attrs.draggableTarget,
-                    helper: "clone",
-                    revert: "invalid",
-                    start: function () {
-                        DragDropHandler.dragObject = scope.draggable;
-                        scope.ngBorder({'show': true});
 
-                    },
-                    stop: function () {
-                        DragDropHandler.dragObject = undefined;
-                        scope.ngBorder({'show': false});
-                        scope.$parent.$apply();
-                    }
-                });
-
-                element.disableSelection();
-            }
-        };
-    }])
-
-    .directive('droppable', ['DragDropHandler', function (DragDropHandler) {
-        'use strict';
-        return {
-            scope: {
-                droppable: '=',
-                ngUpdate: '&',
-                ngCreate: '&',
-                ngBorder: '&'
-
-            },
-            link: function (scope, element, attrs) {
-                element.sortable();
-                element.disableSelection();
-                element.on("sortstart", function (event, ui) {
-
-                    scope.$parent.showBorders(true);
-
-                });
-                element.on("sortdeactivate", function (event, ui) {
-
-                        var from = angular.element(ui.item).scope().$index;
-                        scope.$parent.nowEditing = from;
-                        var to = element.children().index(ui.item);
-                        scope.$apply(function(){
-                            if (to >= 0) {
-
-                                if (from >= 0) {
-                                    //DragDropHandler.moveObject(scope.droppable, from, to);
-
-                                    scope.ngUpdate({
-                                        from: from,
-                                        to: to
-                                    });
-
-
-
-                                } else {
-                                    scope.ngCreate({
-                                        object: DragDropHandler.dragObject,
-                                        to: to
-                                    });
-                                    ui.item.remove();
-
-                                }
-
-
-                            }
-                        });
-
-
-
-                });
-
-            }
-        };
-    }])
 
 // not used but may be useful some day......
 
@@ -127,62 +31,7 @@ angular.module('formBuilder')
                 }
             );
         };
-    })
-
-
-    .directive('subdroppable', ['DragDropHandler', function (DragDropHandler) {
-        'use strict';
-        return {
-            scope: {
-                subdroppable: '=',
-                ngUpdate: '&',
-                ngCreate: '&',
-                ngBorder: '&'
-
-            },
-            link: function (scope, element, attrs) {
-
-                element.sortable();
-                element.disableSelection();
-                element.on("sortstart", function (event, ui) {
-
-                    scope.$parent.showBorders(true);
-
-                });
-                element.on("sortdeactivate", function (event, ui) {
-                    var repeatBox = angular.element(ui.item).scope().$index;
-                    var from = angular.element(ui.item).scope().$index;
-                    var to = element.children().index(ui.item);
-
-                    scope.$parent.nowEditing = from;
-                    scope.$parent.nowSubEditing = repeatBox;
-
-                    if (to >= 0) {
-                        scope.$apply(function () {
-                            if (angular.element(ui.item).scope().subField !== undefined) {
-                                DragDropHandler.moveObject(scope.subdroppable, from, to);
-                                scope.ngUpdate({
-                                    from: from,
-                                    to: to
-                                });
-
-                            } else {
-                                scope.ngCreate({
-                                    object: DragDropHandler.dragObject,
-                                    repeatbox: repeatBox,
-                                    to: to
-                                });
-
-                                ui.item.remove();
-                            }
-                        });
-                    }
-                    event.stopPropagation();
-                    scope.$parent.$apply();
-                });
-            }
-        };
-    }]).directive('uploader', ['$upload',function($upload) {
+    }).directive('uploader', ['$upload',function($upload) {
 
         return {
             restrict: 'E',

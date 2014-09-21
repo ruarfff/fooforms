@@ -1,20 +1,19 @@
 /* global angular */
 
 angular.module('formBuilder').controller('FieldsCtrl',
-    ['$log', '$scope', '$http', '$modal', 'DragDropHandler', 'Restangular', 'FormService', 'Forms', 'FolderService', 'Folders', '_', '$filter',
-        function ($log, $scope, $http, $modal, DragDropHandler, Restangular, FormService, Forms, FolderService, Folders, _, $filter) {
+    ['$log', '$scope', '$http', '$modal',  'Restangular', 'FormService', 'Forms', 'FolderService', 'Folders', '_', '$filter',
+        function ($log, $scope, $http, $modal, Restangular, FormService, Forms, FolderService, Folders, _, $filter) {
 
             "use strict";
             $http.get('/js/formBuilder/inputTypes.json').success(function (data) {
 
                 $scope.inputTypes = angular.copy(data.inputTypes);
-
+                $scope.formEventHolder = angular.copy(data.events);
 
                 $scope.icons = data.icons;
-                $scope.formEvents = data.events;
 
                 $scope.resetInputTypes();
-
+                $scope.resetEventTypes();
             });
 
             $scope.resetInputTypes = function(){
@@ -25,8 +24,12 @@ angular.module('formBuilder').controller('FieldsCtrl',
                 $scope.fileInputTypes = $filter('filterTypes')($scope.inputTypesRefresh,'files');
                 $scope.advancedInputTypes = $filter('filterTypes')($scope.inputTypesRefresh,'advanced');
                 $scope.standardInputTypes = $filter('filterTypes')($scope.inputTypesRefresh,'standard');
-            }
+            };
 
+            $scope.resetEventTypes = function(){
+                $scope.formEvents = angular.copy($scope.formEventHolder);
+            }
+;
 
             FolderService.getFolders(function (err) {
                 if (!err) {
@@ -93,6 +96,30 @@ angular.module('formBuilder').controller('FieldsCtrl',
                 }
 
             };
+
+            $scope.eventSortableOptions = {
+                connectWith: ".connected-events-container",
+                cursorAt: { left: 15 , top: 15},
+                "opacity": 0.7,
+                distance: 5,forceHelperSize: true,
+                helper: "clone",
+                appendTo: 'body',
+                zIndex: 99999999,
+                scroll: true,
+                stop: function (e, ui) {
+                    $scope.$apply(function(){
+                        $scope.resetEventTypes();
+                        $scope.dropped = $scope.nowEditing = ui.item.sortable.dropindex;
+                        $scope.form.formEvents[$scope.nowEditing].id = new Date().getTime();
+                        $scope.lastChanged();
+                    });
+                    // if the element is removed from the first container
+
+
+                }
+
+            };
+
 $scope.lastChanged = function(){
     var lastChanged = new Date().getTime();
     $scope.form.lastChanged = lastChanged;
@@ -100,7 +127,7 @@ $scope.lastChanged = function(){
 
 
 
-            //following are all called from the directives droppable or subdroppable
+            //Delete form Items
 
 
             $scope.deleteItem = function (itemId) {
@@ -115,18 +142,19 @@ $scope.lastChanged = function(){
                 });
             };
 
+            $scope.deleteEvent= function (delEvent) {
+                $scope.form.formEvents = _.reject($scope.form.formEvents, function (formEvent) {
+                    return formEvent.id === delEvent.id;
+                });
+            };
+
 // Drag Drop Events
             $scope.updateEvents = function (from, to) {
 
                 $scope.dragging = false;
             };
 
-            $scope.createEvent = function (object, to) {
-                var newItem = angular.copy(object);
-                newItem.id = Math.ceil(Math.random() * 1000);
-                DragDropHandler.addObject(newItem, $scope.form.formEvents, to);
-                $scope.dragging = false;
-            };
+
 
 
 // Used to add options to selects, radios, i.e. Single selection
@@ -155,13 +183,7 @@ $scope.lastChanged = function(){
                 }
             };
 
-            // dragging has started -  null nowEditing and show borders on all formfields to aid with dropping.
-            $scope.showBorders = function (show) {
-                $scope.dragging = show;
-                $scope.nowEditing = null;
-                $scope.nowSubEditing = null;
-                $scope.$apply();
-            };
+
 
             // should we show the default placeholder - i.e. - there are no formfields
             $scope.showPlaceHolder = function (container) {
@@ -177,6 +199,7 @@ $scope.lastChanged = function(){
                         $scope.showFieldSettings = false;
                         $scope.showGroupSettings = false;
                         $scope.showFormSettings = true;
+                        $scope.showEventSettings = false;
                         break;
                     case 'Field' :
                         $scope.nowEditing = fieldId;
@@ -184,6 +207,7 @@ $scope.lastChanged = function(){
                         $scope.showFieldSettings = true;
                         $scope.showGroupSettings = false;
                         $scope.showFormSettings = false;
+                        $scope.showEventSettings = false;
                         break;
                     case 'Group' :
                         $scope.nowEditing = fieldId;
@@ -191,6 +215,15 @@ $scope.lastChanged = function(){
                         $scope.showFieldSettings = false;
                         $scope.showGroupSettings = true;
                         $scope.showFormSettings = false;
+                        $scope.showEventSettings = false;
+                        break;
+                    case 'Event' :
+                        $scope.nowEditing = fieldId;
+                        $scope.nowSubEditing = subFieldId;
+                        $scope.showFieldSettings = false;
+                        $scope.showGroupSettings = true;
+                        $scope.showFormSettings = false;
+                        $scope.showEventSettings = true;
                         break;
                     default :
                         $scope.nowEditing = null;
@@ -198,6 +231,7 @@ $scope.lastChanged = function(){
                         $scope.showFieldSettings = false;
                         $scope.showGroupSettings = false;
                         $scope.showFormSettings = false;
+                        $scope.showEventSettings = false;
                         break;
 
                 }

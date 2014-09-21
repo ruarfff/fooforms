@@ -45,8 +45,11 @@
              ng-class="{ 'newFormx': form.fields.length==0}">
             <form role="form" class="fooform">
 
-            <div ui-sortable="sortableOptions" ng-model="form.fields" id='formFields' class="connected-apps-container row"
-                    >
+            <div ui-sortable="sortableOptions"
+                 ng-model="form.fields"
+                 id='formFields'
+                 class="connected-apps-container row">
+
                 <div class='formObject plr5 col-sm-{{formField.boxSize}}'
                      ng-repeat="formField in form.fields track by $index"
                      ng-show="formField.name"
@@ -76,6 +79,10 @@
 
 
     <div id="tabs-settings" class="tab-pane">
+        <div class="panel panel-default">
+            <div class="panel-body">
+
+
         <h4 class="text-info">User Access</h4>
         <ul class="list-group">
             <li class="list-group-item"
@@ -166,49 +173,60 @@
     </div>
 
 
+                </div>
+            </div>
+
+
     <div id="tabs-events" class="tab-pane">
+        <div class="panel panel-default">
+            <div class="panel-body">
 
         <h4 class="text-info">Form Events</h4>
 
-        <div class="formLayout container"
+        <div
              ng-class="{ 'newForm': form.formEvents.length==0}">
 
-            <div id='formEvents' class="row"
-                 droppable='form.formEvents'
-                 ng-update='updateEvents(from, to)'
-                 ng-create='createEvent(object, to)'
-                    >
-                <div class='col-sm-12 under'
+            <div ui-sortable="sortableOptions"
+                 ng-model="form.formEvents"
+                 id='formEvents'
+                 class="connected-events-container row">
+
+
+
+                <div class='col-sm-12 under alert alert-success'
                      ng-repeat="event in form.formEvents track by $index"
                      ng-show="event.name"
                      ng-border="showBorders(show)"
-                     ng-click="editEvent($index,null,'Field', $event)"
+                     ng-click="editField($index,null,'Event', $event)"
                      ng-class="{ 'selected': $index == nowEditing ,'dragging' : dragging}">
                     <div class="btn-group pull-right onTop">
 
-                        <button ng-click="editEvent($index, null, 'Field', $event)"
+                        <button ng-click="editField($index,null,'Event', $event)"
                                 class='btn btn-xs btn-default'
                                 >{{$index}}
                         </button>
-                        <button ng-click='deleteEvent(event.id)'
+                        <button ng-click='deleteEvent(event)'
                                 class='btn btn-xs btn-danger'
                                 ng-show="$index == nowEditing">X
                         </button>
                     </div>
-                    <div ng-include='event.template' class="under"></div>
+                    <div class="under"><h4>{{ event.name}}</h4><p>{{ event.description}}</p></div>
                 </div>
             </div>
 
         </div>
     </div>
 
+        </div>
+    </div>
 
     <div id="tabs-publish" class="tab-pane">
-        <div class='m10'>
-
+        <div class='panel panel-default'>
+            <div class='panel-body'>
            <iframe class="iframe-large" src="{{form.url}}"></iframe>
         </div>
-
+</div>
+</div>
 
                      <pre class="ng-binding">
      {{form | json}}
