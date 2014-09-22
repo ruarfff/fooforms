@@ -21,7 +21,6 @@ var log = require('fooforms-logging').LOG;
 
 
 var membership = require('./modules/membership');
-var form = require('./modules/form');
 
 
 process.on('uncaughtException', function (err) {
@@ -165,17 +164,6 @@ var FooFormsServerApp = function () {
             self.bootstrapModels();
             membership.passport(passport);
             require('./config/express')(self.app, passport);
-
-            require('./modules/site/routes')(self.app, passport);
-            self.app.use('/signup', membership.signupRoutes);
-            self.app.use('/login', membership.loginRoutes);
-            require('./modules/dashboard/routes')(self.app, passport);
-
-            self.app.use(passport.authenticate( 'basic', {session: false, failureRedirect:'/login'} ));
-
-            self.app.use('/users', membership.userRoutes);
-            self.app.use('/forms', form.formRoutes);
-
             require('./config/routes')(self.app, passport);
 
             log.info(__filename, ' - ', 'Running environment: ' + env);
