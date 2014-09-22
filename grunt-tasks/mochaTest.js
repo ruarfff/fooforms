@@ -9,7 +9,7 @@ module.exports = function(grunt) {
                 require: 'test/coverage/blanket',
                 clearRequireCache: true
             },
-            src: ['test/spec/modules/**/*.js']
+            src: ['modules/**/test/*-spec.js']
         },
         coverage: {
             options: {
@@ -19,7 +19,7 @@ module.exports = function(grunt) {
                 //output (the quiet option does not suppress this)
                 captureFile: 'frontend/public/coverage.html'
             },
-            src: ['test/spec/modules/**/*.js']
+            src: ['modules/**/test/*-spec.js']
         }
     });
     grunt.loadNpmTasks('grunt-mocha-test');

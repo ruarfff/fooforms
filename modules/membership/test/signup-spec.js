@@ -13,6 +13,7 @@ var express = require('express');
 var bodyParser = require('body-parser');
 var should = require('should');
 var signupRoutes = require('../routes/signupRoutes');
+var rootUrls = require(global.config.root + '/config/rootUrls');
 
 var app = express();
 app.use(bodyParser.json());
@@ -20,7 +21,9 @@ app.use(bodyParser.urlencoded({
     extended: true
 }));
 
-app.use('/signup', signupRoutes);
+var rootUrl = '/' + rootUrls.signup;
+
+app.use(rootUrl, signupRoutes);
 
 describe('Signup Routes', function () {
 
@@ -36,10 +39,10 @@ describe('Signup Routes', function () {
         mockgoose.reset();
     });
 
-    describe('POST /signup', function () {
+    describe('POST ' + rootUrl, function () {
         it('responds with 200 and json', function (done) {
             request(app)
-                .post('/signup')
+                .post(rootUrl)
                 .send({ email: email, displayName: displayName,
                     password: password, confirmPass: confirmPass, organisationName: organisationName })
                 .set('Accept', 'application/json')
@@ -48,7 +51,7 @@ describe('Signup Routes', function () {
         });
         it('responds with an error when no email is provided', function (done) {
             request(app)
-                .post('/signup')
+                .post(rootUrl)
                 .send({ email: '', displayName: displayName,
                     password: password, confirmPass: confirmPass, organisationName: organisationName })
                 .set('Accept', 'application/json')
@@ -57,7 +60,7 @@ describe('Signup Routes', function () {
         });
         it('responds with an error when no displayName is provided', function (done) {
             request(app)
-                .post('/signup')
+                .post(rootUrl)
                 .send({ email: email, displayName: '',
                     password: password, confirmPass: confirmPass, organisationName: organisationName })
                 .set('Accept', 'application/json')
@@ -66,7 +69,7 @@ describe('Signup Routes', function () {
         });
         it('responds with an error when no password is provided', function (done) {
             request(app)
-                .post('/signup')
+                .post(rootUrl)
                 .send({ email: email, displayName: displayName })
                 .set('Accept', 'application/json')
                 .expect('Content-Type', /json/)
@@ -74,7 +77,7 @@ describe('Signup Routes', function () {
         });
         it('responds with an error when passwords do not match', function (done) {
             request(app)
-                .post('/signup')
+                .post(rootUrl)
                 .send({ email: email, displayName: displayName,
                     password: password, confirmPass: wrongConfirmPass, organisationName: organisationName })
                 .set('Accept', 'application/json')
@@ -83,7 +86,7 @@ describe('Signup Routes', function () {
         });
         it('responds with an error when no organisation name provided', function (done) {
             request(app)
-                .post('/signup')
+                .post(rootUrl)
                 .send({ email: email, displayName: displayName,
                     password: password, confirmPass: confirmPass })
                 .set('Accept', 'application/json')

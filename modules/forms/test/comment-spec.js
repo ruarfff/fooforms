@@ -14,6 +14,7 @@ var request = require('supertest');
 var express = require('express');
 var bodyParser = require('body-parser');
 var should = require('should');
+var rootUrls = require(global.config.root + '/config/rootUrls');
 var commentRoutes = require('../routes/commentRoutes');
 
 var app = express();
@@ -22,7 +23,7 @@ app.use(bodyParser.urlencoded({
     extended: true
 }));
 
-var rootUrl = '/comments';
+var rootUrl = '/' + rootUrls.comments;
 app.use(rootUrl, commentRoutes);
 
 describe('Comment API', function () {

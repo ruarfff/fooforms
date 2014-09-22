@@ -14,6 +14,7 @@ var request = require('supertest');
 var express = require('express');
 var bodyParser = require('body-parser');
 var should = require('should');
+var rootUrls = require(global.config.root + '/config/rootUrls');
 var formRoutes = require('../routes/formRoutes');
 
 var app = express();
@@ -22,7 +23,7 @@ app.use(bodyParser.urlencoded({
     extended: true
 }));
 
-var rootUrl = '/forms';
+var rootUrl = '/' + rootUrls.forms;
 app.use('/forms', formRoutes);
 
 describe('Form API', function () {

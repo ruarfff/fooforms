@@ -14,6 +14,7 @@ var request = require('supertest');
 var express = require('express');
 var bodyParser = require('body-parser');
 var should = require('should');
+var rootUrls = require(global.config.root + '/config/rootUrls');
 var postRoutes = require('../routes/postRoutes');
 
 var app = express();
@@ -22,7 +23,7 @@ app.use(bodyParser.urlencoded({
     extended: true
 }));
 
-var rootUrl = '/posts';
+var rootUrl = '/' + rootUrls.posts;
 app.use(rootUrl, postRoutes);
 
 describe('Post API', function () {
