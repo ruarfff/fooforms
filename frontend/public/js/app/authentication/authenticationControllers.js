@@ -3,12 +3,6 @@
 angular.module('authentication').controller('LoginCtrl', function ($scope, $rootScope, AUTH_EVENTS, AuthService) {
     'use strict';
 
-    AuthService.checkStoredCredentials(function (err) {
-        if(!err) {
-            window.location = '/dashboard';
-        }
-    });
-
     $scope.credentials = {
         username: '',
         password: ''

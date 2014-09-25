@@ -90,7 +90,7 @@ describe('User Routes', function () {
                 .get(usersRootUrl + '?username=' + user.displayName)
                 .set('Accept', 'application/json')
                 .expect('Content-Type', /json/)
-                .expect(200).end(function (err, res){
+                .expect(200).end(function (err, res) {
                     res.body.length.should.equal(1);
                     done(err);
                 });
@@ -100,7 +100,7 @@ describe('User Routes', function () {
                 .get(usersRootUrl + '/?username=' + 'na')
                 .set('Accept', 'application/json')
                 .expect('Content-Type', /json/)
-                .expect(200).end(function (err, res){
+                .expect(200).end(function (err, res) {
                     res.body.length.should.equal(2);
                     done(err);
                 });
@@ -110,7 +110,7 @@ describe('User Routes', function () {
                 .get(usersRootUrl + '/?username=' + 'lalalal')
                 .set('Accept', 'application/json')
                 .expect('Content-Type', /json/)
-                .expect(200).end(function (err, res){
+                .expect(200).end(function (err, res) {
                     res.body.length.should.equal(0);
                     done(err);
                 });
@@ -120,7 +120,7 @@ describe('User Routes', function () {
                 .get(usersRootUrl + '/check/username/' + user.displayName)
                 .set('Accept', 'application/json')
                 .expect('Content-Type', /json/)
-                .expect(200).end(function (err, res){
+                .expect(200).end(function (err, res) {
                     res.body.exists.should.equal(true);
                     done(err);
                 });
@@ -130,7 +130,7 @@ describe('User Routes', function () {
                 .get(usersRootUrl + '/check/username/' + organisationName)
                 .set('Accept', 'application/json')
                 .expect('Content-Type', /json/)
-                .expect(200).end(function (err, res){
+                .expect(200).end(function (err, res) {
                     res.body.exists.should.equal(true);
                     done(err);
                 });
@@ -140,7 +140,7 @@ describe('User Routes', function () {
                 .get(usersRootUrl + '/check/username/' + 'some name')
                 .set('Accept', 'application/json')
                 .expect('Content-Type', /json/)
-                .expect(200).end(function (err, res){
+                .expect(200).end(function (err, res) {
                     res.body.exists.should.equal(false);
                     done(err);
                 });
@@ -150,7 +150,7 @@ describe('User Routes', function () {
                 .get(usersRootUrl + '/check/username/' + 'some org name')
                 .set('Accept', 'application/json')
                 .expect('Content-Type', /json/)
-                .expect(200).end(function (err, res){
+                .expect(200).end(function (err, res) {
                     res.body.exists.should.equal(false);
                     done(err);
                 });
@@ -159,19 +159,19 @@ describe('User Routes', function () {
 
     describe('PUT ' + usersRootUrl, function () {
 
-       it('responds with 200 and updated user', function (done) {
-           var newEmail = 'shinyNew@email.com';
-           user.email = newEmail;
-           request(app)
-               .put(usersRootUrl + '/' + user._id)
-               .send(user)
-               .set('Accept', 'application/json')
-               .expect('Content-Type', /json/)
-               .expect(200).end(function (err, res){
-                   res.body.email.should.equal(newEmail);
-                   done(err);
-               });
-       });
+        it('responds with 200 and updated user', function (done) {
+            var newEmail = 'shinyNew@email.com';
+            user.email = newEmail;
+            request(app)
+                .put(usersRootUrl + '/' + user._id)
+                .send(user)
+                .set('Accept', 'application/json')
+                .expect('Content-Type', /json/)
+                .expect(200).end(function (err, res) {
+                    res.body.user.email.should.equal(newEmail);
+                    done(err);
+                });
+        });
     });
 
 });

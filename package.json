@@ -1,5 +1,10 @@
 {
     "name": "fooforms",
+    "domains": [
+        "fooforms.com",
+        "www.fooforms.com"
+    ],
+    "subdomain": "fooforms",
     "version": "0.1.0-41",
     "description": "Form Maker",
     "keywords": [
@@ -40,7 +45,7 @@
         "fooforms-rest": "ruairitobrien/fooforms-rest",
         "method-override": "1.0.x",
         "mkdirp": "0.3.x",
-        "mongodb": "1.3.x",
+        "mongodb": "1.4.x",
         "mongoose": "3.8.x",
         "mongoose-unique-validator": "0.3.x",
         "nodemailer": "0.6.x",
@@ -84,7 +89,6 @@
     ],
     "private": true,
     "main": "./bin/www",
-    "subdomain": "fooforms",
     "scripts": {
         "predeploy": "grunt preprocessing",
         "start": "node ./bin/www",

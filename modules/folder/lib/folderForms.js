@@ -1,7 +1,5 @@
 /*jslint node: true */
 "use strict";
-
-var Form = require(global.config.modules.FORM).Form;
 var Folder = require('../models/folder').Folder;
 var log = require('fooforms-logging').LOG;
 var folderMembers = require('./folderMembers');
@@ -22,7 +20,7 @@ var updateFolder = function (folderJson, next) {
             icon: folderJson.icon,
             menuLabel: folderJson.menuLabel
         }, { multi: false }, function (err, folder) {
-            if(!folder && !err) {
+            if (!folder && !err) {
                 err = folderErrors.folderNotFoundError;
             }
             next(err, folder);
@@ -44,7 +42,7 @@ var updateFolder = function (folderJson, next) {
  */
 var checkIfFormAlreadyPublished = function (formId, userId, next) {
     try {
-        User.findById(userId).populate('folderMemberships').exec( function (err, user) {
+        User.findById(userId).populate('folderMemberships').exec(function (err, user) {
             if (err) {
                 return (next(err));
             }
@@ -98,7 +96,7 @@ var addFormToFolder = function (folderId, formId, next) {
             }
 
             Form.findById(formId).populate('owner').exec(function (err, form) {
-                if(!err && !form) {
+                if (!err && !form) {
                     err = folderErrors.formNotFoundError;
                 }
                 if (err) {
@@ -176,7 +174,7 @@ var removeFormFromFolder = function (folderId, formId, next) {
  * @param formId
  * @param next
  */
-var moveFormFromOneFolderToAnother = function(folderId, formId, next) {
+var moveFormFromOneFolderToAnother = function (folderId, formId, next) {
     try {
         Form.findById(formId).populate('owner').exec(function (err, form) {
             if (!err && !form) {
@@ -187,7 +185,7 @@ var moveFormFromOneFolderToAnother = function(folderId, formId, next) {
                 return next(err);
             }
             checkIfFormAlreadyPublished(form._id, form.owner._id, function (err, folderFormPublishedTo) {
-                if(!err && !folderFormPublishedTo) {
+                if (!err && !folderFormPublishedTo) {
                     err = folderErrors.formNotInFolderError;
                 }
                 if (err) {
@@ -195,18 +193,18 @@ var moveFormFromOneFolderToAnother = function(folderId, formId, next) {
                     return next(err);
                 }
                 Folder.findById(folderId, function (err, folderToMoveFormTo) {
-                    if(!err && !folderToMoveFormTo) {
+                    if (!err && !folderToMoveFormTo) {
                         err = folderErrors.folderNotFoundError;
                     }
                     if (err) {
                         log.error(__filename, ' - ', err);
                         return next(err);
                     }
-                   if(!folderMembers.userHasWritePermissionInFolder(folderToMoveFormTo, form.owner)) {
-                       return next(folderErrors.userNotAuthorisedToPublishError);
-                   }
+                    if (!folderMembers.userHasWritePermissionInFolder(folderToMoveFormTo, form.owner)) {
+                        return next(folderErrors.userNotAuthorisedToPublishError);
+                    }
                     removeFormFromFolder(folderFormPublishedTo._id, form._id, function (err, folder) {
-                        if(!err && !folder) {
+                        if (!err && !folder) {
                             err = folderErrors.formNotInFolderError;
                         }
                         if (err) {
@@ -233,7 +231,7 @@ var moveFormFromOneFolderToAnother = function(folderId, formId, next) {
  * @param formId
  * @param next
  */
-var copyFormToFolder = function(folderId, formId, next) {
+var copyFormToFolder = function (folderId, formId, next) {
     try {
         Form.findById(formId).populate('owner').exec(function (err, form) {
             if (!err && !form) {
@@ -244,7 +242,7 @@ var copyFormToFolder = function(folderId, formId, next) {
                 return next(err);
             }
             checkIfFormAlreadyPublished(form._id, form.owner._id, function (err, folderFormPublishedTo) {
-                if(!err && !folderFormPublishedTo) {
+                if (!err && !folderFormPublishedTo) {
                     err = folderErrors.formNotInFolderError;
                 }
                 if (err) {
@@ -252,14 +250,14 @@ var copyFormToFolder = function(folderId, formId, next) {
                     return next(err);
                 }
                 Folder.findById(folderId, function (err, folderToCopyFormTo) {
-                    if(!err && !folderToCopyFormTo) {
+                    if (!err && !folderToCopyFormTo) {
                         err = folderErrors.folderNotFoundError;
                     }
                     if (err) {
                         log.error(__filename, ' - ', err);
                         return next(err);
                     }
-                    if(!folderMembers.userHasWritePermissionInFolder(folderToCopyFormTo, form.owner)) {
+                    if (!folderMembers.userHasWritePermissionInFolder(folderToCopyFormTo, form.owner)) {
                         return next(folderErrors.userNotAuthorisedToPublishError);
                     }
                     var formCopy = {
@@ -278,7 +276,7 @@ var copyFormToFolder = function(folderId, formId, next) {
 
                     };
                     require(global.config.modules.FORM).createForm(formCopy, function (err, form) {
-                        if(!err && !form) {
+                        if (!err && !form) {
                             err = folderErrors.formNotFoundError;
                         }
                         if (err) {
@@ -305,10 +303,10 @@ var copyFormToFolder = function(folderId, formId, next) {
 var getFolderForms = function (folderId, next) {
     try {
         Folder.findById(folderId).populate('forms').exec(function (err, folder) {
-            if(!err && !folder) {
+            if (!err && !folder) {
                 return next(folderErrors.folderNotFoundError);
             }
-            if(folder) {
+            if (folder) {
                 return next(err, folder.forms);
             } else {
                 return next(err);
@@ -329,7 +327,7 @@ var getFolderForms = function (folderId, next) {
 var getFolderFormNames = function (folderId, next) {
     try {
         Folder.findById(folderId).populate('forms', 'name').exec(function (err, folder) {
-            if(!err && !folder) {
+            if (!err && !folder) {
                 return next(folderErrors.folderNotFoundError);
             }
             var names = [];

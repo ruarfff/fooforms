@@ -5,6 +5,8 @@ var rootUrls = {
     forms: 'forms',
     comments: 'comments',
     posts: 'posts',
+    organisations: 'organisations',
+    teams: 'teams',
     dashboard: 'dashboard'
 };
 

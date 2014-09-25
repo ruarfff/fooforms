@@ -31,7 +31,7 @@ exports.findById = function (req, res, next) {
 };
 
 exports.update = function (req, res, next) {
-    if(req.body && req.body._id !== req.params.comment) {
+    if (req.body && req.body._id !== req.params.comment) {
         req.body._id = req.params.comment;
     }
 
@@ -40,7 +40,7 @@ exports.update = function (req, res, next) {
             next(err);
         }
         if (result.success) {
-            res.send(result.comment);
+            res.send(result);
         } else {
             res.status(statusCodes.BAD_REQUEST).json(result.message);
         }

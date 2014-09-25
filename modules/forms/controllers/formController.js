@@ -31,7 +31,7 @@ exports.findById = function (req, res, next) {
 };
 
 exports.update = function (req, res, next) {
-    if(req.body && req.body._id !== req.params.form) {
+    if (req.body && req.body._id !== req.params.form) {
         req.body._id = req.params.form;
     }
     fooForm.updateForm(req.body, function (err, result) {
@@ -39,7 +39,7 @@ exports.update = function (req, res, next) {
             next(err);
         }
         if (result.success) {
-            res.send(result.form);
+            res.send(result);
         } else {
             res.status(statusCodes.BAD_REQUEST).json(result.message);
         }

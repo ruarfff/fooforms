@@ -15,7 +15,7 @@ var express = require('express');
 var bodyParser = require('body-parser');
 var should = require('should');
 var rootUrls = require(global.config.root + '/config/rootUrls');
-var formRoutes = require('../routes/formRoutes');
+var teamRoutes = require('../routes/teamRoutes');
 
 var app = express();
 app.use(bodyParser.json());
@@ -23,33 +23,26 @@ app.use(bodyParser.urlencoded({
     extended: true
 }));
 
-var rootUrl = '/' + rootUrls.forms;
-app.use('/forms', formRoutes);
+var rootUrl = '/' + rootUrls.teams;
+app.use(rootUrl, teamRoutes);
 
-describe('Form API', function () {
+describe('Team API', function () {
     // Some test data
-    var displayName = 'form';
-    var title = 'form title';
-    var icon = 'www.fooforms.com/icon.png';
-    var description = 'the form description';
-    var btnLabel = 'the button label';
-    var formEvents = [
-        {}
-    ];
-    var settings = {"setting": {}, "something": [], "something-else": "test"};
-    var fields = [
-        {},
-        {},
-        {}
-    ];
-    var postStream = ObjectId;
-    var owner = ObjectId;
-    var sampleForm = {
-        displayName: displayName, title: title, icon: icon,
-        description: description, btnLabel: btnLabel,
-        settings: settings, fields: fields, formEvents: formEvents,
-        postStream: postStream, owner: owner
+    var name = 'aTeam';
+    var organisation = ObjectId;
+    var otherName = 'anotherTeam';
+    var otherOrganisation = ObjectId.defineProperty;
+
+    var sampleTeam = {
+        name: name, organisation: organisation
     };
+    var otherSampleTeam = {
+        name: otherName, organisation: otherOrganisation
+    };
+
+    before(function () {
+        mockgoose.reset();
+    });
 
     describe('POST ' + rootUrl, function () {
         afterEach(function () {
@@ -59,41 +52,42 @@ describe('Form API', function () {
         it('responds with 200 and json', function (done) {
             request(app)
                 .post(rootUrl)
-                .send(sampleForm)
+                .send(sampleTeam)
                 .set('Accept', 'application/json')
                 .expect('Content-Type', /json/)
                 .expect(201, function (err, res) {
-                    var form = res.body.form;
-                    res.headers.location.should.equal(rootUrl + '/' + form._id);
-                    form.displayName.should.equal(displayName);
+                    var team = res.body.team;
+                    res.headers.location.should.equal(rootUrl + '/' + team._id);
+                    team.organisation.should.equal(sampleTeam.organisation.toString());
+                    team.name.should.equal(name);
                     done(err);
                 });
         });
     });
 
     describe('GET ' + rootUrl, function () {
-        var form = {};
-        var otherForm = {};
+        var team = {};
+        var otherTeam = {};
 
         beforeEach(function (done) {
             request(app)
                 .post(rootUrl)
-                .send(sampleForm)
+                .send(sampleTeam)
                 .set('Accept', 'application/json')
                 .expect('Content-Type', /json/)
                 .expect(201)
                 .end(function (err, res) {
-                    form = res.body.form;
-                    res.headers.location.should.equal(rootUrl + '/' + form._id);
+                    team = res.body.team;
+                    res.headers.location.should.equal(rootUrl + '/' + team._id);
                     request(app)
                         .post(rootUrl)
-                        .send(sampleForm)
+                        .send(otherSampleTeam)
                         .set('Accept', 'application/json')
                         .expect('Content-Type', /json/)
                         .expect(201)
                         .end(function (err, res) {
-                            otherForm = res.body.form;
-                            res.headers.location.should.equal(rootUrl + '/' + otherForm._id);
+                            otherTeam = res.body.team;
+                            res.headers.location.should.equal(rootUrl + '/' + otherTeam._id);
                             done(err);
                         });
                 });
@@ -104,29 +98,33 @@ describe('Form API', function () {
         });
 
 
-        it('responds with 200 and json', function (done) {
+        it('responds with 200 and json when searching by ID for ' + team._id, function (done) {
             request(app)
-                .get(rootUrl + '/' + form._id)
+                .get(rootUrl + '/' + team._id)
                 .set('Accept', 'application/json')
                 .expect('Content-Type', /json/)
-                .expect(200, done);
+                .expect(200, function (err, res) {
+                    res.body._id.should.equal(team._id);
+                    done(err);
+                });
         });
+
     });
 
     describe('PUT ' + rootUrl, function () {
-        var form = {};
+        var team = {};
         var resourceUrl;
 
         beforeEach(function (done) {
             request(app)
                 .post(rootUrl)
-                .send(sampleForm)
+                .send(sampleTeam)
                 .set('Accept', 'application/json')
                 .expect('Content-Type', /json/)
                 .expect(201)
                 .end(function (err, res) {
-                    form = res.body.form;
-                    res.headers.location.should.equal(rootUrl + '/' + form._id);
+                    team = res.body.team;
+                    res.headers.location.should.equal(rootUrl + '/' + team._id);
                     resourceUrl = res.headers.location;
                     done(err);
                 });
@@ -137,37 +135,36 @@ describe('Form API', function () {
         });
 
         it('responds with 200 and the updated json', function (done) {
-            var titleUpdated = 'form title updated';
-            var iconUpdated = 'www.fooforms.com/iconUpdated.png';
-            var descriptionUpdated = 'the form description updated';
-            var btnLabelUpdated = 'the button label updated';
-            form.title = titleUpdated;
-            form.icon = iconUpdated;
-            form.description = descriptionUpdated;
-            form.btnLabel = btnLabelUpdated;
+            var newName = 'newName';
+            team.name = newName;
             request(app)
                 .put(resourceUrl)
-                .send(form)
+                .send(team)
                 .set('Accept', 'application/json')
                 .expect('Content-Type', /json/)
-                .expect(200, done);
+                .expect(200, function (err, res) {
+                    var updatedTeam = res.body.team;
+                    updatedTeam._id.should.equal(team._id.toString());
+                    updatedTeam.name.should.equal(newName);
+                    done(err);
+                });
         });
     });
 
     describe('DELETE ' + rootUrl, function () {
-        var form = {};
+        var team = {};
         var resourceUrl;
 
         beforeEach(function (done) {
             request(app)
                 .post(rootUrl)
-                .send(sampleForm)
+                .send(sampleTeam)
                 .set('Accept', 'application/json')
                 .expect('Content-Type', /json/)
                 .expect(201)
                 .end(function (err, res) {
-                    form = res.body.form;
-                    res.headers.location.should.equal(rootUrl + '/' + form._id);
+                    team = res.body.team;
+                    res.headers.location.should.equal(rootUrl + '/' + team._id);
                     resourceUrl = res.headers.location;
                     done(err);
                 });
@@ -177,7 +174,7 @@ describe('Form API', function () {
             mockgoose.reset();
         });
 
-        it('successfully deletes a form', function (done) {
+        it('successfully deletes', function (done) {
             request(app)
                 .delete(resourceUrl)
                 .expect(204, done);

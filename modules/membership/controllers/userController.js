@@ -9,7 +9,9 @@ var membership = new Membership(db);
 
 exports.findUserById = function (req, res, next) {
     membership.findUserById(req.params.user, function (err, result) {
-        if(err){next(err);}
+        if (err) {
+            next(err);
+        }
         if (result.success) {
             res.send(userProfile.userToProfile(result.data));
         } else {
@@ -21,7 +23,7 @@ exports.findUserById = function (req, res, next) {
 exports.listByUserName = function (req, res, next) {
     var displayName = req.query.username || '';
     membership.searchUsers({displayName: new RegExp('^' + stringUtil.escapeRegExpChars(displayName), 'i')}, function (err, result) {
-        if(err) {
+        if (err) {
             next(err);
         }
         var userPartials = [];
@@ -41,9 +43,11 @@ exports.listByUserName = function (req, res, next) {
 
 exports.updateUser = function (req, res, next) {
     membership.updateUser(req.body, function (err, result) {
-       if(err){next(err);}
-        if(result.success) {
-            res.send(result.user);
+        if (err) {
+            next(err);
+        }
+        if (result.success) {
+            res.send(result);
         } else {
             res.status(statusCodes.BAD_REQUEST).json(result.message);
         }
@@ -52,9 +56,9 @@ exports.updateUser = function (req, res, next) {
 
 exports.checkUserName = function (req, res, next) {
     membership.checkDisplayNameExists(req.params.username, function (err, exists) {
-        if(err){
+        if (err) {
             next(err);
         }
-        res.send({"exists" : exists});
+        res.send({"exists": exists});
     });
 };

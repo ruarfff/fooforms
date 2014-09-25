@@ -1,8 +1,4 @@
-var app = angular.module('signup', []);
-
-// http://stackoverflow.com/questions/12864887/angularjs-integrating-with-server-side-validation
-
-app.directive('uniqueUsername', ['$http', function ($http) {
+angular.module('authentication')..directive('uniqueUsername', ['$http', function ($http) {
     return {
         require: 'ngModel',
         link: function (scope, elem, attrs, ctrl) {
@@ -20,20 +16,15 @@ app.directive('uniqueUsername', ['$http', function ($http) {
                 }
 
                 scope.busy = true;
-                $http.post('/api/user/check/username', {displayName: value})
+                $http.get('/users/check/username/' + value)
                     .success(function (data) {
-                        // everything is fine -> do nothing
-                        scope.busy = false;
-                    })
-                    .error(function (data) {
 
-                        // display new error message
-                        if (data.isTaken) {
+                        if (data.exists) {
                             ctrl.$setValidity('isTaken', false);
                         } else if (data.invalidChars) {
                             ctrl.$setValidity('invalidChars', false);
                         }
-
+                        // everything is fine -> do nothing
                         scope.busy = false;
                     });
             })
@@ -41,7 +32,7 @@ app.directive('uniqueUsername', ['$http', function ($http) {
     }
 }]);
 
-app.directive('match', [function () {
+angular.module('authentication')..directive('match', [function () {
     return {
         require: 'ngModel',
         link: function (scope, elem, attrs, ctrl) {
