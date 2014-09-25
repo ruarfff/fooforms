@@ -14,7 +14,8 @@ router.route('/')
     })
     .get(function (req, res, next) {
         res.render(signupPath, {
-            title: 'Sign up'
+            title: 'Sign up',
+            error: ''
         });
     })
     .put(function (req, res, next) {

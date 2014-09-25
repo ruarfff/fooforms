@@ -16,12 +16,31 @@ body {
 .T09 {
   opacity: .95;
 }
+.p0{
+  padding: 0px !important;
+}
+.pt10{
+  padding-top: 10px;
+}
+.m0{
 
+  margin: 0px;
+
+}
+.text-shadow-light{
+  text-shadow: 1px 1px 2px rgba(255,255,255,.3);
+}
+.text-shadow-dark{
+  text-shadow: 1px 1px rgba(0,0,0,.3);
+}
+.align-center{
+  text-align: center;
+}
 img.logo {
   margin: 0px;
+  margin-top: 10px;
   padding: 0px;
-  height: 70px;
-  margin-left: 0px;
+  margin-left: 25px;
   margin-right: 10px;
 }
 
@@ -32,7 +51,7 @@ img.logo {
 
 iframe{
   width: 100%;
-  border: 0px;
+  border: 0px !important;
   height: auto;
   min-height: 250px;
 }
@@ -73,7 +92,7 @@ color: #3B8686;
   border-bottom: 1px solid #e7e7e7;
   height: 76px;
   display: block;
-  background: #f7f7f7;
+  background: #fff;
 }
 .navbar-foo{
   max-width: 1000px;
@@ -82,7 +101,7 @@ color: #3B8686;
   border-right: 0px;
   -webkit-box-shadow: none;
   box-shadow: none;
-  background: #f7f7f7;
+
 }
 .navbar-foo .navbar-header{
   margin-left: -40px;
@@ -124,39 +143,79 @@ color: #3B8686;
 /* Carousel base class */
 .jumbotron {
   width: 100%;
-  padding: 30px;
+  padding-top: 20px;
+  padding-bottom: 20px;
   margin: 0px;
   background: #fff;
-
+  font-family: 'Open Sans Condensed', sans-serif;
 }
 
 .jumbotron h1 {
-  font-size: 32px;
-  color: #555;
+  font-size: 28px;
+  color: #fff;
   font-weight: 300;
   font-family: 'Open Sans Condensed', sans-serif;
+  text-shadow: 0px 1px 3px rgba(0,0,0,.5);
 }
 
 .jumbotron h2 {
-  font-size: 18px;
-  color: #555;
-  font-weight: 300;
+  font-size: 20px;
+  color: #1f2737;
+  font-weight: 600;
   font-family: 'Open Sans Condensed', sans-serif;
-}
+  text-shadow: 1px 1px rgba(255,255,255,.3);
 
+}
+.jumbotron h2, .jumbotron h3, .jumbotron h4, .jumbotron h5{
+  font-family: 'Open Sans Condensed', sans-serif;
+font-weight: 500;
+}
+.jumbotron h2 span.highlighted {
+  color: #0279d2;
+  font-weight:500;
+}
+.jumbotron i.fa {
+  color: #3a4556;
+  font-weight:300;
+}
 
 /* Declare heights because of positioning of img element */
-.jumbotron .item {
+.jumbotron-home {
 
-  background-color: #fff;
+  background: #d99c45 url('/assets/images/fooforms-home.jpg') center center no-repeat;
+  background-size: auto 100%;
+}
+.bg-transparent-1{
+  background: rgba(255,255,255,0.1);
+}
+.bg-transparent-2{
+  background: rgba(255,255,255,0.2);
+}
+.bg-transparent-3{
+  background: rgba(255,255,255,0.3);
+}
+.bg-transparent-4{
+  background: rgba(255,255,255,0.4);
+}
+.bg-transparent-5{
+  background: rgba(255,255,255,0.5);
+}
+.btn-huge{
+  font-size: 1.5em;
 }
 
+.jumbotron-home .item{
 
+  padding: 10px;
+}
+.jumbotron-home .item ul{
+margin: 5px;
+}
 .fa-huge{
   font-size: 15em;
-  color: #555;
+  color: #f6f6f6;
   text-align: center;
-  text-shadow: 0px 1px 0px #F9FAD9;
+  text-shadow: 0px 1px 2px rgba(255, 255, 255, 0.50);
 }
 
 .fa-big{
@@ -168,13 +227,13 @@ color: #3B8686;
 
 
 .highlight {
-  color: #555;
-  background: #87BDB1;
+  color: #f6f6f6;
+  background: #3a4556;
   padding: 0px;
   padding-top: 20px;
   padding-bottom: 20px;
-border-top: 20px solid #555;
-  border-bottom: 20px solid #555;
+border-top: 20px solid #202020;
+  border-bottom: 20px solid #202020;
 
 }
 
@@ -185,15 +244,15 @@ border-top: 20px solid #555;
 
 .highlight p {
   font-family: 'Open Sans Condensed', sans-serif;
-  font-size: 1.2em;
+  font-size: 1.4em;
   text-align: left;
 }
 
 .highlight h2 {
   font-family: 'Open Sans Condensed', sans-serif;
-  color: #555;
+  color: #4e7466;
   text-align: left;
-  text-shadow: 0px 1px 0px #AACCB1;
+  text-shadow: 0px 1px 0px rgba(255,255,255,.3);
 }
 
 .highlight div.col-sm-4 {
@@ -288,12 +347,24 @@ padding: 0px;
 
 @media (min-width: 768px) {
 
+  .jumbotron {
+    padding-top: 50px;
+    padding-bottom: 150px;
+
+
+  }
+  .jumbotron-home {
+
+    background-size:  100% auto;
+
+  }
   .jumbotron h1 {
     font-size: 42px;
   }
 
   .jumbotron h2 {
     font-size: 26px;
+    background: none;
   }
 
 
@@ -328,6 +399,10 @@ padding: 0px;
 
 @media (min-width: 992px) {
 
+  .jumbotron {
+    padding-top: 50px;
+    padding-bottom: 250px;
+  }
   .jumbotron h1 {
     font-size: 56px;
   }

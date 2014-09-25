@@ -7,16 +7,18 @@ angular.module('authentication').controller('LoginCtrl', function ($scope, $root
         username: '',
         password: ''
     };
+    $scope.loginError = false;
     $scope.login = function (credentials) {
+        AuthService.clearCredentials();
         AuthService.setCredentials(credentials.username, credentials.password);
-        AuthService.login(credentials).then(function () {
+        AuthService.login(credentials).success(function (res) {
             if(AuthService.isAuthenticated) {
                 $rootScope.$broadcast(AUTH_EVENTS.loginSuccess);
             }
-            window.location = '/dashboard';
-        }, function () {
+        }).error(function (res) {
             AuthService.clearCredentials();
             $rootScope.$broadcast(AUTH_EVENTS.loginFailed);
+            $scope.loginError = res.message || 'An error occurred while trying to log you in.';
         });
     };
 

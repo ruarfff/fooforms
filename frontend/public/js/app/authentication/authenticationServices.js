@@ -11,9 +11,9 @@ angular.module('authentication').factory('AuthService', ['$cookieStore', '$http'
         },
         checkUser: function (next) {
             return $http
-                .get('/api/user/me')
+                .get('/login')
                 .then(function (res) {
-                    Session.create(res.data);
+                    Session.create(res.data.user);
                     return next(Session.user);
                 });
         },
@@ -25,9 +25,9 @@ angular.module('authentication').factory('AuthService', ['$cookieStore', '$http'
             if (encoded) {
                 $http.defaults.headers.common['Authorization'] = 'Basic ' + $cookieStore.get('authdata');
                 return $http
-                    .get('/api/user/me')
+                    .get('/login')
                     .success(function (data) {
-                        Session.create(data);
+                        Session.create(data.user);
                         next();
                     }).
                     error(function (data, status) {

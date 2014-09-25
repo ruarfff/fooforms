@@ -17,7 +17,6 @@
     <link rel="stylesheet" href="/vendor/bootstrap/css/bootstrap.min.css">
 
     <link rel="stylesheet" href="/vendor/font-awesome/css/font-awesome.min.css">
-    <link rel="stylesheet" href="/vendor/trNgGrid/trNgGrid.min.css">
 
     <link href='http://fonts.googleapis.com/css?family=Play' rel='stylesheet' type='text/css'>
     <link href='http://fonts.googleapis.com/css?family=Open+Sans+Condensed:300' rel='stylesheet' type='text/css'>
@@ -127,8 +126,8 @@
             <ul class="nav navbar-nav navbar-right">
 
                 <li class="dropdown profile" ng-cloak><a href="#" class="dropdown-toggle">&nbsp;
-                    <img class="img-circle" ng-src="{{user.photo}}"/>
-
+                    <img ng-show="user.photo!='/assets/images/photo.jpg'" class="img-circle" ng-src="/api/file/{{user.photo}}"/>
+                    <img ng-show="user.photo=='/assets/images/photo.jpg'" class="img-circle" ng-src="/assets/images/photo.jpg"/>
                     {{user.displayName}}
 
                     <b class="caret"></b></a>
@@ -155,33 +154,33 @@
         <img src="/assets/images/logo.png">
     </div>
 
-    <ul class="nav nav-pills nav-stacked scrollSidebar l0" >
-
+    <ul class="nav nav-pills nav-stacked scrollSidebar ml0" >
         <li>
-            <a href="dashboard"><i class="fa fa-dashboard"></i> Dashboard <span class="badge pull-right">42</span></a>
-
+           <div><a href="dashboard"><i class="fa fa-dashboard"></i></a></div><div><a href="dashboard">Dashboard</a></div>
         </li>
-
         <li>
-            <a ng-click="isCollapsed = !isCollapsed"><i class="fa fa-th"></i> Forms
-                <span class="caret"></span>
+            <div><a ng-click="isCollapsed = !isCollapsed"><i class="fa fa-th"></i></a></div>
+            <div><a ng-click="isCollapsed = !isCollapsed">Forms<span class="caret"></span></a></div>
+            <ul class="nav nav-pills nav-stacked ml0"  collapse="isCollapsed">
 
-            </a>
-            <ul class="nav nav-pills nav-stacked ml5"  collapse="isCollapsed">
-
-                <li ng-repeat="form in forms">
+                <li ng-repeat="form in forms"><div>
                     <a href="{{user.displayName + '/' + form.sharing.folder + '/' + form.menuLabel}}"
                        ng-click='updateForm(form)' >
                         <img ng-src="{{form.icon}}" alt="{{form.name}}" class="icon icon-xs">
+                    </a>
+                </div><div>
+                    <a href="{{user.displayName + '/' + form.sharing.folder + '/' + form.menuLabel}}"
+                       ng-click='updateForm(form)' >
                         {{form.name}}
-                    </a></li>
+                    </a>
+                </div></li>
             </ul>
         </li>
         <li>
-            <a href="people"><i class="fa fa-group"></i> People</a>
+            <div><a href="people"><i class="fa fa-group"></i></a></div><div><a href="people">People</a></div>
         </li>
         <li>
-            <a href="calendar"><i class="fa fa-calendar"></i> Dates</a>
+            <div><a href="calendar"><i class="fa fa-calendar"></i></a></div><div><a href="calendar">Dates</a></div>
         </li>
 
 
@@ -207,12 +206,12 @@
 
 
 </div>
-<div id="footer hidden-print">
-   <div class="panel panel-default">
-       <div class="panel-heading">
+<div id="footer" class="hidden-print p0 m0">
 
-       </div>
-   </div>
+           <div class="alert fade in m0 p5 br0 {{msgStatus}} " ng-show="activeMsgBox=='formViewer'">
+               <p ng-bind="msg"></p>
+           </div>
+
 </div>
 <script type="text/javascript" src="/js/vendor.min.js"></script>
 

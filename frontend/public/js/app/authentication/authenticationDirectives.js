@@ -1,4 +1,4 @@
-angular.module('authentication')..directive('uniqueUsername', ['$http', function ($http) {
+angular.module('authentication').directive('uniqueUsername', ['$http', function ($http) {
     return {
         require: 'ngModel',
         link: function (scope, elem, attrs, ctrl) {
@@ -32,7 +32,7 @@ angular.module('authentication')..directive('uniqueUsername', ['$http', function
     }
 }]);
 
-angular.module('authentication')..directive('match', [function () {
+angular.module('authentication').directive('match', [function () {
     return {
         require: 'ngModel',
         link: function (scope, elem, attrs, ctrl) {

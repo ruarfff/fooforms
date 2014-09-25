@@ -17,6 +17,8 @@ module.exports = function (grunt) {
                 separator: ';'
             },
             src: [
+                'frontend/src/bower/angular-route/angular-route.min.js',
+                'frontend/src/bower/angular-cookies/angular-cookies.min.js',
                 'frontend/public/js/app/authentication/**/*.js'
             ],
             dest: 'frontend/public/js/auth.min.js'

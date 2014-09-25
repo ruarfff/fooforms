@@ -61,8 +61,12 @@
 
     <div class="panel-heading">
 
-        <span class="small text-opacity-5">Last Update:</span><span class="small"> {{postObj.lastModified | date : 'MMM d, y @ h:mm a'}}</span>
-
+        <div class="m0 p0 slideUp" ng-show="!doingPostApi">
+            <span class="small text-opacity-5">Last Update:</span><span class="small"> {{postObj.lastModified | date : 'MMM d, y @ h:mm a'}}</span>
+        </div>
+        <div class="m0 p0 slideDown" ng-show="doingPostApi">
+            <i class="fa fa-refresh fa-spin"></i> Updating...
+        </div>
 
         <div class="btn-group pull-right">
             <button id='deletePost' ng-click="deletePost(postObj)"
@@ -220,8 +224,12 @@
                             </button>
                         </div>
                         <hr class="m10">
-                        <span class="small text-opacity-5">Last Update:</span><span class="small"> {{postObj.lastModified | date : 'MMM d, y @ h:mm a'}}</span>
-                    </div>
+                        <div class="m0 p0 slideUp" ng-show="!doingPostApi">
+                            <span class="small text-opacity-5">Last Update:</span><span class="small"> {{postObj.lastModified | date : 'MMM d, y @ h:mm a'}}</span>
+                        </div>
+                        <div class="m0 p0 slideDown" ng-show="doingPostApi">
+                            <i class="fa fa-refresh fa-spin"></i> Updating...
+                        </div>                    </div>
                     <div class="panel-body">
                         <fieldset>
                             <div class='plr5 col-xs-12 col-sm-{{formField.boxSize}}'

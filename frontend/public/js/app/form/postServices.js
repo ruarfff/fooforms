@@ -17,6 +17,7 @@ angular.module('form').factory('PostService',
         },
         updatePost: function (post, next) {
             post.put().then(function (res) {
+                post.lastModified = new Date();
                 Posts.updateOne(post);
                 next();
             }, function (err) {

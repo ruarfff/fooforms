@@ -9,7 +9,7 @@
     <link rel="stylesheet" href="/vendor/bootstrap/css/bootstrap.min.css">
     <link rel="stylesheet" href="/vendor/font-awesome/css/font-awesome.min.css">
     <link rel="stylesheet" href="/css/login.min.css">
-<link href='http://fonts.googleapis.com/css?family=Play' rel='stylesheet' type='text/css'>
+    <link href='http://fonts.googleapis.com/css?family=Play' rel='stylesheet' type='text/css'>
     <link href='http://fonts.googleapis.com/css?family=Open+Sans+Condensed:300' rel='stylesheet' type='text/css'>
     <script type="text/javascript" src="/vendor/jquery/jquery-2.1.1.min.js"></script>
     <script type="text/javascript" src="/vendor/bootstrap/js/bootstrap.min.js"></script>
@@ -17,19 +17,24 @@
 </head>
 <body ng-app="authentication">
 
-<div class='container'>
+<div class='container' ng-controller="LoginCtrl">
     <div class='row slide' id="login">
         <div class="col-xs-12">
         </div>
     </div>
+
+    <h2 ng-show="loginError" class="ng-hide">{{loginError}}</h2>
 
     <div class='row slide' id="loginForm">
         <div class="panel panel-info">
             <div class="panel-heading">
                 <h4>FOOFORMS</h4>
             </div>
+            <% if (message) { %>
+            <h2><%= message %></h2>
+            <% } %>
             <div class="panel-body">
-                <form role="form" class="form" ng-submit="login(credentials)" ng-controller="LoginCtrl">
+                <form role="form" class="form" ng-submit="login(credentials)">
                     <div class="form-group">
                         <label for="username">User Name</label>
                         <input type="text" id="username" name='username' class="form-control input-lg"
@@ -55,10 +60,7 @@
         </div>
 
 
-
     </div>
-
-
 
 
 </div>
