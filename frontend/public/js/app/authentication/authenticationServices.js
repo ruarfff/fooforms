@@ -1,6 +1,6 @@
 /* global angular */
 
-angular.module('authentication').factory('AuthService', ['$cookieStore', '$http', 'Base64', 'Session', function ($cookieStore, $http, Base64, Session) {
+angular.module('authentication').factory('AuthService', ['$rootScope', '$cookieStore', '$http', 'Base64', 'Session', 'AUTH_EVENTS', function ($rootScope, $cookieStore, $http, Base64, Session, AUTH_EVENTS) {
     'use strict';
     // Load data from cookie if it's there
     $http.defaults.headers.common['Authorization'] = 'Basic ' + $cookieStore.get('authdata');
@@ -8,14 +8,6 @@ angular.module('authentication').factory('AuthService', ['$cookieStore', '$http'
         login: function () {
             return $http
                 .post('/login');
-        },
-        checkUser: function (next) {
-            return $http
-                .get('/login')
-                .then(function (res) {
-                    Session.create(res.data.user);
-                    return next(Session.user);
-                });
         },
         isAuthenticated: function () {
             return !!Session.user;
@@ -25,12 +17,13 @@ angular.module('authentication').factory('AuthService', ['$cookieStore', '$http'
             if (encoded) {
                 $http.defaults.headers.common['Authorization'] = 'Basic ' + $cookieStore.get('authdata');
                 return $http
-                    .get('/login')
+                    .get('/users/check/me')
                     .success(function (data) {
-                        Session.create(data.user);
-                        next();
-                    }).
-                    error(function (data, status) {
+                        Session.create(data);
+                        $rootScope.$broadcast(AUTH_EVENTS.loginSuccess);
+                        next(null, data);
+                    })
+                    .error(function (data, status) {
                         document.execCommand("ClearAuthenticationCache");
                         $cookieStore.remove('authdata');
                         $http.defaults.headers.common.Authorization = 'Basic ';

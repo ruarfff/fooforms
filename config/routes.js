@@ -21,9 +21,10 @@ var routes = function (app, passport) {
     app.use(slash + rootUrls.signup, membership.signupRoutes);
     app.use(slash + rootUrls.login, membership.loginRoutes);
     app.use(slash + rootUrls.users, membership.userRoutes);
-    app.use(passport.authenticate( 'basic', {session: false, failureRedirect:'/login'} ));
-
     app.use(slash + rootUrls.dashboard, dashboard.dashboardRoutes);
+    require('../modules/file/routes')(app, passport);
+    app.use(passport.authenticate( 'basic', {session: false}));
+
     app.use(slash + rootUrls.forms, form.formRoutes);
     app.use(slash + rootUrls.posts, form.postRoutes);
     app.use(slash + rootUrls.comments, form.commentRoutes);
@@ -34,7 +35,6 @@ var routes = function (app, passport) {
     require('../modules/folder/routes')(app, passport);
     require('../modules/formBuilder/routes')(app, passport);
     require('../modules/formViewer/routes')(app, passport);
-    require('../modules/file/routes')(app, passport);
 
 
 

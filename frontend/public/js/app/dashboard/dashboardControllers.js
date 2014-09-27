@@ -1,26 +1,38 @@
 /* global angular */
 
-angular.module('dashboard').controller('DashboardCtrl', ['$scope', '$location', '$http' , '$modal', 'Restangular', 'FormService', 'Forms', 'FolderService', 'Folders', 'PostService', 'Posts', '_', function ($scope, $location, $http, $modal, Restangular, FormService, Forms, FolderService, Folders, PostService, Posts, _) {
+angular.module('dashboard').controller('DashboardCtrl', ['$rootScope', '$scope', '$log', '$location', '$http' , '$modal', 'Restangular', 'DashboardService', 'AUTH_EVENTS', function ($rootScope, $scope, $log, $location, $http, $modal, Restangular, DashboardService, AUTH_EVENTS) {
     'use strict';
+
+    $rootScope.$on(AUTH_EVENTS.loginSuccess, function (event, data){
+        DashboardService.getUserDashboard(function (err, result) {
+            if(err) {
+                $log.error(err);
+            } else {
+                $log.log(result);
+            }
+        });
+    });
+
+
     // the main object to store the form data
-    $scope.form = Forms.getCurrentForm();
-    $scope.posts = [];
-    $scope.postView = 'list';
-    $scope.currentPostIndex = 0;
-    $scope.doingPostApi = false;
+    /**$scope.form = Forms.getCurrentForm();
+     $scope.posts = [];
+     $scope.postView = 'list';
+     $scope.currentPostIndex = 0;
+     $scope.doingPostApi = false;
 
 
-    $scope.updateForm = function (form) {
+     $scope.updateForm = function (form) {
         Forms.setCurrentForm(form);
         Posts.activePost = null;
     };
 
-    $scope.updateFolder = function (folder) {
+     $scope.updateFolder = function (folder) {
         Folders.setCurrentFolder(folder);
 
     };
 
-    $scope.viewPost = function (post, index) {
+     $scope.viewPost = function (post, index) {
         if (post) {
             var form = Forms.findById(post.form);
             $scope.posts.activePost = post;
@@ -36,7 +48,7 @@ angular.module('dashboard').controller('DashboardCtrl', ['$scope', '$location', 
     };
 
 
-    $scope.savePost = function (postToSave) {
+     $scope.savePost = function (postToSave) {
         $scope.doingPostApi = true;
         if (postToSave._id) {
             // Post already exists on server
@@ -56,7 +68,7 @@ angular.module('dashboard').controller('DashboardCtrl', ['$scope', '$location', 
 
     };
 
-    $scope.deletePost = function (postToDelete) {
+     $scope.deletePost = function (postToDelete) {
         $scope.doingPostApi = true;
         if (postToDelete._id) {
             PostService.deletePost(postToDelete, function (err) {
@@ -75,7 +87,7 @@ angular.module('dashboard').controller('DashboardCtrl', ['$scope', '$location', 
         }
 
     };
-    $scope.postComment = function (comment) {
+     $scope.postComment = function (comment) {
         try {
             if (comment.content) {
                 comment.post = $scope.posts.activePost._id;
@@ -97,23 +109,23 @@ angular.module('dashboard').controller('DashboardCtrl', ['$scope', '$location', 
         }
     };
 
-    FolderService.getFolders(function (err) {
+     FolderService.getFolders(function (err) {
         if (!err) {
             $scope.privateFolders = Folders.privateFolders;
             $scope.publicFolders = Folders.publicFolders;
         }
     });
-    PostService.getUserPosts(function (err) {
+     PostService.getUserPosts(function (err) {
         if (!err) {
             $scope.posts = Posts.posts;
             $scope.viewPost($scope.posts[0]);
 
         }
     });
-    FormService.getUserForms(function (err) {
+     FormService.getUserForms(function (err) {
         if (!err) {
             $scope.forms = Forms.forms;
         }
-    });
+    });*/
 
 }]);

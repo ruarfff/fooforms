@@ -80,7 +80,6 @@ exports.generateDashboardTestData = function (db, next) {
                                 membership.Organisation.populate(result.user, {path: 'organisations'}, function (err, docs) {
                                     should.not.exist(err);
                                     membership.Team.populate(result.user, {path: 'teams'}, function (err, docs) {
-                                        console.log(docs);
                                         next(err, testData);
                                     });
                                 });

@@ -5,6 +5,7 @@
 var mongoose = require('mongoose');
 var ObjectId = mongoose.Types.ObjectId();
 var mockgoose = require('mockgoose');
+var passportStub = require('passport-stub');
 mockgoose(mongoose);
 var db = mongoose.connection;
 // Keep the logger happy TODO: Make this better when I don't have so much stuff to do
@@ -20,7 +21,6 @@ var rootUrls = require(global.config.root + '/config/rootUrls');
 var dashboardRoutes = require('../routes/dashboardRoutes');
 var sampleDashboardCreator = require('./sampleDashboardCreator');
 
-
 var app = express();
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({
@@ -30,6 +30,15 @@ app.use(bodyParser.urlencoded({
 var rootUrl = '/' + rootUrls.dashboard;
 
 app.use(rootUrl, dashboardRoutes);
+var passport = require('passport');
+var BasicStrategy = require('passport-http').BasicStrategy;
+passport.use( new BasicStrategy(
+    function(username, password, done) {
+        return done();
+    }
+));
+
+passportStub.install(app);
 
 describe('Dashboard API', function () {
 
@@ -45,13 +54,13 @@ describe('Dashboard API', function () {
 
         sampleDashboardCreator.generateDashboardTestData(db, function (err, testData) {
             should.not.exist(err);
+            console.log(err);
             request(app)
                 .get(rootUrl + '/user/' + testData._id)
                 .set('Accept', 'application/json')
-                .expect('Content-Type', /json/)
+                //.expect('Content-Type', /json/)
                 .expect(200, function (err, res) {
                     console.log(err);
-                    console.log(res);
                     var user = res.body;
                     //console.log(testData);
                     user._id.should.eql(testData._id.toString());

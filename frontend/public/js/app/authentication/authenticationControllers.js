@@ -1,6 +1,6 @@
 /* global angular */
 
-angular.module('authentication').controller('LoginCtrl', function ($scope, $rootScope, AUTH_EVENTS, AuthService) {
+angular.module('authentication').controller('LoginCtrl', ['$scope', '$rootScope', '$cookieStore', '$http', 'AUTH_EVENTS', 'AuthService', function ($scope, $rootScope, $cookieStore, $http, AUTH_EVENTS, AuthService) {
     'use strict';
 
     $scope.credentials = {
@@ -14,6 +14,10 @@ angular.module('authentication').controller('LoginCtrl', function ($scope, $root
         AuthService.login(credentials).success(function (res) {
             if(AuthService.isAuthenticated) {
                 $rootScope.$broadcast(AUTH_EVENTS.loginSuccess);
+                $http.defaults.headers.common['Authorization'] = 'Basic ' + $cookieStore.get('authdata');
+                window.location = '/dashboard';
+            } else {
+                $scope.loginError = res.message || 'An error occurred while trying to log you in.';
             }
         }).error(function (res) {
             AuthService.clearCredentials();
@@ -22,7 +26,7 @@ angular.module('authentication').controller('LoginCtrl', function ($scope, $root
         });
     };
 
-});
+}]);
 
 angular.module('authentication').controller('LogoutCtrl', function ($scope, $rootScope, AUTH_EVENTS, AuthService) {
     'use strict';

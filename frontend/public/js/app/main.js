@@ -3,13 +3,13 @@
 
 var fooformsApp = angular.module('fooformsApp', [
     // Vendor dependencies
-    'ngRoute', 'ngSanitize','trNgGrid', 'restangular', 'ui.bootstrap', 'textAngular', 'ui.calendar', 'angularFileUpload', 'ui.sortable',
+    'ngRoute', 'ngSanitize', 'trNgGrid', 'restangular', 'ui.bootstrap', 'textAngular', 'ui.calendar', 'angularFileUpload', 'ui.sortable',
     // Custom dependencies
-    'dashboard', 'folder','folders', 'formBuilder', 'formViewer', 'user', 'authentication'
+    'dashboard', 'folder', 'folders', 'formBuilder', 'formViewer', 'user', 'authentication'
 ]);
 
 fooformsApp
-    .config(function ($routeProvider, $locationProvider, RestangularProvider) {
+    .config(['$routeProvider', '$locationProvider', 'RestangularProvider', function ($routeProvider, $locationProvider, RestangularProvider) {
         'use strict';
         $locationProvider.html5Mode(true).hashPrefix('!');
 
@@ -20,7 +20,6 @@ fooformsApp
                 }
                 return false; // stop the promise chain
             });
-        RestangularProvider.setBaseUrl('/api');
         RestangularProvider.setDefaultHeaders({'Content-Type': 'application/json'});
 
         $routeProvider
@@ -80,51 +79,39 @@ fooformsApp
                 controller: 'FormViewerCtrl'
             })
             .otherwise({redirectTo: '/'});
-    })
+    }])
     .config(['$httpProvider', function ($httpProvider) {
         'use strict';
         //Http Interceptor to check auth failures for xhr requests
         $httpProvider.interceptors.push('authHttpResponseInterceptor');
     }])
-    .factory('authHttpResponseInterceptor', ['$q', '$location', function ($q) {
+    .factory('authHttpResponseInterceptor', ['$q', '$location', '$log', function ($q, $location, $log) {
         'use strict';
         return {
             response: function (response) {
                 if (response.status === 401) {
-                    console.log("Response 401");
+                    $log.log("Response 401");
                 }
                 return response || $q.when(response);
             },
             responseError: function (rejection) {
                 if (rejection.status === 401) {
-                    console.log("Response Error 401", rejection);
-                    window.location = '/login';
+                    $log.log("Response Error 401", rejection);
                 }
                 return $q.reject(rejection);
             }
         };
     }])
-    .controller('HeadController', function ($scope, $location, USER_ROLES, AuthService, $upload) {
+    .controller('HeadController', ['$scope', function ($scope) {
         $scope.stylesheet = 'bootstrap';
 
-        $scope.swapStyle = function(style){
-            alert('here');
+        $scope.swapStyle = function (style) {
             $scope.stylesheet = style;
         }
-    })
-    .controller('MainController', function ($scope, $location, USER_ROLES, AuthService, $upload) {
+    }])
+    .controller('MainController', ['$scope', '$location', '$log' , 'USER_ROLES', 'AuthService', '$upload', function ($scope, $location, $log, USER_ROLES, AuthService, $upload) {
         'use strict';
-        AuthService.checkStoredCredentials(function (err) {
-            if(err) {
-                console.log(err);
-                window.location = '/login';
-            }
-        });
-        //$scope.user = null;
-        $scope.userRoles = USER_ROLES;
-        $scope.isAuthorized = AuthService.isAuthorized;
         $scope.sideMenuVisible = true;
-
 
         //Messaging throughout App
         $scope.activeMsgBox = ''; // any string --matches ng-show of various msgboxes.
@@ -132,28 +119,32 @@ fooformsApp
         $scope.msgTitle = ''; // optional -
         $scope.msg = ''; // optional, but pretty stupid not to populate it
 
-        $scope.setMessage = function (msgBox, status, title, message) {
-
-            $scope.activeMsgBox = msgBox;
-            $scope.msgStatus = status;
-            $scope.msgTitle = title;
-            $scope.msg = message;
-        };
-
         $scope.init = function () {
-            AuthService.checkUser(function (user) {
+            AuthService.checkStoredCredentials(function (err, user) {
                 if (AuthService.isAuthenticated()) {
                     $scope.user = user;
                     if (!$scope.user.photo) {
                         $scope.user.photo = '/assets/images/photo.jpg';
                     }
                 } else {
-                    window.location.href = '/login';
+                    if (err) {
+                        $log.log(err);
+                    }
+                    // window.location.href = '/login';
                 }
             });
+            $scope.userRoles = USER_ROLES;
+            $scope.isAuthorized = AuthService.isAuthorized;
         };
 
-        $scope.onFileSelect = function($files,formObj) {
+        $scope.setMessage = function (msgBox, status, title, message) {
+            $scope.activeMsgBox = msgBox;
+            $scope.msgStatus = status;
+            $scope.msgTitle = title;
+            $scope.msg = message;
+        };
+
+        $scope.onFileSelect = function ($files, formObj) {
             //$files: an array of files selected, each file has name, size, and type.
             for (var i = 0; i < $files.length; i++) {
                 var file = $files[i];
@@ -162,18 +153,18 @@ fooformsApp
                     // method: POST or PUT,
                     // headers: {'header-key': 'header-value'},
                     // withCredentials: true,
-                    data: {formObj: formObj, file:file},
+                    data: {formObj: formObj, file: file},
                     file: file // or list of files: $files for html5 only
                     /* set the file formData name ('Content-Desposition'). Default is 'file' */
                     //fileFormDataName: myFile, //or a list of names for multiple files (html5).
                     /* customize how data is added to formData. See #40#issuecomment-28612000 for sample code */
                     //formDataAppender: function(formData, key, val){}
-                }).progress(function(evt) {
-                        formObj.progress = parseInt(100.0 * evt.loaded / evt.total);
-                    }).success(function(data, status, headers, config) {
-                        // file is uploaded successfully
-                       alert(data);
-                    });
+                }).progress(function (evt) {
+                    formObj.progress = parseInt(100.0 * evt.loaded / evt.total);
+                }).success(function (data, status, headers, config) {
+                    // file is uploaded successfully
+                    alert(data);
+                });
                 //.error(...)
                 //.then(success, error, progress);
                 //.xhr(function(xhr){xhr.upload.addEventListener(...)})// access and attach any event listener to XMLHttpRequest.
@@ -183,4 +174,4 @@ fooformsApp
              It could also be used to monitor the progress of a normal http post/put request with large data*/
             // $scope.upload = $upload.http({...})  see 88#issuecomment-31366487 for sample code.
         };
-    });
+    }]);

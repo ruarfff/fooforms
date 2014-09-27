@@ -42,6 +42,12 @@ router.get('/check/username/:username', function (req, res, next) {
     userController.checkUserName(req, res, next);
 });
 
+router.get('/check/me',
+    passport.authenticate('basic', { session: false }),
+    function(req, res) {
+        res.json({ _id: req.user._id, displayName: req.user.displayName, photo: req.user.photo });
+    });
+
 router.put('/:user', passport.authenticate( 'basic', {session: false} ), function (req, res, next) {
     userController.updateUser(req, res, next);
 });

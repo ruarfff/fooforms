@@ -10,7 +10,7 @@ var router = express.Router();
 var passport = require('passport');
 
 
-var loginController = require('../controllers/loginController');
+//var loginController = require('../controllers/loginController');
 
 router.route('/')
     .all(function (req, res, next) {
@@ -42,7 +42,7 @@ router.route('/')
                 if (err) {
                     return next(err);
                 }
-                return res.redirect('/dashboard');
+                return res.status(200).end();
             });
         })
         (req, res, next)
