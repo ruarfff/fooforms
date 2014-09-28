@@ -1,7 +1,6 @@
 "use strict";
 var path = require('path');
-var modulePath = path.normalize(__dirname + '/../..');
-var viewDir = path.join(modulePath, 'membership/views');
+var viewDir = path.join(__dirname, '../views');
 var signupPath = path.join( viewDir, 'signup' );
 
 var express = require('express');
@@ -26,6 +25,11 @@ router.route('/')
     })
     .delete(function (req, res, next) {
         next(new Error('not implemented'));
+    });
+
+router.get('/check/username/:username',
+    function (req, res, next) {
+        signupController.checkUserName(req, res, next);
     });
 
 

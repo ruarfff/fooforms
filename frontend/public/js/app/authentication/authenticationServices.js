@@ -29,6 +29,8 @@ angular.module('authentication').factory('AuthService', ['$rootScope', '$cookieS
                         $http.defaults.headers.common.Authorization = 'Basic ';
                         next(new Error('Error ' + status));
                     });
+            } else {
+                next(new Error('Error. No stored credentials found.'));
             }
         },
         setCredentials: function (username, password) {

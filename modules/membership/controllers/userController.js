@@ -53,12 +53,3 @@ exports.updateUser = function (req, res, next) {
         }
     });
 };
-
-exports.checkUserName = function (req, res, next) {
-    membership.checkDisplayNameExists(req.params.username, function (err, exists) {
-        if (err) {
-            next(err);
-        }
-        res.send({"exists": exists});
-    });
-};

@@ -17,7 +17,7 @@ var bodyParser = require('body-parser');
 var should = require('should');
 var rootUrls = require(global.config.root + '/config/rootUrls');
 var signupRoutes = require('../routes/signupRoutes');
-var userRoutes = require('../routes/userRoutes');
+var userRoutes = require('../routes/userViewRoutes');
 
 
 var app = express();

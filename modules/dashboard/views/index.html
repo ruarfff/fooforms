@@ -51,9 +51,7 @@
                             <a ng-click="sideMenuVisible=!sideMenuVisible">
                                 <span class="sr-only">Toggle navigation</span>
                                 <i class="fa fa-bars"></i>
-
                             </a>
-
                         </li>
                         <li>
                             <a class="navbar-brand" href="#"><span class="text-foo">FOOFORMS</span></a>
@@ -63,16 +61,29 @@
                             <a class="inline pull-right dropdown-toggle">
                                 <i class="fa fa-th"></i>Forms<b class="caret"></b></a>
                             <ul class="dropdown-menu">
-                                <li ng-repeat="form in forms">
-                                    <a href="{{form.owner.displayName + '/' + form.menuLabel}}"
+                                <li ng-repeat="form in user.forms">
+                                    <a href="/{{form.owner.displayName}}/{{form.displayName}}"
                                        ng-click='updateForm(form)'>
                                         <img ng-src="{{form.icon}}" alt="{{form.name}}" class="icon icon-xs">
                                         {{form.name}}
                                     </a></li>
                                 <li class="divider"></li>
                                 <li><a href="/forms"><i class="fa fa-cogs"></i> Manage Forms</a></li>
+                            </ul>
+                        </li>
 
-
+                        <li class="dropdown">
+                            <a class="inline pull-right dropdown-toggle">
+                                <i class="fa fa-sitemap"></i>Organisations <b class="caret"></b></a>
+                            <ul class="dropdown-menu">
+                                <li ng-repeat="org in user.organisations">
+                                    <a href="/organisations/{{org.displayName}}">
+                                        <img ng-src="{{org.photo}}" alt="{{org.displayName}}"
+                                             class="icon icon-xs">
+                                        {{org.displayName}}
+                                    </a></li>
+                                <li class="divider"></li>
+                                <li><a href="/organisations"><i class="fa fa-cogs"></i> Manage Organisations</a></li>
                             </ul>
                         </li>
 
@@ -80,24 +91,14 @@
                             <a class="inline pull-right dropdown-toggle">
                                 <i class="fa fa-sitemap"></i>Team Folders <b class="caret"></b></a>
                             <ul class="dropdown-menu">
-                                <li ng-repeat="team in teams">
+                                <li ng-repeat="team in user.teams">
                                     <a href="/team/{{team.displayName}}">
-                                        <img ng-src="{{team.icon}}" alt="{{privateFolder.name}}"
+                                        <img ng-src="{{team.icon}}" alt="{{team.displayName}}"
                                              class="icon icon-xs">
-                                        {{privateFolder.name}}
+                                        {{team.displayName}}
                                     </a></li>
                                 <li class="divider"></li>
-                                <li ng-repeat="publicFolder in publicFolders">
-                                    <a href="/folder/{{publicFolder.menuLabel}}"
-                                       ng-click='updateFolder(publicFolder)'>
-                                        <img ng-src="{{publicFolder.icon}}" alt="{{publicFolder.name}}"
-                                             class="icon icon-xs">
-                                        {{publicFolder.name}}
-                                    </a></li>
-                                <li class="divider"></li>
-                                <li><a href="/team-folders"><i class="fa fa-cogs"></i> Manage Team Folders</a></li>
-
-
+                                <li><a href="/teams"><i class="fa fa-cogs"></i> Manage Team Folders</a></li>
                             </ul>
                         </li>
 
@@ -121,15 +122,14 @@
                     </div>
                     <ul class="nav navbar-nav navbar-right">
                         <li class="dropdown profile" ng-cloak><a href="#" class="dropdown-toggle">&nbsp;
-                            <img ng-show="user.photo=='/assets/images/photo.jpg'" class="img-circle"
-                                 ng-src="/assets/images/photo.jpg"/>
+                            <img class="img-circle" ng-src="/assets/images/photo.jpg"/>
                             {{user.displayName}}
 
                             <b class="caret"></b></a>
                             <ul class="dropdown-menu">
-                                <li><a href="organisations">Organisations</a></li>
-                                <li><a href="profile"><i class="fa fa-user"></i> Profile</a></li>
-                                <li><a href="teams"><i class="fa fa-folder"></i> Teams</a></li>
+                                <li><a href="/organisations">Organisations</a></li>
+                                <li><a href="/profile"><i class="fa fa-user"></i> Profile</a></li>
+                                <li><a href="/teams"><i class="fa fa-folder"></i> Teams</a></li>
                                 <li class="divider"></li>
                                 <li ng-controller="LogoutCtrl"><a ng-click="logout()"><i
                                         class="fa fa-lock"></i>Logout</a></li>
@@ -154,24 +154,22 @@
 
         <ul class="nav nav-pills nav-stacked scrollSidebar ml0">
             <li>
-                <div><a href="dashboard"><i class="fa fa-dashboard"></i></a></div>
-                <div><a href="dashboard">Dashboard</a></div>
+                <div><a href="/dashboard"><i class="fa fa-dashboard"></i></a></div>
+                <div><a href="/dashboard">Dashboard</a></div>
             </li>
             <li>
                 <div><a ng-click="isCollapsed = !isCollapsed"><i class="fa fa-th"></i></a></div>
                 <div><a ng-click="isCollapsed = !isCollapsed">Forms<span class="caret"></span></a></div>
                 <ul class="nav nav-pills nav-stacked ml0" collapse="isCollapsed">
 
-                    <li ng-repeat="form in forms">
+                    <li ng-repeat="form in user.forms">
                         <div>
-                            <a href="{{user.displayName + '/' + form.sharing.folder + '/' + form.menuLabel}}"
-                               ng-click='updateForm(form)'>
+                            <a href="/{{form.owner.displayName}}/{{form.displayName}}">
                                 <img ng-src="{{form.icon}}" alt="{{form.name}}" class="icon icon-xs">
                             </a>
                         </div>
                         <div>
-                            <a href="{{user.displayName + '/' + form.sharing.folder + '/' + form.menuLabel}}"
-                               ng-click='updateForm(form)'>
+                            <a href="/{{form.owner.displayName}}/{{form.displayName}}">
                                 {{form.name}}
                             </a>
                         </div>
@@ -179,32 +177,29 @@
                 </ul>
             </li>
             <li>
-                <div><a href="people"><i class="fa fa-group"></i></a></div>
-                <div><a href="people">People</a></div>
+                <div><a href="/people"><i class="fa fa-group"></i></a></div>
+                <div><a href="/people">People</a></div>
             </li>
             <li>
-                <div><a href="calendar"><i class="fa fa-calendar"></i></a></div>
-                <div><a href="calendar">Dates</a></div>
+                <div><a href="/calendar"><i class="fa fa-calendar"></i></a></div>
+                <div><a href="/calendar">Dates</a></div>
             </li>
 
 
             <% if(user.admin){ %>
             <li>
-
-                <a href="admin"><i class="fa fa-flask"></i>Admin</a>
+                <a href="/admin"><i class="fa fa-flask"></i>Admin</a>
             </li>
             <% } %>
-
-
         </ul>
 
     </div>
     <div class="container-fluid" ng-class="{withSideMenu : sideMenuVisible, withoutSideMenu :!sideMenuVisible}">
 
 
-       <!-- <div id='fooforms' class="row" ng-view>
+        <div id='fooforms' class="row" ng-view>
 
-        </div>-->
+         </div>
     </div>
 
 

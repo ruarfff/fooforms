@@ -3,7 +3,6 @@
 
         <div class="br0 alert alert-info b0 m0">
 
-
             <img class="icon pull-left img-circle" ng-src="{{user.photo}}">
             <h4 class="inline">{{user.displayName}} <a href="/profile/"><i class="fa fa-edit fa-lg"></i></a></h4>
 
@@ -34,17 +33,17 @@
             <div id="tabs-notifications" class="tab-pane active">
                 <div class="list-group feed">
                     <div class="media list-group-item feed-item m0 br0"
-                         ng-repeat="foo in posts" ng-click="viewPost(foo)">
+                         ng-repeat="post in posts" ng-click="viewPost(post)">
                         <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
-                        <a class="pull-left" ng-click="viewPost(foo)">
-                            <img class="media-object icon icon-sm" ng-src="{{foo.icon}}" alt="">
+                        <a class="pull-left" ng-click="viewPost(post)">
+                            <img class="media-object icon icon-sm" ng-src="{{post.icon}}" alt="">
                         </a>
 
                         <div class="media-body">
-                            <h4 class="media-heading">{{ foo.name }}</h4>{{foo.fields[0].label}}:
-                            {{foo.fields[0].value}}<br>
-                            {{foo.fields[1].label}}: {{foo.fields[1].value}}<br>
-                            {{foo.fields[2].label}}: {{foo.fields[2].value}}
+                            <h4 class="media-heading">{{ post.name }}</h4>{{post.fields[0].label}}:
+                            {{post.fields[0].value}}<br>
+                            {{post.fields[1].label}}: {{post.fields[1].value}}<br>
+                            {{post.fields[2].label}}: {{post.fields[2].value}}
                         </div>
                     </div>
                 </div>
@@ -69,9 +68,6 @@
                             <h4 class="text-info">Recent Activity</h4>
                             <h5>{{ posts.length }} New Posts</h5>
                         </div>
-
-
-
 
                     </div>
 

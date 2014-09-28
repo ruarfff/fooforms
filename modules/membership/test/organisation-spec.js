@@ -15,7 +15,7 @@ var express = require('express');
 var bodyParser = require('body-parser');
 var should = require('should');
 var rootUrls = require(global.config.root + '/config/rootUrls');
-var organisationRoutes = require('../routes/organisationRoutes');
+var organisationApiRoutes = require('../routes/organisationApiRoutes');
 
 var app = express();
 app.use(bodyParser.json());
@@ -24,7 +24,7 @@ app.use(bodyParser.urlencoded({
 }));
 
 var rootUrl = '/' + rootUrls.organisations;
-app.use(rootUrl, organisationRoutes);
+app.use(rootUrl, organisationApiRoutes);
 
 describe('Organisation API', function () {
     // Some test data

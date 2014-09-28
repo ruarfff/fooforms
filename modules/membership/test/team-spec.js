@@ -15,7 +15,7 @@ var express = require('express');
 var bodyParser = require('body-parser');
 var should = require('should');
 var rootUrls = require(global.config.root + '/config/rootUrls');
-var teamRoutes = require('../routes/teamRoutes');
+var teamApiRoutes = require('../routes/teamApiRoutes');
 
 var app = express();
 app.use(bodyParser.json());
@@ -24,7 +24,7 @@ app.use(bodyParser.urlencoded({
 }));
 
 var rootUrl = '/' + rootUrls.teams;
-app.use(rootUrl, teamRoutes);
+app.use(rootUrl, teamApiRoutes);
 
 describe('Team API', function () {
     // Some test data

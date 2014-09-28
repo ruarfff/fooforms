@@ -7,7 +7,12 @@ var rootUrls = {
     posts: 'posts',
     organisations: 'organisations',
     teams: 'teams',
-    dashboard: 'dashboard'
+    dashboard: 'dashboard',
+    admin: 'admin',
+    files: 'files',
+    calendar: 'calendar',
+    formBuilder: 'form-builder',
+    formViewer: 'forms/repo'
 };
 
 module.exports = exports = rootUrls;

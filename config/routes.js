@@ -3,9 +3,22 @@
 
 var log = require('fooforms-logging').LOG;
 var rootUrls = require('./rootUrls');
-var membership = require('../modules/membership');
-var form = require('../modules/forms');
+var assets = require('./assets');
+
+
+var admin = require('../modules/admin');
+var calendar = require('../modules/calendar');
 var dashboard = require('../modules/dashboard');
+var file = require('../modules/file');
+var formBuilder = require('../modules/formBuilder');
+var form = require('../modules/forms');
+var formViewer = require('../modules/formViewer');
+var membership = require('../modules/membership');
+var site = require('../modules/site');
+
+
+
+
 
 
 /**
@@ -17,24 +30,58 @@ var dashboard = require('../modules/dashboard');
  */
 var routes = function (app, passport) {
     var slash = '/';
-    require('../modules/site/routes')(app, passport);
+
+
+    /**
+     * Public routes i.e. don't require authentication
+     */
+
+    app.use(slash, site.siteViewRoutes);
     app.use(slash + rootUrls.signup, membership.signupRoutes);
     app.use(slash + rootUrls.login, membership.loginRoutes);
-    app.use(slash + rootUrls.users, membership.userRoutes);
-    app.use(slash + rootUrls.dashboard, dashboard.dashboardRoutes);
-    require('../modules/file/routes')(app, passport);
-    app.use(passport.authenticate( 'basic', {session: false}));
-
-    app.use(slash + rootUrls.forms, form.formRoutes);
-    app.use(slash + rootUrls.posts, form.postRoutes);
-    app.use(slash + rootUrls.comments, form.commentRoutes);
+    // For the dashboard, authentication is handled on the client by not fetching or showing anything until user is checked.
+    app.use(slash + rootUrls.dashboard, dashboard.dashboardViewRoutes);
 
 
-    require('../modules/admin/routes')(app, passport);
-    require('../modules/calendar/routes')(app, passport);
-    require('../modules/folder/routes')(app, passport);
-    require('../modules/formBuilder/routes')(app, passport);
-    require('../modules/formViewer/routes')(app, passport);
+    /**
+     * Some basic view routes that wont's bother authenticating since they have no data in them
+     */
+    app.use(slash + rootUrls.users, membership.userViewRoutes);
+    app.use(slash + rootUrls.organisations, membership.organisationViewRoutes);
+    app.use(slash + rootUrls.teams, membership.teamViewRoutes);
+    app.use(slash + rootUrls.files, file.fileViewRoutes);
+
+
+    // If someone hits a root URL directly (not from dashboard) redirect them to the dashboard
+    for(var rootUrl in rootUrls) {
+        app.route(slash + rootUrl)
+            .get(function (req, res) {
+                return res.render(dashboard.mainView, {
+                    dev: (process.env.NODE_ENV === 'development'),
+                    user: req.user || '',
+                    assets: assets
+                });
+            });
+    }
+
+
+    /**
+     * API and other routes that are protected
+     */
+    app.use(slash + rootUrls.dashboard, passport.authenticate( 'basic', {session: false} ), dashboard.dashboardApiRoutes);
+    app.use(slash + rootUrls.users, passport.authenticate( 'basic', {session: false} ), membership.userApiRoutes);
+    app.use(slash + rootUrls.organisations, passport.authenticate( 'basic', {session: false} ), membership.organisationApiRoutes);
+    app.use(slash + rootUrls.teams, passport.authenticate( 'basic', {session: false} ), membership.teamApiRoutes);
+    app.use(slash + rootUrls.forms, passport.authenticate( 'basic', {session: false} ), form.formRoutes);
+    app.use(slash + rootUrls.posts, passport.authenticate( 'basic', {session: false} ), form.postRoutes);
+    app.use(slash + rootUrls.comments, passport.authenticate( 'basic', {session: false} ), form.commentRoutes);
+    app.use(slash + rootUrls.files, passport.authenticate( 'basic', {session: false} ), file.fileApiRoutes);
+    app.use(slash + rootUrls.admin, passport.authenticate( 'basic', {session: false} ), admin.adminViewRoutes);
+    app.use(slash + rootUrls.calendar, passport.authenticate( 'basic', {session: false} ), calendar.calendarViewRoutes);
+    app.use(slash + rootUrls.formBuilder, passport.authenticate( 'basic', {session: false} ), formBuilder.formBuilderViewRoutes);
+    app.use(slash + rootUrls.forms, passport.authenticate( 'basic', {session: false} ), formViewer.formViewerViewRoutes);
+    app.use(slash + rootUrls.formViewer, passport.authenticate( 'basic', {session: false} ), formViewer.formViewerApiRoutes);
+
 
 
 
@@ -102,15 +149,10 @@ var routes = function (app, passport) {
             next();
         });
 */
-    app.route('*')
-        .get(function (req, res) {
-            // TODO: Currently we just let the client handle things if we can't figure out what the request is. Should review.
-            return res.redirect('/dashboard');
-        });
 
     app.use(function (err, req, res, next) {
-        //Treat as 404
         if (err.message.indexOf('not found')) {
+            //Treat as 404
             return next();
         }
 

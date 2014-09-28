@@ -26,58 +26,65 @@ fooformsApp
             .when('/', {
                 redirectTo: '/dashboard'
             })
+            .when('/login', {
+                resolve: function () {
+                    window.location.href = '/login';
+                }
+            })
             .when('/dashboard', {
-                templateUrl: '/partials/dashboard',
-                controller: 'DashboardCtrl'
+                templateUrl: '/dashboard/partials/standardView'
             })
-            .when('/forms', {
-                templateUrl: '/partials/forms',
-                controller: 'FormsCtrl'
-            }).when('/team-folders', {
-                templateUrl: '/partials/folders',
-                controller: 'FoldersCtrl'
-            })
-
             .when('/people', {
-                templateUrl: '/partials/people',
+                templateUrl: '/users/partials/people',
                 controller: 'PeopleCtrl'
             })
-            .when('/calendar', {
-                templateUrl: '/partials/calendar'
-            })
             .when('/profile', {
-                templateUrl: '/partials/profile',
+                templateUrl: '/users/partials/profile',
                 controller: 'ProfileCtrl'
             })
+            .when('/calendar', {
+                templateUrl: '/calendar/partials/calendar'
+            })
             .when('/userGuide', {
-                templateUrl: '/partials/userGuide'
+                templateUrl: '/dashboard/partials/userGuide'
             })
             .when('/settings', {
-                templateUrl: '/partials/settings'
+                templateUrl: '/dashboard/partials/settings'
             })
             .when('/admin', {
-                templateUrl: '/partials/admin'
+                templateUrl: '/admin/partials/admin'
             })
-            .when('/formBuilder', {
+            .when('/organisations', {
+                templateUrl: '/organisations/partials/organisations'
+            })
+            .when('/teams', {
+                templateUrl: '/teams/partials/teams'
+            })
+        /**
+         .when('/forms', {
+                templateUrl: '/partials/forms',
+                controller: 'FormsCtrl'
+            })
+         .when('/formBuilder', {
                 templateUrl: '/partials/formBuilder',
                 controller: 'FieldsCtrl'
             })
-            .when('/posts', {
+         .when('/posts', {
                 templateUrl: '/partials/formViewer',
                 controller: 'FormViewerCtrl'
             })
-            .when('/:username', {
+         .when('/:username', {
                 templateUrl: '/partials/profile',
                 controller: 'ProfileCtrl'
             })
-            .when('/:username/:folder', {
+         .when('/:username/:folder', {
                 templateUrl: '/partials/folder',
                 controller: 'FolderCtrl'
             })
-            .when('/:username/:folder/:form', {
+         .when('/:username/:folder/:form', {
                 templateUrl: '/partials/formViewer',
                 controller: 'FormViewerCtrl'
-            })
+            })**/
             .otherwise({redirectTo: '/'});
     }])
     .config(['$httpProvider', function ($httpProvider) {
@@ -109,7 +116,7 @@ fooformsApp
             $scope.stylesheet = style;
         }
     }])
-    .controller('MainController', ['$scope', '$location', '$log' , 'USER_ROLES', 'AuthService', '$upload', function ($scope, $location, $log, USER_ROLES, AuthService, $upload) {
+    .controller('MainController', ['$scope', '$location', '$log' , '$upload', 'USER_ROLES', 'AuthService', 'Session', function ($scope, $location, $log, $upload, USER_ROLES, AuthService, Session) {
         'use strict';
         $scope.sideMenuVisible = true;
 
@@ -119,18 +126,25 @@ fooformsApp
         $scope.msgTitle = ''; // optional -
         $scope.msg = ''; // optional, but pretty stupid not to populate it
 
+        // Allow the user to be update throughout the app using the Session service.
+        $scope.$watch(function () {
+            return Session.user
+        }, function (newVal, oldVal) {
+            if (typeof newVal !== 'undefined') {
+                $scope.user = Session.user;
+                if (!$scope.user.photo) {
+                    $scope.user.photo = '/assets/images/photo.jpg';
+                }
+            }
+        });
+
         $scope.init = function () {
             AuthService.checkStoredCredentials(function (err, user) {
-                if (AuthService.isAuthenticated()) {
-                    $scope.user = user;
-                    if (!$scope.user.photo) {
-                        $scope.user.photo = '/assets/images/photo.jpg';
-                    }
-                } else {
-                    if (err) {
-                        $log.log(err);
-                    }
-                    // window.location.href = '/login';
+                if (err) {
+                    $log.log(err);
+                }
+                if (!AuthService.isAuthenticated()) {
+                    window.location.href = '/login';
                 }
             });
             $scope.userRoles = USER_ROLES;

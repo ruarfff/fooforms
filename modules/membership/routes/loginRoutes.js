@@ -1,8 +1,7 @@
 "use strict";
 var log = require('fooforms-logging').LOG;
 var path = require('path');
-var modulePath = path.normalize(__dirname + '/../..');
-var viewDir = path.join(modulePath, 'membership/views');
+var viewDir = path.join(__dirname, '../views');
 var loginPath = path.join(viewDir, 'login');
 
 var express = require('express');

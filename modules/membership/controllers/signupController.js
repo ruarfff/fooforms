@@ -1,9 +1,10 @@
 var path = require('path');
-var modulePath = path.normalize(__dirname + '/../..');
-var viewDir = path.join(modulePath, 'membership/views');
+var rootPath = path.normalize(__dirname + '/../../..');
+var rootUrls = require(path.join(rootPath, 'config/rootUrls'));
+var viewDir = path.join(__dirname, '../views');
 var signupPath = path.join(viewDir, 'signup');
-var loginPath = path.join( viewDir, 'login' );
-
+var loginPath = path.join(viewDir, 'login');
+var log = require('fooforms-logging').LOG;
 var Membership = require('fooforms-membership');
 var db = require('mongoose').connection;
 var membership = new Membership(db);
@@ -40,5 +41,26 @@ exports.signup = function (req, res, next) {
                 error: result
             });
         }
+    });
+};
+
+exports.checkUserName = function (req, res, next) {
+    var username = req.params.username;
+    try {
+        for (var property in rootUrls) {
+            if (rootUrls.hasOwnProperty(property)) {
+                if (username === property) {
+                    return res.send({"exists": true});
+                }
+            }
+        }
+    } catch (err) {
+        log.error(err);
+    }
+    membership.checkDisplayNameExists(username, function (err, exists) {
+        if (err) {
+            next(err);
+        }
+        return res.send({"exists": exists});
     });
 };

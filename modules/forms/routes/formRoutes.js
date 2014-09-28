@@ -1,8 +1,7 @@
 /*jslint node: true */
 "use strict";
 var path = require('path');
-var modulePath = path.normalize(__dirname + '/../..');
-var viewDir = path.join(modulePath, 'form/views');
+var viewDir = path.join(__dirname, '../views');
 var indexView = path.join(viewDir, 'index');
 var log = require('fooforms-logging').LOG;
 var express = require('express');

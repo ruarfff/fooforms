@@ -16,7 +16,7 @@ angular.module('authentication').directive('uniqueUsername', ['$http', function 
                 }
 
                 scope.busy = true;
-                $http.get('/users/check/username/' + value)
+                $http.get('/signup/check/username/' + value)
                     .success(function (data) {
 
                         if (data.exists) {
