@@ -3,10 +3,6 @@
 angular.module('formBuilder')
 
 
-
-
-
-
 // not used but may be useful some day......
 
     .directive('compile', function ($compile) {
@@ -31,7 +27,146 @@ angular.module('formBuilder')
                 }
             );
         };
-    }).directive('uploader', ['$upload',function($upload) {
+    }).directive('calculation', [function () {
+
+        return {
+            restrict: 'E',
+            scope: {
+                formField: "=",
+                postObj: "="
+            },
+
+            link: function (scope, elem, attrs, ctrl) {
+
+                var index;
+                var count = scope.postObj.fields.length;
+
+                if (scope.formField.options.field1.item == 'Specified Value') {
+                    scope.fieldA = scope.formField.options.fieldA;
+                } else {
+                    for (index = 0; index < count; index++) {
+                        if (scope.postObj.fields[index].id == scope.formField.options.field1.item) {
+                            scope.fieldA = scope.postObj.fields[index];
+                            break;
+                        }
+                    }
+                }
+
+                if (scope.formField.options.field2.item == 'Specified Value') {
+                    scope.fieldB = scope.formField.options.fieldB;
+                } else {
+                    for (index = 0; index < count; index++) {
+                        if (scope.postObj.fields[index].id == scope.formField.options.field2.item) {
+                            scope.fieldB = scope.postObj.fields[index];
+                            break;
+                        }
+                    }
+                }
+
+
+                scope.$watch("fieldA.value", function () {
+                    scope.calculate();
+                    //alert();
+                });
+                scope.$watch("fieldB.value", function () {
+                    scope.calculate();
+                });
+
+                scope.calculate = function () {
+                    var result=0;
+                    switch (scope.formField.options.operator) {
+                        case '+' :
+                            scope.formField.value = (scope.fieldA.value + scope.fieldB.value);
+                            break;
+                        case '-' :
+                            scope.formField.value = (scope.fieldA.value * scope.fieldB.value);
+                            break;
+                        case '*' :
+                            scope.formField.value = (scope.fieldA.value * scope.fieldB.value);
+                            break;
+                        case '/' :
+                            scope.formField.value = (scope.fieldA.value / scope.fieldB.value);
+                            break;
+
+                    }
+                    return scope.formField.value ;
+                }
+            },
+            replace: false,
+            templateUrl: '/partials/calculation.html'
+        };
+
+    }]).directive('calculationGroupBox', [function () {
+
+        return {
+            restrict: 'E',
+            scope: {
+                formField: "=",
+                repeater: "=",
+                postObj: "="
+            },
+
+            link: function (scope, elem, attrs, ctrl) {
+
+                var index;
+                var count = scope.formField.fields.length; //the groupbox
+
+                if (scope.repeater.options.field1.item == 'Specified Value') {
+                    scope.fieldA = scope.repeater.options.fieldA;
+                } else {
+                    for (index = 0; index < count; index++) {
+                        if (scope.formField.fields[index].id == scope.repeater.options.field1.item) {
+                            scope.fieldA = scope.formField.fields[index];
+                            break;
+                        }
+                    }
+                }
+
+                if (scope.repeater.options.field1.item == 'Specified Value') {
+                    scope.fieldB = scope.repeater.options.fieldA;
+                } else {
+                    for (index = 0; index < count; index++) {
+                        if (scope.formField.fields[index].id == scope.repeater.options.field1.item) {
+                            scope.fieldB = scope.formField.fields[index];
+                            break;
+                        }
+                    }
+                }
+
+
+                scope.$watch("fieldA.value", function () {
+                    scope.calculate();
+                    //alert();
+                });
+                scope.$watch("fieldB.value", function () {
+                    scope.calculate();
+                });
+
+                scope.calculate = function () {
+                    var result=0;
+                    switch (scope.repeater.options.operator) {
+                        case '+' :
+                            scope.repeater.value = (scope.fieldA.value + scope.fieldB.value);
+                            break;
+                        case '-' :
+                            scope.repeater.value = (scope.fieldA.value * scope.fieldB.value);
+                            break;
+                        case '*' :
+                            scope.repeater.value = (scope.fieldA.value * scope.fieldB.value);
+                            break;
+                        case '/' :
+                            scope.repeater.value = (scope.fieldA.value / scope.fieldB.value);
+                            break;
+
+                    }
+                    return scope.repeater.value ;
+                }
+            },
+            replace: false,
+            templateUrl: '/partials/calculationGroupBox.html'
+        };
+
+    }]).directive('uploader', ['$upload', function ($upload) {
 
         return {
             restrict: 'E',
@@ -43,10 +178,10 @@ angular.module('formBuilder')
                 doFileUpload: "&doFileUpload"
 
             },
-            link: function(scope, elem, attrs, ctrl) {
+            link: function (scope, elem, attrs, ctrl) {
 
 
-                scope.onFileSelect= function(selectedFile){
+                scope.onFileSelect = function (selectedFile) {
 
                     scope.uploadFile = selectedFile[0];
 
@@ -55,7 +190,7 @@ angular.module('formBuilder')
 
                 };
 
-                scope.doFileUpload = function(){
+                scope.doFileUpload = function () {
 
 
                     scope.upload = $upload.upload({
@@ -65,24 +200,23 @@ angular.module('formBuilder')
                         // withCredentials: true,
                         data: {file: scope.uploadFile}
 
-                    }).progress(function(evt) {
+                    }).progress(function (evt) {
                         scope.formField.progress = (parseInt(100.0 * evt.loaded / evt.total));
-                    }).success(function(data, status, headers, config) {
+                    }).success(function (data, status, headers, config) {
                         // file is uploaded successfully
                         scope.uploadFile = [];
                         scope.allowUpload = null;
-                        if (data.err){
-                            setMessage(true,'File Failed Validation',data.err,'alert-danger');
+                        if (data.err) {
+                            setMessage(true, 'File Failed Validation', data.err, 'alert-danger');
 
-                        }else{
+                        } else {
                             scope.formField.value = data;
 
                         }
 
-                    }).error(function(err){
+                    }).error(function (err) {
                         alert(err);
                     });
-
 
 
                 }
@@ -92,7 +226,7 @@ angular.module('formBuilder')
             templateUrl: '/partials/uploader.html'
         };
 
-    }]).directive('profileUploader', ['$upload',function($upload) {
+    }]).directive('profileUploader', ['$upload', function ($upload) {
 
         return {
             restrict: 'E',
@@ -104,10 +238,10 @@ angular.module('formBuilder')
                 doFileUpload: "&doFileUpload"
 
             },
-            link: function(scope, elem, attrs, ctrl) {
+            link: function (scope, elem, attrs, ctrl) {
 
 
-                scope.onFileSelect= function(selectedFile){
+                scope.onFileSelect = function (selectedFile) {
 
                     scope.uploadFile = selectedFile[0];
 
@@ -116,7 +250,7 @@ angular.module('formBuilder')
 
                 };
 
-                scope.doFileUpload = function(){
+                scope.doFileUpload = function () {
 
 
                     scope.upload = $upload.upload({
@@ -126,24 +260,23 @@ angular.module('formBuilder')
                         // withCredentials: true,
                         data: {file: scope.uploadFile}
 
-                    }).progress(function(evt) {
+                    }).progress(function (evt) {
                         //scope.formField.progress = (parseInt(100.0 * evt.loaded / evt.total));
-                    }).success(function(data, status, headers, config) {
+                    }).success(function (data, status, headers, config) {
                         // file is uploaded successfully
                         scope.uploadFile = [];
                         scope.allowUpload = null;
-                        if (data.err){
-                            setMessage(true,'File Failed Validation',data.err,'alert-danger');
+                        if (data.err) {
+                            setMessage(true, 'File Failed Validation', data.err, 'alert-danger');
 
-                        }else{
-                            scope.user.photo= data._id;
+                        } else {
+                            scope.user.photo = data._id;
 
                         }
 
-                    }).error(function(err){
+                    }).error(function (err) {
                         alert(err);
                     });
-
 
 
                 }

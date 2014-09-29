@@ -390,6 +390,21 @@ var ModalEditorCtrl = function ($scope, $modalInstance, fieldData) {
 
     $scope.fieldDatax = angular.copy(fieldData);
 
+    $scope.editorOptions = {
+        lineNumbers: true,
+        theme:'twilight',
+        lineWrapping : true,
+        mode: 'xml',
+        onLoad : function(_cm){
+
+            // HACK to have the codemirror instance in the scope...
+
+                _cm.setOption("mode", 'xml');
+            _cm.refresh();
+
+
+        }
+    };
 
     $scope.ok = function (datax) {
         $modalInstance.close(datax);
