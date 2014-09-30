@@ -112,7 +112,7 @@ angular.module('formBuilder')
                 var count = scope.formField.fields.length; //the groupbox
 
                 if (scope.repeater.options.field1.item == 'Specified Value') {
-                    scope.fieldA = scope.repeater.options.fieldA;
+                    scope.fieldA = scope.repeater.options.field1;
                 } else {
                     for (index = 0; index < count; index++) {
                         if (scope.formField.fields[index].id == scope.repeater.options.field1.item) {
@@ -123,10 +123,10 @@ angular.module('formBuilder')
                 }
 
                 if (scope.repeater.options.field1.item == 'Specified Value') {
-                    scope.fieldB = scope.repeater.options.fieldA;
+                    scope.fieldB = scope.repeater.options.field2;
                 } else {
                     for (index = 0; index < count; index++) {
-                        if (scope.formField.fields[index].id == scope.repeater.options.field1.item) {
+                        if (scope.formField.fields[index].id == scope.repeater.options.field2.item) {
                             scope.fieldB = scope.formField.fields[index];
                             break;
                         }
