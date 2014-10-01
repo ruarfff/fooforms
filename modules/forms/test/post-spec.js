@@ -17,6 +17,11 @@ var should = require('should');
 var rootUrls = require(global.config.root + '/config/rootUrls');
 var postRoutes = require('../routes/postRoutes');
 
+var FooForm = require('fooforms-forms');
+var db = require('mongoose').connection;
+var fooForm = new FooForm(db);
+
+
 var app = express();
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({
@@ -28,10 +33,10 @@ app.use(rootUrl, postRoutes);
 
 describe('Post API', function () {
     // Some test data
-    var postStream = ObjectId;
+    var samplePost; // Gets set in beforeEach
+    var postStream;
     var name = 'post';
     var icon = 'www.fooforms.com/icon.png';
-    var commentStream = ObjectId;
     var fields = [
         {"something": {}},
         {"somethingElse": "test"},
@@ -39,10 +44,34 @@ describe('Post API', function () {
         {}
     ];
 
-    var samplePost = {
-        postStream: postStream, name: name,
-        icon: icon, commentStream: commentStream, fields: fields
-    };
+    beforeEach(function (done) {
+        var displayName = 'form';
+        var title = 'form title';
+        var description = 'the form description';
+        var btnLabel = 'the button label';
+        var formEvents = [
+            {}
+        ];
+        var settings = {"setting": {}, "something": [], "something-else": "test"};
+        var sampleForm = {
+            displayName: displayName, title: title, icon: icon,
+            description: description, btnLabel: btnLabel,
+            settings: settings, fields: fields, formEvents: formEvents,
+            owner: ObjectId
+        };
+        fooForm.createForm(sampleForm, function (err, result) {
+            should.not.exist(err);
+            result.success.should.equal(true);
+            postStream = result.form.postStreams[0];
+            samplePost = {
+                postStream: postStream, name: name,
+                icon: icon, fields: fields
+            };
+            done(err);
+        });
+
+    });
+
 
     describe('POST ' + rootUrl, function () {
         afterEach(function () {
@@ -61,7 +90,6 @@ describe('Post API', function () {
                     post.postStream.should.equal(postStream.toString());
                     post.name.should.equal(name);
                     post.icon.should.equal(icon);
-                    post.commentStream[0].should.eql(commentStream.toString());
                     post.fields.length.should.equal(fields.length);
                     done(err);
                 });

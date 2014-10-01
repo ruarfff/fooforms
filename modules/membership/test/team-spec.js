@@ -34,10 +34,10 @@ describe('Team API', function () {
     var otherOrganisation = ObjectId.defineProperty;
 
     var sampleTeam = {
-        name: name, organisation: organisation
+        displayName: name, organisation: organisation
     };
     var otherSampleTeam = {
-        name: otherName, organisation: otherOrganisation
+        displayName: otherName, organisation: otherOrganisation
     };
 
     before(function () {
@@ -49,7 +49,7 @@ describe('Team API', function () {
             mockgoose.reset();
         });
 
-        it('responds with 200 and json', function (done) {
+        it('responds with 201 and location', function (done) {
             request(app)
                 .post(rootUrl)
                 .send(sampleTeam)
@@ -59,7 +59,7 @@ describe('Team API', function () {
                     var team = res.body.team;
                     res.headers.location.should.equal(rootUrl + '/' + team._id);
                     team.organisation.should.equal(sampleTeam.organisation.toString());
-                    team.name.should.equal(name);
+                    team.displayName.should.equal(name);
                     done(err);
                 });
         });
@@ -136,7 +136,7 @@ describe('Team API', function () {
 
         it('responds with 200 and the updated json', function (done) {
             var newName = 'newName';
-            team.name = newName;
+            team.displayName = newName;
             request(app)
                 .put(resourceUrl)
                 .send(team)
@@ -145,7 +145,7 @@ describe('Team API', function () {
                 .expect(200, function (err, res) {
                     var updatedTeam = res.body.team;
                     updatedTeam._id.should.equal(team._id.toString());
-                    updatedTeam.name.should.equal(newName);
+                    updatedTeam.displayName.should.equal(newName);
                     done(err);
                 });
         });

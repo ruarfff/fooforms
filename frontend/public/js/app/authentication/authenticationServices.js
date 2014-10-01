@@ -17,7 +17,7 @@ angular.module('authentication').factory('AuthService', ['$rootScope', '$cookieS
             if (encoded) {
                 $http.defaults.headers.common['Authorization'] = 'Basic ' + $cookieStore.get('authdata');
                 return $http
-                    .get('/users/check/me')
+                    .get('/api/users/check/me')
                     .success(function (data) {
                         Session.create(data);
                         $rootScope.$broadcast(AUTH_EVENTS.loginSuccess);

@@ -1,3 +1,4 @@
+var slug = require('slug');
 var path = require('path');
 var rootPath = path.normalize(__dirname + '/../../..');
 var rootUrls = require(path.join(rootPath, 'config/rootUrls'));
@@ -13,16 +14,19 @@ exports.signup = function (req, res, next) {
     "use strict";
     var formDetails = req.body;
 
+    var displayName = formDetails.displayName || '';
+    var organisationName = formDetails.organisationName || '';
+
     var userDetail = {
         name: {
             givenName: formDetails.givenName,
             familyName: formDetails.familyName
         },
         email: formDetails.email,
-        organisationName: formDetails.organisationName,
-        displayName: formDetails.displayName,
+        organisationName: slug(organisationName),
+        displayName: slug(displayName),
         password: formDetails.password,
-        confirmPass: formDetails.verification
+        confirmPass: formDetails.confirmPass
     };
 
     membership.register(userDetail, function (err, result) {
@@ -46,21 +50,26 @@ exports.signup = function (req, res, next) {
 
 exports.checkUserName = function (req, res, next) {
     var username = req.params.username;
-    try {
-        for (var property in rootUrls) {
-            if (rootUrls.hasOwnProperty(property)) {
-                if (username === property) {
-                    return res.send({"exists": true});
+    if(username) {
+        username = slug(username);
+        try {
+            for (var property in rootUrls) {
+                if (rootUrls.hasOwnProperty(property)) {
+                    if (username === property) {
+                        return res.send({"exists": true});
+                    }
                 }
             }
+        } catch (err) {
+            log.error(err);
         }
-    } catch (err) {
-        log.error(err);
+        membership.checkDisplayNameExists(username, function (err, exists) {
+            if (err) {
+                next(err);
+            }
+            return res.send({"exists": exists});
+        });
+    } else {
+        return res.send({"exists": false});
     }
-    membership.checkDisplayNameExists(username, function (err, exists) {
-        if (err) {
-            next(err);
-        }
-        return res.send({"exists": exists});
-    });
 };

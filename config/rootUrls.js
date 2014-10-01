@@ -12,7 +12,9 @@ var rootUrls = {
     files: 'files',
     calendar: 'calendar',
     formBuilder: 'form-builder',
-    formViewer: 'forms/repo'
+    formViewer: 'forms/repo',
+    people: 'people',
+    profile: 'profile'
 };
 
 module.exports = exports = rootUrls;

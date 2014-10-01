@@ -22,23 +22,29 @@ exports.findUserById = function (req, res, next) {
 
 exports.listByUserName = function (req, res, next) {
     var displayName = req.query.username || '';
-    membership.searchUsers({displayName: new RegExp('^' + stringUtil.escapeRegExpChars(displayName), 'i')}, function (err, result) {
-        if (err) {
-            next(err);
-        }
-        var userPartials = [];
+    if(displayName) {
+        displayName = stringUtil.escapeRegExpChars(displayName);
+        membership.searchUsers({displayName: new RegExp('^' + displayName , 'i')}, function (err, result) {
+            if (err) {
+                next(err);
+            }
+            var userPartials = [];
 
-        result.data.forEach(function (user) {
-            var userPart = {
-                displayName: user.displayName,
-                photo: user.photo
-            };
-            userPartials.push(userPart);
+            result.data.forEach(function (user) {
+                var userPart = {
+                    _id: user._id,
+                    displayName: user.displayName,
+                    photo: user.photo
+                };
+                userPartials.push(userPart);
+            });
+
+            res.status(statusCodes.OK).json(userPartials);
+
         });
-
-        res.status(statusCodes.OK).json(userPartials);
-
-    });
+    } else {
+        res.status(statusCodes.OK).json([]);
+    }
 };
 
 exports.updateUser = function (req, res, next) {

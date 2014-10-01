@@ -30,6 +30,7 @@ var site = require('../modules/site');
  */
 var routes = function (app, passport) {
     var slash = '/';
+    var api = '/api';
 
 
     /**
@@ -68,14 +69,14 @@ var routes = function (app, passport) {
     /**
      * API and other routes that are protected
      */
-    app.use(slash + rootUrls.dashboard, passport.authenticate( 'basic', {session: false} ), dashboard.dashboardApiRoutes);
-    app.use(slash + rootUrls.users, passport.authenticate( 'basic', {session: false} ), membership.userApiRoutes);
-    app.use(slash + rootUrls.organisations, passport.authenticate( 'basic', {session: false} ), membership.organisationApiRoutes);
-    app.use(slash + rootUrls.teams, passport.authenticate( 'basic', {session: false} ), membership.teamApiRoutes);
+    app.use(api + slash + rootUrls.dashboard, passport.authenticate( 'basic', {session: false} ), dashboard.dashboardApiRoutes);
+    app.use(api + slash + rootUrls.users, passport.authenticate( 'basic', {session: false} ), membership.userApiRoutes);
+    app.use(api + slash + rootUrls.organisations, passport.authenticate( 'basic', {session: false} ), membership.organisationApiRoutes);
+    app.use(api + slash + rootUrls.teams, passport.authenticate( 'basic', {session: false} ), membership.teamApiRoutes);
     app.use(slash + rootUrls.forms, passport.authenticate( 'basic', {session: false} ), form.formRoutes);
     app.use(slash + rootUrls.posts, passport.authenticate( 'basic', {session: false} ), form.postRoutes);
     app.use(slash + rootUrls.comments, passport.authenticate( 'basic', {session: false} ), form.commentRoutes);
-    app.use(slash + rootUrls.files, passport.authenticate( 'basic', {session: false} ), file.fileApiRoutes);
+    app.use(api + slash + rootUrls.files, passport.authenticate( 'basic', {session: false} ), file.fileApiRoutes);
     app.use(slash + rootUrls.admin, passport.authenticate( 'basic', {session: false} ), admin.adminViewRoutes);
     app.use(slash + rootUrls.calendar, passport.authenticate( 'basic', {session: false} ), calendar.calendarViewRoutes);
     app.use(slash + rootUrls.formBuilder, passport.authenticate( 'basic', {session: false} ), formBuilder.formBuilderViewRoutes);

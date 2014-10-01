@@ -26,7 +26,8 @@ module.exports = function (grunt) {
         // Watch the js files that matter on the server and run tests when they are changed.
         tests: {
             files: ['modules/**/*.js'],
-            tasks: ['mochaTest']
+            tasks: ['mochaTest'],
+            livereload: false
 
         }
     });

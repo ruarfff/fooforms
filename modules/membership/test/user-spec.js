@@ -17,7 +17,7 @@ var bodyParser = require('body-parser');
 var should = require('should');
 var rootUrls = require(global.config.root + '/config/rootUrls');
 var signupRoutes = require('../routes/signupRoutes');
-var userRoutes = require('../routes/userViewRoutes');
+var userRoutes = require('../routes/userApiRoutes');
 
 
 var app = express();
@@ -25,6 +25,9 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({
     extended: true
 }));
+var engine = require('ejs');
+app.engine('.html', engine.__express);
+app.set('view engine', 'html');
 
 var signupRootUrl = '/' + rootUrls.signup;
 var usersRootUrl = '/' + rootUrls.users;
@@ -43,6 +46,9 @@ describe('User Routes', function () {
     var organisationName = 'fooforms';
     var otherOrganisationName = 'otherFooforms';
 
+    var loginTitle = '<title>FOOFORMS - Login or Register</title>';
+    var signUpTitle = '<title>Sign Up</title>';
+
     var user = {};
     var otherUser = {};
 
@@ -54,20 +60,34 @@ describe('User Routes', function () {
             .send({ email: email, displayName: displayName,
                 password: password, confirmPass: confirmPass, organisationName: organisationName })
             .set('Accept', 'application/json')
-            .expect('Content-Type', /json/)
             .expect(200)
-            .end(function (err, res) {
-                user = res.body.user;
+            .end(function (err, data) {
+                should.not.exist(err);
+                (data.text.indexOf(loginTitle) > -1).should.equal(true);
                 request(app)
-                    .post(signupRootUrl)
-                    .send({ email: otherEmail, displayName: otherDisplayName,
-                        password: password, confirmPass: confirmPass, organisationName: otherOrganisationName })
+                    .get(usersRootUrl + '?username=' + displayName)
                     .set('Accept', 'application/json')
                     .expect('Content-Type', /json/)
-                    .expect(200)
-                    .end(function (err, res) {
-                        otherUser = res.body.user;
-                        done(err);
+                    .expect(200).end(function (err, res) {
+                        user = res.body[0];
+                        request(app)
+                            .post(signupRootUrl)
+                            .send({ email: otherEmail, displayName: otherDisplayName,
+                                password: password, confirmPass: confirmPass, organisationName: otherOrganisationName })
+                            .set('Accept', 'application/json')
+                            .expect(200)
+                            .end(function (err, data) {
+                                should.not.exist(err);
+                                (data.text.indexOf(loginTitle) > -1).should.equal(true);
+                                request(app)
+                                    .get(usersRootUrl + '?username=' + otherDisplayName)
+                                    .set('Accept', 'application/json')
+                                    .expect('Content-Type', /json/)
+                                    .expect(200).end(function (err, res) {
+                                        otherUser = res.body[0];
+                                        done(err);
+                                    });
+                            });
                     });
             });
     });
@@ -112,46 +132,6 @@ describe('User Routes', function () {
                 .expect('Content-Type', /json/)
                 .expect(200).end(function (err, res) {
                     res.body.length.should.equal(0);
-                    done(err);
-                });
-        });
-        it('checking username returns true', function (done) {
-            request(app)
-                .get(usersRootUrl + '/check/username/' + user.displayName)
-                .set('Accept', 'application/json')
-                .expect('Content-Type', /json/)
-                .expect(200).end(function (err, res) {
-                    res.body.exists.should.equal(true);
-                    done(err);
-                });
-        });
-        it('checking org name returns true', function (done) {
-            request(app)
-                .get(usersRootUrl + '/check/username/' + organisationName)
-                .set('Accept', 'application/json')
-                .expect('Content-Type', /json/)
-                .expect(200).end(function (err, res) {
-                    res.body.exists.should.equal(true);
-                    done(err);
-                });
-        });
-        it('checking non existent username returns false', function (done) {
-            request(app)
-                .get(usersRootUrl + '/check/username/' + 'some name')
-                .set('Accept', 'application/json')
-                .expect('Content-Type', /json/)
-                .expect(200).end(function (err, res) {
-                    res.body.exists.should.equal(false);
-                    done(err);
-                });
-        });
-        it('checking non existent org name returns false', function (done) {
-            request(app)
-                .get(usersRootUrl + '/check/username/' + 'some org name')
-                .set('Accept', 'application/json')
-                .expect('Content-Type', /json/)
-                .expect(200).end(function (err, res) {
-                    res.body.exists.should.equal(false);
                     done(err);
                 });
         });

@@ -12,7 +12,7 @@ fooformsApp
     .config(['$routeProvider', '$locationProvider', 'RestangularProvider', function ($routeProvider, $locationProvider, RestangularProvider) {
         'use strict';
         $locationProvider.html5Mode(true).hashPrefix('!');
-
+        RestangularProvider.setBaseUrl('/api');
         RestangularProvider.setErrorInterceptor(
             function (res) {
                 if (res.status === 401) {

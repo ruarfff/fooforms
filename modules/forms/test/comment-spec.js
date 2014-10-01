@@ -17,6 +17,10 @@ var should = require('should');
 var rootUrls = require(global.config.root + '/config/rootUrls');
 var commentRoutes = require('../routes/commentRoutes');
 
+var FooForm = require('fooforms-forms');
+var db = require('mongoose').connection;
+var fooForm = new FooForm(db);
+
 var app = express();
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({
@@ -30,16 +34,65 @@ describe('Comment API', function () {
     // Some test data
     var commenter = ObjectId;
     var content = 'some content';
-    var commentStream = ObjectId;
+    var name = 'post';
+    var icon = 'www.fooforms.com/icon.png';
+    var fields = [
+        {"something": {}},
+        {"somethingElse": "test"},
+        {},
+        {}
+    ];
 
-    var sampleComment = {
-        commentStream: commentStream, content: content, commenter: commenter
-    };
+    var commentStream;
+    var sampleComment;
+
+    beforeEach(function (done) {
+        var displayName = 'form';
+        var title = 'form title';
+        var icon = 'www.fooforms.com/icon.png';
+        var description = 'the form description';
+        var btnLabel = 'the button label';
+        var formEvents = [
+            {}
+        ];
+        var settings = {"setting": {}, "something": [], "something-else": "test"};
+        var fields = [
+            {},
+            {},
+            {}
+        ];
+        var sampleForm = {
+            displayName: displayName, title: title, icon: icon,
+            description: description, btnLabel: btnLabel,
+            settings: settings, fields: fields, formEvents: formEvents,
+             owner: ObjectId
+        };
+        var samplePost = {
+            name: name,
+            icon: icon, fields: fields
+        };
+        fooForm.createForm(sampleForm, function (err, result) {
+            should.not.exist(err);
+            result.success.should.equal(true);
+            samplePost.postStream = result.form.postStreams[0];
+            fooForm.createPost(samplePost, function (err, result) {
+                should.not.exist(err);
+                result.success.should.equal(true);
+                commentStream = result.post.commentStreams[0];
+                sampleComment = {
+                    commentStream: commentStream, content: content, commenter: commenter
+                };
+                done(err);
+            });
+        });
+
+    });
+
+    afterEach(function () {
+        mockgoose.reset();
+    });
 
     describe('POST ' + rootUrl, function () {
-        afterEach(function () {
-            mockgoose.reset();
-        });
 
         it('responds with 200 and json', function (done) {
             request(app)
@@ -48,6 +101,7 @@ describe('Comment API', function () {
                 .set('Accept', 'application/json')
                 .expect('Content-Type', /json/)
                 .expect(201, function (err, res) {
+                    res.body.success.should.equal(true);
                     var comment = res.body.comment;
                     res.headers.location.should.equal(rootUrl + '/' + comment._id);
                     comment.commenter.should.equal(commenter.toString());
@@ -86,10 +140,6 @@ describe('Comment API', function () {
                 });
         });
 
-        afterEach(function () {
-            mockgoose.reset();
-        });
-
 
         it('responds with 200 and json', function (done) {
             request(app)
@@ -117,10 +167,6 @@ describe('Comment API', function () {
                     resourceUrl = res.headers.location;
                     done(err);
                 });
-        });
-
-        afterEach(function () {
-            mockgoose.reset();
         });
 
         it('responds with 200 and the updated json', function (done) {
@@ -152,10 +198,6 @@ describe('Comment API', function () {
                     resourceUrl = res.headers.location;
                     done(err);
                 });
-        });
-
-        afterEach(function () {
-            mockgoose.reset();
         });
 
         it('successfully deletes', function (done) {
