@@ -3,13 +3,9 @@
 angular.module('formBuilder')
 
 
-
-
-
-
 // not used but may be useful some day......
 
-    .directive('compile', function ($compile) {
+    .directive('compile', ['$compile', function ($compile) {
         'use strict';
         // directive factory creates a link function
         return function (scope, element, attrs) {
@@ -31,7 +27,7 @@ angular.module('formBuilder')
                 }
             );
         };
-    }).directive('uploader', ['$upload',function($upload) {
+    }]).directive('uploader', ['$upload', function ($upload) {
 
         return {
             restrict: 'E',
@@ -43,10 +39,10 @@ angular.module('formBuilder')
                 doFileUpload: "&doFileUpload"
 
             },
-            link: function(scope, elem, attrs, ctrl) {
+            link: function (scope, elem, attrs, ctrl) {
 
 
-                scope.onFileSelect= function(selectedFile){
+                scope.onFileSelect = function (selectedFile) {
 
                     scope.uploadFile = selectedFile[0];
 
@@ -55,7 +51,7 @@ angular.module('formBuilder')
 
                 };
 
-                scope.doFileUpload = function(){
+                scope.doFileUpload = function () {
 
 
                     scope.upload = $upload.upload({
@@ -65,24 +61,23 @@ angular.module('formBuilder')
                         // withCredentials: true,
                         data: {file: scope.uploadFile}
 
-                    }).progress(function(evt) {
+                    }).progress(function (evt) {
                         scope.formField.progress = (parseInt(100.0 * evt.loaded / evt.total));
-                    }).success(function(data, status, headers, config) {
+                    }).success(function (data, status, headers, config) {
                         // file is uploaded successfully
                         scope.uploadFile = [];
                         scope.allowUpload = null;
-                        if (data.err){
-                            setMessage(true,'File Failed Validation',data.err,'alert-danger');
+                        if (data.err) {
+                            setMessage(true, 'File Failed Validation', data.err, 'alert-danger');
 
-                        }else{
+                        } else {
                             scope.formField.value = data;
 
                         }
 
-                    }).error(function(err){
+                    }).error(function (err) {
                         alert(err);
                     });
-
 
 
                 }
@@ -92,7 +87,7 @@ angular.module('formBuilder')
             templateUrl: '/partials/uploader.html'
         };
 
-    }]).directive('profileUploader', ['$upload',function($upload) {
+    }]).directive('profileUploader', ['$upload', function ($upload) {
 
         return {
             restrict: 'E',
@@ -104,10 +99,10 @@ angular.module('formBuilder')
                 doFileUpload: "&doFileUpload"
 
             },
-            link: function(scope, elem, attrs, ctrl) {
+            link: function (scope, elem, attrs, ctrl) {
 
 
-                scope.onFileSelect= function(selectedFile){
+                scope.onFileSelect = function (selectedFile) {
 
                     scope.uploadFile = selectedFile[0];
 
@@ -116,7 +111,7 @@ angular.module('formBuilder')
 
                 };
 
-                scope.doFileUpload = function(){
+                scope.doFileUpload = function () {
 
 
                     scope.upload = $upload.upload({
@@ -126,24 +121,23 @@ angular.module('formBuilder')
                         // withCredentials: true,
                         data: {file: scope.uploadFile}
 
-                    }).progress(function(evt) {
+                    }).progress(function (evt) {
                         //scope.formField.progress = (parseInt(100.0 * evt.loaded / evt.total));
-                    }).success(function(data, status, headers, config) {
+                    }).success(function (data, status, headers, config) {
                         // file is uploaded successfully
                         scope.uploadFile = [];
                         scope.allowUpload = null;
-                        if (data.err){
-                            setMessage(true,'File Failed Validation',data.err,'alert-danger');
+                        if (data.err) {
+                            setMessage(true, 'File Failed Validation', data.err, 'alert-danger');
 
-                        }else{
-                            scope.user.photo= data._id;
+                        } else {
+                            scope.user.photo = data._id;
 
                         }
 
-                    }).error(function(err){
+                    }).error(function (err) {
                         alert(err);
                     });
-
 
 
                 }

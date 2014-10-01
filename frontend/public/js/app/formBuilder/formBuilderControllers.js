@@ -1,8 +1,8 @@
 /* global angular */
 
 angular.module('formBuilder').controller('FieldsCtrl',
-    ['$log', '$scope', '$http', '$modal', 'Restangular', 'FormService', 'Forms', 'FolderService', 'Folders', '_', '$filter',
-        function ($log, $scope, $http, $modal, Restangular, FormService, Forms, FolderService, Folders, _, $filter) {
+    ['$log', '$scope', '$http', '$modal', 'Restangular', 'FormService', 'Forms', '_', '$filter',
+        function ($log, $scope, $http, $modal, Restangular, FormService, Forms, _, $filter) {
 
             "use strict";
             $http.get('/js/formBuilder/inputTypes.json').success(function (data) {
@@ -31,13 +31,6 @@ angular.module('formBuilder').controller('FieldsCtrl',
             }
             ;
 
-            FolderService.getFolders(function (err) {
-                if (!err) {
-                    $scope.folders = Folders.folders;
-                    $scope.privateFolders = Folders.privateFolders;
-                    $scope.publicFolders = Folders.publicFolders;
-                }
-            });
             // the main object to store the form data
             $scope.form = Forms.getCurrentForm();
             // some booleans to help track what we are editing, which tabs to enable, etc.
@@ -147,14 +140,14 @@ angular.module('formBuilder').controller('FieldsCtrl',
                 });
             };
 
-// Drag Drop Events
+            // Drag Drop Events
             $scope.updateEvents = function (from, to) {
 
                 $scope.dragging = false;
             };
 
 
-// Used to add options to selects, radios, i.e. Single selection
+            // Used to add options to selects, radios, i.e. Single selection
             $scope.addOption = function ($index) {
                 if ($scope.nowSubEditing === null) {
                     $scope.form.fields[$scope.nowEditing].options.splice($index + 1, 0, {"label": ""});
@@ -162,7 +155,7 @@ angular.module('formBuilder').controller('FieldsCtrl',
                     $scope.form.fields[$scope.nowEditing].fields[$scope.nowSubEditing].options.splice($index + 1, 0, {"label": ""});
                 }
             };
-// Used to add options to checkboxes i.e. Multiple selection
+            // Used to add options to checkboxes i.e. Multiple selection
             $scope.addOptionObject = function ($index) {
                 if ($scope.nowSubEditing === null) {
                     $scope.form.fields[$scope.nowEditing].options.splice($index + 1, 0, {"label": "", "selected": false});
@@ -171,7 +164,7 @@ angular.module('formBuilder').controller('FieldsCtrl',
                 }
             };
 
-// removes options from selects, radios, etc....
+            // removes options from selects, radios, etc....
             $scope.deleteOption = function ($index) {
                 if ($scope.nowSubEditing === null) {
                     $scope.form.fields[$scope.nowEditing].options.splice($index, 1);
@@ -254,7 +247,7 @@ angular.module('formBuilder').controller('FieldsCtrl',
                 angular.element('#designTab').tab('show');
             };
 
-//Icon Selection -  Modal Dialog
+            //Icon Selection -  Modal Dialog
             $scope.open = function () {
 
                 var modalInstance = $modal.open({
@@ -272,7 +265,7 @@ angular.module('formBuilder').controller('FieldsCtrl',
                 });
             };
 
-// End Icon Selection -  Modal Dialog
+            // End Icon Selection -  Modal Dialog
 
 
             //List Selection -  Modal Dialog
@@ -312,13 +305,13 @@ angular.module('formBuilder').controller('FieldsCtrl',
                 });
             };
 
-// End Icon Selection -  Modal Dialog
+            // End Icon Selection -  Modal Dialog
 
             $scope.saveForm = function (formToSave) {
                 if (formToSave._id) {
                     FormService.updateForm(formToSave, function (err) {
                         if (err) {
-                            $log.error(err.toString());
+                            $log.error(err);
                         } else {
                             $scope.form = Forms.findById(formToSave._id);
                             Forms.setCurrentForm($scope.form);
@@ -327,7 +320,7 @@ angular.module('formBuilder').controller('FieldsCtrl',
                 } else {
                     FormService.createForm(formToSave, function (err, formId) {
                         if (err) {
-                            $log.error(err.toString());
+                            $log.error(err);
                         } else {
                             $scope.form = Forms.findById(formId);
                             Forms.setCurrentForm($scope.form);
@@ -473,7 +466,7 @@ var ModalListManagerCtrl = function ($scope, $modalInstance, list, $upload) {
         $scope.uploadProgress = 1;
 
         $scope.upload = $upload.upload({
-            url: '/api/file/import', //upload.php script, node.js route, or servlet url
+            url: '/file', //upload.php script, node.js route, or servlet url
             // method: POST or PUT,
             // headers: {'header-key': 'header-value'},
             // withCredentials: true,
