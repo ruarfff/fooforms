@@ -38,7 +38,7 @@
     <base href="/">
 </head>
 <body ng-controller="MainController" data-ng-init="init()" class="main-application">
-<div id="wrap" ng-controller="DashboardCtrl">
+<div id="wrap">
     <div class="navbar-wrapper hidden-print">
         <div class="navbar navbar-default navbar-fixed-top navbar-foo" role="navigation">
             <div class="container-fluid" ng-class="{withSideMenu : sideMenuVisible, withoutSideMenu :!sideMenuVisible}">
@@ -92,7 +92,7 @@
                                 <i class="fa fa-sitemap"></i>Team Folders <b class="caret"></b></a>
                             <ul class="dropdown-menu">
                                 <li ng-repeat="team in user.teams">
-                                    <a href="/team/{{team.displayName}}">
+                                    <a href="/teams/{{team.displayName}}">
                                         <img ng-src="{{team.icon}}" alt="{{team.displayName}}"
                                              class="icon icon-xs">
                                         {{team.displayName}}
@@ -199,7 +199,7 @@
 
         <div id='fooforms' class="row" ng-view>
 
-         </div>
+        </div>
     </div>
 
 

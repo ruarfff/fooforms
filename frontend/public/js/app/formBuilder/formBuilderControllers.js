@@ -1,7 +1,7 @@
 /* global angular */
 
 angular.module('formBuilder').controller('FieldsCtrl',
-    ['$log', '$scope', '$http', '$modal',  'Restangular', 'FormService', 'Forms', 'FolderService', 'Folders', '_', '$filter',
+    ['$log', '$scope', '$http', '$modal', 'Restangular', 'FormService', 'Forms', 'FolderService', 'Folders', '_', '$filter',
         function ($log, $scope, $http, $modal, Restangular, FormService, Forms, FolderService, Folders, _, $filter) {
 
             "use strict";
@@ -16,20 +16,20 @@ angular.module('formBuilder').controller('FieldsCtrl',
                 $scope.resetEventTypes();
             });
 
-            $scope.resetInputTypes = function(){
+            $scope.resetInputTypes = function () {
                 $scope.inputTypesRefresh = angular.copy($scope.inputTypes);
 
-                $scope.userInputTypes = $filter('filterTypes')($scope.inputTypesRefresh,'user');
-                $scope.numberInputTypes = $filter('filterTypes')($scope.inputTypesRefresh,'number');
-                $scope.fileInputTypes = $filter('filterTypes')($scope.inputTypesRefresh,'files');
-                $scope.advancedInputTypes = $filter('filterTypes')($scope.inputTypesRefresh,'advanced');
-                $scope.standardInputTypes = $filter('filterTypes')($scope.inputTypesRefresh,'standard');
+                $scope.userInputTypes = $filter('filterTypes')($scope.inputTypesRefresh, 'user');
+                $scope.numberInputTypes = $filter('filterTypes')($scope.inputTypesRefresh, 'number');
+                $scope.fileInputTypes = $filter('filterTypes')($scope.inputTypesRefresh, 'files');
+                $scope.advancedInputTypes = $filter('filterTypes')($scope.inputTypesRefresh, 'advanced');
+                $scope.standardInputTypes = $filter('filterTypes')($scope.inputTypesRefresh, 'standard');
             };
 
-            $scope.resetEventTypes = function(){
+            $scope.resetEventTypes = function () {
                 $scope.formEvents = angular.copy($scope.formEventHolder);
             }
-;
+            ;
 
             FolderService.getFolders(function (err) {
                 if (!err) {
@@ -55,16 +55,16 @@ angular.module('formBuilder').controller('FieldsCtrl',
 
             $scope.sortableOptions = {
                 connectWith: ".connected-apps-container, .repeat-apps-container",
-             cursorAt: { left: 15 , top: 15},
+                cursorAt: { left: 15, top: 15},
                 "opacity": 0.7,
-                distance: 5,forceHelperSize: true,
+                distance: 5, forceHelperSize: true,
                 helper: "clone",
                 placeholder: 'ui-sortable-placeholder',
                 appendTo: 'body',
                 zIndex: 99999999,
                 scroll: true,
                 stop: function (e, ui) {
-                    $scope.$apply(function(){
+                    $scope.$apply(function () {
                         $scope.resetInputTypes();
                         $scope.dropped = $scope.nowEditing = ui.item.sortable.dropindex;
                         $scope.form.fields[$scope.nowEditing].id = new Date().getTime();
@@ -73,19 +73,19 @@ angular.module('formBuilder').controller('FieldsCtrl',
                     // if the element is removed from the first container
 
                 }
-                };
+            };
 
-                $scope.repeatSortableOptions = {
+            $scope.repeatSortableOptions = {
                 connectWith: ".connected-repeat-container",
-                cursorAt: { left: 15 , top: 15},
+                cursorAt: { left: 15, top: 15},
                 "opacity": 0.7,
-                distance: 5,forceHelperSize: true,
+                distance: 5, forceHelperSize: true,
                 helper: "clone",
                 appendTo: 'body',
                 zIndex: 99999999,
                 scroll: true,
                 stop: function (e, ui) {
-                    $scope.$apply(function(){
+                    $scope.$apply(function () {
                         $scope.resetInputTypes();
                         $scope.dropped = $scope.nowEditing = ui.item.sortable.dropindex;
                         $scope.lastChanged();
@@ -99,15 +99,15 @@ angular.module('formBuilder').controller('FieldsCtrl',
 
             $scope.eventSortableOptions = {
                 connectWith: ".connected-events-container",
-                cursorAt: { left: 15 , top: 15},
+                cursorAt: { left: 15, top: 15},
                 "opacity": 0.7,
-                distance: 5,forceHelperSize: true,
+                distance: 5, forceHelperSize: true,
                 helper: "clone",
                 appendTo: 'body',
                 zIndex: 99999999,
                 scroll: true,
                 stop: function (e, ui) {
-                    $scope.$apply(function(){
+                    $scope.$apply(function () {
                         $scope.resetEventTypes();
                         $scope.dropped = $scope.nowEditing = ui.item.sortable.dropindex;
                         $scope.form.formEvents[$scope.nowEditing].id = new Date().getTime();
@@ -120,11 +120,10 @@ angular.module('formBuilder').controller('FieldsCtrl',
 
             };
 
-$scope.lastChanged = function(){
-    var lastChanged = new Date().getTime();
-    $scope.form.lastChanged = lastChanged;
-}
-
+            $scope.lastChanged = function () {
+                var lastChanged = new Date().getTime();
+                $scope.form.lastChanged = lastChanged;
+            }
 
 
             //Delete form Items
@@ -142,7 +141,7 @@ $scope.lastChanged = function(){
                 });
             };
 
-            $scope.deleteEvent= function (delEvent) {
+            $scope.deleteEvent = function (delEvent) {
                 $scope.form.formEvents = _.reject($scope.form.formEvents, function (formEvent) {
                     return formEvent.id === delEvent.id;
                 });
@@ -153,8 +152,6 @@ $scope.lastChanged = function(){
 
                 $scope.dragging = false;
             };
-
-
 
 
 // Used to add options to selects, radios, i.e. Single selection
@@ -182,7 +179,6 @@ $scope.lastChanged = function(){
                     $scope.form.fields[$scope.nowEditing].fields[$scope.nowSubEditing].options.splice($index, 1);
                 }
             };
-
 
 
             // should we show the default placeholder - i.e. - there are no formfields
@@ -350,7 +346,7 @@ $scope.lastChanged = function(){
 
                 if (confirm('Are you sure you want to delete this form?')) {
                     FormService.deleteForm(form, function (err) {
-                        if(err) {
+                        if (err) {
                             $log.error(err.toString());
                         } else {
                             Forms.resetCurrentForm();
@@ -381,8 +377,6 @@ $scope.lastChanged = function(){
             };
 
         }]);
-
-
 
 
 var ModalEditorCtrl = function ($scope, $modalInstance, fieldData) {
@@ -437,10 +431,10 @@ var ModalListManagerCtrl = function ($scope, $modalInstance, list, $upload) {
 
     $scope.uploadFile = [];
     $scope.uploadProgress = 50;
-    $scope.message ={show: false};
+    $scope.message = {show: false};
 
 
-    $scope.setMessage = function(show,title,body,style){
+    $scope.setMessage = function (show, title, body, style) {
 
         $scope.message.show = show;
         $scope.message.title = title;
@@ -449,23 +443,23 @@ var ModalListManagerCtrl = function ($scope, $modalInstance, list, $upload) {
 
     }
 
-    $scope.browse = function(){
+    $scope.browse = function () {
 
         angular.element('#uploadFile').click()
 
     }
 
-    $scope.onFileSelect = function(selectedFile){
+    $scope.onFileSelect = function (selectedFile) {
         $scope.uploadProgress = 0;
         $scope.setMessage(false);
 
         $scope.uploadFile = selectedFile[0];
 
-        if ($scope.uploadFile.type != 'text/csv'){
+        if ($scope.uploadFile.type != 'text/csv') {
 
             $scope.allowUpload = false;
-            $scope.setMessage(true,'Invalid File Format','FOOFORMS expects a .csv file. Please ensure you have saved your file in .csv format','alert-danger');
-        }else{
+            $scope.setMessage(true, 'Invalid File Format', 'FOOFORMS expects a .csv file. Please ensure you have saved your file in .csv format', 'alert-danger');
+        } else {
 
             $scope.allowUpload = true;
             $scope.doFileUpload();
@@ -475,7 +469,7 @@ var ModalListManagerCtrl = function ($scope, $modalInstance, list, $upload) {
 
     }
 
-    $scope.doFileUpload = function(){
+    $scope.doFileUpload = function () {
         $scope.uploadProgress = 1;
 
         $scope.upload = $upload.upload({
@@ -485,31 +479,27 @@ var ModalListManagerCtrl = function ($scope, $modalInstance, list, $upload) {
             // withCredentials: true,
             data: {file: $scope.uploadFile}
 
-        }).progress(function(evt) {
-                $scope.uploadProgress = (parseInt(100.0 * evt.loaded / evt.total));
-            }).success(function(data, status, headers, config) {
-                // file is uploaded successfully
-                $scope.uploadFile = [];
-                $scope.allowUpload = null;
-                if (data.err){
-                    $scope.setMessage(true,'CSV File Failed Validation',data.err,'alert-danger');
+        }).progress(function (evt) {
+            $scope.uploadProgress = (parseInt(100.0 * evt.loaded / evt.total));
+        }).success(function (data, status, headers, config) {
+            // file is uploaded successfully
+            $scope.uploadFile = [];
+            $scope.allowUpload = null;
+            if (data.err) {
+                $scope.setMessage(true, 'CSV File Failed Validation', data.err, 'alert-danger');
 
-                }else{
-                    $scope.listData.columns = data[0].items;
-                    data.splice(0,1);
-                    $scope.listData.rows = data;
-                }
+            } else {
+                $scope.listData.columns = data[0].items;
+                data.splice(0, 1);
+                $scope.listData.rows = data;
+            }
 
-            }).error(function(err){
-                alert(err);
-            });
-
+        }).error(function (err) {
+            alert(err);
+        });
 
 
     }
-
-
-
 
 
 };

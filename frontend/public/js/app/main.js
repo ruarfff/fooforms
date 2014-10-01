@@ -5,7 +5,7 @@ var fooformsApp = angular.module('fooformsApp', [
     // Vendor dependencies
     'ngRoute', 'ngSanitize', 'trNgGrid', 'restangular', 'ui.bootstrap', 'textAngular', 'ui.calendar', 'angularFileUpload', 'ui.sortable',
     // Custom dependencies
-    'dashboard', 'folder', 'folders', 'formBuilder', 'formViewer', 'user', 'authentication'
+    'dashboard', 'form', 'formBuilder', 'formViewer', 'user', 'organisation', 'team' ,'authentication'
 ]);
 
 fooformsApp
@@ -32,7 +32,8 @@ fooformsApp
                 }
             })
             .when('/dashboard', {
-                templateUrl: '/dashboard/partials/standardView'
+                templateUrl: '/dashboard/partials/standardView',
+                controller: 'DashboardCtrl'
             })
             .when('/people', {
                 templateUrl: '/users/partials/people',
@@ -116,7 +117,7 @@ fooformsApp
             $scope.stylesheet = style;
         }
     }])
-    .controller('MainController', ['$scope', '$location', '$log' , '$upload', 'USER_ROLES', 'AuthService', 'Session', function ($scope, $location, $log, $upload, USER_ROLES, AuthService, Session) {
+    .controller('MainController', ['$scope', '$location', '$log' , '$upload', 'USER_ROLES', 'AuthService', 'Session', 'DashboardService', function ($scope, $location, $log, $upload, USER_ROLES, AuthService, Session, DashboardService) {
         'use strict';
         $scope.sideMenuVisible = true;
 
@@ -145,10 +146,19 @@ fooformsApp
                 }
                 if (!AuthService.isAuthenticated()) {
                     window.location.href = '/login';
+                } else {
+                    $scope.userRoles = USER_ROLES;
+                    $scope.isAuthorized = AuthService.isAuthorized;
+                    DashboardService.getUserDashboard(function (err, result) {
+                        if (err) {
+                            $log.error(err);
+                        } else {
+                            $log.log(result);
+                            Session.user = result;
+                        }
+                    });
                 }
             });
-            $scope.userRoles = USER_ROLES;
-            $scope.isAuthorized = AuthService.isAuthorized;
         };
 
         $scope.setMessage = function (msgBox, status, title, message) {

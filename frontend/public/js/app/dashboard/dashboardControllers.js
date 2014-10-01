@@ -3,16 +3,7 @@
 angular.module('dashboard').controller('DashboardCtrl', ['$rootScope', '$scope', '$log', '$location', '$http' , '$modal', 'Restangular', 'DashboardService', 'AUTH_EVENTS', 'Session', function ($rootScope, $scope, $log, $location, $http, $modal, Restangular, DashboardService, AUTH_EVENTS, Session) {
     'use strict';
 
-    $rootScope.$on(AUTH_EVENTS.loginSuccess, function (event, data){
-        DashboardService.getUserDashboard(function (err, result) {
-            if(err) {
-                $log.error(err);
-            } else {
-                $log.log(result);
-                Session.user = result;
-            }
-        });
-    });
+
 
 
     // the main object to store the form data

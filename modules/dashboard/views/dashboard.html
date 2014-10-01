@@ -4,7 +4,6 @@
         <div class="panel-heading m0 b0">
             <form class="form">
                 <div class="form-group">
-
                     <textarea class='form-control' placeholder="What's Up?"></textarea>
                 </div>
                 <div class="form-group">
@@ -17,17 +16,13 @@
             <span class="label label-default mr5"
                   ng-repeat="team in user.teams">{{ team.title }}
             </span>
-
                     <span class="label label-default"><i class="fa fa-search"></i></span>
                     <span class="label label-default" ng-click="postView='list';"><i class="fa fa-bars"></i></span>
                     <span class="label label-default" ng-click="postView='feed';"><i class="fa fa-square"></i></span>
 
-
                 </div>
             </form>
         </div>
-
-
     </div>
 
     <div class="scroll2 m0 b0">
@@ -44,8 +39,6 @@
 
                 <a ng-click="viewPost(post)">
                     <img class="media-object icon icon-feed" ng-src="{{post.icon}}" alt="">
-
-
                 </a>
                 <span ng-show="post.fields[0].type=='text' || post.fields[0].type=='textarea'">&nbsp;{{post.fields[0].value}}</span>
 
@@ -55,15 +48,10 @@
                 <div ng-repeat="field in post.fields track by $index">
                     <span ng-show="(field.type=='text' || field.type=='textarea') && $index <5">
                         <span class='label label-foo'> {{ field.label }} </span> {{ field.value}}</span>
-
                     <img class="img-feed" style="max-width:100%;"
-                         src="{{'/files/'+ field.value._id }}" ng-if="field.value.mimeType=='image/jpeg'">
-
+                         ng-src="/files/{{field.value._id }}" ng-if="field.value.mimeType=='image/jpeg'">
                 </div>
-
-
             </div>
-
 
         </div>
         <table ng-show="postView=='list'" class="table feedTable m0 p0 b0">
