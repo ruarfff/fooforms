@@ -10,7 +10,7 @@ router.get('/partials/organisations', function (req, res) {
 });
 
 router.get('/partials/organisation-profile', function (req, res) {
-    res.render(path.join(viewDir, 'organisations-profile'));
+    res.render(path.join(viewDir, 'organisation-profile'));
 });
 
 

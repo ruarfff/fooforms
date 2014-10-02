@@ -1,9 +1,11 @@
 angular.module('team')
 
     .controller('TeamCtrl',
-    ['$scope', '$route', '$log', '$routeParams', 'Restangular', 'TeamService',
-        function ($scope, $route, $log, $routeParams, Restangular, TeamService) {
+    ['$scope', '$route', '$log', 'Restangular', 'TeamService', 'Session',
+        function ($scope, $route, $log, Restangular, TeamService, Session) {
             "use strict";
+
+            $scope.team = _.find(Session.user.teams, {'displayName': $route.current.params.team });
 
             $scope.tabs = [
                 {name: "Teams", active: true},

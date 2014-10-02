@@ -52,10 +52,12 @@ fooformsApp
                 controller: 'OrganisationCtrl'
             })
             .when('/teams', {
-                templateUrl: '/teams/partials/teams'
+                templateUrl: '/teams/partials/teams',
+                controller: 'TeamCtrl'
             })
-            .when('/teams', {
-                templateUrl: '/teams/partials/teams'
+            .when('/teams/:team', {
+                templateUrl: '/teams/partials/team-profile',
+                controller: 'TeamCtrl'
             })
 
         /**

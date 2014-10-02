@@ -9,5 +9,9 @@ router.get('/partials/teams', function (req, res) {
     res.render(path.join(viewDir, 'teams'));
 });
 
+router.get('/partials/team-profile', function (req, res) {
+    res.render(path.join(viewDir, 'team-profile'));
+});
+
 module.exports = router;
 

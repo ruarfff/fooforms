@@ -27,7 +27,7 @@ angular.module('formBuilder')
                 }
             );
         };
-    }).directive('calculation', [function () {
+    }]).directive('calculation', [function () {
 
         return {
             restrict: 'E',
