@@ -66,8 +66,17 @@ angular.module('formBuilder').controller('FieldsCtrl',
                 stop: function (e, ui) {
                     $scope.$apply(function(){
                         $scope.resetInputTypes();
-                        $scope.dropped = $scope.nowEditing = ui.item.sortable.dropindex;
-                        $scope.form.fields[$scope.nowEditing].id = new Date().getTime();
+
+                        // Are we dropping into a repeatBox or not?
+                        if (ui.item.sortable.droptarget[0].className.indexOf("repeat-apps-container") > -1){
+                            $scope.dropped = $scope.nowSubEditing = ui.item.sortable.dropindex;
+                            $scope.form.fields[$scope.nowEditing].fields[$scope.nowSubEditing].id = new Date().getTime();
+                        }else{
+                            $scope.dropped = $scope.nowEditing = ui.item.sortable.dropindex;
+                            $scope.form.fields[$scope.nowEditing].id = new Date().getTime();
+                        }
+
+
                         $scope.lastChanged();
                     });
                     // if the element is removed from the first container
@@ -75,27 +84,7 @@ angular.module('formBuilder').controller('FieldsCtrl',
                 }
                 };
 
-                $scope.repeatSortableOptions = {
-                connectWith: ".connected-repeat-container",
-                cursorAt: { left: 15 , top: 15},
-                "opacity": 0.7,
-                distance: 5,forceHelperSize: true,
-                helper: "clone",
-                appendTo: 'body',
-                zIndex: 99999999,
-                scroll: true,
-                stop: function (e, ui) {
-                    $scope.$apply(function(){
-                        $scope.resetInputTypes();
-                        $scope.dropped = $scope.nowEditing = ui.item.sortable.dropindex;
-                        $scope.lastChanged();
-                    });
-                    // if the element is removed from the first container
 
-
-                }
-
-            };
 
             $scope.eventSortableOptions = {
                 connectWith: ".connected-events-container",

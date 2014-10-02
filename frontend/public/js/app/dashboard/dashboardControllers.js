@@ -23,7 +23,8 @@ angular.module('dashboard').controller('DashboardCtrl', ['$scope', '$location', 
     $scope.viewPost = function (post, index) {
         if (post) {
             var form = Forms.findById(post.form);
-            $scope.posts.activePost = post;
+            $scope.posts.activePost = angular.copy(post);
+
 
             $scope.currentPostIndex = index;
 
