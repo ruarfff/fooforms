@@ -4,8 +4,6 @@ angular.module('dashboard').controller('DashboardCtrl', ['$rootScope', '$scope',
     'use strict';
 
 
-
-
     // the main object to store the form data
     /**$scope.form = Forms.getCurrentForm();
      $scope.posts = [];

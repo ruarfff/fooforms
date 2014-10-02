@@ -11,31 +11,36 @@ body {
 
 }
 
-
-
 .T09 {
   opacity: .95;
 }
-.p0{
+
+.p0 {
   padding: 0px !important;
 }
-.pt10{
+
+.pt10 {
   padding-top: 10px;
 }
-.m0{
+
+.m0 {
 
   margin: 0px;
 
 }
-.text-shadow-light{
-  text-shadow: 1px 1px 2px rgba(255,255,255,.3);
+
+.text-shadow-light {
+  text-shadow: 1px 1px 2px rgba(255, 255, 255, .3);
 }
-.text-shadow-dark{
-  text-shadow: 1px 1px rgba(0,0,0,.3);
+
+.text-shadow-dark {
+  text-shadow: 1px 1px rgba(0, 0, 0, .3);
 }
-.align-center{
+
+.align-center {
   text-align: center;
 }
+
 img.logo {
   margin: 0px;
   margin-top: 10px;
@@ -44,31 +49,33 @@ img.logo {
   margin-right: 10px;
 }
 
-.page-content{
+.page-content {
   max-width: 1000px;
   margin: 0 auto 0;
 }
 
-iframe{
+iframe {
   width: 100%;
   border: 0px !important;
   height: auto;
   min-height: 250px;
 }
+
 .iframe-large {
   width: 100%;
   border: 0px;
   height: 650px;
 
 }
-iframe div.alert{
+
+iframe div.alert {
   border-radius: 0px;
 }
 
 /* CUSTOMIZE THE NAVBAR
 -------------------------------------------------- */
 
-.navbar>.container .navbar-brand {
+.navbar > .container .navbar-brand {
   margin-left: 0px;
   padding: 0px;
   font-size: 44px;
@@ -78,7 +85,7 @@ iframe div.alert{
 }
 
 .text-foo {
-color: #3B8686;
+  color: #3B8686;
 }
 
 /* Special class on .container surrounding .navbar, used for positioning it into place. */
@@ -87,14 +94,15 @@ color: #3B8686;
   top: 0;
   z-index: 20;
   width: 100%;
-  margin : 0 auto 0;
+  margin: 0 auto 0;
   border-top: 5px solid #68B3AF;
   border-bottom: 1px solid #e7e7e7;
   height: 76px;
   display: block;
   background: #fff;
 }
-.navbar-foo{
+
+.navbar-foo {
   max-width: 1000px;
   margin: 5px auto 0;
   border-left: 0px;
@@ -103,10 +111,10 @@ color: #3B8686;
   box-shadow: none;
 
 }
-.navbar-foo .navbar-header{
+
+.navbar-foo .navbar-header {
   margin-left: -40px;
 }
-
 
 /* Flip around the padding for proper display in narrow viewports */
 .navbar-wrapper .container {
@@ -114,18 +122,20 @@ color: #3B8686;
   padding-right: 0;
 }
 
-.foo-menu{
+.foo-menu {
   margin-left: 10px;
   border-left: 1px solid #e7e7e7;
 }
-.foo-menu, .foo-menu li, .foo-menu li a{
+
+.foo-menu, .foo-menu li, .foo-menu li a {
   height: 70px;
   line-height: 70px;
   padding: 0px;
   font-family: 'Play', sans-serif;
 
 }
-.foo-menu li{
+
+.foo-menu li {
   height: 70px;
   line-height: 70px;
   border-left: 1px solid #fff;
@@ -134,8 +144,6 @@ color: #3B8686;
   padding-right: 20px;
 
 }
-
-
 
 /* CUSTOMIZE THE CAROUSEL
 -------------------------------------------------- */
@@ -155,7 +163,7 @@ color: #3B8686;
   color: #fff;
   font-weight: 900;
   font-family: 'Open Sans Condensed', sans-serif;
-  text-shadow: 2px 2px 3px rgba(0,0,0,.6);
+  text-shadow: 2px 2px 3px rgba(0, 0, 0, .6);
 }
 
 .jumbotron h2 {
@@ -163,20 +171,23 @@ color: #3B8686;
   color: #1f2737;
   font-weight: 600;
   font-family: 'Open Sans Condensed', sans-serif;
-  text-shadow: 1px 1px rgba(255,255,255,.3);
+  text-shadow: 1px 1px rgba(255, 255, 255, .3);
 
 }
-.jumbotron h2, .jumbotron h3, .jumbotron h4, .jumbotron h5{
+
+.jumbotron h2, .jumbotron h3, .jumbotron h4, .jumbotron h5 {
   font-family: 'Open Sans Condensed', sans-serif;
-font-weight: 500;
+  font-weight: 500;
 }
+
 .jumbotron h2 span.highlighted {
   color: #0279d2;
-  font-weight:500;
+  font-weight: 500;
 }
+
 .jumbotron i.fa {
   color: #3a4556;
-  font-weight:300;
+  font-weight: 300;
 }
 
 /* Declare heights because of positioning of img element */
@@ -185,46 +196,53 @@ font-weight: 500;
   background: #d99c45 url('/assets/images/fooforms-home.jpg') center center no-repeat;
   background-size: auto 100%;
 }
-.bg-transparent-1{
-  background: rgba(255,255,255,0.1);
+
+.bg-transparent-1 {
+  background: rgba(255, 255, 255, 0.1);
 }
-.bg-transparent-2{
-  background: rgba(255,255,255,0.2);
+
+.bg-transparent-2 {
+  background: rgba(255, 255, 255, 0.2);
 }
-.bg-transparent-3{
-  background: rgba(255,255,255,0.3);
+
+.bg-transparent-3 {
+  background: rgba(255, 255, 255, 0.3);
 }
-.bg-transparent-4{
-  background: rgba(255,255,255,0.4);
+
+.bg-transparent-4 {
+  background: rgba(255, 255, 255, 0.4);
 }
-.bg-transparent-5{
-  background: rgba(255,255,255,0.5);
+
+.bg-transparent-5 {
+  background: rgba(255, 255, 255, 0.5);
 }
-.btn-huge{
+
+.btn-huge {
   font-size: 1.5em;
 }
 
-.jumbotron-home .item{
+.jumbotron-home .item {
 
   padding: 10px;
 }
-.jumbotron-home .item ul{
-margin: 5px;
+
+.jumbotron-home .item ul {
+  margin: 5px;
 }
-.fa-huge{
+
+.fa-huge {
   font-size: 15em;
   color: #f6f6f6;
   text-align: center;
   text-shadow: 0px 1px 2px rgba(255, 255, 255, 0.50);
 }
 
-.fa-big{
-  margin:10px;
+.fa-big {
+  margin: 10px;
   font-size: 50px;
   line-height: 50px;
   color: #68B3AF;
 }
-
 
 .highlight {
   color: #f6f6f6;
@@ -232,14 +250,14 @@ margin: 5px;
   padding: 0px;
   padding-top: 20px;
   padding-bottom: 20px;
-border-top: 20px solid #202020;
+  border-top: 20px solid #202020;
   border-bottom: 20px solid #202020;
 
 }
 
 .highlight {
   text-align: center;
-  margin: 0 auto  0;
+  margin: 0 auto 0;
 }
 
 .highlight p {
@@ -252,7 +270,7 @@ border-top: 20px solid #202020;
   font-family: 'Open Sans Condensed', sans-serif;
   color: #4e7466;
   text-align: left;
-  text-shadow: 0px 1px 0px rgba(255,255,255,.3);
+  text-shadow: 0px 1px 0px rgba(255, 255, 255, .3);
 }
 
 .highlight div.col-sm-4 {
@@ -295,9 +313,9 @@ border-top: 20px solid #202020;
 
 /* Featurettes
 ------------------------- */
-.featurette{
-  margin: 0 auto  0;
-padding: 0px;
+.featurette {
+  margin: 0 auto 0;
+  padding: 0px;
   padding-top: 20px;
   padding-bottom: 20px;
 
@@ -313,7 +331,8 @@ padding: 0px;
   line-height: 1;
   letter-spacing: -1px;
 }
-.lightOnDark .text-highlight{
+
+.lightOnDark .text-highlight {
   color: #68B3AF;
 }
 
@@ -330,6 +349,7 @@ padding: 0px;
 
   font-weight: 300 !important;
 }
+
 .lightOnDark2 {
   color: #efefef;
   background: #5D4157;
@@ -351,11 +371,10 @@ padding: 0px;
     padding-top: 50px;
     padding-bottom: 150px;
 
-
   }
   .jumbotron-home {
 
-    background-size:  100% auto;
+    background-size: 100% auto;
 
   }
   .jumbotron h1 {
@@ -367,8 +386,6 @@ padding: 0px;
     background: none;
   }
 
-
-
   /* Remove the edge padding needed for mobile */
   .marketing {
     padding: 0px;
@@ -376,14 +393,6 @@ padding: 0px;
     padding-right: 0px;
     background: #ffffff;
   }
-
-
-
-
-
-
-
-
 
   .featurette-heading {
     font-size: 50px;
@@ -411,13 +420,9 @@ padding: 0px;
     font-size: 30px;
   }
 
-
-
   .featurette-heading {
     margin-top: 120px;
   }
-
-
 
   .content-secondary .ui-collapsible {
     padding: 0 15px 10px;

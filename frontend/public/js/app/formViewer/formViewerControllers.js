@@ -94,44 +94,42 @@ angular.module('formViewer')
         };
 
         $scope.viewPost = function (postIndex) {
-            $scope.postObj ={};
+            $scope.postObj = {};
             $scope.showPostForm = false;
 
-            setTimeout(function(){
-                $scope.$apply(function(){
+            setTimeout(function () {
+                $scope.$apply(function () {
                     $scope.postObj = $scope.posts[postIndex];
                     $scope.showPostForm = true;
                     $scope.setMessage('');
                 });
 
-            },0);
+            }, 0);
 
 
         };
 
 
-
-
         $scope.addRepeat = function (groupBox, field) {
-            var repeater={};
+            var repeater = {};
             repeater.id = new Date().getTime();
             repeater.fields = angular.copy($scope.postObj.fields[groupBox].fields);
 
             // need to swap out the field.id's for new ones.
             var fieldCount = repeater.fields.length;
 
-            for (var fieldIndex = 0; fieldIndex < fieldCount; fieldIndex++){
+            for (var fieldIndex = 0; fieldIndex < fieldCount; fieldIndex++) {
                 var fieldId = repeater.fields[fieldIndex].id
                 repeater.fields[fieldIndex].id = repeater.id + '_' + fieldId;
 
                 // Fields specified in calculation need filedIds updated
-                if (repeater.fields[fieldIndex].type == 'calculation'){
+                if (repeater.fields[fieldIndex].type == 'calculation') {
 
-                    if (repeater.fields[fieldIndex].options.field1.item !='Specified Value'){
+                    if (repeater.fields[fieldIndex].options.field1.item != 'Specified Value') {
                         var fieldItem = repeater.fields[fieldIndex].options.field1.item;
                         repeater.fields[fieldIndex].options.field1.item = repeater.id + '_' + fieldItem;
                     }
-                    if (repeater.fields[fieldIndex].options.field2.item !='Specified Value'){
+                    if (repeater.fields[fieldIndex].options.field2.item != 'Specified Value') {
                         var fieldItem = repeater.fields[fieldIndex].options.field2.item;
                         repeater.fields[fieldIndex].options.field2.item = repeater.id + '_' + fieldItem;
                     }

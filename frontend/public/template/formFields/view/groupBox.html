@@ -8,20 +8,22 @@
     </label>
 
     <div class="col-sm-12 p0 m0"
-            ><div class=" col-sm-12 even">
-        <div class='formObject  plr5 col-sm-{{subField.boxSize}}'
+            >
+        <div class=" col-sm-12 even">
+            <div class='formObject  plr5 col-sm-{{subField.boxSize}}'
 
-             ng-repeat="subField in formField.fields track by $index">
+                 ng-repeat="subField in formField.fields track by $index">
 
-            <label for="{{subField.id}}">{{subField.label}}
-                <i class="fa fa-question-circle"
-                   ng-hide="!subField.userInstructions"
-                   popover="{{subField.userInstructions}}"
-                   popover-trigger="mouseenter"></i>
-            </label>
+                <label for="{{subField.id}}">{{subField.label}}
+                    <i class="fa fa-question-circle"
+                       ng-hide="!subField.userInstructions"
+                       popover="{{subField.userInstructions}}"
+                       popover-trigger="mouseenter"></i>
+                </label>
 
 
-        </div></div>
+            </div>
+        </div>
         <div class='col-sm-12 m0'
 
              ng-class-odd="'odd'" ng-class-even="'even'"
@@ -30,10 +32,9 @@
             <div class='plr5 col-sm-{{repeater.boxSize}}'
 
                  ng-repeat="repeater in rows.fields track by $index"
-                 ng-include="repeater.groupViewTemplate" >
+                 ng-include="repeater.groupViewTemplate">
 
             </div>
-
 
 
         </div>
@@ -41,9 +42,9 @@
 
     </div>
 
-<div ng-show="formField.repeatable">
-    <button class="btn btn-default" ng-click="addRepeat($index,0);">+</button>
-</div>
+    <div ng-show="formField.repeatable">
+        <button class="btn btn-default" ng-click="addRepeat($index,0);">+</button>
+    </div>
 
 
 </div>

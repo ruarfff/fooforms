@@ -16,17 +16,17 @@ angular.module('formBuilder').controller('FieldsCtrl',
                 $scope.resetEventTypes();
             });
 
-            $scope.resetInputTypes = function(){
+            $scope.resetInputTypes = function () {
                 $scope.inputTypesRefresh = angular.copy($scope.inputTypes);
 
-                $scope.userInputTypes = $filter('filterTypes')($scope.inputTypesRefresh,'user');
-                $scope.numberInputTypes = $filter('filterTypes')($scope.inputTypesRefresh,'number');
-                $scope.fileInputTypes = $filter('filterTypes')($scope.inputTypesRefresh,'files');
-                $scope.advancedInputTypes = $filter('filterTypes')($scope.inputTypesRefresh,'advanced');
-                $scope.standardInputTypes = $filter('filterTypes')($scope.inputTypesRefresh,'standard');
+                $scope.userInputTypes = $filter('filterTypes')($scope.inputTypesRefresh, 'user');
+                $scope.numberInputTypes = $filter('filterTypes')($scope.inputTypesRefresh, 'number');
+                $scope.fileInputTypes = $filter('filterTypes')($scope.inputTypesRefresh, 'files');
+                $scope.advancedInputTypes = $filter('filterTypes')($scope.inputTypesRefresh, 'advanced');
+                $scope.standardInputTypes = $filter('filterTypes')($scope.inputTypesRefresh, 'standard');
             };
 
-            $scope.resetEventTypes = function(){
+            $scope.resetEventTypes = function () {
                 $scope.formEvents = angular.copy($scope.formEventHolder);
             }
             ;
@@ -48,23 +48,23 @@ angular.module('formBuilder').controller('FieldsCtrl',
 
             $scope.sortableOptions = {
                 connectWith: ".connected-apps-container, .repeat-apps-container",
-             cursorAt: { left: 15 , top: 15},
+                cursorAt: { left: 15, top: 15},
                 "opacity": 0.7,
-                distance: 5,forceHelperSize: true,
+                distance: 5, forceHelperSize: true,
                 helper: "clone",
                 placeholder: 'ui-sortable-placeholder',
                 appendTo: 'body',
                 zIndex: 99999999,
                 scroll: true,
                 stop: function (e, ui) {
-                    $scope.$apply(function(){
+                    $scope.$apply(function () {
                         $scope.resetInputTypes();
 
                         // Are we dropping into a repeatBox or not?
-                        if (ui.item.sortable.droptarget[0].className.indexOf("repeat-apps-container") > -1){
+                        if (ui.item.sortable.droptarget[0].className.indexOf("repeat-apps-container") > -1) {
                             $scope.dropped = $scope.nowSubEditing = ui.item.sortable.dropindex;
                             $scope.form.fields[$scope.nowEditing].fields[$scope.nowSubEditing].id = new Date().getTime();
-                        }else{
+                        } else {
                             $scope.dropped = $scope.nowEditing = ui.item.sortable.dropindex;
                             $scope.form.fields[$scope.nowEditing].id = new Date().getTime();
                         }
@@ -75,8 +75,7 @@ angular.module('formBuilder').controller('FieldsCtrl',
                     // if the element is removed from the first container
 
                 }
-                };
-
+            };
 
 
             $scope.eventSortableOptions = {
@@ -106,7 +105,6 @@ angular.module('formBuilder').controller('FieldsCtrl',
                 var lastChanged = new Date().getTime();
                 $scope.form.lastChanged = lastChanged;
             }
-
 
 
             //Delete form Items
@@ -369,14 +367,14 @@ var ModalEditorCtrl = function ($scope, $modalInstance, fieldData) {
 
     $scope.editorOptions = {
         lineNumbers: true,
-        theme:'twilight',
-        lineWrapping : true,
+        theme: 'twilight',
+        lineWrapping: true,
         mode: 'xml',
-        onLoad : function(_cm){
+        onLoad: function (_cm) {
 
             // HACK to have the codemirror instance in the scope...
 
-                _cm.setOption("mode", 'xml');
+            _cm.setOption("mode", 'xml');
             _cm.refresh();
 
 
