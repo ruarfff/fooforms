@@ -52,24 +52,24 @@ describe('Dashboard API', function () {
 
     it('returns a user fully populated with organisation, forms and posts', function (done) {
 
-        sampleDashboardCreator.generateDashboardTestData(db, function (testData) {
-            should.exist(testData);
+        sampleDashboardCreator.generateDashboardTestData(db, function (testUser) {
+            should.exist(testUser);
             request(app)
-                .get(rootUrl + '/user/' + testData._id)
+                .get(rootUrl + '/user/' + testUser._id)
                 .set('Accept', 'application/json')
                 .expect('Content-Type', /json/)
                 .expect(200, function (err, res) {
                     var user = res.body;
-                    user._id.should.eql(testData._id.toString());
-                    user.displayName.should.equal(testData.displayName);
-                    user.forms.length.should.equal(testData.forms.length);
-                    user.forms[0]._id.should.equal(testData.forms[0].toString());
-                    user.organisations.length.should.equal(testData.organisations.length);
-                    user.organisations[0]._id.should.equal(testData.organisations[0]._id.toString());
-                    user.organisations[0].forms.length.should.equal(testData.organisations[0].forms.length);
-                    user.organisations[0].forms[0]._id.should.equal(testData.organisations[0].forms[0].toString());
-                    user.teams.length.should.equal(testData.teams.length);
-                    user.teams[0]._id.should.equal(testData.teams[0].toString());
+                    user._id.should.eql(testUser._id.toString());
+                    user.displayName.should.equal(testUser.displayName);
+                    user.forms.length.should.equal(testUser.forms.length);
+                    user.forms[0]._id.should.equal(testUser.forms[0].toString());
+                    user.organisations.length.should.equal(testUser.organisations.length);
+                    user.organisations[0]._id.should.equal(testUser.organisations[0]._id.toString());
+                    user.organisations[0].forms.length.should.equal(testUser.organisations[0].forms.length);
+                    user.organisations[0].forms[0]._id.should.equal(testUser.organisations[0].forms[0].toString());
+                    user.teams.length.should.equal(testUser.teams.length);
+                    user.teams[0]._id.should.equal(testUser.teams[0].toString());
                     done(err);
                 });
         });

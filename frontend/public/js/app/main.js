@@ -43,29 +43,22 @@ fooformsApp
                 templateUrl: '/users/partials/profile',
                 controller: 'ProfileCtrl'
             })
-            .when('/calendar', {
-                templateUrl: '/calendar/partials/calendar'
-            })
-            .when('/userGuide', {
-                templateUrl: '/dashboard/partials/userGuide'
-            })
-            .when('/settings', {
-                templateUrl: '/dashboard/partials/settings'
-            })
-            .when('/admin', {
-                templateUrl: '/admin/partials/admin'
-            })
             .when('/organisations', {
-                templateUrl: '/organisations/partials/organisations'
+                templateUrl: '/organisations/partials/organisations',
+                controller: 'OrganisationCtrl'
+            })
+            .when('/organisations/:organisation', {
+                templateUrl: '/organisations/partials/organisation-profile',
+                controller: 'OrganisationCtrl'
             })
             .when('/teams', {
                 templateUrl: '/teams/partials/teams'
             })
-        /**
-         .when('/forms', {
-                templateUrl: '/partials/forms',
-                controller: 'FormsCtrl'
+            .when('/teams', {
+                templateUrl: '/teams/partials/teams'
             })
+
+        /**
          .when('/formBuilder', {
                 templateUrl: '/partials/formBuilder',
                 controller: 'FieldsCtrl'
@@ -78,14 +71,23 @@ fooformsApp
                 templateUrl: '/partials/profile',
                 controller: 'ProfileCtrl'
             })
-         .when('/:username/:folder', {
+         .when('/:username/:form', {
                 templateUrl: '/partials/folder',
                 controller: 'FolderCtrl'
             })
-         .when('/:username/:folder/:form', {
-                templateUrl: '/partials/formViewer',
-                controller: 'FormViewerCtrl'
-            })**/
+         **/
+            .when('/calendar', {
+                templateUrl: '/calendar/partials/calendar'
+            })
+            .when('/userGuide', {
+                templateUrl: '/dashboard/partials/userGuide'
+            })
+            .when('/settings', {
+                templateUrl: '/dashboard/partials/settings'
+            })
+            .when('/admin', {
+                templateUrl: '/admin/partials/admin'
+            })
             .otherwise({redirectTo: '/'});
     }])
     .config(['$httpProvider', function ($httpProvider) {
@@ -168,34 +170,4 @@ fooformsApp
             $scope.msg = message;
         };
 
-        $scope.onFileSelect = function ($files, formObj) {
-            //$files: an array of files selected, each file has name, size, and type.
-            for (var i = 0; i < $files.length; i++) {
-                var file = $files[i];
-                $scope.upload = $upload.upload({
-                    url: '/api/file/', //upload.php script, node.js route, or servlet url
-                    // method: POST or PUT,
-                    // headers: {'header-key': 'header-value'},
-                    // withCredentials: true,
-                    data: {formObj: formObj, file: file},
-                    file: file // or list of files: $files for html5 only
-                    /* set the file formData name ('Content-Desposition'). Default is 'file' */
-                    //fileFormDataName: myFile, //or a list of names for multiple files (html5).
-                    /* customize how data is added to formData. See #40#issuecomment-28612000 for sample code */
-                    //formDataAppender: function(formData, key, val){}
-                }).progress(function (evt) {
-                    formObj.progress = parseInt(100.0 * evt.loaded / evt.total);
-                }).success(function (data, status, headers, config) {
-                    // file is uploaded successfully
-                    alert(data);
-                });
-                //.error(...)
-                //.then(success, error, progress);
-                //.xhr(function(xhr){xhr.upload.addEventListener(...)})// access and attach any event listener to XMLHttpRequest.
-            }
-            /* alternative way of uploading, send the file binary with the file's content-type.
-             Could be used to upload files to CouchDB, imgur, etc... html5 FileReader is needed.
-             It could also be used to monitor the progress of a normal http post/put request with large data*/
-            // $scope.upload = $upload.http({...})  see 88#issuecomment-31366487 for sample code.
-        };
     }]);

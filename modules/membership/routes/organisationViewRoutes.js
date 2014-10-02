@@ -9,5 +9,9 @@ router.get('/partials/organisations', function (req, res) {
     res.render(path.join(viewDir, 'organisations'));
 });
 
+router.get('/partials/organisation-profile', function (req, res) {
+    res.render(path.join(viewDir, 'organisations-profile'));
+});
+
 
 module.exports = router;
