@@ -118,7 +118,7 @@
                             <div class='col-xs-12 plr5 col-sm-{{formField.boxSize}}'
                                  ng-repeat="formField in posts.activePost.fields track by $index"
                                  ng-show="formField.name"
-                                 ng-include='formField.template'>
+                                 ng-include='formField.viewTemplate'>
                             </div>
 
                         </fieldset>

@@ -8,227 +8,225 @@
 <link rel="stylesheet" href="/vendor/font-awsome/font-awesome/css/font-awesome.min.css">
 <style>
 
-    .pl5 {
-        padding-left: 5px;
-    }
+        .pl5 {
+            padding-left: 5px;
+        }
 
-    .pr5 {
-        padding-right: 5px;
-    }
+        .pr5 {
+            padding-right: 5px;
+        }
+        .br0{
+            border-radius: 0px;
+        }
+        .b0{
+            border: 0px;
+        }
 
-    .br0 {
-        border-radius: 0px;
-    }
+        .alert-foo {
+            padding-bottom: 5px !important;
+            margin-bottom: 0px !important;
+        }
 
-    .b0 {
-        border: 0px;
-    }
+        #formHeading h2 {
+            font-size: 16px;
+            font-weight: bold;
+            line-height: 22px;
+            margin: 0px;
+            padding: 0px;
+            display: inline-block;
+        }
 
-    .alert-foo {
-        padding-bottom: 5px !important;
-        margin-bottom: 0px !important;
-    }
+        #formHeading p {
+            margin: 0px;
+            padding: 0px;
+            font-size: 10px;
+            font-weight: normal;
+            line-height: 14px;
 
-    #formHeading h2 {
-        font-size: 16px;
-        font-weight: bold;
-        line-height: 22px;
-        margin: 0px;
-        padding: 0px;
-        display: inline-block;
-    }
+        }
+.radio, .checkbox{
+    margin-left: 20px;
+    margin-right: 20px;
+}
+        #formTitle {
+            display: block;
+        }
 
-    #formHeading p {
-        margin: 0px;
-        padding: 0px;
-        font-size: 10px;
-        font-weight: normal;
-        line-height: 14px;
+        .fieldObject {
 
-    }
+            display: block;
+        }
 
-    .radio, .checkbox {
-        margin-left: 20px;
-        margin-right: 20px;
-    }
+        div.fieldObject:hover {
+            background: #f8efc0;
+        }
+.inline{
+    display: inline-block;
+}
+        #formLayout, .formLayout {
+            display: block;
+            padding-bottom: 0px;
+            background: #f7f7f7;
+            border: 1px solid #efefef;
+        }
 
-    #formTitle {
-        display: block;
-    }
+        .viewFormObject {
+            margin: 0px;
+            padding: 4px;
+            min-height: 84px;
+            border-top: 1px solid #fff;
+            border-left: 1px solid #fff;
+            border-right: 1px solid #ececec;
+            border-bottom: 1px solid #ececec;
+        }
 
-    .fieldObject {
+        .modal.fade {
+            bottom: -100%;
+            -webkit-transition: opacity 0.3s linear, left 0.3s ease-out;
+            -moz-transition: opacity 0.3s linear, left 0.3s ease-out;
+            -o-transition: opacity 0.3s linear, left 0.3s ease-out;
+            transition: opacity 0.3s linear, left 0.3s ease-out;
+        }
 
-        display: block;
-    }
+        .modal.fade.in {
 
-    div.fieldObject:hover {
-        background: #f8efc0;
-    }
+            top: auto;
+            bottom: 150px;
 
-    .inline {
-        display: inline-block;
-    }
+        }
 
-    #formLayout, .formLayout {
-        display: block;
-        padding-bottom: 0px;
-        background: #f7f7f7;
-        border: 1px solid #efefef;
-    }
+        select.form-control {
+            margin-right: 10px !important;
+        }
 
-    .viewFormObject {
-        margin: 0px;
-        padding: 4px;
-        min-height: 84px;
-        border-top: 1px solid #fff;
-        border-left: 1px solid #fff;
-        border-right: 1px solid #ececec;
-        border-bottom: 1px solid #ececec;
-    }
+            /*placeholder for draggies*/
+        #formFields div.fieldObject, #formEvents div.fieldObject {
+            clear: both !important;
+            padding: 30px !important;
+            border-radius: 0px !important;
+            border: 1px solid #EFE3AE;
+        }
 
-    .modal.fade {
-        bottom: -100%;
-        -webkit-transition: opacity 0.3s linear, left 0.3s ease-out;
-        -moz-transition: opacity 0.3s linear, left 0.3s ease-out;
-        -o-transition: opacity 0.3s linear, left 0.3s ease-out;
-        transition: opacity 0.3s linear, left 0.3s ease-out;
-    }
+        textarea.tandc {
+            display: block;
+            min-height: 400px;
+            min-width: 540px !important;
+        }
 
-    .modal.fade.in {
+        .icons a {
+            border: 3px solid #fff;
+            display: inline-block;
+            padding: 4px;
+            margin: 0px;
+        }
 
-        top: auto;
-        bottom: 150px;
+        .icons a:hover {
+            border: 3px solid #D2E5F7;
 
-    }
+        }
 
-    select.form-control {
-        margin-right: 10px !important;
-    }
+        img.icon {
+            max-width: 48px;
+            margin: 4px;
+        }
 
-    /*placeholder for draggies*/
-    #formFields div.fieldObject, #formEvents div.fieldObject {
-        clear: both !important;
-        padding: 30px !important;
-        border-radius: 0px !important;
-        border: 1px solid #EFE3AE;
-    }
+        label i.fa {
+            font-size: 1.4em;
+            color: #185aa7;
+            margin-left: 5px;
+        }
 
-    textarea.tandc {
-        display: block;
-        min-height: 400px;
-        min-width: 540px !important;
-    }
+        img.icon {
+            max-height: 48px !important;
+            display: inline-block;
+            vertical-align: middle;
+        }
 
-    .icons a {
-        border: 3px solid #fff;
-        display: inline-block;
-        padding: 4px;
-        margin: 0px;
-    }
-
-    .icons a:hover {
-        border: 3px solid #D2E5F7;
-
-    }
-
-    img.icon {
-        max-width: 48px;
-        margin: 4px;
-    }
-
-    label i.fa {
-        font-size: 1.4em;
-        color: #185aa7;
-        margin-left: 5px;
-    }
-
-    img.icon {
-        max-height: 48px !important;
-        display: inline-block;
-        vertical-align: middle;
-    }
-
-    .inline {
-        display: inline;
-    }
+        .inline {
+            display: inline;
+        }
 
 
-</style>
-<script type="text/javascript" src="/vendor/jquery/jquery-2.1.1.min.js"></script>
-<script type="text/javascript" src="/vendor/js/jquery-ui.js"></script>
-<script type="text/javascript" src="/vendor/bootstrap/js/bootstrap.js"></script>
-<script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/angularjs/1.2.15/angular.min.js"></script>
-<script type="text/javascript" src="/vendor/angular/angular-sanitize.min.js"></script>
+    </style>
+    <script type="text/javascript" src="/vendor/jquery/jquery-2.1.1.min.js"></script>
+    <script type="text/javascript" src="/vendor/js/jquery-ui.js"></script>
+    <script type="text/javascript" src="/vendor/bootstrap/js/bootstrap.js"></script>
+    <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/angularjs/1.2.15/angular.min.js"></script>
+    <script type="text/javascript" src="/vendor/angular/angular-sanitize.min.js"></script>
 
-<script>
-
-    var FooForm = angular.module('FooForm', ['ngSanitize']);
-    FooForm.controller('FormCtrl', function ($scope, $http) {
-        var formId = '<%- formId %>';
-        $scope.sorted = false;
-        $scope.errorPosting = false;
-        $http({
-            url: '/forms/repo/fetch/' + formId,
-            method: 'GET'
-        }).success(function (data, status, headers, config) {
-            $scope.post = data;
-            $scope.post.form = data._id;
-            $scope.post._id = null;
-
-        }).error(function (data, status, headers, config) {
-            $scope.error = status;
-        });
-        $scope.submit = function () {
+    <script src="/vendor/pikaday/pikaday.js"></script>
+    <script src="/vendor/pikaday/pikaday-directive.js"></script>
 
 
+    <script>
+
+        var FooForm = angular.module('FooForm', ['ngSanitize','pikaday']);
+        FooForm.controller('FormCtrl', function ($scope, $http) {
+            var formId = '<%- formId %>';
+            $scope.sorted = false;
+            $scope.errorPosting = false;
             $http({
-                url: '/forms/repo/post',
-                method: "POST",
-                data: $scope.post,
-                headers: {'Content-Type': 'application/json'}
+                url: '/forms/repo/fetch/' + formId,
+                method: 'GET'
             }).success(function (data, status, headers, config) {
-                $scope.sorted = true;
-                $scope.$apply();
-            }).error(function (data, status, headers, config) {
-                $scope.sorted = false;
-                $scope.errorPosting = true;
-                $scope.status = status;
-                $scope.$apply();
-            });
-        };
-    }).directive('compile', function ($compile) {
-        'use strict';
-        // directive factory creates a link function
-        return function (scope, element, attrs) {
-            scope.$watch(
-                    function (scope) {
-                        // watch the 'compile' expression for changes
-                        return scope.$eval(attrs.compile);
-                    },
-                    function (value) {
-                        // when the 'compile' expression changes
-                        // assign it into the current DOM
-                        element.html(value);
+                        $scope.post = data;
+                        $scope.post.form = data._id;
+                        $scope.post._id = null;
 
-                        // compile the new DOM and link it to the current
-                        // scope.
-                        // NOTE: we only compile .childNodes so that
-                        // we don't get into infinite loop compiling ourselves
-                        $compile(element.contents())(scope);
-                    }
-            );
-        };
-    })
-    ;
+                    }).error(function (data, status, headers, config) {
+                        $scope.error = status;
+                    });
+            $scope.submit = function () {
 
-    function nl2br(str, is_xhtml) {
 
-        var breakTag = (is_xhtml || typeof is_xhtml === 'undefined') ? '<br ' + '/>' : '<br>'; // Adjust comment to avoid issue on phpjs.org display
+                $http({
+                    url: '/forms/repo/post',
+                    method: "POST",
+                    data: $scope.post,
+                    headers: {'Content-Type': 'application/json'}
+                }).success(function (data, status, headers, config) {
+                            $scope.sorted = true;
+                            $scope.$apply();
+                        }).error(function (data, status, headers, config) {
+                            $scope.sorted = false;
+                            $scope.errorPosting = true;
+                            $scope.status = status;
+                            $scope.$apply();
+                        });
+            };
+        }).directive('compile', function ($compile) {
+                    'use strict';
+                    // directive factory creates a link function
+                    return function (scope, element, attrs) {
+                        scope.$watch(
+                                function (scope) {
+                                    // watch the 'compile' expression for changes
+                                    return scope.$eval(attrs.compile);
+                                },
+                                function (value) {
+                                    // when the 'compile' expression changes
+                                    // assign it into the current DOM
+                                    element.html(value);
 
-        return (str + '')
-                .replace(/([^>\r\n]?)(\r\n|\n\r|\r|\n)/g, '$1' + breakTag + '$2');
-    }
-</script>
+                                    // compile the new DOM and link it to the current
+                                    // scope.
+                                    // NOTE: we only compile .childNodes so that
+                                    // we don't get into infinite loop compiling ourselves
+                                    $compile(element.contents())(scope);
+                                }
+                        );
+                    };
+                })
+        ;
+
+        function nl2br(str, is_xhtml) {
+
+            var breakTag = (is_xhtml || typeof is_xhtml === 'undefined') ? '<br ' + '/>' : '<br>'; // Adjust comment to avoid issue on phpjs.org display
+
+            return (str + '')
+                    .replace(/([^>\r\n]?)(\r\n|\n\r|\r|\n)/g, '$1' + breakTag + '$2');
+        }
+    </script>
 </head>
 <body ng-controller="FormCtrl">
 
@@ -238,22 +236,19 @@
 
         <div class="foo-header panel-heading text-info">
             <img class="icon pull-left" ng-src="{{post.icon}}" alt="">
-            <h4 class="inline p0 text-info">{{post.name}}</h4>
-
-            <p class="text-primary">{{ post.description}}</p>
-        </div>
+            <h4 class="inline p0 text-info">{{post.name}}</h4><p class="text-primary">{{ post.description}}</p>
+            </div>
         <div class="foo-body panel-body">
 
-            <div class="row" ng-hide="sorted">
-                <div class='col-sm-{{formField.boxSize}} under viewFormObject'
-                     ng-repeat="formField in post.fields track by $index"
-                     ng-show="!formField.adminOnly">
+    <div class="row"  ng-hide="sorted">
+        <div class='col-sm-{{formField.boxSize}} under viewFormObject'
+             ng-repeat="formField in post.fields track by $index"
+             ng-show="!formField.adminOnly">
 
-                    <div ng-include='formField.template'></div>
-                </div>
-            </div>
+            <div ng-include='formField.template'></div>
         </div>
-    </form>
+    </div>
+        </div></form>
     <div class="row" ng-show="errorPosting">
         <div class="col-sm-12 p5 alert alert-success">
             <h4>Oops!</h4>
@@ -301,7 +296,7 @@
         <div class="col-sm-12 p5 alert alert-success br0">
             <h4>Thank you</h4>
 
-            <p>Your form has been received by us and we will be in contact with you shortly.</p>
+            <p>Your order has been received.</p>
         </div>
     </div>
 

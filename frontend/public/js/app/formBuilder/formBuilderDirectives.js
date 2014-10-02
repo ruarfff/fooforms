@@ -27,6 +27,146 @@ angular.module('formBuilder')
                 }
             );
         };
+    }).directive('calculation', [function () {
+
+        return {
+            restrict: 'E',
+            scope: false,
+
+
+            controller: function ($scope, $element) {
+
+
+
+                   var index;
+                   if (angular.isUndefined($scope.postObj)){
+                       $scope.postObj=$scope.posts.activePost;
+                   }
+                   var count = $scope.postObj.fields.length;
+
+                   if ($scope.formField.options.field1.item == 'Specified Value') {
+                       $scope.fieldA = $scope.formField.options.field1;
+                   } else {
+                       for (index = 0; index < count; index++) {
+                           if ($scope.postObj.fields[index].id == $scope.formField.options.field1.item) {
+                               $scope.fieldA = $scope.postObj.fields[index];
+                               break;
+                           }
+                       }
+                   }
+
+                   if ($scope.formField.options.field2.item == 'Specified Value') {
+                       $scope.fieldB = $scope.formField.options.field2;
+                   } else {
+                       for (index = 0; index < count; index++) {
+                           if ($scope.postObj.fields[index].id == $scope.formField.options.field2.item) {
+                               $scope.fieldB = $scope.postObj.fields[index];
+                               break;
+                           }
+                       }
+                   }
+
+                $scope.$watch('fieldA', function(){
+                       calculate();
+                   },true);
+                $scope.$watch('fieldB', function(){
+                       calculate();
+                   },true);
+
+
+
+function calculate() {
+    var result = 0;
+    switch ($scope.formField.options.operator) {
+        case '+' :
+            $scope.formField.value = ($scope.fieldA.value + $scope.fieldB.value);
+            break;
+        case '-' :
+            $scope.formField.value = ($scope.fieldA.value * $scope.fieldB.value);
+            break;
+        case '*' :
+            $scope.formField.value = ($scope.fieldA.value * $scope.fieldB.value);
+            break;
+        case '/' :
+            $scope.formField.value = ($scope.fieldA.value / $scope.fieldB.value);
+            break;
+
+    }
+    return $scope.formField.value;
+}
+
+            },
+            replace: false,
+            templateUrl: '/partials/calculation.html'
+        };
+
+    }]).directive('calculationGroupBox', [function () {
+
+        return {
+            restrict: 'E',
+            scope: false,
+
+
+            controller: function ($scope, $element) {
+
+                var index, fieldA,fieldB;
+                var count = $scope.formField.fields.length; //the groupbox
+
+                if ($scope.repeater.options.field1.item == 'Specified Value') {
+                    $scope.fieldA = $scope.repeater.options.field1;
+                } else {
+                    for (index = 0; index < count; index++) {
+                        if ($scope.formField.fields[index].id == $scope.repeater.options.field1.item.split('_')[1]) {
+                            $scope.fieldA = $scope.formField.repeaters[$scope.$parent.$parent.$index].fields[index];
+                            break;
+                        }
+                    }
+                }
+
+                if ($scope.repeater.options.field1.item == 'Specified Value') {
+                    $scope.fieldB = $scope.repeater.options.field2;
+                } else {
+                    for (index = 0; index < count; index++) {
+                        if ($scope.formField.fields[index].id == $scope.repeater.options.field2.item.split('_')[1]) {
+                            $scope.fieldB = $scope.formField.repeaters[$scope.$parent.$parent.$index].fields[index];
+                            break;
+                        }
+                    }
+                }
+
+
+                $scope.$watch("fieldA.value", function () {
+                    $scope.calculate();
+                    //alert();
+                });
+                $scope.$watch("fieldB.value", function () {
+                    $scope.calculate();
+                });
+
+                $scope.calculate = function () {
+                    var result=0;
+                    switch ($scope.repeater.options.operator) {
+                        case '+' :
+                            $scope.repeater.value = ($scope.fieldA.value + $scope.fieldB.value);
+                            break;
+                        case '-' :
+                            $scope.repeater.value = ($scope.fieldA.value * $scope.fieldB.value);
+                            break;
+                        case '*' :
+                            $scope.repeater.value = ($scope.fieldA.value * $scope.fieldB.value);
+                            break;
+                        case '/' :
+                            $scope.repeater.value = ($scope.fieldA.value / $scope.fieldB.value);
+                            break;
+
+                    }
+                    return $scope.repeater.value ;
+                }
+            },
+            replace: false,
+            templateUrl: '/partials/calculationGroupBox.html'
+        };
+
     }]).directive('uploader', ['$upload', function ($upload) {
 
         return {
@@ -138,6 +278,7 @@ angular.module('formBuilder')
                     }).error(function (err) {
                         alert(err);
                     });
+
 
 
                 }

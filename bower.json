@@ -32,7 +32,9 @@
     "fullcalendar": "~2.0.0",
     "angular-bootstrap": "~0.11.0",
     "trNgGrid": "3.0.3",
-    "slug": "~0.7.1"
+      "codemirror": "4.6.0",
+      "angular-ui-codemirror" :"*",
+      "slug": "~0.7.1"
   },
   "keywords": [
     "forms"

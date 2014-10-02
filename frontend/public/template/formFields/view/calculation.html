@@ -1,18 +1,1 @@
-<div class="form-group clearfix">
-    <label for="{{formField.id}}">{{formField.label}}
-        <i class="fa fa-question-circle"
-           ng-hide="!formField.userInstructions"
-           popover="{{formField.userInstructions}}"
-           popover-trigger="mouseenter"
-           popover-append-to-body="true"></i>
-    </label>
-
-    <div class="input-group" ng-style="{'width': formField.size+'%'}">
-        <span class="input-group-addon" ng-show="formField.required">*</span>
-        <input type="text"
-               class="form-control"
-               id="{{formField.id}}"
-               placeholder="{{formField.placeholder}}"
-               ng-model="formField.value"/>
-    </div>
-</div>
+<calculation form-field="formField" post-obj="postObj" ng-model="formField" ></calculation>

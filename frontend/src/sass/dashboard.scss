@@ -279,12 +279,12 @@ input[type=checkbox]:focus{
 }
 .odd{
 padding: 4px 0px;
-  background: rgba(255,255,255,0.1) !important;
+  background: #fff !important;
 
 }
 .even{
   padding: 4px 0px;
-  background: rgba(0,0,0,0.2) !important;
+  background: #fff !important;
 
 }
 .odd .form-group, .even .form-group{
@@ -361,6 +361,12 @@ padding: 4px 0px;
 }
 .l0{
   left: 0 !important;
+}
+.text-align-left{
+  text-align: left;
+}
+.text-align-right{
+  text-align: right;
 }
 .hr-condensed{
   padding: 0px;
