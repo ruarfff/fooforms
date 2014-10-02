@@ -16,21 +16,21 @@ router.get('', function (req, res) {
 
 router.get('/partials/standardView',
     function (req, res) {
-        res.render(viewDir + '/dashboard');
+        res.render(viewDir + '/partials/dashboard');
     });
 
 router.get('/partials/cardView',
     function (req, res) {
-        res.render(viewDir + '/dashboardCard');
+        res.render(viewDir + '/partials/dashboardCard');
     });
 
 router.get('/partials/feedView',
     function (req, res) {
-        res.render(viewDir + '/dashboardFeed');
+        res.render(viewDir + '/partials/dashboardFeed');
     });
 
 router.get('/partials/gridView', function (req, res) {
-    res.render(viewDir + '/dashboardGrid');
+    res.render(viewDir + '/partials/dashboardGrid');
 });
 
 router.get('/partials/userGuide', function (req, res) {
