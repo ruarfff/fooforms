@@ -6,8 +6,8 @@ angular.module('formBuilder')
         return function (inputs, category) {
             var standard = ["text", "textarea", "email", "select", "checkbox", "radio", "paragraph", "date", "groupbox"];
             var numbers = ["number", "calculation", "currency", "sum", "payment", "progress"];
-            var files = ["file", "image"];
-            var people = ["givenName", "middleName", "familyName", "email", "from", "to"];
+            var files = ["file","image"];
+            var people = ["givenName", "middleName", "familyName", "email","phone","mobile","address","company", "from", "to"];
             var advanced = ["status", "labels", "html", "groupBox", "rating", "canvas", "button"];
 
             // The filter array to be assigned based on the category

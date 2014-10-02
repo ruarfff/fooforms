@@ -11,18 +11,25 @@
             ><div class=" col-sm-12 even">
         <div class='formObject  plr5 col-sm-{{subField.boxSize}}'
 
-             ng-repeat="subField in formField.fields track by $index"
-             ng-include="subField.groupTemplate" >
+             ng-repeat="subField in formField.fields track by $index">
+
+            <label for="{{subField.id}}">{{subField.label}}
+                <i class="fa fa-question-circle"
+                   ng-hide="!subField.userInstructions"
+                   popover="{{subField.userInstructions}}"
+                   popover-trigger="mouseenter"></i>
+            </label>
+
 
         </div></div>
         <div class='col-sm-12 m0'
 
              ng-class-odd="'odd'" ng-class-even="'even'"
-             ng-repeat="repeater in formField.repeaters track by $index">
+             ng-repeat="rows in formField.repeaters track by $index">
 
             <div class='plr5 col-sm-{{repeater.boxSize}}'
 
-                 ng-repeat="repeater in repeater track by $index"
+                 ng-repeat="repeater in rows.fields track by $index"
                  ng-include="repeater.groupViewTemplate" >
 
             </div>
