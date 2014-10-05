@@ -2,6 +2,7 @@
 /*global describe, it, before, beforeEach, after, afterEach */
 'use strict';
 
+var path = require('path');
 var mongoose = require('mongoose');
 var ObjectId = mongoose.Types.ObjectId();
 var mockgoose = require('mockgoose');
@@ -16,7 +17,7 @@ var bodyParser = require('body-parser');
 var should = require('should');
 var assert = require('assert');
 var rootUrls = require(appRoot + '/config/rootUrls');
-var dashboardRoutes = require(appRoot + '/modules/dashboard/routes/dashboardApiRoutes');
+var dashboardRoutes = require(path.normalize('../routes/dashboardApiRoutes'));
 var sampleDashboardCreator = require('./sampleDashboardCreator');
 
 var app = express();
