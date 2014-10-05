@@ -16,7 +16,10 @@ var populateForms = function (args, next) {
     }
 
     membership.User.populate(user, {path: model + 'folders', model: 'Folder'}, function (err, user) {
-        membership.User.populate(user, {path: 'folders.forms', model: 'Form'}, function (err, user) {
+        if (err) {
+            return next(err);
+        }
+        membership.User.populate(user, {path: model + 'folders.forms', model: 'Form'}, function (err, user) {
             if (err) {
                 return next(err);
             }

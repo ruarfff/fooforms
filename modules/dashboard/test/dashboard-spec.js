@@ -39,6 +39,8 @@ passport.use(new BasicStrategy(
 
 passportStub.install(app);
 
+
+// TODO: Pupulation seems to have broke in mockgoose
 describe('Dashboard API', function () {
 
     before(function () {
@@ -52,6 +54,7 @@ describe('Dashboard API', function () {
     it('returns a user fully populated with organisation, forms and posts', function (done) {
 
         sampleDashboardCreator.generateDashboardTestData(db, function (testUser, orgFolder, userFolder) {
+            console.log(orgFolder);
             should.exist(testUser);
             request(app)
                 .get(rootUrl + '/user/' + testUser._id)

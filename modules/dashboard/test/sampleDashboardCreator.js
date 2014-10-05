@@ -10,7 +10,6 @@ var assert = require('assert');
 exports.generateDashboardTestData = function (db, next) {
     var fooForm = new FooForm(db);
     var membership = new Membership(db);
-    var testData = {};
 
     var displayName = 'name';
     var email = 'user@test.com';

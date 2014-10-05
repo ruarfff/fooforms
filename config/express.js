@@ -7,10 +7,11 @@ var helpers = require('view-helpers');
 var express = require('express');
 var bodyParser = require('body-parser');
 var cookieParser = require('cookie-parser');
-var favicon = require('static-favicon');
+var favicon = require('serve-favicon');
 var session = require('express-session');
 var methodOverride = require('method-override')();
 var logger = require('fooforms-logging').expressLogger;
+var appRoot = require('app-root-path');
 
 var errorHandler;
 var compress = require('compression')({
@@ -38,8 +39,8 @@ module.exports = function (app, passport) {
     app.set('files', global.config.root + '/files');
     app.engine('.html', engine.__express);
     app.set('view engine', 'html');
-    app.use(favicon(global.config.root + '/frontend/public/assets/ico/favicon.ico'));
-    app.use(express.static(global.config.root + '/frontend/public'));
+    app.use(favicon(appRoot + '/frontend/public/assets/ico/favicon.ico'));
+    app.use(express.static(appRoot + '/frontend/public'));
     //Don't use logger for test env
     if (process.env.NODE_ENV !== 'test') {
         app.use(logger);
