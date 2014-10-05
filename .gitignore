@@ -29,3 +29,5 @@ coverage.html
 frontend/public/site/css/*.min.css
 frontend/public/css/*.min.css
 frontend/public/js/*.min.js
+
+.DS_Store
