@@ -6,7 +6,6 @@ module.exports = function(grunt) {
         test: {
             options: {
                 reporter: 'spec',
-                require: 'test/coverage/blanket',
                 clearRequireCache: true
             },
             src: ['modules/**/test/*-spec.js']
