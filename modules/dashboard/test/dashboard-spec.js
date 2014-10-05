@@ -40,7 +40,6 @@ passport.use(new BasicStrategy(
 passportStub.install(app);
 
 
-// TODO: Pupulation seems to have broke in mockgoose
 describe('Dashboard API', function () {
 
     before(function () {
