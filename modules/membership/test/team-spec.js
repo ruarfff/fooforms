@@ -60,6 +60,7 @@ describe('Team API', function () {
                     res.headers.location.should.equal(rootUrl + '/' + team._id);
                     team.organisation.should.equal(sampleTeam.organisation.toString());
                     team.displayName.should.equal(name);
+                    team.folders.length.should.equal(1);
                     done(err);
                 });
         });

@@ -52,7 +52,7 @@ describe('Dashboard API', function () {
 
     it('returns a user fully populated with organisation, forms and posts', function (done) {
 
-        sampleDashboardCreator.generateDashboardTestData(db, function (testUser) {
+        sampleDashboardCreator.generateDashboardTestData(db, function (testUser, orgFolder, userFolder) {
             should.exist(testUser);
             request(app)
                 .get(rootUrl + '/user/' + testUser._id)
@@ -62,12 +62,12 @@ describe('Dashboard API', function () {
                     var user = res.body;
                     user._id.should.eql(testUser._id.toString());
                     user.displayName.should.equal(testUser.displayName);
-                    user.forms.length.should.equal(testUser.forms.length);
-                    user.forms[0]._id.should.equal(testUser.forms[0].toString());
+                    user.folders[0].forms.length.should.equal(userFolder.forms.length);
+                    user.folders[0].forms[0]._id.should.equal(userFolder.forms[0]._id.toString());
                     user.organisations.length.should.equal(testUser.organisations.length);
-                    user.organisations[0]._id.should.equal(testUser.organisations[0]._id.toString());
-                    user.organisations[0].forms.length.should.equal(testUser.organisations[0].forms.length);
-                    user.organisations[0].forms[0]._id.should.equal(testUser.organisations[0].forms[0].toString());
+                    user.organisations[0]._id.should.equal(testUser.organisations[0].toString());
+                    user.organisations[0].folders[0].forms.length.should.equal(orgFolder.forms.length);
+                    user.organisations[0].folders[0].forms[0]._id.should.equal(orgFolder.forms[0]._id.toString());
                     user.teams.length.should.equal(testUser.teams.length);
                     user.teams[0]._id.should.equal(testUser.teams[0].toString());
                     done(err);

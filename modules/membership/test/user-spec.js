@@ -7,10 +7,6 @@ var ObjectId = mongoose.Types.ObjectId();
 var mockgoose = require('mockgoose');
 mockgoose(mongoose);
 
-// Keep the logger happy TODO: Make this better when I don't have so much stuff to do
-global.config = {};
-global.config.root = '../../../';
-
 var request = require('supertest');
 var express = require('express');
 var bodyParser = require('body-parser');
@@ -98,7 +94,15 @@ describe('User Routes', function () {
                 .get(usersRootUrl + '/' + user._id)
                 .set('Accept', 'application/json')
                 .expect('Content-Type', /json/)
-                .expect(200, done);
+                .expect(200, function (err, res) {
+                    var user = res.body;
+                    user._id.should.equal(user._id.toString());
+                    user.displayName.should.equal(displayName);
+                    user.email.should.equal(email);
+                    should.not.exist(user.password);
+                    user.folders.length.should.equal(1);
+                    done(err);
+                });
         });
         it('responds with 404 not found', function (done) {
             request(app)

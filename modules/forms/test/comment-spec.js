@@ -7,14 +7,11 @@ var ObjectId = mongoose.Types.ObjectId();
 var mockgoose = require('mockgoose');
 mockgoose(mongoose);
 
-global.config = {};
-global.config.root = '../../../';
-
 var request = require('supertest');
 var express = require('express');
 var bodyParser = require('body-parser');
 var should = require('should');
-var rootUrls = require(global.config.root + '/config/rootUrls');
+var rootUrls = require('../../../config/rootUrls');
 var commentRoutes = require('../routes/commentRoutes');
 
 var FooForm = require('fooforms-forms');
@@ -64,25 +61,32 @@ describe('Comment API', function () {
         var sampleForm = {
             displayName: displayName, title: title, icon: icon,
             description: description, btnLabel: btnLabel,
-            settings: settings, fields: fields, formEvents: formEvents,
-             owner: ObjectId
+            settings: settings, fields: fields, formEvents: formEvents
         };
         var samplePost = {
             name: name,
             icon: icon, fields: fields
         };
-        fooForm.createForm(sampleForm, function (err, result) {
+        var testFolder = {displayName: 'aFolder'};
+
+        var folder = new fooForm.Folder(testFolder);
+
+        folder.save(function (err, savedFolder) {
             should.not.exist(err);
-            result.success.should.equal(true);
-            samplePost.postStream = result.form.postStreams[0];
-            fooForm.createPost(samplePost, function (err, result) {
+            sampleForm.folder = savedFolder;
+            fooForm.createForm(sampleForm, function (err, result) {
                 should.not.exist(err);
                 result.success.should.equal(true);
-                commentStream = result.post.commentStreams[0];
-                sampleComment = {
-                    commentStream: commentStream, content: content, commenter: commenter
-                };
-                done(err);
+                samplePost.postStream = result.form.postStreams[0];
+                fooForm.createPost(samplePost, function (err, result) {
+                    should.not.exist(err);
+                    result.success.should.equal(true);
+                    commentStream = result.post.commentStreams[0];
+                    sampleComment = {
+                        commentStream: commentStream, content: content, commenter: commenter
+                    };
+                    done(err);
+                });
             });
         });
 

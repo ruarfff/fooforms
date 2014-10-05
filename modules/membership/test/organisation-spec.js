@@ -63,6 +63,7 @@ describe('Organisation API', function () {
                     organisation.owners.should.equal(organisation.owners.toString());
                     organisation.displayName.should.equal(displayName);
                     organisation.billingEmail.should.equal(billingEmail);
+                    organisation.folders.length.should.equal(1);
                     done(err);
                 });
         });

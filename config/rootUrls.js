@@ -11,7 +11,7 @@ var rootUrls = {
     admin: 'admin',
     files: 'files',
     calendar: 'calendar',
-    formBuilder: 'form-builder',
+    formBuilder: 'formBuilder',
     formViewer: 'forms/repo',
     people: 'people',
     profile: 'profile'

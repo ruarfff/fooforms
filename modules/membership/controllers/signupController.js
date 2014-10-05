@@ -7,8 +7,12 @@ var signupPath = path.join(viewDir, 'signup');
 var loginPath = path.join(viewDir, 'login');
 var log = require('fooforms-logging').LOG;
 var Membership = require('fooforms-membership');
+var FooForm = require('fooforms-forms');
 var db = require('mongoose').connection;
 var membership = new Membership(db);
+var fooForm = new FooForm(db);
+var defaultFolders = require('../lib/defaultFolders');
+
 
 exports.signup = function (req, res, next) {
     "use strict";
@@ -30,12 +34,7 @@ exports.signup = function (req, res, next) {
     };
 
     membership.register(userDetail, function (err, result) {
-        if (result && result.success) {
-            res.render(loginPath, {
-                title: 'Login',
-                message: 'Successfully signed up. Please log in.'
-            });
-        } else {
+        if (err || !result || !result.success) {
             if (!result) {
                 result = {};
                 result.err = err || new Error('An unknown error occurred.');
@@ -43,6 +42,21 @@ exports.signup = function (req, res, next) {
             res.render(signupPath, {
                 title: 'Sign Up',
                 error: result
+            });
+        } else {
+
+            var args = {
+                user: result.user,
+                organisation: result.organisation,
+                membership: membership,
+                Folder: fooForm.Folder
+            };
+
+            defaultFolders.createDefaultFolders(args, function (err, result) {
+                res.render(loginPath, {
+                    title: 'Login',
+                    message: 'Successfully signed up. Please log in.'
+                });
             });
         }
     });
@@ -73,3 +87,4 @@ exports.checkUserName = function (req, res, next) {
         return res.send({"exists": false});
     }
 };
+
