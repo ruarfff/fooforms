@@ -8,17 +8,15 @@ var mockgoose = require('mockgoose');
 var passportStub = require('passport-stub');
 mockgoose(mongoose);
 var db = mongoose.connection;
-// Keep the logger happy TODO: Make this better when I don't have so much stuff to do
-global.config = {};
-global.config.root = '../../../';
+var appRoot = require('app-root-path');
 
 var request = require('supertest');
 var express = require('express');
 var bodyParser = require('body-parser');
 var should = require('should');
 var assert = require('assert');
-var rootUrls = require(global.config.root + '/config/rootUrls');
-var dashboardRoutes = require('../routes/dashboardApiRoutes');
+var rootUrls = require(appRoot + '/config/rootUrls');
+var dashboardRoutes = require(appRoot + '/modules/dashboard/routes/dashboardApiRoutes');
 var sampleDashboardCreator = require('./sampleDashboardCreator');
 
 var app = express();

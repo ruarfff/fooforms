@@ -27,6 +27,7 @@
     "npm": ">= 1.0.0"
   },
   "dependencies": {
+    "app-root-path": "^0.1.0",
     "async": "0.7.x",
     "body-parser": "1.0.x",
     "compression": "1.0.x",
