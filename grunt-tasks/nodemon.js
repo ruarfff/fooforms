@@ -3,7 +3,7 @@ module.exports = function(grunt) {
 
     grunt.config('nodemon', {
         dev: {
-            script: 'bin/www',
+            script: 'server.js',
             options: {
                 callback: function (nodemon) {
                     nodemon.on('log', function (event) {

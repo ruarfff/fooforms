@@ -42,7 +42,7 @@
 
 
                 <div>
-</div>
+                </div>
 
             </div>
         </div>
@@ -55,46 +55,46 @@
 
 <div class="panel-slider hidden-print"
 
-        ng-class="{slidePanelIn: gridSelectedPost.length>0,
+     ng-class="{slidePanelIn: gridSelectedPost.length>0,
     slidePanelOut: gridSelectedPost.length==0}">
     <form role="form" class="panel panel-default">
 
-    <div class="panel-heading">
+        <div class="panel-heading">
 
-        <div class="m0 p0 slideUp" ng-show="!doingPostApi">
-            <span class="small text-opacity-5">Last Update:</span><span class="small"> {{postObj.lastModified | date : 'MMM d, y @ h:mm a'}}</span>
-        </div>
-        <div class="m0 p0 slideDown" ng-show="doingPostApi">
-            <i class="fa fa-refresh fa-spin"></i> Updating...
-        </div>
-
-        <div class="btn-group pull-right">
-            <button id='deletePost' ng-click="deletePost(postObj)"
-                    class="btn btn-default btn-sm"><i class="fa fa-trash-o"></i> Delete
-            </button>
-            <button id='copyPost' ng-click="copyPost(postObj)"
-                    class="btn btn-default btn-sm"><i class="fa fa-copy"></i> Copy
-            </button>
-            <button id='cancelPost' ng-click="gridSelectedPost=[]"
-                    class="btn btn-default btn-sm"><i class="fa fa-reply"></i> Cancel
-            </button>
-            <button id='savePost' ng-click="savePost(postObj)"
-                    class="btn btn-success btn-sm"><i class="fa fa-save"></i> Save
-            </button>
-        </div>
-        <hr class="m10">
-         </div>
-    <div class="panel-body">
-        <fieldset>
-            <div class='plr5 col-xs-12 col-sm-{{formField.boxSize}}'
-                 ng-repeat="formField in postObj.fields track by $index"
-                 ng-show="formField.name"
-                 ng-include='formField.viewTemplate'>
+            <div class="m0 p0 slideUp" ng-show="!doingPostApi">
+                <span class="small text-opacity-5">Last Update:</span><span class="small"> {{postObj.lastModified | date : 'MMM d, y @ h:mm a'}}</span>
+            </div>
+            <div class="m0 p0 slideDown" ng-show="doingPostApi">
+                <i class="fa fa-refresh fa-spin"></i> Updating...
             </div>
 
-        </fieldset>
+            <div class="btn-group pull-right">
+                <button id='deletePost' ng-click="deletePost(postObj)"
+                        class="btn btn-default btn-sm"><i class="fa fa-trash-o"></i> Delete
+                </button>
+                <button id='copyPost' ng-click="copyPost(postObj)"
+                        class="btn btn-default btn-sm"><i class="fa fa-copy"></i> Copy
+                </button>
+                <button id='cancelPost' ng-click="gridSelectedPost=[]"
+                        class="btn btn-default btn-sm"><i class="fa fa-reply"></i> Cancel
+                </button>
+                <button id='savePost' ng-click="savePost(postObj)"
+                        class="btn btn-success btn-sm"><i class="fa fa-save"></i> Save
+                </button>
+            </div>
+            <hr class="m10">
+        </div>
+        <div class="panel-body">
+            <fieldset>
+                <div class='plr5 col-xs-12 col-sm-{{formField.boxSize}}'
+                     ng-repeat="formField in postObj.fields track by $index"
+                     ng-show="formField.name"
+                     ng-include='formField.viewTemplate'>
+                </div>
 
-    </div>
+            </fieldset>
+
+        </div>
 
 
     </form>
@@ -175,7 +175,7 @@
                     <span class="pull-right text-muted">{{foo.lastModified | date : 'HH:mm'}} </span>
 
                     <span>{{foo.fields[0].value}} &raquo;</span> <span class="text-muted"> {{foo.fields[1].value}} - <i>
-                    {{foo.fields[1].value}} </i></span>
+                        {{foo.fields[1].value}} </i></span>
                 </td>
             </tr>
 
@@ -229,7 +229,8 @@
                         </div>
                         <div class="m0 p0 slideDown" ng-show="doingPostApi">
                             <i class="fa fa-refresh fa-spin"></i> Updating...
-                        </div>                    </div>
+                        </div>
+                    </div>
                     <div class="panel-body">
                         <fieldset>
                             <div class='plr5 col-xs-12 col-sm-{{formField.boxSize}}'

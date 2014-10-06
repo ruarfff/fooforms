@@ -43,12 +43,13 @@
                             <label class="form-label">Your Name</label>
 
                             <div class="input-inline">
-                                <input type="text" ng-model="givenName" name="givenName" id="givenName"
+                                <input type="text" ng-model="name.givenName" name="name.givenName" id="name.givenName"
                                        placeholder="First Name" autofocus="autofocus"
                                        class="form-control"/>
 
 
-                                <input type="text" ng-model="familyName" name="familyName" id="familyName"
+                                <input type="text" ng-model="name.familyName" name="name.familyName"
+                                       id="name.familyName"
                                        placeholder="Last Name"
                                        class="form-control"/>
                             </div>
@@ -68,32 +69,54 @@
                             <div class="input-group">
                                 <span class="input-group-addon">Fooforms.com / </span>
 
-                                <input type="text" ng-model="organisation" name="organisationName" id="organisationName"
-                                       required="required"
+                                <input type="text" ng-model="organisationName" name="organisationName"
+                                       id="organisationName"
+                                       required="required" unique-orgname="unique-orgname"
                                        class="form-control"/>
-                                <span ng-show="form.organisation.$dirty &amp;&amp; form.organisation.$error.required"
-                                      class="help-block">You need some organisation name</span>
+                                <i ng-show="orgnameBusy"
+                                   class="halflings-icon refresh rotating"></i>
                             </div>
+                            <div ng-show="form.organisationName.$dirty &amp;&amp; form.organisationName.$error.required"
+                                 class="help-block">You need an organisation name
+                            </div>
+                            <div ng-show="form.organisationName.$dirty &amp;&amp; form.organisationName.$error.isTaken"
+                                 class="help-block alert alert-danger">Organisation name already taken
+                            </div>
+                            <div ng-show="form.organisationName.$dirty &amp;&amp; form.organisationName.$error.error"
+                                 class="help-block alert alert-danger">Invalid organisation name
+                            </div>
+                            <div ng-show="sluggedOrgName"
+                                 class="help-block alert alert-warning">Organisation will become
+                                {{sluggedOrgName}}
+                            </div>
+
                         </div>
 
                         <div class="form-group">
                             <label class="form-label">Username</label>
                             <input type="text" name="displayName" id="displayName" placeholder="Username"
-                                   unique-username="unique-username" required="required" ng-model="displayName"
-                                   class="form-control"/><i ng-show="busy"
-                                                            class="halflings-icon refresh rotating"></i><span
-                                ng-show="form.displayName.$dirty &amp;&amp; form.displayName.$error.required"
-                                class="help-block">Please choose a username</span><span
-                                ng-show="form.displayName.$dirty &amp;&amp; form.displayName.$error.isTaken"
-                                class="help-block alert alert-danger">Username already taken</span><span
-                                ng-show="form.displayName.$dirty &amp;&amp; form.displayName.$error.invalidChars"
-                                class="help-block">Username may not contain any non-url-safe characters</span>
+                                   unique-username="unique-username" different="organisationName" required="required" ng-model="displayName"
+                                   class="form-control"/><i ng-show="usernameBusy"
+                                                            class="halflings-icon refresh rotating"></i>
+                            <span ng-show="form.displayName.$dirty &amp;&amp; form.displayName.$error.required"
+                                  class="help-block">Please choose a username</span>
+                            <span ng-show="form.displayName.$dirty &amp;&amp; form.displayName.$error.isTaken"
+                                  class="help-block alert alert-danger">Username already taken</span>
+                            <span ng-show="form.displayName.$dirty &amp;&amp; form.displayName.$error.error"
+                                  class="help-block alert alert-danger">Invalid user name</span>
+                            <span
+                                    ng-show="sluggedUsername"
+                                    class="help-block alert alert-warning">Username name will become {{sluggedUsername}}</span>
+                            <span
+                                    ng-show="form.displayName.$dirty &amp;&amp; form.displayName.$error.different &amp;&amp; !form.displayName.$error.required &amp;&amp; !form.organisationName.$error.required"
+                                    class="help-block alert alert-danger">Username cannot be the same as organisation name</span>
                         </div>
 
 
                         <div class="form-group">
                             <label class="form-label">Choose a Password</label>
-                            <input type="password" name="password" id="password" ng-model="password" required="required"
+                            <input type="password" name="password" id="password" ng-model="password"
+                                   required="required"
                                    match="confirmPass" class="form-control bar" placeholder="Password"/><span
                                 ng-show="form.password.$dirty &amp;&amp; form.password.$error.required"
                                 class="help-block">Please enter a password</span>

@@ -1,8 +1,11 @@
 /* Controllers */
 
 angular.module('formViewer')
-    .controller('FormViewerCtrl', ['$scope', '$http' , '$modal', 'Restangular', 'FormService', 'Forms', 'PostService', 'Posts', function ($scope, $http, $modal, Restangular, FormService, Forms, PostService, Posts) {
+    .controller('FormViewerCtrl', ['$scope', '$route', '$http' , '$modal', 'Restangular', 'FormService', 'Forms', 'PostService', 'Posts', function ($scope, $route, $http, $modal, Restangular, FormService, Forms, PostService, Posts) {
         "use strict";
+
+        var owner = $route.current.params.formOwner;
+        var form = $route.current.params.form;
 
         // the main object to store the form data
         $scope.form = Forms.getCurrentForm();

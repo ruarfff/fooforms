@@ -44,14 +44,17 @@ describe('Form API', function () {
     ];
     var postStream = ObjectId;
     var folder;
-    var sampleForm = {
-        displayName: displayName, title: title, icon: icon,
-        description: description, btnLabel: btnLabel,
-        settings: settings, fields: fields, formEvents: formEvents,
-        postStream: postStream
-    };
+    var sampleForm;
 
     beforeEach(function (done) {
+
+        sampleForm = {
+            displayName: displayName, title: title, icon: icon,
+            description: description, btnLabel: btnLabel,
+            settings: settings, fields: fields, formEvents: formEvents,
+            postStream: postStream
+        };
+
         var testFolder = {displayName: 'aFolder'};
 
         var folderModel = new fooForm.Folder(testFolder);
@@ -61,6 +64,10 @@ describe('Form API', function () {
             folder = savedFolder;
             done(err);
         })
+    });
+
+    afterEach(function () {
+        mockgoose.reset();
     });
 
     describe('POST ' + rootUrl, function () {
@@ -99,6 +106,7 @@ describe('Form API', function () {
                 .end(function (err, res) {
                     form = res.body.form;
                     res.headers.location.should.equal(rootUrl + '/' + form._id);
+                    sampleForm.displayName = 'other-form';
                     request(app)
                         .post(rootUrl)
                         .send(sampleForm)
@@ -111,10 +119,6 @@ describe('Form API', function () {
                             done(err);
                         });
                 });
-        });
-
-        afterEach(function () {
-            mockgoose.reset();
         });
 
 
@@ -147,9 +151,6 @@ describe('Form API', function () {
                 });
         });
 
-        afterEach(function () {
-            mockgoose.reset();
-        });
 
         it('responds with 200 and the updated json', function (done) {
             var titleUpdated = 'form title updated';
@@ -187,10 +188,6 @@ describe('Form API', function () {
                     resourceUrl = res.headers.location;
                     done(err);
                 });
-        });
-
-        afterEach(function () {
-            mockgoose.reset();
         });
 
         it('successfully deletes a form', function (done) {

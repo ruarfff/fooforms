@@ -67,6 +67,10 @@ fooformsApp
                 templateUrl: '/forms/partials/forms',
                 controller: 'FormCtrl'
             })
+            .when('/:formOwner/:form', {
+                templateUrl: '/partials/formViewer',
+                controller: 'FormViewerCtrl'
+            })
 
         /**
          .when('/formBuilder', {

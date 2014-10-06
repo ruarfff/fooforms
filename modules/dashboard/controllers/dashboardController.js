@@ -63,6 +63,7 @@ exports.getUserDashboard = function (req, res, next) {
                 if (err) {
                     return next(err);
                 }
+                user.defaultFolder = user.folders[0];
                 res.status(statusCodes.OK).send(user);
             });
         });

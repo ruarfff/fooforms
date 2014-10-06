@@ -62,14 +62,16 @@ exports.signup = function (req, res, next) {
     });
 };
 
+// TODO: This is used for organisations too, bit confusing.
 exports.checkUserName = function (req, res, next) {
     var username = req.params.username;
+    var sluggedUsername;
     if(username) {
-        username = slug(username);
+        sluggedUsername = slug(username);
         try {
             for (var property in rootUrls) {
                 if (rootUrls.hasOwnProperty(property)) {
-                    if (username === property) {
+                    if (sluggedUsername === property) {
                         return res.send({"exists": true});
                     }
                 }
@@ -77,14 +79,23 @@ exports.checkUserName = function (req, res, next) {
         } catch (err) {
             log.error(err);
         }
-        membership.checkDisplayNameExists(username, function (err, exists) {
+        membership.checkDisplayNameExists(sluggedUsername, function (err, exists) {
             if (err) {
-                next(err);
+                log.error(err);
+                return next(err);
             }
-            return res.send({"exists": exists});
+            if(sluggedUsername && (sluggedUsername !== username) && !exists) {
+                return res.send({"slugged": true, "sluggedValue": sluggedUsername})
+            } else {
+                return res.send({"exists": exists});
+            }
         });
     } else {
-        return res.send({"exists": false});
+        if(sluggedUsername && (sluggedUsername !== username)) {
+            return res.send({"slugged": true, "sluggedValue": sluggedUsername})
+        } else {
+            return res.send({"exists": false});
+        }
     }
 };
 
