@@ -9,6 +9,39 @@ var fooformsApp = angular.module('fooformsApp', [
 ]);
 
 fooformsApp
+    .factory("SessionService", ['$q', '$log', 'AuthService', 'DashboardService', 'Session', function ($q, $log, AuthService, DashboardService, Session) {
+        return {
+            checkSession: function () {
+                var deferred = $q.defer();
+                if (!AuthService.isAuthenticated()) {
+                    AuthService.checkStoredCredentials(function (err, user) {
+                        if (err) {
+                            $log.log(err);
+                        }
+                        if (!AuthService.isAuthenticated()) {
+                            window.location.href = '/login';
+                        } else {
+                            DashboardService.getUserDashboard(function (err, result) {
+                                if (err) {
+                                    $log.error(err);
+                                } else {
+                                    $log.info(result);
+                                    Session.user = result;
+                                    deferred.resolve(Session.user);
+                                }
+                            });
+                        }
+                    });
+                } else {
+                    deferred.resolve(Session.user);
+                }
+                return deferred.promise;
+            }
+        }
+    }]);
+
+
+fooformsApp
     .config(['$routeProvider', '$locationProvider', 'RestangularProvider', function ($routeProvider, $locationProvider, RestangularProvider) {
         'use strict';
         $locationProvider.html5Mode(true).hashPrefix('!');
@@ -24,7 +57,12 @@ fooformsApp
 
         $routeProvider
             .when('/', {
-                redirectTo: '/dashboard'
+                redirectTo: '/dashboard',
+                resolve: {
+                    message: function (SessionService) {
+                        return SessionService.checkSession();
+                    }
+                }
             })
             .when('/login', {
                 resolve: function () {
@@ -33,43 +71,93 @@ fooformsApp
             })
             .when('/dashboard', {
                 templateUrl: '/dashboard/partials/standardView',
-                controller: 'DashboardCtrl'
+                controller: 'DashboardCtrl',
+                resolve: {
+                    message: function (SessionService) {
+                        return SessionService.checkSession();
+                    }
+                }
             })
             .when('/people', {
                 templateUrl: '/users/partials/people',
-                controller: 'PeopleCtrl'
+                controller: 'PeopleCtrl',
+                resolve: {
+                    message: function (SessionService) {
+                        return SessionService.checkSession();
+                    }
+                }
             })
             .when('/profile', {
                 templateUrl: '/users/partials/profile',
-                controller: 'ProfileCtrl'
+                controller: 'ProfileCtrl',
+                resolve: {
+                    message: function (SessionService) {
+                        return SessionService.checkSession();
+                    }
+                }
             })
             .when('/organisations', {
                 templateUrl: '/organisations/partials/organisations',
-                controller: 'OrganisationCtrl'
+                controller: 'OrganisationCtrl',
+                resolve: {
+                    message: function (SessionService) {
+                        return SessionService.checkSession();
+                    }
+                }
             })
             .when('/organisations/:organisation', {
                 templateUrl: '/organisations/partials/organisation-profile',
-                controller: 'OrganisationCtrl'
+                controller: 'OrganisationCtrl',
+                resolve: {
+                    message: function (SessionService) {
+                        return SessionService.checkSession();
+                    }
+                }
             })
             .when('/teams', {
                 templateUrl: '/teams/partials/teams',
-                controller: 'TeamCtrl'
+                controller: 'TeamCtrl',
+                resolve: {
+                    message: function (SessionService) {
+                        return SessionService.checkSession();
+                    }
+                }
             })
             .when('/teams/:team', {
                 templateUrl: '/teams/partials/team-profile',
-                controller: 'TeamCtrl'
+                controller: 'TeamCtrl',
+                resolve: {
+                    message: function (SessionService) {
+                        return SessionService.checkSession();
+                    }
+                }
             })
             .when('/formBuilder', {
                 templateUrl: '/forms/partials/formBuilder',
-                controller: 'FormBuilderCtrl'
+                controller: 'FormBuilderCtrl',
+                resolve: {
+                    message: function (SessionService) {
+                        return SessionService.checkSession();
+                    }
+                }
             })
             .when('/forms', {
                 templateUrl: '/forms/partials/forms',
-                controller: 'FormCtrl'
+                controller: 'FormCtrl',
+                resolve: {
+                    message: function (SessionService) {
+                        return SessionService.checkSession();
+                    }
+                }
             })
             .when('/:formOwner/:form', {
                 templateUrl: '/partials/formViewer',
-                controller: 'FormViewerCtrl'
+                controller: 'FormViewerCtrl',
+                resolve: {
+                    message: function (SessionService) {
+                        return SessionService.checkSession();
+                    }
+                }
             })
 
         /**
@@ -91,16 +179,36 @@ fooformsApp
             })
          **/
             .when('/calendar', {
-                templateUrl: '/calendar/partials/calendar'
+                templateUrl: '/calendar/partials/calendar',
+                resolve: {
+                    message: function (SessionService) {
+                        return SessionService.checkSession();
+                    }
+                }
             })
             .when('/userGuide', {
-                templateUrl: '/dashboard/partials/userGuide'
+                templateUrl: '/dashboard/partials/userGuide',
+                resolve: {
+                    message: function (SessionService) {
+                        return SessionService.checkSession();
+                    }
+                }
             })
             .when('/settings', {
-                templateUrl: '/dashboard/partials/settings'
+                templateUrl: '/dashboard/partials/settings',
+                resolve: {
+                    message: function (SessionService) {
+                        return SessionService.checkSession();
+                    }
+                }
             })
             .when('/admin', {
-                templateUrl: '/admin/partials/admin'
+                templateUrl: '/admin/partials/admin',
+                resolve: {
+                    message: function (SessionService) {
+                        return SessionService.checkSession();
+                    }
+                }
             })
             .otherwise({redirectTo: '/'});
     }])
@@ -155,28 +263,6 @@ fooformsApp
             }
         });
 
-        $scope.init = function () {
-            AuthService.checkStoredCredentials(function (err, user) {
-                if (err) {
-                    $log.log(err);
-                }
-                if (!AuthService.isAuthenticated()) {
-                    window.location.href = '/login';
-                } else {
-                    $scope.userRoles = USER_ROLES;
-                    $scope.isAuthorized = AuthService.isAuthorized;
-                    DashboardService.getUserDashboard(function (err, result) {
-                        if (err) {
-                            $log.error(err);
-                        } else {
-                            $log.info(result);
-                            Session.user = result;
-                        }
-                    });
-                }
-            });
-        };
-
         $scope.setMessage = function (msgBox, status, title, message) {
             $scope.activeMsgBox = msgBox;
             $scope.msgStatus = status;
@@ -185,3 +271,6 @@ fooformsApp
         };
 
     }]);
+
+
+
