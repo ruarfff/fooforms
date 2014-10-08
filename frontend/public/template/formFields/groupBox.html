@@ -6,7 +6,8 @@
            popover-trigger="mouseenter"></i>
     </label>
 
-    <div ui-sortable="sortableOptions" ng-model="formField.fields" id='{{formField.id}}' class="repeat-apps-container col-sm-12 repeatBox"
+    <div ui-sortable="repeatSortableOptions" ng-model="formField.fields" id='{{formField.id}}'
+         class="repeat-apps-container col-sm-12 repeatBox"
             >
         <div class='formObject col-sm-{{subField.boxSize}}'
 
@@ -24,15 +25,15 @@
                         ng-show="$index == nowEditing">X
                 </button>
             </div>
-            <div ng-include="subField.groupTemplate" ></div>
+            <div ng-include="subField.groupTemplate"></div>
         </div>
 
 
     </div>
 
-<div ng-show="formField.repeatable">
-    <button class="btn btn-default" ng-click="addRepeat($index,0);">+</button>
-</div>
+    <div ng-show="formField.repeatable">
+        <button class="btn btn-default" ng-click="addRepeat($index,0);">+</button>
+    </div>
 
 
 </div>

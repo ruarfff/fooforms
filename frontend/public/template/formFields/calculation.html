@@ -3,7 +3,8 @@
         <i class="fa fa-question-circle"
            ng-hide="!formField.userInstructions"
            popover="{{formField.userInstructions}}"
-           popover-trigger="mouseenter"></i>
+           popover-trigger="mouseenter"
+           popover-append-to-body="true"></i>
     </label>
 
     <div class="input-group" ng-style="{'width': formField.size+'%'}">
@@ -11,7 +12,6 @@
         <input type="text"
                class="form-control"
                id="{{formField.id}}"
-               placeholder="{{formField.placeholder}}"
-               ng-model="formField.value"/>
+               placeholder="{{formField.placeholder}}" ng-model="formField.value"/>
     </div>
 </div>

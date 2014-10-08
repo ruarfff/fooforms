@@ -1,0 +1,12 @@
+<div class="form-group clearfix">
+
+    <div class="input-group" ng-style="{'width': repeater.size+'%'}">
+        <span class="input-group-addon" ng-show="repeater.required">*</span>
+        <input type="text"
+               class="form-control"
+               id="{{repeater.id}}"
+               placeholder="{{repeater.placeholder}}"
+               ng-model="repeater.value"
+                />
+    </div>
+</div>

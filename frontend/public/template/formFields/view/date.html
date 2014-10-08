@@ -3,15 +3,17 @@
         <i class="fa fa-question-circle"
            ng-hide="!formField.userInstructions"
            popover="{{formField.userInstructions}}"
-           popover-trigger="mouseenter"></i>
+           popover-trigger="mouseenter"
+           popover-append-to-body="true"></i>
     </label>
 
     <div class="input-group" ng-style="{'width': formField.size+'%'}">
         <span class="input-group-addon" ng-show="formField.required">*</span>
-        <input type="date"
-               class="form-control"
-               id="{{formField.id}}"
-               placeholder="{{formField.placeholder}}"
-               ng-model="formField.value"/>
+
+        <button pikaday
+                class="form-control text-align-left p5"
+                id="{{formField.id}}" ng-model="formField.value">{{ formField.value | date:'EEEE, MMM d, y' }}
+        </button>
+
     </div>
 </div>

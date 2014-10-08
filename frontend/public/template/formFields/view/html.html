@@ -3,7 +3,8 @@
         <i class="fa fa-question-circle"
            ng-hide="!formField.userInstructions"
            popover="{{formField.userInstructions}}"
-           popover-trigger="mouseenter"></i>
+           popover-trigger="mouseenter"
+           popover-append-to-body="true"></i>
     </label>
 
     <div id="{{formField.id}}" ng-style="{'width': formField.size+'%'}"

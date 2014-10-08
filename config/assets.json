@@ -11,12 +11,7 @@
                 "/js/app/common/lodashWrapper.js",
                 "/js/app/dashboard/dashboard.js",
                 "/js/app/dashboard/dashboardControllers.js",
-                "/js/app/folder/folder.js",
-                "/js/app/folder/folderControllers.js",
-                "/js/app/folder/folderServices.js",
-                "/js/app/folders/folders.js",
-                "/js/app/folders/foldersControllers.js",
-                "/js/app/folders/foldersServices.js",
+                "/js/app/dashboard/dashboardServices.js",
                 "/js/app/form/form.js",
                 "/js/app/form/formControllers.js",
                 "/js/app/form/formServices.js",
@@ -30,7 +25,13 @@
                 "/js/app/formViewer/formViewerControllers.js",
                 "/js/app/user/user.js",
                 "/js/app/user/userControllers.js",
-                "/js/app/user/userServices.js"
+                "/js/app/user/userServices.js",
+                "/js/app/organisation/organisation.js",
+                "/js/app/organisation/organisationControllers.js",
+                "/js/app/organisation/organisationServices.js",
+                "/js/app/team/team.js",
+                "/js/app/team/teamControllers.js",
+                "/js/app/team/teamServices.js"
             ]
         }
     }

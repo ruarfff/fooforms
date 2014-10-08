@@ -24,6 +24,13 @@
     </div>
 
     <div class="form-group">
+        <label class="col-sm-4 control-label">Admin Only </label>
+
+        <div class="col-sm-8">
+            <input type='checkbox' ng-model="form.fields[nowEditing].adminOnly"></label>
+        </div>
+    </div>
+    <div class="form-group">
         <label class="col-sm-4 control-label">Placeholder</label>
 
         <div class="col-sm-8">
@@ -39,49 +46,71 @@
                    ng-model="form.fields[nowEditing].userInstructions"/>
         </div>
     </div>
-    <div class="alert alert-info">
-        <h6>Options</h6>
+    <div class="row">
+        <div class="col-sm-12">
+            <h6>Options</h6>
 
-        <div class="row">
-            <div class="col-sm-8">
 
-                <select ng-change="setCalculationField(selectedItem)"
-                        ng-model="selectedItem"
-                        ng-options='field as field.label for field in form.fields'>
-                    <option value="">Specified Value</option>
-                </select>
+            <table class="table table-bordered">
+                <tr>
+                    <td>
+                        <select ng-model="form.fields[nowEditing].options.field1.item"
+                                class="form-control">
+                            <option value="Specified Value">Specified Value</option>
+                            <option ng-repeat="field in form.fields"
+                                    value="{{field.id}}"
+                                    ng-selected="form.fields[nowEditing].options.field1.item==field.id">{{field.label}}
+                            </option>
+                        </select>
 
-            </div>
-            <div class="col-sm-4">
-                <input type='number' class="form-control input-sm"
-                       ng-show="$scope.form.fields[$scope.nowEditing].options.field1.item == 'Specified Value'"
-                       ng-model="form.fields[nowEditing].options.field1.value"/>
-                {{selectedItem}}
-            </div>
+                        <input type="text"
+                               ng-model="form.fields[nowEditing].options.field1.value"
+                               ng-show="form.fields[nowEditing].options.field1.item=='Specified Value'"
+                               class="form-control mt10">
+                    </td>
+
+                    <td>
+                        <select ng-model="form.fields[nowEditing].options.operator"
+                                class="form-control">
+                            <option value="*">*</option>
+                            <option value="+">+</option>
+                            <option value="/">/</option>
+                            <option value="-">-</option>
+                        </select>
+
+                    </td>
+
+                    <td>
+                        <select ng-model="form.fields[nowEditing].options.field2.item"
+                                class="form-control">
+                            <option value="Specified Value">Specified Value</option>
+                            <option ng-repeat="field in form.fields"
+                                    value="{{field.id}}"
+                                    ng-selected="form.fields[nowEditing].options.field2.item==field.id">{{field.label}}
+                            </option>
+                        </select>
+                        <input type="text"
+                               ng-model="form.fields[nowEditing].options.field2.value"
+                               ng-show="form.fields[nowEditing].options.field2.item=='Specified Value'"
+                               class="form-control mt10">
+                    </td>
+                </tr>
+            </table>
+
+
         </div>
-        <div class="row">
-            <div class="col-sm-12"><h4>
-                <span class="label label-success">+</span>
-                <span class="label label-default">-</span>
-                <span class="label label-default">/</span>
-                <span class="label label-default">*</span></h4>
-            </div>
-        </div>
-        <div class="row">
-            <div class="col-sm-8">
-                <select>
-                    <option class="divider">Enter a specific value</option>
 
 
-                    <option ng-repeat='field in form.fields track by $index'>{{field.label}}</option>
+    </div>
+    </div>
 
-                </select>
-            </div>
-            <div class="col-sm-4">
-                <input type='number' class="form-control input-sm"
-                       ng-model="form.fields[nowEditing].options.field2.value"/>
-            </div>
-        </div>
+
+    <div class="col-sm-12">
+        <pre><code> {{ form.fields[nowEditing] | json}}</code></pre>
+        <hr>
+        {{form.fields[nowEditing].options | json }}
+    </div>
+
 
     </div>
 

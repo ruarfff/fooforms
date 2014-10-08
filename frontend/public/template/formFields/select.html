@@ -10,8 +10,7 @@
         <span class="input-group-addon" ng-show="formField.required">*</span>
         <select data-ng-attr-size="{{formField.rows}}"
                 class="form-control"
-                id="{{formField.id}}"
-                >
+                id="{{formField.id}}">
             <option ng-repeat='option in formField.options' ng-selected="formField.selected==option.label">
                 {{option.label}}
             </option>

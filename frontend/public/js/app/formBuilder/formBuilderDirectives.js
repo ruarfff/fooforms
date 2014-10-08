@@ -2,110 +2,10 @@
 
 angular.module('formBuilder')
 
-    .factory('DragDropHandler', [function ($scope) {
-        'use strict';
-        return {
-            dragObject: undefined,
-            addObject: function (object, objects, to) {
-                objects.splice(to, 0, object);
-            },
-            moveObject: function (objects, from, to) {
-               // objects.splice(to, 0, objects.splice(from, 1)[0]);
-            }
-        };
-    }])
-
-
-
-    .directive('draggable', ['DragDropHandler', function (DragDropHandler) {
-        'use strict';
-        return {
-            scope: {
-                draggable: '=',
-                ngBorder: '&'
-            },
-            link: function (scope, element, attrs) {
-                element.draggable({
-                    connectToSortable: attrs.draggableTarget,
-                    helper: "clone",
-                    revert: "invalid",
-                    start: function () {
-                        DragDropHandler.dragObject = scope.draggable;
-                        scope.ngBorder({'show': true});
-
-                    },
-                    stop: function () {
-                        DragDropHandler.dragObject = undefined;
-                        scope.ngBorder({'show': false});
-                        scope.$parent.$apply();
-                    }
-                });
-
-                element.disableSelection();
-            }
-        };
-    }])
-
-    .directive('droppable', ['DragDropHandler', function (DragDropHandler) {
-        'use strict';
-        return {
-            scope: {
-                droppable: '=',
-                ngUpdate: '&',
-                ngCreate: '&',
-                ngBorder: '&'
-
-            },
-            link: function (scope, element, attrs) {
-                element.sortable();
-                element.disableSelection();
-                element.on("sortstart", function (event, ui) {
-
-                    scope.$parent.showBorders(true);
-
-                });
-                element.on("sortdeactivate", function (event, ui) {
-
-                        var from = angular.element(ui.item).scope().$index;
-                        scope.$parent.nowEditing = from;
-                        var to = element.children().index(ui.item);
-                        scope.$apply(function(){
-                            if (to >= 0) {
-
-                                if (from >= 0) {
-                                    //DragDropHandler.moveObject(scope.droppable, from, to);
-
-                                    scope.ngUpdate({
-                                        from: from,
-                                        to: to
-                                    });
-
-
-
-                                } else {
-                                    scope.ngCreate({
-                                        object: DragDropHandler.dragObject,
-                                        to: to
-                                    });
-                                    ui.item.remove();
-
-                                }
-
-
-                            }
-                        });
-
-
-
-                });
-
-            }
-        };
-    }])
 
 // not used but may be useful some day......
 
-    .directive('compile', function ($compile) {
+    .directive('compile', ['$compile', function ($compile) {
         'use strict';
         // directive factory creates a link function
         return function (scope, element, attrs) {
@@ -127,62 +27,145 @@ angular.module('formBuilder')
                 }
             );
         };
-    })
+    }]).directive('calculation', [function () {
 
-
-    .directive('subdroppable', ['DragDropHandler', function (DragDropHandler) {
-        'use strict';
         return {
-            scope: {
-                subdroppable: '=',
-                ngUpdate: '&',
-                ngCreate: '&',
-                ngBorder: '&'
+            restrict: 'E',
+            scope: false,
+
+
+            controller: function ($scope, $element) {
+
+
+                var index;
+                if (angular.isUndefined($scope.postObj)) {
+                    $scope.postObj = $scope.posts.activePost;
+                }
+                var count = $scope.postObj.fields.length;
+
+                if ($scope.formField.options.field1.item == 'Specified Value') {
+                    $scope.fieldA = $scope.formField.options.field1;
+                } else {
+                    for (index = 0; index < count; index++) {
+                        if ($scope.postObj.fields[index].id == $scope.formField.options.field1.item) {
+                            $scope.fieldA = $scope.postObj.fields[index];
+                            break;
+                        }
+                    }
+                }
+
+                if ($scope.formField.options.field2.item == 'Specified Value') {
+                    $scope.fieldB = $scope.formField.options.field2;
+                } else {
+                    for (index = 0; index < count; index++) {
+                        if ($scope.postObj.fields[index].id == $scope.formField.options.field2.item) {
+                            $scope.fieldB = $scope.postObj.fields[index];
+                            break;
+                        }
+                    }
+                }
+
+                $scope.$watch('fieldA', function () {
+                    calculate();
+                }, true);
+                $scope.$watch('fieldB', function () {
+                    calculate();
+                }, true);
+
+
+                function calculate() {
+                    var result = 0;
+                    switch ($scope.formField.options.operator) {
+                        case '+' :
+                            $scope.formField.value = ($scope.fieldA.value + $scope.fieldB.value);
+                            break;
+                        case '-' :
+                            $scope.formField.value = ($scope.fieldA.value * $scope.fieldB.value);
+                            break;
+                        case '*' :
+                            $scope.formField.value = ($scope.fieldA.value * $scope.fieldB.value);
+                            break;
+                        case '/' :
+                            $scope.formField.value = ($scope.fieldA.value / $scope.fieldB.value);
+                            break;
+
+                    }
+                    return $scope.formField.value;
+                }
 
             },
-            link: function (scope, element, attrs) {
-
-                element.sortable();
-                element.disableSelection();
-                element.on("sortstart", function (event, ui) {
-
-                    scope.$parent.showBorders(true);
-
-                });
-                element.on("sortdeactivate", function (event, ui) {
-                    var repeatBox = angular.element(ui.item).scope().$index;
-                    var from = angular.element(ui.item).scope().$index;
-                    var to = element.children().index(ui.item);
-
-                    scope.$parent.nowEditing = from;
-                    scope.$parent.nowSubEditing = repeatBox;
-
-                    if (to >= 0) {
-                        scope.$apply(function () {
-                            if (angular.element(ui.item).scope().subField !== undefined) {
-                                DragDropHandler.moveObject(scope.subdroppable, from, to);
-                                scope.ngUpdate({
-                                    from: from,
-                                    to: to
-                                });
-
-                            } else {
-                                scope.ngCreate({
-                                    object: DragDropHandler.dragObject,
-                                    repeatbox: repeatBox,
-                                    to: to
-                                });
-
-                                ui.item.remove();
-                            }
-                        });
-                    }
-                    event.stopPropagation();
-                    scope.$parent.$apply();
-                });
-            }
+            replace: false,
+            templateUrl: '/partials/calculation.html'
         };
-    }]).directive('uploader', ['$upload',function($upload) {
+
+    }]).directive('calculationGroupBox', [function () {
+
+        return {
+            restrict: 'E',
+            scope: false,
+
+
+            controller: function ($scope, $element) {
+
+                var index, fieldA, fieldB;
+                var count = $scope.formField.fields.length; //the groupbox
+
+                if ($scope.repeater.options.field1.item == 'Specified Value') {
+                    $scope.fieldA = $scope.repeater.options.field1;
+                } else {
+                    for (index = 0; index < count; index++) {
+                        if ($scope.formField.fields[index].id == $scope.repeater.options.field1.item.split('_')[1]) {
+                            $scope.fieldA = $scope.formField.repeaters[$scope.$parent.$parent.$index].fields[index];
+                            break;
+                        }
+                    }
+                }
+
+                if ($scope.repeater.options.field1.item == 'Specified Value') {
+                    $scope.fieldB = $scope.repeater.options.field2;
+                } else {
+                    for (index = 0; index < count; index++) {
+                        if ($scope.formField.fields[index].id == $scope.repeater.options.field2.item.split('_')[1]) {
+                            $scope.fieldB = $scope.formField.repeaters[$scope.$parent.$parent.$index].fields[index];
+                            break;
+                        }
+                    }
+                }
+
+
+                $scope.$watch("fieldA.value", function () {
+                    $scope.calculate();
+                    //alert();
+                });
+                $scope.$watch("fieldB.value", function () {
+                    $scope.calculate();
+                });
+
+                $scope.calculate = function () {
+                    var result = 0;
+                    switch ($scope.repeater.options.operator) {
+                        case '+' :
+                            $scope.repeater.value = ($scope.fieldA.value + $scope.fieldB.value);
+                            break;
+                        case '-' :
+                            $scope.repeater.value = ($scope.fieldA.value * $scope.fieldB.value);
+                            break;
+                        case '*' :
+                            $scope.repeater.value = ($scope.fieldA.value * $scope.fieldB.value);
+                            break;
+                        case '/' :
+                            $scope.repeater.value = ($scope.fieldA.value / $scope.fieldB.value);
+                            break;
+
+                    }
+                    return $scope.repeater.value;
+                }
+            },
+            replace: false,
+            templateUrl: '/partials/calculationGroupBox.html'
+        };
+
+    }]).directive('uploader', ['$upload', function ($upload) {
 
         return {
             restrict: 'E',
@@ -194,10 +177,10 @@ angular.module('formBuilder')
                 doFileUpload: "&doFileUpload"
 
             },
-            link: function(scope, elem, attrs, ctrl) {
+            link: function (scope, elem, attrs, ctrl) {
 
 
-                scope.onFileSelect= function(selectedFile){
+                scope.onFileSelect = function (selectedFile) {
 
                     scope.uploadFile = selectedFile[0];
 
@@ -206,7 +189,7 @@ angular.module('formBuilder')
 
                 };
 
-                scope.doFileUpload = function(){
+                scope.doFileUpload = function () {
 
 
                     scope.upload = $upload.upload({
@@ -216,24 +199,23 @@ angular.module('formBuilder')
                         // withCredentials: true,
                         data: {file: scope.uploadFile}
 
-                    }).progress(function(evt) {
+                    }).progress(function (evt) {
                         scope.formField.progress = (parseInt(100.0 * evt.loaded / evt.total));
-                    }).success(function(data, status, headers, config) {
+                    }).success(function (data, status, headers, config) {
                         // file is uploaded successfully
                         scope.uploadFile = [];
                         scope.allowUpload = null;
-                        if (data.err){
-                            setMessage(true,'File Failed Validation',data.err,'alert-danger');
+                        if (data.err) {
+                            setMessage(true, 'File Failed Validation', data.err, 'alert-danger');
 
-                        }else{
+                        } else {
                             scope.formField.value = data;
 
                         }
 
-                    }).error(function(err){
+                    }).error(function (err) {
                         alert(err);
                     });
-
 
 
                 }
@@ -243,9 +225,64 @@ angular.module('formBuilder')
             templateUrl: '/partials/uploader.html'
         };
 
+    }]).directive('profileUploader', ['$upload', function ($upload) {
+
+        return {
+            restrict: 'E',
+            scope: {
+
+                user: '=user',
+                message: '=message',
+                onFileSelect: "&onFileSelect",
+                doFileUpload: "&doFileUpload"
+
+            },
+            link: function (scope, elem, attrs, ctrl) {
+
+
+                scope.onFileSelect = function (selectedFile) {
+
+                    scope.uploadFile = selectedFile[0];
+
+
+                    scope.doFileUpload();
+
+                };
+
+                scope.doFileUpload = function () {
+
+
+                    scope.upload = $upload.upload({
+                        url: '/api/file', //upload.php script, node.js route, or servlet url
+                        // method: POST or PUT,
+                        // headers: {'header-key': 'header-value'},
+                        // withCredentials: true,
+                        data: {file: scope.uploadFile}
+
+                    }).progress(function (evt) {
+                        //scope.formField.progress = (parseInt(100.0 * evt.loaded / evt.total));
+                    }).success(function (data, status, headers, config) {
+                        // file is uploaded successfully
+                        scope.uploadFile = [];
+                        scope.allowUpload = null;
+                        if (data.err) {
+                            setMessage(true, 'File Failed Validation', data.err, 'alert-danger');
+
+                        } else {
+                            scope.user.photo = data._id;
+
+                        }
+
+                    }).error(function (err) {
+                        alert(err);
+                    });
+
+
+                }
+
+            },
+            replace: false,
+            templateUrl: '/partials/profileUploader.html'
+        };
+
     }]);
-
-
-
-
-

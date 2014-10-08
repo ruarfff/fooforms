@@ -11,10 +11,11 @@
         <select data-ng-attr-size="{{formField.rows}}"
                 class="form-control"
                 id="{{formField.id}}"
-                >
-            <option ng-repeat='option in formField.options' ng-selected="formField.selected==option.label">
-                {{option.label}}
+                ng-model="formField.selected">
+            <option ng-repeat='option in formField.options' ng-selected="formField.selected==option.label"
+                    ng-value="{{formField.label}}">{{option.label }}
             </option>
         </select>
+
     </div>
 </div>
