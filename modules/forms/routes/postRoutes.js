@@ -5,15 +5,15 @@ var express = require('express');
 var router = express.Router();
 var postController = require('../controllers/postController');
 
-router.get('', function(req, res, next) {
+router.get('', function (req, res, next) {
     postController.listByPostStream(req, res, next);
 });
 
-router.get('/:post', function(req, res, next) {
+router.get('/:post', function (req, res, next) {
     postController.findById(req, res, next);
 });
 
-router.get('/:post', function(req, res, next) {
+router.get('/:post', function (req, res, next) {
     postController.findById(req, res, next);
 });
 

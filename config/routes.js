@@ -148,8 +148,8 @@ var routes = function (app, passport) {
      */
 
     app.route('/:username')
-        .get(passport.authenticate( 'basic', {session: false, failureRedirect:'/dashboard'} ), function (req, res, next) {
-            if(req.user.displayName === req.params.username) {
+        .get(passport.authenticate('basic', {session: false, failureRedirect: '/dashboard'}), function (req, res, next) {
+            if (req.user.displayName === req.params.username) {
                 res.send();
             } else {
                 next();
@@ -158,8 +158,8 @@ var routes = function (app, passport) {
 
 
     app.route('/:username/:form')
-        .get(passport.authenticate( 'basic', {session: false, failureRedirect:'/dashboard'} ), function (req, res, next) {
-            if(req.user.displayName === req.params.username) {
+        .get(passport.authenticate('basic', {session: false, failureRedirect: '/dashboard'}), function (req, res, next) {
+            if (req.user.displayName === req.params.username) {
                 res.send();
             } else {
                 next();
