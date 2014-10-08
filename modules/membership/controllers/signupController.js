@@ -66,7 +66,7 @@ exports.signup = function (req, res, next) {
 exports.checkUserName = function (req, res, next) {
     var username = req.params.username;
     var sluggedUsername;
-    if(username) {
+    if (username) {
         sluggedUsername = slug(username);
         try {
             for (var property in rootUrls) {
@@ -84,14 +84,14 @@ exports.checkUserName = function (req, res, next) {
                 log.error(err);
                 return next(err);
             }
-            if(sluggedUsername && (sluggedUsername !== username) && !exists) {
+            if (sluggedUsername && (sluggedUsername !== username) && !exists) {
                 return res.send({"slugged": true, "sluggedValue": sluggedUsername})
             } else {
                 return res.send({"exists": exists});
             }
         });
     } else {
-        if(sluggedUsername && (sluggedUsername !== username)) {
+        if (sluggedUsername && (sluggedUsername !== username)) {
             return res.send({"slugged": true, "sluggedValue": sluggedUsername})
         } else {
             return res.send({"exists": false});

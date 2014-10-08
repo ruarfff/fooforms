@@ -18,8 +18,10 @@ angular.module('formViewer')
         $scope.form = _.find(folder.forms, {displayName: formName});
         $scope.post = Posts.newPost($scope.form);
 
-        PostService.getPostsByStream($scope.form.postStreams[0], function (err, posts){
-            if(err) {$log.error(err);}
+        PostService.getPostsByStream($scope.form.postStreams[0], function (err, posts) {
+            if (err) {
+                $log.error(err);
+            }
             $scope.posts = posts;
         });
 
@@ -32,7 +34,6 @@ angular.module('formViewer')
         $scope.doingPostApi = false;
 
 
-
         $scope.newPost = function () {
             $scope.post = Posts.newPost($scope.form);
             $scope.showPostForm = true;
@@ -40,7 +41,7 @@ angular.module('formViewer')
         };
 
         $scope.cancelPost = function () {
-            $scope.gridSelectedPost=[];
+            $scope.gridSelectedPost = [];
         };
         $scope.copyPost = function () {
 

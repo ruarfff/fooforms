@@ -111,7 +111,7 @@
                 {{form.btnLabel}} <i class="fa fa-plus fa-lg"></i></button>
             <img class="icon  pull-left" ng-src="{{form.icon}}">
             <h4 class="inline">{{form.name}}
-                <a href="/{{owner}}/{{form.displayName}}/edit" ><i class="fa fa-edit fa-lg"></i>
+                <a href="/{{owner}}/{{form.displayName}}/edit"><i class="fa fa-edit fa-lg"></i>
                 </a></h4>
 
             <p class='formDescription'>{{form.description}} </p>
@@ -172,7 +172,8 @@
                     <img class="media-object icon icon-feed pull-left" ng-src="{{post.icon}}" alt="">
                     <span class="pull-right text-muted">{{post.lastModified | date : 'HH:mm'}} </span>
 
-                    <span>{{post.fields[0].value}} &raquo;</span> <span class="text-muted"> {{post.fields[1].value}} - <i>
+                    <span>{{post.fields[0].value}} &raquo;</span> <span
+                            class="text-muted"> {{post.fields[1].value}} - <i>
                         {{post.fields[1].value}} </i></span>
                 </td>
             </tr>
