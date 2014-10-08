@@ -130,11 +130,11 @@ iframe div.alert {
 }
 
 .jumbotron h1 {
-  font-size: 28px;
-  color: #fff;
-  font-weight: 900;
+  font-size: 24px;
+  color: #1f2737;
+  font-weight: 300;
   font-family: 'Open Sans Condensed', sans-serif;
-  text-shadow: 2px 2px 3px rgba(0, 0, 0, .6);
+  text-shadow: 1px 1px rgba(255, 255, 255, .3);
 }
 
 .jumbotron h2 {
@@ -188,6 +188,30 @@ iframe div.alert {
   background: rgba(255, 255, 255, 0.5);
 }
 
+.rounded-top {
+  background: rgba(255, 255, 255, 0.4);
+  padding: 8px;
+  border-radius: 5px 5px 0px 0px;
+  display: inline-block;
+  margin: 0 auto 0;
+  border: 1px solid rgba(255, 255, 255, .5);
+  border-bottom: 0px;
+}
+
+.rounded-full {
+  background: rgba(255, 255, 255, 0.4);
+  padding: 8px;
+  border-radius: 5px;
+  display: inline-block;
+  margin: 0 auto 0;
+  border: 1px solid rgba(255, 255, 255, .5);
+  border-bottom: 0px;
+}
+
+.bordered-light {
+  border: 1px solid rgba(255, 255, 255, .5);
+}
+
 .btn-huge {
   font-size: 1.5em;
 }
@@ -217,10 +241,10 @@ iframe div.alert {
 
 .highlight {
   color: #f6f6f6;
-  background: #3a4556;
+  background: #3a4556 url('/assets/images/tile-bg.png');
   padding: 20px 0px;
-  border-top: 20px solid #202020;
-  border-bottom: 20px solid #202020;
+  border-top: 20px solid #3a4556;
+  border-bottom: 20px solid #3a4556;
 
 }
 
@@ -237,7 +261,7 @@ iframe div.alert {
 
 .highlight h2 {
   font-family: 'Open Sans Condensed', sans-serif;
-  color: #4e7466;
+  color: #0b9eff;
   text-align: left;
   text-shadow: 0px 1px 0px rgba(255, 255, 255, .3);
 }
@@ -286,6 +310,7 @@ iframe div.alert {
   margin: 0 auto 0;
   padding: 20px 0px;
 
+  background: #fff url('/assets/images/tile-bg3.png');;
 }
 
 .featurette-divider {
@@ -299,18 +324,18 @@ iframe div.alert {
   letter-spacing: -1px;
 }
 
-.lightOnDark .text-highlight {
-  color: #68B3AF;
+.text-highlight {
+  color: #0b9eff;
 }
 
 .lightOnDark {
   font-family: 'Open Sans Condensed', sans-serif;
 
-  color: #555;
-  background: #AACCB1;
+  color: #fff;
+  background: #009de6 url('/assets/images/tile-bg2.png');
   padding: 20px 0px;
-  border-top: 20px solid #87BDB1;
-  border-bottom: 20px solid #87BDB1;
+  border-top: 20px solid #3a4556;
+  border-bottom: 20px solid #3a4556;
 
   font-weight: 300 !important;
 }
@@ -319,8 +344,8 @@ iframe div.alert {
   color: #efefef;
   background: #5D4157;
   padding: 20px 0px;
-  border-top: 20px solid #5D4157;
-  border-bottom: 20px solid #5D4157;
+  border-top: 20px solid #3a4556;
+  border-bottom: 20px solid #3a4556;
 
   font-weight: 300 !important;
 }
@@ -341,7 +366,7 @@ iframe div.alert {
 
   }
   .jumbotron h1 {
-    font-size: 42px;
+    font-size: 36px;
   }
 
   .jumbotron h2 {
@@ -374,7 +399,7 @@ iframe div.alert {
     padding-bottom: 250px;
   }
   .jumbotron h1 {
-    font-size: 56px;
+    font-size: 42px;
   }
 
   .jumbotron h2 {

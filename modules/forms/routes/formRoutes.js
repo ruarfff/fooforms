@@ -5,16 +5,16 @@ var express = require('express');
 var router = express.Router();
 var formController = require('../controllers/formController');
 
-router.get('/:form', function(req, res, next) {
+router.get('/:form', function (req, res, next) {
     formController.findById(req, res, next);
 });
 
 router.post('', function (req, res, next) {
-   formController.create(req, res, next);
+    formController.create(req, res, next);
 });
 
 router.put('/:form', function (req, res, next) {
-   formController.update(req, res, next);
+    formController.update(req, res, next);
 });
 
 router.delete('/:form', function (req, res, next) {
@@ -22,7 +22,7 @@ router.delete('/:form', function (req, res, next) {
 });
 
 /**
-var routes = function (app, passport) {
+ var routes = function (app, passport) {
 
 
     app.get('/api/forms', passport.authenticate('basic', { session: false }), function (req, res) {

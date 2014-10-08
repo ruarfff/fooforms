@@ -64,7 +64,7 @@ exports.signup = function (req, res, next) {
 
 exports.checkUserName = function (req, res, next) {
     var username = req.params.username;
-    if(username) {
+    if (username) {
         username = slug(username);
         try {
             for (var property in rootUrls) {

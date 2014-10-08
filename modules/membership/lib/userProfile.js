@@ -24,7 +24,7 @@ exports.userToProfile = function (user) {
             organisations: user.organisations
         };
     } catch (err) {
-        log.error( __filename, ' - ', err );
+        log.error(__filename, ' - ', err);
     }
     return profile;
 };

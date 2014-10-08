@@ -48,20 +48,18 @@ angular.module('form').factory('FormService',
                         "settings": {
                             "allowComments": true,
                             "status": "draft",
-                            "tandcWeb" : false,
+                            "tandcWeb": false,
                             "tandcHtml": '',
-                            "displayOptions":
-                            {
+                            "displayOptions": {
                                 "feed": true,
                                 "list": true,
                                 "grid": true,
                                 "customDashboard": false,
                                 "customForm": false
 
-                            }
-                            ,
+                            },
                             "customDashboardHtml": '<div>Custom Dashboard View</div>',
-                            "customFormHtml":'<div>Custom Form View</div>'
+                            "customFormHtml": '<div>Custom Form View</div>'
                         },
                         "fields": [],
                         "owner": "",

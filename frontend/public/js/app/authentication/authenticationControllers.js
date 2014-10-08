@@ -12,7 +12,7 @@ angular.module('authentication').controller('LoginCtrl', ['$scope', '$rootScope'
         AuthService.clearCredentials();
         AuthService.setCredentials(credentials.username, credentials.password);
         AuthService.login(credentials).success(function (res) {
-            if(AuthService.isAuthenticated) {
+            if (AuthService.isAuthenticated) {
                 $rootScope.$broadcast(AUTH_EVENTS.loginSuccess);
                 $http.defaults.headers.common['Authorization'] = 'Basic ' + $cookieStore.get('authdata');
                 window.location = '/dashboard';
@@ -31,9 +31,20 @@ angular.module('authentication').controller('LoginCtrl', ['$scope', '$rootScope'
 angular.module('authentication').controller('LogoutCtrl', function ($scope, $rootScope, AUTH_EVENTS, AuthService) {
     'use strict';
 
-    $scope.logout = function() {
+    $scope.logout = function () {
         AuthService.clearCredentials();
         $rootScope.$broadcast(AUTH_EVENTS.logoutSuccess);
         window.location = '/';
     };
+});
+
+angular.module('authentication').controller('SignupCtrl', function ($scope) {
+    'use strict';
+
+    $scope.signupStage = 1;
+
+    $scope.validateStageOne = function () {
+        $scope.signupStage = 2;
+    }
+
 });
