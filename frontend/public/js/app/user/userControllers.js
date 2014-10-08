@@ -10,6 +10,10 @@ angular.module('user')
             Session.user = $scope.user;
         };
     }])
+    .controller('UserViewCtrl', ['$scope', function ($scope) {
+        'use strict';
+
+    }])
     .controller('PeopleCtrl', ['$scope', '$http', function ($scope, $http) {
         "use strict";
         $scope.selectedUser = "";

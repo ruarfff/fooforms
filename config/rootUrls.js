@@ -14,7 +14,8 @@ var rootUrls = {
     formBuilder: 'formBuilder',
     formViewer: 'forms/repo',
     people: 'people',
-    profile: 'profile'
+    profile: 'profile',
+    notFound: '404'
 };
 
 module.exports = exports = rootUrls;

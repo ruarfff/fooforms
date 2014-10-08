@@ -4,7 +4,7 @@ angular.module('formViewer')
     .controller('FormViewerCtrl', ['$scope', '$route', '$log', '$http' , '$modal', 'Restangular', 'Session', 'FormService', 'PostService', 'Posts', '_', function ($scope, $route, $log, $http, $modal, Restangular, Session, FormService, PostService, Posts, _) {
         "use strict";
 
-        var owner = $route.current.params.owner;
+        var owner = $route.current.params.name;
         var org = _.find(Session.user.organisations, {displayName: owner});
         var formName = $route.current.params.form;
         var folder;

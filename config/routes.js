@@ -82,7 +82,7 @@ var routes = function (app, passport) {
     app.use(slash + rootUrls.formViewer, passport.authenticate('basic', {session: false}), formViewer.formViewerApiRoutes);
 
 
-    app.route('/404')
+    app.route(slash + rootUrls.notFound)
         .get(function (req, res) {
             res.status(404).render('404', {
                 url: req.originalUrl,
@@ -91,80 +91,53 @@ var routes = function (app, passport) {
         });
 
 
-    /**
-     app.route('/:username')
-     .get(passport.authenticate( 'basic', {session: false, failureRedirect:'/login'} ), function (req, res, next) {
-            var username = req.params.username;
-
-            require(global.config.modules.USER).findByDisplayName(username, function (err, user) {
-
-                if (!err || !user) {
-                    err = new Error('User with name: ' + username + ' - not found.');
-                    err.http_code = 404;
-                    return next();
-                }
-
-                log.debug(__filename + ' - ', 'rendering dashboard for user ' + username);
-                // TODO: Do something better here, show user profile?
-                return res.redirect('/dashboard');
-
-            });
-        });
-
-     app.route('/:username/:folder')
-     .get(passport.authenticate( 'basic', {session: false, failureRedirect:'/login'} ), function (req, res, next) {
-            var username = req.params.username;
-            var folderName = req.params.folder;
-
-            var folderLib = require(global.config.modules.FOLDER);
-
-            require(global.config.modules.USER).findByDisplayName(username, function (err, user) {
-
-                if (!err || !user) {
-                    err = new Error('User with name: ' + username + ' - not found.');
-                    err.http_code = 404;
-                    return next();
-                }
-
-                folderLib.getFolderByName(folderName, function (err, folder) {
-                    if (err || !folder || (folder.owner !== user._id)) {
-                        res.status(404).render('404', {
-                            url: req.originalUrl,
-                            error: 'Not found'
-                        });
-                    } else {
-                        return res.redirect('/dashboard');
-                    }
+    app.get('/:username', function (req, res, next) {
+        var username = req.params.username;
+        log.info(username);
+        passport.authenticate('basic', { session: false}, function (err, user, info) {
+            if (err) {
+                return next(err);
+            }
+            if (!user) {
+                return res.render(dashboard.mainView, {
+                    dev: (process.env.NODE_ENV === 'development'),
+                    user: req.user || '',
+                    assets: assets
                 });
-
+            }
+            req.logIn(user, function (err) {
+                if (err) {
+                    return next(err);
+                }
+                return res.send();
             });
+        })(req, res, next);
+    });
 
-        });
 
-     app.route('/:username/:folder/:form')
-     .get(passport.authenticate( 'basic', {session: false, failureRedirect:'/login'} ), function (req, res, next) {
-            next();
-        });
-     */
-
-    app.route('/:username')
-        .get(passport.authenticate('basic', {session: false, failureRedirect: '/dashboard'}), function (req, res, next) {
-            if (req.user.displayName === req.params.username) {
-                res.send();
-            } else {
-                next();
+    app.get('/:username/:form', function (req, res, next) {
+        var username = req.params.username;
+        var form = req.params.form;
+        log.info(username + '-' + form);
+        passport.authenticate('basic', { session: false}, function (err, user, info) {
+            if (err) {
+                return next(err);
             }
-        });
-
-
-    app.route('/:username/:form')
-        .get(passport.authenticate('basic', {session: false, failureRedirect: '/dashboard'}), function (req, res, next) {
-            if (req.user.displayName === req.params.username) {
-                res.send();
-            } else {
-                next();
+            if (!user) {
+                return res.render(dashboard.mainView, {
+                    dev: (process.env.NODE_ENV === 'development'),
+                    user: req.user || '',
+                    assets: assets
+                });
             }
-        });
+            req.logIn(user, function (err) {
+                if (err) {
+                    return next(err);
+                }
+                return res.send();
+            });
+        })(req, res, next);
+    });
 
 
     app.use(function (err, req, res, next) {

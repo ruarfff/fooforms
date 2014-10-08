@@ -153,34 +153,6 @@ fooformsApp
                     }
                 }
             })
-            .when('/:owner/:form', {
-                templateUrl: '/forms/partials/formViewer',
-                controller: 'FormViewerCtrl',
-                resolve: {
-                    message: function (SessionService) {
-                        return SessionService.checkSession();
-                    }
-                }
-            })
-
-        /**
-         .when('/formBuilder', {
-                templateUrl: '/partials/formBuilder',
-                controller: 'FieldsCtrl'
-            })
-         .when('/posts', {
-                templateUrl: '/partials/formViewer',
-                controller: 'FormViewerCtrl'
-            })
-         .when('/:username', {
-                templateUrl: '/partials/profile',
-                controller: 'ProfileCtrl'
-            })
-         .when('/:username/:form', {
-                templateUrl: '/partials/folder',
-                controller: 'FolderCtrl'
-            })
-         **/
             .when('/calendar', {
                 templateUrl: '/calendar/partials/calendar',
                 resolve: {
@@ -213,6 +185,44 @@ fooformsApp
                     }
                 }
             })
+            .when('/:name', {
+                templateUrl: '/users/partials/user-profile',
+                controller: 'UserViewCtrl',
+                resolve: {
+                    message: function (SessionService) {
+                        return SessionService.checkSession();
+                    }
+                }
+            })
+            .when('/:name/:form', {
+                templateUrl: '/forms/partials/formViewer',
+                controller: 'FormViewerCtrl',
+                resolve: {
+                    message: function (SessionService) {
+                        return SessionService.checkSession();
+                    }
+                }
+            })
+
+        /**
+         .when('/formBuilder', {
+                templateUrl: '/partials/formBuilder',
+                controller: 'FieldsCtrl'
+            })
+         .when('/posts', {
+                templateUrl: '/partials/formViewer',
+                controller: 'FormViewerCtrl'
+            })
+         .when('/:username', {
+                templateUrl: '/partials/profile',
+                controller: 'ProfileCtrl'
+            })
+         .when('/:username/:form', {
+                templateUrl: '/partials/folder',
+                controller: 'FolderCtrl'
+            })
+         **/
+
             .otherwise({redirectTo: '/'});
     }])
     .config(['$httpProvider', function ($httpProvider) {
