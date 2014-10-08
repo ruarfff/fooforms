@@ -8,6 +8,7 @@ angular.module('formBuilder').controller('FormBuilderCtrl',
             // the main object to store the form data
             $scope.form = FormService.getFormTemplateObject();
             $scope.form.owner = Session.user._id;
+            $scope.form.folder = Session.user.defaultFolder._id;
 
 
             $http.get('/js/formBuilder/inputTypes.json').success(function (data) {
@@ -105,9 +106,8 @@ angular.module('formBuilder').controller('FormBuilderCtrl',
             };
 
             $scope.lastChanged = function () {
-                var lastChanged = new Date().getTime();
-                $scope.form.lastChanged = lastChanged;
-            }
+                $scope.form.lastChanged = new Date().getTime();
+            };
 
 
             //Delete form Items
@@ -307,9 +307,11 @@ angular.module('formBuilder').controller('FormBuilderCtrl',
                             $scope.form = result.form;
 
                             var oldForm = _.find(Session.user.forms, { '_id': form._id });
-                            var index = Session.user.forms.indexOf(oldForm);
+                            var index = Session.user.defaultFolder.forms.indexOf(oldForm);
                             if (~index) {
-                                Session.user.forms = form;
+                                Session.user.defaultFolder.forms.push[form];
+                            } else {
+                                oldForm = form;
                             }
                         }
                     });
@@ -319,7 +321,7 @@ angular.module('formBuilder').controller('FormBuilderCtrl',
                             $log.error(err);
                         } else {
                             $scope.form = result.form;
-                            Session.user.forms.push(result.form);
+                            Session.user.defaultFolder.forms.push(result.form);
 
                         }
                     });
@@ -438,13 +440,13 @@ var ModalListManagerCtrl = function ($scope, $modalInstance, list, $upload) {
         $scope.message.body = body;
         $scope.message.alertStyle = style;
 
-    }
+    };
 
     $scope.browse = function () {
 
         angular.element('#uploadFile').click()
 
-    }
+    };
 
     $scope.onFileSelect = function (selectedFile) {
         $scope.uploadProgress = 0;
@@ -464,7 +466,7 @@ var ModalListManagerCtrl = function ($scope, $modalInstance, list, $upload) {
         angular.element('#browseBtn').blur();
 
 
-    }
+    };
 
     $scope.doFileUpload = function () {
         $scope.uploadProgress = 1;
@@ -494,9 +496,6 @@ var ModalListManagerCtrl = function ($scope, $modalInstance, list, $upload) {
         }).error(function (err) {
             alert(err);
         });
-
-
     }
-
 
 };

@@ -53,7 +53,6 @@ describe('Dashboard API', function () {
     it('returns a user fully populated with organisation, forms and posts', function (done) {
 
         sampleDashboardCreator.generateDashboardTestData(db, function (testUser, orgFolder, userFolder) {
-            console.log(orgFolder);
             should.exist(testUser);
             request(app)
                 .get(rootUrl + '/user/' + testUser._id)

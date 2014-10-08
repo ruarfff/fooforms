@@ -30,6 +30,15 @@ exports.findById = function (req, res, next) {
     });
 };
 
+exports.listByFolder = function (req, res, next) {
+    fooForm.Folder.findById(req.query.folder).lean().populate('forms').exec(function (err, docs) {
+        if (err) {
+            next(err);
+        }
+        res.send(docs);
+    });
+};
+
 exports.update = function (req, res, next) {
     if (req.body && req.body._id !== req.params.form) {
         req.body._id = req.params.form;

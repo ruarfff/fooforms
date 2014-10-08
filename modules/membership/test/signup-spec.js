@@ -152,7 +152,7 @@ describe('Signup Routes', function () {
         });
         it('checking non existent username returns false', function (done) {
             request(app)
-                .get(rootUrl + '/check/username/' + 'some name')
+                .get(rootUrl + '/check/username/' + 'someName')
                 .set('Accept', 'application/json')
                 .expect('Content-Type', /json/)
                 .expect(200).end(function (err, res) {
@@ -162,7 +162,7 @@ describe('Signup Routes', function () {
         });
         it('checking non existent org name returns false', function (done) {
             request(app)
-                .get(rootUrl + '/check/username/' + 'some org name')
+                .get(rootUrl + '/check/username/' + 'someOrgName')
                 .set('Accept', 'application/json')
                 .expect('Content-Type', /json/)
                 .expect(200).end(function (err, res) {

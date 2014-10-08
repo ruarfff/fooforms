@@ -50,7 +50,7 @@
 
     <base href="/">
 </head>
-<body ng-controller="MainController" data-ng-init="init()" class="main-application">
+<body ng-controller="MainController" class="main-application">
 <div id="wrap">
     <div class="navbar-wrapper hidden-print">
         <div class="navbar navbar-default navbar-fixed-top navbar-foo" role="navigation">
@@ -74,8 +74,8 @@
                             <a class="inline pull-right dropdown-toggle">
                                 <i class="fa fa-th"></i>Forms<b class="caret"></b></a>
                             <ul class="dropdown-menu">
-                                <li ng-repeat="form in user.forms">
-                                    <a href="/{{form.owner.displayName}}/{{form.displayName}}"
+                                <li ng-repeat="form in user.defaultFolder.forms">
+                                    <a href="/{{user.displayName}}/{{form.displayName}}"
                                        ng-click='updateForm(form)'>
                                         <img ng-src="{{form.icon}}" alt="{{form.displayName}}" class="icon icon-xs">
                                         {{form.displayName}}
@@ -175,14 +175,14 @@
                 <div><a ng-click="isCollapsed = !isCollapsed">Forms<span class="caret"></span></a></div>
                 <ul class="nav nav-pills nav-stacked ml0" collapse="isCollapsed">
 
-                    <li ng-repeat="form in user.forms">
+                    <li ng-repeat="form in user.defaultFolder.forms">
                         <div>
-                            <a href="/{{form.owner.displayName}}/{{form.displayName}}">
+                            <a href="/{{user.displayName}}/{{form.displayName}}">
                                 <img ng-src="{{form.icon}}" alt="{{form.displayName}}" class="icon icon-xs">
                             </a>
                         </div>
                         <div>
-                            <a href="/{{form.owner.displayName}}/{{form.displayName}}">
+                            <a href="/{{user.displayName}}/{{form.displayName}}">
                                 {{form.displayName}}
                             </a>
                         </div>

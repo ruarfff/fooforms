@@ -6,9 +6,6 @@ var statusCodes = require('fooforms-rest').statusCodes;
 var fooForm = new FooForm(db);
 var membership = new Membership(db);
 
-exports.post = function (req, res, next) {
-    // TODO: Post for form
-};
 
 exports.getEmbeddedForm = function (req, res, next) {
     require(global.config.modules.FORM).getFormById(req.params.form, function (err, form) {

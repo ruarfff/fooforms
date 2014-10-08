@@ -184,6 +184,8 @@ var FooFormsServerApp = function () {
 
 };
 
+var serverApp = new FooFormsServerApp();
+serverApp.initialize();
 
 exports.serverApp = module.exports = FooFormsServerApp;
 

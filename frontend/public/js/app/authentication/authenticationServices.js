@@ -48,11 +48,14 @@ angular.module('authentication').factory('AuthService', ['$rootScope', '$cookieS
 
 angular.module('authentication').service('Session', function () {
     'use strict';
+    this.posts = [];
+
     this.create = function (userProfile) {
         this.user = userProfile;
     };
     this.destroy = function () {
         this.user = null;
+        this.posts = null;
     };
     return this;
 });

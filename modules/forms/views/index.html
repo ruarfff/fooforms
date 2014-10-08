@@ -34,7 +34,7 @@
 
                         <div class="row m5 p5">
                             <div class="col-sm-3 col-md-3"
-                                 ng-repeat="form in user.forms">
+                                 ng-repeat="form in user.defaultFolder.forms">
                                 <div class="thumbnail">
                                     <a href="/{{form.displayName}}/edit">
                                         <img ng-src="{{form.icon}}" alt="{{form.displayName}}">
@@ -56,7 +56,7 @@
 
                         <div class="row m5 p5">
                             <div class="col-sm-3 col-md-3"
-                                 ng-repeat="form in user.forms">
+                                 ng-repeat="form in user.defaultFolder.forms">
                                 <div class="thumbnail">
                                     <img ng-src="{{form.icon}}" alt="{{form.displayName}}">
 

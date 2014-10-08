@@ -3,6 +3,8 @@
 angular.module('authentication').controller('LoginCtrl', ['$scope', '$rootScope', '$cookieStore', '$http', 'AUTH_EVENTS', 'AuthService', function ($scope, $rootScope, $cookieStore, $http, AUTH_EVENTS, AuthService) {
     'use strict';
 
+    $scope.sluggedUsername = '';
+    $scope.sluggedOrgName = '';
     $scope.credentials = {
         username: '',
         password: ''
