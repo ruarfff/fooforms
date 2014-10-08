@@ -35,7 +35,7 @@ describe('Post API', function () {
     // Some test data
     var samplePost; // Gets set in beforeEach
     var postStream;
-    var name = 'post';
+    var displayName = 'post';
     var icon = 'www.fooforms.com/icon.png';
     var fields = [
         {"something": {}},
@@ -45,7 +45,6 @@ describe('Post API', function () {
     ];
 
     beforeEach(function (done) {
-        var displayName = 'form';
         var title = 'form title';
         var description = 'the form description';
         var btnLabel = 'the button label';
@@ -74,7 +73,7 @@ describe('Post API', function () {
                 result.success.should.equal(true);
                 postStream = result.form.postStreams[0];
                 samplePost = {
-                    postStream: postStream, name: name,
+                    postStream: postStream, displayName: displayName,
                     icon: icon, fields: fields
                 };
                 done(err);
@@ -96,10 +95,10 @@ describe('Post API', function () {
                 .set('Accept', 'application/json')
                 .expect('Content-Type', /json/)
                 .expect(201, function (err, res) {
-                    var post = res.body.post;
+                    var post = res.body;
                     res.headers.location.should.equal(rootUrl + '/' + post._id);
                     post.postStream.should.equal(postStream.toString());
-                    post.name.should.equal(name);
+                    post.displayName.should.equal(displayName);
                     post.icon.should.equal(icon);
                     post.fields.length.should.equal(fields.length);
                     done(err);
@@ -119,7 +118,7 @@ describe('Post API', function () {
                 .expect('Content-Type', /json/)
                 .expect(201)
                 .end(function (err, res) {
-                    post = res.body.post;
+                    post = res.body;
                     res.headers.location.should.equal(rootUrl + '/' + post._id);
                     request(app)
                         .post(rootUrl)
@@ -128,7 +127,7 @@ describe('Post API', function () {
                         .expect('Content-Type', /json/)
                         .expect(201)
                         .end(function (err, res) {
-                            otherPost = res.body.post;
+                            otherPost = res.body;
                             res.headers.location.should.equal(rootUrl + '/' + otherPost._id);
                             done(err);
                         });
@@ -161,7 +160,7 @@ describe('Post API', function () {
                 .expect('Content-Type', /json/)
                 .expect(201)
                 .end(function (err, res) {
-                    post = res.body.post;
+                    post = res.body;
                     res.headers.location.should.equal(rootUrl + '/' + post._id);
                     resourceUrl = res.headers.location;
                     done(err);
@@ -173,10 +172,9 @@ describe('Post API', function () {
         });
 
         it('responds with 200 and the updated json', function (done) {
-            var nameUpdated = 'content updated';
-            post.name = nameUpdated;
+            post.displayName = 'content updated';
             request(app)
-                .put(resourceUrl)
+                .put(rootUrl)
                 .send(post)
                 .set('Accept', 'application/json')
                 .expect('Content-Type', /json/)
@@ -196,7 +194,7 @@ describe('Post API', function () {
                 .expect('Content-Type', /json/)
                 .expect(201)
                 .end(function (err, res) {
-                    post = res.body.post;
+                    post = res.body;
                     res.headers.location.should.equal(rootUrl + '/' + post._id);
                     resourceUrl = res.headers.location;
                     done(err);
@@ -209,7 +207,8 @@ describe('Post API', function () {
 
         it('successfully deletes', function (done) {
             request(app)
-                .delete(resourceUrl)
+                .delete(rootUrl)
+                .send(post)
                 .expect(204, done);
         });
 

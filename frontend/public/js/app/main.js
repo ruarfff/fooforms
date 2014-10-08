@@ -9,7 +9,7 @@ var fooformsApp = angular.module('fooformsApp', [
 ]);
 
 fooformsApp
-    .factory("SessionService", ['$q', '$log', 'AuthService', 'DashboardService', 'Session', function ($q, $log, AuthService, DashboardService, Session) {
+    .factory("SessionService", ['$q', '$log', 'Restangular', 'AuthService', 'DashboardService', 'Session', function ($q, $log, Restangular, AuthService, DashboardService, Session) {
         return {
             checkSession: function () {
                 var deferred = $q.defer();
@@ -25,8 +25,11 @@ fooformsApp
                                 if (err) {
                                     $log.error(err);
                                 } else {
-                                    $log.info(result);
+                                    if (!result.photo) {
+                                        result.photo = '/assets/images/photo.jpg';
+                                    }
                                     Session.user = result;
+
                                     deferred.resolve(Session.user);
                                 }
                             });
@@ -150,8 +153,8 @@ fooformsApp
                     }
                 }
             })
-            .when('/:formOwner/:form', {
-                templateUrl: '/partials/formViewer',
+            .when('/:owner/:form', {
+                templateUrl: '/forms/partials/formViewer',
                 controller: 'FormViewerCtrl',
                 resolve: {
                     message: function (SessionService) {
@@ -257,9 +260,6 @@ fooformsApp
         }, function (newVal, oldVal) {
             if (typeof newVal !== 'undefined') {
                 $scope.user = Session.user;
-                if (!$scope.user.photo) {
-                    $scope.user.photo = '/assets/images/photo.jpg';
-                }
             }
         });
 

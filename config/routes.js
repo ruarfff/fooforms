@@ -153,6 +153,26 @@ var routes = function (app, passport) {
         });
 */
 
+    app.route('/:username')
+        .get(passport.authenticate( 'basic', {session: false, failureRedirect:'/dashboard'} ), function (req, res, next) {
+            if(req.user.displayName === req.params.username) {
+                res.send();
+            } else {
+                next();
+            }
+        });
+
+
+    app.route('/:username/:form')
+        .get(passport.authenticate( 'basic', {session: false, failureRedirect:'/dashboard'} ), function (req, res, next) {
+            if(req.user.displayName === req.params.username) {
+                res.send();
+            } else {
+                next();
+            }
+        });
+
+
     app.use(function (err, req, res, next) {
         if (err.message.indexOf('not found')) {
             //Treat as 404
