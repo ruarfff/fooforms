@@ -6,8 +6,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="description" content="">
     <meta name="author" content="">
-    <link rel="shortcut icon" href="/site/assets/ico/favicon.ico" type="image/x-icon">
-    <link rel="icon" href="/site/assets/ico/favicon.ico" type="image/x-icon">
+    <link rel="shortcut icon" href="/assets/ico/favicon.ico" type="image/x-icon">
+    <link rel="icon" href="/assets/ico/favicon.ico" type="image/x-icon">
 
     <title>FooForms</title>
 
@@ -30,33 +30,30 @@
 <!-- NAVBAR
 ================================================== -->
 <body>
-<div class="navbar-wrapper">
-
-
-    <div class="navbar navbar-default navbar-fixed-top navbar-foo" role="navigation">
-        <div class="container">
-            <div class="navbar-header page-content">
-                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
-                    <span class="sr-only">Toggle navigation</span>
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                </button>
-                <a class="navbar-brand" href="#"><img class='logo' src="/assets/images/fooLogo-sm.png"></a>
-            </div>
-            <div class="navbar-collapse collapse">
-                <ul class="nav navbar-nav navbar-right foo-menu">
-
-
-                    <li><a href="/login" class="text-success">Sign in</a></li>
-
-                </ul>
-
-            </div>
+<nav class="navbar navbar-default navbar-fixed-top navbar-foo" role="navigation">
+    <div class="container-fluid">
+        <!-- Brand and toggle get grouped for better mobile display -->
+        <div class="navbar-header">
+            <button type="button" class="navbar-toggle collapsed" data-toggle="collapse"
+                    data-target="#bs-example-navbar-collapse-1">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand" href="#"><img class='logo' src="/assets/images/fooLogo-sm.png"></a>
         </div>
-    </div>
 
-</div>
+        <!-- Collect the nav links, forms, and other content for toggling -->
+        <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+            <ul class="nav navbar-nav navbar-right foo-menu">
+                <li><a href="/login" class="text-success">Sign in</a></li>
+            </ul>
+        </div>
+        <!-- /.navbar-collapse -->
+    </div>
+    <!-- /.container-fluid -->
+</nav>
 
 
 <!-- jumbotron
@@ -69,7 +66,6 @@
         </div>
         <div class="row bg-transparent-4">
             <div class="col-xs-12 col-sm-8 p0">
-
 
                 <div class="item">
 
@@ -168,7 +164,7 @@
     <div class="row featurette">
         <div class="page-content">
             <div class="col-md-5">
-                <img class="featurette-image img-responsive" src="/site/assets/images/form-store.png"
+                <img class="featurette-image img-responsive" src="/assets/images/form-store.png"
                      alt="Generic placeholder image">
             </div>
             <div class="col-md-7">
@@ -221,6 +217,10 @@
         <script src="https://code.jquery.com/jquery-1.10.2.min.js"></script>
         <script src="//netdna.bootstrapcdn.com/bootstrap/3.0.3/js/bootstrap.min.js"></script>
         <script src="/site/js/holder.js"></script>
+
+        <% if (dev) { %>
+        <script src="//localhost:35729/livereload.js"></script>
+        <% } %>
 
 </body>
 </html>

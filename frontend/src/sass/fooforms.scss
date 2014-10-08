@@ -3,9 +3,7 @@
 /* Padding below the footer and lighter body text */
 
 body {
-  padding: 0px;
-  padding-bottom: 40px;
-  padding-top: 71px;
+  padding: 71px 0px 40px;
   color: #212930;
   background: #fff;
 
@@ -42,11 +40,8 @@ body {
 }
 
 img.logo {
-  margin: 0px;
-  margin-top: 10px;
   padding: 0px;
-  margin-left: 25px;
-  margin-right: 10px;
+  margin: 10px 10px 0px 25px;
 }
 
 .page-content {
@@ -75,8 +70,11 @@ iframe div.alert {
 /* CUSTOMIZE THE NAVBAR
 -------------------------------------------------- */
 
-.navbar > .container .navbar-brand {
-  margin-left: 0px;
+.text-foo {
+  color: #3B8686;
+}
+
+.navbar-foo > .container-fluid .navbar-brand {
   padding: 0px;
   font-size: 44px;
   color: #68B3AF;
@@ -84,42 +82,15 @@ iframe div.alert {
 
 }
 
-.text-foo {
-  color: #3B8686;
-}
-
-/* Special class on .container surrounding .navbar, used for positioning it into place. */
-.navbar-wrapper {
-  position: fixed;
-  top: 0;
-  z-index: 20;
-  width: 100%;
-  margin: 0 auto 0;
-  border-top: 5px solid #68B3AF;
-  border-bottom: 1px solid #e7e7e7;
-  height: 76px;
-  display: block;
-  background: #fff;
-}
-
 .navbar-foo {
-  max-width: 1000px;
-  margin: 5px auto 0;
+  border-top: 5px solid #68B3AF;
   border-left: 0px;
   border-right: 0px;
   -webkit-box-shadow: none;
   box-shadow: none;
+  padding-left: 140px;
+  padding-right: 140px;
 
-}
-
-.navbar-foo .navbar-header {
-  margin-left: -40px;
-}
-
-/* Flip around the padding for proper display in narrow viewports */
-.navbar-wrapper .container {
-  padding-left: 0;
-  padding-right: 0;
 }
 
 .foo-menu {
@@ -247,9 +218,7 @@ iframe div.alert {
 .highlight {
   color: #f6f6f6;
   background: #3a4556;
-  padding: 0px;
-  padding-top: 20px;
-  padding-bottom: 20px;
+  padding: 20px 0px;
   border-top: 20px solid #202020;
   border-bottom: 20px solid #202020;
 
@@ -315,9 +284,7 @@ iframe div.alert {
 ------------------------- */
 .featurette {
   margin: 0 auto 0;
-  padding: 0px;
-  padding-top: 20px;
-  padding-bottom: 20px;
+  padding: 20px 0px;
 
 }
 
@@ -341,9 +308,7 @@ iframe div.alert {
 
   color: #555;
   background: #AACCB1;
-  padding: 0px;
-  padding-top: 20px;
-  padding-bottom: 20px;
+  padding: 20px 0px;
   border-top: 20px solid #87BDB1;
   border-bottom: 20px solid #87BDB1;
 
@@ -353,9 +318,7 @@ iframe div.alert {
 .lightOnDark2 {
   color: #efefef;
   background: #5D4157;
-  padding: 0px;
-  padding-top: 20px;
-  padding-bottom: 20px;
+  padding: 20px 0px;
   border-top: 20px solid #5D4157;
   border-bottom: 20px solid #5D4157;
 
@@ -389,8 +352,6 @@ iframe div.alert {
   /* Remove the edge padding needed for mobile */
   .marketing {
     padding: 0px;
-    padding-left: 0px;
-    padding-right: 0px;
     background: #ffffff;
   }
 
@@ -522,6 +483,22 @@ iframe div.alert {
     padding: 0;
   }
 
+}
+
+@media all and (max-width: 1024px) {
+  .navbar-foo {
+    padding-left: 60px;
+    padding-right: 60px;
+
+  }
+}
+
+@media all and (max-width: 800px) {
+  .navbar-foo {
+    padding-left: 0px;
+    padding-right: 0px;
+
+  }
 }
 
 

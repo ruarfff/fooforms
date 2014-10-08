@@ -1,10 +1,15 @@
 /* global angular */
 
-angular.module('formBuilder').controller('FieldsCtrl',
-    ['$log', '$scope', '$http', '$modal', 'Restangular', 'FormService', 'Forms', '_', '$filter',
-        function ($log, $scope, $http, $modal, Restangular, FormService, Forms, _, $filter) {
-
+angular.module('formBuilder').controller('FormBuilderCtrl',
+    ['$log', '$scope', '$http', '$modal', '$filter', 'Restangular', 'FormService', 'Session', '_',
+        function ($log, $scope, $http, $modal, $filter, Restangular, FormService, Session, _) {
             "use strict";
+
+            // the main object to store the form data
+            $scope.form = FormService.getFormTemplateObject();
+            $scope.form.owner = Session.user._id;
+
+
             $http.get('/js/formBuilder/inputTypes.json').success(function (data) {
 
                 $scope.inputTypes = angular.copy(data.inputTypes);
@@ -31,8 +36,6 @@ angular.module('formBuilder').controller('FieldsCtrl',
             }
             ;
 
-            // the main object to store the form data
-            $scope.form = Forms.getCurrentForm();
             // some booleans to help track what we are editing, which tabs to enable, etc.
             // used in ng-show in formBuilderMenu
             $scope.nowEditing = null;
@@ -297,30 +300,30 @@ angular.module('formBuilder').controller('FieldsCtrl',
 
             $scope.saveForm = function (formToSave) {
                 if (formToSave._id) {
-                    FormService.updateForm(formToSave, function (err) {
+                    FormService.updateForm(formToSave, function (err, result) {
                         if (err) {
                             $log.error(err);
                         } else {
-                            $scope.form = Forms.findById(formToSave._id);
-                            Forms.setCurrentForm($scope.form);
+                            $scope.form = result.form;
+
+                            var oldForm = _.find(Session.user.forms, { '_id': form._id });
+                            var index = Session.user.forms.indexOf(oldForm);
+                            if (~index) {
+                                Session.user.forms = form;
+                            }
                         }
                     });
                 } else {
-                    FormService.createForm(formToSave, function (err, formId) {
+                    FormService.createForm(formToSave, function (err, result) {
                         if (err) {
                             $log.error(err);
                         } else {
-                            $scope.form = Forms.findById(formId);
-                            Forms.setCurrentForm($scope.form);
+                            $scope.form = result.form;
+                            Session.user.forms.push(result.form);
+
                         }
                     });
                 }
-            };
-
-            $scope.newForm = function (previousForm) {
-                // TODO: Check if there are unsaved changes and warn
-                Forms.resetCurrentForm();
-                $scope.form = Forms.getCurrentForm();
             };
 
             $scope.deleteForm = function (form) {
@@ -343,7 +346,6 @@ angular.module('formBuilder').controller('FieldsCtrl',
 
                 if (confirm('Are you sure you want to copy this form?')) {
                     var tempForm = Forms.getCurrentForm();
-                    Forms.resetCurrentForm();
                     $scope.form = Forms.getCurrentForm();
                     $scope.form.name = tempForm.name + ' (copy)';
                     $scope.form.description = tempForm.description;
@@ -353,7 +355,6 @@ angular.module('formBuilder').controller('FieldsCtrl',
                     $scope.form.fields = tempForm.fields;
                     $scope.form.events = tempForm.events;
                 }
-
 
             };
 

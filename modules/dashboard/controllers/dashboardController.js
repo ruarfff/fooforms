@@ -11,27 +11,33 @@ var membership = new Membership(db);
 var populateForms = function (args, next) {
     var user = args.user;
     var model = '';
-    if(args.model) {
+    if (args.model) {
         model = args.model + '.';
     }
-    membership.User.populate(user, {path: model + 'forms', model: 'Form'}, function (err, user) {
+
+    membership.User.populate(user, {path: model + 'folders', model: 'Folder'}, function (err, user) {
         if (err) {
             return next(err);
         }
-        membership.User.populate(user, {path: model + 'forms.postStreams', model: 'PostStream'}, function (err, user) {
+        membership.User.populate(user, {path: model + 'folders.forms', model: 'Form'}, function (err, user) {
             if (err) {
                 return next(err);
             }
-            membership.User.populate(user, {path: model + 'forms.postStreams.posts', model: 'Post'}, function (err, user) {
+            membership.User.populate(user, {path: model + 'forms.postStreams', model: 'PostStream'}, function (err, user) {
                 if (err) {
                     return next(err);
                 }
-                membership.User.populate(user, {path: model + 'forms.postStreams.posts.commentStreams', model: 'CommentStream'}, function (err, user) {
+                membership.User.populate(user, {path: model + 'forms.postStreams.posts', model: 'Post'}, function (err, user) {
                     if (err) {
                         return next(err);
                     }
-                    membership.User.populate(user, {path: model + 'forms.postStreams.posts.commentStreams.comments', model: 'Comment'}, function (err, user) {
-                        return next(err, user);
+                    membership.User.populate(user, {path: model + 'forms.postStreams.posts.commentStreams', model: 'CommentStream'}, function (err, user) {
+                        if (err) {
+                            return next(err);
+                        }
+                        membership.User.populate(user, {path: model + 'forms.postStreams.posts.commentStreams.comments', model: 'Comment'}, function (err, user) {
+                            return next(err, user);
+                        });
                     });
                 });
             });

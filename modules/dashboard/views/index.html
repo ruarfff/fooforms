@@ -77,8 +77,8 @@
                                 <li ng-repeat="form in user.forms">
                                     <a href="/{{form.owner.displayName}}/{{form.displayName}}"
                                        ng-click='updateForm(form)'>
-                                        <img ng-src="{{form.icon}}" alt="{{form.name}}" class="icon icon-xs">
-                                        {{form.name}}
+                                        <img ng-src="{{form.icon}}" alt="{{form.displayName}}" class="icon icon-xs">
+                                        {{form.displayName}}
                                     </a></li>
                                 <li class="divider"></li>
                                 <li><a href="/forms"><i class="fa fa-cogs"></i> Manage Forms</a></li>
@@ -178,12 +178,12 @@
                     <li ng-repeat="form in user.forms">
                         <div>
                             <a href="/{{form.owner.displayName}}/{{form.displayName}}">
-                                <img ng-src="{{form.icon}}" alt="{{form.name}}" class="icon icon-xs">
+                                <img ng-src="{{form.icon}}" alt="{{form.displayName}}" class="icon icon-xs">
                             </a>
                         </div>
                         <div>
                             <a href="/{{form.owner.displayName}}/{{form.displayName}}">
-                                {{form.name}}
+                                {{form.displayName}}
                             </a>
                         </div>
                     </li>

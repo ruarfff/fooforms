@@ -14,11 +14,14 @@ exports.userToProfile = function (user) {
 
     try {
         profile = {
-            id: user._id,
+            _id: user._id,
             name: user.name,
             displayName: user.displayName,
             photo: user.photo,
-            email: user.email
+            email: user.email,
+            folders: user.folders,
+            teams: user.teams,
+            organisations: user.organisations
         };
     } catch (err) {
         log.error( __filename, ' - ', err );

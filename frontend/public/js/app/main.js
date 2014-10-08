@@ -59,6 +59,14 @@ fooformsApp
                 templateUrl: '/teams/partials/team-profile',
                 controller: 'TeamCtrl'
             })
+            .when('/formBuilder', {
+                templateUrl: '/forms/partials/formBuilder',
+                controller: 'FormBuilderCtrl'
+            })
+            .when('/forms', {
+                templateUrl: '/forms/partials/forms',
+                controller: 'FormCtrl'
+            })
 
         /**
          .when('/formBuilder', {
@@ -157,7 +165,7 @@ fooformsApp
                         if (err) {
                             $log.error(err);
                         } else {
-                            $log.log(result);
+                            $log.info(result);
                             Session.user = result;
                         }
                     });

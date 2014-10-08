@@ -1,19 +1,9 @@
 /*jslint node: true */
 "use strict";
-var path = require('path');
-var viewDir = path.join(__dirname, '../views');
-var indexView = path.join(viewDir, 'index');
 var log = require('fooforms-logging').LOG;
 var express = require('express');
 var router = express.Router();
 var formController = require('../controllers/formController');
-
-router.get('/partials/forms', function (req, res) {
-    res.render(indexView, {
-        user: req.user
-    });
-
-});
 
 router.get('/:form', function(req, res, next) {
     formController.findById(req, res, next);

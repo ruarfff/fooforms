@@ -1,6 +1,6 @@
 /* global angular */
 
-angular.module('organisation').controller('OrganisationCtrl', ['$scope', '$route', '$log', 'Restangular', 'Session', function ($scope, $route, $log, Restangular, Session) {
+angular.module('organisation').controller('OrganisationCtrl', ['$scope', '$route', '$log', 'Restangular', 'Session', '_', function ($scope, $route, $log, Restangular, Session, _) {
     'use strict';
 
 

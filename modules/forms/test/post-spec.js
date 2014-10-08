@@ -52,6 +52,7 @@ describe('Post API', function () {
         var formEvents = [
             {}
         ];
+        var folder;
         var settings = {"setting": {}, "something": [], "something-else": "test"};
         var sampleForm = {
             displayName: displayName, title: title, icon: icon,
@@ -59,15 +60,25 @@ describe('Post API', function () {
             settings: settings, fields: fields, formEvents: formEvents,
             owner: ObjectId
         };
-        fooForm.createForm(sampleForm, function (err, result) {
+
+        var testFolder = {displayName: 'aFolder'};
+
+        var folderModel = new fooForm.Folder(testFolder);
+        folderModel.save(function (err, savedFolder) {
             should.not.exist(err);
-            result.success.should.equal(true);
-            postStream = result.form.postStreams[0];
-            samplePost = {
-                postStream: postStream, name: name,
-                icon: icon, fields: fields
-            };
-            done(err);
+            should.exist(savedFolder);
+            folder = savedFolder;
+            sampleForm.folder = folder;
+            fooForm.createForm(sampleForm, function (err, result) {
+                should.not.exist(err);
+                result.success.should.equal(true);
+                postStream = result.form.postStreams[0];
+                samplePost = {
+                    postStream: postStream, name: name,
+                    icon: icon, fields: fields
+                };
+                done(err);
+            });
         });
 
     });

@@ -2,6 +2,7 @@ var mongoose = require('mongoose');
 var ObjectId = mongoose.Types.ObjectId();
 var FooForm = require('fooforms-forms');
 var Membership = require('fooforms-membership');
+var defaultFolders = require('../../membership/lib/defaultFolders');
 
 var should = require('should');
 var assert = require('assert');
@@ -9,7 +10,6 @@ var assert = require('assert');
 exports.generateDashboardTestData = function (db, next) {
     var fooForm = new FooForm(db);
     var membership = new Membership(db);
-    var testData = {};
 
     var displayName = 'name';
     var email = 'user@test.com';
@@ -51,43 +51,53 @@ exports.generateDashboardTestData = function (db, next) {
 
     //TODO: Dear God!!
     membership.register(sampleUser, function (err, result) {
+        should.not.exist(err);
         assert.ok(result.success);
-        var user = result.user;
-        var org = result.organisation;
-        sampleForm.owner = org._id;
-        fooForm.createForm(sampleForm, function (err, formResultA) {
+
+        var args = {
+            user: result.user,
+            organisation: result.organisation,
+            membership: membership,
+            Folder: fooForm.Folder
+        };
+
+        defaultFolders.createDefaultFolders(args, function (err, result) {
             should.not.exist(err);
-            assert.ok(formResultA.success);
-            sampleForm.owner = user._id;
-            fooForm.createForm(sampleForm, function (err, formResultB) {
+            assert.ok(result.success);
+            var user = result.user;
+            var org = result.organisation;
+            sampleForm.folder = org.folders[0];
+            fooForm.createForm(sampleForm, function (err, formResultA) {
                 should.not.exist(err);
-                assert.ok(formResultB.success);
-                samplePost.postStream = formResultA.form.postStreams[0];
-                samplePost.createdBy = user._id;
-                fooForm.createPost(samplePost, function (err, postResultA) {
+                assert.ok(formResultA.success);
+                sampleForm.folder = user.folders[0];
+                fooForm.createForm(sampleForm, function (err, formResultB) {
                     should.not.exist(err);
-                    assert.ok(postResultA.success);
-                    samplePost.postStream = formResultB.form.postStreams[0];
+                    assert.ok(formResultB.success);
+                    samplePost.postStream = formResultA.form.postStreams[0];
                     samplePost.createdBy = user._id;
-                    fooForm.createPost(samplePost, function (err, postResultB) {
+                    fooForm.createPost(samplePost, function (err, postResultA) {
                         should.not.exist(err);
-                        assert.ok(postResultB.success);
-                        sampleComment.commentStream = postResultA.post.commentStreams[0];
-                        sampleComment.commenter = user._id;
-                        fooForm.createComment(sampleComment, function (err, result) {
+                        assert.ok(postResultA.success);
+                        samplePost.postStream = formResultB.form.postStreams[0];
+                        samplePost.createdBy = user._id;
+                        fooForm.createPost(samplePost, function (err, postResultB) {
                             should.not.exist(err);
-                            assert.ok(result.success);
-                            user.forms.push(formResultB.form._id);
-                            org.forms.push(formResultA.form._id);
-                            membership.updateUser(user, function (err, userUpdateResult) {
+                            assert.ok(postResultB.success);
+                            sampleComment.commentStream = postResultA.post.commentStreams[0];
+                            sampleComment.commenter = user._id;
+                            fooForm.createComment(sampleComment, function (err, result) {
                                 should.not.exist(err);
-                                assert.ok(userUpdateResult.success);
-                                membership.updateOrganisation(org, function (err, orgUpdateResult) {
+                                assert.ok(result.success);
+                                fooForm.Folder.findById(user.folders[0]).populate('forms').exec(function (err, userFolder) {
                                     should.not.exist(err);
-                                    assert.ok(orgUpdateResult.success);
-                                    userUpdateResult.user.organisations[0] = orgUpdateResult.organisation;
-                                    testData = userUpdateResult.user;
-                                    next(testData);
+                                    user.folders = [userFolder];
+                                    fooForm.Folder.findById(org.folders[0]).populate('forms').exec(function (err, orgFolder) {
+                                        should.not.exist(err);
+                                        org.folders = [orgFolder];
+                                        user.organisations = [org];
+                                        next(user, orgFolder, userFolder);
+                                    });
                                 });
                             });
                         });
@@ -95,5 +105,6 @@ exports.generateDashboardTestData = function (db, next) {
                 });
             });
         });
+
     });
 };

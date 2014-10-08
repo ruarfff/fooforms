@@ -7,15 +7,15 @@ var ObjectId = mongoose.Types.ObjectId();
 var mockgoose = require('mockgoose');
 mockgoose(mongoose);
 
-global.config = {};
-global.config.root = '../../../';
-
 var request = require('supertest');
 var express = require('express');
 var bodyParser = require('body-parser');
 var should = require('should');
-var rootUrls = require(global.config.root + '/config/rootUrls');
+var rootUrls = require('../../../config/rootUrls');
 var formRoutes = require('../routes/formRoutes');
+var FooForm = require('fooforms-forms');
+var db = require('mongoose').connection;
+var fooForm = new FooForm(db);
 
 var app = express();
 app.use(bodyParser.json());
@@ -43,20 +43,33 @@ describe('Form API', function () {
         {}
     ];
     var postStream = ObjectId;
-    var owner = ObjectId;
+    var folder;
     var sampleForm = {
         displayName: displayName, title: title, icon: icon,
         description: description, btnLabel: btnLabel,
         settings: settings, fields: fields, formEvents: formEvents,
-        postStream: postStream, owner: owner
+        postStream: postStream
     };
+
+    beforeEach(function (done) {
+        var testFolder = {displayName: 'aFolder'};
+
+        var folderModel = new fooForm.Folder(testFolder);
+        folderModel.save(function (err, savedFolder) {
+            should.not.exist(err);
+            should.exist(savedFolder);
+            folder = savedFolder;
+            done(err);
+        })
+    });
 
     describe('POST ' + rootUrl, function () {
         afterEach(function () {
             mockgoose.reset();
         });
 
-        it('responds with 200 and json', function (done) {
+        it('responds with 201 and json', function (done) {
+            sampleForm.folder = folder._id;
             request(app)
                 .post(rootUrl)
                 .send(sampleForm)
@@ -76,6 +89,7 @@ describe('Form API', function () {
         var otherForm = {};
 
         beforeEach(function (done) {
+            sampleForm.folder = folder._id;
             request(app)
                 .post(rootUrl)
                 .send(sampleForm)
@@ -118,6 +132,7 @@ describe('Form API', function () {
         var resourceUrl;
 
         beforeEach(function (done) {
+            sampleForm.folder = folder._id;
             request(app)
                 .post(rootUrl)
                 .send(sampleForm)
@@ -159,6 +174,7 @@ describe('Form API', function () {
         var resourceUrl;
 
         beforeEach(function (done) {
+            sampleForm.folder = folder._id;
             request(app)
                 .post(rootUrl)
                 .send(sampleForm)

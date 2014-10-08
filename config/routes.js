@@ -73,13 +73,15 @@ var routes = function (app, passport) {
     app.use(api + slash + rootUrls.users, passport.authenticate( 'basic', {session: false} ), membership.userApiRoutes);
     app.use(api + slash + rootUrls.organisations, passport.authenticate( 'basic', {session: false} ), membership.organisationApiRoutes);
     app.use(api + slash + rootUrls.teams, passport.authenticate( 'basic', {session: false} ), membership.teamApiRoutes);
-    app.use(slash + rootUrls.forms, passport.authenticate( 'basic', {session: false} ), form.formRoutes);
-    app.use(slash + rootUrls.posts, passport.authenticate( 'basic', {session: false} ), form.postRoutes);
-    app.use(slash + rootUrls.comments, passport.authenticate( 'basic', {session: false} ), form.commentRoutes);
+    app.use(api + slash + rootUrls.forms, passport.authenticate( 'basic', {session: false} ), form.formRoutes);
+    app.use(api + slash + rootUrls.posts, passport.authenticate( 'basic', {session: false} ), form.postRoutes);
+    app.use(api + slash + rootUrls.comments, passport.authenticate( 'basic', {session: false} ), form.commentRoutes);
     app.use(api + slash + rootUrls.files, passport.authenticate( 'basic', {session: false} ), file.fileApiRoutes);
+
     app.use(slash + rootUrls.admin, passport.authenticate( 'basic', {session: false} ), admin.adminViewRoutes);
     app.use(slash + rootUrls.calendar, passport.authenticate( 'basic', {session: false} ), calendar.calendarViewRoutes);
-    app.use(slash + rootUrls.formBuilder, passport.authenticate( 'basic', {session: false} ), formBuilder.formBuilderViewRoutes);
+    app.use(slash + rootUrls.forms, passport.authenticate( 'basic', {session: false} ), formBuilder.formBuilderViewRoutes);
+    app.use(slash + rootUrls.forms, passport.authenticate( 'basic', {session: false} ), form.formViewRoutes);
     app.use(slash + rootUrls.forms, passport.authenticate( 'basic', {session: false} ), formViewer.formViewerViewRoutes);
     app.use(slash + rootUrls.formViewer, passport.authenticate( 'basic', {session: false} ), formViewer.formViewerApiRoutes);
 

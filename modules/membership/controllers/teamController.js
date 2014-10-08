@@ -1,8 +1,11 @@
 var Membership = require('fooforms-membership');
+var FooForm = require('fooforms-forms');
 var db = require('mongoose').connection;
 var log = require('fooforms-logging').LOG;
 var statusCodes = require('fooforms-rest').statusCodes;
 var membership = new Membership(db);
+var fooForm = new FooForm(db);
+var defaultFolders = require('../lib/defaultFolders');
 
 
 exports.findById = function (req, res, next) {
@@ -24,8 +27,17 @@ exports.create = function (req, res, next) {
             return next(err);
         }
         if (result.success) {
-            res.location('/teams/' + result.team._id);
-            res.status(statusCodes.CREATED).json(result);
+
+            var args = {
+                team: result.team,
+                membership: membership,
+                Folder: fooForm.Folder
+            };
+            defaultFolders.createDefaultTeamFolder(args, function (err, result) {
+                res.location('/teams/' + result.team._id);
+                res.status(statusCodes.CREATED).json(result);
+            });
+
         } else {
             res.status(statusCodes.BAD_REQUEST).json(result);
         }
