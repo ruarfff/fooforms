@@ -35,7 +35,7 @@ exports.create = function (req, res, next) {
             };
             defaultFolders.createDefaultTeamFolder(args, function (err, result) {
                 res.location('/teams/' + result.team._id);
-                res.status(statusCodes.CREATED).json(result);
+                res.status(statusCodes.CREATED).json(result.team);
             });
 
         } else {
@@ -50,7 +50,7 @@ exports.update = function (req, res, next) {
             next(err);
         }
         if (result.success) {
-            res.send(result);
+            res.send(result.team);
         } else {
             res.status(statusCodes.BAD_REQUEST).json(result.message);
         }
@@ -58,7 +58,7 @@ exports.update = function (req, res, next) {
 };
 
 exports.remove = function (req, res, next) {
-    membership.deleteTeam({_id: req.params.team}, function (err, result) {
+    membership.deleteTeam({_id: req.body._id}, function (err, result) {
         if (err) {
             next(err);
         }

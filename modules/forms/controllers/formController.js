@@ -10,7 +10,7 @@ exports.create = function (req, res, next) {
         }
         if (result.success) {
             res.location('/forms/' + result.form._id);
-            res.status(statusCodes.CREATED).json(result);
+            res.status(statusCodes.CREATED).json(result.form);
         } else {
             res.status(statusCodes.BAD_REQUEST).json(result);
         }
@@ -48,7 +48,7 @@ exports.update = function (req, res, next) {
             next(err);
         }
         if (result.success) {
-            res.send(result);
+            res.send(result.form);
         } else {
             res.status(statusCodes.BAD_REQUEST).json(result.message);
         }
@@ -56,7 +56,7 @@ exports.update = function (req, res, next) {
 };
 
 exports.remove = function (req, res, next) {
-    fooForm.deleteForm({_id: req.params.form}, function (err, result) {
+    fooForm.deleteForm({_id: req.body._id}, function (err, result) {
         if (err) {
             next(err);
         }

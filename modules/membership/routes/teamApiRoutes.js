@@ -16,7 +16,7 @@ router.put('/:team', function (req, res, next) {
     teamController.update(req, res, next);
 });
 
-router.delete('/:team', function (req, res, next) {
+router.delete('', function (req, res, next) {
     teamController.remove(req, res, next);
 });
 

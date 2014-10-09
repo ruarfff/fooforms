@@ -10,7 +10,7 @@ exports.create = function (req, res, next) {
         }
         if (result.success) {
             res.location('/comments/' + result.comment._id);
-            res.status(statusCodes.CREATED).json(result);
+            res.status(statusCodes.CREATED).json(result.comment);
         } else {
             res.status(statusCodes.BAD_REQUEST).json(result);
         }
@@ -40,7 +40,7 @@ exports.update = function (req, res, next) {
             next(err);
         }
         if (result.success) {
-            res.send(result);
+            res.send(result.comment);
         } else {
             res.status(statusCodes.BAD_REQUEST).json(result.message);
         }
@@ -48,7 +48,7 @@ exports.update = function (req, res, next) {
 };
 
 exports.remove = function (req, res, next) {
-    fooForm.deleteComment({_id: req.params.comment}, function (err, result) {
+    fooForm.deleteComment({_id: req.body._id}, function (err, result) {
         if (err) {
             next(err);
         }

@@ -152,7 +152,7 @@ describe('User Routes', function () {
                 .set('Accept', 'application/json')
                 .expect('Content-Type', /json/)
                 .expect(200).end(function (err, res) {
-                    res.body.user.email.should.equal(newEmail);
+                    res.body.email.should.equal(newEmail);
                     done(err);
                 });
         });

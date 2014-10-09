@@ -43,9 +43,11 @@ angular.module('form').service('Posts', function () {
     'use strict';
     this.activePost = {};
     this.newPost = function (form) {
-        this.activePost = angular.copy(form);
+        this.activePost = form;
         this.activePost.postStream = form.postStreams[0]._id || form.postStreams[0];
-        this.activePost._id = null;
+        if(this.activePost._id) {
+            delete this.activePost._id;
+        }
         return this.activePost;
     };
 

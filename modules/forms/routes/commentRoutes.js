@@ -17,7 +17,7 @@ router.put('/:comment', function (req, res, next) {
     commentController.update(req, res, next);
 });
 
-router.delete('/:comment', function (req, res, next) {
+router.delete('', function (req, res, next) {
     commentController.remove(req, res, next);
 });
 

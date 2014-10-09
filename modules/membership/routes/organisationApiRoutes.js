@@ -20,7 +20,7 @@ router.put('/:organisation', function (req, res, next) {
     organisationController.update(req, res, next);
 });
 
-router.delete('/:organisation', function (req, res, next) {
+router.delete('', function (req, res, next) {
     organisationController.remove(req, res, next);
 });
 

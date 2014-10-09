@@ -58,7 +58,7 @@ describe('Organisation API', function () {
                 .set('Accept', 'application/json')
                 .expect('Content-Type', /json/)
                 .expect(201, function (err, res) {
-                    var organisation = res.body.organisation;
+                    var organisation = res.body;
                     res.headers.location.should.equal(rootUrl + '/' + organisation._id);
                     organisation.owners.should.equal(organisation.owners.toString());
                     organisation.displayName.should.equal(displayName);
@@ -81,7 +81,7 @@ describe('Organisation API', function () {
                 .expect('Content-Type', /json/)
                 .expect(201)
                 .end(function (err, res) {
-                    organisation = res.body.organisation;
+                    organisation = res.body;
                     res.headers.location.should.equal(rootUrl + '/' + organisation._id);
                     request(app)
                         .post(rootUrl)
@@ -90,7 +90,7 @@ describe('Organisation API', function () {
                         .expect('Content-Type', /json/)
                         .expect(201)
                         .end(function (err, res) {
-                            otherOrganisation = res.body.organisation;
+                            otherOrganisation = res.body;
                             res.headers.location.should.equal(rootUrl + '/' + otherOrganisation._id);
                             done(err);
                         });
@@ -149,7 +149,7 @@ describe('Organisation API', function () {
                 .expect('Content-Type', /json/)
                 .expect(201)
                 .end(function (err, res) {
-                    organisation = res.body.organisation;
+                    organisation = res.body;
                     res.headers.location.should.equal(rootUrl + '/' + organisation._id);
                     resourceUrl = res.headers.location;
                     done(err);
@@ -171,7 +171,7 @@ describe('Organisation API', function () {
                 .set('Accept', 'application/json')
                 .expect('Content-Type', /json/)
                 .expect(200, function (err, res) {
-                    var updatedOrg = res.body.organisation;
+                    var updatedOrg = res.body;
                     updatedOrg._id.should.equal(organisation._id.toString());
                     updatedOrg.orgDomain.should.equal(orgDomain);
                     updatedOrg.billingEmail.should.equal(billingEmailUpdated);
@@ -192,7 +192,7 @@ describe('Organisation API', function () {
                 .expect('Content-Type', /json/)
                 .expect(201)
                 .end(function (err, res) {
-                    organisation = res.body.organisation;
+                    organisation = res.body;
                     res.headers.location.should.equal(rootUrl + '/' + organisation._id);
                     resourceUrl = res.headers.location;
                     done(err);
@@ -205,7 +205,8 @@ describe('Organisation API', function () {
 
         it('successfully deletes', function (done) {
             request(app)
-                .delete(resourceUrl)
+                .delete(rootUrl)
+                .send(organisation)
                 .expect(204, done);
         });
 

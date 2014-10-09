@@ -105,8 +105,7 @@ describe('Comment API', function () {
                 .set('Accept', 'application/json')
                 .expect('Content-Type', /json/)
                 .expect(201, function (err, res) {
-                    res.body.success.should.equal(true);
-                    var comment = res.body.comment;
+                    var comment = res.body;
                     res.headers.location.should.equal(rootUrl + '/' + comment._id);
                     comment.commenter.should.equal(commenter.toString());
                     comment.content.should.equal(content);
@@ -128,7 +127,7 @@ describe('Comment API', function () {
                 .expect('Content-Type', /json/)
                 .expect(201)
                 .end(function (err, res) {
-                    comment = res.body.comment;
+                    comment = res.body;
                     res.headers.location.should.equal(rootUrl + '/' + comment._id);
                     request(app)
                         .post(rootUrl)
@@ -137,7 +136,7 @@ describe('Comment API', function () {
                         .expect('Content-Type', /json/)
                         .expect(201)
                         .end(function (err, res) {
-                            otherComment = res.body.comment;
+                            otherComment = res.body;
                             res.headers.location.should.equal(rootUrl + '/' + otherComment._id);
                             done(err);
                         });
@@ -166,7 +165,7 @@ describe('Comment API', function () {
                 .expect('Content-Type', /json/)
                 .expect(201)
                 .end(function (err, res) {
-                    comment = res.body.comment;
+                    comment = res.body;
                     res.headers.location.should.equal(rootUrl + '/' + comment._id);
                     resourceUrl = res.headers.location;
                     done(err);
@@ -197,7 +196,7 @@ describe('Comment API', function () {
                 .expect('Content-Type', /json/)
                 .expect(201)
                 .end(function (err, res) {
-                    comment = res.body.comment;
+                    comment = res.body;
                     res.headers.location.should.equal(rootUrl + '/' + comment._id);
                     resourceUrl = res.headers.location;
                     done(err);
@@ -206,7 +205,8 @@ describe('Comment API', function () {
 
         it('successfully deletes', function (done) {
             request(app)
-                .delete(resourceUrl)
+                .delete(rootUrl)
+                .send(comment)
                 .expect(204, done);
         });
 

@@ -83,7 +83,7 @@ describe('Form API', function () {
                 .set('Accept', 'application/json')
                 .expect('Content-Type', /json/)
                 .expect(201, function (err, res) {
-                    var form = res.body.form;
+                    var form = res.body;
                     res.headers.location.should.equal(rootUrl + '/' + form._id);
                     form.displayName.should.equal(displayName);
                     done(err);
@@ -104,7 +104,7 @@ describe('Form API', function () {
                 .expect('Content-Type', /json/)
                 .expect(201)
                 .end(function (err, res) {
-                    form = res.body.form;
+                    form = res.body;
                     res.headers.location.should.equal(rootUrl + '/' + form._id);
                     sampleForm.displayName = 'other-form';
                     request(app)
@@ -114,7 +114,7 @@ describe('Form API', function () {
                         .expect('Content-Type', /json/)
                         .expect(201)
                         .end(function (err, res) {
-                            otherForm = res.body.form;
+                            otherForm = res.body;
                             res.headers.location.should.equal(rootUrl + '/' + otherForm._id);
                             done(err);
                         });
@@ -144,7 +144,7 @@ describe('Form API', function () {
                 .expect('Content-Type', /json/)
                 .expect(201)
                 .end(function (err, res) {
-                    form = res.body.form;
+                    form = res.body;
                     res.headers.location.should.equal(rootUrl + '/' + form._id);
                     resourceUrl = res.headers.location;
                     done(err);
@@ -183,7 +183,7 @@ describe('Form API', function () {
                 .expect('Content-Type', /json/)
                 .expect(201)
                 .end(function (err, res) {
-                    form = res.body.form;
+                    form = res.body;
                     res.headers.location.should.equal(rootUrl + '/' + form._id);
                     resourceUrl = res.headers.location;
                     done(err);
@@ -192,7 +192,8 @@ describe('Form API', function () {
 
         it('successfully deletes a form', function (done) {
             request(app)
-                .delete(resourceUrl)
+                .delete(rootUrl)
+                .send(form)
                 .expect(204, done);
         });
 

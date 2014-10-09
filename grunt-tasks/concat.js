@@ -42,7 +42,8 @@ module.exports = function (grunt) {
                 'frontend/src/bower/moment/min/moment.min.js',
                 'frontend/src/bower/fullcalendar/dist/fullcalendar.min.js',
                 'frontend/src/bower/angular-ui-codemirror/dist/ui-codemirror.min.js',
-                'frontend/src/bower/codemirror/lib/codemirror.js'
+                'frontend/src/bower/codemirror/lib/codemirror.js',
+                'frontend/src/bower/sweetalert/lib/sweet-alert.min.js'
             ],
             dest: 'frontend/public/js/vendor.min.js'
         }

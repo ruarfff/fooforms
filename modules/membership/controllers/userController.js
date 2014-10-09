@@ -53,7 +53,7 @@ exports.updateUser = function (req, res, next) {
             next(err);
         }
         if (result.success) {
-            res.send(result);
+            res.send(result.user);
         } else {
             res.status(statusCodes.BAD_REQUEST).json(result.message);
         }

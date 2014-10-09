@@ -21,7 +21,7 @@ router.put('/:form', function (req, res, next) {
     formController.update(req, res, next);
 });
 
-router.delete('/:form', function (req, res, next) {
+router.delete('', function (req, res, next) {
     formController.remove(req, res, next);
 });
 

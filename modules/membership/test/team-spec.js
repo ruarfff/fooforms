@@ -56,7 +56,7 @@ describe('Team API', function () {
                 .set('Accept', 'application/json')
                 .expect('Content-Type', /json/)
                 .expect(201, function (err, res) {
-                    var team = res.body.team;
+                    var team = res.body;
                     res.headers.location.should.equal(rootUrl + '/' + team._id);
                     team.organisation.should.equal(sampleTeam.organisation.toString());
                     team.displayName.should.equal(name);
@@ -78,7 +78,7 @@ describe('Team API', function () {
                 .expect('Content-Type', /json/)
                 .expect(201)
                 .end(function (err, res) {
-                    team = res.body.team;
+                    team = res.body;
                     res.headers.location.should.equal(rootUrl + '/' + team._id);
                     request(app)
                         .post(rootUrl)
@@ -87,7 +87,7 @@ describe('Team API', function () {
                         .expect('Content-Type', /json/)
                         .expect(201)
                         .end(function (err, res) {
-                            otherTeam = res.body.team;
+                            otherTeam = res.body;
                             res.headers.location.should.equal(rootUrl + '/' + otherTeam._id);
                             done(err);
                         });
@@ -124,7 +124,7 @@ describe('Team API', function () {
                 .expect('Content-Type', /json/)
                 .expect(201)
                 .end(function (err, res) {
-                    team = res.body.team;
+                    team = res.body;
                     res.headers.location.should.equal(rootUrl + '/' + team._id);
                     resourceUrl = res.headers.location;
                     done(err);
@@ -144,7 +144,7 @@ describe('Team API', function () {
                 .set('Accept', 'application/json')
                 .expect('Content-Type', /json/)
                 .expect(200, function (err, res) {
-                    var updatedTeam = res.body.team;
+                    var updatedTeam = res.body;
                     updatedTeam._id.should.equal(team._id.toString());
                     updatedTeam.displayName.should.equal(newName);
                     done(err);
@@ -164,7 +164,7 @@ describe('Team API', function () {
                 .expect('Content-Type', /json/)
                 .expect(201)
                 .end(function (err, res) {
-                    team = res.body.team;
+                    team = res.body;
                     res.headers.location.should.equal(rootUrl + '/' + team._id);
                     resourceUrl = res.headers.location;
                     done(err);
@@ -177,7 +177,8 @@ describe('Team API', function () {
 
         it('successfully deletes', function (done) {
             request(app)
-                .delete(resourceUrl)
+                .delete(rootUrl)
+                .send(team)
                 .expect(204, done);
         });
 

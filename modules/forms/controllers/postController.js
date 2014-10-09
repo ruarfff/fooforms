@@ -54,8 +54,7 @@ exports.update = function (req, res, next) {
 };
 
 exports.remove = function (req, res, next) {
-    log.info(req.body);
-    fooForm.deletePost({_id: req.body._id}, function (err, result) {
+    fooForm.deletePost(req.body, function (err, result) {
         if (err) {
             next(err);
         }

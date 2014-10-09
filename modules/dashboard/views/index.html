@@ -47,10 +47,11 @@
 
     <script src="/vendor/pikaday/pikaday.js"></script>
     <script src="/vendor/pikaday/pikaday-directive.js"></script>
+    <script type="text/javascript" src="/js/main.min.js"></script>
 
     <base href="/">
 </head>
-<body ng-controller="MainController" class="main-application">
+<body ng-controller="MainController" class="main-application" ng-show="user">
 <div id="wrap">
     <div class="navbar-wrapper hidden-print">
         <div class="navbar navbar-default navbar-fixed-top navbar-foo" role="navigation">
@@ -236,7 +237,6 @@
 
 <% } else{ %>
 
-<script type="text/javascript" src="/js/main.min.js"></script>
 
 <% } %>
 </body>

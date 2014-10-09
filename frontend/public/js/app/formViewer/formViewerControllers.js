@@ -35,7 +35,7 @@ angular.module('formViewer')
 
 
         $scope.newPost = function () {
-            $scope.post = Posts.newPost($scope.form);
+            $scope.post = Posts.newPost(angular.copy($scope.form));
             $scope.showPostForm = true;
             $scope.setMessage('');
         };
@@ -44,6 +44,12 @@ angular.module('formViewer')
             $scope.gridSelectedPost = [];
         };
         $scope.copyPost = function () {
+            var newPost = angular.copy($scope.post);
+            if(newPost._id) {
+                delete newPost._id;
+            }
+            $scope.post = newPost;
+            swal('Post Copied');
 
         };
         $scope.savePost = function () {
