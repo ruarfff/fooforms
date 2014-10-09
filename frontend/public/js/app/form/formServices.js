@@ -15,6 +15,7 @@ angular.module('form').factory('FormService',
                     });
                 },
                 updateForm: function (form, next) {
+                    form = Restangular.restangularizeElement(formApi, form, '');
                     form.put().then(function (res) {
                         next(null, res);
                     }, function (err) {
@@ -23,11 +24,12 @@ angular.module('form').factory('FormService',
                     });
                 },
                 deleteForm: function (form, next) {
-                    form.remove().then(function (res) {
-                        next(null, res);
+                    form = Restangular.restangularizeElement(formApi, form, '');
+                    form.remove().then(function () {
+                        return next(null);
                     }, function (err) {
                         $log.error(err);
-                        next(err);
+                        return next(err);
                     });
                 },
                 getUserForms: function (next) {
@@ -39,7 +41,7 @@ angular.module('form').factory('FormService',
                     });
                 },
                 getFormTemplateObject: function () {
-                    return {
+                    var template = {
                         "displayName": "",
                         "title": "",
                         "icon": "/assets/icons/color/document.png",
@@ -66,8 +68,8 @@ angular.module('form').factory('FormService',
                         "private": true,
                         "sharing": {"type": "ALL"},
                         "formEvents": []
-
                     };
+                    return angular.copy(template);
                 }
             };
         }]);

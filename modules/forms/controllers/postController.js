@@ -54,15 +54,19 @@ exports.update = function (req, res, next) {
 };
 
 exports.remove = function (req, res, next) {
-    fooForm.deletePost(req.body, function (err, result) {
-        if (err) {
-            next(err);
-        }
-        console.log(result);
-        if (result.success) {
-            res.status(statusCodes.NO_CONTENT).send();
-        } else {
-            res.status(statusCodes.BAD_REQUEST).json(result.message);
-        }
-    });
+    if(req.body._id === req.params.post ) {
+        fooForm.deletePost(req.body, function (err, result) {
+            if (err) {
+                next(err);
+            }
+            console.log(result);
+            if (result.success) {
+                res.status(statusCodes.NO_CONTENT).send();
+            } else {
+                res.status(statusCodes.BAD_REQUEST).json(result.message);
+            }
+        });
+    } else {
+        res.status(statusCodes.BAD_REQUEST).json('Invalid post ID');
+    }
 };

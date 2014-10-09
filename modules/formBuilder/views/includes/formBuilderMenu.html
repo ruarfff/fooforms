@@ -152,7 +152,7 @@
     <div class="panel" ng-class="{'panel-info': showFieldSettings, 'panel-success' : showEventSettings} ">
         <div class='panel-heading' ng-show="nowEditing>=0 && showFieldSettings" class="appear">
             <h6><span class="badge">{{nowEditing}}</span> <span>{{form.fields[nowEditing].name}} </span>
-            <span mg-show="nowSubEditing">
+            <span ng-show="nowSubEditing">
             <span class="badge">{{nowSubEditing}}</span> <span>{{form.fields[nowEditing].fields[nowSubEditing].name}} </span></span>
             </h6>
         </div>

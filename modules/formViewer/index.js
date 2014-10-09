@@ -1,5 +1,5 @@
 var formViewerViewRoutes = require('./routes/formViewerViewRoutes');
-var formViewerApiRoutes = require('./routes/formViewerApiRoutes');
+var embeddedFormRoutes = require('./routes/embeddedFormRoutes');
 
 exports.formViewerViewRoutes = formViewerViewRoutes;
-exports.formViewerApiRoutes = formViewerApiRoutes;
+exports.embeddedFormRoutes = embeddedFormRoutes;

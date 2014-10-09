@@ -36,7 +36,7 @@
                             <div class="col-sm-3 col-md-3"
                                  ng-repeat="form in user.defaultFolder.forms">
                                 <div class="thumbnail">
-                                    <a href="/{{form.displayName}}/edit">
+                                    <a href="/{{user.displayName}}/{{form.displayName}}">
                                         <img ng-src="{{form.icon}}" alt="{{form.displayName}}">
 
                                         <div class="caption">

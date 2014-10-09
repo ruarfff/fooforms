@@ -192,7 +192,7 @@ describe('Form API', function () {
 
         it('successfully deletes a form', function (done) {
             request(app)
-                .delete(rootUrl)
+                .delete(resourceUrl)
                 .send(form)
                 .expect(204, done);
         });

@@ -4,11 +4,11 @@ angular.module('formViewer')
     .controller('FormViewerCtrl', ['$scope', '$route', '$log', '$http' , '$modal', 'Restangular', 'Session', 'FormService', 'PostService', 'Posts', '_', function ($scope, $route, $log, $http, $modal, Restangular, Session, FormService, PostService, Posts, _) {
         "use strict";
 
-        var owner = $route.current.params.name;
-        var org = _.find(Session.user.organisations, {displayName: owner});
+        $scope.owner = $route.current.params.name;
+        var org = _.find(Session.user.organisations, {displayName: $scope.owner});
         var formName = $route.current.params.form;
         var folder;
-        if (Session.user.displayName === owner) {
+        if (Session.user.displayName === $scope.owner) {
             folder = Session.user.defaultFolder;
         } else if (org) {
             folder = org.defaultFolder;
@@ -53,31 +53,28 @@ angular.module('formViewer')
 
         };
         $scope.savePost = function () {
-            $scope.doingPostApi = true;
             if ($scope.post._id) {
                 // Post already exists on server
                 PostService.updatePost($scope.post, function (err, post) {
-                    $scope.doingPostApi = false;
                     if (err) {
                         $log.error(err);
-                        $scope.setMessage('formViewer', 'alert-danger', '', 'Something went wrong. It didn\'t save. Please try again..');
+                        swal('Not Saved!', 'An error occurred trying to update your post.', 'error');
                     } else {
                         $log.debug(post);
                         $scope.post = post;
-                        $scope.setMessage('formViewer', 'alert-success', '', 'All saved....nice one');
+                        swal('Saved!', 'Your post has been saved.', 'success');
 
                     }
                 });
             } else {
                 PostService.createPost($scope.post, function (err, post) {
-                    $scope.doingPostApi = false;
                     if (err) {
                         $log.error(err);
-                        $scope.setMessage('formViewer', 'alert-danger', '', 'Something went wrong. It didn\'t save. Please try again..');
+                        swal('Not Saved!', 'Your post has not been created.', 'error');
                     } else {
                         $scope.posts.unshift(post);
                         $scope.post = Posts.newPost($scope.form);
-                        $scope.setMessage('formViewer', 'alert-success', '', 'New post, created and saved!');
+                        swal('Saved!', 'Your post has been created.', 'success');
                     }
                 });
             }
@@ -87,16 +84,16 @@ angular.module('formViewer')
         };
 
         $scope.deletePost = function () {
-            $scope.doingPostApi = true;
             if ($scope.post._id) {
                 PostService.deletePost($scope.post, function (err) {
                     $scope.doingPostApi = false;
                     if (err) {
+                        swal('Not Deleted!', 'An error occurred trying to delete your post.', 'error');
                         console.log(err);
                     } else {
                         _.pull($scope.posts, $scope.post);
                         $scope.post = Posts.newPost($scope.form);
-                        $scope.setMessage('formViewer', 'alert-danger', '', 'Post deleted.!');
+                        swal('Deleted!', 'Your post has been deleted.', 'success');
                     }
                 });
             } else {

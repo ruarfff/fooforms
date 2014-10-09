@@ -54,9 +54,15 @@ fooformsApp
                 if (res.status === 401) {
                     window.location = '/login';
                 }
+                if(res.status = 404) {
+                    return true;
+                }
                 return false; // stop the promise chain
             });
         RestangularProvider.setDefaultHeaders({'Content-Type': 'application/json'});
+        RestangularProvider.setRestangularFields({
+            id: "_id"
+        });
 
         $routeProvider
             .when('/', {
@@ -203,25 +209,15 @@ fooformsApp
                     }
                 }
             })
-
-        /**
-         .when('/formBuilder', {
-                templateUrl: '/partials/formBuilder',
-                controller: 'FieldsCtrl'
+            .when('/:name/:form/edit', {
+                templateUrl: '/forms/partials/formBuilder',
+                controller: 'FormBuilderCtrl',
+                resolve: {
+                    message: function (SessionService) {
+                        return SessionService.checkSession();
+                    }
+                }
             })
-         .when('/posts', {
-                templateUrl: '/partials/formViewer',
-                controller: 'FormViewerCtrl'
-            })
-         .when('/:username', {
-                templateUrl: '/partials/profile',
-                controller: 'ProfileCtrl'
-            })
-         .when('/:username/:form', {
-                templateUrl: '/partials/folder',
-                controller: 'FolderCtrl'
-            })
-         **/
 
             .otherwise({redirectTo: '/'});
     }])
