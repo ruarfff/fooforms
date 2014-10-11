@@ -23,19 +23,21 @@
         </div>
     </div>
     <div class="form-group">
-    <label class="col-sm-4 control-label">Repeatable</label>
+        <label class="col-sm-4 control-label">Repeatable</label>
 
-    <div class="col-sm-8">
-        <input type='checkbox' ng-model="form.fields[nowEditing].repeatable"></label>
+        <div class="col-sm-8">
+            <input type='checkbox' ng-model="form.fields[nowEditing].repeatable"></label>
+        </div>
     </div>
-</div>
 
     <div class="form-group">
         <label class="col-sm-4 control-label">Link fields to a list</label>
 
         <div class="col-sm-8">
             <input type='checkbox' ng-model="form.fields[nowEditing].list.enabled"></label>
-            <button class="btn btn-xs btn-default pull-right" ng-click="openListManager()" ng-show="form.fields[nowEditing].list.enabled">Manage List</button>
+            <button class="btn btn-xs btn-default pull-right" ng-click="openListManager()"
+                    ng-show="form.fields[nowEditing].list.enabled">Manage List
+            </button>
         </div>
     </div>
 
@@ -54,6 +56,26 @@
                    ng-model="form.fields[nowEditing].userInstructions"/>
         </div>
     </div>
+    <div class="form-group">
+        <label class="col-sm-4 control-label">Show in Feed View</label>
 
+        <div class="col-sm-8">
+            <input type='checkbox' name='showInFeed' ng-model="form.fields[nowEditing].showInFeed"></label>
+        </div>
+    </div>
+    <div class="form-group">
+        <label class="col-sm-4 control-label">Show in List View</label>
+
+        <div class="col-sm-8">
+            <input type='checkbox' name='showInList' ng-model="form.fields[nowEditing].showInList"></label>
+        </div>
+    </div>
+    <div class="form-group">
+        <label class="col-sm-4 control-label">Show in Grid View</label>
+
+        <div class="col-sm-8">
+            <input type='checkbox' name='showInGrid' ng-model="form.fields[nowEditing].showInGrid"></label>
+        </div>
+    </div>
 </form>
 </div>
