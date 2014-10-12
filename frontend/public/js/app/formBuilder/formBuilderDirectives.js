@@ -285,4 +285,44 @@ angular.module('formBuilder')
             templateUrl: '/partials/profileUploader.html'
         };
 
+    }])
+
+    .directive('formName', ['$http', function ($http) {
+        return {
+            require: 'ngModel',
+            link: function (scope, elem, attrs, ctrl) {
+                scope.busy = false;
+                scope.$watch(attrs.ngModel, function (value) {
+
+                    // hide old error messages
+                    ctrl.$setValidity('isTaken', true);
+                    ctrl.$setValidity('error', true);
+                    ctrl.$setValidity('invalidChars', true);
+                    scope.sluggedFormName = '';
+
+                    if (!value) {
+                        // don't send undefined to the server during dirty check
+                        // empty form name is caught by required directive
+                        return;
+                    }
+
+                    scope.formNameBusy = true;
+                    $http.get('/api/forms/check/name/' + value + '?folder=' + attrs.folder)
+                        .success(function (data) {
+                            if (data.exists) {
+                                scope.sluggedFormName = '';
+                                ctrl.$setValidity('isTaken', false);
+                            } else if (data.slugged) {
+                                scope.sluggedFormName = data.sluggedValue;
+                            }
+                            // everything is fine -> do nothing
+                            scope.formNameBusy = false;
+                        }).error(function (data) {
+                            scope.sluggedFormName = '';
+                            ctrl.$setValidity('error', false);
+                            scope.formNameBusy = false;
+                        });
+                })
+            }
+        }
     }]);

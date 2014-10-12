@@ -54,12 +54,11 @@ exports.update = function (req, res, next) {
 };
 
 exports.remove = function (req, res, next) {
-    if(req.body._id === req.params.post ) {
+    if (req.body._id === req.params.post) {
         fooForm.deletePost(req.body, function (err, result) {
             if (err) {
                 next(err);
             }
-            console.log(result);
             if (result.success) {
                 res.status(statusCodes.NO_CONTENT).send();
             } else {

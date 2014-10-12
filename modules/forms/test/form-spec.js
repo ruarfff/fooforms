@@ -129,6 +129,37 @@ describe('Form API', function () {
                 .expect('Content-Type', /json/)
                 .expect(200, done);
         });
+
+        it('checking non existent form name returns false', function (done) {
+            request(app)
+                .get(rootUrl + '/check/name/someForm?folder=' + ObjectId)
+                .set('Accept', 'application/json')
+                .expect('Content-Type', /json/)
+                .expect(200).end(function (err, res) {
+                    res.body.exists.should.equal(false);
+                    done(err);
+                });
+        });
+        it('checking an existing form name in folder returns true', function (done) {
+            request(app)
+                .get(rootUrl + '/check/name/' + form.displayName + '?folder=' + form.folder)
+                .set('Accept', 'application/json')
+                .expect('Content-Type', /json/)
+                .expect(200).end(function (err, res) {
+                    res.body.exists.should.equal(true);
+                    done(err);
+                });
+        });
+        it('checking non existent form name in folder returns true', function (done) {
+            request(app)
+                .get(rootUrl + '/check/name/someName?folder=' + form.folder)
+                .set('Accept', 'application/json')
+                .expect('Content-Type', /json/)
+                .expect(200).end(function (err, res) {
+                    res.body.exists.should.equal(false);
+                    done(err);
+                });
+        });
     });
 
     describe('PUT ' + rootUrl, function () {
@@ -198,5 +229,6 @@ describe('Form API', function () {
         });
 
     });
-});
+})
+;
 

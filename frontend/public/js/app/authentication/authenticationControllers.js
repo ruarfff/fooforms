@@ -30,7 +30,7 @@ angular.module('authentication').controller('LoginCtrl', ['$scope', '$rootScope'
 
 }]);
 
-angular.module('authentication').controller('LogoutCtrl', function ($scope, $rootScope, AUTH_EVENTS, AuthService) {
+angular.module('authentication').controller('LogoutCtrl', ['$scope', '$rootScope', 'AUTH_EVENTS', 'AuthService', function ($scope, $rootScope, AUTH_EVENTS, AuthService) {
     'use strict';
 
     $scope.logout = function () {
@@ -38,9 +38,9 @@ angular.module('authentication').controller('LogoutCtrl', function ($scope, $roo
         $rootScope.$broadcast(AUTH_EVENTS.logoutSuccess);
         window.location = '/';
     };
-});
+}]);
 
-angular.module('authentication').controller('SignupCtrl', function ($scope) {
+angular.module('authentication').controller('SignupCtrl', ['$scope', function ($scope) {
     'use strict';
 
     $scope.signupStage = 1;
@@ -49,4 +49,4 @@ angular.module('authentication').controller('SignupCtrl', function ($scope) {
         $scope.signupStage = 2;
     }
 
-});
+}]);

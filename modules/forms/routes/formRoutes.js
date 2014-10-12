@@ -5,6 +5,10 @@ var express = require('express');
 var router = express.Router();
 var formController = require('../controllers/formController');
 
+router.get('/check/name/:form', function (req, res, next) {
+    formController.checkName(req, res, next);
+});
+
 router.get('', function (req, res, next) {
     formController.listByFolder(req, res, next);
 });

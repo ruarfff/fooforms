@@ -39,6 +39,7 @@
         "ejs": "1.0.x",
         "errorhandler": "1.2.x",
         "express": "4.x.x",
+        "express-paginate": "0.0.3",
         "express-session": "1.8.x",
         "fooforms-forms": "git+ssh://git@github.com:ruairitobrien/fooforms-forms.git#master",
         "fooforms-logging": "ruairitobrien/fooforms-logging",
