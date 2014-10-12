@@ -3,7 +3,7 @@
 
 var fooformsApp = angular.module('fooformsApp', [
     // Vendor dependencies
-    'ngRoute', 'ngSanitize', 'trNgGrid', 'restangular', 'ui.bootstrap', 'textAngular', 'ui.calendar', 'angularFileUpload', 'ui.sortable',
+    'ngRoute', 'ngSanitize', 'trNgGrid', 'restangular', 'ui.bootstrap', 'textAngular', 'ui.calendar', 'angularFileUpload', 'ui.sortable', 'infinite-scroll',
     // Custom dependencies
     'dashboard', 'form', 'formBuilder', 'formViewer', 'user', 'organisation', 'team' , 'authentication'
 ]);
@@ -54,7 +54,7 @@ fooformsApp
                 if (res.status === 401) {
                     window.location = '/login';
                 }
-                if(res.status = 404) {
+                if (res.status = 404) {
                     return true;
                 }
                 return false; // stop the promise chain
@@ -63,6 +63,22 @@ fooformsApp
         RestangularProvider.setRestangularFields({
             id: "_id"
         });
+        RestangularProvider.addResponseInterceptor(function (data, operation, what, url, response, deferred) {
+            var extractedData;
+            var has_more;
+            var object;
+            // .. to look for getList operations
+            if (operation === "getList" && data.data) {
+                // .. and handle the data and meta data
+                extractedData = data.data;
+                has_more = data.has_more;
+                object = data.object;
+            } else {
+                extractedData = data;
+            }
+            return extractedData;
+        });
+
 
         $routeProvider
             .when('/', {

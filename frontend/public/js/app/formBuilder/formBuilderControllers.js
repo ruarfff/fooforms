@@ -39,15 +39,15 @@ angular.module('formBuilder').controller('FormBuilderCtrl',
                         folder = org.defaultFolder;
                     }
                     if (folder) {
-                        $scope.currentForm = _.find(folder.forms, {displayName: formName});
+                        $scope.form = _.find(folder.forms, {displayName: formName});
                     }
-                    if (!$scope.currentForm) {
+                    if (!$scope.form) {
                         window.location.href = '/404';
                     }
 
                 } else {
-                    $scope.currentForm = FormService.getFormTemplateObject();
-                    $scope.currentForm.folder = Session.user.defaultFolder._id;
+                    $scope.form = FormService.getFormTemplateObject();
+                    $scope.form.folder = Session.user.defaultFolder._id;
                 }
             });
 
@@ -97,10 +97,10 @@ angular.module('formBuilder').controller('FormBuilderCtrl',
                         // Are we dropping into a repeatBox or not?
                         if (ui.item.sortable.droptarget[0].className.indexOf("repeat-apps-container") > -1) {
                             $scope.dropped = $scope.nowSubEditing = ui.item.sortable.dropindex;
-                            $scope.currentForm.fields[$scope.nowEditing].fields[$scope.nowSubEditing].id = new Date().getTime();
+                            $scope.form.fields[$scope.nowEditing].fields[$scope.nowSubEditing].id = new Date().getTime();
                         } else {
                             $scope.dropped = $scope.nowEditing = ui.item.sortable.dropindex;
-                            $scope.currentForm.fields[$scope.nowEditing].id = new Date().getTime();
+                            $scope.form.fields[$scope.nowEditing].id = new Date().getTime();
                         }
 
 
@@ -125,7 +125,7 @@ angular.module('formBuilder').controller('FormBuilderCtrl',
                     $scope.$apply(function () {
                         $scope.resetEventTypes();
                         $scope.dropped = $scope.nowEditing = ui.item.sortable.dropindex;
-                        $scope.currentForm.formEvents[$scope.nowEditing].id = new Date().getTime();
+                        $scope.form.formEvents[$scope.nowEditing].id = new Date().getTime();
                         $scope.lastChanged();
                     });
                     // if the element is removed from the first container
@@ -136,7 +136,7 @@ angular.module('formBuilder').controller('FormBuilderCtrl',
             };
 
             $scope.lastChanged = function () {
-                $scope.currentForm.lastChanged = new Date().getTime();
+                $scope.form.lastChanged = new Date().getTime();
             };
 
 
@@ -144,19 +144,19 @@ angular.module('formBuilder').controller('FormBuilderCtrl',
 
 
             $scope.deleteItem = function (itemId) {
-                $scope.currentForm.fields = _.reject($scope.currentForm.fields, function (field) {
+                $scope.form.fields = _.reject($scope.form.fields, function (field) {
                     return field.id === itemId;
                 });
             };
 
             $scope.deleteSubItem = function (itemId) {
-                $scope.currentForm.fields[$scope.nowEditing].fields = _.reject($scope.currentForm.fields[$scope.nowEditing].fields, function (field) {
+                $scope.form.fields[$scope.nowEditing].fields = _.reject($scope.form.fields[$scope.nowEditing].fields, function (field) {
                     return field.id === itemId;
                 });
             };
 
             $scope.deleteEvent = function (delEvent) {
-                $scope.currentForm.formEvents = _.reject($scope.currentForm.formEvents, function (formEvent) {
+                $scope.form.formEvents = _.reject($scope.form.formEvents, function (formEvent) {
                     return formEvent.id === delEvent.id;
                 });
             };
@@ -171,26 +171,26 @@ angular.module('formBuilder').controller('FormBuilderCtrl',
             // Used to add options to selects, radios, i.e. Single selection
             $scope.addOption = function ($index) {
                 if ($scope.nowSubEditing === null) {
-                    $scope.currentForm.fields[$scope.nowEditing].options.splice($index + 1, 0, {"label": ""});
+                    $scope.form.fields[$scope.nowEditing].options.splice($index + 1, 0, {"label": ""});
                 } else {
-                    $scope.currentForm.fields[$scope.nowEditing].fields[$scope.nowSubEditing].options.splice($index + 1, 0, {"label": ""});
+                    $scope.form.fields[$scope.nowEditing].fields[$scope.nowSubEditing].options.splice($index + 1, 0, {"label": ""});
                 }
             };
             // Used to add options to checkboxes i.e. Multiple selection
             $scope.addOptionObject = function ($index) {
                 if ($scope.nowSubEditing === null) {
-                    $scope.currentForm.fields[$scope.nowEditing].options.splice($index + 1, 0, {"label": "", "selected": false});
+                    $scope.form.fields[$scope.nowEditing].options.splice($index + 1, 0, {"label": "", "selected": false});
                 } else {
-                    $scope.currentForm.fields[$scope.nowEditing].fields[$scope.nowSubEditing].options.splice($index + 1, 0, {"label": "", "selected": false});
+                    $scope.form.fields[$scope.nowEditing].fields[$scope.nowSubEditing].options.splice($index + 1, 0, {"label": "", "selected": false});
                 }
             };
 
             // removes options from selects, radios, etc....
             $scope.deleteOption = function ($index) {
                 if ($scope.nowSubEditing === null) {
-                    $scope.currentForm.fields[$scope.nowEditing].options.splice($index, 1);
+                    $scope.form.fields[$scope.nowEditing].options.splice($index, 1);
                 } else {
-                    $scope.currentForm.fields[$scope.nowEditing].fields[$scope.nowSubEditing].options.splice($index, 1);
+                    $scope.form.fields[$scope.nowEditing].fields[$scope.nowSubEditing].options.splice($index, 1);
                 }
             };
 
@@ -254,9 +254,9 @@ angular.module('formBuilder').controller('FormBuilderCtrl',
             $scope.setCalculationField = function (selectedItem) {
 
                 if ($scope.nowSubEditing === null) {
-                    $scope.currentForm.fields[$scope.nowEditing].options.field1.item = selectedItem;
+                    $scope.form.fields[$scope.nowEditing].options.field1.item = selectedItem;
                 } else {
-                    $scope.currentForm.fields[$scope.nowEditing].options.field1.item = "value";
+                    $scope.form.fields[$scope.nowEditing].options.field1.item = "value";
                 }
             };
 
@@ -282,7 +282,7 @@ angular.module('formBuilder').controller('FormBuilderCtrl',
                 });
 
                 modalInstance.result.then(function (selectedItem) {
-                    $scope.currentForm.icon = selectedItem;
+                    $scope.form.icon = selectedItem;
                 });
             };
 
@@ -298,13 +298,13 @@ angular.module('formBuilder').controller('FormBuilderCtrl',
                     size: "modal-lg",
                     resolve: {
                         list: function () {
-                            return $scope.currentForm.fields[$scope.nowEditing].list;
+                            return $scope.form.fields[$scope.nowEditing].list;
                         }
                     }
                 });
 
                 modalInstance.result.then(function (list) {
-                    $scope.currentForm.fields[$scope.nowEditing].list = list;
+                    $scope.form.fields[$scope.nowEditing].list = list;
                 });
             };
 
@@ -316,45 +316,45 @@ angular.module('formBuilder').controller('FormBuilderCtrl',
                     size: "modal-lg",
                     resolve: {
                         fieldData: function () {
-                            return $scope.currentForm.settings[field];
+                            return $scope.form.settings[field];
                         }
                     }
                 });
 
                 modalInstance.result.then(function (returnedContent) {
-                    $scope.currentForm.settings[field] = returnedContent;
+                    $scope.form.settings[field] = returnedContent;
                 });
             };
 
             // End Icon Selection -  Modal Dialog
 
             $scope.saveForm = function () {
-                if ($scope.currentForm._id) {
-                    FormService.updateForm($scope.currentForm, function (err, form) {
+                if ($scope.form._id) {
+                    FormService.updateForm($scope.form, function (err, form) {
                         if (err) {
                             swal('Not Updated!', 'An error occurred trying to update the form.', 'error');
                             $log.error(err);
                         } else {
-                            $scope.currentForm = form;
+                            $scope.form = form;
 
-                            var oldForm = _.find(Session.user.forms, { '_id': $scope.currentForm._id });
+                            var oldForm = _.find(Session.user.forms, { '_id': $scope.form._id });
                             var index = Session.user.defaultFolder.forms.indexOf(oldForm);
                             if (~index) {
-                                Session.user.defaultFolder.forms = Session.user.defaultFolder.forms.push[$scope.currentForm];
+                                Session.user.defaultFolder.forms = Session.user.defaultFolder.forms.push[$scope.form];
                             } else {
-                                Session.user.defaultFolder.forms[index] = $scope.currentForm;
+                                Session.user.defaultFolder.forms[index] = $scope.form;
                             }
                             swal('Saved!', 'Your form has been updated.', 'success');
                         }
                     });
                 } else {
-                    FormService.createForm($scope.currentForm, function (err, form) {
+                    FormService.createForm($scope.form, function (err, form) {
                         if (err) {
                             swal('Not Saved!', 'An error occurred trying to create the form.', 'error');
                             $log.error(err);
                         } else {
-                            $scope.currentForm = form;
-                            Session.user.defaultFolder.forms.push($scope.currentForm);
+                            $scope.form = form;
+                            Session.user.defaultFolder.forms.push($scope.form);
                             swal('Saved!', 'Your form has been created.', 'success');
 
                         }
@@ -364,25 +364,25 @@ angular.module('formBuilder').controller('FormBuilderCtrl',
 
             $scope.deleteForm = function () {
                 swal({   title: 'Are you sure?', text: 'Your will not be able to recover this form!',
-                    type: 'warning',
-                    showCancelButton: true, confirmButtonColor: '#DD6B55',
-                    confirmButtonText: 'Yes, delete it!', closeOnConfirm: false },
+                        type: 'warning',
+                        showCancelButton: true, confirmButtonColor: '#DD6B55',
+                        confirmButtonText: 'Yes, delete it!', closeOnConfirm: false },
                     function () {
-                        FormService.deleteForm($scope.currentForm, function (err) {
-                        if (err) {
-                            swal('Not Deleted!', 'An error occurred trying to delete the form.', 'error');
-                            $log.error(err);
-                        } else {
-                            var oldForm = _.find(Session.user.defaultFolder.forms, { '_id': $scope.currentForm._id });
-                            var index = Session.user.defaultFolder.forms.indexOf(oldForm);
-                            if (index > -1) {
-                                Session.user.defaultFolder.forms.splice(index, 1);
+                        FormService.deleteForm($scope.form, function (err) {
+                            if (err) {
+                                swal('Not Deleted!', 'An error occurred trying to delete the form.', 'error');
+                                $log.error(err);
+                            } else {
+                                var oldForm = _.find(Session.user.defaultFolder.forms, { '_id': $scope.form._id });
+                                var index = Session.user.defaultFolder.forms.indexOf(oldForm);
+                                if (index > -1) {
+                                    Session.user.defaultFolder.forms.splice(index, 1);
+                                }
+                                $scope.form = FormService.getFormTemplateObject();
+                                swal('Deleted!', 'Your form has been deleted.', 'success');
                             }
-                            $scope.currentForm = FormService.getFormTemplateObject();
-                            swal('Deleted!', 'Your form has been deleted.', 'success');
-                        }
+                        });
                     });
-                });
 
             };
 
@@ -393,11 +393,11 @@ angular.module('formBuilder').controller('FormBuilderCtrl',
                     confirmButtonText: 'Yes, copy it!',
                     closeOnConfirm: false }, function () {
                     swal('Done!', 'Form Copied', 'success');
-                    var newForm = angular.copy($scope.currentForm);
+                    var newForm = angular.copy($scope.form);
                     if (newForm._id) {
                         delete newForm._id;
                     }
-                    $scope.currentForm = newForm;
+                    $scope.form = newForm;
                 });
             };
 
@@ -406,7 +406,7 @@ angular.module('formBuilder').controller('FormBuilderCtrl',
                     type: 'warning',
                     showCancelButton: true, confirmButtonColor: '#DD6B55',
                     confirmButtonText: 'Yes, cancel it!'}, function () {
-                    $scope.currentForm = FormService.getFormTemplateObject();
+                    $scope.form = FormService.getFormTemplateObject();
                     $scope.$apply();
                 });
             }

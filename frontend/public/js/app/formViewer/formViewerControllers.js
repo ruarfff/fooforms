@@ -8,6 +8,10 @@ angular.module('formViewer')
         var org = _.find(Session.user.organisations, {displayName: $scope.owner});
         var formName = $route.current.params.form;
         var folder;
+        var currentPostPage = 0;
+        var postPageSize = 10;
+
+
         if (Session.user.displayName === $scope.owner) {
             folder = Session.user.defaultFolder;
         } else if (org) {
@@ -18,12 +22,29 @@ angular.module('formViewer')
         $scope.form = _.find(folder.forms, {displayName: formName});
         $scope.post = Posts.newPost($scope.form);
 
-        PostService.getPostsByStream($scope.form.postStreams[0], function (err, posts) {
-            if (err) {
-                $log.error(err);
-            }
-            $scope.posts = posts;
-        });
+
+        var getPosts = function (page, pageSize) {
+            PostService.getPostsByStream({
+                postStream: $scope.form.postStreams[0],
+                page: page,
+                pageSize: pageSize
+            }, function (err, posts) {
+                if (err) {
+                    $log.error(err);
+                }
+                if ($scope.posts) {
+                    $scope.posts = $scope.posts.concat(posts);
+                } else {
+                    $scope.posts = posts;
+                }
+
+            });
+        };
+
+        $scope.addMorePosts = function () {
+            currentPostPage = currentPostPage + 1;
+            getPosts(currentPostPage, postPageSize);
+        };
 
         $scope.showPostForm = false;
         $scope.postView = 'feed';
@@ -32,7 +53,6 @@ angular.module('formViewer')
         $scope.gridSelectedPost = [];
 
         $scope.doingPostApi = false;
-
 
         $scope.newPost = function () {
             $scope.post = Posts.newPost(angular.copy($scope.form));
@@ -45,7 +65,7 @@ angular.module('formViewer')
         };
         $scope.copyPost = function () {
             var newPost = angular.copy($scope.post);
-            if(newPost._id) {
+            if (newPost._id) {
                 delete newPost._id;
             }
             $scope.post = newPost;

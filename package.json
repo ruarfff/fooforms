@@ -45,6 +45,7 @@
         "fooforms-logging": "ruairitobrien/fooforms-logging",
         "fooforms-membership": "git+ssh://git@github.com:ruairitobrien/fooforms-membership.git#master",
         "fooforms-rest": "ruairitobrien/fooforms-rest",
+        "gcloud": "^0.8.1",
         "method-override": "2.2.x",
         "mkdirp": "0.5.x",
         "mongodb": "1.4.x",

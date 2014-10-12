@@ -5,6 +5,8 @@ var errorResponseHandler = require('fooforms-rest').errorResponseHandler;
 var log = require('fooforms-logging').LOG;
 var fs = require('fs');
 
+var bucket = require('../googleCloud');
+
 /**
  * Create new file
  */
@@ -20,7 +22,30 @@ var createFile = function (req, res) {
             owner: req.user.id
         };
 
-        fs.readFile(req.files.file.path, function (err, data) {
+        var fs = require('fs');
+
+        fs.createReadStream(req.files.file.path)
+            .pipe(bucket.createWriteStream(req.user._id + '/' + internalName))
+            .on('error', function (err) {
+                errorResponseHandler.handleError(res, err, __filename);
+            })
+            .on('complete', function (fileObject) {
+                fileLib.createFile(fileDetails, function (err, file) {
+                    if (err) {
+                        var responseCode = 500;
+                        if (err.code === 11000) {
+                            err.data = 'A file with that label already exists.';
+                            responseCode = 409;
+                        }
+                        apiUtil.handleError(res, err, responseCode);
+                    } else {
+                        res.status(200);
+                        res.send(file);
+                    }
+                });
+            });
+
+        /** fs.readFile(req.files.file.path, function (err, data) {
 
             var newPath =global.config.root +'/uploads/'+ internalName;
             fs.writeFile(newPath, data, function (err) {
@@ -42,7 +67,7 @@ var createFile = function (req, res) {
                     });
                 }
             });
-        });
+        });*/
     } catch (err) {
         errorResponseHandler.handleError(res, err, __filename);
     }
@@ -54,15 +79,17 @@ var getFileById = function (req, res) {
         var id = req.params.file;
         fileLib.getFileById(id, function (err, file) {
             if (err || !file) {
-                if(!err){new Error('file not found');}
+                if (!err) {
+                    new Error('file not found');
+                }
                 err.http_code = 404;
                 errorResponseHandler.handleError(res, err, __filename);
-            }else {
-                var filePath =global.config.root +'/uploads/'+ file.internalName;
+            } else {
+                var filePath = global.config.root + '/uploads/' + file.internalName;
                 fs.readFile(filePath, function (err, data) {
-                    if (err){
+                    if (err) {
                         res.sendfile(img404);
-                    }else{
+                    } else {
                         res.setHeader("Content-Type", file.mimeType);
                         res.writeHead(200);
                         res.end(data);
@@ -81,7 +108,9 @@ var getUserFiles = function (req, res) {
     try {
         fileLib.getUserFiles(req.user.id, function (err, files) {
             if (err || !files) {
-                if(!err){new Error('file not found');}
+                if (!err) {
+                    new Error('file not found');
+                }
                 err.http_code = 404;
                 errorResponseHandler.handleError(res, err, __filename);
             } else {
@@ -99,7 +128,9 @@ var getAllFiles = function (req, res) {
     try {
         fileLib.getAllFiles(function (err, files) {
             if (err || !files) {
-                if(!err){new Error('file not found');}
+                if (!err) {
+                    new Error('file not found');
+                }
                 err.http_code = 404;
                 errorResponseHandler.handleError(res, err, __filename);
             } else {
@@ -116,7 +147,9 @@ var updateFile = function (req, res) {
     try {
         fileLib.updateFile(req.body, function (err, file) {
             if (err || !file) {
-                if(!err){new Error('could not update file');}
+                if (!err) {
+                    new Error('could not update file');
+                }
                 err.http_code = 409;
                 errorResponseHandler.handleError(res, err, __filename);
             } else {

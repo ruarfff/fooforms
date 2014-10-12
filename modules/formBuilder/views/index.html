@@ -36,23 +36,23 @@
         <div class="panel-heading"
              ng-class="{ 'bg-warning': showFormSettings}"
              ng-click="editField(null,null,'Form', $event)"><img class='icon pull-left'
-                                                                 ng-src="{{currentForm.icon}}">
+                                                                 ng-src="{{form.icon}}">
 
-            <h4 id='formName'>{{currentForm.displayName}}</h4>
+            <h4 id='formName'>{{form.displayName}}</h4>
 
-            <p id='formDescription'>{{currentForm.description}} </p>
+            <p id='formDescription'>{{form.description}} </p>
         </div>
         <div class='well' class="container-fluid"
-             ng-class="{ 'newFormx': currentForm.fields.length==0}">
+             ng-class="{ 'newFormx': form.fields.length==0}">
             <form role="form" class="fooform">
 
                 <div ui-sortable="sortableOptions"
-                     ng-model="currentForm.fields"
+                     ng-model="form.fields"
                      id='formFields'
                      class="connected-apps-container row">
 
                     <div class='formObject plr5 col-sm-{{formField.boxSize}}'
-                         ng-repeat="formField in currentForm.fields track by $index"
+                         ng-repeat="formField in form.fields track by $index"
                          ng-show="formField.name"
                          ng-click="editField($index,null,'Field', $event)"
                          ng-class="{ 'bg-info': $index == nowEditing , 'dropped' : $index == dropped}">
@@ -87,9 +87,9 @@
                 <h4 class="text-info">User Access</h4>
                 <ul class="list-group">
                     <li class="list-group-item"
-                        ng-class="{'list-group-item-success' : currentForm.private == true}">
+                        ng-class="{'list-group-item-success' : form.private == true}">
                         <h4 class="list-group-item-heading">
-                            <input type="radio" ng-model="currentForm.private" value="true">Private</h4>
+                            <input type="radio" ng-model="form.private" value="true">Private</h4>
 
                         <p class="list-group-item-text">
                             Your form will be visible to just you. Good for personal ToDo Lists, Notes, etc.
@@ -97,9 +97,9 @@
 
                     </li>
                     <li class="list-group-item"
-                        ng-class="{'list-group-item-success' : currentForm.private == false}">
+                        ng-class="{'list-group-item-success' : form.private == false}">
                         <h4 class="list-group-item-heading">
-                            <input type="radio" ng-model="currentForm.private" value="false">Shared</h4>
+                            <input type="radio" ng-model="form.private" value="false">Shared</h4>
 
                         <p class="list-group-item-text">
                             Users with access to the selected shared folder will have access to your form.
@@ -107,10 +107,10 @@
 
                         <div class="alert">
                             <h5>Privileges</h5>
-                            <h6><input type="radio" ng-model="currentForm.sharing.type" value="USER"> Users can see just
+                            <h6><input type="radio" ng-model="form.sharing.type" value="USER"> Users can see just
                                 their
                                 own posts.</h6>
-                            <h6><input type="radio" ng-model="currentForm.sharing.type" value="ALL"> Users can see all
+                            <h6><input type="radio" ng-model="form.sharing.type" value="ALL"> Users can see all
                                 posts.
                             </h6>
 
@@ -126,7 +126,7 @@
                             can use the form but only you can see the form submissions.
                         </p>
                         <textarea class='form-control'>
-                            <iframe ng-src="{{currentForm.url}}"></iframe>
+                            <iframe ng-src="{{form.url}}"></iframe>
                         </textarea>
 
                     </li>
@@ -137,10 +137,10 @@
                             Share the link below in emails, etc. to give anyone access to your form.<br>
 
                         </p>
-                        <h5><a href="{{currentForm.url}}" target="_new">{{currentForm.url}}</a></h5>
+                        <h5><a href="{{form.url}}" target="_new">{{form.url}}</a></h5>
 
-                        <h5><a href="{{user.displayName + '/' + currentForm.displayName}}" target="_new">
-                            {{user.displayName + '/' + currentForm.displayName}}
+                        <h5><a href="{{user.displayName + '/' + form.displayName}}" target="_new">
+                            {{user.displayName + '/' + form.displayName}}
                         </a></h5>
 
 
@@ -162,16 +162,16 @@
                 <h4 class="text-info">Form Events</h4>
 
                 <div
-                        ng-class="{ 'newForm': currentForm.formEvents.length==0}">
+                        ng-class="{ 'newForm': form.formEvents.length==0}">
 
                     <div ui-sortable="sortableOptions"
-                         ng-model="currentForm.formEvents"
+                         ng-model="form.formEvents"
                          id='formEvents'
                          class="connected-events-container row">
 
 
                         <div class='col-sm-12 under alert alert-success'
-                             ng-repeat="event in currentForm.formEvents track by $index"
+                             ng-repeat="event in form.formEvents track by $index"
                              ng-show="event.name"
                              ng-border="showBorders(show)"
                              ng-click="editField($index,null,'Event', $event)"
@@ -202,13 +202,13 @@
     <div id="tabs-publish" class="tab-pane">
         <div class='panel panel-default'>
             <div class='panel-body'>
-                <iframe class="iframe-large" ng-src="{{currentForm.url}}"></iframe>
+                <iframe class="iframe-large" ng-src="{{form.url}}"></iframe>
             </div>
         </div>
     </div>
 
                      <pre class="ng-binding">
-     {{currentForm | json}}
+     {{form | json}}
  </pre>
 
 </div>
