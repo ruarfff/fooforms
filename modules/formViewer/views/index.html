@@ -143,24 +143,18 @@
         <div ng-show="postView=='feed'" class="panel panel-default panel-feed ng-hide"
              ng-repeat="post in posts" ng-click="viewPost($index)">
 
-            <div class="panel-heading"><label class="label label-info pull-right mr5" ng-repeat="field in post.fields"
-                                              ng-show="field.type=='status'">{{ field.selected}}</label>
+            <feed-header class="panel-heading">
 
-                <a class="pull-left" ng-click="viewPost($index)">
-                    <img class="media-object icon icon-feed" ng-src="{{post.icon}}" alt="">
-                </a>&nbsp;{{post.fields[0].value}}
+            </feed-header>
+
+            <div class="panel-body">
+
+                <div class='plr5 col-xs-12 col-sm-{{formField.boxSize}}'
+                     ng-repeat="formField in post.fields track by $index"
+                     ng-show="formField.showInFeed"
+                     ng-include='formField.feedTemplate'>
+                </div>
             </div>
-
-            <div ng-repeat="field in post.fields track by $index">
-                    <span ng-show="(field.type=='text' || field.type=='textarea') && $index <5">
-                        <span class='label'> {{ field.label }} </span> {{ field.value}}</span>
-
-                <img class="img-feed" style="max-width:100%;"
-                     ng-src="/api/file/{{field.value._id}}" ng-show="field.value.mimeType=='image/jpeg'">
-
-            </div>
-
-
         </div>
 
 
@@ -168,13 +162,17 @@
                ng-click="viewPost($index)">
             <tr
                     ng-class-odd="'feedOdd'" ng-class-even="'feedEven'">
-                <td>{{postView}}
-                    <img class="media-object icon icon-feed pull-left" ng-src="{{post.icon}}" alt="">
-                    <span class="pull-right text-muted">{{post.lastModified | date : 'HH:mm'}} </span>
+                <td>
+                    <feed-header class="panel-heading">
 
-                    <span>{{post.fields[0].value}} &raquo;</span> <span
-                            class="text-muted"> {{post.fields[1].value}} - <i>
-                        {{post.fields[1].value}} </i></span>
+                    </feed-header>
+
+                    <div class='plr5 col-xs-12 col-sm-{{formField.boxSize}}'
+                         ng-repeat="formField in post.fields track by $index"
+                         ng-show="formField.showInList"
+                         ng-include='formField.listTemplate'>
+                    </div>
+
                 </td>
             </tr>
 
@@ -239,6 +237,17 @@
                             </div>
 
                         </fieldset>
+
+                    </div>
+                    <div class="panel-heading clearfix">
+
+
+                        <div class="btn-group">
+
+                            <button id='savePost' ng-click="savePost()"
+                                    class="btn btn-success btn-sm"><i class="fa fa-save"></i> Save
+                            </button>
+                        </div>
 
                     </div>
 

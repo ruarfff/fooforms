@@ -141,6 +141,20 @@ input:-webkit-autofill, textarea:-webkit-autofill, select:-webkit-autofill {
   z-index: 2;
 }
 
+.panel {
+  background: rgba(0, 0, 0, 0.2) !important;
+  color: #fff;
+  font-weight: 300 !important;
+}
+
+.panel-transparent .panel-heading {
+  background: rgba(0, 0, 0, .3);
+}
+
+label, .label {
+  font-weight: 300 !important;
+}
+
 input:-webkit-autofill {
   background: #FFF;
 }

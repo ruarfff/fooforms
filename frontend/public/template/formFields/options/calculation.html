@@ -102,18 +102,28 @@
 
 
     </div>
+    <div class="form-group">
+        <label class="col-sm-4 control-label">Show in Feed View</label>
+
+        <div class="col-sm-8">
+            <input type='checkbox' name='showInFeed' ng-model="form.fields[nowEditing].showInFeed"></label>
+        </div>
+    </div>
+    <div class="form-group">
+        <label class="col-sm-4 control-label">Show in List View</label>
+
+        <div class="col-sm-8">
+            <input type='checkbox' name='showInList' ng-model="form.fields[nowEditing].showInList"></label>
+        </div>
+    </div>
+    <div class="form-group">
+        <label class="col-sm-4 control-label">Show in Grid View</label>
+
+        <div class="col-sm-8">
+            <input type='checkbox' name='showInGrid' ng-model="form.fields[nowEditing].showInGrid"></label>
+        </div>
     </div>
 
 
-    <div class="col-sm-12">
-        <pre><code> {{ form.fields[nowEditing] | json}}</code></pre>
-        <hr>
-        {{form.fields[nowEditing].options | json }}
-    </div>
-
-
-    </div>
-
-    </div>
 </form>
 </div>
