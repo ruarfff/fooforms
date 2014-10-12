@@ -163,8 +163,9 @@
             <tr
                     ng-class-odd="'feedOdd'" ng-class-even="'feedEven'">
                 <td>
-                    <img class="media-object icon icon-feed pull-left" ng-src="{{post.icon}}" alt="">
-                    <span class="pull-right text-muted">{{post.lastModified | date : 'HH:mm'}} </span>
+                    <feed-header class="panel-heading">
+
+                    </feed-header>
 
                     <div class='plr5 col-xs-12 col-sm-{{formField.boxSize}}'
                          ng-repeat="formField in post.fields track by $index"
