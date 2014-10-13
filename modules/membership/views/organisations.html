@@ -53,6 +53,91 @@
                     </div>
                 </div>
             </div>
+
+            <div ng-repeat="org in user.organisations" class="tab-pane" id="{{org.displayName}}">
+
+
+                <div class="panel panel-info">
+                    <div class="panel-body">
+                        <ul class="nav nav-pills" id="orgTabs">
+                            <li>
+                                <a data-toggle="tab" data-target="#orgSettings">Organisation Settings</a>
+                            </li>
+                            <li>
+                                <a data-toggle="tab" data-target="#orgMembers">Members</a>
+                            </li>
+                            <li>
+                                <a data-toggle="tab" data-target="#orgStats">Stats</a>
+                            </li>
+                        </ul>
+                        <div class="tab-content">
+                            <div class="tab-pane active" id="orgSettings"><h4>{{ org.title}} on Fooforms</h4>
+
+                                <form novalidate class="form-horizontal">
+                                    <div class="col-sm-3">
+                                        <profile-uploader user="user"></profile-uploader>
+                                    </div>
+                                    <div class="col-sm-9">
+
+
+                                        <div class="form-group"><label class="col-sm-3 control-label">org Name:</label>
+
+                                            <div class="col-sm-9">
+                                                <input class="form-control" type="text" ng-model="org.title"
+                                                       required/>
+                                            </div>
+                                        </div>
+
+                                        <div class="form-group">
+
+                                            <label class="col-sm-3 control-label"> Fooforms URL:</label>
+
+                                            <div class="col-sm-9">
+                                                <div class="input-group">
+                                                    <span class="input-group-addon">fooforms.com/</span>
+                                                    <input class="form-control" type="text" ng-model="org.displayName"
+                                                           required/>
+                                                </div>
+
+                                            </div>
+                                        </div>
+
+                                        <div class="form-group"><label class="col-sm-3 control-label">Admin
+                                            E-mail:</label>
+
+                                            <div class="col-sm-9">
+                                                <input class="form-control" type="email" ng-model="org.billingEmail"
+                                                       required/>
+                                            </div>
+                                        </div>
+                                        <div class="col-sm-12 align-right">
+                                            <button class="btn btn-success" ng-click="update(user)">SAVE</button>
+                                        </div>
+                                    </div>
+
+                                </form>
+                            </div>
+                            <div class="tab-pane" id="orgMembers">
+                                <h4>Members</h4>
+
+
+                            </div>
+
+                            <div class="tab-pane" id="orgStats">
+                                <h4>Usage Stats</h4>
+
+                                Created: {{org.created | date : 'dd-MMM-yy'}} <br>
+                                Teams: {{org.teams.length}} <br>
+                                Folders: {{org.folders.length}} <br>
+                                Members: {{org.owners.length}} <br>
+                                Users: {{ org.readOnlyUsers.length}} <br>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+
+            </div>
         </div>
 
     </div>
