@@ -20,6 +20,8 @@ var rootUrls = require(path.resolve(__dirname, '../../../config/rootUrls'));
 var dashboardRoutes = require(path.resolve(__dirname, '../routes/dashboardApiRoutes'));
 var sampleDashboardCreator = require('./sampleDashboardCreator');
 
+var _ = require('underscore');
+
 var app = express();
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({
@@ -46,7 +48,7 @@ describe('Dashboard API', function () {
         mockgoose.reset();
     });
 
-    after(function () {
+    afterEach(function () {
         mockgoose.reset();
     });
 
@@ -70,6 +72,34 @@ describe('Dashboard API', function () {
                     user.organisations[0].folders[0].forms[0]._id.should.equal(orgFolder.forms[0]._id.toString());
                     user.teams.length.should.equal(testUser.teams.length);
                     user.teams[0]._id.should.equal(testUser.teams[0].toString());
+                    done(err);
+                });
+        });
+    });
+
+    it('returns a list of all posts related to a user', function (done) {
+        sampleDashboardCreator.generateDashboardTestData(db, function (testUser, orgFolder, userFolder) {
+            should.exist(testUser);
+
+            var postStreams = [];
+            var forms = [];
+            var numForms = 2;
+
+            forms = orgFolder.forms.concat(userFolder.forms);
+
+            _.each(forms, function (form) {
+                postStreams = postStreams.concat(form.postStreams);
+
+            });
+
+            request(app)
+                .get(rootUrl + '/posts?page=1&limit=10&postStreams=' + postStreams.join(','))
+                .set('Accept', 'application/json')
+                .expect('Content-Type', /json/)
+                .expect(200, function (err, res) {
+                    var posts = res.body.data;
+                    should.exist(posts);
+                    posts.length.should.equal(numForms);
                     done(err);
                 });
         });

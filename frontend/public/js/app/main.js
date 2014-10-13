@@ -76,6 +76,7 @@ fooformsApp
             } else {
                 extractedData = data;
             }
+            response.hasMore = has_more;
             return extractedData;
         });
 

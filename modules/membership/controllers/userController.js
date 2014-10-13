@@ -3,6 +3,7 @@ var db = require('mongoose').connection;
 var log = require('fooforms-logging').LOG;
 var stringUtil = require('fooforms-rest').stringUtil;
 var statusCodes = require('fooforms-rest').statusCodes;
+var slug = require('slug');
 var userProfile = require('../lib/userProfile');
 var membership = new Membership(db);
 
@@ -22,9 +23,9 @@ exports.findUserById = function (req, res, next) {
 
 exports.listByUserName = function (req, res, next) {
     var displayName = req.query.username || '';
-    if(displayName) {
+    if (displayName) {
         displayName = stringUtil.escapeRegExpChars(displayName);
-        membership.searchUsers({displayName: new RegExp('^' + displayName , 'i')}, function (err, result) {
+        membership.searchUsers({displayName: new RegExp('^' + displayName, 'i')}, function (err, result) {
             if (err) {
                 next(err);
             }
@@ -48,6 +49,9 @@ exports.listByUserName = function (req, res, next) {
 };
 
 exports.updateUser = function (req, res, next) {
+    if (req.body.displayName) {
+        req.body.displayName = slug(req.body.displayName);
+    }
     membership.updateUser(req.body, function (err, result) {
         if (err) {
             next(err);

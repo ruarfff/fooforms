@@ -10,6 +10,7 @@ angular.module('formViewer')
         var folder;
         var currentPostPage = 0;
         var postPageSize = 10;
+        var hasMorePosts = true;
 
 
         if (Session.user.displayName === $scope.owner) {
@@ -24,21 +25,23 @@ angular.module('formViewer')
 
 
         var getPosts = function (page, pageSize) {
-            PostService.getPostsByStream({
-                postStream: $scope.form.postStreams[0],
-                page: page,
-                pageSize: pageSize
-            }, function (err, posts) {
-                if (err) {
-                    $log.error(err);
-                }
-                if ($scope.posts) {
-                    $scope.posts = $scope.posts.concat(posts);
-                } else {
-                    $scope.posts = posts;
-                }
+            if (hasMorePosts) {
+                PostService.getPostsByStream({
+                    postStream: $scope.form.postStreams[0],
+                    page: page,
+                    pageSize: pageSize
+                }, function (err, posts) {
+                    if (err) {
+                        $log.error(err);
+                    }
+                    if ($scope.posts) {
+                        $scope.posts = $scope.posts.concat(posts);
+                    } else {
+                        $scope.posts = posts;
+                    }
 
-            });
+                });
+            }
         };
 
         $scope.addMorePosts = function () {

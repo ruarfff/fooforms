@@ -42,7 +42,7 @@ exports.listByPostStream = function (req, res, next) {
             has_more: paginate.hasNextPages(req)(pageCount),
             data: docs
         });
-    });
+    }, { sortBy: { lastModified: -1 } });
 };
 
 exports.update = function (req, res, next) {

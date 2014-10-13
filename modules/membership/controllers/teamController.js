@@ -3,6 +3,7 @@ var FooForm = require('fooforms-forms');
 var db = require('mongoose').connection;
 var log = require('fooforms-logging').LOG;
 var statusCodes = require('fooforms-rest').statusCodes;
+var slug = require('slug');
 var membership = new Membership(db);
 var fooForm = new FooForm(db);
 var defaultFolders = require('../lib/defaultFolders');
@@ -22,6 +23,9 @@ exports.findById = function (req, res, next) {
 };
 
 exports.create = function (req, res, next) {
+    if (req.body.displayName) {
+        req.body.displayName = slug(req.body.displayName);
+    }
     membership.createTeam(req.body, function (err, result) {
         if (err) {
             return next(err);
@@ -45,6 +49,9 @@ exports.create = function (req, res, next) {
 };
 
 exports.update = function (req, res, next) {
+    if (req.body.displayName) {
+        req.body.displayName = slug(req.body.displayName);
+    }
     membership.updateTeam(req.body, function (err, result) {
         if (err) {
             next(err);

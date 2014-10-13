@@ -6,6 +6,9 @@ var _ = require('underscore');
 var slug = require('slug');
 
 exports.create = function (req, res, next) {
+    if (req.body.displayName) {
+        req.body.displayName = slug(req.body.displayName);
+    }
     fooForm.createForm(req.body, function (err, result) {
         if (err) {
             return next(err);
@@ -44,6 +47,9 @@ exports.listByFolder = function (req, res, next) {
 exports.update = function (req, res, next) {
     if (req.body && req.body._id !== req.params.form) {
         req.body._id = req.params.form;
+    }
+    if (req.body.displayName) {
+        req.body.displayName = slug(req.body.displayName);
     }
     fooForm.updateForm(req.body, function (err, result) {
         if (err) {
