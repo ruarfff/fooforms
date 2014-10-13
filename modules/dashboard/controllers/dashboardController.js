@@ -67,5 +67,5 @@ exports.getDashboardPosts = function (req, res, next) {
                 has_more: paginate.hasNextPages(req)(pageCount),
                 data: docs
             });
-        }, { sortBy: { lastModified: -1 } });
+        }, { populate: 'commentStreams commentStreams.comments' }, { sortBy: { lastModified: -1 } });
 };

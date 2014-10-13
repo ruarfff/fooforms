@@ -65,18 +65,14 @@ fooformsApp
         });
         RestangularProvider.addResponseInterceptor(function (data, operation, what, url, response, deferred) {
             var extractedData;
-            var has_more;
-            var object;
-            // .. to look for getList operations
             if (operation === "getList" && data.data) {
                 // .. and handle the data and meta data
                 extractedData = data.data;
-                has_more = data.has_more;
-                object = data.object;
+                extractedData.has_more = data.has_more;
+                extractedData.objectType = data.object;
             } else {
                 extractedData = data;
             }
-            response.hasMore = has_more;
             return extractedData;
         });
 

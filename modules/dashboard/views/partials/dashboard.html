@@ -27,50 +27,52 @@
 
     <div class="scroll2 m0 b0">
 
-        <div ng-show="postView=='feed'" class="panel panel-info panel-feed"
-             ng-repeat="post in posts track by $index"
-             ng-class="{ 'panel-feed-selected': posts.activePost._id == post._id }"
-             ng-click="viewPost(post, $index)">
+        <div infinite-scroll="addMorePosts()" infinite-scroll-distance="3">
+            <div ng-show="postView=='feed'" class="panel panel-info panel-feed"
+                 ng-repeat="post in posts track by $index"
+                 ng-class="{ 'panel-feed-selected': activePost._id == post._id }"
+                 ng-click="viewPost($index)">
 
-            <div class="panel-heading">
-                <span class="pull-right text-muted">{{post.name}}, {{post.lastModified | date : 'HH:mm'}} </span>
-                <label class="label label-default pull-right mr5" ng-repeat="field in post.fields"
-                       ng-show="field.type=='status'">{{ field.selected}}</label>
+                <div class="panel-heading">
+                    <span class="pull-right text-muted">{{post.displayName}}, {{post.lastModified | date : 'HH:mm'}} </span>
+                    <label class="label label-default pull-right mr5" ng-repeat="field in post.fields"
+                           ng-show="field.type=='status'">{{ field.selected}}</label>
 
-                <a ng-click="viewPost(post)">
-                    <img class="media-object icon icon-feed" ng-src="{{post.icon}}" alt="">
-                </a>
-                <span ng-show="post.fields[0].type=='text' || post.fields[0].type=='textarea'">&nbsp;{{post.fields[0].value}}</span>
+                    <a ng-click="viewPost($index)">
+                        <img class="media-object icon icon-feed" ng-src="{{post.icon}}" alt="">
+                    </a>
+                    <span ng-show="post.fields[0].type=='text' || post.fields[0].type=='textarea'">&nbsp;{{post.fields[0].value}}</span>
 
-            </div>
+                </div>
 
-            <div class="panel-body">
-                <div ng-repeat="field in post.fields track by $index">
+                <div class="panel-body">
+                    <div ng-repeat="field in post.fields track by $index">
                     <span ng-show="(field.type=='text' || field.type=='textarea') && $index <5">
                         <span class='label label-foo'> {{ field.label }} </span> {{ field.value}}</span>
-                    <img class="img-feed" style="max-width:100%;"
-                         ng-src="/files/{{field.value._id }}" ng-if="field.value.mimeType=='image/jpeg'">
+                        <img class="img-feed" style="max-width:100%;"
+                             ng-src="/api/files/{{field.value._id }}" ng-if="field.value.mimeType=='image/jpeg'">
+                    </div>
                 </div>
+
             </div>
+            <table ng-show="postView=='list'" class="table feedTable m0 p0 b0">
+                <tr ng-repeat="post in posts track by $index" ng-click="viewPost($index)"
+                    ng-class-odd="'feedOdd'" ng-class-even="'feedEven'"
+                    ng-class="{ 'panel-feed-selected': activePost._id == post._id }">
+                    <td class="b0">
+                        <img class="media-object icon icon-feed pull-left" ng-src="{{post.icon}}" alt="">
+                        <span>{{post.fields[0].value}}</span>
 
+                        <span class="pull-right text-muted">{{post.displayName}}, {{post.lastModified | date : 'HH:mm'}} </span>
+                        <br><label class="label label-default pull-right" ng-repeat="field in post.fields"
+                                   ng-if="field.type=='status'">{{ field.selected}}</label>
+
+                        <div class="text-muted"> {{post.fields[1].value}} - <i>
+                            {{post.fields[2].value}} </i></div>
+                    </td>
+                </tr>
+            </table>
         </div>
-        <table ng-show="postView=='list'" class="table feedTable m0 p0 b0">
-            <tr ng-repeat="post in posts track by $index" ng-click="viewPost(post)"
-                ng-class-odd="'feedOdd'" ng-class-even="'feedEven'"
-                ng-class="{ 'panel-feed-selected': posts.activePost._id == post._id }">
-                <td class="b0">
-                    <img class="media-object icon icon-feed pull-left" ng-src="{{post.icon}}" alt="">
-                    <span>{{post.fields[0].value}}</span>
-
-                    <span class="pull-right text-muted">{{post.name}}, {{post.lastModified | date : 'HH:mm'}} </span>
-                    <br><label class="label label-default pull-right" ng-repeat="field in post.fields"
-                               ng-if="field.type=='status'">{{ field.selected}}</label>
-
-                    <div class="text-muted"> {{post.fields[1].value}} - <i>
-                        {{post.fields[2].value}} </i></div>
-                </td>
-            </tr>
-        </table>
 
     </div>
 
@@ -79,7 +81,7 @@
 
 <div class="feed-fixed-wide" ng-class="{percentageScreenWide : sideMenuVisible, halfScreenWide :!sideMenuVisible}">
 
-    <div class="container-fluid" ng-if="posts">
+    <div class="container-fluid" ng-if="activePost">
 
         <div class="row">
             <div class="col-sm-12">
@@ -87,26 +89,26 @@
                 <form role="form" class="panel panel-default">
 
                     <div class="panel-heading">
-                        <img class="media-object icon icon-xs" ng-src="{{posts.activePost.icon}}" alt="">
-                        <h4 class="inline-block">{{posts.activePost.name}}</h4>
+                        <img class="media-object icon icon-xs" ng-src="{{activePost.icon}}" alt="">
+                        <h4 class="inline-block">{{activePost.displayName}}</h4>
 
                         <div class="btn-group pull-right">
-                            <button id='deletePost' ng-click="deletePost(posts.activePost)"
+                            <button id='deletePost' ng-click="deletePost()"
                                     class="btn btn-default btn-sm"><i class="fa fa-trash-o"></i> Delete
                             </button>
-                            <button id='copyPost' ng-click="copyPost(posts.activePost)"
+                            <button id='copyPost' ng-click="copyPost()"
                                     class="btn btn-default btn-sm"><i class="fa fa-copy"></i> Copy
                             </button>
-                            <button id='cancelPost' ng-click="cancelPost(posts.activePost)"
+                            <button id='cancelPost' ng-click="cancelPost()"
                                     class="btn btn-default btn-sm"><i class="fa fa-reply"></i> Cancel
                             </button>
-                            <button id='savePost' ng-click="savePost(posts.activePost)"
+                            <button id='savePost' ng-click="savePost()"
                                     class="btn btn-success btn-sm"><i class="fa fa-save"></i> Save
                             </button>
                         </div>
                         <hr class="m10">
                         <div class="m0 p0 slideUp" ng-show="!doingPostApi">
-                            <span class="small text-opacity-5">Last Update:</span><span class="small"> {{posts.activePost.lastModified | date : 'MMM d, y @ h:mm a'}}</span>
+                            <span class="small text-opacity-5">Last Update:</span><span class="small"> {{activePost.lastModified | date : 'MMM d, y @ h:mm a'}}</span>
                         </div>
                         <div class="m0 p0 slideDown" ng-show="doingPostApi">
                             <i class="fa fa-refresh fa-spin"></i> Updating...
@@ -116,7 +118,7 @@
                     <div class="panel-body light-gray">
                         <fieldset>
                             <div class='col-xs-12 plr5 col-sm-{{formField.boxSize}}'
-                                 ng-repeat="formField in posts.activePost.fields track by $index"
+                                 ng-repeat="formField in activePost.fields track by $index"
                                  ng-show="formField.name"
                                  ng-include='formField.viewTemplate'>
                             </div>
@@ -157,8 +159,8 @@
 
     </div>
 
-    <div class="container-fluid" ng-cloak ng-if="posts.length==0">
-        <div class="row">
+    <div class="container-fluid" ng-cloak ng-if="noUserForms">
+    <div class="row">
             <div class="col-sm-12">
 
                 <div class="panel panel-success">

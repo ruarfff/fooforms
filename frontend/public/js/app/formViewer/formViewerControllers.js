@@ -25,28 +25,31 @@ angular.module('formViewer')
 
 
         var getPosts = function (page, pageSize) {
-            if (hasMorePosts) {
-                PostService.getPostsByStream({
-                    postStream: $scope.form.postStreams[0],
-                    page: page,
-                    pageSize: pageSize
-                }, function (err, posts) {
-                    if (err) {
-                        $log.error(err);
-                    }
-                    if ($scope.posts) {
-                        $scope.posts = $scope.posts.concat(posts);
-                    } else {
-                        $scope.posts = posts;
-                    }
 
-                });
-            }
+            PostService.getPostsByStream({
+                postStream: $scope.form.postStreams[0],
+                page: page,
+                pageSize: pageSize
+            }, function (err, posts) {
+                if (err) {
+                    $log.error(err);
+                }
+                hasMorePosts = posts.has_more;
+                if ($scope.posts) {
+                    $scope.posts = $scope.posts.concat(posts);
+                } else {
+                    $scope.posts = posts;
+                }
+
+            });
+
         };
 
         $scope.addMorePosts = function () {
-            currentPostPage = currentPostPage + 1;
-            getPosts(currentPostPage, postPageSize);
+            if (hasMorePosts) {
+                currentPostPage = currentPostPage + 1;
+                getPosts(currentPostPage, postPageSize);
+            }
         };
 
         $scope.showPostForm = false;

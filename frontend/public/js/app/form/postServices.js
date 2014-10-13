@@ -14,7 +14,7 @@ angular.module('form').factory('PostService',
                         $log.error(err);
                         return next(new Error('PostStream is required to get posts'));
                     }
-                    return postApi.getList({postStream: postStream, page: page, pageSize: pageSize}).then(function (posts) {
+                    postApi.getList({postStream: postStream, page: page, pageSize: pageSize}).then(function (posts) {
                         return next(null, posts);
                     }, function (err) {
                         $log.error(err);

@@ -20,7 +20,9 @@ var createFile = function (req, res) {
         var mimeType = req.files.file.type || '';
 
         fs.createReadStream(req.files.file.path)
-            .pipe(bucket.createWriteStream(internalName))
+            .pipe(bucket.createWriteStream(internalName), {
+                contentType: req.files.file.headers['content-type']
+            })
             .on('error', function (err) {
                 errorResponseHandler.handleError(res, err, __filename);
             })
@@ -57,19 +59,14 @@ var getFileById = function (req, res) {
             } else {
                 res.setHeader("Content-Type", file.mimeType || file.contentType);
 
+
                 bucket.getSignedUrl({
                     action: 'read',
-                    expires: Math.round(Date.now() / 1000) + (60 * 60 * 24), // 1 day.
+                    expires: Math.round(Date.now() / 1000) + (60 * 60), // 1 hour.
                     resource: file.name
                 }, function (err, url) {
                     res.redirect(url);
-
                 });
-                /**bucket.createReadStream(file.name)
-                 .pipe(res)
-                 .on('error', function(err) {
-                        errorResponseHandler.handleError(res, err, __filename);
-                    });**/
             }
         });
     } catch (err) {
