@@ -154,7 +154,7 @@ describe('Post API', function () {
 
         beforeEach(function (done) {
             request(app)
-                .post(resourceUrl)
+                .post(rootUrl)
                 .send(samplePost)
                 .set('Accept', 'application/json')
                 .expect('Content-Type', /json/)
@@ -174,7 +174,7 @@ describe('Post API', function () {
         it('responds with 200 and the updated json', function (done) {
             post.displayName = 'content updated';
             request(app)
-                .put(rootUrl)
+                .put(resourceUrl)
                 .send(post)
                 .set('Accept', 'application/json')
                 .expect('Content-Type', /json/)
