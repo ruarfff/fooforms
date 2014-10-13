@@ -1,6 +1,6 @@
 /* global angular */
 
-angular.module('form').factory('PostService',
+angular.module('post').factory('PostService',
     ['$log', 'Restangular', 'Posts',
         function ($log, Restangular, Posts) {
             'use strict';
