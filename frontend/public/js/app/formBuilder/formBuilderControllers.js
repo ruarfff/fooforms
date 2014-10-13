@@ -60,17 +60,30 @@ angular.module('formBuilder').controller('FormBuilderCtrl',
                 appendTo: 'body',
                 zIndex: 99999999,
                 scroll: true,
+                start: function (e, ui) {
+                    if (ui.item[0].className.indexOf("fieldObject") > -1) {
+                        // It's a new field object pulled from the menu
+                        ui.placeholder.height(ui.helper.outerHeight());
+                        ui.placeholder.width('100%');
+                    } else {
+                        //It's an exiting object on the form
+                        ui.placeholder.height(ui.helper.outerHeight());
+                        ui.placeholder.width(ui.helper.outerWidth());
+                    }
+                },
                 stop: function (e, ui) {
                     $scope.$apply(function () {
                         $scope.resetInputTypes();
-
-                        // Are we dropping into a repeatBox or not?
-                        if (ui.item.sortable.droptarget[0].className.indexOf("repeat-apps-container") > -1) {
-                            $scope.dropped = $scope.nowSubEditing = ui.item.sortable.dropindex;
-                            $scope.form.fields[$scope.nowEditing].fields[$scope.nowSubEditing].id = new Date().getTime();
-                        } else {
-                            $scope.dropped = $scope.nowEditing = ui.item.sortable.dropindex;
-                            $scope.form.fields[$scope.nowEditing].id = new Date().getTime();
+                        // Was something dropped
+                        if (ui.item.sortable.hasOwnProperty('droptarget')) {
+                            // Are we dropping into a repeatBox or not?
+                            if (ui.item.sortable.droptarget[0].className.indexOf("repeat-apps-container") > -1) {
+                                $scope.dropped = $scope.nowSubEditing = ui.item.sortable.dropindex;
+                                $scope.form.fields[$scope.nowEditing].fields[$scope.nowSubEditing].id = new Date().getTime();
+                            } else {
+                                $scope.dropped = $scope.nowEditing = ui.item.sortable.dropindex;
+                                $scope.form.fields[$scope.nowEditing].id = new Date().getTime();
+                            }
                         }
 
 

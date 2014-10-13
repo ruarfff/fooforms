@@ -42,9 +42,9 @@
 
             <p id='formDescription'>{{form.description}} </p>
         </div>
-        <div class='well' class="container-fluid"
-             ng-class="{ 'newFormx': form.fields.length==0}">
-            <form role="form" class="fooform">
+        <div class="container-fluid well"
+             ng-class="{ 'newForm': form.fields.length==0}">
+        <form role="form" class="fooform">
 
                 <div ui-sortable="sortableOptions"
                      ng-model="form.fields"

@@ -3,8 +3,9 @@
 <div class="panel panel-default">
 <div class="panel-heading p0">
     <ul id='optionTabs' class="nav nav-tabs">
-        <li class="active"><a id='formTabFields' data-target="#formTabs-fields" data-toggle="tab">Fields</a></li>
-        <li><a id='formTabSettings' data-target="#formTabs-settings" data-toggle="tab">Settings</a></li>
+        <li class="active"><a id='formTabFields' data-target="#formTabs-fields" data-toggle="tab">Add a New Field</a>
+        </li>
+        <li><a id='formTabSettings' data-target="#formTabs-settings" data-toggle="tab">Field Settings</a></li>
     </ul>
 </div>
 <div class="panel-body m0">
@@ -149,8 +150,8 @@
 
 
 <div id="formTabs-settings" class="tab-pane">
-    <div class="panel" ng-class="{'panel-info': showFieldSettings, 'panel-success' : showEventSettings} ">
-        <div class='panel-heading' ng-show="nowEditing>=0 && showFieldSettings" class="appear">
+    <div class="panel" ng-class="{'panel-primary': showFieldSettings, 'panel-success' : showEventSettings} ">
+    <div class='panel-heading' ng-show="nowEditing>=0 && showFieldSettings" class="appear">
             <h6><span class="badge">{{nowEditing}}</span> <span>{{form.fields[nowEditing].name}} </span>
             <span mg-show="nowSubEditing">
             <span class="badge">{{nowSubEditing}}</span> <span>{{form.fields[nowEditing].fields[nowSubEditing].name}} </span></span>
