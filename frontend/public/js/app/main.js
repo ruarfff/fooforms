@@ -28,6 +28,8 @@ fooformsApp
                                     if (!result.photo) {
                                         result.photo = '/assets/images/photo.jpg';
                                     }
+                                    result.self = {};
+                                    result.self.link = '/api/users/' + result._id;
                                     Session.user = result;
 
                                     deferred.resolve(Session.user);
@@ -61,7 +63,8 @@ fooformsApp
             });
         RestangularProvider.setDefaultHeaders({'Content-Type': 'application/json'});
         RestangularProvider.setRestangularFields({
-            id: "_id"
+            id: "_id",
+            selfLink: 'self.link'
         });
         RestangularProvider.addResponseInterceptor(function (data, operation, what, url, response, deferred) {
             var extractedData;

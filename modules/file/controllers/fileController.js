@@ -4,6 +4,7 @@ var fileLib = require('../lib/fileLibrary');
 var errorResponseHandler = require('fooforms-rest').errorResponseHandler;
 var log = require('fooforms-logging').LOG;
 var fs = require('fs');
+var path = require('path');
 
 var bucket = require('../googleCloud');
 
@@ -12,62 +13,29 @@ var bucket = require('../googleCloud');
  */
 var createFile = function (req, res) {
     try {
-        var internalName = fileLib.makeFileName();
-
-        var fileDetails = {
-            name: req.files.file.name,
-            internalName: internalName,
-            icon: req.body.icon || '',
-            mimeType: req.files.file.type || '',
-            owner: req.user.id
-        };
-
-        var fs = require('fs');
+        var originalName = req.files.file.name;
+        var internalName = req.user._id + '/' + fileLib.makeFileName() + path.extname(originalName);
+        var icon = req.body.icon || '';
+        var mimeType = req.files.file.type || '';
 
         fs.createReadStream(req.files.file.path)
-            .pipe(bucket.createWriteStream(req.user._id + '/' + internalName))
+            .pipe(bucket.createWriteStream(internalName))
             .on('error', function (err) {
                 errorResponseHandler.handleError(res, err, __filename);
             })
             .on('complete', function (fileObject) {
-                fileLib.createFile(fileDetails, function (err, file) {
+                fileObject.originalName = originalName;
+                fileObject.icon = icon;
+                fileObject.mimeType = mimeType;
+                fileLib.createFile(fileObject, function (err, file) {
                     if (err) {
-                        var responseCode = 500;
-                        if (err.code === 11000) {
-                            err.data = 'A file with that label already exists.';
-                            responseCode = 409;
-                        }
-                        apiUtil.handleError(res, err, responseCode);
+                        errorResponseHandler.handleError(res, err, __filename);
                     } else {
                         res.status(200);
                         res.send(file);
                     }
                 });
             });
-
-        /** fs.readFile(req.files.file.path, function (err, data) {
-
-            var newPath =global.config.root +'/uploads/'+ internalName;
-            fs.writeFile(newPath, data, function (err) {
-                if (err){
-                    res.json(err);
-                }else{
-                    fileLib.createFile(fileDetails, function (err, file) {
-                        if (err) {
-                            var responseCode = 500;
-                            if (err.code === 11000) {
-                                err.data = 'A file with that label already exists.';
-                                responseCode = 409;
-                            }
-                            apiUtil.handleError(res, err, responseCode);
-                        } else {
-                            res.status(200);
-                            res.send(file);
-                        }
-                    });
-                }
-            });
-        });*/
     } catch (err) {
         errorResponseHandler.handleError(res, err, __filename);
     }
@@ -85,18 +53,12 @@ var getFileById = function (req, res) {
                 err.http_code = 404;
                 errorResponseHandler.handleError(res, err, __filename);
             } else {
-                var filePath = global.config.root + '/uploads/' + file.internalName;
-                fs.readFile(filePath, function (err, data) {
-                    if (err) {
-                        res.sendfile(img404);
-                    } else {
-                        res.setHeader("Content-Type", file.mimeType);
-                        res.writeHead(200);
-                        res.end(data);
-                    }
-                });
-
-
+                res.setHeader("Content-Type", file.mimeType || file.contentType);
+                res.write(bucket.createReadStream(file.name));
+                /**.pipe(res.write())
+                 .on('error', function(err) {
+                        errorResponseHandler.handleError(res, err, __filename);
+                    });*/
             }
         });
     } catch (err) {

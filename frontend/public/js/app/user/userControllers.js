@@ -2,12 +2,15 @@
 
 angular.module('user')
 
-    .controller('ProfileCtrl', ['$scope', function ($scope) {
+    .controller('ProfileCtrl', ['$scope', 'Restangular', '_', 'Session', function ($scope, Restangular, _, Session) {
+        $scope.userProfile = Restangular.one('users', Session.user._id).get();
         'use strict';
-        $scope.update = function (user) {
-            $scope.user = angular.copy(user);
-            $scope.user.put();
-            Session.user = $scope.user;
+        $scope.update = function () {
+            $scope.userProfile.put().then(function (data) {
+                _.extend(Session.user, _(data).pick(_(Session.user).keys()));
+            }, function (err) {
+                console.log("There was an error saving");
+            });
         };
     }])
     .controller('UserViewCtrl', ['$scope', function ($scope) {
