@@ -5,14 +5,23 @@ var mongoose = require('mongoose');
 var Schema = mongoose.Schema;
 
 var fileSchema = new Schema({
+    bucket: String,
+    fileId: String,
+    contentType: String,
+    etag: String,
+    kind: String,
+    md5Hash: String,
+    mediaLink: String,
+    selfLink: String,
     name: String,
-    internalName: String,
+    originalName: String,
     icon: String,
     mimeType: String,
-    sizeKB: Number,
+    size: Number,
+    permissions: {},
+    updated: String,
     created: Date,
-    lastModified: Date,
-    owner: { type: Schema.Types.ObjectId, ref: 'User' }
+    lastModified: Date
 });
 
 fileSchema.pre('save', function (next) {

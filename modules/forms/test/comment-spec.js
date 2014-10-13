@@ -205,7 +205,7 @@ describe('Comment API', function () {
 
         it('successfully deletes', function (done) {
             request(app)
-                .delete(rootUrl)
+                .delete(resourceUrl)
                 .send(comment)
                 .expect(204, done);
         });

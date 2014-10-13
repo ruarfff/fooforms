@@ -17,6 +17,30 @@ var membership = require('../modules/membership');
 var site = require('../modules/site');
 
 
+var loginOrContinue = function (req, res, next) {
+    var username = req.params.username;
+    var form = req.params.form;
+    log.info(username + '-' + form);
+    passport.authenticate('basic', { session: false}, function (err, user, info) {
+        if (err) {
+            return next(err);
+        }
+        if (!user) {
+            return res.render(dashboard.mainView, {
+                dev: (process.env.NODE_ENV === 'development'),
+                user: req.user || '',
+                assets: assets
+            });
+        }
+        req.logIn(user, function (err) {
+            if (err) {
+                return next(err);
+            }
+            return res.send();
+        });
+    })(req, res, next);
+};
+
 /**
  * Main configuration for all routes in application.
  * Any forms that are added should initialize their routes here.
@@ -79,7 +103,7 @@ var routes = function (app, passport) {
     app.use(slash + rootUrls.forms, passport.authenticate('basic', {session: false}), formBuilder.formBuilderViewRoutes);
     app.use(slash + rootUrls.forms, passport.authenticate('basic', {session: false}), form.formViewRoutes);
     app.use(slash + rootUrls.forms, passport.authenticate('basic', {session: false}), formViewer.formViewerViewRoutes);
-    app.use(slash + rootUrls.formViewer, passport.authenticate('basic', {session: false}), formViewer.formViewerApiRoutes);
+    app.use(slash + rootUrls.formViewer, passport.authenticate('basic', {session: false}), formViewer.embeddedFormRoutes);
 
 
     app.route(slash + rootUrls.notFound)
@@ -116,6 +140,30 @@ var routes = function (app, passport) {
 
 
     app.get('/:username/:form', function (req, res, next) {
+        var username = req.params.username;
+        var form = req.params.form;
+        log.info(username + '-' + form);
+        passport.authenticate('basic', { session: false}, function (err, user, info) {
+            if (err) {
+                return next(err);
+            }
+            if (!user) {
+                return res.render(dashboard.mainView, {
+                    dev: (process.env.NODE_ENV === 'development'),
+                    user: req.user || '',
+                    assets: assets
+                });
+            }
+            req.logIn(user, function (err) {
+                if (err) {
+                    return next(err);
+                }
+                return res.send();
+            });
+        })(req, res, next);
+    });
+
+    app.get('/:username/:form/edit', function (req, res, next) {
         var username = req.params.username;
         var form = req.params.form;
         log.info(username + '-' + form);

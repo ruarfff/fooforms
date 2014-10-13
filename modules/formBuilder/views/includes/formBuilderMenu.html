@@ -153,7 +153,7 @@
     <div class="panel" ng-class="{'panel-primary': showFieldSettings, 'panel-success' : showEventSettings} ">
     <div class='panel-heading' ng-show="nowEditing>=0 && showFieldSettings" class="appear">
             <h6><span class="badge">{{nowEditing}}</span> <span>{{form.fields[nowEditing].name}} </span>
-            <span mg-show="nowSubEditing">
+            <span ng-show="nowSubEditing">
             <span class="badge">{{nowSubEditing}}</span> <span>{{form.fields[nowEditing].fields[nowSubEditing].name}} </span></span>
             </h6>
         </div>
@@ -193,16 +193,33 @@
         <!-- Settings Block for Basic Form Settings -->
 
         <div id="formSettings" class="appear panel-body" ng-show="showFormSettings">
-
-            <div class="form-horizontal container-fluid" role="form">
+            <form class="form form-horizontal container-fluid" role="form" name="form" novalidate="novalidate">
                 <div class="form-group">
-                    <label class="col-sm-4 control-label">Form Name</label>
-
                     <div class="col-sm-8">
-                        <input type='text' class="form-control" ng-model="form.displayName"
-                               placeholder="Choose a name for your form"/>
+                        <label class="col-sm-4 control-label">Form Name</label>
+                        <input type="text" ng-model="form.displayName" name="name"
+                               id="name" folder="{{form.folder}}"
+                               required="required" form-name="form-name"
+                               class="form-control"/>
+                        <i ng-show="formNameBusy"
+                           class="halflings-icon refresh rotating"></i>
                     </div>
+                    <div ng-show="form.name.$dirty &amp;&amp; form.name.$error.required"
+                         class="help-block">You need a form name
+                    </div>
+                    <div ng-show="form.name.$dirty &amp;&amp; form.name.$error.isTaken"
+                         class="help-block alert alert-danger">Form name already taken
+                    </div>
+                    <div ng-show="form.name.$dirty &amp;&amp; form.name.$error.error"
+                         class="help-block alert alert-danger">Invalid form name
+                    </div>
+                    <div ng-show="sluggedFormName"
+                         class="help-block alert alert-warning">Form will become
+                        {{sluggedFormName}}
+                    </div>
+
                 </div>
+
                 <div class="form-group">
                     <label class="col-sm-4 control-label">Form Title</label>
 
@@ -291,7 +308,7 @@
                 </div>
 
 
-            </div>
+            </form>
         </div>
     </div>
     <div class="panel-footer">

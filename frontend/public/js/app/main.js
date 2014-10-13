@@ -3,7 +3,7 @@
 
 var fooformsApp = angular.module('fooformsApp', [
     // Vendor dependencies
-    'ngRoute', 'ngSanitize', 'trNgGrid', 'restangular', 'ui.bootstrap', 'textAngular', 'ui.calendar', 'angularFileUpload', 'ui.sortable',
+    'ngRoute', 'ngSanitize', 'trNgGrid', 'restangular', 'ui.bootstrap', 'textAngular', 'ui.calendar', 'angularFileUpload', 'ui.sortable', 'infinite-scroll',
     // Custom dependencies
     'dashboard', 'form', 'formBuilder', 'formViewer', 'user', 'organisation', 'team' , 'authentication'
 ]);
@@ -28,6 +28,8 @@ fooformsApp
                                     if (!result.photo) {
                                         result.photo = '/assets/images/photo.jpg';
                                     }
+                                    result.self = {};
+                                    result.self.link = '/api/users/' + result._id;
                                     Session.user = result;
 
                                     deferred.resolve(Session.user);
@@ -54,9 +56,29 @@ fooformsApp
                 if (res.status === 401) {
                     window.location = '/login';
                 }
-                return false; // stop the promise chain
+                return !!(res.status = 404);
             });
         RestangularProvider.setDefaultHeaders({'Content-Type': 'application/json'});
+        RestangularProvider.setRestangularFields({
+            id: "_id",
+            selfLink: 'self.link'
+        });
+        RestangularProvider.addResponseInterceptor(function (data, operation, what, url, response, deferred) {
+            var extractedData;
+            var has_more;
+            var object;
+            // .. to look for getList operations
+            if (operation === "getList" && data.data) {
+                // .. and handle the data and meta data
+                extractedData = data.data;
+                has_more = data.has_more;
+                object = data.object;
+            } else {
+                extractedData = data;
+            }
+            return extractedData;
+        });
+
 
         $routeProvider
             .when('/', {
@@ -203,25 +225,15 @@ fooformsApp
                     }
                 }
             })
-
-        /**
-         .when('/formBuilder', {
-                templateUrl: '/partials/formBuilder',
-                controller: 'FieldsCtrl'
+            .when('/:name/:form/edit', {
+                templateUrl: '/forms/partials/formBuilder',
+                controller: 'FormBuilderCtrl',
+                resolve: {
+                    message: function (SessionService) {
+                        return SessionService.checkSession();
+                    }
+                }
             })
-         .when('/posts', {
-                templateUrl: '/partials/formViewer',
-                controller: 'FormViewerCtrl'
-            })
-         .when('/:username', {
-                templateUrl: '/partials/profile',
-                controller: 'ProfileCtrl'
-            })
-         .when('/:username/:form', {
-                templateUrl: '/partials/folder',
-                controller: 'FolderCtrl'
-            })
-         **/
 
             .otherwise({redirectTo: '/'});
     }])

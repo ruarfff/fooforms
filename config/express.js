@@ -5,6 +5,7 @@ var engine = require('ejs');
 var flash = require('connect-flash');
 var helpers = require('view-helpers');
 var express = require('express');
+var paginate = require('express-paginate')
 var bodyParser = require('body-parser');
 var cookieParser = require('cookie-parser');
 var favicon = require('serve-favicon');
@@ -63,5 +64,10 @@ module.exports = function (app, passport) {
     app.use(passport.initialize());
     app.use(passport.session());
     app.use(errorHandler);
+
+
+    var defaultLimit = 10;
+    var maxLimit = 50;
+    app.use(paginate.middleware(defaultLimit, maxLimit));
 
 };

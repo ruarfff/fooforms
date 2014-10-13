@@ -150,6 +150,9 @@ describe('Signup Routes', function () {
                         });
                 });
         });
+    });
+
+    describe('GET ' + rootUrl, function () {
         it('checking non existent username returns false', function (done) {
             request(app)
                 .get(rootUrl + '/check/username/' + 'someName')

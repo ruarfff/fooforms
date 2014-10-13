@@ -47,7 +47,6 @@
 
     <script src="/vendor/pikaday/pikaday.js"></script>
     <script src="/vendor/pikaday/pikaday-directive.js"></script>
-    <script type="text/javascript" src="/js/main.min.js"></script>
 
     <base href="/">
 </head>
@@ -136,7 +135,7 @@
                     </div>
                     <ul class="nav navbar-nav navbar-right">
                         <li class="dropdown profile" ng-cloak><a href="#" class="dropdown-toggle">&nbsp;
-                            <img class="img-circle" ng-src="/assets/images/photo.jpg"/>
+                            <img class="img-circle" ng-src="{{user.photo}}"/>
                             {{user.displayName}}
 
                             <b class="caret"></b></a>
@@ -236,7 +235,7 @@
 <% }) %>
 
 <% } else{ %>
-
+<script type="text/javascript" src="/js/main.min.js"></script>
 
 <% } %>
 </body>

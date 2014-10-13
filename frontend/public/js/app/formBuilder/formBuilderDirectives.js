@@ -191,20 +191,20 @@ angular.module('formBuilder')
         <span> {{titleStr}}</span>'
         };
 
-    }]).directive('uploader', ['$upload', function ($upload) {
+    }]).directive('uploader', ['$upload', '$log', function ($upload, $log) {
 
         return {
             restrict: 'E',
             scope: {
 
                 formField: '=formField',
-                message: '=message',
                 onFileSelect: "&onFileSelect",
                 doFileUpload: "&doFileUpload"
 
             },
             link: function (scope, elem, attrs, ctrl) {
 
+                //   ctrl.$setValidity('error', true);
 
                 scope.onFileSelect = function (selectedFile) {
 
@@ -217,10 +217,9 @@ angular.module('formBuilder')
 
                 scope.doFileUpload = function () {
 
-
                     scope.upload = $upload.upload({
-                        url: '/api/file', //upload.php script, node.js route, or servlet url
-                        // method: POST or PUT,
+                        url: '/api/files',
+                        method: 'POST',
                         // headers: {'header-key': 'header-value'},
                         // withCredentials: true,
                         data: {file: scope.uploadFile}
@@ -232,83 +231,58 @@ angular.module('formBuilder')
                         scope.uploadFile = [];
                         scope.allowUpload = null;
                         if (data.err) {
-                            setMessage(true, 'File Failed Validation', data.err, 'alert-danger');
-
+                            $log.error(data.err);
+                            //ctrl.$setValidity('error', false);
                         } else {
                             scope.formField.value = data;
-
                         }
 
                     }).error(function (err) {
-                        alert(err);
+                        $log.error(err);
+                        //ctrl.$setValidity('error', false);
                     });
-
-
                 }
-
             },
             replace: false,
             templateUrl: '/partials/uploader.html'
         };
-
-    }]).directive('profileUploader', ['$upload', function ($upload) {
-
+    }])
+    .directive('formName', ['$http', function ($http) {
         return {
-            restrict: 'E',
-            scope: {
-
-                user: '=user',
-                message: '=message',
-                onFileSelect: "&onFileSelect",
-                doFileUpload: "&doFileUpload"
-
-            },
+            require: 'ngModel',
             link: function (scope, elem, attrs, ctrl) {
+                scope.busy = false;
+                scope.$watch(attrs.ngModel, function (value) {
 
+                    // hide old error messages
+                    ctrl.$setValidity('isTaken', true);
+                    ctrl.$setValidity('error', true);
+                    ctrl.$setValidity('invalidChars', true);
+                    scope.sluggedFormName = '';
 
-                scope.onFileSelect = function (selectedFile) {
+                    if (!value) {
+                        // don't send undefined to the server during dirty check
+                        // empty form name is caught by required directive
+                        return;
+                    }
 
-                    scope.uploadFile = selectedFile[0];
-
-
-                    scope.doFileUpload();
-
-                };
-
-                scope.doFileUpload = function () {
-
-
-                    scope.upload = $upload.upload({
-                        url: '/api/file', //upload.php script, node.js route, or servlet url
-                        // method: POST or PUT,
-                        // headers: {'header-key': 'header-value'},
-                        // withCredentials: true,
-                        data: {file: scope.uploadFile}
-
-                    }).progress(function (evt) {
-                        //scope.formField.progress = (parseInt(100.0 * evt.loaded / evt.total));
-                    }).success(function (data, status, headers, config) {
-                        // file is uploaded successfully
-                        scope.uploadFile = [];
-                        scope.allowUpload = null;
-                        if (data.err) {
-                            setMessage(true, 'File Failed Validation', data.err, 'alert-danger');
-
-                        } else {
-                            scope.user.photo = data._id;
-
-                        }
-
-                    }).error(function (err) {
-                        alert(err);
-                    });
-
-
-                }
-
-            },
-            replace: false,
-            templateUrl: '/partials/profileUploader.html'
-        };
-
+                    scope.formNameBusy = true;
+                    $http.get('/api/forms/check/name/' + value + '?folder=' + attrs.folder)
+                        .success(function (data) {
+                            if (data.exists) {
+                                scope.sluggedFormName = '';
+                                ctrl.$setValidity('isTaken', false);
+                            } else if (data.slugged) {
+                                scope.sluggedFormName = data.sluggedValue;
+                            }
+                            // everything is fine -> do nothing
+                            scope.formNameBusy = false;
+                        }).error(function (data) {
+                            scope.sluggedFormName = '';
+                            ctrl.$setValidity('error', false);
+                            scope.formNameBusy = false;
+                        });
+                })
+            }
+        }
     }]);

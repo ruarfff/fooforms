@@ -38,6 +38,7 @@ module.exports = function (grunt) {
                 'frontend/src/bower/angular-sanitize/angular-sanitize.min.js',
                 'frontend/src/bower/ng-grid/build/ng-grid.min.js',
                 'frontend/src/bower/textAngular/dist/textAngular.min.js',
+                'frontend/src/bower/ngInfiniteScroll/build/ng-infinite-scroll.min.js',
                 'frontend/src/bower/angular-cookies/angular-cookies.min.js',
                 'frontend/src/bower/moment/min/moment.min.js',
                 'frontend/src/bower/fullcalendar/dist/fullcalendar.min.js',
