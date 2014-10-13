@@ -21,7 +21,7 @@ router.post('', function (req, res, next) {
     postController.create(req, res, next);
 });
 
-router.put('', function (req, res, next) {
+router.put('/:post', function (req, res, next) {
     postController.update(req, res, next);
 });
 

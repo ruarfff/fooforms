@@ -5,6 +5,7 @@ var errorResponseHandler = require('fooforms-rest').errorResponseHandler;
 var log = require('fooforms-logging').LOG;
 var fs = require('fs');
 var path = require('path');
+var rootPath = path.normalize(__dirname + '/../../..');
 
 var bucket = require('../googleCloud');
 
@@ -27,6 +28,7 @@ var createFile = function (req, res) {
                 fileObject.originalName = originalName;
                 fileObject.icon = icon;
                 fileObject.mimeType = mimeType;
+                fileObject.fileId = fileObject.id;
                 fileLib.createFile(fileObject, function (err, file) {
                     if (err) {
                         errorResponseHandler.handleError(res, err, __filename);
@@ -54,11 +56,20 @@ var getFileById = function (req, res) {
                 errorResponseHandler.handleError(res, err, __filename);
             } else {
                 res.setHeader("Content-Type", file.mimeType || file.contentType);
-                res.write(bucket.createReadStream(file.name));
-                /**.pipe(res.write())
+
+                bucket.getSignedUrl({
+                    action: 'read',
+                    expires: Math.round(Date.now() / 1000) + (60 * 60 * 24), // 1 day.
+                    resource: file.name
+                }, function (err, url) {
+                    res.redirect(url);
+
+                });
+                /**bucket.createReadStream(file.name)
+                 .pipe(res)
                  .on('error', function(err) {
                         errorResponseHandler.handleError(res, err, __filename);
-                    });*/
+                    });**/
             }
         });
     } catch (err) {

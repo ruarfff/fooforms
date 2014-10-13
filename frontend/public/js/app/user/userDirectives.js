@@ -5,12 +5,7 @@ angular.module('user')
 
         return {
             restrict: 'E',
-            scope: {
-                userProfile: "=",
-                onFileSelect: "&onFileSelect",
-                doFileUpload: "&doFileUpload"
 
-            },
             link: function (scope, elem, attrs, ctrl) {
                 scope.onFileSelect = function (selectedFile) {
                     scope.uploadFile = selectedFile[0];

@@ -154,7 +154,7 @@ describe('Post API', function () {
 
         beforeEach(function (done) {
             request(app)
-                .post(rootUrl)
+                .post(resourceUrl)
                 .send(samplePost)
                 .set('Accept', 'application/json')
                 .expect('Content-Type', /json/)

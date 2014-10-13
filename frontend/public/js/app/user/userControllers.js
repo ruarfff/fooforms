@@ -3,11 +3,18 @@
 angular.module('user')
 
     .controller('ProfileCtrl', ['$scope', 'Restangular', '_', 'Session', function ($scope, Restangular, _, Session) {
-        $scope.userProfile = Restangular.one('users', Session.user._id).get();
         'use strict';
+        $scope.userProfile = Restangular.copy(Session.user);
+
+        // Remove stuff that doesn't get updated in the profile page
+        delete $scope.userProfile.organisations;
+        delete $scope.userProfile.teams;
+        delete $scope.userProfile.folders;
+        delete $scope.userProfile.defaultFolder;
+
         $scope.update = function () {
             $scope.userProfile.put().then(function (data) {
-                _.extend(Session.user, _(data).pick(_(Session.user).keys()));
+                Session.user = _.extend(Session.user, _(data).pick(_(Session.user).keys()));
             }, function (err) {
                 console.log("There was an error saving");
             });

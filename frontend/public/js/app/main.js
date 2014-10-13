@@ -56,10 +56,7 @@ fooformsApp
                 if (res.status === 401) {
                     window.location = '/login';
                 }
-                if (res.status = 404) {
-                    return true;
-                }
-                return false; // stop the promise chain
+                return !!(res.status = 404);
             });
         RestangularProvider.setDefaultHeaders({'Content-Type': 'application/json'});
         RestangularProvider.setRestangularFields({
