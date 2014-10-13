@@ -15,6 +15,7 @@ var rootUrls = {
     formViewer: 'forms/repo',
     people: 'people',
     profile: 'profile',
+    edit: 'edit',
     notFound: '404'
 };
 

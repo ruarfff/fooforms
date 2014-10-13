@@ -1,15 +1,15 @@
 /* global angular */
 
 angular.module('formBuilder').controller('FormBuilderCtrl',
-    ['$log', '$scope', '$http', '$modal', '$filter', 'Restangular', 'FormService', 'Session', '_',
-        function ($log, $scope, $http, $modal, $filter, Restangular, FormService, Session, _) {
+    ['$log', '$routeParams', '$scope', '$http', '$modal', '$filter', 'Restangular', 'FormService', 'Session', '_',
+        function ($log, $routeParams, $scope, $http, $modal, $filter, Restangular, FormService, Session, _) {
             "use strict";
 
-            // the main object to store the form data
-            $scope.form = FormService.getFormTemplateObject();
-            $scope.form.owner = Session.user._id;
-            $scope.form.folder = Session.user.defaultFolder._id;
-
+            $scope.userInputTypes = [];
+            $scope.numberInputTypes = [];
+            $scope.fileInputTypes = [];
+            $scope.advancedInputTypes = [];
+            $scope.standardInputTypes = [];
 
             $http.get('/js/formBuilder/inputTypes.json').success(function (data) {
 
@@ -18,9 +18,39 @@ angular.module('formBuilder').controller('FormBuilderCtrl',
 
                 $scope.icons = data.icons;
 
-                $scope.resetInputTypes();
+                $scope.inputTypesRefresh = angular.copy($scope.inputTypes);
+
+                $scope.userInputTypes = $filter('filterTypes')($scope.inputTypesRefresh, 'user');
+                $scope.numberInputTypes = $filter('filterTypes')($scope.inputTypesRefresh, 'number');
+                $scope.fileInputTypes = $filter('filterTypes')($scope.inputTypesRefresh, 'files');
+                $scope.advancedInputTypes = $filter('filterTypes')($scope.inputTypesRefresh, 'advanced');
+                $scope.standardInputTypes = $filter('filterTypes')($scope.inputTypesRefresh, 'standard');
                 $scope.resetEventTypes();
+
+                var owner = $routeParams.name;
+                var org = _.find(Session.user.organisations, {displayName: owner});
+                var formName = $routeParams.form;
+
+                if (owner && formName) {
+                    var folder;
+                    if (Session.user.displayName === owner) {
+                        folder = Session.user.defaultFolder;
+                    } else if (org) {
+                        folder = org.defaultFolder;
+                    }
+                    if (folder) {
+                        $scope.form = _.find(folder.forms, {displayName: formName});
+                    }
+                    if (!$scope.form) {
+                        window.location.href = '/404';
+                    }
+
+                } else {
+                    $scope.form = FormService.getFormTemplateObject();
+                    $scope.form.folder = Session.user.defaultFolder._id;
+                }
             });
+
 
             $scope.resetInputTypes = function () {
                 $scope.inputTypesRefresh = angular.copy($scope.inputTypes);
@@ -298,69 +328,92 @@ angular.module('formBuilder').controller('FormBuilderCtrl',
 
             // End Icon Selection -  Modal Dialog
 
-            $scope.saveForm = function (formToSave) {
-                if (formToSave._id) {
-                    FormService.updateForm(formToSave, function (err, result) {
+            $scope.saveForm = function () {
+                if ($scope.form._id) {
+                    FormService.updateForm($scope.form, function (err, form) {
                         if (err) {
+                            swal('Not Updated!', 'An error occurred trying to update the form.', 'error');
                             $log.error(err);
                         } else {
-                            $scope.form = result.form;
+                            $scope.form = form;
 
-                            var oldForm = _.find(Session.user.forms, { '_id': form._id });
+                            var oldForm = _.find(Session.user.forms, { '_id': $scope.form._id });
                             var index = Session.user.defaultFolder.forms.indexOf(oldForm);
                             if (~index) {
-                                Session.user.defaultFolder.forms.push[form];
+                                Session.user.defaultFolder.forms = Session.user.defaultFolder.forms.push[$scope.form];
                             } else {
-                                oldForm = form;
+                                Session.user.defaultFolder.forms[index] = $scope.form;
                             }
+                            swal('Saved!', 'Your form has been updated.', 'success');
                         }
                     });
                 } else {
-                    FormService.createForm(formToSave, function (err, result) {
+                    FormService.createForm($scope.form, function (err, form) {
                         if (err) {
+                            swal('Not Saved!', 'An error occurred trying to create the form.', 'error');
                             $log.error(err);
                         } else {
-                            $scope.form = result.form;
-                            Session.user.defaultFolder.forms.push(result.form);
+                            $scope.form = form;
+                            Session.user.defaultFolder.forms.push($scope.form);
+                            swal('Saved!', 'Your form has been created.', 'success');
 
                         }
                     });
                 }
             };
 
-            $scope.deleteForm = function (form) {
-
-                if (confirm('Are you sure you want to delete this form?')) {
-                    FormService.deleteForm(form, function (err) {
-                        if (err) {
-                            $log.error(err.toString());
-                        } else {
-                            Forms.resetCurrentForm();
-                            $scope.form = Forms.getCurrentForm();
-                        }
+            $scope.deleteForm = function () {
+                swal({   title: 'Are you sure?', text: 'Your will not be able to recover this form!',
+                        type: 'warning',
+                        showCancelButton: true, confirmButtonColor: '#DD6B55',
+                        confirmButtonText: 'Yes, delete it!', closeOnConfirm: false },
+                    function () {
+                        FormService.deleteForm($scope.form, function (err) {
+                            if (err) {
+                                swal('Not Deleted!', 'An error occurred trying to delete the form.', 'error');
+                                $log.error(err);
+                            } else {
+                                var oldForm = _.find(Session.user.defaultFolder.forms, { '_id': $scope.form._id });
+                                var index = Session.user.defaultFolder.forms.indexOf(oldForm);
+                                if (index > -1) {
+                                    Session.user.defaultFolder.forms.splice(index, 1);
+                                }
+                                $scope.form = FormService.getFormTemplateObject();
+                                swal('Deleted!', 'Your form has been deleted.', 'success');
+                            }
+                        });
                     });
-                }
-
 
             };
 
-            $scope.copyForm = function (form) {
-
-                if (confirm('Are you sure you want to copy this form?')) {
-                    var tempForm = Forms.getCurrentForm();
-                    $scope.form = Forms.getCurrentForm();
-                    $scope.form.name = tempForm.name + ' (copy)';
-                    $scope.form.description = tempForm.description;
-                    $scope.form.btnLabel = tempForm.btnLabel;
-                    $scope.form.icon = tempForm.icon;
-                    $scope.form.settings = tempForm.settings;
-                    $scope.form.fields = tempForm.fields;
-                    $scope.form.events = tempForm.events;
-                }
-
+            $scope.copyForm = function () {
+                swal({   title: 'Are you sure?', text: 'Your will lose any unsaved changes on the current form but they will be applied to the copy.',
+                    type: 'warning',
+                    showCancelButton: true, confirmButtonColor: '#DD6B55',
+                    confirmButtonText: 'Yes, copy it!',
+                    closeOnConfirm: false }, function () {
+                    swal('Done!', 'Form Copied', 'success');
+                    var newForm = angular.copy($scope.form);
+                    if (newForm._id) {
+                        delete newForm._id;
+                    }
+                    $scope.form = newForm;
+                });
             };
 
-        }]);
+            $scope.dontSaveForm = function () {
+                swal({   title: 'Are you sure?', text: 'Your will lose any unsaved changes on the form.',
+                    type: 'warning',
+                    showCancelButton: true, confirmButtonColor: '#DD6B55',
+                    confirmButtonText: 'Yes, cancel it!'}, function () {
+                    $scope.form = FormService.getFormTemplateObject();
+                    $scope.$apply();
+                });
+            }
+
+        }
+    ])
+;
 
 
 var ModalEditorCtrl = function ($scope, $modalInstance, fieldData) {

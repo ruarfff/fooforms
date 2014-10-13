@@ -23,9 +23,13 @@
                 <div class="tab-content">
                     <div class="tab-pane active" id="profile"><h4>Your Profile</h4>
 
+                        <form>
+
+                        </form>
                         <form novalidate class="form-horizontal">
                             <div class="col-sm-3">
-                                <profile-uploader user="user"></profile-uploader>
+                                <!--<img class="img-circle" ng-src="{{userProfile.photo}}"/>-->
+                                <user-photo user="userProfile"></user-photo>
                             </div>
                             <div class="col-sm-9">
 
@@ -34,38 +38,40 @@
                                     <label class="col-sm-3 control-label"> Display Name:</label>
 
                                     <div class="col-sm-9">
-                                        <input class="form-control" type="text" ng-model="user.displayName" required/>
+                                        <input class="form-control" ng-readonly="true" type="text"
+                                               ng-model="userProfile.displayName"
+                                               required/>
                                     </div>
                                 </div>
                                 <div class="form-group"><label class="col-sm-3 control-label">First Name:</label>
 
                                     <div class="col-sm-9">
-                                        <input class="form-control" type="text" ng-model="user.name.givenName"
+                                        <input class="form-control" type="text" ng-model="userProfile.name.givenName"
                                                required/>
                                     </div>
                                 </div>
                                 <div class="form-group"><label class="col-sm-3 control-label">Middle Name:</label>
 
                                     <div class="col-sm-9">
-                                        <input class="form-control" type="text" ng-model="user.name.middleName"
+                                        <input class="form-control" type="text" ng-model="userProfile.name.middleName"
                                                required/>
                                     </div>
                                 </div>
                                 <div class="form-group"><label class="col-sm-3 control-label">Family Name:</label>
 
                                     <div class="col-sm-9">
-                                        <input class="form-control" type="text" ng-model="user.name.familyName"
+                                        <input class="form-control" type="text" ng-model="userProfile.name.familyName"
                                                required/>
                                     </div>
                                 </div>
                                 <div class="form-group"><label class="col-sm-3 control-label">E-mail:</label>
 
                                     <div class="col-sm-9">
-                                        <input class="form-control" type="email" ng-model="user.email" required/>
+                                        <input class="form-control" type="email" ng-model="userProfile.email" required/>
                                     </div>
                                 </div>
                                 <div class="col-sm-12 align-right">
-                                <button class="btn btn-success" ng-click="update(user)">SAVE</button>
+                                    <button class="btn btn-success" ng-click="update()">SAVE</button>
                                 </div>
                             </div>
 

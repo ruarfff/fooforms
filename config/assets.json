@@ -26,6 +26,7 @@
                 "/js/app/user/user.js",
                 "/js/app/user/userControllers.js",
                 "/js/app/user/userServices.js",
+                "/js/app/user/userDirectives.js",
                 "/js/app/organisation/organisation.js",
                 "/js/app/organisation/organisationControllers.js",
                 "/js/app/organisation/organisationServices.js",

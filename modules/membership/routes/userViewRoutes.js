@@ -8,6 +8,7 @@ var router = express.Router();
 var profilePath = path.join(viewDir, 'profile');
 var peoplePath = path.join(viewDir, 'people');
 var userProfilePath = path.join(viewDir, 'user-profile');
+var userProfilePicture = path.join(viewDir, 'user-profile-picture');
 
 router.get('/partials/profile',
     function (req, res) {
@@ -22,6 +23,11 @@ router.get('/partials/user-profile',
 router.get('/partials/people',
     function (req, res) {
         res.render(peoplePath);
+    });
+
+router.get('/partials/user-profile-picture',
+    function (req, res) {
+        res.render(userProfilePicture);
     });
 
 module.exports = router;

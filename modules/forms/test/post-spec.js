@@ -174,7 +174,7 @@ describe('Post API', function () {
         it('responds with 200 and the updated json', function (done) {
             post.displayName = 'content updated';
             request(app)
-                .put(rootUrl)
+                .put(resourceUrl)
                 .send(post)
                 .set('Accept', 'application/json')
                 .expect('Content-Type', /json/)
@@ -207,7 +207,7 @@ describe('Post API', function () {
 
         it('successfully deletes', function (done) {
             request(app)
-                .delete(rootUrl)
+                .delete(resourceUrl)
                 .send(post)
                 .expect(204, done);
         });

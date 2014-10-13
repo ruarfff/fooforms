@@ -8,7 +8,7 @@
     <div class="input-group alert alert-info" ng-show="formField.value.name">
         <a class="pull-left" target="_new" href="/api/file/{{formField.value._id}}" ng-src="formField.value._id" >
             <img class="media-object" ng-show="formField.value._id">
-            <h6>{{ formField.value.name + " : "+ formField.value.mimeType }}</h6>
+            <h6>{{ formField.value.originalName + " : "+ formField.value.mimeType }}</h6>
         </a>
 
     </div>

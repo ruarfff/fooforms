@@ -3,6 +3,7 @@ var log = require('fooforms-logging').LOG;
 var db = require('mongoose').connection;
 var statusCodes = require('fooforms-rest').statusCodes;
 var fooForm = new FooForm(db);
+var paginate = require('express-paginate');
 
 exports.create = function (req, res, next) {
     fooForm.createPost(req.body, function (err, result) {
@@ -32,11 +33,15 @@ exports.findById = function (req, res, next) {
 };
 
 exports.listByPostStream = function (req, res, next) {
-    fooForm.Post.find({postStream: req.query.postStream}, function (err, docs) {
+    fooForm.Post.paginate({postStream: req.query.postStream}, req.query.page, req.query.limit, function (err, pageCount, docs, itemCount) {
         if (err) {
             next(err);
         }
-        res.send(docs);
+        res.json({
+            object: 'list',
+            has_more: paginate.hasNextPages(req)(pageCount),
+            data: docs
+        });
     });
 };
 
@@ -54,15 +59,18 @@ exports.update = function (req, res, next) {
 };
 
 exports.remove = function (req, res, next) {
-    fooForm.deletePost(req.body, function (err, result) {
-        if (err) {
-            next(err);
-        }
-        console.log(result);
-        if (result.success) {
-            res.status(statusCodes.NO_CONTENT).send();
-        } else {
-            res.status(statusCodes.BAD_REQUEST).json(result.message);
-        }
-    });
+    if (req.body._id === req.params.post) {
+        fooForm.deletePost(req.body, function (err, result) {
+            if (err) {
+                next(err);
+            }
+            if (result.success) {
+                res.status(statusCodes.NO_CONTENT).send();
+            } else {
+                res.status(statusCodes.BAD_REQUEST).json(result.message);
+            }
+        });
+    } else {
+        res.status(statusCodes.BAD_REQUEST).json('Invalid post ID');
+    }
 };
