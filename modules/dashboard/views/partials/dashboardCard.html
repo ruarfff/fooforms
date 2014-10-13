@@ -1,0 +1,58 @@
+<div class="col-sm-12 col-md-6 col-lg-4">
+    <div class="pageGroup">
+        <div class="br0 alert alert-info alert-foo b0 m0">
+
+            <img class="icon pull-left img-circle" ng-src="{{user.photo}}">
+            <h4 class="inline">{{user.displayName}} <a href="/profile/"><i class="fa fa-edit fa-lg"></i></a></h4>
+
+
+            <div class="input-group clear">
+                <div class="input-group-btn">
+                    <button class='btn btn-default' ng-click="setView('feed')"><i
+                            class="fa fa-list fa-lg"></i>
+                    </button>
+
+
+                    <button disabled class='btn btn-default' ng-click="setView('card')"><i
+                            class="fa fa-th fa-lg"></i>
+                    </button>
+                    <a class='btn btn-default' href="/userGuide"><i class="fa fa-rocket fa-lg"></i>
+                    </a>
+
+                </div>
+                <input type="text" class="form-control" placeholder="Search...">
+      <span class="input-group-btn">
+        <button class="btn btn-default" type="button"><i class="fa fa-search"></i></button>
+      </span>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="col-sm-12 col-md-6 col-lg-4"
+     ng-repeat="post in posts" ng-click="viewPost(post)">
+    <div class="card container br0">
+        <div class="row">
+            <div class="media">
+                <a class="pull-left" href="{{app.name}}">
+                    <img class="media-object icon icon-sm" ng-src="{{post.icon}}" alt="">
+                </a>
+
+                <div class="media-body text-info">
+                    <h4 class="media-heading pt5">{{ post.name }} </h4>
+                    {{post.createdBy }} {{foo.lastModified | date:'EEE d MMM @ h:mm a'}}
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class='col-xs-12 col-sm-{{appField.boxSize}} viewCard'
+                 ng-repeat="appField in foo.fields track by $index"
+                 ng-show="appField.name">
+                <div ng-include="appField.viewTemplate"></div>
+            </div>
+        </div>
+
+
+    </div>
+
+</div>

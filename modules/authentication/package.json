@@ -1,2 +1,0 @@
-{ "name": "authentication",
-    "main": "./lib/authenticationLibrary.js" }

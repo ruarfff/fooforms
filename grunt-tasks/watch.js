@@ -3,9 +3,7 @@ module.exports = function (grunt) {
 
     grunt.config('watch', {
         options: {
-            livereload: {
-                port: 9000
-            }
+            livereload: true // Default port is 35729
         },
         // No need to livereload for js and css as it will be triggered when the files are processed and added to public
         js: {
@@ -27,8 +25,9 @@ module.exports = function (grunt) {
         },
         // Watch the js files that matter on the server and run tests when they are changed.
         tests: {
-            files: ['modules/**/*.js', 'test/spec/modules/**'],
-            tasks: ['mochaTest']
+            files: ['modules/**/*.js'],
+            tasks: ['mochaTest'],
+            livereload: false
 
         }
     });

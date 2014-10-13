@@ -52,11 +52,15 @@
                         <option value="Specified Value">Specified Value</option>
                         <option ng-repeat="field in form.fields[nowEditing].fields"
                                 value="{{field.id}}"
-                                ng-selected="form.fields[nowEditing].fields[nowSubEditing].options.field1.item==field.id">{{field.label}}</option>
+                                ng-selected="form.fields[nowEditing].fields[nowSubEditing].options.field1.item==field.id">
+                            {{field.label}}
+                        </option>
 
                         <option ng-repeat="field in form.fields"
                                 value="{{field.id}}"
-                                ng-selected="form.fields[nowEditing].fields[nowSubEditing].options.field1.item==field.id">{{field.label}}</option>
+                                ng-selected="form.fields[nowEditing].fields[nowSubEditing].options.field1.item==field.id">
+                            {{field.label}}
+                        </option>
                     </select>
 
                     <input type="text"
@@ -66,8 +70,8 @@
                 </td>
 
                 <td>
-                    <select  ng-model="form.fields[nowEditing].fields[nowSubEditing].options.operator"
-                             class="form-control">
+                    <select ng-model="form.fields[nowEditing].fields[nowSubEditing].options.operator"
+                            class="form-control">
                         <option value="*">*</option>
                         <option value="+">+</option>
                         <option value="/">/</option>
@@ -82,7 +86,9 @@
                         <option value="Specified Value">Specified Value</option>
                         <option ng-repeat="field in form.fields[nowEditing].fields"
                                 value="{{field.id}}"
-                                ng-selected="form.fields[nowEditing].fields[nowSubEditing].options.field2.item==field.id">{{field.label}}</option>
+                                ng-selected="form.fields[nowEditing].fields[nowSubEditing].options.field2.item==field.id">
+                            {{field.label}}
+                        </option>
                     </select>
                     <input type="text"
                            ng-model="form.fields[nowEditing].fields[nowSubEditing].options.field2.value"

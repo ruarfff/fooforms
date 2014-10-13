@@ -1,0 +1,36 @@
+<!--<script type="text/ng-template" id="userSearchTemplate.html">
+    <a>
+        <img ng-src="{{match.model.photo}}" class="img-circle" width="16">
+        <span bind-html-unsafe="match.label | typeaheadHighlight:query"></span>
+    </a>
+</script>-->
+
+<div class="col-xs-12 col-sm-8 col-md-8 slideRight" id='mainView'>
+    <div class="pageGroup">
+
+        <div id="tabs">
+            <ul id='formTabs' class="nav nav-tabs">
+                <li class="active"><a data-target="#tabs-myforms" data-toggle="tab">People</a></li>
+
+            </ul>
+            <div class="tab-content white p5">
+                <div id="tabs-myforms" class="tab-pane fade in active">
+
+                    <div class="row m5 p5">
+                        <h4>Search Users</h4>
+                        <input type="text" ng-model="displayName" placeholder="Username"
+                               typeahead="user for user in getUsers($viewValue) | filter:$viewValue"
+                               class="form-control">
+                        <i ng-show="loadingUsers" class="glyphicon glyphicon-refresh"></i>
+                    </div>
+
+                </div>
+
+
+            </div>
+
+        </div>
+
+
+    </div>
+</div>

@@ -1,9 +1,9 @@
-module.exports = function(grunt) {
+module.exports = function (grunt) {
     "use strict";
 
     grunt.config('nodemon', {
         dev: {
-            script: 'bin/www',
+            script: 'server.js',
             options: {
                 callback: function (nodemon) {
                     nodemon.on('log', function (event) {
