@@ -1,8 +1,8 @@
 /* global angular */
 
 angular.module('formBuilder').controller('FormBuilderCtrl',
-    ['$log', '$routeParams', '$scope', '$http', '$modal', '$filter', 'Restangular', 'FormService', 'Session', '_',
-        function ($log, $routeParams, $scope, $http, $modal, $filter, Restangular, FormService, Session, _) {
+    ['$log', '$routeParams', '$scope', '$http', '$modal', '$filter', 'Restangular', 'SweetAlert', 'FormService', 'Session', '_',
+        function ($log, $routeParams, $scope, $http, $modal, $filter, Restangular, SweetAlert, FormService, Session, _) {
             "use strict";
 
             $scope.userInputTypes = [];
@@ -345,7 +345,7 @@ angular.module('formBuilder').controller('FormBuilderCtrl',
                 if ($scope.form._id) {
                     FormService.updateForm($scope.form, function (err, form) {
                         if (err) {
-                            swal('Not Updated!', 'An error occurred trying to update the form.', 'error');
+                            SweetAlert.swal('Not Updated!', 'An error occurred trying to update the form.', 'error');
                             $log.error(err);
                         } else {
                             $scope.form = form;
@@ -357,18 +357,18 @@ angular.module('formBuilder').controller('FormBuilderCtrl',
                             } else {
                                 Session.user.defaultFolder.forms[index] = $scope.form;
                             }
-                            swal('Saved!', 'Your form has been updated.', 'success');
+                            SweetAlert.swal('Saved!', 'Your form has been updated.', 'success');
                         }
                     });
                 } else {
                     FormService.createForm($scope.form, function (err, form) {
                         if (err) {
-                            swal('Not Saved!', 'An error occurred trying to create the form.', 'error');
+                            SweetAlert.swal('Not Saved!', 'An error occurred trying to create the form.', 'error');
                             $log.error(err);
                         } else {
                             $scope.form = form;
                             Session.user.defaultFolder.forms.push($scope.form);
-                            swal('Saved!', 'Your form has been created.', 'success');
+                            SweetAlert.swal('Saved!', 'Your form has been created.', 'success');
 
                         }
                     });
@@ -376,14 +376,14 @@ angular.module('formBuilder').controller('FormBuilderCtrl',
             };
 
             $scope.deleteForm = function () {
-                swal({   title: 'Are you sure?', text: 'Your will not be able to recover this form!',
+                SweetAlert.swal({   title: 'Are you sure?', text: 'Your will not be able to recover this form!',
                         type: 'warning',
                         showCancelButton: true, confirmButtonColor: '#DD6B55',
                         confirmButtonText: 'Yes, delete it!', closeOnConfirm: false },
                     function () {
                         FormService.deleteForm($scope.form, function (err) {
                             if (err) {
-                                swal('Not Deleted!', 'An error occurred trying to delete the form.', 'error');
+                                SweetAlert.swal('Not Deleted!', 'An error occurred trying to delete the form.', 'error');
                                 $log.error(err);
                             } else {
                                 var oldForm = _.find(Session.user.defaultFolder.forms, { '_id': $scope.form._id });
@@ -392,7 +392,7 @@ angular.module('formBuilder').controller('FormBuilderCtrl',
                                     Session.user.defaultFolder.forms.splice(index, 1);
                                 }
                                 $scope.form = FormService.getFormTemplateObject();
-                                swal('Deleted!', 'Your form has been deleted.', 'success');
+                                SweetAlert.swal('Deleted!', 'Your form has been deleted.', 'success');
                             }
                         });
                     });
@@ -400,12 +400,12 @@ angular.module('formBuilder').controller('FormBuilderCtrl',
             };
 
             $scope.copyForm = function () {
-                swal({   title: 'Are you sure?', text: 'Your will lose any unsaved changes on the current form but they will be applied to the copy.',
+                SweetAlert.swal({   title: 'Are you sure?', text: 'Your will lose any unsaved changes on the current form but they will be applied to the copy.',
                     type: 'warning',
                     showCancelButton: true, confirmButtonColor: '#DD6B55',
                     confirmButtonText: 'Yes, copy it!',
                     closeOnConfirm: false }, function () {
-                    swal('Done!', 'Form Copied', 'success');
+                    SweetAlert.swal('Done!', 'Form Copied', 'success');
                     var newForm = angular.copy($scope.form);
                     if (newForm._id) {
                         delete newForm._id;
@@ -415,7 +415,7 @@ angular.module('formBuilder').controller('FormBuilderCtrl',
             };
 
             $scope.dontSaveForm = function () {
-                swal({   title: 'Are you sure?', text: 'Your will lose any unsaved changes on the form.',
+                SweetAlert.swal({   title: 'Are you sure?', text: 'Your will lose any unsaved changes on the form.',
                     type: 'warning',
                     showCancelButton: true, confirmButtonColor: '#DD6B55',
                     confirmButtonText: 'Yes, cancel it!'}, function () {
