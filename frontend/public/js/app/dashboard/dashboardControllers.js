@@ -3,63 +3,26 @@
 angular.module('dashboard').controller('DashboardCtrl', ['$rootScope', '$scope', '$log', '_', 'DashboardService', 'Session',
     function ($rootScope, $scope, $log, _, DashboardService, Session) {
         'use strict';
-
-        $scope.noUserForms = Session.user.defaultFolder.forms.length === 0;
-
-        $scope.posts = [];
-
         $scope.postView = 'feed';
 
-        var currentPostPage = 0;
-        var postPageSize = 10;
-        var hasMorePosts = true;
+        var postStreamsArray = [];
+        var forms = [];
+
+        _.each(Session.user.organisations, function (org) {
+            forms = forms.concat(org.defaultFolder.forms);
+        });
+
+        forms = Session.user.defaultFolder.forms.concat(forms);
+
+        _.each(forms, function (form) {
+            postStreamsArray = postStreamsArray.concat(form.postStreams);
+
+        });
+
+        $scope.postStreams = postStreamsArray.join(',');
+        $scope.activePost = {};
 
 
-        var getPosts = function (page, pageSize, postStreams) {
-
-            DashboardService.getDashboardPosts({
-                postStreams: postStreams,
-                page: page,
-                pageSize: pageSize
-            }, function (err, posts) {
-                if (err) {
-                    $log.error(err);
-                }
-                hasMorePosts = posts.has_more;
-                if ($scope.posts) {
-                    $scope.posts = $scope.posts.concat(posts);
-                } else {
-                    $scope.posts = posts;
-                }
-                $scope.activePost = $scope.posts[0];
-
-            });
-
-        };
-
-        $scope.addMorePosts = function () {
-            if (hasMorePosts) {
-                var postStreams = [];
-                var forms = [];
-
-                _.each(Session.user.organisations, function (org) {
-                    forms = forms.concat(org.defaultFolder.forms);
-                });
-
-                forms = Session.user.defaultFolder.forms.concat(forms);
-
-                _.each(forms, function (form) {
-                    postStreams = postStreams.concat(form.postStreams);
-
-                });
-                currentPostPage = currentPostPage + 1;
-                getPosts(currentPostPage, postPageSize, postStreams.join(','));
-            }
-        };
-
-        $scope.viewPost = function (index) {
-            $scope.activePost = $scope.posts[index];
-        };
 
         // the main object to store the form data
         /**$scope.form = Forms.getCurrentForm();

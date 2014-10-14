@@ -25,118 +25,46 @@
         </div>
     </div>
 
-    <foo-post-collection></foo-post-collection>
+    <div class="scroll2 m0 b0">
+        <foo-post-collection view="{{postView}}" streams="{{postStreams}}" post="activePost">
+        </foo-post-collection>
+    </div>
+
 
 </div>
 
 
 <div class="feed-fixed-wide" ng-class="{percentageScreenWide : sideMenuVisible, halfScreenWide :!sideMenuVisible}">
+    <foo-post post="activePost"></foo-post>
+</div>
 
-    <div class="container-fluid" ng-if="activePost">
+<div class="container-fluid" ng-cloak ng-if="noUserForms">
+    <div class="row">
+        <div class="col-sm-12">
 
-        <div class="row">
-            <div class="col-sm-12">
+            <div class="panel panel-success">
+                <div class="panel-heading">
+                    <h3>Welcome {{user.name.firstName}}</h3>
+                </div>
+                <div class="panel-body">
+                    <p>We're so happy you decided to try FOOFORMS.</p>
+                    <h4>Getting started</h4>
 
-                <form role="form" class="panel panel-default">
+                    <p>Jump right in and get your first forms up and running.<br> You can build from scratch or
+                        simply grab a totally awesome ready made solution.</p>
+                    <a class="btn btn-success" href="/forms">Add Your First Form</a>
 
-                    <div class="panel-heading">
-                        <img class="media-object icon icon-xs" ng-src="{{activePost.icon}}" alt="">
-                        <h4 class="inline-block">{{activePost.displayName}}</h4>
+                    <p class="pt5">Next : Create some teams. Teams help you define who sees which forms.</p>
+                    <a class="btn btn-success" href="/teams">Create Teams</a>
 
-                        <div class="btn-group pull-right">
-                            <button id='deletePost' ng-click="deletePost()"
-                                    class="btn btn-default btn-sm"><i class="fa fa-trash-o"></i> Delete
-                            </button>
-                            <button id='copyPost' ng-click="copyPost()"
-                                    class="btn btn-default btn-sm"><i class="fa fa-copy"></i> Copy
-                            </button>
-                            <button id='cancelPost' ng-click="cancelPost()"
-                                    class="btn btn-default btn-sm"><i class="fa fa-reply"></i> Cancel
-                            </button>
-                            <button id='savePost' ng-click="savePost()"
-                                    class="btn btn-success btn-sm"><i class="fa fa-save"></i> Save
-                            </button>
-                        </div>
-                        <hr class="m10">
-                        <div class="m0 p0 slideUp" ng-show="!doingPostApi">
-                            <span class="small text-opacity-5">Last Update:</span><span class="small"> {{activePost.lastModified | date : 'MMM d, y @ h:mm a'}}</span>
-                        </div>
-                        <div class="m0 p0 slideDown" ng-show="doingPostApi">
-                            <i class="fa fa-refresh fa-spin"></i> Updating...
-                        </div>
+                    <p class="pt5">Be sure to get in touch if you have any questions, we're always delighted to
+                        assist.</p>
 
-                    </div>
-                    <div class="panel-body light-gray">
-                        <fieldset>
-                            <div class='col-xs-12 plr5 col-sm-{{formField.boxSize}}'
-                                 ng-repeat="formField in activePost.fields track by $index"
-                                 ng-show="formField.name"
-                                 ng-include='formField.viewTemplate'>
-                            </div>
-
-                        </fieldset>
-                    </div>
-                </form>
-            </div>
-
-        </div>
-        <div class="row">
-            <div class="col-sm-12">
-                <form role="form" class="panel panel-default">
-
-                    <div class="panel-heading">
-                        <span ng-show="posts.activePost.comments.length>0">{{ posts.activePost.comments.length }} comments</span>
-                        <span ng-show="posts.activePost.comments.length<1">No comments - be the first</span>
-
-                        <textarea class="form-control b0" ng-model="comment.content"></textarea>
-                        <button class="btn btn-info btn-xs pt5" ng-click="postComment(comment)">Post comment</button>
-
-                    </div>
-                    <div class="panel-heading">
-
-                        <div class="comment" ng-repeat="comment in posts.activePost.comments">
-                            <blockquote>
-                                <p>{{comment.content}}</p>
-                                <footer><cite title="{{comment.commenter[0].displayName}}">{{comment.commenter[0].displayName}}</cite>
-                                    on {{comment.created | date:'medium'}}
-                                </footer>
-                            </blockquote>
-
-                        </div>
-                    </div>
-                </form>
-            </div>
-        </div>
-
-    </div>
-
-    <div class="container-fluid" ng-cloak ng-if="noUserForms">
-        <div class="row">
-            <div class="col-sm-12">
-
-                <div class="panel panel-success">
-                    <div class="panel-heading">
-                        <h3>Welcome {{user.name.firstName}}</h3>
-                    </div>
-                    <div class="panel-body">
-                        <p>We're so happy you decided to try FOOFORMS.</p>
-                        <h4>Getting started</h4>
-
-                        <p>Jump right in and get your first forms up and running.<br> You can build from scratch or
-                            simply grab a totally awesome ready made solution.</p>
-                        <a class="btn btn-success" href="/forms">Add Your First Form</a>
-
-                        <p class="pt5">Next : Create some teams. Teams help you define who sees which forms.</p>
-                        <a class="btn btn-success" href="/teams">Create Teams</a>
-
-                        <p class="pt5">Be sure to get in touch if you have any questions, we're always delighted to
-                            assist.</p>
-
-                    </div>
                 </div>
             </div>
         </div>
     </div>
+</div>
 
 
 </div>
