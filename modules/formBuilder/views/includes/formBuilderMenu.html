@@ -195,9 +195,12 @@
         <div id="formSettings" class="appear panel-body" ng-show="showFormSettings">
             <form class="form form-horizontal container-fluid" role="form" name="form" novalidate="novalidate">
                 <div class="form-group">
+
+
+                    <label class="col-sm-4 control-label">Form Name</label>
+
                     <div class="col-sm-8">
-                        <label class="col-sm-4 control-label">Form Name</label>
-                        <input type="text" ng-model="form.displayName" name="name"
+                    <input type="text" ng-model="form.displayName" name="name"
                                id="name" folder="{{form.folder}}"
                                required="required" form-name="form-name"
                                class="form-control"/>

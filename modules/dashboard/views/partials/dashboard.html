@@ -36,29 +36,34 @@
 
 <div class="feed-fixed-wide" ng-class="{percentageScreenWide : sideMenuVisible, halfScreenWide :!sideMenuVisible}">
     <foo-post post="activePost"></foo-post>
+
 </div>
 
-<div class="container-fluid" ng-cloak ng-if="noUserForms">
+<div class="feed-fixed-wide" ng-if="postStreams.length==0"
+     ng-class="{percentageScreenWide : sideMenuVisible, halfScreenWide :!sideMenuVisible}">
     <div class="row">
         <div class="col-sm-12">
 
-            <div class="panel panel-success">
+            <div class="panel panel-primary">
                 <div class="panel-heading">
-                    <h3>Welcome {{user.name.firstName}}</h3>
+                    <h5>Welcome {{user.displayName}}</h5>
                 </div>
                 <div class="panel-body">
                     <p>We're so happy you decided to try FOOFORMS.</p>
                     <h4>Getting started</h4>
 
-                    <p>Jump right in and get your first forms up and running.<br> You can build from scratch or
-                        simply grab a totally awesome ready made solution.</p>
-                    <a class="btn btn-success" href="/forms">Add Your First Form</a>
+                    <p>Jump right in and get your first forms up and running.
+                        Choose to build your own or browse from the selection of ready-to-go forms</p>
+                    <a class="btn btn-success" href="/forms">Browse Ready-to-go Forms</a> - or -
+                    <a class="btn btn-success" href="/formBuilder">Open the Form Builder</a>
+                    <h4>Next</h4>
 
                     <p class="pt5">Next : Create some teams. Teams help you define who sees which forms.</p>
-                    <a class="btn btn-success" href="/teams">Create Teams</a>
+                    <a class="btn btn-primary" href="/teams">Create Teams</a>
 
                     <p class="pt5">Be sure to get in touch if you have any questions, we're always delighted to
                         assist.</p>
+
 
                 </div>
             </div>
