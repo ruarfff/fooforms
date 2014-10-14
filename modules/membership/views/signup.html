@@ -18,16 +18,17 @@
 <div class='container' ng-controller="SignupCtrl">
     <div class="rounded-image-border">
         <img src="/assets/images/foo-icon.png"/></div>
-    <div class='row slide' id="loginForm">
 
 
-        <div class="panel panel-transparent">
+    <div class='row wrapper'>
+        <div class="col-sm-12">
+            <div id="loginForm">
 
-            <div class="panel-heading">
 
-                <h6>Sign-up</h6>
-            </div>
-            <div class="panel-body">
+                <div class="panel panel-default">
+
+
+                    <div class="panel-body">
                 <% if (error) { %>
                 <% if (error.message) { %>
                 <div class="alert alert-danger"><%= error.message %></div>
@@ -38,6 +39,7 @@
                 <form class="form" name="form" method="post" action="/signup" novalidate="novalidate">
 
                     <div ng-show="signupStage==1">
+                        <h4>Let's get you signed up!</h4>
 
                         <div class="form-group col-xs-6">
                             <label for="name.givenName" class="form-label">First Name</label>
@@ -102,6 +104,8 @@
                         </div>
                     </div>
                     <div class="panel-body" ng-show="signupStage==2">
+                        <h4>Last step!</h4>
+
                         <div class="form-group">
                             <label class="form-label">Choose a username</label>
                             <input type="text" name="displayName" id="displayName"
@@ -148,11 +152,12 @@
                                    class="btn btn-primary pull-right"/>
                         </div>
                     </div>
-            </div>
-            </form>
-        </div>
 
-    </div>
+
+                </form>
+        </div>
+                </div>
+            </div>
 
 </div>
 
