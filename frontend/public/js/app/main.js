@@ -5,7 +5,7 @@ var fooformsApp = angular.module('fooformsApp', [
     // Vendor dependencies
     'ngRoute', 'ngSanitize', 'trNgGrid', 'restangular', 'ui.bootstrap', 'textAngular', 'ui.calendar', 'angularFileUpload', 'ui.sortable', 'infinite-scroll',
     // Custom dependencies
-    'dashboard', 'form', 'formBuilder', 'formViewer', 'user', 'organisation', 'team' , 'authentication'
+    'dashboard', 'form', 'formBuilder', 'formViewer', 'user', 'organisation', 'team' , 'authentication', 'post'
 ]);
 
 fooformsApp
@@ -65,14 +65,11 @@ fooformsApp
         });
         RestangularProvider.addResponseInterceptor(function (data, operation, what, url, response, deferred) {
             var extractedData;
-            var has_more;
-            var object;
-            // .. to look for getList operations
             if (operation === "getList" && data.data) {
                 // .. and handle the data and meta data
                 extractedData = data.data;
-                has_more = data.has_more;
-                object = data.object;
+                extractedData.has_more = data.has_more;
+                extractedData.objectType = data.object;
             } else {
                 extractedData = data;
             }

@@ -1,6 +1,6 @@
 /* global angular */
 
-angular.module('form').factory('PostService',
+angular.module('post').factory('PostService',
     ['$log', 'Restangular', 'Posts',
         function ($log, Restangular, Posts) {
             'use strict';
@@ -14,7 +14,24 @@ angular.module('form').factory('PostService',
                         $log.error(err);
                         return next(new Error('PostStream is required to get posts'));
                     }
-                    return postApi.getList({postStream: postStream, page: page, pageSize: pageSize}).then(function (posts) {
+                    postApi.getList({postStream: postStream, page: page, pageSize: pageSize}).then(function (posts) {
+                        return next(null, posts);
+                    }, function (err) {
+                        $log.error(err);
+                        return next(err);
+                    });
+                },
+                getPostsByStreamList: function (args, next) {
+                    // TODO: this is a mistake. Need to move endpoint to api/posts
+                    var dashboardPostApi = Restangular.all('dashboard/posts');
+                    var postStreams = args.postStreams;
+                    var page = args.page || 1;
+                    var pageSize = args.pageSize || 10;
+                    if (!postStreams) {
+                        $log.error(err);
+                        return next(new Error('PostStreams are required to get posts'));
+                    }
+                    dashboardPostApi.getList({postStreams: postStreams, page: page, pageSize: pageSize}).then(function (posts) {
                         return next(null, posts);
                     }, function (err) {
                         $log.error(err);

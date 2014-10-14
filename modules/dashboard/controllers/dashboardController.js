@@ -4,6 +4,7 @@ var Membership = require('fooforms-membership');
 var db = require('mongoose').connection;
 var statusCodes = require('fooforms-rest').statusCodes;
 var errorHandler = require('fooforms-rest').errorResponseHandler;
+var paginate = require('express-paginate');
 var fooForm = new FooForm(db);
 var membership = new Membership(db);
 
@@ -21,33 +22,13 @@ var populateForms = function (args, next) {
         }
         membership.User.populate(user, {path: model + 'folders.forms', model: 'Form'}, function (err, user) {
             return next(err, user);
-            /*membership.User.populate(user, {path: model + 'forms.postStreams', model: 'PostStream'}, function (err, user) {
-             if(user.folders[0].forms) {
-             console.log(user.folders[0].forms[0].postStreams[0]);
-             }
-             if (err) {
-             return next(err);
-             }
-             membership.User.populate(user, {path: model + 'forms.postStreams.posts', model: 'Post'}, function (err, user) {
-             if (err) {
-             return next(err);
-             }
-             membership.User.populate(user, {path: model + 'forms.postStreams.posts.commentStreams', model: 'CommentStream'}, function (err, user) {
-             if (err) {
-             return next(err);
-             }
-             membership.User.populate(user, {path: model + 'forms.postStreams.posts.commentStreams.comments', model: 'Comment'}, function (err, user) {
-             return next(err, user);
-             });
-             });
-             });
-             });*/
         });
     });
 };
 
 exports.getUserDashboard = function (req, res, next) {
     var userId = req.params.user;
+
 
     membership.User.findById(userId).lean().populate('organisations teams').exec(function (err, doc) {
         if (err) {
@@ -72,5 +53,19 @@ exports.getUserDashboard = function (req, res, next) {
             });
         });
     });
+};
 
+exports.getDashboardPosts = function (req, res, next) {
+    var postStreams = req.query.postStreams.split(',');
+    fooForm.Post
+        .paginate({postStream: {$in: postStreams}}, req.query.page, req.query.limit, function (err, pageCount, docs, itemCount) {
+            if (err) {
+                next(err);
+            }
+            res.json({
+                object: 'list',
+                has_more: paginate.hasNextPages(req)(pageCount),
+                data: docs
+            });
+        }, { populate: 'commentStreams commentStreams.comments' }, { sortBy: { lastModified: -1 } });
 };
