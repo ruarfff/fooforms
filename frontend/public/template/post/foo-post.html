@@ -10,16 +10,16 @@
                     <h4 class="inline-block">{{activePost.displayName}}</h4>
 
                     <div class="btn-group pull-right">
-                        <button id='deletePost' ng-click="deletePost()"
+                        <button id='deletePost' ng-click="delete()"
                                 class="btn btn-default btn-sm"><i class="fa fa-trash-o"></i> Delete
                         </button>
-                        <button id='copyPost' ng-click="copyPost()"
+                        <button id='copyPost' ng-click="copy()"
                                 class="btn btn-default btn-sm"><i class="fa fa-copy"></i> Copy
                         </button>
-                        <button id='cancelPost' ng-click="cancelPost()"
+                        <button id='cancelPost' ng-click="cancel()"
                                 class="btn btn-default btn-sm"><i class="fa fa-reply"></i> Cancel
                         </button>
-                        <button id='savePost' ng-click="savePost()"
+                        <button id='savePost' ng-click="save()"
                                 class="btn btn-success btn-sm"><i class="fa fa-save"></i> Save
                         </button>
                     </div>
@@ -73,3 +73,4 @@
             </form>
         </div>
     </div>
+</div>

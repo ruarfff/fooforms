@@ -4,7 +4,7 @@ angular.module('post')
         function () {
             return {
                 restrict: 'E',
-                scope: {view: '@', streams: '@', activePost: '=post'},
+                scope: {view: '@', streams: '@', activePost: '=post', posts: '=posts'},
                 transclude: true,
                 controller: function ($scope, PostService, _, Session) {
                     var currentPostPage = 0;
@@ -62,9 +62,12 @@ angular.module('post')
         function () {
             return {
                 restrict: 'E',
-                scope: {activePost: '=post'},
-                controller: function ($scope) {
-
+                scope: {
+                    activePost: '=post',
+                    delete: '&deletePost',
+                    copy: '&copyPost',
+                    cancel: '&cancelPost',
+                    save: '&savePost'
                 },
                 templateUrl: '/template/post/foo-post.html'
             };

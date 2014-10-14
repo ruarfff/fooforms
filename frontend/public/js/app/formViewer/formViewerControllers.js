@@ -5,6 +5,10 @@ angular.module('formViewer')
         function ($scope, $route, $log, $http, $modal, Restangular, SweetAlert, Session, FormService, PostService, Posts, _) {
             "use strict";
 
+            $scope.postView = 'feed';
+            // Posts are linked to the post collection directive
+            $scope.posts = [];
+
             $scope.owner = $route.current.params.name;
             var org = _.find(Session.user.organisations, {displayName: $scope.owner});
             var formName = $route.current.params.form;
@@ -15,16 +19,14 @@ angular.module('formViewer')
             } else if (org) {
                 folder = org.defaultFolder;
             } else {
-                window.location.href = '/404';
+                window.location.href = '/dashboard';
             }
             $scope.form = _.find(folder.forms, {displayName: formName});
-            $scope.post = Posts.newPost($scope.form);
+            $scope.activePost = Posts.newPost($scope.form);
 
             $scope.postStreams = $scope.form.postStreams.join(',');
-            $scope.activePost = {};
 
             $scope.showPostForm = false;
-            $scope.postView = 'feed';
 
             $scope.gridData = [];
             $scope.gridSelectedPost = [];
@@ -32,7 +34,7 @@ angular.module('formViewer')
             $scope.doingPostApi = false;
 
             $scope.newPost = function () {
-                $scope.post = Posts.newPost(angular.copy($scope.form));
+                $scope.activePost = Posts.newPost(angular.copy($scope.form));
                 $scope.showPostForm = true;
                 $scope.setMessage('');
             };
@@ -41,36 +43,38 @@ angular.module('formViewer')
                 $scope.gridSelectedPost = [];
             };
             $scope.copyPost = function () {
-                var newPost = angular.copy($scope.post);
+                var newPost = angular.copy($scope.activePost);
                 if (newPost._id) {
                     delete newPost._id;
                 }
-                $scope.post = newPost;
+                $scope.activePost = newPost;
                 SweetAlert.swal('Post Copied');
 
             };
             $scope.savePost = function () {
-                if ($scope.post._id) {
+                if ($scope.activePost._id) {
                     // Post already exists on server
-                    PostService.updatePost($scope.post, function (err, post) {
+                    var postToSave = angular.copy($scope.activePost);
+                    delete postToSave.commentStreams;
+                    PostService.updatePost(postToSave, function (err, post) {
                         if (err) {
                             $log.error(err);
                             SweetAlert.swal('Not Saved!', 'An error occurred trying to update your post.', 'error');
                         } else {
                             $log.debug(post);
-                            $scope.post = post;
+                            $scope.activePost = post;
                             SweetAlert.swal('Saved!', 'Your post has been saved.', 'success');
 
                         }
                     });
                 } else {
-                    PostService.createPost($scope.post, function (err, post) {
+                    PostService.createPost($scope.activePost, function (err, post) {
                         if (err) {
                             $log.error(err);
                             SweetAlert.swal('Not Saved!', 'Your post has not been created.', 'error');
                         } else {
                             $scope.posts.unshift(post);
-                            $scope.post = Posts.newPost($scope.form);
+                            $scope.activePost = Posts.newPost($scope.form);
                             SweetAlert.swal('Saved!', 'Your post has been created.', 'success');
                         }
                     });
@@ -81,20 +85,20 @@ angular.module('formViewer')
             };
 
             $scope.deletePost = function () {
-                if ($scope.post._id) {
+                if ($scope.activePost._id) {
                     SweetAlert.swal({   title: 'Are you sure?', text: 'Your will not be able to recover this post!',
                             type: 'warning',
                             showCancelButton: true, confirmButtonColor: '#DD6B55',
                             confirmButtonText: 'Yes, delete it!', closeOnConfirm: false },
                         function () {
-                            PostService.deletePost($scope.post, function (err) {
+                            PostService.deletePost($scope.activePost, function (err) {
                                 $scope.doingPostApi = false;
                                 if (err) {
                                     SweetAlert.swal('Not Deleted!', 'An error occurred trying to delete your post.', 'error');
                                     console.log(err);
                                 } else {
-                                    _.pull($scope.posts, $scope.post);
-                                    $scope.post = Posts.newPost($scope.form);
+                                    _.pull($scope.posts, $scope.activePost);
+                                    $scope.activePost = Posts.newPost($scope.form);
                                     SweetAlert.swal('Deleted!', 'Your post has been deleted.', 'success');
                                 }
                             });
@@ -102,19 +106,19 @@ angular.module('formViewer')
                 } else {
                     $scope.doingPostApi = false;
                     // Post was never saved
-                    $scope.post = Posts.newPost($scope.form);
+                    $scope.activePost = Posts.newPost($scope.form);
                 }
                 //Update the grid
                 $scope.posts2Grid();
             };
 
             $scope.viewPost = function (postIndex) {
-                $scope.post = {};
+                $scope.activePost = {};
                 $scope.showPostForm = false;
 
                 setTimeout(function () {
                     $scope.$apply(function () {
-                        $scope.post = $scope.posts[postIndex];
+                        $scope.activePost = $scope.posts[postIndex];
                         $scope.showPostForm = true;
                         $scope.setMessage('');
                     });
@@ -125,7 +129,7 @@ angular.module('formViewer')
             $scope.addRepeat = function (groupBox, field) {
                 var repeater = {};
                 repeater.id = new Date().getTime();
-                repeater.fields = angular.copy($scope.post.fields[groupBox].fields);
+                repeater.fields = angular.copy($scope.activePost.fields[groupBox].fields);
 
                 // need to swap out the field.id's for new ones.
                 var fieldCount = repeater.fields.length;
@@ -148,7 +152,7 @@ angular.module('formViewer')
                     }
                 }
 
-                $scope.post.fields[groupBox].repeaters.push(repeater);
+                $scope.activePost.fields[groupBox].repeaters.push(repeater);
 
             };
             $scope.removeRepeat = function (groupBox, field) {
@@ -208,7 +212,7 @@ angular.module('formViewer')
             $scope.$watch('gridSelectedPost[0]', function (value) {
 
                 if (typeof (value ) != 'undefined') {
-                    $scope.post = $scope.posts[value.id];
+                    $scope.activePost = $scope.posts[value.id];
 
                 }
 

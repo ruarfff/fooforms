@@ -33,25 +33,36 @@ exports.findById = function (req, res, next) {
 };
 
 exports.listByPostStream = function (req, res, next) {
-    fooForm.Post.paginate({postStream: req.query.postStream}, req.query.page, req.query.limit, function (err, pageCount, docs, itemCount) {
-        if (err) {
-            next(err);
-        }
-        res.json({
-            object: 'list',
-            has_more: paginate.hasNextPages(req)(pageCount),
-            data: docs
-        });
-    }, { sortBy: { lastModified: -1 } });
+    var postStreams = req.query.postStreams.split(',');
+    fooForm.Post
+        .paginate({postStream: {$in: postStreams}}, req.query.page, req.query.limit, function (err, pageCount, docs, itemCount) {
+            if (err) {
+                next(err);
+            }
+            res.json({
+                object: 'list',
+                has_more: paginate.hasNextPages(req)(pageCount),
+                data: docs
+            });
+        }, { populate: 'commentStreams commentStreams.comments' }, { sortBy: { lastModified: -1 } });
 };
 
 exports.update = function (req, res, next) {
+    if (req.body.commentStreams) {
+        for (var i = 0; i < req.body.commentStreams.length; i++) {
+            if (req.body.commentStreams[i]._id) {
+                req.body.commentStreams[i] = req.body.commentStreams[i]._id;
+            }
+        }
+    }
     fooForm.updatePost(req.body, function (err, result) {
         if (err) {
             next(err);
         }
         if (result.success) {
-            res.send(result.post);
+            fooForm.Post.populate(result.post, {path: 'commentStreams commentStreams.comments'}, function (err, post) {
+                res.send(post);
+            });
         } else {
             res.status(statusCodes.BAD_REQUEST).json(result.message);
         }

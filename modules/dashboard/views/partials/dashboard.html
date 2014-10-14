@@ -26,7 +26,7 @@
     </div>
 
     <div class="scroll2 m0 b0">
-        <foo-post-collection view="{{postView}}" streams="{{postStreams}}" post="activePost">
+        <foo-post-collection view="{{postView}}" streams="{{postStreams}}" post="activePost" posts="posts">
         </foo-post-collection>
     </div>
 
@@ -35,7 +35,8 @@
 
 
 <div class="feed-fixed-wide" ng-class="{percentageScreenWide : sideMenuVisible, halfScreenWide :!sideMenuVisible}">
-    <foo-post post="activePost"></foo-post>
+    <foo-post post="activePost" delete-post="deletePost()" copy-post="copyPost()" save-post="savePost()"
+              cancel-post="cancelPost()"></foo-post>
 
 </div>
 

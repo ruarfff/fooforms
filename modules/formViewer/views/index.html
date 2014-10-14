@@ -142,7 +142,7 @@
 
     <div class="scroll" ng-hide="post.hide">
 
-        <foo-post-collection view="{{postView}}" streams="{{postStreams}}" post="activePost">
+        <foo-post-collection view="{{postView}}" streams="{{postStreams}}" post="activePost" posts="posts">
         </foo-post-collection>
 
     </div>
@@ -161,7 +161,8 @@
     </div>
 
 
-    <foo-post post="activePost"></foo-post>
+    <foo-post post="activePost" delete-post="deletePost()" copy-post="copyPost()" save-post="savePost()"
+              cancel-post="cancelPost()"></foo-post>
 
 </div>
 
