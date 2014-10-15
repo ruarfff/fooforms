@@ -6,8 +6,8 @@
            popover-trigger="mouseenter"></i>
     </label>
 
-    <div class="input-group" ng-style="{'width': formField.size+'%'}">
-        <a class="pull-left" href="#" ng-src="formField.src">
+    <div id="{{formField.id}}" class="input-group" ng-style="{'width': formField.size+'%'}">
+    <a class="pull-left" href="#" ng-src="formField.src">
             <img class="media-object" ng-show="formField.src">
         </a>
         <span class="input-group-addon" ng-show="formField.required">*</span>

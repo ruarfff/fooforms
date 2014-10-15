@@ -7,7 +7,7 @@
     </label>
 
     <div class="thumbnail">
-        <img ng-show="formField.value._id" src="/api/files/{{formField.value._id}}">
+        <img ng-show="formField.value._id" ng-src="/api/files/{{formField.value._id}}">
 
         <div class="caption">
             <h5>{{ formField.value.originalName }} </h5>
@@ -19,7 +19,6 @@
     <div class="input-group" ng-style="{'width': formField.size+'%'}">
 
         <span class="input-group-addon" ng-show="formField.required">*</span>
-
 
 
         <input type="file" name="uploadFile" id="uploadFile" class="hidden" ng-model="uploadFile"
@@ -36,9 +35,12 @@
 
       </span>
         </div>
-        <div class="progress mt5 progress-striped" ng-class="{'fadeOutDelayed' : formField.progress==100}" ng-show="formField.progress>0">
-            <div class="progress-bar" ng-class="{'progress-bar-success' : formField.progress==100}" role="progressbar" aria-valuenow="{{formField.progress}}" aria-valuemin="0" aria-valuemax="100" style="width: {{formField.progress+'%'}}">
-                {{formField.progress+'%'}}
+        <div class="progress mt5 progress-striped" ng-class="{'fadeOutDelayed' : formField.progress==100}"
+             ng-show="formField.progress>0">
+            <div class="progress-bar" ng-class="{'progress-bar-success' : formField.progress==100}" role="progressbar"
+                 aria-valuenow="{{formField.progress}}" aria-valuemin="0" aria-valuemax="100"
+                 style="width: {{formField.progress+'%'}}">
+            {{formField.progress+'%'}}
             </div>
         </div>
 

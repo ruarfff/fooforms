@@ -142,47 +142,8 @@
 
     <div class="scroll" ng-hide="post.hide">
 
-        <div infinite-scroll="addMorePosts()" infinite-scroll-distance="3">
-            <div ng-show="postView=='feed'" class="panel panel-default panel-feed ng-hide"
-                 ng-repeat="post in posts" ng-click="viewPost($index)">
-
-                <feed-header class="panel-heading">
-
-                </feed-header>
-
-                <div class="panel-body">
-
-                    <div class='plr5 col-xs-12 col-sm-{{formField.boxSize}}'
-                         ng-repeat="formField in post.fields track by $index"
-                         ng-show="formField.showInFeed"
-                         ng-include='formField.feedTemplate'>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-
-        <table ng-show="postView=='list'" class="table feedTable m0 p0 ng-hide" ng-repeat="post in posts"
-               ng-click="viewPost($index)">
-            <tr
-                    ng-class-odd="'feedOdd'" ng-class-even="'feedEven'">
-                <td>
-                    <feed-header class="panel-heading">
-
-                    </feed-header>
-
-                    <div class='plr5 col-xs-12 col-sm-{{formField.boxSize}}'
-                         ng-repeat="formField in post.fields track by $index"
-                         ng-show="formField.showInList"
-                         ng-include='formField.listTemplate'>
-                    </div>
-
-                </td>
-            </tr>
-
-
-        </table>
-
+        <foo-post-collection view="{{postView}}" streams="{{postStreams}}" post="activePost" posts="posts">
+        </foo-post-collection>
 
     </div>
 
@@ -200,90 +161,8 @@
     </div>
 
 
-    <div class="container-fluid">
-
-        <div class="row">
-            <div class="col-sm-12">
-                <form role="form" class="panel panel-default">
-
-                    <div class="panel-heading">
-                        <img class="media-object icon icon-xs" ng-src="{{form.icon}}" alt="">
-                        <h4 class="inline-block">{{form.name}}</h4>
-
-                        <div class="btn-group pull-right">
-                            <button ng-click="deletePost()"
-                                    class="btn btn-default btn-sm deletePost"><i class="fa fa-trash-o"></i> Delete
-                            </button>
-                            <button ng-click="copyPost()"
-                                    class="btn btn-default btn-sm copyPost"><i class="fa fa-copy"></i> Copy
-                            </button>
-                            <button ng-click="cancelPost()"
-                                    class="btn btn-default btn-sm cancelPost"><i class="fa fa-reply"></i> Cancel
-                            </button>
-                            <button ng-click="savePost()"
-                                    class="btn btn-success btn-sm savePost"><i class="fa fa-save"></i> Save
-                            </button>
-                        </div>
-                        <hr class="m10">
-                        <div class="m0 p0 slideUp" ng-show="!doingPostApi">
-                            <span class="small text-opacity-5">Last Update:</span><span class="small"> {{post.lastModified | date : 'MMM d, y @ h:mm a'}}</span>
-                        </div>
-                        <div class="m0 p0 slideDown" ng-show="doingPostApi">
-                            <i class="fa fa-refresh fa-spin"></i> Updating...
-                        </div>
-                    </div>
-                    <div class="panel-body">
-                        <fieldset>
-                            <div class='plr5 col-xs-12 col-sm-{{formField.boxSize}}'
-                                 ng-repeat="formField in post.fields track by $index"
-                                 ng-show="formField.name"
-                                 ng-include='formField.viewTemplate'>
-                            </div>
-
-                        </fieldset>
-
-                    </div>
-                    <div class="panel-heading clearfix">
-
-
-                        <div class="btn-group">
-
-                            <button ng-click="savePost()"
-                                    class="savePost btn btn-success btn-sm"><i class="fa fa-save"></i> Save
-                            </button>
-                        </div>
-
-                    </div>
-
-
-                </form>
-            </div>
-
-        </div>
-        <div class="row">
-            <div class="col-sm-12">
-                <form role="form" class="panel panel-default">
-
-                    <div class="panel-heading">
-                        <span ng-show="post.comments.length>0">{{ post.comments.length }} comments</span>
-                        <span ng-show="!post.comments">No comments - be the first</span>
-
-                        <textarea class="form-control b0"></textarea>
-                        <button class="btn btn-info btn-xs pt5">Post comment</button>
-
-                    </div>
-                    <div class="panel-body">
-
-
-                        <div class="comment" ng-repeat="comment in post.comments">
-                            {{comment.commenter.displayName}} {{comment.created}}
-                            {{comment.content}}
-                        </div>
-                    </div>
-                </form>
-            </div>
-        </div>
-    </div>
+    <foo-post post="activePost" delete-post="deletePost()" copy-post="copyPost()" save-post="savePost()"
+              cancel-post="cancelPost()"></foo-post>
 
 </div>
 
