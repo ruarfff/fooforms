@@ -6,7 +6,7 @@ angular.module('post')
                 restrict: 'E',
                 scope: {view: '@', streams: '@', activePost: '=post', posts: '=posts'},
                 transclude: true,
-                controller: function ($scope, PostService, _, Session) {
+                controller: function ($log, $scope, PostService, _, Session) {
                     var currentPostPage = 0;
                     var postPageSize = 10;
                     var hasMorePosts = true;
