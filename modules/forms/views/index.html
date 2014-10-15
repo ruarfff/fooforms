@@ -1,0 +1,88 @@
+<div class="col-sm-12" id='mainView'>
+
+    <!-- Navigation Buttons -->
+    <div class="col-md-3 slideLeft">
+        <div class="panel panel-info">
+            <div class="panel-heading">
+                <a class="btn btn-success" href="/formBuilder"><i class="fa fa-plus"></i> Create a
+                    New
+                    Form</a>
+            </div>
+            <div class="panel-body">
+                <ul class="nav nav-pills nav-stacked" id="myTabs">
+                    <li class="active"><a data-toggle="tab" data-target="#featured">Your Forms</a></li>
+                    <li><a data-toggle="tab" data-target="#communication">Communication</a></li>
+                    <li><a data-toggle="tab" data-target="#finance">Finance</a></li>
+                    <li><a data-toggle="tab" data-target="#contact">Contact</a></li>
+                    <li><a data-toggle="tab" data-target="#hr">HR</a></li>
+                    <li><a data-toggle="tab" data-target="#facebook">Facebook</a></li>
+                    <li><a data-toggle="tab" data-target="#software">Software Development</a></li>
+                    <li><a data-toggle="tab" data-target="#events">Events</a></li>
+                    <li><a data-toggle="tab" data-target="#dates">Calendar & Dates</a></li>
+                </ul>
+            </div>
+        </div>
+
+    </div>
+
+    <!-- Content -->
+    <div class="col-md-9 slideRight">
+        <div class="panel panel-info">
+            <div class="panel-body">
+                <div class="tab-content">
+                    <div class="tab-pane active" id="featured"><h4>Featured Forms</h4>
+
+                        <div class="row m5 p5">
+                            <div class="col-sm-3 col-md-3"
+                                 ng-repeat="form in user.defaultFolder.forms">
+                                <div class="thumbnail">
+                                    <a href="/{{user.displayName}}/{{form.displayName}}">
+                                        <img ng-src="{{form.icon}}" alt="{{form.displayName}}">
+
+                                        <div class="caption">
+                                            {{form.displayName | uppercase}}
+                                        </div>
+                                    </a>
+                                    <i class="fa fa-star fa-fw"></i>
+                                    <i class="fa fa-star fa-fw"></i>
+                                    <i class="fa fa-star fa-fw"></i>
+                                    <i class="fa fa-star fa-fw"></i>
+                                    <i class="fa fa-star fa-fw"></i>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="tab-pane" id="communication"><h4>Communication</h4>
+
+                        <div class="row m5 p5">
+                            <div class="col-sm-3 col-md-3"
+                                 ng-repeat="form in user.defaultFolder.forms">
+                                <div class="thumbnail">
+                                    <img ng-src="{{form.icon}}" alt="{{form.displayName}}">
+
+                                    <div class="caption">
+                                        <a class="center-block">{{form.displayName | uppercase}}</a>
+                                    </div>
+
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="tab-pane" id="finance">Messages</div>
+                    <div class="tab-pane" id="contact">Messages</div>
+                    <div class="tab-pane" id="hr">Messages</div>
+                    <div class="tab-pane" id="facebook">Messages</div>
+                    <div class="tab-pane" id="software">Messages</div>
+                    <div class="tab-pane" id="events">Messages</div>
+                    <div class="tab-pane" id="dates">Messages</div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>
+
+
+
+
+

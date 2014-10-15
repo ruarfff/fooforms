@@ -1,3 +1,3 @@
 /* global angular */
 
-angular.module('dashboard', ['lodash', 'form']);
+angular.module('dashboard', ['lodash']);

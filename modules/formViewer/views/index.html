@@ -1,18 +1,18 @@
-<div class="col-sm-12"
-     ng-show="postView=='grid'"
-        >
-
-
+<!-- Grid Layout -->
+<div class="col-sm-12" ng-show="postView=='grid'">
+    <div infinite-scroll="addMoreItems()">
+        <div ng-repeat="item in items">Item number {{$index}}: {{$item}}</div>
+    </div>
     <div class="panel panel-default m0 mr15">
         <div class="panel-heading m0">
             <button class="btn btn-primary pull-right" ng-click="newPost()">
                 {{form.btnLabel}} <i class="fa fa-plus fa-lg"></i></button>
             <img class="icon  pull-left" ng-src="{{form.icon}}">
             <h4 class="inline">{{form.name}}
-                <a href="formBuilder" ng-click="updateForm(form)"><i class="fa fa-edit fa-lg"></i>
+                <a href="{{owner}}/{{form.displayName}}/edit"><i class="fa fa-edit fa-lg"></i>
                 </a></h4>
 
-            <p id='formDescription'>{{form.description}} </p>
+            <p class='formDescription'>{{form.description}} </p>
 
             <span class="label label-default"><i class="fa fa-search"></i></span>
             <span ng-show="form.settings.displayOptions.feed" class="label label-default" ng-click="postView='feed';"><i
@@ -39,10 +39,8 @@
                        selection-mode="SingleRow"
                        selected-items="gridSelectedPost"
                        ng-click="alert('You clicked on ' + gridItem.id);$event.stopPropagation();"></table>
-
-
                 <div>
-</div>
+                </div>
 
             </div>
         </div>
@@ -53,54 +51,56 @@
 </div>
 
 
-<div class="panel-slider hidden-print"
+<!-- Main Form Input View -->
 
-        ng-class="{slidePanelIn: gridSelectedPost.length>0,
+<div class="panel-slider hidden-print"
+     ng-class="{slidePanelIn: gridSelectedPost.length>0,
     slidePanelOut: gridSelectedPost.length==0}">
     <form role="form" class="panel panel-default">
 
-    <div class="panel-heading">
+        <div class="panel-heading">
 
-        <div class="m0 p0 slideUp" ng-show="!doingPostApi">
-            <span class="small text-opacity-5">Last Update:</span><span class="small"> {{postObj.lastModified | date : 'MMM d, y @ h:mm a'}}</span>
-        </div>
-        <div class="m0 p0 slideDown" ng-show="doingPostApi">
-            <i class="fa fa-refresh fa-spin"></i> Updating...
-        </div>
-
-        <div class="btn-group pull-right">
-            <button id='deletePost' ng-click="deletePost(postObj)"
-                    class="btn btn-default btn-sm"><i class="fa fa-trash-o"></i> Delete
-            </button>
-            <button id='copyPost' ng-click="copyPost(postObj)"
-                    class="btn btn-default btn-sm"><i class="fa fa-copy"></i> Copy
-            </button>
-            <button id='cancelPost' ng-click="gridSelectedPost=[]"
-                    class="btn btn-default btn-sm"><i class="fa fa-reply"></i> Cancel
-            </button>
-            <button id='savePost' ng-click="savePost(postObj)"
-                    class="btn btn-success btn-sm"><i class="fa fa-save"></i> Save
-            </button>
-        </div>
-        <hr class="m10">
-         </div>
-    <div class="panel-body">
-        <fieldset>
-            <div class='plr5 col-xs-12 col-sm-{{formField.boxSize}}'
-                 ng-repeat="formField in postObj.fields track by $index"
-                 ng-show="formField.name"
-                 ng-include='formField.viewTemplate'>
+            <div class="m0 p0 slideUp" ng-show="!doingPostApi">
+                <span class="small text-opacity-5">Last Update:</span><span class="small"> {{post.lastModified | date : 'MMM d, y @ h:mm a'}}</span>
+            </div>
+            <div class="m0 p0 slideDown" ng-show="doingPostApi">
+                <i class="fa fa-refresh fa-spin"></i> Updating...
             </div>
 
-        </fieldset>
+            <div class="btn-group pull-right">
+                <button class='deletePost' ng-click="deletePost()"
+                        class="btn btn-default btn-sm"><i class="fa fa-trash-o"></i> Delete
+                </button>
+                <button class='copyPost' ng-click="copyPost()"
+                        class="btn btn-default btn-sm"><i class="fa fa-copy"></i> Copy
+                </button>
+                <button class='cancelPost' ng-click="cancelPost()"
+                        class="btn btn-default btn-sm"><i class="fa fa-reply"></i> Cancel
+                </button>
+                <button class='savePost' ng-click="savePost()"
+                        class="btn btn-success btn-sm"><i class="fa fa-save"></i> Save
+                </button>
+            </div>
+            <hr class="m10">
+        </div>
+        <div class="panel-body">
+            <fieldset>
+                <div class='plr5 col-xs-12 col-sm-{{formField.boxSize}}'
+                     ng-repeat="formField in post.fields track by $index"
+                     ng-show="formField.name"
+                     ng-include='formField.viewTemplate'>
+                </div>
 
-    </div>
+            </fieldset>
+
+        </div>
 
 
     </form>
 
 </div>
 
+<!-- Feed or List Post Layout -->
 
 <div class="feed-fixed hidden-print"
      ng-show="postView=='feed' || postView=='list'"
@@ -113,10 +113,10 @@
                 {{form.btnLabel}} <i class="fa fa-plus fa-lg"></i></button>
             <img class="icon  pull-left" ng-src="{{form.icon}}">
             <h4 class="inline">{{form.name}}
-                <a href="formBuilder" ng-click="updateForm(form)"><i class="fa fa-edit fa-lg"></i>
+                <a href="/{{owner}}/{{form.displayName}}/edit"><i class="fa fa-edit fa-lg"></i>
                 </a></h4>
 
-            <p id='formDescription'>{{form.description}} </p>
+            <p class='formDescription'>{{form.description}} </p>
 
             <span class="label label-default"><i class="fa fa-search"></i></span>
             <span ng-show="form.settings.displayOptions.feed" class="label label-default" ng-click="postView='feed';"><i
@@ -140,48 +140,10 @@
 
     </div>
 
-    <div class="scroll" ng-hide="foo.hide">
+    <div class="scroll" ng-hide="post.hide">
 
-        <div ng-show="postView=='feed'" class="panel panel-default panel-feed ng-hide"
-             ng-repeat="foo in posts" ng-click="viewPost($index)">
-
-            <div class="panel-heading"><label class="label label-info pull-right mr5" ng-repeat="field in foo.fields"
-                                              ng-show="field.type=='status'">{{ field.selected}}</label>
-
-                <a class="pull-left" ng-click="viewPost($index)">
-                    <img class="media-object icon icon-feed" ng-src="{{foo.icon}}" alt="">
-                </a>&nbsp;{{foo.fields[0].value}}
-            </div>
-
-            <div ng-repeat="field in foo.fields track by $index">
-                    <span ng-show="(field.type=='text' || field.type=='textarea') && $index <5">
-                        <span class='label'> {{ field.label }} </span> {{ field.value}}</span>
-
-                <img class="img-feed" style="max-width:100%;"
-                     src="/api/file/{{field.value._id}}" ng-show="field.value.mimeType=='image/jpeg'">
-
-            </div>
-
-
-        </div>
-
-
-        <table ng-show="postView=='list'" class="table feedTable m0 p0 ng-hide" ng-repeat="foo in posts"
-               ng-click="viewPost($index)">
-            <tr
-                    ng-class-odd="'feedOdd'" ng-class-even="'feedEven'">
-                <td>{{postView}}
-                    <img class="media-object icon icon-feed pull-left" ng-src="{{foo.icon}}" alt="">
-                    <span class="pull-right text-muted">{{foo.lastModified | date : 'HH:mm'}} </span>
-
-                    <span>{{foo.fields[0].value}} &raquo;</span> <span class="text-muted"> {{foo.fields[1].value}} - <i>
-                    {{foo.fields[1].value}} </i></span>
-                </td>
-            </tr>
-
-
-        </table>
-
+        <foo-post-collection view="{{postView}}" streams="{{postStreams}}" post="activePost" posts="posts">
+        </foo-post-collection>
 
     </div>
 
@@ -199,79 +161,8 @@
     </div>
 
 
-    <div class="container-fluid">
-
-        <div class="row">
-            <div class="col-sm-12">
-                <form role="form" class="panel panel-default">
-
-                    <div class="panel-heading">
-                        <img class="media-object icon icon-xs" ng-src="{{form.icon}}" alt="">
-                        <h4 class="inline-block">{{form.name}}</h4>
-
-                        <div class="btn-group pull-right">
-                            <button id='deletePost' ng-click="deletePost(postObj)"
-                                    class="btn btn-default btn-sm"><i class="fa fa-trash-o"></i> Delete
-                            </button>
-                            <button id='copyPost' ng-click="copyPost(postObj)"
-                                    class="btn btn-default btn-sm"><i class="fa fa-copy"></i> Copy
-                            </button>
-                            <button id='cancelPost' ng-click="cancelPost(postObj)"
-                                    class="btn btn-default btn-sm"><i class="fa fa-reply"></i> Cancel
-                            </button>
-                            <button id='savePost' ng-click="savePost(postObj)"
-                                    class="btn btn-success btn-sm"><i class="fa fa-save"></i> Save
-                            </button>
-                        </div>
-                        <hr class="m10">
-                        <div class="m0 p0 slideUp" ng-show="!doingPostApi">
-                            <span class="small text-opacity-5">Last Update:</span><span class="small"> {{postObj.lastModified | date : 'MMM d, y @ h:mm a'}}</span>
-                        </div>
-                        <div class="m0 p0 slideDown" ng-show="doingPostApi">
-                            <i class="fa fa-refresh fa-spin"></i> Updating...
-                        </div>                    </div>
-                    <div class="panel-body">
-                        <fieldset>
-                            <div class='plr5 col-xs-12 col-sm-{{formField.boxSize}}'
-                                 ng-repeat="formField in postObj.fields track by $index"
-                                 ng-show="formField.name"
-                                 ng-include='formField.viewTemplate'>
-                            </div>
-
-                        </fieldset>
-
-                    </div>
-
-
-                </form>
-            </div>
-
-        </div>
-        <div class="row">
-            <div class="col-sm-12">
-                <form role="form" class="panel panel-default">
-
-                    <div class="panel-heading">
-                        <span ng-show="postObj.comments.length>0">{{ postObj.comments.length }} comments</span>
-                        <span ng-show="!postObj.comments">No comments - be the first</span>
-
-                        <textarea class="form-control b0"></textarea>
-                        <button class="btn btn-info btn-xs pt5">Post comment</button>
-
-                    </div>
-                    <div class="panel-body">
-
-
-                        <div class="comment" ng-repeat="comment in postObj.comments">
-                            {{comment.postedBy}} {{comment.postDate}}
-                            {{comment.content}}
-                        </div>
-                    </div>
-                </form>
-            </div>
-        </div>
-    </div>
-
+    <foo-post post="activePost" delete-post="deletePost()" copy-post="copyPost()" save-post="savePost()"
+              cancel-post="cancelPost()"></foo-post>
 
 </div>
 
@@ -286,7 +177,7 @@
                 {{form.btnLabel}} <i class="fa fa-plus fa-lg"></i></button>
             <img class="icon  pull-left" ng-src="{{form.icon}}">
             <h4 class="inline">{{form.name}}
-                <a href="formBuilder" ng-click="updateForm(form)"><i class="fa fa-edit fa-lg"></i>
+                <a href="/{{owner}}/{{form.displayName}}/edit"><i class="fa fa-edit fa-lg"></i>
                 </a></h4>
 
             <p id='formDescription'>{{form.description}} </p>

@@ -52,23 +52,25 @@ angular.module('ui.calendar', [])
         this.allEvents = function () {
             // return sources.flatten(); but we don't have flatten
             var arraySources = [];
-            for (var i = 0, srcLen = sources.length; i < srcLen; i++) {
-                var source = sources[i];
-                if (angular.isArray(source)) {
-                    // event source as array
-                    arraySources.push(source);
-                } else if (angular.isObject(source) && angular.isArray(source.events)) {
-                    // event source as object, ie extended form
-                    var extEvent = {};
-                    for (var key in source) {
-                        if (key !== '_uiCalId' && key !== 'events') {
-                            extEvent[key] = source[key];
+            if(sources) {
+                for (var i = 0, srcLen = sources.length; i < srcLen; i++) {
+                    var source = sources[i];
+                    if (angular.isArray(source)) {
+                        // event source as array
+                        arraySources.push(source);
+                    } else if (angular.isObject(source) && angular.isArray(source.events)) {
+                        // event source as object, ie extended form
+                        var extEvent = {};
+                        for (var key in source) {
+                            if (key !== '_uiCalId' && key !== 'events') {
+                                extEvent[key] = source[key];
+                            }
                         }
+                        for (var eI = 0; eI < source.events.length; eI++) {
+                            angular.extend(source.events[eI], extEvent);
+                        }
+                        arraySources.push(source.events);
                     }
-                    for (var eI = 0; eI < source.events.length; eI++) {
-                        angular.extend(source.events[eI], extEvent);
-                    }
-                    arraySources.push(source.events);
                 }
             }
 
@@ -84,11 +86,13 @@ angular.module('ui.calendar', [])
             var getTokens = function () {
                 var array = angular.isFunction(arraySource) ? arraySource() : arraySource;
                 var result = [], token, el;
-                for (var i = 0, n = array.length; i < n; i++) {
-                    el = array[i];
-                    token = tokenFn(el);
-                    map[token] = el;
-                    result.push(token);
+                if (array) {
+                    for (var i = 0, n = array.length; i < n; i++) {
+                        el = array[i];
+                        token = tokenFn(el);
+                        map[token] = el;
+                        result.push(token);
+                    }
                 }
                 return result;
             };

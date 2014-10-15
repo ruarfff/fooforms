@@ -1,5 +1,5 @@
 var path = require('path');
-var srcDir = path.join(__dirname, '../../', 'apps');
+var srcDir = path.join(__dirname, '../../', 'modules');
 
 require('blanket')({
     // Only files that match the pattern will be instrumented

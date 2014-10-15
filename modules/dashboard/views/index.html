@@ -17,16 +17,11 @@
     <link rel="stylesheet" href="/vendor/bootstrap/css/bootstrap.min.css">
 
     <link rel="stylesheet" href="/vendor/font-awesome/css/font-awesome.min.css">
-    <link rel="stylesheet" href="/vendor/trNgGrid/trNgGrid.min.css">
 
     <link rel="stylesheet" type="text/css" href="/vendor/codemirror/lib/codemirror.css"/>
     <link rel="stylesheet" type="text/css" href="/vendor/codemirror/theme/mdn-like.css"/>
 
     <link rel="stylesheet" type="text/css" href="/vendor/pikaday/css/pikaday.css"/>
-
-    <link href='http://fonts.googleapis.com/css?family=Play' rel='stylesheet' type='text/css'>
-    <link href='http://fonts.googleapis.com/css?family=Open+Sans+Condensed:300' rel='stylesheet' type='text/css'>
-
 
     <link rel="stylesheet" href="/css/main.min.css">
     <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
@@ -39,206 +34,204 @@
     <script type="text/javascript" src="/vendor/angularFileUpload/angular-file-upload-shim.min.js"></script>
 
 
-
     <script type="text/javascript" src="/vendor/angular/angular.min.js"></script>
     <script type="text/javascript" src="/vendor/angularFileUpload/angular-file-upload.min.js"></script>
     <script type="text/javascript" src="/vendor/trNgGrid/trNgGrid.min.js"></script>
-    <script src="/vendor/codemirror/lib/codemirror.js"></script>
-    <script src="/vendor/codemirror//mode/xml/xml.js"></script>
-    <script src="/vendor/angular-ui-codemirror/ui-codemirror.min.js"></script>
 
-    <script src="/vendor/pikaday/pikaday.js"></script>
-    <script src="/vendor/pikaday/pikaday-directive.js"></script>
-
-<base href="/">
+    <base href="/">
 </head>
-<body ng-controller="MainController" data-ng-init="init()" class="main-application">
-<div id="wrap" ng-controller = "DashboardCtrl">
-<div class="navbar-wrapper hidden-print" >
-<div class="navbar navbar-default navbar-fixed-top navbar-foo" role="navigation">
-    <div class="container-fluid"  ng-class="{withSideMenu : sideMenuVisible, withoutSideMenu :!sideMenuVisible}">
-        <div class="navbar-header">
+<body ng-controller="MainController" class="main-application" ng-show="user">
+<div id="wrap">
+    <div class="navbar-wrapper hidden-print">
+        <div class="navbar navbar-default navbar-fixed-top navbar-foo" role="navigation">
+            <div class="container-fluid" ng-class="{withSideMenu : sideMenuVisible, withoutSideMenu :!sideMenuVisible}">
+                <div class="navbar-header">
+                </div>
+                <div class="collapse navbar-collapse">
 
+                    <ul class="nav navbar-nav">
+                        <li>
+                            <a ng-click="sideMenuVisible=!sideMenuVisible">
+                                <span class="sr-only">Toggle navigation</span>
+                                <i class="fa fa-bars"></i>
+                            </a>
+                        </li>
+                        <li>
+                            <a class="navbar-brand" href="#"><span class="text-foo">FOOFORMS</span></a>
+                        </li>
 
+                        <li class="dropdown">
+                            <a class="inline pull-right dropdown-toggle">
+                                <i class="fa fa-th"></i>Forms<b class="caret"></b></a>
+                            <ul class="dropdown-menu">
+                                <li ng-repeat="form in user.defaultFolder.forms">
+                                    <a href="/{{user.displayName}}/{{form.displayName}}"
+                                       ng-click='updateForm(form)'>
+                                        <img ng-src="{{form.icon}}" alt="{{form.displayName}}" class="icon icon-xs">
+                                        {{form.displayName}}
+                                    </a></li>
+                                <li class="divider"></li>
+                                <li><a href="/forms"><i class="fa fa-cogs"></i> Manage Forms</a></li>
+                            </ul>
+                        </li>
 
-        </div>
-        <div class="collapse navbar-collapse">
+                        <li class="dropdown">
+                            <a class="inline pull-right dropdown-toggle">
+                                <i class="fa fa-sitemap"></i>Organisations <b class="caret"></b></a>
+                            <ul class="dropdown-menu">
+                                <li ng-repeat="org in user.organisations">
+                                    <a href="/organisations/{{org.displayName}}">
+                                        <img ng-src="{{org.photo}}" alt="{{org.displayName}}"
+                                             class="icon icon-xs">
+                                        {{org.displayName}}
+                                    </a></li>
+                                <li class="divider"></li>
+                                <li><a href="/organisations"><i class="fa fa-cogs"></i> Manage Organisations</a></li>
+                            </ul>
+                        </li>
 
+                        <li class="dropdown">
+                            <a class="inline pull-right dropdown-toggle">
+                                <i class="fa fa-sitemap"></i>Team Folders <b class="caret"></b></a>
+                            <ul class="dropdown-menu">
+                                <li ng-repeat="team in user.teams">
+                                    <a href="/teams/{{team.displayName}}">
+                                        <img ng-src="{{team.icon}}" alt="{{team.displayName}}"
+                                             class="icon icon-xs">
+                                        {{team.displayName}}
+                                    </a></li>
+                                <li class="divider"></li>
+                                <li><a href="/teams"><i class="fa fa-cogs"></i> Manage Team Folders</a></li>
+                            </ul>
+                        </li>
 
-            <ul class="nav navbar-nav">
-                <li>
-                    <a ng-click="sideMenuVisible=!sideMenuVisible">
-                        <span class="sr-only">Toggle navigation</span>
-                        <i class="fa fa-bars"></i>
+                        <li>
+                            <a href="/people" class="inline pull-right">
+                                <i class="fa fa-group" ng-click="postView='list';"></i>People</a>
+                        </li>
 
-                    </a>
-
-                </li>
-                <li>
-                    <a class="navbar-brand" href="#"><span class="text-foo">FOOFORMS</span></a>
-                </li>
-
-                <li class="dropdown">
-                <a class="inline pull-right dropdown-toggle">
-                    <i class="fa fa-th"></i>Forms<b class="caret"></b></a>
-                    <ul class="dropdown-menu">
-                        <li ng-repeat="form in forms">
-                            <a href="{{user.displayName + '/' + form.sharing.folder + '/' + form.menuLabel}}"
-                               ng-click='updateForm(form)' >
-                                <img ng-src="{{form.icon}}" alt="{{form.name}}" class="icon icon-xs">
-                                {{form.name}}
-                            </a></li>
-                        <li class="divider"></li>
-                        <li><a href="/forms"><i class="fa fa-cogs"></i> Manage Forms</a></li>
-
+                        <li>
+                            <a href="/calendar" class="inline pull-right">
+                                <i class="fa fa-calendar" ng-click="postView='list';"></i>Dates</a>
+                        </li>
 
                     </ul>
-                </li>
-
-                <li class="dropdown">
-                    <a class="inline pull-right dropdown-toggle">
-                        <i class="fa fa-sitemap"></i>Team Folders  <b class="caret"></b></a>
-                    <ul class="dropdown-menu">
-                        <li ng-repeat="privateFolder in privateFolders">
-                            <a href="/folder/{{privateFolder.menuLabel}}"
-                               ng-click='updateFolder(privateFolder)' >
-                                <img ng-src="{{privateFolder.icon}}" alt="{{privateFolder.name}}" class="icon icon-xs">
-                                {{privateFolder.name}}
-                            </a></li>
-                        <li class="divider"></li>
-                        <li ng-repeat="publicFolder in publicFolders">
-                            <a href="/folder/{{publicFolder.menuLabel}}"
-                               ng-click='updateFolder(publicFolder)' >
-                                <img ng-src="{{publicFolder.icon}}" alt="{{publicFolder.name}}" class="icon icon-xs">
-                                {{publicFolder.name}}
-                            </a></li>
-                        <li class="divider"></li>
-                        <li><a href="/team-folders"><i class="fa fa-cogs"></i> Manage Team Folders</a></li>
 
 
+                    <div class="nav-search">
+
+                        <input type="text" placeholder="Search..." class="input-search"/>
+
+                    </div>
+                    <ul class="nav navbar-nav navbar-right">
+                        <li class="dropdown profile" ng-cloak><a href="#" class="dropdown-toggle">&nbsp;
+                            <img class="img-circle" ng-src="{{user.photo}}"/>
+                            {{user.displayName}}
+
+                            <b class="caret"></b></a>
+                            <ul class="dropdown-menu">
+                                <li><a href="/organisations">Organisations</a></li>
+                                <li><a href="/profile"><i class="fa fa-user"></i> Profile</a></li>
+                                <li><a href="/teams"><i class="fa fa-folder"></i> Teams</a></li>
+                                <li class="divider"></li>
+                                <li ng-controller="LogoutCtrl"><a ng-click="logout()"><i
+                                        class="fa fa-lock"></i>Logout</a></li>
+                            </ul>
+                        </li>
                     </ul>
-                </li>
-
-                <li>
-                    <a href="/people" class="inline pull-right">
-                        <i class="fa fa-group" ng-click="postView='list';"></i>People</a>
-                </li>
-
-                <li>
-                    <a href="/calendar" class="inline pull-right">
-                        <i class="fa fa-calendar" ng-click="postView='list';"></i>Dates</a>
-                </li>
-
-            </ul>
 
 
-
-            <div class="nav-search">
-
-                <input type="text" placeholder="Search..." class="input-search"/>
-
+                </div>
+                <!-- /.nav-collapse -->
             </div>
-            <ul class="nav navbar-nav navbar-right">
-
-                <li class="dropdown profile" ng-cloak><a href="#" class="dropdown-toggle">&nbsp;
-                    <img ng-show="user.photo!='/assets/images/photo.jpg'" class="img-circle" ng-src="/api/file/{{user.photo}}"/>
-                    <img ng-show="user.photo=='/assets/images/photo.jpg'" class="img-circle" ng-src="/assets/images/photo.jpg"/>
-                    {{user.displayName}}
-
-                    <b class="caret"></b></a>
-                    <ul class="dropdown-menu">
-                        <li><a href="profile"><i class="fa fa-user"></i> Profile</a></li>
-                        <li><a href="{{user.displayName}}/folders"><i class="fa fa-folder"></i> Folders</a></li>
-                        <li><a href="settings"><i class="fa fa-cogs"></i> Settings</a></li>
-                        <li class="divider"></li>
-                        <li ng-controller="LogoutCtrl"><a ng-click="logout()"><i class="fa fa-lock"></i>Logout</a></li>
-                    </ul>
-                </li>
-            </ul>
-
-
+            <!-- /.container -->
         </div>
-        <!-- /.nav-collapse -->
+        <!-- /.navbar -->
     </div>
-    <!-- /.container -->
-</div><!-- /.navbar -->
-</div>
-<div id='sideMenu' class="sideMenu hidden-print"  ng-class="{showMenu : sideMenuVisible, hideMenu: !sideMenuVisible}">
+    <div id='sideMenu' class="sideMenu hidden-print"
+         ng-class="{showMenu : sideMenuVisible, hideMenu: !sideMenuVisible}">
 
-    <div class="company">
-        <img src="/assets/images/logo.png">
-    </div>
+        <div class="company">
+            <img src="/assets/images/logo.png">
+        </div>
 
-    <ul class="nav nav-pills nav-stacked scrollSidebar ml0" >
-        <li>
-           <div><a href="dashboard"><i class="fa fa-dashboard"></i></a></div><div><a href="dashboard">Dashboard</a></div>
-        </li>
-        <li>
-            <div><a ng-click="isCollapsed = !isCollapsed"><i class="fa fa-th"></i></a></div>
-            <div><a ng-click="isCollapsed = !isCollapsed">Forms<span class="caret"></span></a></div>
-            <ul class="nav nav-pills nav-stacked ml0"  collapse="isCollapsed">
+        <ul class="nav nav-pills nav-stacked scrollSidebar ml0">
+            <li>
+                <div><a href="/dashboard"><i class="fa fa-dashboard"></i></a></div>
+                <div><a href="/dashboard">Dashboard</a></div>
+            </li>
+            <li>
+                <div><a ng-click="isCollapsed = !isCollapsed"><i class="fa fa-th"></i></a></div>
+                <div><a ng-click="isCollapsed = !isCollapsed">Forms<span class="caret"></span></a></div>
+                <ul class="nav nav-pills nav-stacked ml0" collapse="isCollapsed">
 
-                <li ng-repeat="form in forms"><div>
-                    <a href="{{user.displayName + '/' + form.sharing.folder + '/' + form.menuLabel}}"
-                       ng-click='updateForm(form)' >
-                        <img ng-src="{{form.icon}}" alt="{{form.name}}" class="icon icon-xs">
-                    </a>
-                </div><div>
-                    <a href="{{user.displayName + '/' + form.sharing.folder + '/' + form.menuLabel}}"
-                       ng-click='updateForm(form)' >
-                        {{form.name}}
-                    </a>
-                </div></li>
-            </ul>
-        </li>
-        <li>
-            <div><a href="people"><i class="fa fa-group"></i></a></div><div><a href="people">People</a></div>
-        </li>
-        <li>
-            <div><a href="calendar"><i class="fa fa-calendar"></i></a></div><div><a href="calendar">Dates</a></div>
-        </li>
-
-
-        <% if(user.admin){ %>
-        <li>
-
-            <a href="admin"><i class="fa fa-flask"></i>Admin</a>
-        </li>
-        <% } %>
+                    <li ng-repeat="form in user.defaultFolder.forms">
+                        <div>
+                            <a href="/{{user.displayName}}/{{form.displayName}}">
+                                <img ng-src="{{form.icon}}" alt="{{form.displayName}}" class="icon icon-xs">
+                            </a>
+                        </div>
+                        <div>
+                            <a href="/{{user.displayName}}/{{form.displayName}}">
+                                {{form.displayName}}
+                            </a>
+                        </div>
+                    </li>
+                </ul>
+            </li>
+            <li>
+                <div><a href="/people"><i class="fa fa-group"></i></a></div>
+                <div><a href="/people">People</a></div>
+            </li>
+            <li>
+                <div><a href="/calendar"><i class="fa fa-calendar"></i></a></div>
+                <div><a href="/calendar">Dates</a></div>
+            </li>
 
 
-    </ul>
-
-</div>
-<div class="container-fluid" ng-class="{withSideMenu : sideMenuVisible, withoutSideMenu :!sideMenuVisible}">
-
-
-
-    <div id='fooforms' class="row" ng-view>
+            <% if(user.admin){ %>
+            <li>
+                <a href="/admin"><i class="fa fa-flask"></i>Admin</a>
+            </li>
+            <% } %>
+        </ul>
 
     </div>
-</div>
+    <div class="container-fluid" ng-class="{withSideMenu : sideMenuVisible, withoutSideMenu :!sideMenuVisible}">
+
+
+        <div id='fooforms' class="row" ng-view>
+        </div>
+
+
+    </div>
 
 
 </div>
 <div id="footer" class="hidden-print p0 m0">
 
-           <div class="alert fade in m0 p5 br0 {{msgStatus}} " ng-show="activeMsgBox=='formViewer'">
-               <p ng-bind="msg"></p>
-           </div>
+    <div class="alert fade in m0 p5 br0 {{msgStatus}} " ng-show="activeMsgBox=='formViewer'">
+        <p ng-bind="msg"></p>
+    </div>
 
 </div>
 <script type="text/javascript" src="/js/vendor.min.js"></script>
+<script src="/vendor/codemirror/lib/codemirror.js"></script>
+<script src="/vendor/codemirror//mode/xml/xml.js"></script>
+<script src="/vendor/angular-ui-codemirror/ui-codemirror.min.js"></script>
+
+<script src="/vendor/pikaday/pikaday.js"></script>
+<script src="/vendor/pikaday/pikaday-directive.js"></script>
+<script src="/vendor/ng-sweetAlert/SweetAlert.js"></script>
 
 <% if (dev) { %>
-<script type="text/javascript" src="http://localhost:9000/livereload.js"></script>
+<script src="//localhost:35729/livereload.js"></script>
 
 <% assets.core.js.dashboard.forEach(function(script){ %>
 <script type="text/javascript" src="<%= script %>"></script>
 <% }) %>
 
 <% } else{ %>
-
 <script type="text/javascript" src="/js/main.min.js"></script>
 
 <% } %>

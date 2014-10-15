@@ -1,82 +1,102 @@
 /* global angular */
 
-angular.module('dashboard').controller('DashboardCtrl', ['$scope', '$location', '$http' , '$modal', 'Restangular', 'FormService', 'Forms', 'FolderService', 'Folders', 'PostService', 'Posts', '_', function ($scope, $location, $http, $modal, Restangular, FormService, Forms, FolderService, Folders, PostService, Posts, _) {
-    'use strict';
-    // the main object to store the form data
-    $scope.form = Forms.getCurrentForm();
-    $scope.posts = [];
-    $scope.postView = 'list';
-    $scope.currentPostIndex = 0;
-    $scope.doingPostApi = false;
+angular.module('dashboard').controller('DashboardCtrl', ['$rootScope', '$scope', '$log', '_', 'SweetAlert', 'DashboardService', 'Session', 'PostService', 'Posts',
+    function ($rootScope, $scope, $log, _, SweetAlert, DashboardService, Session, PostService, Posts) {
+        'use strict';
+        $scope.postView = 'feed';
+
+        // Posts are linked to the post collection directive
+        $scope.posts = [];
+
+        var postStreamsArray = [];
+        var forms = [];
+
+        _.each(Session.user.organisations, function (org) {
+            forms = forms.concat(org.defaultFolder.forms);
+        });
+
+        forms = Session.user.defaultFolder.forms.concat(forms);
+
+        _.each(forms, function (form) {
+            postStreamsArray = postStreamsArray.concat(form.postStreams);
+
+        });
+
+        $scope.postStreams = postStreamsArray.join(',');
+        $scope.activePost = {};
 
 
-    $scope.updateForm = function (form) {
-        Forms.setCurrentForm(form);
-        Posts.activePost = null;
-    };
+        $scope.cancelPost = function () {
 
-    $scope.updateFolder = function (folder) {
-        Folders.setCurrentFolder(folder);
+        };
+        $scope.copyPost = function () {
+            var newPost = angular.copy($scope.activePost);
+            if (newPost._id) {
+                delete newPost._id;
+            }
+            $scope.activePost = newPost;
+            SweetAlert.swal('Post Copied');
 
-    };
+        };
+        $scope.savePost = function () {
+            if ($scope.activePost._id) {
+                // Post already exists on server
+                var postToSave = angular.copy($scope.activePost);
+                delete postToSave.commentStreams;
+                PostService.updatePost(postToSave, function (err, post) {
+                    if (err) {
+                        $log.error(err);
+                        SweetAlert.swal('Not Saved!', 'An error occurred trying to update your post.', 'error');
+                    } else {
+                        $log.debug(post);
+                        $scope.activePost = post;
+                        SweetAlert.swal('Saved!', 'Your post has been saved.', 'success');
 
-    $scope.viewPost = function (post, index) {
-        if (post) {
-            var form = Forms.findById(post.form);
-            $scope.posts.activePost = angular.copy(post);
+                    }
+                });
+            } else {
+                PostService.createPost($scope.activePost, function (err, post) {
+                    if (err) {
+                        $log.error(err);
+                        SweetAlert.swal('Not Saved!', 'Your post has not been created.', 'error');
+                    } else {
+                        $scope.posts.unshift(post);
+                        $scope.activePost = post;
+                        SweetAlert.swal('Saved!', 'Your post has been created.', 'success');
+                    }
+                });
+            }
+
+        };
+
+        $scope.deletePost = function () {
+            if ($scope.activePost._id) {
+                SweetAlert.swal({   title: 'Are you sure?', text: 'Your will not be able to recover this post!',
+                        type: 'warning',
+                        showCancelButton: true, confirmButtonColor: '#DD6B55',
+                        confirmButtonText: 'Yes, delete it!', closeOnConfirm: false },
+                    function () {
+                        PostService.deletePost($scope.activePost, function (err) {
+                            $scope.doingPostApi = false;
+                            if (err) {
+                                SweetAlert.swal('Not Deleted!', 'An error occurred trying to delete your post.', 'error');
+                                $log.error(err);
+                            } else {
+                                _.pull($scope.posts, $scope.activePost);
+                                $scope.activePost = $scope.posts[0];
+                                SweetAlert.swal('Deleted!', 'Your post has been deleted.', 'success');
+                            }
+                        });
+                    });
+            } else {
+                SweetAlert.swal('Not Deleted!', 'Post was never saved.', 'error');
+            }
+        };
 
 
-            $scope.currentPostIndex = index;
-
-            $scope.showPostForm = true;
-            //$scope.setMessage('');
-
-
-        }
-
-    };
-
-
-    $scope.savePost = function (postToSave) {
-        $scope.doingPostApi = true;
-        if (postToSave._id) {
-            // Post already exists on server
-            PostService.updatePost(postToSave, function (err) {
-                if (err) {
-                    console.log(err.toString());
-                    $scope.setMessage('formViewer','alert-danger','','Something went wrong. It didn\'t save. Please try again..');
-                } else {
-                    $scope.posts = Posts.posts;
-                    $scope.posts.activePost  = Posts.findById(postToSave._id);
-
-                }
-                $scope.doingPostApi = false;
-            });
-        }
-
-
-    };
-
-    $scope.deletePost = function (postToDelete) {
-        $scope.doingPostApi = true;
-        if (postToDelete._id) {
-            PostService.deletePost(postToDelete, function (err) {
-                if (err) {
-                    console.log(err.toString());
-                } else {
-                    $scope.posts = Posts.posts;
-                    $scope.viewPost($scope.posts[$scope.currentPostIndex]);
-                    $scope.setMessage('formViewer','alert-danger','','Post deleted.!');
-                }
-                $scope.doingPostApi = false;
-            });
-        } else {
-            // Post was never saved
-            $scope.postObj = Posts.newPost($scope.form);
-        }
-
-    };
-    $scope.postComment = function (comment) {
+        /**
+         *
+         $scope.postComment = function (comment) {
         try {
             if (comment.content) {
                 comment.post = $scope.posts.activePost._id;
@@ -98,23 +118,23 @@ angular.module('dashboard').controller('DashboardCtrl', ['$scope', '$location', 
         }
     };
 
-    FolderService.getFolders(function (err) {
+         FolderService.getFolders(function (err) {
         if (!err) {
             $scope.privateFolders = Folders.privateFolders;
             $scope.publicFolders = Folders.publicFolders;
         }
     });
-    PostService.getUserPosts(function (err) {
+         PostService.getUserPosts(function (err) {
         if (!err) {
             $scope.posts = Posts.posts;
             $scope.viewPost($scope.posts[0]);
 
         }
     });
-    FormService.getUserForms(function (err) {
+         FormService.getUserForms(function (err) {
         if (!err) {
             $scope.forms = Forms.forms;
         }
-    });
+    });*/
 
-}]);
+    }]);

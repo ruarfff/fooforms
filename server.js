@@ -19,6 +19,10 @@ var fs = require('fs');
 var database = require('./database/databaseGateway')();
 var log = require('fooforms-logging').LOG;
 
+
+var membership = require('./modules/membership');
+
+
 process.on('uncaughtException', function (err) {
     console.error('uncaughtException:', err.message);
     console.error(err.stack);
@@ -158,7 +162,7 @@ var FooFormsServerApp = function () {
             self.setupVariables();
             self.setupTerminationHandlers();
             self.bootstrapModels();
-            require('./config/passport')(passport);
+            membership.passport(passport);
             require('./config/express')(self.app, passport);
             require('./config/routes')(self.app, passport);
 
@@ -180,6 +184,8 @@ var FooFormsServerApp = function () {
 
 };
 
+var serverApp = new FooFormsServerApp();
+serverApp.initialize();
 
 exports.serverApp = module.exports = FooFormsServerApp;
 

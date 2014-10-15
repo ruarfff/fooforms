@@ -1,10 +1,7 @@
+<div>
+    <img class="img-circle" ng-src="{{userProfile.photo}}"/>
 
-
-    <div class="thumbnail">
-
-            <img class="media-object"  src="/api/file/{{user.photo}}">
-
-        <div class="caption">
+    <div class="caption">
         <button class="btn btn-default"
                 id="browseBtn"
                 type="button"
@@ -12,21 +9,24 @@
         </button>
 
 
-    <div class="input-group" >
-
-        <input type="file" name="uploadFile" id="uploadFile" class="hidden" ng-model="uploadFile"
-               ng-file-select="onFileSelect($files, user)">
-
         <div class="input-group">
-            <input type="text" class="hidden" ng-model="uploadFile.name" placeholder="Choose a File">
 
-        </div>
-        <div class="progress mt5 progress-striped" ng-class="{'fadeOutDelayed' : formField.progress==100}" ng-show="formField.progress>0">
-            <div class="progress-bar" ng-class="{'progress-bar-success' : formField.progress==100}" role="progressbar" aria-valuenow="{{formField.progress}}" aria-valuemin="0" aria-valuemax="100" style="width: {{formField.progress+'%'}}">
-                {{formField.progress+'%'}}
+            <input type="file" name="uploadFile" id="uploadFile" class="hidden" ng-model="uploadFile"
+                   ng-file-select="onFileSelect($files)">
+
+            <div class="input-group">
+                <input type="text" class="hidden" ng-model="uploadFile.name" placeholder="Choose a File">
+
+                <div class="progress mt5 progress-striped" ng-class="{'fadeOutDelayed' : uploadProgress==100}"
+                     ng-show="uploadProgress>0">
+                    <div class="progress-bar" ng-class="{'progress-bar-success' : uploadProgress==100}"
+                         role="progressbar" aria-valuenow="{{uploadProgress}}" aria-valuemin="0" aria-valuemax="100"
+                         style="width: {{uploadProgress+'%'}}">
+                        {{uploadProgress+'%'}}
+                    </div>
+                </div>
             </div>
+
         </div>
-
-
-    </div>   </div>
     </div>
+</div>

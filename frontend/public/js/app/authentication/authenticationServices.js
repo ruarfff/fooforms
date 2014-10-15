@@ -1,6 +1,6 @@
 /* global angular */
 
-angular.module('authentication').factory('AuthService', ['$cookieStore', '$http', 'Base64', 'Session', function ($cookieStore, $http, Base64, Session) {
+angular.module('authentication').factory('AuthService', ['$rootScope', '$cookieStore', '$http', 'Base64', 'Session', 'AUTH_EVENTS', function ($rootScope, $cookieStore, $http, Base64, Session, AUTH_EVENTS) {
     'use strict';
     // Load data from cookie if it's there
     $http.defaults.headers.common['Authorization'] = 'Basic ' + $cookieStore.get('authdata');
@@ -8,14 +8,6 @@ angular.module('authentication').factory('AuthService', ['$cookieStore', '$http'
         login: function () {
             return $http
                 .post('/login');
-        },
-        checkUser: function (next) {
-            return $http
-                .get('/api/user/me')
-                .then(function (res) {
-                    Session.create(res.data);
-                    return next(Session.user);
-                });
         },
         isAuthenticated: function () {
             return !!Session.user;
@@ -25,17 +17,20 @@ angular.module('authentication').factory('AuthService', ['$cookieStore', '$http'
             if (encoded) {
                 $http.defaults.headers.common['Authorization'] = 'Basic ' + $cookieStore.get('authdata');
                 return $http
-                    .get('/api/user/me')
+                    .get('/api/users/check/me')
                     .success(function (data) {
                         Session.create(data);
-                        next();
-                    }).
-                    error(function (data, status) {
+                        $rootScope.$broadcast(AUTH_EVENTS.loginSuccess);
+                        next(null, data);
+                    })
+                    .error(function (data, status) {
                         document.execCommand("ClearAuthenticationCache");
                         $cookieStore.remove('authdata');
                         $http.defaults.headers.common.Authorization = 'Basic ';
                         next(new Error('Error ' + status));
                     });
+            } else {
+                next(new Error('Error. No stored credentials found.'));
             }
         },
         setCredentials: function (username, password) {
@@ -53,11 +48,14 @@ angular.module('authentication').factory('AuthService', ['$cookieStore', '$http'
 
 angular.module('authentication').service('Session', function () {
     'use strict';
+    this.posts = [];
+
     this.create = function (userProfile) {
         this.user = userProfile;
     };
     this.destroy = function () {
         this.user = null;
+        this.posts = null;
     };
     return this;
 });

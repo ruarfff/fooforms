@@ -1,0 +1,76 @@
+<div ng-if="activePost" class="container-fluid">
+
+    <div class="row">
+        <div class="col-sm-12">
+
+            <form role="form" class="panel panel-default">
+
+                <div class="panel-heading">
+                    <img class="media-object icon icon-xs" ng-src="{{activePost.icon}}" alt="">
+                    <h4 class="inline-block">{{activePost.displayName}}</h4>
+
+                    <div class="btn-group pull-right">
+                        <button id='deletePost' ng-click="delete()"
+                                class="btn btn-default btn-sm"><i class="fa fa-trash-o"></i> Delete
+                        </button>
+                        <button id='copyPost' ng-click="copy()"
+                                class="btn btn-default btn-sm"><i class="fa fa-copy"></i> Copy
+                        </button>
+                        <button id='cancelPost' ng-click="cancel()"
+                                class="btn btn-default btn-sm"><i class="fa fa-reply"></i> Cancel
+                        </button>
+                        <button id='savePost' ng-click="save()"
+                                class="btn btn-success btn-sm"><i class="fa fa-save"></i> Save
+                        </button>
+                    </div>
+                    <hr class="m10">
+                    <div class="m0 p0 slideUp" ng-show="!doingPostApi">
+                        <span class="small text-opacity-5">Last Update:</span><span class="small"> {{activePost.lastModified | date : 'MMM d, y @ h:mm a'}}</span>
+                    </div>
+                    <div class="m0 p0 slideDown" ng-show="doingPostApi">
+                        <i class="fa fa-refresh fa-spin"></i> Updating...
+                    </div>
+
+                </div>
+                <div class="panel-body light-gray">
+                    <fieldset>
+                        <div class='col-xs-12 plr5 col-sm-{{formField.boxSize}}'
+                             ng-repeat="formField in activePost.fields track by $index"
+                             ng-show="formField.name"
+                             ng-include='formField.viewTemplate'>
+                        </div>
+
+                    </fieldset>
+                </div>
+            </form>
+        </div>
+
+    </div>
+    <div class="row">
+        <div class="col-sm-12">
+            <form role="form" class="panel panel-default">
+
+                <div class="panel-heading">
+                    <span ng-show="posts.activePost.comments.length>0">{{ posts.activePost.comments.length }} comments</span>
+                    <span ng-show="posts.activePost.comments.length<1">No comments - be the first</span>
+
+                    <textarea class="form-control b0" ng-model="comment.content"></textarea>
+                    <button class="btn btn-info btn-xs pt5" ng-click="postComment(comment)">Post comment</button>
+
+                </div>
+                <div class="panel-heading">
+
+                    <div class="comment" ng-repeat="comment in posts.activePost.comments">
+                        <blockquote>
+                            <p>{{comment.content}}</p>
+                            <footer><cite title="{{comment.commenter[0].displayName}}">{{comment.commenter[0].displayName}}</cite>
+                                on {{comment.created | date:'medium'}}
+                            </footer>
+                        </blockquote>
+
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
