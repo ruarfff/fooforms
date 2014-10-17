@@ -31,6 +31,7 @@ fooformsApp
                                     result.self = {};
                                     result.self.link = '/api/users/' + result._id;
                                     Session.user = result;
+                                    Session.org = Session.user.organisations[0];
 
                                     deferred.resolve(Session.user);
                                 }
@@ -204,7 +205,16 @@ fooformsApp
                     }
                 }
             })
-            .when('/:name', {
+            .when('/:organisation', {
+                templateUrl: '/organisations/partials/organisation-dashboard',
+                controller: 'OrganisationCtrl',
+                resolve: {
+                    message: function (SessionService) {
+                        return SessionService.checkSession();
+                    }
+                }
+            })
+            .when('/user/:name', {
                 templateUrl: '/users/partials/user-profile',
                 controller: 'UserViewCtrl',
                 resolve: {
@@ -279,6 +289,15 @@ fooformsApp
         }, function (newVal, oldVal) {
             if (typeof newVal !== 'undefined') {
                 $scope.user = Session.user;
+
+            }
+        });
+        $scope.$watch(function () {
+            return Session.org
+        }, function (newVal, oldVal) {
+            if (typeof newVal !== 'undefined') {
+
+                $scope.org = Session.org;
             }
         });
 
