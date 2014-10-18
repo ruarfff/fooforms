@@ -24,6 +24,7 @@
     <link rel="stylesheet" type="text/css" href="/vendor/pikaday/css/pikaday.css"/>
 
     <link rel="stylesheet" href="/css/main.min.css">
+    <link rel="stylesheet" href="/css/login.min.css">
     <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
     <!--[if lt IE 9]>
     <script type="text/javascript" src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
@@ -40,7 +41,7 @@
 
     <base href="/">
 </head>
-<body ng-controller="MainController" class="main-application" ng-show="user">
+<body ng-controller="MainController" class="main-application">
 <div id="wrap">
     <div class="navbar-wrapper hidden-print">
         <div class="navbar navbar-default navbar-fixed-top navbar-foo" role="navigation">
@@ -148,7 +149,7 @@
         </div>
         <!-- /.navbar -->
     </div>
-    <div id='sideMenu' class="sideMenu hidden-print"
+    <div id='sideMenu' class="sideMenu hidden-print" ng-show="user"
          ng-class="{showMenu : sideMenuVisible, hideMenu: !sideMenuVisible}">
 
         <div class="company">
@@ -199,13 +200,10 @@
     </div>
     <div class="container-fluid" ng-class="{withSideMenu : sideMenuVisible, withoutSideMenu :!sideMenuVisible}">
 
-
         <div id='fooforms' class="row" ng-view>
         </div>
 
-
     </div>
-
 
 </div>
 <div id="footer" class="hidden-print p0 m0">

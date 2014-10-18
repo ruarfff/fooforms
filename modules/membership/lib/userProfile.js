@@ -20,6 +20,7 @@ exports.userToProfile = function (user) {
             photo: user.photo,
             email: user.email,
             folders: user.folders,
+            defaultFolder: user.folders[0],
             teams: user.teams,
             organisations: user.organisations
         };

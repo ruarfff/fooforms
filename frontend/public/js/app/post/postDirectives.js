@@ -4,7 +4,7 @@ angular.module('post')
         function () {
             return {
                 restrict: 'E',
-                scope: {view: '@', streams: '@', activePost: '=post', posts: '=posts'},
+                scope: {view: '@', streams: '@', activePost: '=activePost', posts: '=posts'},
                 transclude: true,
                 controller: function ($log, $scope, PostService, _, Session) {
                     var currentPostPage = 0;
@@ -44,11 +44,6 @@ angular.module('post')
                         }
                     };
 
-                    $scope.viewPost = function (index) {
-                        $scope.activePost = $scope.posts[index];
-                    };
-
-
                     this.activePost = $scope.activePost;
 
 
@@ -63,7 +58,7 @@ angular.module('post')
             return {
                 restrict: 'E',
                 scope: {
-                    activePost: '=post',
+                    activePost: '=activePost',
                     delete: '&deletePost',
                     copy: '&copyPost',
                     cancel: '&cancelPost',
@@ -72,31 +67,45 @@ angular.module('post')
                 templateUrl: '/template/post/foo-post.html'
             };
         }
-    ]);
-
-/** TODO: These are not used yet but should be eventually
- .directive('fooPostList', [
- function () {
+    ])
+    .directive('fooPostList', [
+        function () {
             return {
                 require: '?^fooPostCollection',
                 restrict: 'E',
-                scope: { posts: '=', view: '@'},
- link: function (scope, element, attrs, postCollectionCtrl) {
+                scope: {
+                    posts: '=posts',
+                    activePost: '=activePost'
                 },
- templateUrl: '/template/post/foo-post-list.html'
- };
- }
- ])
- .directive('fooPostFeed', [
- function () {
+                controller: function ($scope) {
+                    $scope.selectPost = function (index) {
+                        $scope.activePost = $scope.posts[index];
+                    };
+                },
+                link: function (scope, element, attrs, postCollectionCtrl) {
+                },
+                templateUrl: '/template/post/foo-post-list.html'
+            };
+        }
+    ])
+    .directive('fooPostFeed', [
+        function () {
             return {
                 require: '?^fooPostCollection',
                 restrict: 'E',
-                scope: {view: '=', posts: '='},
+                scope: {
+                    posts: '=posts',
+                    activePost: '=activePost'
+                },
+                controller: function ($scope) {
+                    $scope.selectPost = function (index) {
+                        $scope.activePost = $scope.posts[index];
+                    };
+                },
                 link: function (scope, element, attrs, postCollectionCtrl) {
                 },
                 templateUrl: '/template/post/foo-post-feed.html'
             };
-        }])
- */
+        }]);
+
 

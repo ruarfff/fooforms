@@ -9,7 +9,7 @@ var fooformsApp = angular.module('fooformsApp', [
 ]);
 
 fooformsApp
-    .factory("SessionService", ['$q', '$log', 'Restangular', 'AuthService', 'DashboardService', 'Session', function ($q, $log, Restangular, AuthService, DashboardService, Session) {
+    .factory("SessionService", ['$location', '$q', '$log', 'Restangular', 'AuthService', 'DashboardService', 'Session', function ($location, $q, $log, Restangular, AuthService, DashboardService, Session) {
         return {
             checkSession: function () {
                 var deferred = $q.defer();
@@ -19,7 +19,7 @@ fooformsApp
                             $log.log(err);
                         }
                         if (!AuthService.isAuthenticated()) {
-                            window.location.href = '/login';
+                            $location.path("/login");
                         } else {
                             DashboardService.getUserDashboard(function (err, result) {
                                 if (err) {
@@ -87,12 +87,11 @@ fooformsApp
                 }
             })
             .when('/login', {
-                resolve: function () {
-                    window.location.href = '/login';
-                }
+                templateUrl: '/login/partials/login',
+                controller: 'AuthCtrl'
             })
             .when('/dashboard', {
-                templateUrl: '/dashboard/partials/standardView',
+                templateUrl: '/dashboard/partials/main-view',
                 controller: 'DashboardCtrl',
                 resolve: {
                     message: function (SessionService) {
@@ -214,7 +213,7 @@ fooformsApp
                 }
             })
             .when('/:name/:form', {
-                templateUrl: '/forms/partials/formViewer',
+                templateUrl: '/dashboard/partials/main-view',
                 controller: 'FormViewerCtrl',
                 resolve: {
                     message: function (SessionService) {
@@ -245,12 +244,14 @@ fooformsApp
             response: function (response) {
                 if (response.status === 401) {
                     $log.log("Response 401");
+                    $location.path("/login");
                 }
                 return response || $q.when(response);
             },
             responseError: function (rejection) {
                 if (rejection.status === 401) {
                     $log.log("Response Error 401", rejection);
+                    $location.path("/login");
                 }
                 return $q.reject(rejection);
             }

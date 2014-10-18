@@ -16,7 +16,9 @@ exports.findById = function (req, res, next) {
             next(err);
         }
         if (result.success) {
-            res.send(result.data);
+            var org = result.data;
+            org.defaultFolder = org.folders[0];
+            res.send(org);
         } else {
             res.status(statusCodes.NOT_FOUND).json('Organisation not found');
         }
@@ -29,7 +31,11 @@ exports.listByDisplayName = function (req, res, next) {
         if (err) {
             next(err);
         }
-
+        if (result.data && result.data.length > 0) {
+            for (var i = 0; i < result.data.length; i++) {
+                result.data[i].defaultFolder = result.data[i].folders[0];
+            }
+        }
         res.status(statusCodes.OK).json(result.data);
 
     });
@@ -68,6 +74,7 @@ exports.update = function (req, res, next) {
             next(err);
         }
         if (result.success) {
+            result.organisation.defaultFolder = result.organisation.folders[0];
             res.send(result.organisation);
         } else {
             res.status(statusCodes.BAD_REQUEST).json(result.message);

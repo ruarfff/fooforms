@@ -2,7 +2,6 @@
 var log = require('fooforms-logging').LOG;
 var path = require('path');
 var viewDir = path.join(__dirname, '../views');
-var loginPath = path.join(viewDir, 'login');
 
 var express = require('express');
 var router = express.Router();
@@ -14,13 +13,6 @@ var passport = require('passport');
 router.route('/')
     .all(function (req, res, next) {
         next();
-    })
-    .get(function (req, res, next) {
-
-        res.render(loginPath, {
-            title: 'Login',
-            message: req.flash('error')
-        });
     })
     .put(function (req, res, next) {
         next(new Error('not implemented'));

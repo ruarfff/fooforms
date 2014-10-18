@@ -1,6 +1,25 @@
 /* global angular */
 
-angular.module('authentication').controller('LoginCtrl', ['$scope', '$rootScope', '$cookieStore', '$http', 'AUTH_EVENTS', 'AuthService', function ($scope, $rootScope, $cookieStore, $http, AUTH_EVENTS, AuthService) {
+angular.module('authentication').controller('AuthCtrl', ['$scope', '$modal', '$location', function ($scope, $modal, $location) {
+    var modalInstance = $modal.open({
+        templateUrl: 'loginContent.html',
+        controller: 'LoginCtrl',
+        size: 'sm',
+        keyboard: false,
+        backdropClass: 'login-backdrop',
+        windowClass: 'login-window'
+    });
+
+    modalInstance.result.then(function (loggedIn) {
+        if (loggedIn) {
+            $location.path("/dashboard");
+        }
+    }, function () {
+        window.location.href = '/';
+    });
+}]);
+
+angular.module('authentication').controller('LoginCtrl', ['$scope', '$rootScope', '$cookieStore', '$http', '$modalInstance', 'AUTH_EVENTS', 'AuthService', function ($scope, $rootScope, $cookieStore, $http, $modalInstance, AUTH_EVENTS, AuthService) {
     'use strict';
 
     $scope.sluggedUsername = '';
@@ -10,6 +29,7 @@ angular.module('authentication').controller('LoginCtrl', ['$scope', '$rootScope'
         password: ''
     };
     $scope.loginError = false;
+
     $scope.login = function (credentials) {
         AuthService.clearCredentials();
         AuthService.setCredentials(credentials.username, credentials.password);
@@ -17,14 +37,16 @@ angular.module('authentication').controller('LoginCtrl', ['$scope', '$rootScope'
             if (AuthService.isAuthenticated) {
                 $rootScope.$broadcast(AUTH_EVENTS.loginSuccess);
                 $http.defaults.headers.common['Authorization'] = 'Basic ' + $cookieStore.get('authdata');
-                window.location = '/dashboard';
+                $modalInstance.close(true);
             } else {
                 $scope.loginError = res.message || 'An error occurred while trying to log you in.';
+                $modalInstance.dismiss('cancel');
             }
         }).error(function (res) {
             AuthService.clearCredentials();
             $rootScope.$broadcast(AUTH_EVENTS.loginFailed);
             $scope.loginError = res.message || 'An error occurred while trying to log you in.';
+            $modalInstance.dismiss('cancel');
         });
     };
 
