@@ -1,0 +1,32 @@
+<li>
+    <h5>
+        {{org.displayName}}</h5>
+    <ul class="nav nav-pills nav-stacked ml0">
+        <li><a href="/{{org.displayName}}">Activity</a></li>
+
+        <li ng-repeat="folder in org.folders">
+
+            <h5>{{folder.displayName}}</h5>
+
+            <ul class="nav nav-pills nav-stacked ml0">
+                <li ng-repeat="form in folder.forms"><a href="/{{org.displayName}}/{{form.displayName}}">{{form.displayName}}</a>
+                </li>
+            </ul>
+
+        </li>
+        <li class="divider"></li>
+        <li><a href="/teams">Manage Team Folders</a></li>
+    </ul>
+</li>
+
+<li><h5>My Forms</h5>
+    <ul class="nav nav-pills nav-stacked ml0">
+        <li ng-repeat="form in user.defaultFolder.forms">
+
+            <a href="/{{user.displayName}}/{{form.displayName}}">
+                {{form.displayName}}
+            </a>
+
+        </li>
+    </ul>
+</li>

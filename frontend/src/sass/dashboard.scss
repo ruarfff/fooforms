@@ -633,46 +633,19 @@ li.profile img {
 
 }
 
-.sideMenu .sideMenu li ul {
-  border-top: 1px solid #f5f5f5;
-
+.sideMenu h5 {
+  display: block;
+  padding-left: 10px;
+  background: #f7f7f7;
+  color: #444;
 }
 
-.sideMenu li div:first-child {
-  background: #f3f3f3;
-  border: 1px solid #fff;
-  display: inline-block;
-  padding: 8px;
-  margin: 0px;
-  width: 45px;
-  float: none;
-}
 
-.sideMenu li div {
-  display: inline-block;
-  padding: 8px 10px;
-}
 
-.sideMenu li ul {
-  border-top: 1px solid #f5f5f5;
 
-}
-
-.sideMenu li ul li div:first-child {
-  background: #fff !important;
-  border-left: 5px solid #f3f3f3;
-}
-
-.sideMenu li div a {
-  color: #666;
-  display: block !important;
-  width: 100%;
-}
 
 .sideMenu i.fa {
   vertical-align: middle;
-  font-size: 24px;
-
 }
 
 .showMenu {

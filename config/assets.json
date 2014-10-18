@@ -11,6 +11,7 @@
                 "/js/app/common/lodashWrapper.js",
                 "/js/app/dashboard/dashboard.js",
                 "/js/app/dashboard/dashboardControllers.js",
+                "/js/app/dashboard/dashboardDirectives.js",
                 "/js/app/dashboard/dashboardServices.js",
                 "/js/app/form/form.js",
                 "/js/app/form/formControllers.js",

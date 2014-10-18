@@ -61,60 +61,6 @@
                             <a class="navbar-brand" href="#"><span class="text-foo">FOOFORMS</span></a>
                         </li>
 
-                        <li class="dropdown">
-                            <a class="inline pull-right dropdown-toggle">
-                                <i class="fa fa-th"></i>Forms<b class="caret"></b></a>
-                            <ul class="dropdown-menu">
-                                <li ng-repeat="form in user.defaultFolder.forms">
-                                    <a href="/{{user.displayName}}/{{form.displayName}}"
-                                       ng-click='updateForm(form)'>
-                                        <img ng-src="{{form.icon}}" alt="{{form.displayName}}" class="icon icon-xs">
-                                        {{form.displayName}}
-                                    </a></li>
-                                <li class="divider"></li>
-                                <li><a href="/forms"><i class="fa fa-cogs"></i> Manage Forms</a></li>
-                            </ul>
-                        </li>
-
-                        <li class="dropdown">
-                            <a class="inline pull-right dropdown-toggle">
-                                <i class="fa fa-sitemap"></i>Organisations <b class="caret"></b></a>
-                            <ul class="dropdown-menu">
-                                <li ng-repeat="org in user.organisations">
-                                    <a href="/organisations/{{org.displayName}}">
-                                        <img ng-src="{{org.photo}}" alt="{{org.displayName}}"
-                                             class="icon icon-xs">
-                                        {{org.displayName}}
-                                    </a></li>
-                                <li class="divider"></li>
-                                <li><a href="/organisations"><i class="fa fa-cogs"></i> Manage Organisations</a></li>
-                            </ul>
-                        </li>
-
-                        <li class="dropdown">
-                            <a class="inline pull-right dropdown-toggle">
-                                <i class="fa fa-sitemap"></i>Team Folders <b class="caret"></b></a>
-                            <ul class="dropdown-menu">
-                                <li ng-repeat="team in user.teams">
-                                    <a href="/teams/{{team.displayName}}">
-                                        <img ng-src="{{team.icon}}" alt="{{team.displayName}}"
-                                             class="icon icon-xs">
-                                        {{team.displayName}}
-                                    </a></li>
-                                <li class="divider"></li>
-                                <li><a href="/teams"><i class="fa fa-cogs"></i> Manage Team Folders</a></li>
-                            </ul>
-                        </li>
-
-                        <li>
-                            <a href="/people" class="inline pull-right">
-                                <i class="fa fa-group" ng-click="postView='list';"></i>People</a>
-                        </li>
-
-                        <li>
-                            <a href="/calendar" class="inline pull-right">
-                                <i class="fa fa-calendar" ng-click="postView='list';"></i>Dates</a>
-                        </li>
 
                     </ul>
 
@@ -124,22 +70,6 @@
                         <input type="text" placeholder="Search..." class="input-search"/>
 
                     </div>
-                    <ul class="nav navbar-nav navbar-right">
-                        <li class="dropdown profile" ng-cloak><a href="#" class="dropdown-toggle">&nbsp;
-                            <img class="img-circle" ng-src="{{user.photo}}"/>
-                            {{user.displayName}}
-
-                            <b class="caret"></b></a>
-                            <ul class="dropdown-menu">
-                                <li><a href="/organisations">Organisations</a></li>
-                                <li><a href="/profile"><i class="fa fa-user"></i> Profile</a></li>
-                                <li><a href="/teams"><i class="fa fa-folder"></i> Teams</a></li>
-                                <li class="divider"></li>
-                                <li ng-controller="LogoutCtrl"><a ng-click="logout()"><i
-                                        class="fa fa-lock"></i>Logout</a></li>
-                            </ul>
-                        </li>
-                    </ul>
 
 
                 </div>
@@ -158,35 +88,42 @@
 
         <ul class="nav nav-pills nav-stacked scrollSidebar ml0">
             <li>
-                <div><a href="/dashboard"><i class="fa fa-dashboard"></i></a></div>
-                <div><a href="/dashboard">Dashboard</a></div>
+                <a href="/dashboard"><i class="fa fa-dashboard"></i>
+                    Dashboard</a>
             </li>
-            <li>
-                <div><a ng-click="isCollapsed = !isCollapsed"><i class="fa fa-th"></i></a></div>
-                <div><a ng-click="isCollapsed = !isCollapsed">Forms<span class="caret"></span></a></div>
-                <ul class="nav nav-pills nav-stacked ml0" collapse="isCollapsed">
 
-                    <li ng-repeat="form in user.defaultFolder.forms">
-                        <div>
-                            <a href="/{{user.displayName}}/{{form.displayName}}">
-                                <img ng-src="{{form.icon}}" alt="{{form.displayName}}" class="icon icon-xs">
-                            </a>
-                        </div>
-                        <div>
-                            <a href="/{{user.displayName}}/{{form.displayName}}">
-                                {{form.displayName}}
-                            </a>
-                        </div>
-                    </li>
+            <org-menu></org-menu>
+
+
+            <li>
+                <div><a ng-click="isTeamsCollapsed = !isTeamsCollapsed"><i class="fa fa-sitemap"></i></a></div>
+                <div><a ng-click="isTeamsCollapsed = !isTeamsCollapsed">Team Folders<span class="caret"></span></a>
+                </div>
+                <ul class="nav nav-pills nav-stacked ml0" collapse="isTeamsCollapsed">
+
+                    <li ng-repeat="team in user.teams">
+                        <a href="/teams/{{team.displayName}}">
+
+                            {{team.displayName}}
+                        </a></li>
+                    <li class="divider"></li>
+                    <li><a href="/teams">Manage Team Folders</a></li>
                 </ul>
             </li>
-            <li>
-                <div><a href="/people"><i class="fa fa-group"></i></a></div>
-                <div><a href="/people">People</a></div>
-            </li>
-            <li>
-                <div><a href="/calendar"><i class="fa fa-calendar"></i></a></div>
-                <div><a href="/calendar">Dates</a></div>
+
+            <li class="dropdown profile" ng-cloak><a href="#" class="dropdown-toggle">&nbsp;
+                <img class="img-circle" ng-src="{{user.photo}}"/>
+                {{user.displayName}}
+
+                <b class="caret"></b></a>
+                <ul class="dropdown-menu">
+                    <li><a href="/organisations">Organisations</a></li>
+                    <li><a href="/profile"><i class="fa fa-user"></i> Profile</a></li>
+                    <li><a href="/teams"><i class="fa fa-folder"></i> Teams</a></li>
+                    <li class="divider"></li>
+                    <li ng-controller="LogoutCtrl"><a ng-click="logout()"><i
+                            class="fa fa-lock"></i>Logout</a></li>
+                </ul>
             </li>
 
 

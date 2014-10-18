@@ -1,8 +1,8 @@
 /* global angular */
 
 angular.module('form').factory('FormService',
-    ['$log', 'Restangular',
-        function ($log, Restangular) {
+    ['$log', 'Restangular', 'Session',
+        function ($log, Restangular, Session) {
             'use strict';
             var formApi = Restangular.all('forms');
             return {
@@ -41,6 +41,7 @@ angular.module('form').factory('FormService',
                     });
                 },
                 getFormTemplateObject: function () {
+                    var defaultFolder = Session.user.defaultFolder;
                     var template = {
                         "displayName": "",
                         "title": "",
@@ -65,7 +66,7 @@ angular.module('form').factory('FormService',
                         },
                         "fields": [],
                         "owner": "",
-                        "private": true,
+                        "folder": defaultFolder,
                         "sharing": {"type": "ALL"},
                         "formEvents": []
                     };

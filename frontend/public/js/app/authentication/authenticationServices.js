@@ -49,7 +49,7 @@ angular.module('authentication').factory('AuthService', ['$rootScope', '$cookieS
 angular.module('authentication').service('Session', function () {
     'use strict';
     this.posts = [];
-
+    this.org = {};
     this.create = function (userProfile) {
         this.user = userProfile;
     };

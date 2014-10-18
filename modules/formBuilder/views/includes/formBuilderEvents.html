@@ -1,0 +1,43 @@
+<div id="tabs-events" class="tab-pane">
+    <div class="panel panel-default">
+        <div class="panel-body">
+
+            <h4 class="text-info">Form Events</h4>
+
+            <div
+                    ng-class="{ 'newForm': form.formEvents.length==0}">
+
+                <div ui-sortable="sortableOptions"
+                     ng-model="form.formEvents"
+                     id='formEvents'
+                     class="connected-events-container row">
+
+
+                    <div class='col-sm-12 under alert alert-success'
+                         ng-repeat="event in form.formEvents track by $index"
+                         ng-show="event.name"
+                         ng-border="showBorders(show)"
+                         ng-click="editField($index,null,'Event', $event)"
+                         ng-class="{ 'selected': $index == nowEditing ,'dragging' : dragging}">
+                        <div class="btn-group pull-right onTop">
+
+                            <button ng-click="editField($index,null,'Event', $event)"
+                                    class='btn btn-xs btn-default'
+                                    >{{$index}}
+                            </button>
+                            <button ng-click='deleteEvent(event)'
+                                    class='btn btn-xs btn-danger'
+                                    ng-show="$index == nowEditing">X
+                            </button>
+                        </div>
+                        <div class="under"><h4>{{ event.name}}</h4>
+
+                            <p>{{ event.description}}</p></div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+
+    </div>
+</div>
