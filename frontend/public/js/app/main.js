@@ -91,6 +91,13 @@ fooformsApp
                 templateUrl: '/login/partials/login',
                 controller: 'AuthCtrl'
             })
+            .when('/signup', {
+                resolve: {
+                    message: function () {
+                        return window.location.href = '/signup';
+                    }
+                }
+            })
             .when('/dashboard', {
                 templateUrl: '/dashboard/partials/main-view',
                 controller: 'DashboardCtrl',
@@ -204,18 +211,18 @@ fooformsApp
                     }
                 }
             })
-            .when('/:organisation', {
-                templateUrl: '/organisations/partials/organisation-dashboard',
-                controller: 'OrganisationCtrl',
+            .when('/user/:name', {
+                templateUrl: '/users/partials/user-profile',
+                controller: 'UserViewCtrl',
                 resolve: {
                     message: function (SessionService) {
                         return SessionService.checkSession();
                     }
                 }
             })
-            .when('/user/:name', {
-                templateUrl: '/users/partials/user-profile',
-                controller: 'UserViewCtrl',
+            .when('/:name', {
+                templateUrl: '/dashboard/partials/main-view',
+                controller: 'DashboardCtrl',
                 resolve: {
                     message: function (SessionService) {
                         return SessionService.checkSession();

@@ -86,7 +86,7 @@ angular.module('authentication').directive('match', [function () {
         link: function (scope, elem, attrs, ctrl) {
 
             scope.$watch('[' + attrs.ngModel + ', ' + attrs.match + ']', function (value) {
-                ctrl.$setValidity('match', value[0] === value[1]);
+                ctrl.$setValidity('match', value[0] == value[1]);
             }, true);
 
         }
@@ -99,9 +99,29 @@ angular.module('authentication').directive('different', [function () {
         link: function (scope, elem, attrs, ctrl) {
 
             scope.$watch('[' + attrs.ngModel + ', ' + attrs.different + ']', function (value) {
-                ctrl.$setValidity('different', value[0] !== value[1]);
+                ctrl.$setValidity('different', value[0] != value[1]);
             }, true);
 
         }
     }
 }]);
+
+angular.module('authentication').directive('compareTo', [function() {
+    return {
+        require: "ngModel",
+        scope: {
+            otherModelValue: "=compareTo"
+        },
+        link: function(scope, element, attributes, ngModel) {
+
+            ngModel.$validators.compareTo = function(modelValue) {
+                return modelValue == scope.otherModelValue;
+            };
+
+            scope.$watch("otherModelValue", function() {
+                ngModel.$validate();
+            });
+        }
+    };
+}]);
+

@@ -12,8 +12,5 @@ router.get('/partials/organisations', function (req, res) {
 router.get('/partials/organisation-profile', function (req, res) {
     res.render(path.join(viewDir, 'organisation-profile'));
 });
-router.get('/partials/organisation-dashboard', function (req, res) {
-    res.render(path.join(viewDir, 'organisation-dashboard'));
-});
 
 module.exports = router;

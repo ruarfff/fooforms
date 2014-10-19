@@ -17,24 +17,28 @@ angular.module('post')
 
                     var getPosts = function (page, pageSize, postStreams) {
 
-                        PostService.getPostsByStreamList({
-                            postStreams: postStreams,
-                            page: page,
-                            pageSize: pageSize
-                        }, function (err, posts) {
-                            if (err) {
-                                $log.error(err);
-                            }
-                            hasMorePosts = posts.has_more;
-                            if ($scope.posts) {
-                                $scope.posts = $scope.posts.concat(posts);
-                            } else {
-                                $scope.posts = posts;
-                            }
-                            $scope.activePost = $scope.posts[0];
+                        if(postStreams) {
+                            PostService.getPostsByStreamList({
+                                postStreams: postStreams,
+                                page: page,
+                                pageSize: pageSize
+                            }, function (err, posts) {
+                                if (err) {
+                                    $log.error(err);
+                                }
+                                hasMorePosts = posts.has_more;
+                                if ($scope.posts) {
+                                    $scope.posts = $scope.posts.concat(posts);
+                                } else {
+                                    $scope.posts = posts;
+                                }
+                                $scope.activePost = $scope.posts[0];
 
-                        });
+                            });
 
+                        } else {
+                            $log.debug('Could not load posts. No post streams provided.');
+                        }
                     };
 
                     $scope.addMorePosts = function () {

@@ -29,17 +29,17 @@ app.use(rootUrl, organisationApiRoutes);
 describe('Organisation API', function () {
     // Some test data
     var displayName = 'organisation';
-    var owners = ObjectId;
+    var owner = ObjectId;
     var billingEmail = 'org@company.com';
     var otherDisplayName = 'otherOrganisation';
-    var otherOwners = ObjectId;
+    var otherOwner = ObjectId;
     var otherBillingEmail = 'otherorg@company.com';
 
     var sampleOrg = {
-        displayName: displayName, owners: owners, billingEmail: billingEmail
+        owner: owner, displayName: displayName, billingEmail: billingEmail
     };
     var otherSampleOrg = {
-        displayName: otherDisplayName, owners: otherOwners, billingEmail: otherBillingEmail
+        owner: otherOwner, displayName: otherDisplayName, billingEmail: otherBillingEmail
     };
 
     before(function () {

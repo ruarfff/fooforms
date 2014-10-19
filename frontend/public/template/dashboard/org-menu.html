@@ -1,22 +1,23 @@
 <li>
     <h5>
-        {{org.displayName}}</h5>
+        {{organisation.displayName}}</h5>
     <ul class="nav nav-pills nav-stacked ml0">
-        <li><a href="/{{org.displayName}}">Activity</a></li>
+        <li><a href="/{{organisation.displayName}}">Activity</a></li>
 
-        <li ng-repeat="folder in org.folders">
-
-            <h5>{{folder.displayName}}</h5>
-
+        <li ng-repeat="team in organisation.teams">
+            <h5>{{teams.title || team.displayName}}</h5>
             <ul class="nav nav-pills nav-stacked ml0">
-                <li ng-repeat="form in folder.forms"><a href="/{{org.displayName}}/{{form.displayName}}">{{form.displayName}}</a>
+                <li ng-repeat="form in team.folders[0].forms">
+                    <a href="/{{org.displayName}}/{{form.displayName}}">{{form.displayName}}</a>
                 </li>
             </ul>
 
         </li>
-        <li class="divider"></li>
-        <li><a href="/teams">Manage Team Folders</a></li>
     </ul>
+</li>
+<li class="divider"></li>
+<li><a href="/teams">Manage Team Folders</a></li>
+</ul>
 </li>
 
 <li><h5>My Forms</h5>

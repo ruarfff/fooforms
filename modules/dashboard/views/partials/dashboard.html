@@ -15,7 +15,7 @@
                     <div class="form-group">
                         <span class="label label-default">All</span>
                         <span class="label label-default mr5"
-                              ng-repeat="team in user.teams">{{ team.title }}
+                              ng-repeat="team in user.teams">{{ team.title || team.displayName }}
                         </span>
                         <span class="label label-default"><i class="fa fa-search"></i></span>
                         <span class="label label-default" ng-click="postView='list';"><i class="fa fa-bars"></i></span>

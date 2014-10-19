@@ -104,7 +104,7 @@
                     <li ng-repeat="team in user.teams">
                         <a href="/teams/{{team.displayName}}">
 
-                            {{team.displayName}}
+                            {{team.title || team.displayName}}
                         </a></li>
                     <li class="divider"></li>
                     <li><a href="/teams">Manage Team Folders</a></li>
