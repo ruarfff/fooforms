@@ -60,6 +60,7 @@ var routes = function (app, passport) {
     app.use(slash, site.siteViewRoutes);
     app.use(slash + rootUrls.signup, membership.signupRoutes);
     app.use(slash + rootUrls.login, membership.loginRoutes);
+
     // For the dashboard, authentication is handled on the client by not fetching or showing anything until user is checked.
     app.use(slash + rootUrls.dashboard, dashboard.dashboardViewRoutes);
 
@@ -67,6 +68,7 @@ var routes = function (app, passport) {
     /**
      * Some basic view routes that wont's bother authenticating since they have no data in them
      */
+    app.use(slash + rootUrls.login, membership.loginViewRoutes);
     app.use(slash + rootUrls.users, membership.userViewRoutes);
     app.use(slash + rootUrls.organisations, membership.organisationViewRoutes);
     app.use(slash + rootUrls.teams, membership.teamViewRoutes);

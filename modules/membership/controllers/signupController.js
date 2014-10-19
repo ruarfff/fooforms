@@ -53,10 +53,7 @@ exports.signup = function (req, res, next) {
             };
 
             defaultFolders.createDefaultFolders(args, function (err, result) {
-                res.render(loginPath, {
-                    title: 'Login',
-                    message: 'Successfully signed up. Please log in.'
-                });
+                res.redirect('/login');
             });
         }
     });

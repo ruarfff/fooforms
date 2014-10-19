@@ -15,7 +15,9 @@ exports.findById = function (req, res, next) {
             next(err);
         }
         if (result.success) {
-            res.send(result.data);
+            var team = result.data;
+            team.defaultFolder = team.folders[0];
+            res.send(team);
         } else {
             res.status(statusCodes.NOT_FOUND).json('Team not found');
         }

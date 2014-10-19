@@ -37,19 +37,22 @@ exports.getUserDashboard = function (req, res, next) {
         if (!doc) {
             res.status(statusCodes.NOT_FOUND);
         }
-        populateForms({user: doc}, function (err, user) {
-            if (err) {
-                return next(err);
-            }
-            populateForms({user: user, model: 'organisations'}, function (err, user) {
+
+        membership.User.populate(doc, {path: 'organisations.members', model: 'Team'}, function (err, doc) {
+            populateForms({user: doc}, function (err, user) {
                 if (err) {
                     return next(err);
                 }
-                user.defaultFolder = user.folders[0];
-                for (var i = 0; i < user.organisations.length; i++) {
-                    user.organisations[i].defaultFolder = user.organisations[i].folders[0];
-                }
-                res.status(statusCodes.OK).send(user);
+                populateForms({user: user, model: 'organisations'}, function (err, user) {
+                    if (err) {
+                        return next(err);
+                    }
+                    user.defaultFolder = user.folders[0];
+                    for (var i = 0; i < user.organisations.length; i++) {
+                        user.organisations[i].defaultFolder = user.organisations[i].folders[0];
+                    }
+                    res.status(statusCodes.OK).send(user);
+                });
             });
         });
     });

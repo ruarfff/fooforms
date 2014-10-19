@@ -17,11 +17,20 @@ module.exports = function (grunt) {
                 separator: ';'
             },
             src: [
-                'frontend/src/bower/angular-route/angular-route.min.js',
-                'frontend/src/bower/angular-cookies/angular-cookies.min.js',
                 'frontend/public/js/app/authentication/**/*.js'
             ],
             dest: 'frontend/public/js/auth.min.js'
+        },
+        vendorTop: {
+            js: {
+
+            },
+            src: [
+                'frontend/src/bower/angular/angular.min.js',
+                'frontend/src/bower/angular-route/angular-route.min.js',
+                'frontend/src/bower/angular-cookies/angular-cookies.min.js'
+            ],
+            dest: 'frontend/public/js/vendor-top.min.js'
         },
         // Vendor JS to be included just before body end
         vendor: {
@@ -39,7 +48,6 @@ module.exports = function (grunt) {
                 'frontend/src/bower/ng-grid/build/ng-grid.min.js',
                 'frontend/src/bower/textAngular/dist/textAngular.min.js',
                 'frontend/src/bower/ngInfiniteScroll/build/ng-infinite-scroll.min.js',
-                'frontend/src/bower/angular-cookies/angular-cookies.min.js',
                 'frontend/src/bower/moment/min/moment.min.js',
                 'frontend/src/bower/fullcalendar/dist/fullcalendar.min.js',
                 'frontend/src/bower/angular-ui-codemirror/dist/ui-codemirror.min.js',

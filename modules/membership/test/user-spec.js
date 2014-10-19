@@ -56,10 +56,9 @@ describe('User Routes', function () {
             .send({ email: email, displayName: displayName,
                 password: password, confirmPass: confirmPass, organisationName: organisationName })
             .set('Accept', 'application/json')
-            .expect(200)
+            .expect(302)
             .end(function (err, data) {
                 should.not.exist(err);
-                (data.text.indexOf(loginTitle) > -1).should.equal(true);
                 request(app)
                     .get(usersRootUrl + '?username=' + displayName)
                     .set('Accept', 'application/json')
@@ -71,10 +70,9 @@ describe('User Routes', function () {
                             .send({ email: otherEmail, displayName: otherDisplayName,
                                 password: password, confirmPass: confirmPass, organisationName: otherOrganisationName })
                             .set('Accept', 'application/json')
-                            .expect(200)
+                            .expect(302)
                             .end(function (err, data) {
                                 should.not.exist(err);
-                                (data.text.indexOf(loginTitle) > -1).should.equal(true);
                                 request(app)
                                     .get(usersRootUrl + '?username=' + otherDisplayName)
                                     .set('Accept', 'application/json')

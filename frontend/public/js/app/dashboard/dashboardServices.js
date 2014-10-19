@@ -13,6 +13,9 @@ angular.module('dashboard').factory('DashboardService',
                         $log.error(err);
                         next(err);
                     });
+                },
+                getCurrentOrgOrUser: function (name, next) {
+                    dashboardApi.get('')
                 }
             };
         }]);

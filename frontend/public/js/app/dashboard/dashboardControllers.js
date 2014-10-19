@@ -1,7 +1,7 @@
 /* global angular */
 
-angular.module('dashboard').controller('DashboardCtrl', ['$rootScope', '$scope', '$log', '_', 'SweetAlert', 'DashboardService', 'Session', 'PostService', 'Posts',
-    function ($rootScope, $scope, $log, _, SweetAlert, DashboardService, Session, PostService, Posts) {
+angular.module('dashboard').controller('DashboardCtrl', ['$rootScope', '$scope', '$routeParams', '$log', '_', 'SweetAlert', 'DashboardService', 'Session', 'PostService',
+    function ($rootScope, $scope, $routeParams, $log, _, SweetAlert, DashboardService, Session, PostService) {
         'use strict';
         $scope.postView = 'feed';
 
@@ -11,11 +11,29 @@ angular.module('dashboard').controller('DashboardCtrl', ['$rootScope', '$scope',
         var postStreamsArray = [];
         var forms = [];
 
-        _.each(Session.user.organisations, function (org) {
-            forms = forms.concat(org.defaultFolder.forms);
-        });
 
-        forms = Session.user.defaultFolder.forms.concat(forms);
+        var currentName = $routeParams.name;
+
+        // Check if this is a user dashboard. If not, it is an organisation dashboard
+        if(!currentName || Session.user.displayName === currentName) {
+            $scope.organisation = Session.user.organisations[0];
+            _.each(Session.user.organisations, function (org) {
+                forms = forms.concat(org.defaultFolder.forms);
+            });
+
+            forms = Session.user.defaultFolder.forms.concat(forms);
+        } else {
+            $scope.organisation = _.find(Session.user.organisations, {displayName: currentName});
+            forms = $scope.organisation.defaultFolder.forms;
+
+            if(!$scope.organisation) {
+                // If this happens nothing can be loaded so attempt to get a normal dashboard
+                window.location.href = '/dashboard';
+            }
+        }
+
+        // The organisation members is a special team but add to teams array for display purposes.
+        $scope.organisation.teams.unshift($scope.organisation.members);
 
         _.each(forms, function (form) {
             postStreamsArray = postStreamsArray.concat(form.postStreams);
