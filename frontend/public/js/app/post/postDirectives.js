@@ -32,7 +32,9 @@ angular.module('post')
                                 } else {
                                     $scope.posts = posts;
                                 }
-                                $scope.activePost = $scope.posts[0];
+                                if ($scope.posts.length > 0) {
+                                    $scope.activePost = $scope.posts[0];
+                                }
 
                             });
 
