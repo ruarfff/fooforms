@@ -7,8 +7,12 @@
     </label>
 
     <div class="input-group" ng-style="{'width': subField.size+'%'}">
-        <input type="radio"
-               id="{{subField.id}}"
-               placeholder="{{subField.placeholder}}"/>
+        <label ng-class="{ 'radio-inline': subField.settings.display == 'Inline' ,'radio' : subField.settings.display == 'Stacked'}"
+               ng-repeat='option in subField.options track by $index'>
+            <input type="radio" name="{{subField.id}}" id="{{subField.id}}" ng-model="subField.selected"
+                   ng-value="option.label">{{option.label}}
+        </label>
+
+
     </div>
 </div>

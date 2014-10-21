@@ -6,44 +6,12 @@
            popover-trigger="mouseenter"></i>
     </label>
 
-    <div id="{{formField.id}}" class="input-group" ng-style="{'width': formField.size+'%'}">
-    <a class="pull-left" href="#" ng-src="formField.src">
-            <img class="media-object" ng-show="formField.src">
-        </a>
+    <div class="input-group" ng-style="{'width': formField.size+'%'}">
         <span class="input-group-addon" ng-show="formField.required">*</span>
-
-
-
-        <input type="file" name="uploadFile" id="uploadFile" class="hidden" ng-model="uploadFile"
-               ng-file-select="onFileSelect($files, formField)">
-
-        <div class="input-group">
-            <input type="text" class="form-control" ng-model="uploadFile.name" placeholder="Choose a File">
-      <span class="input-group-btn">
-        <button class="btn btn-default"
-                id="browseBtn"
-                type="button"
-                onclick="$('#uploadFile').click();"><i class="fa fa-search-plus"></i> Browse
-        </button>
-
-      </span>
-        </div>
-        <div class="progress mt5 progress-striped" ng-class="{'fadeOutDelayed' : formField.progress==100}" ng-show="formField.progress>0">
-            <div class="progress-bar" ng-class="{'progress-bar-success' : formField.pProgress==100}" role="progressbar" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100" style="width: {{formField.progress+'%'}}">
-                {{formField.progress+'%'}}
-            </div>
-        </div>
-
-        <div class="alert alertBlock mt5 wiggle" ng-show="message.show" ng-class="message.alertStyle">
-            <h4>{{message.title}} !</h4>
-            {{message.body}}
-        </div>
-
-
-
-
-
-
-
+        <input type="file"
+               class="form-control"
+               id="{{formField.id}}"
+               placeholder="{{formField.placeholder}}"
+               ng-model="formField.value"/>
     </div>
 </div>
