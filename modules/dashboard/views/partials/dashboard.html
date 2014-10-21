@@ -110,13 +110,13 @@
 
         </div>
 
-        <div class="row">
+        <div class="row" ng-show="activePost">
             <div class="col-sm-12">
                 <form role="form" class="panel panel-default">
 
                     <div class="panel-heading">
-                        <span ng-show="activePost.comments.length>0">{{ posts.activePost.comments.length }} comments</span>
-                        <span ng-show="activePost.comments.length<1">No comments - be the first</span>
+                        <span ng-show="activePost.commentStream.comments.length>0">{{ activePost.commentStream.comments.length }} comments</span>
+                        <span ng-show="activePost.commentStream.comments.length<1">No comments - be the first</span>
 
                         <textarea class="form-control b0" ng-model="comment.content"></textarea>
                         <button class="btn btn-info btn-xs pt5" ng-click="postComment(comment)">Post comment</button>

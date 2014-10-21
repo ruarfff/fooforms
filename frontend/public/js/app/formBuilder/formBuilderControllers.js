@@ -27,27 +27,27 @@ angular.module('formBuilder').controller('FormBuilderCtrl',
                 $scope.standardInputTypes = $filter('filterTypes')($scope.inputTypesRefresh, 'standard');
                 $scope.resetEventTypes();
 
-                var owner = $routeParams.name;
-                var org = _.find(Session.user.organisations, {displayName: owner});
+                var name = $routeParams.name;
+                var owner = _.find(Session.user.organisations, {displayName: name}) || _.find(Session.user.teams, {displayName: name}) || Session.user.displayName;
+
+                var folder;
+                if (owner && owner === Session.user.displayName) {
+                    folder = Session.user.defaultFolder;
+                } else if (owner) {
+                    folder = owner.defaultFolder || owner.folders[0];
+                }
                 var formName = $routeParams.form;
 
-                if (owner && formName) {
-                    var folder;
-                    if (Session.user.displayName === owner) {
-                        folder = Session.user.defaultFolder;
-                    } else if (org) {
-                        folder = org.defaultFolder;
-                    }
+                if (formName) {
                     if (folder) {
                         $scope.form = _.find(folder.forms, {displayName: formName});
                     }
-                    if (!$scope.form) {
-                        window.location.href = '/404';
-                    }
-
-                } else {
+                } else if (folder) {
                     $scope.form = FormService.getFormTemplateObject();
-                    $scope.form.folder = Session.user.defaultFolder._id;
+                    $scope.form.folder = folder._id || folder;
+                }
+                if (!$scope.form) {
+                    window.location.href = '/404';
                 }
             });
 

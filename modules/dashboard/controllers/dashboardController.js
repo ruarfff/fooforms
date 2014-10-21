@@ -38,7 +38,7 @@ exports.getUserDashboard = function (req, res, next) {
             res.status(statusCodes.NOT_FOUND);
         }
 
-        membership.User.populate(doc, {path: 'organisations.members', model: 'Team'}, function (err, doc) {
+        membership.User.populate(doc, {path: 'organisations.members organisations.owners', model: 'Team'}, function (err, doc) {
             populateForms({user: doc}, function (err, user) {
                 if (err) {
                     return next(err);
