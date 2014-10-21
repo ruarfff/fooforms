@@ -41,7 +41,7 @@ angular.module('dashboard').controller('DashboardCtrl', ['$rootScope', '$scope',
         });
 
         $scope.postStreams = postStreamsArray.join(',');
-        $scope.activePost = {};
+        $scope.activePost = forms[0];
 
 
         $scope.cancelPost = function () {
