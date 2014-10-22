@@ -8,17 +8,20 @@ var DEFAULT_ORGANISATION_FOLDER_NAME = 'organisation-folder';
 var DEFAULT_TEAM_FOLDER_NAME = 'team-folder';
 
 var createDefaultTeamFolder = function (args, next) {
-    var teamFolder = new args.Folder({displayName: DEFAULT_TEAM_FOLDER_NAME, owners: [args.team._id]});
+    var teamFolder = new args.Folder({displayName: DEFAULT_TEAM_FOLDER_NAME, team: args.teamId});
     teamFolder.save(function (err, savedTeamFolder) {
         if (err) return next(err);
-        args.team.folders = [savedTeamFolder];
-        args.membership.updateTeam(args.team, next);
+        args.membership.findTeamById(args.teamId, function (err, result) {
+            if (err) return next(err);
+
+            args.membership.updateTeam({_id: args.teamId, folders: [savedTeamFolder]}, next);
+        });
     });
 };
 
 
 exports.createDefaultFolders = function (args, next) {
-    var userFolder = new args.Folder({displayName: DEFAULT_USER_FOLDER_NAME, owners: [args.user._id]});
+    var userFolder = new args.Folder({displayName: DEFAULT_USER_FOLDER_NAME, owner: args.user._id});
     var organisationFolder = new args.Folder({displayName: DEFAULT_ORGANISATION_FOLDER_NAME, organisation: args.organisation._id});
 
     var result = {};
@@ -32,10 +35,12 @@ exports.createDefaultFolders = function (args, next) {
                 if (err) return next(err);
                 args.organisation.folders = [savedOrgFolder];
                 args.membership.updateOrganisation(args.organisation, function (err, orgUpdateResult) {
-                    args.team = orgUpdateResult.organisation.owners;
-                    createDefaultTeamFolder(args, function (err, ownersResult) {
-                        args.team = orgUpdateResult.organisation.members;
-                        createDefaultTeamFolder(args, function (err, membersResult) {
+                    var ownersFolderArgs = {teamId: orgUpdateResult.organisation.owners, membership: args.membership, Folder: args.Folder};
+                    createDefaultTeamFolder(ownersFolderArgs, function (err, ownersResult) {
+                        if (err) return next(err);
+                        var membersFolderArgs = {teamId: orgUpdateResult.organisation.members, membership: args.membership, Folder: args.Folder};
+                        createDefaultTeamFolder(membersFolderArgs.organisation.members, function (err, membersResult) {
+                            if (err) return next(err);
                             if (userUpdateResult && orgUpdateResult) {
                                 result.success = true;
                                 result.user = userUpdateResult.user;
@@ -52,7 +57,7 @@ exports.createDefaultFolders = function (args, next) {
 };
 
 exports.createDefaultUserFolder = function (args, next) {
-    var userFolder = new args.Folder({displayName: DEFAULT_USER_FOLDER_NAME, owners: [args.user._id]});
+    var userFolder = new args.Folder({displayName: DEFAULT_USER_FOLDER_NAME, owner: args.user._id});
     userFolder.save(function (err, savedUserFolder) {
         if (err) return next(err);
         args.user.folders = [savedUserFolder._id];
