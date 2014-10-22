@@ -54,6 +54,11 @@ var routes = function (app, passport) {
 
 
     /**
+     * Embedded forms. Not protected.
+     */
+    app.use(slash + rootUrls.formViewer, formViewer.embeddedFormRoutes);
+
+    /**
      * Public routes i.e. don't require authentication
      */
 
@@ -87,7 +92,6 @@ var routes = function (app, passport) {
             });
     }
 
-
     /**
      * API and other routes that are protected
      */
@@ -105,7 +109,6 @@ var routes = function (app, passport) {
     app.use(slash + rootUrls.forms, passport.authenticate('basic', {session: false}), formBuilder.formBuilderViewRoutes);
     app.use(slash + rootUrls.forms, passport.authenticate('basic', {session: false}), form.formViewRoutes);
     app.use(slash + rootUrls.forms, passport.authenticate('basic', {session: false}), formViewer.formViewerViewRoutes);
-    app.use(slash + rootUrls.formViewer, passport.authenticate('basic', {session: false}), formViewer.embeddedFormRoutes);
 
 
     app.route(slash + rootUrls.notFound)

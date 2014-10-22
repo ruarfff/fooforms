@@ -2,8 +2,6 @@
 
 angular.module('authentication').factory('AuthService', ['$rootScope', '$cookieStore', '$http', 'Base64', 'Session', 'AUTH_EVENTS', function ($rootScope, $cookieStore, $http, Base64, Session, AUTH_EVENTS) {
     'use strict';
-    // Load data from cookie if it's there
-    $http.defaults.headers.common['Authorization'] = 'Basic ' + $cookieStore.get('authdata');
     return {
         login: function () {
             return $http
@@ -15,7 +13,7 @@ angular.module('authentication').factory('AuthService', ['$rootScope', '$cookieS
         checkStoredCredentials: function (next) {
             var encoded = $cookieStore.get('authdata');
             if (encoded) {
-                $http.defaults.headers.common['Authorization'] = 'Basic ' + $cookieStore.get('authdata');
+                $http.defaults.headers.common.Authorization = 'Basic ' + encoded;
                 return $http
                     .get('/api/users/check/me')
                     .success(function (data) {
