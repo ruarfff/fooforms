@@ -133,16 +133,17 @@
                                     <label class="form-label">Choose a Password</label>
                                     <input type="password" name="password" id="password" ng-model="password"
                                            required="required"
-                                           match="confirmPass" class="form-control"/><span
+                                           class="form-control"/>
+
+                                    <span
                                         ng-show="form.password.$dirty &amp;&amp; form.password.$error.required"
                                         class="help-block">Please enter a password</span>
                                 </div>
-                                <div class="bar"></div>
+
                                 <div class="form-group">
                                     <label class="form-label">Confirm Password</label>
                                     <input type="password" name="confirmPass" id="confirmPass" ng-model="confirmPass"
-                                           required
-                                           compare-to="password" class="form-control bar"/>
+                                           required match="password" class="form-control"/>
 
                                     <span
                                         ng-show="form.confirmPass.$dirty &amp;&amp; form.confirmPass.$error.required"
@@ -174,16 +175,6 @@
 
 <script type="text/javascript" src="/vendor/angular/angular-cookies.min.js"></script>
 <script type="text/javascript" src="/js/auth.min.js"></script>
-<script type="text/javascript" src="/js/zxcvbn.js"></script>
 
-<script>
-    var input = document.getElementById('password');
-    var bar = document.getElementsByClassName('bar')[0];
-    input.addEventListener('keyup', function () {
-        var analysis = zxcvbn(input.value);
-        var entropy = analysis.entropy * 4 + 5;
-        bar.style.backgroundImage = 'linear-gradient(to left, #A3FF5C 0%, #EF1F3B ' + (entropy | 0) + '%)';
-    });
-</script>
 </body>
 </html>
