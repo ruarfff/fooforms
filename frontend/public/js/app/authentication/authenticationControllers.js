@@ -36,7 +36,6 @@ angular.module('authentication').controller('LoginCtrl', ['$scope', '$rootScope'
         AuthService.login(credentials).success(function (res) {
             if (AuthService.isAuthenticated) {
                 $rootScope.$broadcast(AUTH_EVENTS.loginSuccess);
-                $http.defaults.headers.common['Authorization'] = 'Basic ' + $cookieStore.get('authdata');
                 $modalInstance.close(true);
             } else {
                 $scope.loginError = res.message || 'An error occurred while trying to log you in.';

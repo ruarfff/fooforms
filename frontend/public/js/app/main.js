@@ -52,13 +52,7 @@ fooformsApp
         'use strict';
         $locationProvider.html5Mode(true).hashPrefix('!');
         RestangularProvider.setBaseUrl('/api');
-        RestangularProvider.setErrorInterceptor(
-            function (res) {
-                if (res.status === 401) {
-                    window.location = '/login';
-                }
-                return !!(res.status = 404);
-            });
+
         RestangularProvider.setDefaultHeaders({'Content-Type': 'application/json'});
         RestangularProvider.setRestangularFields({
             id: "_id",
@@ -229,9 +223,9 @@ fooformsApp
                     }
                 }
             })
-            .when('/:name/:form', {
-                templateUrl: '/dashboard/partials/main-view',
-                controller: 'FormViewerCtrl',
+            .when('/:name/new-form', {
+                templateUrl: '/forms/partials/formBuilder',
+                controller: 'FormBuilderCtrl',
                 resolve: {
                     message: function (SessionService) {
                         return SessionService.checkSession();
@@ -247,7 +241,15 @@ fooformsApp
                     }
                 }
             })
-
+            .when('/:name/:form', {
+                templateUrl: '/dashboard/partials/main-view',
+                controller: 'FormViewerCtrl',
+                resolve: {
+                    message: function (SessionService) {
+                        return SessionService.checkSession();
+                    }
+                }
+            })
             .otherwise({redirectTo: '/'});
     }])
     .config(['$httpProvider', function ($httpProvider) {
