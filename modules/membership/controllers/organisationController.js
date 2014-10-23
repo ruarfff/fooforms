@@ -57,8 +57,11 @@ exports.create = function (req, res, next) {
         members: [req.body.owner],
         permissionLevel: 'admin'
     }, function (err, ownersResult) {
+        if (err || ownersResult.err || !ownersResult.team) {
+            res.status(statusCodes.BAD_REQUEST).json(ownersResult);
+        }
         var args = {
-            team: ownersResult.team,
+            teamId: ownersResult.team._id || ownersResult.team,
             membership: membership,
             Folder: fooForm.Folder
         };
@@ -73,7 +76,7 @@ exports.create = function (req, res, next) {
                 members: [req.body.owner]
             }, function (err, membersResult) {
                 var args = {
-                    team: membersResult.team,
+                    teamId: membersResult.team._id ||  membersResult.team,
                     membership: membership,
                     Folder: fooForm.Folder
                 };

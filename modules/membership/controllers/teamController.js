@@ -35,7 +35,7 @@ exports.create = function (req, res, next) {
         if (result.success) {
 
             var args = {
-                team: result.team,
+                teamId: result.team._id || result.team,
                 membership: membership,
                 Folder: fooForm.Folder
             };

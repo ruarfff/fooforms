@@ -7,6 +7,7 @@ var errorHandler = require('fooforms-rest').errorResponseHandler;
 var paginate = require('express-paginate');
 var fooForm = new FooForm(db);
 var membership = new Membership(db);
+var _ = require('underscore');
 
 // TODO: This is just terrible.... but works. Refactor when not in get the thing out the door mode.
 var populateForms = function (args, next) {
@@ -26,6 +27,7 @@ var populateForms = function (args, next) {
     });
 };
 
+
 exports.getUserDashboard = function (req, res, next) {
     var userId = req.params.user;
 
@@ -38,7 +40,10 @@ exports.getUserDashboard = function (req, res, next) {
             res.status(statusCodes.NOT_FOUND);
         }
 
-        membership.User.populate(doc, {path: 'organisations.members organisations.owners', model: 'Team'}, function (err, doc) {
+        membership.User.populate(doc, {
+            path: 'organisations.members organisations.owners',
+            model: 'Team'
+        }, function (err, doc) {
             populateForms({user: doc}, function (err, user) {
                 if (err) {
                     return next(err);
@@ -47,11 +52,16 @@ exports.getUserDashboard = function (req, res, next) {
                     if (err) {
                         return next(err);
                     }
-                    user.defaultFolder = user.folders[0];
-                    for (var i = 0; i < user.organisations.length; i++) {
-                        user.organisations[i].defaultFolder = user.organisations[i].folders[0];
-                    }
-                    res.status(statusCodes.OK).send(user);
+                    populateForms({user: user, model: 'teams'}, function (err, user) {
+                        if (err) {
+                            return next(err);
+                        }
+                        user.defaultFolder = user.folders[0];
+                        for (var i = 0; i < user.organisations.length; i++) {
+                            user.organisations[i].defaultFolder = user.organisations[i].folders[0];
+                        }
+                        res.status(statusCodes.OK).send(user);
+                    });
                 });
             });
         });
@@ -70,5 +80,5 @@ exports.getDashboardPosts = function (req, res, next) {
                 has_more: paginate.hasNextPages(req)(pageCount),
                 data: docs
             });
-        }, { populate: 'commentStreams commentStreams.comments' }, { sortBy: { lastModified: -1 } });
+        }, {populate: 'commentStreams commentStreams.comments'}, {sortBy: {lastModified: -1}});
 };
