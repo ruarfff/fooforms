@@ -13,29 +13,44 @@ angular.module('dashboard').controller('DashboardCtrl', ['$rootScope', '$scope',
 
 
         var currentName = $routeParams.name;
+        var currentTeam = $routeParams.team;
 
-        // Check if this is a user dashboard. If not, it is an organisation dashboard
-        if(!currentName || Session.user.displayName === currentName) {
+        // Check if this is a user dashboard. If not, it is an organisation or team dashboard
+        if (!currentName || Session.user.displayName === currentName) {
             $scope.organisation = Session.user.organisations[0];
-            _.each(Session.user.organisations, function (org) {
+            forms = Session.user.defaultFolder.forms;
+            _.forEach(Session.user.organisations, function (org) {
                 forms = forms.concat(org.defaultFolder.forms);
             });
-
-            forms = Session.user.defaultFolder.forms.concat(forms);
-        } else {
+            _.forEach(Session.user.teams, function (team) {
+                forms = forms.concat(team.defaultFolder.forms);
+            });
+        }
+        // It's a team dashboard
+        else if (currentName && currentTeam) {
+            $scope.team = _.find(Session.user.teams, {displayName: currentTeam});
+            if (!$scope.team) {
+                window.location.href = '/dashboard';
+            } else {
+                forms = $scope.team.defaultFolder.forms;
+            }
+        }
+        // It's an org dashboard
+        else {
             $scope.organisation = _.find(Session.user.organisations, {displayName: currentName});
-            forms = $scope.organisation.defaultFolder.forms;
-
-            if(!$scope.organisation) {
+            if (!$scope.organisation) {
                 // If this happens nothing can be loaded so attempt to get a normal dashboard
                 window.location.href = '/dashboard';
+            } else {
+                forms = $scope.organisation.defaultFolder.forms;
+                _.forEach($scope.organisation.teams, function (team) {
+                    forms = forms.concat(team.defaultFolder.forms);
+                });
             }
         }
 
-        // The organisation members is a special team but add to teams array for display purposes.
-        $scope.organisation.teams.unshift($scope.organisation.members);
-
-        _.each(forms, function (form) {
+        _.forEach(forms, function (form) {
+            if(form)
             postStreamsArray = postStreamsArray.concat(form.postStreams);
 
         });
@@ -89,10 +104,12 @@ angular.module('dashboard').controller('DashboardCtrl', ['$rootScope', '$scope',
 
         $scope.deletePost = function () {
             if ($scope.activePost._id) {
-                SweetAlert.swal({   title: 'Are you sure?', text: 'Your will not be able to recover this post!',
+                SweetAlert.swal({
+                        title: 'Are you sure?', text: 'Your will not be able to recover this post!',
                         type: 'warning',
                         showCancelButton: true, confirmButtonColor: '#DD6B55',
-                        confirmButtonText: 'Yes, delete it!', closeOnConfirm: false },
+                        confirmButtonText: 'Yes, delete it!', closeOnConfirm: false
+                    },
                     function () {
                         PostService.deletePost($scope.activePost, function (err) {
                             $scope.doingPostApi = false;

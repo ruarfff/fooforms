@@ -63,7 +63,7 @@
 
     <div class="scroll m0 b0" ng-show="postView=='list' || postView=='feed'" ng-hide="post.hide">
 
-        <foo-post-collection view="{{postView}}" streams="{{postStreams}}" post="activePost" posts="posts">
+        <foo-post-collection view="{{postView}}" streams="{{postStreams}}" active-post="activePost" posts="posts">
         </foo-post-collection>
 
     </div>
@@ -87,7 +87,7 @@
 
 <foo-post-grid ng-show="postView=='grid'"></foo-post-grid>
 
-<foo-post post="activePost" delete-post="deletePost()" copy-post="copyPost()" save-post="savePost()"
+<foo-post active-post="activePost" delete-post="deletePost()" copy-post="copyPost()" save-post="savePost()"
           cancel-post="cancelPost()"></foo-post>
 
 <div class="feed-fixed-wide"

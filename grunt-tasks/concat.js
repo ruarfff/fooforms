@@ -26,9 +26,9 @@ module.exports = function (grunt) {
 
             },
             src: [
-                'frontend/src/bower/angular/angular.min.js',
-                'frontend/src/bower/angular-route/angular-route.min.js',
-                'frontend/src/bower/angular-cookies/angular-cookies.min.js'
+                'frontend/src/bower/jquery/dist/jquery.min.js',
+                'frontend/src/bower/bootstrap/dist/js/bootstrap.min.js',
+                'frontend/src/bower/angular/angular.min.js'
             ],
             dest: 'frontend/public/js/vendor-top.min.js'
         },
@@ -38,6 +38,9 @@ module.exports = function (grunt) {
                 separator: ';'
             },
             src: [
+                'frontend/src/bower/angular-route/angular-route.min.js',
+                'frontend/src/bower/angular-cookies/angular-cookies.min.js',
+                'frontend/src/bower/trNgGrid/release/trNgGrid.min.js',
                 'frontend/src/bower/jquery-ui/ui/minified/jquery-ui.min.js',
                 'frontend/src/bower/angular-bootstrap/ui-bootstrap.min.js',
                 'frontend/src/bower/angular-bootstrap/ui-bootstrap-tpls.min.js',
@@ -55,7 +58,16 @@ module.exports = function (grunt) {
                 'frontend/src/bower/sweetalert/lib/sweet-alert.min.js'
             ],
             dest: 'frontend/public/js/vendor.min.js'
+        },
+        vendorStyle: {
+            src: [
+                'frontend/src/bower/bootstrap/dist/css/bootstrap.min.css',
+                'frontend/src/bower/codemirror/lib/codemirror.css',
+                'frontend/src/bower/codemirror/theme/mdn-like.css'
+            ],
+            dest: 'frontend/public/css/vendor.min.css'
         }
+
     });
     grunt.loadNpmTasks("grunt-contrib-concat");
 };

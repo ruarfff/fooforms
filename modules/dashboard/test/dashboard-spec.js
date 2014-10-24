@@ -68,10 +68,9 @@ describe('Dashboard API', function () {
                     user.folders[0].forms[0]._id.should.equal(userFolder.forms[0]._id.toString());
                     user.organisations.length.should.equal(testUser.organisations.length);
                     user.organisations[0]._id.should.equal(testUser.organisations[0].toString());
-                    user.organisations[0].folders[0].forms.length.should.equal(orgFolder.forms.length);
-                    user.organisations[0].folders[0].forms[0]._id.should.equal(orgFolder.forms[0]._id.toString());
                     user.teams.length.should.equal(testUser.teams.length);
                     user.teams[0]._id.should.equal(testUser.teams[0].toString());
+                    user.teams[1]._id.should.equal(testUser.teams[1].toString());
                     done(err);
                 });
         });

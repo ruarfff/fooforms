@@ -100,6 +100,7 @@ exports.create = function (req, res, next) {
                             };
                             defaultFolders.createDefaultOrganisationFolder(args, function (err, result) {
                                 res.location('/organisations/' + result.organisation._id);
+                                result.organisation.defaultFolder = result.organisation.folders[0];
                                 res.status(statusCodes.CREATED).json(result.organisation);
                             });
                         } else {

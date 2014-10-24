@@ -367,7 +367,7 @@ angular.module('formBuilder').controller('FormBuilderCtrl',
                             $log.error(err);
                         } else {
                             $scope.form = form;
-                            Session.user.defaultFolder.forms.push($scope.form);
+                            Session.user.defaultFolder.forms.push(form);
                             SweetAlert.swal('Saved!', 'Your form has been created.', 'success');
 
                         }

@@ -40,6 +40,7 @@ exports.create = function (req, res, next) {
                 Folder: fooForm.Folder
             };
             defaultFolders.createDefaultTeamFolder(args, function (err, result) {
+                result.team.defaultFolder = result.team.folders[0];
                 res.location('/teams/' + result.team._id);
                 res.status(statusCodes.CREATED).json(result.team);
             });
@@ -59,6 +60,7 @@ exports.update = function (req, res, next) {
             next(err);
         }
         if (result.success) {
+            result.team.defaultFolder = result.team.folders[0];
             res.send(result.team);
         } else {
             res.status(statusCodes.BAD_REQUEST).json(result.message);
