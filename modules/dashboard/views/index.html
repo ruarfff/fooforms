@@ -88,17 +88,16 @@
 
         <ul class="nav nav-pills nav-stacked scrollSidebar ml0">
             <li>
-                <a href="/dashboard"><i class="fa fa-dashboard"></i>
-                    Dashboard</a>
+                <a href="/dashboard" class="fa-container"><i class="fa fa-dashboard"></i></a>
+                <a href="/dashboard">Dashboard</a>
             </li>
 
-            <org-menu></org-menu>
 
 
             <li>
-                <div><a ng-click="isTeamsCollapsed = !isTeamsCollapsed"><i class="fa fa-sitemap"></i></a></div>
-                <div><a ng-click="isTeamsCollapsed = !isTeamsCollapsed">Team Folders<span class="caret"></span></a>
-                </div>
+                <a ng-click="isTeamsCollapsed = !isTeamsCollapsed"><i class="fa fa-sitemap"></i>
+               Team Folders<span class="caret"></span></a>
+
                 <ul class="nav nav-pills nav-stacked ml0" collapse="isTeamsCollapsed">
 
                     <li ng-repeat="team in user.teams">
