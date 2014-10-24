@@ -81,7 +81,7 @@ describe('Comment API', function () {
                 fooForm.createPost(samplePost, function (err, result) {
                     should.not.exist(err);
                     result.success.should.equal(true);
-                    commentStream = result.post.commentStreams[0];
+                    commentStream = result.post.commentStream;
                     sampleComment = {
                         commentStream: commentStream, content: content, commenter: commenter
                     };

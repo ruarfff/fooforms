@@ -267,7 +267,7 @@ angular.module('formBuilder')
                     }
 
                     scope.formNameBusy = true;
-                    $http.get('/api/forms/check/name/' + value + '?folder=' + attrs.folder)
+                    $http.get('/api/forms/check/name/' + attrs.folder + '/' + value)
                         .success(function (data) {
                             if (data.exists) {
                                 scope.sluggedFormName = '';

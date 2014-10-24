@@ -84,7 +84,7 @@ exports.generateDashboardTestData = function (db, next) {
                         fooForm.createPost(samplePost, function (err, postResultB) {
                             should.not.exist(err);
                             assert.ok(postResultB.success);
-                            sampleComment.commentStream = postResultA.post.commentStreams[0];
+                            sampleComment.commentStream = postResultA.post.commentStream;
                             sampleComment.commenter = user._id;
                             fooForm.createComment(sampleComment, function (err, result) {
                                 should.not.exist(err);

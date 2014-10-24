@@ -132,7 +132,7 @@ describe('Form API', function () {
 
         it('checking non existent form name returns false', function (done) {
             request(app)
-                .get(rootUrl + '/check/name/someForm?folder=' + ObjectId)
+                .get(rootUrl + '/check/name/' + ObjectId + '/someForm')
                 .set('Accept', 'application/json')
                 .expect('Content-Type', /json/)
                 .expect(200).end(function (err, res) {
@@ -142,7 +142,7 @@ describe('Form API', function () {
         });
         it('checking an existing form name in folder returns true', function (done) {
             request(app)
-                .get(rootUrl + '/check/name/' + form.displayName + '?folder=' + form.folder)
+                .get(rootUrl + '/check/name/' + form.folder + '/' + form.displayName)
                 .set('Accept', 'application/json')
                 .expect('Content-Type', /json/)
                 .expect(200).end(function (err, res) {
@@ -152,7 +152,7 @@ describe('Form API', function () {
         });
         it('checking non existent form name in folder returns true', function (done) {
             request(app)
-                .get(rootUrl + '/check/name/someName?folder=' + form.folder)
+                .get(rootUrl + '/check/name/' + form.folder + '/someName')
                 .set('Accept', 'application/json')
                 .expect('Content-Type', /json/)
                 .expect(200).end(function (err, res) {

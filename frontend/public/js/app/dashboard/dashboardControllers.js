@@ -50,8 +50,8 @@ angular.module('dashboard').controller('DashboardCtrl', ['$rootScope', '$scope',
         }
 
         _.forEach(forms, function (form) {
-            if(form)
-            postStreamsArray = postStreamsArray.concat(form.postStreams);
+            if (form)
+                postStreamsArray = postStreamsArray.concat(form.postStreams);
 
         });
 
@@ -62,6 +62,7 @@ angular.module('dashboard').controller('DashboardCtrl', ['$rootScope', '$scope',
         $scope.cancelPost = function () {
 
         };
+
         $scope.copyPost = function () {
             var newPost = angular.copy($scope.activePost);
             if (newPost._id) {
@@ -69,13 +70,12 @@ angular.module('dashboard').controller('DashboardCtrl', ['$rootScope', '$scope',
             }
             $scope.activePost = newPost;
             SweetAlert.swal('Post Copied');
-
         };
+
         $scope.savePost = function () {
             if ($scope.activePost._id) {
                 // Post already exists on server
                 var postToSave = angular.copy($scope.activePost);
-                delete postToSave.commentStreams;
                 PostService.updatePost(postToSave, function (err, post) {
                     if (err) {
                         $log.error(err);
@@ -129,47 +129,24 @@ angular.module('dashboard').controller('DashboardCtrl', ['$rootScope', '$scope',
         };
 
 
-        /**
-         *
-         $scope.postComment = function (comment) {
-        try {
-            if (comment.content) {
-                comment.post = $scope.posts.activePost._id;
-                $http.post(
-                    '/api/comment',
-                    comment
-                ).success(function (data) {
-                        $scope.posts.activePost.comments.push(data);
-                        console.log(data);
-                    }).
-                    error(function (err) {
-                        console.log(err);
-                    });
-            } else {
-                alert('no content');
+        $scope.postComment = function (comment) {
+            try {
+                if (comment.content) {
+                    comment.commentStream = $scope.posts.activePost.commentStream;
+                    $http.post(
+                        '/api/comments',
+                        comment
+                    ).success(function (data) {
+                            $scope.posts.activePost.commentStream.comments.push(data);
+                            $log.info(data);
+                        }).
+                        error(function (err) {
+                            $log.error(err);
+                        });
+                }
+            } catch (err) {
+                $log.error(err);
             }
-        } catch (err) {
-            console.log(err);
-        }
-    };
-
-         FolderService.getFolders(function (err) {
-        if (!err) {
-            $scope.privateFolders = Folders.privateFolders;
-            $scope.publicFolders = Folders.publicFolders;
-        }
-    });
-         PostService.getUserPosts(function (err) {
-        if (!err) {
-            $scope.posts = Posts.posts;
-            $scope.viewPost($scope.posts[0]);
-
-        }
-    });
-         FormService.getUserForms(function (err) {
-        if (!err) {
-            $scope.forms = Forms.forms;
-        }
-    });*/
+        };
 
     }]);
