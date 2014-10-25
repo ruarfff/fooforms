@@ -624,24 +624,42 @@ li.profile img {
 
 .sideMenu li {
   // border-bottom: 1px solid #efefef;
-  color: #888;
+  color: #444;
   font-weight: 300 !important;
   text-shadow: none;
   border-bottom: 1px solid #f5f5f5;
   padding: 0px;
   margin: 0px !important;
-
 }
 
+.sideMenu a{
+  color: #444;
+  font-weight: 400 !important;
+  text-shadow: none;
+  padding: 0px;
+  margin: 0px !important;
+}
 .sideMenu h5 {
   display: block;
   padding-left: 10px;
   background: #f7f7f7;
   color: #444;
+  line-height: 30px;
+}
+.sideMenu ul li a{
+  display: inline-block;
+  line-height: 30px;
+  padding: 0px 5px;
+margin: 0px;
 }
 
 .sideMenu i.fa {
   vertical-align: middle;
+  font-size: 1.4em;
+  display: inline-block;
+  padding: 0px 8px;
+  background: #f7f7f7 !important;
+  margin: 0px;
 }
 
 .showMenu {

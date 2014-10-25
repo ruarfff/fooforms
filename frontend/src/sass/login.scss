@@ -1,14 +1,4 @@
-#login-form {
-  background: rgba(255, 255, 255, 0);
-  background: -webkit-linear-gradient(rgba(255, 255, 255, 0.3), rgba(255, 255, 255, 0));
-  background: -moz-linear-gradient(rgba(255, 255, 255, 0.3), rgba(255, 255, 255, 0));
-  background: -ms-linear-gradient(rgba(255, 255, 255, 0.3), rgba(255, 255, 255, 0));
-  background: -o-linear-gradient(rgba(255, 255, 255, 0.3), rgba(255, 255, 255, 0));
-  background: linear-gradient(rgba(255, 255, 255, 0.3), rgba(255, 255, 255, 0));
-  background-color: #313132 !important;
-  background-repeat: no-repeat;
-  font-family: Arial, sans-serif;
-}
+
 
 #login-form .wrapper {
   position: absolute;
@@ -31,7 +21,7 @@
   background: #263042;
   position: absolute;
   left: 50%;
-  top: 20px;
+  top: -75px;
   text-align: left;
   width: 150px;
   z-index: 3;
@@ -86,7 +76,6 @@
   -ms-box-shadow: 0 0 0 1px rgba(14, 41, 57, 0.12), 0 2px 5px rgba(14, 41, 57, 0.44), inset 0 -1px 2px rgba(14, 41, 57, 0.15);
   -o-box-shadow: 0 0 0 1px rgba(14, 41, 57, 0.12), 0 2px 5px rgba(14, 41, 57, 0.44), inset 0 -1px 2px rgba(14, 41, 57, 0.15);
   box-shadow: 0 0 0 1px rgba(14, 41, 57, 0.12), 0 2px 5px rgba(14, 41, 57, 0.44), inset 0 -1px 2px rgba(14, 41, 57, 0.15);
-  background-color: none !important;
 
 }
 
@@ -109,6 +98,7 @@
 }
 
 .login-footer {
+  margin-top: 10px;
   display: block;
   padding: 15px;
   -webkit-border-radius: 6px;
@@ -156,10 +146,11 @@
   z-index: 1;
 }
 
-.login-backdrop {
-
+.modal-content{
+  background: transparent !important;
+  box-shadow: none !important;
+  bordeR: none;
 }
-
 .login-window {
   font-weight: normal;
   font-family: arial;
@@ -168,7 +159,12 @@
   width: 100%;
   height: 100%;
   overflow: hidden;
-  background-color: #3e3e40 !important;
-  opacity: 0.75;
+
+  background: -webkit-linear-gradient(rgba(255, 255, 255, 0.3), rgba(255, 255, 255, 0));
+  background: -moz-linear-gradient(rgba(255, 255, 255, 0.3), rgba(255, 255, 255, 0));
+  background: -ms-linear-gradient(rgba(255, 255, 255, 0.3), rgba(255, 255, 255, 0));
+  background: -o-linear-gradient(rgba(255, 255, 255, 0.3), rgba(255, 255, 255, 0));
+  background: linear-gradient(rgba(255, 255, 255, 0.3), rgba(255, 255, 255, 0));
+  background-color: #e8ebef !important;
 }
 
