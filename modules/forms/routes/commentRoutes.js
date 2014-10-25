@@ -5,6 +5,10 @@ var express = require('express');
 var router = express.Router();
 var commentController = require('../controllers/commentController');
 
+router.get('', function(req, res, next) {
+    commentController.listByStream(req, res, next);
+});
+
 router.get('/:comment', function(req, res, next) {
     commentController.findById(req, res, next);
 });

@@ -1,7 +1,7 @@
 /* global angular */
 
-angular.module('dashboard').controller('DashboardCtrl', ['$rootScope', '$scope', '$routeParams', '$log', '_', 'SweetAlert', 'DashboardService', 'Session', 'PostService',
-    function ($rootScope, $scope, $routeParams, $log, _, SweetAlert, DashboardService, Session, PostService) {
+angular.module('dashboard').controller('DashboardCtrl', ['$rootScope', '$scope', '$routeParams', '$log', '_', 'SweetAlert', 'DashboardService', 'Session', 'PostService', 'Posts',
+    function ($rootScope, $scope, $routeParams, $log, _, SweetAlert, DashboardService, Session, PostService, Posts) {
         'use strict';
         $scope.postView = 'feed';
 
@@ -56,8 +56,9 @@ angular.module('dashboard').controller('DashboardCtrl', ['$rootScope', '$scope',
         });
 
         $scope.postStreams = postStreamsArray.join(',');
-        $scope.activePost = forms[0];
-
+        if(forms.length > 0) {
+            $scope.activePost = Posts.newPost(forms[0]);
+        }
 
         $scope.cancelPost = function () {
 
@@ -125,27 +126,6 @@ angular.module('dashboard').controller('DashboardCtrl', ['$rootScope', '$scope',
                     });
             } else {
                 SweetAlert.swal('Not Deleted!', 'Post was never saved.', 'error');
-            }
-        };
-
-
-        $scope.postComment = function (comment) {
-            try {
-                if (comment.content) {
-                    comment.commentStream = $scope.posts.activePost.commentStream;
-                    $http.post(
-                        '/api/comments',
-                        comment
-                    ).success(function (data) {
-                            $scope.posts.activePost.commentStream.comments.push(data);
-                            $log.info(data);
-                        }).
-                        error(function (err) {
-                            $log.error(err);
-                        });
-                }
-            } catch (err) {
-                $log.error(err);
             }
         };
 

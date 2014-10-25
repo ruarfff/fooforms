@@ -2,8 +2,12 @@ var FooForm = require('fooforms-forms');
 var db = require('mongoose').connection;
 var statusCodes = require('fooforms-rest').statusCodes;
 var fooForm = new FooForm(db);
+var paginate = require('express-paginate');
 
 exports.create = function (req, res, next) {
+    if (req.user) {
+        req.body.commenter = req.user._id;
+    }
     fooForm.createComment(req.body, function (err, result) {
         if (err) {
             return next(err);
@@ -30,11 +34,21 @@ exports.findById = function (req, res, next) {
     });
 };
 
-exports.update = function (req, res, next) {
-    if (req.body && req.body._id !== req.params.comment) {
-        req.body._id = req.params.comment;
-    }
+exports.listByStream = function (req, res, next) {
+    fooForm.Comment
+        .paginate({commentStream: req.query.stream}, req.query.page, req.query.limit, function (err, pageCount, docs, itemCount) {
+            if (err) {
+                next(err);
+            }
+            res.json({
+                object: 'list',
+                has_more: paginate.hasNextPages(req)(pageCount),
+                data: docs
+            });
+        }, {sortBy: {lastModified: -1}});
+};
 
+exports.update = function (req, res, next) {
     fooForm.updateComment(req.body, function (err, result) {
         if (err) {
             next(err);

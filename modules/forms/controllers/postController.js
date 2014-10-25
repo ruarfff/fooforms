@@ -6,6 +6,9 @@ var fooForm = new FooForm(db);
 var paginate = require('express-paginate');
 
 exports.create = function (req, res, next) {
+    if (req.user) {
+        req.body.createdBy = req.user._id;
+    }
     fooForm.createPost(req.body, function (err, result) {
         if (err) {
             return next(err);
@@ -44,25 +47,20 @@ exports.listByPostStream = function (req, res, next) {
                 has_more: paginate.hasNextPages(req)(pageCount),
                 data: docs
             });
-        }, { populate: 'commentStreams commentStreams.comments' }, { sortBy: { lastModified: -1 } });
+        }, {sortBy: {lastModified: -1}});
 };
 
 exports.update = function (req, res, next) {
-    if (req.body.commentStreams) {
-        for (var i = 0; i < req.body.commentStreams.length; i++) {
-            if (req.body.commentStreams[i]._id) {
-                req.body.commentStreams[i] = req.body.commentStreams[i]._id;
-            }
-        }
+    if (req.body.commentStream) {
+        req.body.commentStream = req.body.commentStream._id || req.body.commentStream;
     }
     fooForm.updatePost(req.body, function (err, result) {
         if (err) {
             next(err);
         }
         if (result.success) {
-            fooForm.Post.populate(result.post, {path: 'commentStreams commentStreams.comments'}, function (err, post) {
-                res.send(post);
-            });
+            res.send(result.post);
+
         } else {
             res.status(statusCodes.BAD_REQUEST).json(result.message);
         }

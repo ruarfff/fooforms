@@ -109,31 +109,9 @@
 
         </div>
 
-        <div class="row" ng-show="activePost">
+        <div class="row" ng-if="activePost.commentStream">
             <div class="col-sm-12">
-                <form role="form" class="panel panel-default">
-
-                    <div class="panel-heading">
-                        <span ng-show="activePost.commentStream.comments.length>0">{{ activePost.commentStream.comments.length }} comments</span>
-                        <span ng-show="activePost.commentStream.comments.length<1">No comments - be the first</span>
-
-                        <textarea class="form-control b0" ng-model="comment.content"></textarea>
-                        <button class="btn btn-info btn-xs pt5" ng-click="postComment(comment)">Post comment</button>
-
-                    </div>
-                    <div class="panel-heading">
-
-                        <div class="comment" ng-repeat="comment in activePost.commentStream.comments">
-                            <blockquote>
-                                <p>{{comment.content}}</p>
-                                <footer><cite title="{{comment.commenter[0].displayName}}">{{comment.commenter[0].displayName}}</cite>
-                                    on {{comment.created | date:'medium'}}
-                                </footer>
-                            </blockquote>
-
-                        </div>
-                    </div>
-                </form>
+                <foo-comment-collection stream="{{activePost.commentStream}}"></foo-comment-collection>
             </div>
         </div>
 

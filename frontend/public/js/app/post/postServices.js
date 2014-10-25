@@ -29,6 +29,9 @@ angular.module('post').factory('PostService',
                     });
                 },
                 updatePost: function (post, next) {
+                    if(typeof post.put !== 'function') {
+                        post = Restangular.restangularizeElement(postApi, post, '');
+                    }
                     post.put().then(function (res) {
                         return next(null, res);
                     }, function (err) {
@@ -37,6 +40,9 @@ angular.module('post').factory('PostService',
                     });
                 },
                 deletePost: function (post, next) {
+                    if(typeof post.remove !== 'function') {
+                        post = Restangular.restangularizeElement(postApi, post, '');
+                    }
                     post.remove().then(function () {
                         return next(null);
                     }, function (err) {
