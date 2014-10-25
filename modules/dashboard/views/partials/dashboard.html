@@ -63,7 +63,7 @@
 
     <div class="scroll m0 b0" ng-show="postView=='list' || postView=='feed'" ng-hide="post.hide">
 
-        <foo-post-collection view="{{postView}}" streams="{{postStreams}}" post="activePost" posts="posts">
+        <foo-post-collection view="{{postView}}" streams="{{postStreams}}" active-post="activePost" posts="posts">
         </foo-post-collection>
 
     </div>
@@ -87,9 +87,6 @@
 
 <foo-post-grid ng-show="postView=='grid'"></foo-post-grid>
 
-<foo-post post="activePost" delete-post="deletePost()" copy-post="copyPost()" save-post="savePost()"
-          cancel-post="cancelPost()"></foo-post>
-
 <div class="feed-fixed-wide"
      ng-show="postView=='feed' || postView=='list'"
      ng-class="{percentageScreenWide : sideMenuVisible,
@@ -100,41 +97,21 @@
         <p ng-bind="msg"></p>
     </div>
 
-    <div ng-if="activePost" class="container-fluid">
+    <div ng-show="activePost" class="container-fluid">
 
         <div class="row">
             <div class="col-sm-12">
-                <foo-post post="activePost" delete-post="deletePost()" copy-post="copyPost()" save-post="savePost()"
+
+                <foo-post active-post="activePost" delete-post="deletePost()" copy-post="copyPost()" save-post="savePost()"
                           cancel-post="cancelPost()"></foo-post>
+
             </div>
 
         </div>
 
-        <div class="row" ng-show="activePost">
+        <div class="row" ng-if="activePost.commentStream">
             <div class="col-sm-12">
-                <form role="form" class="panel panel-default">
-
-                    <div class="panel-heading">
-                        <span ng-show="activePost.commentStream.comments.length>0">{{ activePost.commentStream.comments.length }} comments</span>
-                        <span ng-show="activePost.commentStream.comments.length<1">No comments - be the first</span>
-
-                        <textarea class="form-control b0" ng-model="comment.content"></textarea>
-                        <button class="btn btn-info btn-xs pt5" ng-click="postComment(comment)">Post comment</button>
-
-                    </div>
-                    <div class="panel-heading">
-
-                        <div class="comment" ng-repeat="comment in activePost.commentStream.comments">
-                            <blockquote>
-                                <p>{{comment.content}}</p>
-                                <footer><cite title="{{comment.commenter[0].displayName}}">{{comment.commenter[0].displayName}}</cite>
-                                    on {{comment.created | date:'medium'}}
-                                </footer>
-                            </blockquote>
-
-                        </div>
-                    </div>
-                </form>
+                <foo-comment-collection stream="{{activePost.commentStream}}"></foo-comment-collection>
             </div>
         </div>
 
@@ -142,11 +119,11 @@
 </div>
 
 
-<div class="panel-slider hidden-print"
+<div class="panel-slider hidden-print" ng-show="postView=='grid'"
      ng-class="{slidePanelIn: gridSelectedPost.length>0,
     slidePanelOut: gridSelectedPost.length==0}">
 
-    <foo-post-slide ng-show="postView=='grid'"></foo-post-slide>
+    <foo-post-slide></foo-post-slide>
     <foo-post post="activePost" delete-post="deletePost()" copy-post="copyPost()" save-post="savePost()"
               cancel-post="cancelPost()"></foo-post>
 </div>

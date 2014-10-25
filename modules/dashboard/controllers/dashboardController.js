@@ -7,6 +7,8 @@ var errorHandler = require('fooforms-rest').errorResponseHandler;
 var paginate = require('express-paginate');
 var fooForm = new FooForm(db);
 var membership = new Membership(db);
+var userProfile = require('../../membership/lib/userProfile');
+var _ = require('underscore');
 
 // TODO: This is just terrible.... but works. Refactor when not in get the thing out the door mode.
 var populateForms = function (args, next) {
@@ -26,9 +28,9 @@ var populateForms = function (args, next) {
     });
 };
 
+
 exports.getUserDashboard = function (req, res, next) {
     var userId = req.params.user;
-
 
     membership.User.findById(userId).lean().populate('organisations teams').exec(function (err, doc) {
         if (err) {
@@ -38,26 +40,29 @@ exports.getUserDashboard = function (req, res, next) {
             res.status(statusCodes.NOT_FOUND);
         }
 
-        membership.User.populate(doc, {path: 'organisations.members organisations.owners', model: 'Team'}, function (err, doc) {
-            populateForms({user: doc}, function (err, user) {
+        populateForms({user: doc}, function (err, user) {
+            if (err) {
+                return next(err);
+            }
+            populateForms({user: user, model: 'teams'}, function (err, user) {
                 if (err) {
                     return next(err);
                 }
-                populateForms({user: user, model: 'organisations'}, function (err, user) {
-                    if (err) {
-                        return next(err);
-                    }
-                    user.defaultFolder = user.folders[0];
-                    for (var i = 0; i < user.organisations.length; i++) {
-                        user.organisations[i].defaultFolder = user.organisations[i].folders[0];
-                    }
-                    res.status(statusCodes.OK).send(user);
-                });
+                var i;
+                for (i = 0; i < user.organisations.length; i++) {
+                    user.organisations[i].defaultFolder = user.organisations[i].folders[0];
+                }
+                for (i = 0; i < user.teams.length; i++) {
+                    user.teams[i].defaultFolder = user.teams[i].folders[0];
+                }
+                res.status(statusCodes.OK).send(userProfile.userToProfile(user));
             });
         });
     });
 };
 
+// TODO: Remove this. No longer used but the test that runs agians it is handy for now.
+// Will refactor to have the test run against the function in the forms module.
 exports.getDashboardPosts = function (req, res, next) {
     var postStreams = req.query.postStreams.split(',');
     fooForm.Post
@@ -70,5 +75,5 @@ exports.getDashboardPosts = function (req, res, next) {
                 has_more: paginate.hasNextPages(req)(pageCount),
                 data: docs
             });
-        }, { populate: 'commentStreams commentStreams.comments' }, { sortBy: { lastModified: -1 } });
+        }, {populate: 'commentStreams commentStreams.comments'}, {sortBy: {lastModified: -1}});
 };

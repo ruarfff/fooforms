@@ -15,7 +15,9 @@ angular.module('form').factory('FormService',
                     });
                 },
                 updateForm: function (form, next) {
-                    form = Restangular.restangularizeElement(formApi, form, '');
+                    if (typeof form.put !== 'function') {
+                        form = Restangular.restangularizeElement(formApi, form, '');
+                    }
                     form.put().then(function (res) {
                         next(null, res);
                     }, function (err) {
@@ -24,7 +26,9 @@ angular.module('form').factory('FormService',
                     });
                 },
                 deleteForm: function (form, next) {
-                    form = Restangular.restangularizeElement(formApi, form, '');
+                    if (typeof form.remove !== 'function') {
+                        form = Restangular.restangularizeElement(formApi, form, '');
+                    }
                     form.remove().then(function () {
                         return next(null);
                     }, function (err) {

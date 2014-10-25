@@ -1,7 +1,7 @@
 /* global angular */
 
-angular.module('dashboard').controller('DashboardCtrl', ['$rootScope', '$scope', '$routeParams', '$log', '_', 'SweetAlert', 'DashboardService', 'Session', 'PostService',
-    function ($rootScope, $scope, $routeParams, $log, _, SweetAlert, DashboardService, Session, PostService) {
+angular.module('dashboard').controller('DashboardCtrl', ['$rootScope', '$scope', '$routeParams', '$log', '_', 'SweetAlert', 'DashboardService', 'Session', 'PostService', 'Posts',
+    function ($rootScope, $scope, $routeParams, $log, _, SweetAlert, DashboardService, Session, PostService, Posts) {
         'use strict';
         $scope.postView = 'feed';
 
@@ -13,40 +13,57 @@ angular.module('dashboard').controller('DashboardCtrl', ['$rootScope', '$scope',
 
 
         var currentName = $routeParams.name;
+        var currentTeam = $routeParams.team;
 
-        // Check if this is a user dashboard. If not, it is an organisation dashboard
-        if(!currentName || Session.user.displayName === currentName) {
+        // Check if this is a user dashboard. If not, it is an organisation or team dashboard
+        if (!currentName || Session.user.displayName === currentName) {
             $scope.organisation = Session.user.organisations[0];
-            _.each(Session.user.organisations, function (org) {
+            forms = Session.user.defaultFolder.forms;
+            _.forEach(Session.user.organisations, function (org) {
                 forms = forms.concat(org.defaultFolder.forms);
             });
-
-            forms = Session.user.defaultFolder.forms.concat(forms);
-        } else {
+            _.forEach(Session.user.teams, function (team) {
+                forms = forms.concat(team.defaultFolder.forms);
+            });
+        }
+        // It's a team dashboard
+        else if (currentName && currentTeam) {
+            $scope.team = _.find(Session.user.teams, {displayName: currentTeam});
+            if (!$scope.team) {
+                window.location.href = '/dashboard';
+            } else {
+                forms = $scope.team.defaultFolder.forms;
+            }
+        }
+        // It's an org dashboard
+        else {
             $scope.organisation = _.find(Session.user.organisations, {displayName: currentName});
-            forms = $scope.organisation.defaultFolder.forms;
-
-            if(!$scope.organisation) {
+            if (!$scope.organisation) {
                 // If this happens nothing can be loaded so attempt to get a normal dashboard
                 window.location.href = '/dashboard';
+            } else {
+                forms = $scope.organisation.defaultFolder.forms;
+                _.forEach($scope.organisation.teams, function (team) {
+                    forms = forms.concat(team.defaultFolder.forms);
+                });
             }
         }
 
-        // The organisation members is a special team but add to teams array for display purposes.
-        $scope.organisation.teams.unshift($scope.organisation.members);
-
-        _.each(forms, function (form) {
-            postStreamsArray = postStreamsArray.concat(form.postStreams);
+        _.forEach(forms, function (form) {
+            if (form)
+                postStreamsArray = postStreamsArray.concat(form.postStreams);
 
         });
 
         $scope.postStreams = postStreamsArray.join(',');
-        $scope.activePost = forms[0];
-
+        if(forms.length > 0) {
+            $scope.activePost = Posts.newPost(forms[0]);
+        }
 
         $scope.cancelPost = function () {
 
         };
+
         $scope.copyPost = function () {
             var newPost = angular.copy($scope.activePost);
             if (newPost._id) {
@@ -54,13 +71,12 @@ angular.module('dashboard').controller('DashboardCtrl', ['$rootScope', '$scope',
             }
             $scope.activePost = newPost;
             SweetAlert.swal('Post Copied');
-
         };
+
         $scope.savePost = function () {
             if ($scope.activePost._id) {
                 // Post already exists on server
                 var postToSave = angular.copy($scope.activePost);
-                delete postToSave.commentStreams;
                 PostService.updatePost(postToSave, function (err, post) {
                     if (err) {
                         $log.error(err);
@@ -89,10 +105,12 @@ angular.module('dashboard').controller('DashboardCtrl', ['$rootScope', '$scope',
 
         $scope.deletePost = function () {
             if ($scope.activePost._id) {
-                SweetAlert.swal({   title: 'Are you sure?', text: 'Your will not be able to recover this post!',
+                SweetAlert.swal({
+                        title: 'Are you sure?', text: 'Your will not be able to recover this post!',
                         type: 'warning',
                         showCancelButton: true, confirmButtonColor: '#DD6B55',
-                        confirmButtonText: 'Yes, delete it!', closeOnConfirm: false },
+                        confirmButtonText: 'Yes, delete it!', closeOnConfirm: false
+                    },
                     function () {
                         PostService.deletePost($scope.activePost, function (err) {
                             $scope.doingPostApi = false;
@@ -110,49 +128,5 @@ angular.module('dashboard').controller('DashboardCtrl', ['$rootScope', '$scope',
                 SweetAlert.swal('Not Deleted!', 'Post was never saved.', 'error');
             }
         };
-
-
-        /**
-         *
-         $scope.postComment = function (comment) {
-        try {
-            if (comment.content) {
-                comment.post = $scope.posts.activePost._id;
-                $http.post(
-                    '/api/comment',
-                    comment
-                ).success(function (data) {
-                        $scope.posts.activePost.comments.push(data);
-                        console.log(data);
-                    }).
-                    error(function (err) {
-                        console.log(err);
-                    });
-            } else {
-                alert('no content');
-            }
-        } catch (err) {
-            console.log(err);
-        }
-    };
-
-         FolderService.getFolders(function (err) {
-        if (!err) {
-            $scope.privateFolders = Folders.privateFolders;
-            $scope.publicFolders = Folders.publicFolders;
-        }
-    });
-         PostService.getUserPosts(function (err) {
-        if (!err) {
-            $scope.posts = Posts.posts;
-            $scope.viewPost($scope.posts[0]);
-
-        }
-    });
-         FormService.getUserForms(function (err) {
-        if (!err) {
-            $scope.forms = Forms.forms;
-        }
-    });*/
 
     }]);

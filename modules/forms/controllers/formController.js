@@ -78,7 +78,7 @@ exports.remove = function (req, res, next) {
 
 exports.checkName = function (req, res, next) {
     var form = req.params.form;
-    var folder = req.query.folder;
+    var folder = req.params.folder;
     var sluggedFormName;
 
     if (form && folder) {

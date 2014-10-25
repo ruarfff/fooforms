@@ -27,10 +27,8 @@ angular.module('post')
                                     $log.error(err);
                                 }
                                 hasMorePosts = posts.has_more;
-                                if ($scope.posts) {
+                                if (posts) {
                                     $scope.posts = $scope.posts.concat(posts);
-                                } else {
-                                    $scope.posts = posts;
                                 }
                                 if ($scope.posts.length > 0) {
                                     $scope.activePost = $scope.posts[0];
@@ -50,7 +48,7 @@ angular.module('post')
                         }
                     };
 
-                    this.activePost = $scope.activePost;
+                    //this.activePost = $scope.activePost;
 
 
                 },

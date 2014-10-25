@@ -5,16 +5,16 @@ var fooformsApp = angular.module('fooformsApp', [
     // Vendor dependencies
     'ngRoute', 'ngSanitize', 'trNgGrid', 'restangular', 'ui.bootstrap', 'textAngular', 'ui.calendar', 'angularFileUpload', 'ui.sortable', 'infinite-scroll', 'oitozero.ngSweetAlert',
     // Custom dependencies
-    'dashboard', 'form', 'formBuilder', 'formViewer', 'user', 'organisation', 'team' , 'authentication', 'post'
+    'dashboard', 'form', 'formBuilder', 'formViewer', 'user', 'organisation', 'team', 'authentication', 'post', 'comment'
 ]);
 
 fooformsApp
-    .factory("SessionService", ['$location', '$q', '$log', 'Restangular', 'AuthService', 'DashboardService', 'Session', function ($location, $q, $log, Restangular, AuthService, DashboardService, Session) {
+    .factory("SessionService", ['$location', '$q', '$log', 'Restangular', '_', 'AuthService', 'DashboardService', 'Session', function ($location, $q, $log, Restangular, _, AuthService, DashboardService, Session) {
         return {
             checkSession: function () {
                 var deferred = $q.defer();
                 if (!AuthService.isAuthenticated()) {
-                    AuthService.checkStoredCredentials(function (err, user) {
+                    AuthService.checkStoredCredentials(function (err) {
                         if (err) {
                             $log.log(err);
                         }
@@ -31,6 +31,11 @@ fooformsApp
                                     result.self = {};
                                     result.self.link = '/api/users/' + result._id;
                                     Session.user = result;
+
+                                    _.forEach(Session.user.organisations, function (organisation) {
+                                        organisation.teams = _.filter(Session.user.teams, {organisation: organisation._id});
+                                    });
+
                                     Session.org = Session.user.organisations[0];
 
                                     deferred.resolve(Session.user);
@@ -119,6 +124,38 @@ fooformsApp
                     }
                 }
             })
+            .when('/userGuide', {
+                templateUrl: '/dashboard/partials/userGuide',
+                resolve: {
+                    message: function (SessionService) {
+                        return SessionService.checkSession();
+                    }
+                }
+            })
+            .when('/settings', {
+                templateUrl: '/dashboard/partials/settings',
+                resolve: {
+                    message: function (SessionService) {
+                        return SessionService.checkSession();
+                    }
+                }
+            })
+            .when('/admin', {
+                templateUrl: '/admin/partials/admin',
+                resolve: {
+                    message: function (SessionService) {
+                        return SessionService.checkSession();
+                    }
+                }
+            })
+            .when('/calendar', {
+                templateUrl: '/calendar/partials/calendar',
+                resolve: {
+                    message: function (SessionService) {
+                        return SessionService.checkSession();
+                    }
+                }
+            })
             .when('/organisations', {
                 templateUrl: '/organisations/partials/organisations',
                 controller: 'OrganisationCtrl',
@@ -173,38 +210,6 @@ fooformsApp
                     }
                 }
             })
-            .when('/calendar', {
-                templateUrl: '/calendar/partials/calendar',
-                resolve: {
-                    message: function (SessionService) {
-                        return SessionService.checkSession();
-                    }
-                }
-            })
-            .when('/userGuide', {
-                templateUrl: '/dashboard/partials/userGuide',
-                resolve: {
-                    message: function (SessionService) {
-                        return SessionService.checkSession();
-                    }
-                }
-            })
-            .when('/settings', {
-                templateUrl: '/dashboard/partials/settings',
-                resolve: {
-                    message: function (SessionService) {
-                        return SessionService.checkSession();
-                    }
-                }
-            })
-            .when('/admin', {
-                templateUrl: '/admin/partials/admin',
-                resolve: {
-                    message: function (SessionService) {
-                        return SessionService.checkSession();
-                    }
-                }
-            })
             .when('/user/:name', {
                 templateUrl: '/users/partials/user-profile',
                 controller: 'UserViewCtrl',
@@ -215,6 +220,15 @@ fooformsApp
                 }
             })
             .when('/:name', {
+                templateUrl: '/dashboard/partials/main-view',
+                controller: 'DashboardCtrl',
+                resolve: {
+                    message: function (SessionService) {
+                        return SessionService.checkSession();
+                    }
+                }
+            })
+            .when('/:name/teams/:team', {
                 templateUrl: '/dashboard/partials/main-view',
                 controller: 'DashboardCtrl',
                 resolve: {
@@ -283,7 +297,7 @@ fooformsApp
             $scope.stylesheet = style;
         }
     }])
-    .controller('MainController', ['$scope', '$location', '$log' , '$upload', 'USER_ROLES', 'AuthService', 'Session', 'DashboardService', function ($scope, $location, $log, $upload, USER_ROLES, AuthService, Session, DashboardService) {
+    .controller('MainController', ['$scope', '$location', '$log', '$upload', 'USER_ROLES', 'AuthService', 'Session', 'DashboardService', function ($scope, $location, $log, $upload, USER_ROLES, AuthService, Session, DashboardService) {
         'use strict';
         $scope.sideMenuVisible = true;
 
