@@ -4,8 +4,7 @@ module.exports = function (grunt) {
     grunt.config('concat', {
         js: {
             options: {
-                separator: ';',
-                stripBanners: true
+                separator: ';'
             },
             src: [
                 'frontend/public/js/app/main.js',
@@ -23,8 +22,9 @@ module.exports = function (grunt) {
             dest: 'frontend/public/js/auth.min.js'
         },
         vendorTop: {
-            js: {
-
+            options: {
+                separator: ';',
+                stripBanners: true
             },
             src: [
                 'frontend/src/bower/jquery/dist/jquery.min.js',
@@ -36,7 +36,8 @@ module.exports = function (grunt) {
         // Vendor JS to be included just before body end
         vendor: {
             options: {
-                separator: ';'
+                separator: ';',
+                stripBanners: true
             },
             src: [
                 'frontend/src/bower/angular-route/angular-route.min.js',
@@ -67,6 +68,17 @@ module.exports = function (grunt) {
                 'frontend/src/bower/codemirror/theme/mdn-like.css'
             ],
             dest: 'frontend/public/css/vendor.min.css'
+        },
+        site: {
+            options: {
+                separator: ';',
+                stripBanners: true
+            },
+            src: [
+                'frontend/src/bower/jquery/dist/jquery.js',
+                'frontend/src/bower/bootstrap-sass-official/assets/javascripts/bootstrap.js'
+            ],
+            dest: 'frontend/public/js/site.min.js'
         }
 
     });

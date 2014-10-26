@@ -53,7 +53,7 @@ exports.signup = function (req, res, next) {
             };
 
             defaultFolders.createDefaultFolders(args, function (err, result) {
-                res.redirect('/login');
+                res.status(200).end();
             });
         }
     });

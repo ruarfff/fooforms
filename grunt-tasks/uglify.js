@@ -7,7 +7,12 @@ module.exports = function (grunt) {
         },
         js: {
             files: {
-                'frontend/public/js/vendor.min.js': ['frontend/public/js/vendor.min.js']
+                "frontend/public/js/vendor.min.js": ["frontend/public/js/vendor.min.js"]
+            }
+        },
+        site: {
+            files: {
+                "frontend/public/js/site.min.js": ["frontend/public/js/site.min.js"]
             }
         }
     });
