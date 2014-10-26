@@ -8,8 +8,7 @@ var router = express.Router();
 
 router.get('/partials/login', function (req, res) {
     res.render(loginPath, {
-        title: 'Login',
-        message: req.flash('error')
+        title: 'Login'
     });
 });
 
