@@ -3,7 +3,7 @@
     <div ng-class="{'col-sm-12': postView=='grid'}">
 
         <div class="panel panel-default p0 b0" ng-class="{'m0 mr15': postView=='grid'}">
-            <div ng-class="{'panel-heading m0 b0': postView=='grid'}">
+            <div class="panel-heading" ng-class="{'m0 b0': postView=='grid'}">
 
                 <form ng-show="!form" class="form">
                     <div class="form-group">
@@ -27,7 +27,7 @@
                     <button class="btn btn-primary pull-right" ng-click="newPost()">
                         {{form.btnLabel}} <i class="fa fa-plus fa-lg"></i></button>
                     <img class="icon  pull-left" ng-src="{{form.icon}}">
-                    <h4 class="inline">{{form.name}}
+                    <h4 class="inline">{{form.displayName}}
                         <a href="{{owner}}/{{form.displayName}}/edit"><i class="fa fa-edit fa-lg"></i>
                         </a></h4>
 
