@@ -151,6 +151,18 @@ describe('Comment API', function () {
                 .expect('Content-Type', /json/)
                 .expect(200, done);
         });
+
+        it('responds with 200 and array of two comments', function (done) {
+            request(app)
+                .get(rootUrl + '?commentStream=' + comment.commentStream)
+                .set('Accept', 'application/json')
+                .expect('Content-Type', /json/)
+                .expect(200)
+                .end(function (err, res) {
+                    res.body.data.length.should.equal(2);
+                    done(err);
+                });
+        });
     });
 
     describe('PUT ' + rootUrl, function () {

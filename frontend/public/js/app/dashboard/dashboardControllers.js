@@ -20,10 +20,14 @@ angular.module('dashboard').controller('DashboardCtrl', ['$rootScope', '$scope',
             $scope.organisation = Session.user.organisations[0];
             forms = Session.user.defaultFolder.forms;
             _.forEach(Session.user.organisations, function (org) {
-                forms = forms.concat(org.defaultFolder.forms);
+                if (org.defaultFolder.forms && org.defaultFolder.forms > 0) {
+                    forms = forms.concat(org.defaultFolder.forms);
+                }
             });
             _.forEach(Session.user.teams, function (team) {
-                forms = forms.concat(team.defaultFolder.forms);
+                if (team.defaultFolder.forms && team.defaultFolder.forms > 0) {
+                    forms = forms.concat(team.defaultFolder.forms);
+                }
             });
         }
         // It's a team dashboard
@@ -56,7 +60,7 @@ angular.module('dashboard').controller('DashboardCtrl', ['$rootScope', '$scope',
         });
 
         $scope.postStreams = postStreamsArray.join(',');
-        if(forms.length > 0) {
+        if (forms.length > 0) {
             $scope.activePost = Posts.newPost(forms[0]);
         }
 

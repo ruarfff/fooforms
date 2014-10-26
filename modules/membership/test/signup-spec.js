@@ -15,7 +15,11 @@ var express = require('express');
 var bodyParser = require('body-parser');
 var should = require('should');
 var signupRoutes = require('../routes/signupRoutes');
+var dashboardRoutes = require('../../dashboard/routes/dashboardApiRoutes');
 var rootUrls = require(global.config.root + '/config/rootUrls');
+var Membership = require('fooforms-membership');
+var db = require('mongoose').connection;
+var membership = new Membership(db);
 
 var app = express();
 app.use(bodyParser.json());
@@ -29,6 +33,7 @@ app.set('view engine', 'html');
 var rootUrl = '/' + rootUrls.signup;
 
 app.use(rootUrl, signupRoutes);
+app.use('/' + rootUrls.dashboard, dashboardRoutes);
 
 describe('Signup Routes', function () {
 
@@ -48,15 +53,45 @@ describe('Signup Routes', function () {
     });
 
     describe('POST ' + rootUrl, function () {
-        it('responds with 200 and login page', function (done) {
+        it('user account is created', function (done) {
             request(app)
                 .post(rootUrl)
                 .send({ email: email, displayName: displayName,
                     password: password, confirmPass: confirmPass, organisationName: organisationName })
                 .set('Accept', 'application/json')
                 .expect(200, function (err, data) {
-                  //  (data.text.indexOf(loginTitle) > -1).should.equal(true);
-                    done()
+                    membership.findUserByDisplayName(displayName, function (err, result) {
+                        should.not.exist(err);
+                        result.success.should.equal(true);
+                        var signedUpUser = result.data;
+                        should.exist(signedUpUser);
+                        // Here where checking that all the various bits are set up after signup
+                        // The dashboard API populates the user and all the teams, folder etc. so a good test of signup
+                        request(app)
+                            .get('/' + rootUrls.dashboard + '/user/' + signedUpUser._id)
+                            .set('Accept', 'application/json')
+                            .expect('Content-Type', /json/)
+                            .expect(200, function (err, res) {
+                                var user = res.body;
+                                user._id.should.eql(signedUpUser._id.toString());
+                                user.displayName.should.equal(displayName);
+
+                                user.organisations.length.should.equal(1);
+                                user.organisations[0].displayName.should.equal(organisationName);
+
+                                user.teams.length.should.equal(2);
+
+                                user.organisations[0].owners.should.eql(user.teams[0]._id);
+                                user.organisations[0].members.should.eql(user.teams[1]._id);
+
+                                should.exist(user.defaultFolder);
+                                should.exist(user.organisations[0].defaultFolder);
+                                should.exist(user.teams[0].defaultFolder);
+                                should.exist(user.teams[1].defaultFolder);
+
+                                done(err);
+                            });
+                    });
                 });
         });
         it('responds with sign up page when no email is provided', function (done) {

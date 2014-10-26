@@ -92,6 +92,9 @@ var routes = function (app, passport) {
             });
     }
 
+    // TODO: took authentication off the files route for now. Need to fix.
+    app.use(api + slash + rootUrls.files, file.filePublicApiRoutes);
+
     /**
      * API and other routes that are protected
      */
@@ -102,13 +105,13 @@ var routes = function (app, passport) {
     app.use(api + slash + rootUrls.forms, passport.authenticate('basic', {session: false}), form.formRoutes);
     app.use(api + slash + rootUrls.posts, passport.authenticate('basic', {session: false}), form.postRoutes);
     app.use(api + slash + rootUrls.comments, passport.authenticate('basic', {session: false}), form.commentRoutes);
-    app.use(api + slash + rootUrls.files, passport.authenticate('basic', {session: false}), file.fileApiRoutes);
 
     app.use(slash + rootUrls.admin, passport.authenticate('basic', {session: false}), admin.adminViewRoutes);
     app.use(slash + rootUrls.calendar, passport.authenticate('basic', {session: false}), calendar.calendarViewRoutes);
     app.use(slash + rootUrls.forms, passport.authenticate('basic', {session: false}), formBuilder.formBuilderViewRoutes);
     app.use(slash + rootUrls.forms, passport.authenticate('basic', {session: false}), form.formViewRoutes);
     app.use(slash + rootUrls.forms, passport.authenticate('basic', {session: false}), formViewer.formViewerViewRoutes);
+    app.use(api + slash + rootUrls.files, passport.authenticate('basic', {session: false}), file.fileApiRoutes);
 
 
     app.route(slash + rootUrls.notFound)

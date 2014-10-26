@@ -7,9 +7,6 @@ var express = require('express');
 var router = express.Router();
 var passport = require('passport');
 
-
-//var loginController = require('../controllers/loginController');
-
 router.route('/')
     .all(function (req, res, next) {
         next();

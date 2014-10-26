@@ -2,14 +2,14 @@
 'use strict';
 
 var engine = require('ejs');
-var flash = require('connect-flash');
+//var flash = require('connect-flash');
 var helpers = require('view-helpers');
 var express = require('express');
 var paginate = require('express-paginate')
 var bodyParser = require('body-parser');
 var cookieParser = require('cookie-parser');
 var favicon = require('serve-favicon');
-var session = require('express-session');
+//var session = require('express-session');
 var methodOverride = require('method-override')();
 var logger = require('fooforms-logging').expressLogger;
 var appRoot = require('app-root-path');
@@ -56,10 +56,10 @@ module.exports = function (app, passport) {
 
     app.use(methodOverride);
     app.use(cookieParser('f0of09m5s3ssi0n'));
-    app.use(session({secret: 'f0of09m5s3ssi0n',
+    /**app.use(session({secret: 'f0of09m5s3ssi0n',
         saveUninitialized: true,
-        resave: true}));
-    app.use(flash());
+        resave: true}));*/
+   // app.use(flash());
     app.use(helpers(global.config.app.name));
     app.use(passport.initialize());
     app.use(passport.session());

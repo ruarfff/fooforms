@@ -14,8 +14,8 @@ angular.module('authentication').controller('AuthCtrl', ['$scope', '$modal', '$l
         if (loggedIn) {
             $location.path("/dashboard");
         }
-    }, function () {
-        window.location.href = '/';
+    }, function (err) {
+        console.log(err);
     });
 }]);
 
@@ -39,13 +39,13 @@ angular.module('authentication').controller('LoginCtrl', ['$scope', '$rootScope'
                 $modalInstance.close(true);
             } else {
                 $scope.loginError = res.message || 'An error occurred while trying to log you in.';
-                $modalInstance.dismiss('cancel');
+                //$modalInstance.dismiss('cancel');
             }
         }).error(function (res) {
             AuthService.clearCredentials();
             $rootScope.$broadcast(AUTH_EVENTS.loginFailed);
             $scope.loginError = res.message || 'An error occurred while trying to log you in.';
-            $modalInstance.dismiss('cancel');
+            //$modalInstance.dismiss('cancel');
         });
     };
 
