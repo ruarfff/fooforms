@@ -11,9 +11,9 @@ router.get('', function (req, res) {
     fileController.getUserFiles(req, res);
     });
 
-router.get('/:file', function (req, res) {
-    fileController.getFileById(req, res);
-    });
+router.get('/:file/signed-url', function (req, res) {
+    fileController.getSignedFileUrl(req, res);
+});
 
 router.post('/import', function (req, res) {
     fileController.import(req, res);

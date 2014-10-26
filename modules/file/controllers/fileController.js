@@ -74,6 +74,36 @@ var getFileById = function (req, res) {
     }
 };
 
+var getSignedFileUrl = function (req, res) {
+    try {
+        var id = req.params.file;
+        fileLib.getFileById(id, function (err, file) {
+            if (err || !file) {
+                if (!err) {
+                    new Error('file not found');
+                }
+                err.http_code = 404;
+                errorResponseHandler.handleError(res, err, __filename);
+            } else {
+                res.setHeader("Content-Type", file.mimeType || file.contentType);
+
+
+                bucket.getSignedUrl({
+                    action: 'read',
+                    expires: Math.round(Date.now() / 1000) + (60 * 60), // 1 hour.
+                    resource: file.name
+                }, function (err, url) {
+                    res.status(200).send(url);
+                });
+            }
+        });
+    } catch (err) {
+        errorResponseHandler.handleError(res, err, __filename);
+    }
+};
+
+
+
 var getUserFiles = function (req, res) {
     try {
         fileLib.getUserFiles(req.user.id, function (err, files) {
@@ -177,7 +207,8 @@ module.exports = {
     getAllFiles: getAllFiles,
     update: updateFile,
     delete: deleteFile,
-    import: importFile
+    import: importFile,
+    getSignedFileUrl: getSignedFileUrl
 };
 
 

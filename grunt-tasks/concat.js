@@ -8,6 +8,7 @@ module.exports = function (grunt) {
                 stripBanners: true
             },
             src: [
+                'frontend/public/js/app/main.js',
                 'frontend/public/js/app/**/*.js'
             ],
             dest: 'frontend/public/js/main.min.js'
