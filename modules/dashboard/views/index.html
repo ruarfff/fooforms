@@ -5,7 +5,7 @@
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
     <title>
-        FOOFORMS - Form Builder
+        FOOFORMS - Online Form Builder & Cloud Dashboard
     </title>
     <meta name="description" content="">
     <meta name="viewport" content="width=device-width">
@@ -53,7 +53,8 @@
                             </a>
                         </li>
                         <li>
-                            <a class="navbar-brand" href="#"><span class="text-foo">FOOFORMS</span></a>
+                            <a class="navbar-brand" href="#">
+                                <span class="text-foo">FOOFORMS &raquo; {{user.organisations[0].displayName | uppercase}}</span></a>
                         </li>
 
 
@@ -81,49 +82,11 @@
             <img src="/assets/images/logo.png">
         </div>
 
-        <ul class="nav nav-pills nav-stacked scrollSidebar ml0">
-            <li>
-                <a href="/dashboard" class="fa-container"><i class="fa fa-dashboard"></i></a>
-                <a href="/dashboard">Dashboard</a>
-            </li>
+
 
             <org-menu></org-menu>
 
-            <li><h5>My Forms</h5>
-                <ul class="nav nav-pills nav-stacked ml0">
-                    <li ng-repeat="form in user.defaultFolder.forms">
 
-                        <a href="/{{user.displayName}}/{{form.displayName}}">
-                            {{form.displayName}}
-                        </a>
-
-                    </li>
-                </ul>
-            </li>
-
-
-            <li class="dropdown profile" ng-cloak><a href="#" class="dropdown-toggle">&nbsp;
-                <img class="img-circle" ng-src="{{user.photo}}"/>
-                {{user.displayName}}
-
-                <b class="caret"></b></a>
-                <ul class="dropdown-menu">
-                    <li><a href="/organisations">Organisations</a></li>
-                    <li><a href="/profile"><i class="fa fa-user"></i> Profile</a></li>
-                    <li><a href="/teams"><i class="fa fa-folder"></i> Teams</a></li>
-                    <li class="divider"></li>
-                    <li ng-controller="LogoutCtrl"><a ng-click="logout()"><i
-                            class="fa fa-lock"></i>Logout</a></li>
-                </ul>
-            </li>
-
-
-            <% if(user.admin){ %>
-            <li>
-                <a href="/admin"><i class="fa fa-flask"></i>Admin</a>
-            </li>
-            <% } %>
-        </ul>
 
     </div>
     <div class="container-fluid" ng-class="{withSideMenu : sideMenuVisible, withoutSideMenu :!sideMenuVisible}">

@@ -615,53 +615,49 @@ li.profile img {
   left: 0;
   bottom: 22px;
   width: 15%;
-  // border-right: 1px solid #efefef;
-  //background: #fff;
+  background: #cde4fb;
   overflow: auto;
   z-index: 10001;
 
 }
 
-.sideMenu li {
-  // border-bottom: 1px solid #efefef;
-  color: #444;
-  font-weight: 300 !important;
+.sideMenu ul li {
+  font-weight: 500 !important;
   text-shadow: none;
-  border-bottom: 1px solid #f5f5f5;
   padding: 0px;
   margin: 0px !important;
+
 }
 
-.sideMenu a{
-  color: #444;
-  font-weight: 400 !important;
-  text-shadow: none;
-  padding: 0px;
-  margin: 0px !important;
-}
-.sideMenu h5 {
-  display: block;
-  padding-left: 10px;
-  background: #f7f7f7;
-  color: #444;
-  line-height: 30px;
-}
 .sideMenu ul li a{
-  display: inline-block;
-  line-height: 30px;
-  padding: 0px 5px;
-margin: 0px;
+padding-left: 5%;
+  display: block;
+  border-bottom: 1px solid #f4f4f4;
+  color: #666;
 }
 
+.sideMenu ul li ul li a{
+font-weight: 500 !important;
+}
+
+.sideMenu ul li ul li ul{
+  background: #f4f4f4
+}
+.sideMenu ul li ul li ul li a{
+  font-weight: 300 !important;
+  border-bottom: 1px solid #fff;
+}
 .sideMenu i.fa {
   vertical-align: middle;
-  font-size: 1.4em;
-  display: inline-block;
-  padding: 0px 8px;
-  background: #f7f7f7 !important;
-  margin: 0px;
-}
 
+}
+.sideMenu .nav-icon{
+  height: 16px;
+}
+.sideMenu .text-muted{
+  font-weight: 300 !important;
+  font-style: oblique;
+}
 .showMenu {
   left: 0;
   -webkit-transition: 0.3s linear all;

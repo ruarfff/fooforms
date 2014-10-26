@@ -11,11 +11,18 @@ angular.module('formViewer')
 
             $scope.owner = $route.current.params.name;
             var org = _.find(Session.user.organisations, {displayName: $scope.owner});
+
+
+                var team = _.find(Session.user.teams, {displayName:  $route.current.params.team});
+
             var formName = $route.current.params.form;
             var folder;
 
-            if (Session.user.displayName === $scope.owner) {
+            folderDetect: if (Session.user.displayName === $scope.owner) {
                 folder = Session.user.defaultFolder;
+            }else if(team){
+                folder = team.defaultFolder;
+                break folderDetect;
             } else if (org) {
                 folder = org.defaultFolder;
             } else {

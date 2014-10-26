@@ -264,6 +264,15 @@ fooformsApp
                     }
                 }
             })
+            .when('/:name/teams/:team/:form', {
+                templateUrl: '/dashboard/partials/main-view',
+                controller: 'FormViewerCtrl',
+                resolve: {
+                    message: function (SessionService) {
+                        return SessionService.checkSession();
+                    }
+                }
+            })
             .otherwise({redirectTo: '/'});
     }])
     .config(['$httpProvider', function ($httpProvider) {
