@@ -5,7 +5,7 @@ angular.module('pikaday', [])
 
     .constant('PikadayConfig', {})
 
-    .directive('pikaday', ['PikadayConfig', function(PikadayConfig) {
+    .directive('pikaday', ['PikadayConfig', function (PikadayConfig) {
         PikadayConfig = PikadayConfig || {};
 
         return {
@@ -22,7 +22,7 @@ angular.module('pikaday', [])
 
                 var onSelect = options.onSelect;
 
-                options.onSelect = function(date) {
+                options.onSelect = function (date) {
                     $scope.date = date;
                     $scope.$apply($scope.date);
 
@@ -33,7 +33,7 @@ angular.module('pikaday', [])
 
                 var picker = new Pikaday(options);
 
-                $scope.$on('$destroy', function() {
+                $scope.$on('$destroy', function () {
                     picker.destroy();
                 });
             }

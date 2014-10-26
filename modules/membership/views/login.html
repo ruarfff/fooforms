@@ -1,0 +1,124 @@
+<script type="text/ng-template" id="loginContent.html">
+    <div id="login-form" class="modal-body">
+
+        <div class="rounded-image-border">
+            <img src="/assets/images/foo-icon.png"/></div>
+
+        <h4>Welcome Back!</h4>
+
+        <div class="panel panel-default">
+
+            <div class="panel-body">
+                <form role="form" class="form" ng-submit="login(credentials)">
+                    <div class="form-group">
+                        <label for="username">Email</label>
+                        <input type="text" id="username" name='username' class="form-control"
+                               ng-model="credentials.username">
+                    </div>
+                    <div class="form-group">
+                        <label for="password">Password</label>
+                        <input type="password" id="password" class="form-control"
+                               name='password'
+
+                               ng-model="credentials.password">
+                    </div>
+                    <div class="form-group clearfix">
+                        <input type="submit" id="submit" class="form-control btn btn-primary"
+                               value='Sign in to your account'/>
+                    </div>
+                </form>
+                <div class="alert alert-danger" ng-show="loginError" class="ng-hide">{{loginError}}</div>
+            </div>
+            <div class="panel-body">
+                <a href='/resetpass'>Forgot Your Password?</a>
+            </div>
+        </div>
+    </div>
+    <div class="login-footer">
+        <h5>Need an Account? <a href='/signup'>Signup</a></h5>
+    </div>
+
+</script>
+
+
+<!--
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<title>FOOFORMS - Login or Register</title>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+
+<link rel="stylesheet" href="/vendor/bootstrap/css/bootstrap.min.css">
+<link rel="stylesheet" href="/vendor/font-awesome/css/font-awesome.min.css">
+<link rel="stylesheet" href="/css/login.min.css">
+<link href='http://fonts.googleapis.com/css?family=Play' rel='stylesheet' type='text/css'>
+<link href='http://fonts.googleapis.com/css?family=Open+Sans+Condensed:300' rel='stylesheet' type='text/css'>
+<script type="text/javascript" src="/vendor/jquery/jquery-2.1.1.min.js"></script>
+<script type="text/javascript" src="/vendor/bootstrap/js/bootstrap.min.js"></script>
+<script type="text/javascript" src="/js/vendor-top.min.js"></script>
+<script type="text/javascript" src="/js/auth.min.js"></script>
+</head>
+<body ng-app="authentication">
+
+<div class='container' ng-controller="LoginCtrl">
+
+<div class="rounded-image-border">
+<img src="/assets/images/foo-icon.png"/></div>
+
+
+<div class='row wrapper'>
+<div class="col-sm-12">
+    <div id="loginForm">
+        <h4>Welcome Back!</h4>
+
+        <div class="panel panel-default">
+
+            <div class="panel-body">
+                <form role="form" class="form" ng-submit="login(credentials)">
+                    <div class="form-group">
+                        <label for="username">Email</label>
+                        <input type="text" id="username" name='username' class="form-control"
+                               ng-model="credentials.username">
+                    </div>
+                    <div class="form-group">
+                        <label for="password">Password</label>
+                        <input type="password" id="password" class="form-control"
+                               name='password'
+
+                               ng-model="credentials.password">
+                    </div>
+                    <div class="form-group clearfix">
+                        <input type="submit" id="submit" class="form-control btn btn-primary"
+                               value='Sign in to your account'/>
+                    </div>
+                </form>
+                <div class="alert alert-danger" ng-show="loginError" class="ng-hide">{{loginError}}</div>
+            </div>
+            <div class="panel-body">
+                <a href='/resetpass'>Forgot Your Password?</a>
+
+
+            </div>
+        </div>
+
+
+    </div>
+    <div class="login-footer">
+        <h5>Need an Account? <a href='/signup'>Signup</a></h5>
+    </div>
+
+</div>
+
+
+</div>
+</div>
+
+</body>
+</html>
+-->
+
+
+
+
+

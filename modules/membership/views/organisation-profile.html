@@ -1,0 +1,79 @@
+<div class="feed-fixed hidden-print" ng-class="{percentageScreen : sideMenuVisible, halfScreen :!sideMenuVisible}">
+    {{organisation.displayName}}
+    <div class="panel panel-default m0 p0 b0">
+        <div class="panel-heading m0 b0">
+            <form class="form">
+                <div class="form-group">
+                    <textarea class='form-control' placeholder="What's Up?"></textarea>
+                </div>
+                <div class="form-group">
+                    <button class="btn btn-primary pull-right" ng-click="newPost()">Post</button>
+                </div>
+            </form>
+            <form class="form">
+                <div class="form-group">
+                    <span class="label label-default">All</span>
+            <span class="label label-default mr5"
+                  ng-repeat="team in user.teams">{{ team.title }}
+            </span>
+                    <span class="label label-default"><i class="fa fa-search"></i></span>
+                    <span class="label label-default" ng-click="postView='list';"><i class="fa fa-bars"></i></span>
+                    <span class="label label-default" ng-click="postView='feed';"><i class="fa fa-square"></i></span>
+
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <div class="scroll2 m0 b0">
+        <foo-post-collection view="{{postView}}" streams="{{postStreams}}" post="activePost" posts="posts">
+        </foo-post-collection>
+    </div>
+
+
+</div>
+
+
+<div class="feed-fixed-wide" ng-class="{percentageScreenWide : sideMenuVisible, halfScreenWide :!sideMenuVisible}">
+    <foo-post post="activePost" delete-post="deletePost()" copy-post="copyPost()" save-post="savePost()"
+              cancel-post="cancelPost()"></foo-post>
+
+</div>
+
+<div class="feed-fixed-wide" ng-if="postStreams.length==0"
+     ng-class="{percentageScreenWide : sideMenuVisible, halfScreenWide :!sideMenuVisible}">
+    <div class="row">
+        <div class="col-sm-12">
+
+            <div class="panel panel-primary">
+                <div class="panel-heading">
+                    <h5>Welcome {{user.displayName}}</h5>
+                </div>
+                <div class="panel-body">
+                    <p>We're so happy you decided to try FOOFORMS.</p>
+                    <h4>Getting started</h4>
+
+                    <p>Jump right in and get your first forms up and running.
+                        Choose to build your own or browse from the selection of ready-to-go forms</p>
+                    <a class="btn btn-success" href="/forms">Browse Ready-to-go Forms</a> - or -
+                    <a class="btn btn-success" href="/formBuilder">Open the Form Builder</a>
+                    <h4>Next</h4>
+
+                    <p class="pt5">Next : Create some teams. Teams help you define who sees which forms.</p>
+                    <a class="btn btn-primary" href="/teams">Create Teams</a>
+
+                    <p class="pt5">Be sure to get in touch if you have any questions, we're always delighted to
+                        assist.</p>
+
+
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+</div>
+
+
+

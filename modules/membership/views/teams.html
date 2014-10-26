@@ -1,0 +1,61 @@
+<div class="col-sm-12" id='mainView'>
+
+    <!-- Navigation Buttons -->
+    <div class="col-md-3 slideLeft">
+        <div class="panel panel-info">
+            <div class="panel-heading">
+                <a class="btn btn-success" data-toggle="tab" data-target="#newTeam">
+                    <i class="fa fa-plus"></i> New Team</a>
+            </div>
+            <div class="panel-body">
+                <ul class="nav nav-pills nav-stacked" id="myTabs">
+                    <li ng-repeat="team in user.teams">
+                        <a ng-click="setTeam(team)">
+                            <img class="icon-xs" src="/assets/icons/color/folder.png"
+                                 alt="{{team.displayName}}">
+                            {{team.displayName}}</a></li>
+                </ul>
+            </div>
+        </div>
+
+    </div>
+    <div class="col-md-9 slideRight">
+        <div class="tab-content">
+            <div class="tab-pane" id="newTeam">
+                <div class="panel panel-success">
+                    <div class="panel-heading">
+                        <h4>New Team</h4>
+                    </div>
+                    <div class="panel-body">
+                        <form novalidate class="css-form" role="form" name="createTeam">
+                            <div class="form-group">
+                                <label for="teamName">Name</label>
+                                <input type="text" class="form-control" id="teamName"
+                                       ng-model="team.displayName" required
+                                       placeholder="Team Name"/><br/>
+                            </div>
+                            <div class="form-group">
+                                <label for="teamDomain">Description</label>
+                                <input type="text" class="form-control" id="teamDomain"
+                                       ng-model="team.description"
+                                       placeholder="The team description"/>
+                            </div>
+                            <button ng-click="updateTeam(team)" class="btn btn-success">Save
+                            </button>
+                        </form>
+                        <div id="createOrganisation-error" class="alert alert-danger alert-dismissable"
+                             ng-show="createTeamError">
+                            <button type="button" class="close" data-dismiss="alert"
+                                    aria-hidden="true">&times;</button>
+                            {{createTeamError}}
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>
+
+

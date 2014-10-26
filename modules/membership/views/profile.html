@@ -1,0 +1,94 @@
+<div class="col-sm-12" id='mainView'>
+
+    <!-- Navigation Buttons -->
+    <div class="col-md-3 slideLeft">
+        <div class="panel panel-info">
+
+        <div class="panel-body">
+                <ul class="nav nav-pills nav-stacked" id="myTabs">
+                    <li class="active"><a data-toggle="tab" data-target="#profile">Your Profile</a></li>
+                    <li><a data-toggle="tab" data-target="#notificationSettings">Notification Settings</a></li>
+                    <li><a data-toggle="tab" data-target="#history">History</a></li>
+
+                </ul>
+            </div>
+        </div>
+
+    </div>
+
+    <!-- Content -->
+    <div class="col-md-9 slideRight">
+        <div class="panel panel-info">
+            <div class="panel-body">
+                <div class="tab-content">
+                    <div class="tab-pane active" id="profile"><h4>Your Profile</h4>
+
+                        <form>
+
+                        </form>
+                        <form novalidate class="form-horizontal">
+                            <div class="col-sm-3">
+                                <!--<img class="img-circle" ng-src="{{userProfile.photo}}"/>-->
+                                <user-photo user="userProfile"></user-photo>
+                            </div>
+                            <div class="col-sm-9">
+
+                                <div class="form-group">
+
+                                    <label class="col-sm-3 control-label"> Display Name:</label>
+
+                                    <div class="col-sm-9">
+                                        <input class="form-control" ng-readonly="true" type="text"
+                                               ng-model="userProfile.displayName"
+                                               required/>
+                                    </div>
+                                </div>
+                                <div class="form-group"><label class="col-sm-3 control-label">First Name:</label>
+
+                                    <div class="col-sm-9">
+                                        <input class="form-control" type="text" ng-model="userProfile.name.givenName"
+                                               required/>
+                                    </div>
+                                </div>
+                                <div class="form-group"><label class="col-sm-3 control-label">Middle Name:</label>
+
+                                    <div class="col-sm-9">
+                                        <input class="form-control" type="text" ng-model="userProfile.name.middleName"
+                                               required/>
+                                    </div>
+                                </div>
+                                <div class="form-group"><label class="col-sm-3 control-label">Family Name:</label>
+
+                                    <div class="col-sm-9">
+                                        <input class="form-control" type="text" ng-model="userProfile.name.familyName"
+                                               required/>
+                                    </div>
+                                </div>
+                                <div class="form-group"><label class="col-sm-3 control-label">E-mail:</label>
+
+                                    <div class="col-sm-9">
+                                        <input class="form-control" type="email" ng-model="userProfile.email" required/>
+                                    </div>
+                                </div>
+                                <div class="col-sm-12 align-right">
+                                    <button class="btn btn-success" ng-click="update()">SAVE</button>
+                                </div>
+                            </div>
+
+                        </form>
+                    </div>
+                    <div class="tab-pane" id="notificationSettings"><h4>Notification Settings</h4>
+
+
+                    </div>
+                    <div class="tab-pane" id="history">Your Usage History</div>
+
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>
+
+
+

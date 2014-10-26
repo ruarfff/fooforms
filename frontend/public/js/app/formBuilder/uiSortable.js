@@ -7,18 +7,18 @@
  @param [ui-sortable] {object} Options to pass to $.fn.sortable() merged onto ui.config
  */
 angular.module('ui.sortable', [])
-    .value('uiSortableConfig',{})
+    .value('uiSortableConfig', {})
     .directive('uiSortable', [
         'uiSortableConfig', '$timeout', '$log',
-        function(uiSortableConfig, $timeout, $log) {
+        function (uiSortableConfig, $timeout, $log) {
             return {
                 require: '?ngModel',
-                link: function(scope, element, attrs, ngModel) {
+                link: function (scope, element, attrs, ngModel) {
                     var savedNodes;
 
-                    function combineCallbacks(first,second){
-                        if(second && (typeof second === 'function')) {
-                            return function(e, ui) {
+                    function combineCallbacks(first, second) {
+                        if (second && (typeof second === 'function')) {
+                            return function (e, ui) {
                                 first(e, ui);
                                 second(e, ui);
                             };
@@ -26,8 +26,8 @@ angular.module('ui.sortable', [])
                         return first;
                     }
 
-                    function hasSortingHelper (element, ui) {
-                        var helperOption = element.sortable('option','helper');
+                    function hasSortingHelper(element, ui) {
+                        var helperOption = element.sortable('option', 'helper');
                         return helperOption === 'clone' || (typeof helperOption === 'function' && ui.item.sortable.isCustomHelperUsed());
                     }
 
@@ -35,10 +35,10 @@ angular.module('ui.sortable', [])
 
                     var callbacks = {
                         receive: null,
-                        remove:null,
-                        start:null,
-                        stop:null,
-                        update:null
+                        remove: null,
+                        start: null,
+                        stop: null,
+                        update: null
                     };
 
                     var wrappers = {
@@ -56,9 +56,9 @@ angular.module('ui.sortable', [])
 
                         // When we add or remove elements, we need the sortable to 'refresh'
                         // so it can find the new/removed elements.
-                        scope.$watch(attrs.ngModel+'.length', function() {
+                        scope.$watch(attrs.ngModel + '.length', function () {
                             // Timeout to let ng-repeat modify the DOM
-                            $timeout(function() {
+                            $timeout(function () {
                                 // ensure that the jquery-ui-sortable widget instance
                                 // is still bound to the directive's element
                                 if (!!element.data('ui-sortable')) {
@@ -67,7 +67,7 @@ angular.module('ui.sortable', [])
                             });
                         });
 
-                        callbacks.start = function(e, ui) {
+                        callbacks.start = function (e, ui) {
                             // Save the starting position of dragged item
                             ui.item.sortable = {
                                 index: ui.item.index(),
@@ -85,7 +85,7 @@ angular.module('ui.sortable', [])
                             };
                         };
 
-                        callbacks.activate = function(/*e, ui*/) {
+                        callbacks.activate = function (/*e, ui*/) {
                             // We need to make a copy of the current element's contents so
                             // we can restore it after sortable has messed it up.
                             // This is inside activate (instead of start) in order to save
@@ -94,7 +94,7 @@ angular.module('ui.sortable', [])
 
                             // If this list has a placeholder (the connected lists won't),
                             // don't inlcude it in saved nodes.
-                            var placeholder = element.sortable('option','placeholder');
+                            var placeholder = element.sortable('option', 'placeholder');
 
                             // placeholder.element will be a function if the placeholder, has
                             // been created (placeholder will be an object).  If it hasn't
@@ -116,11 +116,11 @@ angular.module('ui.sortable', [])
                             }
                         };
 
-                        callbacks.update = function(e, ui) {
+                        callbacks.update = function (e, ui) {
                             // Save current drop position but only if this is not a second
                             // update that happens when moving between lists because then
                             // the value will be overwritten with the old value
-                            if(!ui.item.sortable.received) {
+                            if (!ui.item.sortable.received) {
                                 ui.item.sortable.dropindex = ui.item.index();
                                 ui.item.sortable.droptarget = ui.item.parent();
 
@@ -147,7 +147,7 @@ angular.module('ui.sortable', [])
                             // then we add the new item to this list otherwise wait until the
                             // stop event where we will know if it was a sort or item was
                             // moved here from another list
-                            if(ui.item.sortable.received && !ui.item.sortable.isCanceled()) {
+                            if (ui.item.sortable.received && !ui.item.sortable.isCanceled()) {
                                 scope.$apply(function () {
                                     ngModel.$modelValue.splice(ui.item.sortable.dropindex, 0,
                                         ui.item.sortable.moved);
@@ -155,13 +155,12 @@ angular.module('ui.sortable', [])
                             }
                         };
 
-                        callbacks.stop = function(e, ui) {
+                        callbacks.stop = function (e, ui) {
                             // If the received flag hasn't be set on the item, this is a
                             // normal sort, if dropindex is set, the item was moved, so move
                             // the items in the list.
-                            if(!ui.item.sortable.received &&
-                                ('dropindex' in ui.item.sortable) &&
-                                !ui.item.sortable.isCanceled()) {
+                            if (!ui.item.sortable.received &&
+                                ('dropindex' in ui.item.sortable) && !ui.item.sortable.isCanceled()) {
 
                                 scope.$apply(function () {
                                     ngModel.$modelValue.splice(
@@ -171,20 +170,19 @@ angular.module('ui.sortable', [])
                             } else {
                                 // if the item was not moved, then restore the elements
                                 // so that the ngRepeat's comment are correct.
-                                if ((!('dropindex' in ui.item.sortable) || ui.item.sortable.isCanceled()) &&
-                                    !hasSortingHelper(element, ui)) {
+                                if ((!('dropindex' in ui.item.sortable) || ui.item.sortable.isCanceled()) && !hasSortingHelper(element, ui)) {
                                     savedNodes.appendTo(element);
                                 }
                             }
                         };
 
-                        callbacks.receive = function(e, ui) {
+                        callbacks.receive = function (e, ui) {
                             // An item was dropped here from another list, set a flag on the
                             // item.
                             ui.item.sortable.received = true;
                         };
 
-                        callbacks.remove = function(e, ui) {
+                        callbacks.remove = function (e, ui) {
                             // Workaround for a problem observed in nested connected lists.
                             // There should be an 'update' event before 'remove' when moving
                             // elements. If the event did not fire, cancel sorting.
@@ -214,16 +212,18 @@ angular.module('ui.sortable', [])
                             return inner;
                         };
 
-                        scope.$watch(attrs.uiSortable, function(newVal /*, oldVal*/) {
+                        scope.$watch(attrs.uiSortable, function (newVal /*, oldVal*/) {
                             // ensure that the jquery-ui-sortable widget instance
                             // is still bound to the directive's element
                             if (!!element.data('ui-sortable')) {
-                                angular.forEach(newVal, function(value, key) {
-                                    if(callbacks[key]) {
-                                        if( key === 'stop' ){
+                                angular.forEach(newVal, function (value, key) {
+                                    if (callbacks[key]) {
+                                        if (key === 'stop') {
                                             // call apply after stop
                                             value = combineCallbacks(
-                                                value, function() { scope.$apply(); });
+                                                value, function () {
+                                                    scope.$apply();
+                                                });
                                         }
                                         // wrap the callback
                                         value = combineCallbacks(callbacks[key], value);
@@ -236,7 +236,7 @@ angular.module('ui.sortable', [])
                             }
                         }, true);
 
-                        angular.forEach(callbacks, function(value, key) {
+                        angular.forEach(callbacks, function (value, key) {
                             opts[key] = combineCallbacks(value, opts[key]);
                         });
 

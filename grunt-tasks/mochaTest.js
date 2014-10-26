@@ -1,4 +1,4 @@
-module.exports = function(grunt) {
+module.exports = function (grunt) {
     "use strict";
 
 
@@ -6,20 +6,9 @@ module.exports = function(grunt) {
         test: {
             options: {
                 reporter: 'spec',
-                require: 'test/coverage/blanket',
                 clearRequireCache: true
             },
-            src: ['test/spec/modules/**/*.js']
-        },
-        coverage: {
-            options: {
-                reporter: 'html-cov',
-                quiet: true,
-                //specify a destination file to capture the mocha
-                //output (the quiet option does not suppress this)
-                captureFile: 'frontend/public/coverage.html'
-            },
-            src: ['test/spec/modules/**/*.js']
+            src: ['modules/**/test/*-spec.js']
         }
     });
     grunt.loadNpmTasks('grunt-mocha-test');

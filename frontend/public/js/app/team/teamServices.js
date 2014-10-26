@@ -1,0 +1,55 @@
+angular.module('team')
+    .factory('TeamService',
+    ['$log', 'Restangular',
+        function ($log, Restangular) {
+            'use strict';
+            var teamApi = Restangular.all('teams');
+
+            return {
+
+                createTeam: function (team, next) {
+                    teamApi.post(team).then(function (res) {
+                        return next(null, res);
+                    }, function (err) {
+                        $log.error(err);
+                        return next(err);
+                    });
+                },
+                updateTeam: function (team, next) {
+                    teamApi.put().then(function (res) {
+                        return next(null, res);
+                    }, function (err) {
+                        $log.error(err);
+                        return next(err);
+                    });
+                },
+                deleteTeam: function (team, next) {
+                    teamApi.remove().then(function () {
+                        return next(null);
+                    }, function (err) {
+                        $log.error(err);
+                        return next(err);
+                    });
+                }
+
+            }
+
+
+        }]).service('Team', function () {
+        'use strict';
+        this.activeTeam = {};
+        this.newTeam = function () {
+            this.activeTeam = {displayName: '', description: ''};
+            if (this.activeTeam._id) {
+                delete this.activeTeam._id;
+            }
+            return this.activeTeam;
+        };
+
+        this.setTeam = function (team) {
+            this.activeTeam = team;
+            return this.activeTeam;
+        };
+
+        return this;
+    });

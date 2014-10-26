@@ -5,7 +5,7 @@ angular.module('formBuilder')
 
 // not used but may be useful some day......
 
-    .directive('compile', function ($compile) {
+    .directive('compile', ['$compile', function ($compile) {
         'use strict';
         // directive factory creates a link function
         return function (scope, element, attrs) {
@@ -27,7 +27,7 @@ angular.module('formBuilder')
                 }
             );
         };
-    }).directive('calculation', [function () {
+    }]).directive('calculation', [function () {
 
         return {
             restrict: 'E',
@@ -37,63 +37,61 @@ angular.module('formBuilder')
             controller: function ($scope, $element) {
 
 
+                var index;
+                if (angular.isUndefined($scope.postObj)) {
+                    $scope.postObj = $scope.posts.activePost;
+                }
+                var count = $scope.postObj.fields.length;
 
-                   var index;
-                   if (angular.isUndefined($scope.postObj)){
-                       $scope.postObj=$scope.posts.activePost;
-                   }
-                   var count = $scope.postObj.fields.length;
+                if ($scope.formField.options.field1.item == 'Specified Value') {
+                    $scope.fieldA = $scope.formField.options.field1;
+                } else {
+                    for (index = 0; index < count; index++) {
+                        if ($scope.postObj.fields[index].id == $scope.formField.options.field1.item) {
+                            $scope.fieldA = $scope.postObj.fields[index];
+                            break;
+                        }
+                    }
+                }
 
-                   if ($scope.formField.options.field1.item == 'Specified Value') {
-                       $scope.fieldA = $scope.formField.options.field1;
-                   } else {
-                       for (index = 0; index < count; index++) {
-                           if ($scope.postObj.fields[index].id == $scope.formField.options.field1.item) {
-                               $scope.fieldA = $scope.postObj.fields[index];
-                               break;
-                           }
-                       }
-                   }
+                if ($scope.formField.options.field2.item == 'Specified Value') {
+                    $scope.fieldB = $scope.formField.options.field2;
+                } else {
+                    for (index = 0; index < count; index++) {
+                        if ($scope.postObj.fields[index].id == $scope.formField.options.field2.item) {
+                            $scope.fieldB = $scope.postObj.fields[index];
+                            break;
+                        }
+                    }
+                }
 
-                   if ($scope.formField.options.field2.item == 'Specified Value') {
-                       $scope.fieldB = $scope.formField.options.field2;
-                   } else {
-                       for (index = 0; index < count; index++) {
-                           if ($scope.postObj.fields[index].id == $scope.formField.options.field2.item) {
-                               $scope.fieldB = $scope.postObj.fields[index];
-                               break;
-                           }
-                       }
-                   }
-
-                $scope.$watch('fieldA', function(){
-                       calculate();
-                   },true);
-                $scope.$watch('fieldB', function(){
-                       calculate();
-                   },true);
-
+                $scope.$watch('fieldA', function () {
+                    calculate();
+                }, true);
+                $scope.$watch('fieldB', function () {
+                    calculate();
+                }, true);
 
 
-function calculate() {
-    var result = 0;
-    switch ($scope.formField.options.operator) {
-        case '+' :
-            $scope.formField.value = ($scope.fieldA.value + $scope.fieldB.value);
-            break;
-        case '-' :
-            $scope.formField.value = ($scope.fieldA.value * $scope.fieldB.value);
-            break;
-        case '*' :
-            $scope.formField.value = ($scope.fieldA.value * $scope.fieldB.value);
-            break;
-        case '/' :
-            $scope.formField.value = ($scope.fieldA.value / $scope.fieldB.value);
-            break;
+                function calculate() {
+                    var result = 0;
+                    switch ($scope.formField.options.operator) {
+                        case '+' :
+                            $scope.formField.value = ($scope.fieldA.value + $scope.fieldB.value);
+                            break;
+                        case '-' :
+                            $scope.formField.value = ($scope.fieldA.value * $scope.fieldB.value);
+                            break;
+                        case '*' :
+                            $scope.formField.value = ($scope.fieldA.value * $scope.fieldB.value);
+                            break;
+                        case '/' :
+                            $scope.formField.value = ($scope.fieldA.value / $scope.fieldB.value);
+                            break;
 
-    }
-    return $scope.formField.value;
-}
+                    }
+                    return $scope.formField.value;
+                }
 
             },
             replace: false,
@@ -109,7 +107,7 @@ function calculate() {
 
             controller: function ($scope, $element) {
 
-                var index, fieldA,fieldB;
+                var index, fieldA, fieldB;
                 var count = $scope.formField.fields.length; //the groupbox
 
                 if ($scope.repeater.options.field1.item == 'Specified Value') {
@@ -144,7 +142,7 @@ function calculate() {
                 });
 
                 $scope.calculate = function () {
-                    var result=0;
+                    var result = 0;
                     switch ($scope.repeater.options.operator) {
                         case '+' :
                             $scope.repeater.value = ($scope.fieldA.value + $scope.fieldB.value);
@@ -160,27 +158,53 @@ function calculate() {
                             break;
 
                     }
-                    return $scope.repeater.value ;
+                    return $scope.repeater.value;
                 }
             },
             replace: false,
             templateUrl: '/partials/calculationGroupBox.html'
         };
 
-    }]).directive('uploader', ['$upload', function ($upload) {
+    }]).directive('feedHeader', [function () {
+
+        return {
+            restrict: 'E',
+            scope: false,
+
+
+            link: function (scope, $element) {
+
+
+                var index;
+                if (angular.isUndefined(scope.post)) {
+                    scope.post = scope.posts.activePost;
+                }
+                var titles = _.where(scope.post.fields, {'useAsTitle': true});
+                var titlesplucked = _.pluck(titles, 'value');
+                scope.titleStr = titlesplucked.toString();
+
+
+            },
+            replace: false,
+            template: '<img class="media-object icon icon-feed pull-left" ng-src="{{post.icon}}" alt=""> \
+                <span class="pull-right text-muted">{{post.lastModified | date : "HH:mm"}} </span> \
+        <span> {{titleStr}}</span>'
+        };
+
+    }]).directive('uploader', ['$upload', '$log', function ($upload, $log) {
 
         return {
             restrict: 'E',
             scope: {
 
                 formField: '=formField',
-                message: '=message',
                 onFileSelect: "&onFileSelect",
                 doFileUpload: "&doFileUpload"
 
             },
             link: function (scope, elem, attrs, ctrl) {
 
+                //   ctrl.$setValidity('error', true);
 
                 scope.onFileSelect = function (selectedFile) {
 
@@ -193,10 +217,9 @@ function calculate() {
 
                 scope.doFileUpload = function () {
 
-
                     scope.upload = $upload.upload({
-                        url: '/api/file', //upload.php script, node.js route, or servlet url
-                        // method: POST or PUT,
+                        url: '/api/files',
+                        method: 'POST',
                         // headers: {'header-key': 'header-value'},
                         // withCredentials: true,
                         data: {file: scope.uploadFile}
@@ -208,83 +231,58 @@ function calculate() {
                         scope.uploadFile = [];
                         scope.allowUpload = null;
                         if (data.err) {
-                            setMessage(true, 'File Failed Validation', data.err, 'alert-danger');
-
+                            $log.error(data.err);
+                            //ctrl.$setValidity('error', false);
                         } else {
                             scope.formField.value = data;
-
                         }
 
                     }).error(function (err) {
-                        alert(err);
+                        $log.error(err);
+                        //ctrl.$setValidity('error', false);
                     });
-
-
                 }
-
             },
             replace: false,
             templateUrl: '/partials/uploader.html'
         };
-
-    }]).directive('profileUploader', ['$upload', function ($upload) {
-
+    }])
+    .directive('formName', ['$http', function ($http) {
         return {
-            restrict: 'E',
-            scope: {
-
-                user: '=user',
-                message: '=message',
-                onFileSelect: "&onFileSelect",
-                doFileUpload: "&doFileUpload"
-
-            },
+            require: 'ngModel',
             link: function (scope, elem, attrs, ctrl) {
+                scope.busy = false;
+                scope.$watch(attrs.ngModel, function (value) {
 
+                    // hide old error messages
+                    ctrl.$setValidity('isTaken', true);
+                    ctrl.$setValidity('error', true);
+                    ctrl.$setValidity('invalidChars', true);
+                    scope.sluggedFormName = '';
 
-                scope.onFileSelect = function (selectedFile) {
+                    if (!value) {
+                        // don't send undefined to the server during dirty check
+                        // empty form name is caught by required directive
+                        return;
+                    }
 
-                    scope.uploadFile = selectedFile[0];
-
-
-                    scope.doFileUpload();
-
-                };
-
-                scope.doFileUpload = function () {
-
-
-                    scope.upload = $upload.upload({
-                        url: '/api/file', //upload.php script, node.js route, or servlet url
-                        // method: POST or PUT,
-                        // headers: {'header-key': 'header-value'},
-                        // withCredentials: true,
-                        data: {file: scope.uploadFile}
-
-                    }).progress(function (evt) {
-                        //scope.formField.progress = (parseInt(100.0 * evt.loaded / evt.total));
-                    }).success(function (data, status, headers, config) {
-                        // file is uploaded successfully
-                        scope.uploadFile = [];
-                        scope.allowUpload = null;
-                        if (data.err) {
-                            setMessage(true, 'File Failed Validation', data.err, 'alert-danger');
-
-                        } else {
-                            scope.user.photo = data._id;
-
-                        }
-
-                    }).error(function (err) {
-                        alert(err);
-                    });
-
-
-                }
-
-            },
-            replace: false,
-            templateUrl: '/partials/profileUploader.html'
-        };
-
+                    scope.formNameBusy = true;
+                    $http.get('/api/forms/check/name/' + attrs.folder + '/' + value)
+                        .success(function (data) {
+                            if (data.exists) {
+                                scope.sluggedFormName = '';
+                                ctrl.$setValidity('isTaken', false);
+                            } else if (data.slugged) {
+                                scope.sluggedFormName = data.sluggedValue;
+                            }
+                            // everything is fine -> do nothing
+                            scope.formNameBusy = false;
+                        }).error(function (data) {
+                            scope.sluggedFormName = '';
+                            ctrl.$setValidity('error', false);
+                            scope.formNameBusy = false;
+                        });
+                })
+            }
+        }
     }]);

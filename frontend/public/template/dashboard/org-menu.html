@@ -1,0 +1,19 @@
+<li ng-repeat="organisation in user.organisations">
+    <h5>{{organisation.displayName}}</h5>
+
+    <div><a ng-click="isTeamsCollapsed = !isTeamsCollapsed"><i class="fa fa-sitemap"></i></a></div>
+    <div><a ng-click="isTeamsCollapsed = !isTeamsCollapsed">Team Folders<span class="caret"></span></a>
+    </div>
+    <ul class="nav nav-pills nav-stacked ml0">
+    <li ng-repeat="team in organisation.teams | filter:{ _id: '!' + organisation.owners} ">
+            <a href="/{{organisation.displayName}}/teams/{{team.displayName}}"><h5>{{teams.title || team.displayName}}</h5></a>
+            <ul class="nav nav-pills nav-stacked ml0">
+                <li ng-repeat="form in team.defaultFolder.forms">
+                    <a href="/{{organisation.displayName}}/{{team.displayName}}/{{form.displayName}}">{{form.displayName}}</a>
+                </li>
+            </ul>
+        </li>
+        <li class="divider"></li>
+        <li><a href="/teams">Manage Team Folders</a></li>
+    </ul>
+</li>

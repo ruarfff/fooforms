@@ -6,15 +6,15 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="description" content="">
     <meta name="author" content="">
-    <link rel="shortcut icon" href="/site/assets/ico/favicon.ico" type="image/x-icon">
-    <link rel="icon" href="/site/assets/ico/favicon.ico" type="image/x-icon">
+    <link rel="shortcut icon" href="/assets/ico/favicon.ico" type="image/x-icon">
+    <link rel="icon" href="/assets/ico/favicon.ico" type="image/x-icon">
 
-    <title>FooForms</title>
+    <title>FooForms, Enterprise Form Builder and Social Dashboard</title>
 
     <!-- Bootstrap core CSS -->
-    <link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.0.3/css/bootstrap.min.css">
-    <link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.0.3/css/bootstrap-theme.min.css">
-    <link rel="stylesheet" href="//netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.css">
+    <link rel="stylesheet" href="/vendor/bootstrap/css/bootstrap.min.css">
+    <link rel="stylesheet" href="/vendor/bootstrap/css/bootstrap-theme.min.css">
+    <link rel="stylesheet" href="/vendor/font-awesome/css/font-awesome.min.css">
     <link href='http://fonts.googleapis.com/css?family=Play' rel='stylesheet' type='text/css'>
     <link href='http://fonts.googleapis.com/css?family=Open+Sans+Condensed:300' rel='stylesheet' type='text/css'>
 
@@ -30,33 +30,30 @@
 <!-- NAVBAR
 ================================================== -->
 <body>
-<div class="navbar-wrapper">
-
-
-    <div class="navbar navbar-default navbar-fixed-top navbar-foo" role="navigation">
-        <div class="container">
-            <div class="navbar-header page-content">
-                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
-                    <span class="sr-only">Toggle navigation</span>
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                </button>
-                <a class="navbar-brand" href="#"><img class='logo' src="/assets/images/fooLogo-sm.png"></a>
-            </div>
-            <div class="navbar-collapse collapse">
-                <ul class="nav navbar-nav navbar-right foo-menu">
-
-
-                    <li><a href="/login" class="text-success">Sign in</a></li>
-
-                </ul>
-
-            </div>
+<nav class="navbar navbar-default navbar-fixed-top navbar-foo" role="navigation">
+    <div class="container-fluid">
+        <!-- Brand and toggle get grouped for better mobile display -->
+        <div class="navbar-header">
+            <button type="button" class="navbar-toggle collapsed" data-toggle="collapse"
+                    data-target="#bs-example-navbar-collapse-1">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand" href="#"><img class='logo' src="/assets/images/fooLogo-sm.png"></a>
         </div>
-    </div>
 
-</div>
+        <!-- Collect the nav links, forms, and other content for toggling -->
+        <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+            <ul class="nav navbar-nav navbar-right foo-menu">
+                <li><a href="/login/" class="text-success">Sign in</a></li>
+            </ul>
+        </div>
+        <!-- /.navbar-collapse -->
+    </div>
+    <!-- /.container-fluid -->
+</nav>
 
 
 <!-- jumbotron
@@ -64,38 +61,44 @@
 
 <div class="jumbotron jumbotron-home">
     <div class="page-content">
-        <div class="row bg-transparent-4">
-            <div class="col-xs-12 p0 m0 align-center"><h1>Create & Share Forms in the Cloud</h1></div>
-</div> <div class="row bg-transparent-4">
+        <div class="row">
+            <div class="col-xs-12 p0 m0 align-center"><h1 class="rounded-top">Create One Form or a Complete Social
+                Intranet</h1></div>
+        </div>
+        <div class="row bg-transparent-4 bordered-light rounded">
             <div class="col-xs-12 col-sm-8 p0">
-
 
                 <div class="item">
 
 
+                    <h2><i class="fa fa-check-square-o"></i><span class="highlighted"> Create</span> form apps for
+                        things
+                        that matter</h2>
 
+                    <h2><i class="fa fa-check-square-o"></i><span class="highlighted"> Share</span> forms with your team
+                        or customers</h2>
 
-                    <h2><i class="fa fa-check-square-o"></i><span class="highlighted"> Create</span> forms for things that matter</h2>
+                    <h2><i class="fa fa-check-square-o"></i><span class="highlighted"> View</span> form posts through
+                        one social dashboard</h2>
 
-                    <h2><i class="fa fa-check-square-o"></i><span class="highlighted"> Share</span> forms with your team or customers</h2>
+                    <h2><i class="fa fa-check-square-o"></i><span class="highlighted"> Respond & engage</span> instantly
+                        from <span
+                                class="highlighted">any device</span></h2>
 
-                    <h2><i class="fa fa-check-square-o"></i><span class="highlighted"> View</span> form posts through one social dashboard</h2>
-
-                    <h2><i class="fa fa-check-square-o"></i><span class="highlighted"> Respond & engage</span> instantly from <span
-                            class="highlighted">any device</span></h2>
                     <h2><i class="fa fa-check-square-o"></i><span class="highlighted"> No coding</span> required</h2>
-
-
 
                 </div>
             </div>
             <div class="col-xs-12 col-sm-4 pt10">
-                <h2 class=""><strong>Get invoicing, helpdesks, tasks & CRM <i>or</i> build your own form based apps in minutes without any coding</strong></h2>
-                 <!--<iframe src="http://fooforms.jit.su/forms/repo/541f542152b70368d722fffb"></iframe>-->
-                <p><a class="btn btn-huge btn-success" href="/signup"> <i class="fa fa-check-circle"></i> Sign Up for Free</a>
+                <h2 class=""><strong>Get invoicing, helpdesks, tasks & CRM <i>or</i> build your own form based apps in
+                    minutes without any coding</strong></h2>
+                <!--<iframe src="http://fooforms.jit.su/forms/repo/541f542152b70368d722fffb"></iframe>-->
+                <p><a class="btn btn-huge btn-success" href="/signup"> <i class="fa fa-check-circle"></i> Sign Up for
+                    Free</a>
                 </p>
 
-                <h3 class="text-shadow-light"><i class="fa fa-twitter"></i> Follow <a href="https://twitter.com/FOOFORMS">@fooforms</a> for updates.</h3>
+                <h3 class="text-shadow-light"><i class="fa fa-twitter"></i> Follow <a
+                        href="https://twitter.com/FOOFORMS">@fooforms</a> for updates.</h3>
             </div>
         </div>
 
@@ -115,9 +118,10 @@
             <div class="col-sm-4">
                 <i class="fa fa-list-alt fa-huge"></i>
 
-                <h2>Awesome Forms</h2>
+                <h2>Form Apps for Everything</h2>
 
-                <p>Pull ready-made forms from the form store to get up and running instantly or use the <span class="text-info">drag-n-drop</span> form
+                <p>Pull ready-made forms from the form store or use the <span
+                        class="text-higlight">drag-n-drop</span> form
                     builder
                     to create powerful form-based applications without writing a single line of code.
                 </p>
@@ -129,10 +133,10 @@
 
                 <h2>All in One Place</h2>
 
-                <p>On desktops, tablets or mobiles - the FOOFORMS social dashboard lets you keep track of everything in
+                <p>On desktops, tablets or mobiles - the FOOFORMS dashboard lets you keep track of everything in
                     one
                     place, no matter where you are.
-                    Get remote teams access to everything, everywhere, anytime.</p>
+                    Get <span class="text-higlight">remote teams</span> to everything, everywhere, anytime.</p>
 
             </div>
             <!-- /.col-lg-4 -->
@@ -141,9 +145,8 @@
 
                 <h2>Respond & Engage</h2>
 
-                <p>Silence your Inbox and throw away those Excel Spreadsheets,
-                    FOOFORMS lets you create forms that work perfectly with your business processes from start to
-                    finish.</p>
+                <p>Update form posts, add comments, likes, sharing and more.
+                    FOOFORMS lets you create form based apps that work perfectly with your business processes.</p>
 
 
             </div>
@@ -159,56 +162,76 @@
 
     <div class="row featurette">
         <div class="page-content">
-        <div class="col-md-5">
-            <img class="featurette-image img-responsive" src="/site/assets/images/form-store.png"
-                 alt="Generic placeholder image">
-        </div>
-        <div class="col-md-7">
-            <h2 class="featurette-heading">Awesome Forms. <span class="text-muted">Check out the form store.</span>
-            </h2>
-
-            <p class="lead">The form store has plenty of ready-made forms that you can add to your dashboard
-                with just one click.
-                Try the <span class="text-info">Helpdesk, Invoice and HR Forms</span> to get your team started.</p>
-        </div>
+            <div class="col-md-5">
+                <img class="featurette-image img-responsive rounded-full bordered" src="/assets/images/form-store.png"
+                     alt="Generic placeholder image">
             </div>
+            <div class="col-md-7">
+                <h2 class="featurette-heading">Share Forms. <span class="text-muted">Check out the form store.</span>
+                </h2>
+
+                <p class="lead">The form store has plenty of ready-made forms that you can add to your dashboard
+                    with just one click.
+                    Try the <span class="text-info">Helpdesk, Invoice and HR Forms</span> to get your team started.</p>
+            </div>
+
+        </div>
     </div>
 
 
     <div class="row featurette lightOnDark">
         <div class="page-content">
-        <div class="col-md-7">
-            <h2 class="featurette-heading">View, update and respond to new form posts with<span class="text-highlight"> one dashboard</span>.
-            </h2>
+            <div class="col-md-7">
+                <h2 class="featurette-heading">View, update and respond to new form posts with<span
+                        class="text-highlight"> one dashboard</span>.
+                </h2>
 
-            <p class="lead">Form posts arrive like your twitter or facebook feed complete with all the social features
-                you'd expect such as <span class="text-warning">comments</span> and <span class="text-warning">sharing</span>.</p>
-        </div>
-        <div class="col-md-5">
-            <img class="featurette-image img-responsive" src="/site/assets/images/dashboard.png"
-                 alt="Generic placeholder image">
-        </div>
+                <p class="lead">Form posts arrive like your twitter or facebook feed complete with all the social
+                    features
+                    you'd expect such as <span class="text-highlight">comments</span> and <span class="text-highlight">sharing</span>.
+                </p>
             </div>
+            <div class="col-md-5">
+                <img class="featurette-image img-responsive rounded-full bordered" src="/assets/images/dashboard.png"
+                     alt="Generic placeholder image">
+            </div>
+        </div>
     </div>
     <div class="row featurette">
         <div class="page-content">
-        <div class="col-md-6">
-            <h2 class="featurette-heading">Try fooforms now. <span class="text-muted">It'll blow your mind.</span></h2>
-
-            <p class="lead">We are currently preparing for public beta in November 2014. If you would like to be notified simply apply for access to beta below.</p>
-
-            <p><a class="btn btn-success btn-lg" href="#" role="button">Request access to beta &raquo;</a></p>
-        </div>
-        <div class="col-md-6">
-            <img class="featurette-image img-responsive" src="/site/assets/images/fooforms-dashboard.png"
-                 alt="Generic placeholder image">
-        </div>
+            <div class="col-md-6">
+                <img class="featurette-image img-responsive rounded-full bordered"
+                     src="/assets/images/fooforms-dashboard.png" alt="Generic placeholder image">
             </div>
+            <div class="col-md-6">
+                <h2 class="featurette-heading">Try fooforms now. <span
+                        class="text-muted">It'll blow your mind.</span>
+                </h2>
+
+                <p class="lead">We are currently preparing for public beta in November 2014. If you would like to be
+                    notified simply apply for access to beta below.</p>
+
+                <p><a class="btn btn-success btn-lg" href="#" role="button"><i class="fa fa-check-circle"></i> Sign Up
+                    for
+                    Free</a></p>
+            </div>
+        </div>
+
+
     </div>
+    <div class="row highlight footer">
+        <div class="page-content">
+            <div class="col-sm-4">
+                <p><i class="fa fa-twitter"></i><a href="https://twitter.com/FOOFORMS"> @fooforms</a></p>
 
+                <p><i class="fa fa-facebook"></i><a href="https://twitter.com/FOOFORMS"> facebook.com/fooforms</a></p>
 
+                <p><i class="fa fa-linkedin"></i><a href="https://twitter.com/FOOFORMS">
+                    linkedin.com/company/fooforms</a></p>
 
-
+            </div>
+        </div>
+    </div>
 </div>
 <!-- /.container -->
 
@@ -216,9 +239,24 @@
 <!-- Bootstrap core JavaScript
 ================================================== -->
 <!-- Placed at the end of the document so the pages load faster -->
-<script src="https://code.jquery.com/jquery-1.10.2.min.js"></script>
-<script src="//netdna.bootstrapcdn.com/bootstrap/3.0.3/js/bootstrap.min.js"></script>
+<script src="/vendor/jquery/jquery-2.1.1.min.js"></script>
+<script src="/vendor/bootstrap/js/bootstrap.min.js"></script>
 <script src="/site/js/holder.js"></script>
+
+<% if (dev) { %>
+<script src="//localhost:35729/livereload.js"></script>
+<% } %>
+
+<script>
+    (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+        (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+            m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+    })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+    ga('create', 'UA-40607409-2', 'auto');
+    ga('send', 'pageview');
+
+</script>
 
 </body>
 </html>

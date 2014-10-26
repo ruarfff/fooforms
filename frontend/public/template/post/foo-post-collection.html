@@ -1,0 +1,13 @@
+<div infinite-scroll="addMorePosts()" infinite-scroll-distance="3">
+    <!-- TODO: Move feed and list to own templates and directives -->
+
+    <!-- List View -->
+    <foo-post-list posts="posts" active-post="activePost" ng-show="view=='list'"></foo-post-list>
+
+    <!-- Feed View -->
+
+    <foo-post-feed posts="posts" active-post="activePost" ng-show="view=='feed'"></foo-post-feed>
+
+
+</div>
+

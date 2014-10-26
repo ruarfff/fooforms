@@ -1,0 +1,27 @@
+<div infinite-scroll="addMore()" infinite-scroll-distance="3">
+    <form role="form" class="panel panel-default">
+
+        <div class="panel-heading">
+            <span ng-show="comments.length>0">{{ comments.length }} comments</span>
+            <span ng-show="comments.length<1">No comments - be the first</span>
+
+            <textarea class="form-control b0" ng-model="comment.content"></textarea>
+            <button class="btn btn-info btn-xs pt5" ng-click="postComment(comment)">Post comment</button>
+
+        </div>
+        <div class="panel-heading">
+
+            <div class="comment" ng-repeat="comment in comments">
+                <blockquote>
+                    <p>{{comment.content}}</p>
+                    <footer><cite
+                            title="{{comment.commenter.displayName}}">{{comment.commenter.displayName}}</cite>
+                        on {{comment.created | date:'medium'}}
+                    </footer>
+                </blockquote>
+
+            </div>
+        </div>
+    </form>
+</div>
+
