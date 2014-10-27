@@ -28,6 +28,7 @@
                     </div>
                     <div class="panel-body">
                         <form novalidate class="css-form" role="form" name="createOrganisation">
+                            <org-photo org="newOrg"></org-photo>
                             <div class="form-group">
                                 <label for="orgName">Name</label>
                                 <input type="text" class="form-control" id="orgName"
@@ -75,7 +76,9 @@
 
                                 <form novalidate class="form-horizontal">
                                     <div class="col-sm-3">
-                                        <profile-uploader user="user"></profile-uploader>
+                                        <org-photo org="org"></org-photo>
+                                        <input class="form-control" type="text" ng-model="org.photo"
+                                               />
                                     </div>
                                     <div class="col-sm-9">
 
@@ -111,10 +114,9 @@
                                             </div>
                                         </div>
                                         <div class="col-sm-12 align-right">
-                                            <button class="btn btn-success" ng-click="update(user)">SAVE</button>
+                                            <button class="btn btn-success" ng-click="updateOrg(org);">SAVE</button>
                                         </div>
                                     </div>
-<pre><code>{{ org | json}}</code></pre>
                                 </form>
                             </div>
                             <div class="tab-pane" id="orgMembers">

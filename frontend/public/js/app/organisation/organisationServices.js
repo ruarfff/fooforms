@@ -31,4 +31,50 @@ angular.module('organisation').directive('uniqueOrgName', ['$http', function ($h
             })
         }
     }
-}]);
+}]).factory('OrganisationService',
+    ['$log', 'Restangular',
+        function ($log, Restangular) {
+            'use strict';
+            var orgApi = Restangular.all('organisation');
+
+            return {
+
+                createOrg: function (team, next) {
+                    orgApi.post(team).then(function (res) {
+                        return next(null, res);
+                    }, function (err) {
+                        $log.error(err);
+                        return next(err);
+                    });
+                },
+                updateOrg: function (team, next) {
+                    orgApi.put().then(function (res) {
+                        return next(null, res);
+                    }, function (err) {
+                        $log.error(err);
+                        return next(err);
+                    });
+                },
+                deleteOrg: function (team, next) {
+                    orgApi.remove().then(function () {
+                        return next(null);
+                    }, function (err) {
+                        $log.error(err);
+                        return next(err);
+                    });
+                }
+
+            }
+
+
+        }]).service('Organisation', function () {
+        'use strict';
+        this.activeOrg = {};
+
+        this.setOrg= function (team) {
+            this.activeOrg= team;
+            return this.activeOrg;
+        };
+
+        return this;
+    });
