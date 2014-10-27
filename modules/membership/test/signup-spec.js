@@ -93,57 +93,62 @@ describe('Signup Routes', function () {
                     });
                 });
         });
-        it('responds with sign up page when no email is provided', function (done) {
+        it('responds with error when no email is provided', function (done) {
             request(app)
                 .post(rootUrl)
                 .send({ email: '', displayName: displayName,
                     password: password, confirmPass: confirmPass, organisationName: organisationName })
                 .set('Accept', 'application/json')
-                .expect(200, function (err, data) {
-                    (data.text.indexOf(signUpContent) > -1).should.equal(true);
+                .expect(400, function (err, data) {
+                    var result = data.res.body;
+                    result.success.should.equal(false);
                     done()
                 });
         });
-        it('responds with sign up page when no displayName is provided', function (done) {
+        it('responds with error when no displayName is provided', function (done) {
             request(app)
                 .post(rootUrl)
                 .send({ email: email, displayName: '',
                     password: password, confirmPass: confirmPass, organisationName: organisationName })
                 .set('Accept', 'application/json')
-                .expect(200, function (err, data) {
-                    (data.text.indexOf(signUpContent) > -1).should.equal(true);
+                .expect(400, function (err, data) {
+                    var result = data.res.body;
+                    result.success.should.equal(false);
                     done()
                 });
         });
-        it('responds with sign up page when no password is provided', function (done) {
+        it('responds with error when no password is provided', function (done) {
             request(app)
                 .post(rootUrl)
                 .send({ email: email, displayName: displayName })
                 .set('Accept', 'application/json')
-                .expect(200, function (err, data) {
-                    (data.text.indexOf(signUpContent) > -1).should.equal(true);
+                .expect(400, function (err, data) {
+                    var result = data.res.body;
+                    result.success.should.equal(false);
                     done()
                 });
         });
-        it('responds with sign up page when passwords do not match', function (done) {
+        it('responds with error when passwords do not match', function (done) {
             request(app)
                 .post(rootUrl)
                 .send({ email: email, displayName: displayName,
                     password: password, confirmPass: wrongConfirmPass, organisationName: organisationName })
                 .set('Accept', 'application/json')
-                .expect(200, function (err, data) {
-                    (data.text.indexOf(signUpContent) > -1).should.equal(true);
+                .expect(400, function (err, data) {
+                    var result = data.res.body;
+                    result.success.should.equal(false);
                     done()
                 });
         });
-        it('responds with sign up page when no organisation name provided', function (done) {
+        it('responds with error when no organisation name provided', function (done) {
             request(app)
                 .post(rootUrl)
                 .send({ email: email, displayName: displayName,
                     password: password, confirmPass: confirmPass })
                 .set('Accept', 'application/json')
-                .expect(200, function (err, data) {
-                    (data.text.indexOf(signUpContent) > -1).should.equal(true);
+                .expect(400, function (err, data) {
+                    var result = data.res.body;
+                    result.success.should.equal(false);
                     done()
                 });
         });

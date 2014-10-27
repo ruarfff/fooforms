@@ -39,10 +39,7 @@ exports.signup = function (req, res, next) {
                 result = {};
                 result.err = err || new Error('An unknown error occurred.');
             }
-            res.render(signupPath, {
-                title: 'Sign Up',
-                error: result
-            });
+            res.status(400).send(result);
         } else {
 
             var args = {

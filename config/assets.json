@@ -6,6 +6,7 @@
                 "/js/app/authentication/authentication.js",
                 "/js/app/authentication/authenticationConstants.js",
                 "/js/app/authentication/authenticationControllers.js",
+                "/js/app/authentication/authenticationDirectives.js",
                 "/js/app/authentication/authenticationServices.js",
                 "/js/app/calendar/calendarDirectives.js",
                 "/js/app/comment/comment.js",

@@ -19,9 +19,7 @@ fooformsApp
                             $log.log(err);
                         }
                         if (!AuthService.isAuthenticated()) {
-                            if ($location.path() === '/signup') {
-                                $location.path("/signup");
-                            } else {
+                            if ($location.path() !== '/signup') {
                                 $location.path("/login");
                             }
                         } else {
@@ -287,14 +285,18 @@ fooformsApp
             response: function (response) {
                 if (response.status === 401) {
                     $log.log("Response 401");
-                    $location.path("/login");
+                    if ($location.path() !== '/signup') {
+                        $location.path("/login");
+                    }
                 }
                 return response || $q.when(response);
             },
             responseError: function (rejection) {
                 if (rejection.status === 401) {
                     $log.log("Response Error 401", rejection);
-                    $location.path("/login");
+                    if ($location.path() !== '/signup') {
+                        $location.path("/login");
+                    }
                 }
                 return $q.reject(rejection);
             }

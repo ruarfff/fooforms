@@ -37,11 +37,10 @@ angular.module('authentication')
             $log.error(err);
         });
     }])
-    .controller('LoginCtrl', ['$scope', '$rootScope', '$cookieStore', '$http', '$modalInstance', 'AUTH_EVENTS', 'AuthService', function ($scope, $rootScope, $cookieStore, $http, $modalInstance, AUTH_EVENTS, AuthService) {
+    .controller('LoginCtrl', ['$scope', '$rootScope', '$modalInstance', 'AUTH_EVENTS', 'AuthService', function ($scope, $rootScope, $modalInstance, AUTH_EVENTS, AuthService) {
         'use strict';
 
         $scope.sluggedUsername = '';
-        $scope.sluggedOrgName = '';
         $scope.credentials = {
             username: '',
             password: ''
@@ -51,7 +50,8 @@ angular.module('authentication')
         $scope.login = function (credentials) {
             AuthService.clearCredentials();
             AuthService.setCredentials(credentials.username, credentials.password);
-            AuthService.login(credentials).success(function (res) {
+            // Note: not posting anything in the login as the credentials get passed in the header
+            AuthService.login().success(function (res) {
                 if (AuthService.isAuthenticated) {
                     $rootScope.$broadcast(AUTH_EVENTS.loginSuccess);
                     $modalInstance.close(true);
@@ -75,15 +75,46 @@ angular.module('authentication')
             window.location = '/';
         };
     }])
-    .controller('SignupCtrl', ['$scope', function ($scope) {
+    .controller('SignupCtrl', ['$scope', '$rootScope', '$modalInstance', 'AUTH_EVENTS', 'AuthService', function ($scope, $rootScope, $modalInstance, AUTH_EVENTS, AuthService) {
         'use strict';
-
-        $scope.container = {};
+        $scope.details = {};
 
         $scope.signupStage = 1;
 
+
         $scope.validateStageOne = function () {
-            $scope.signupStage = 2;
-        }
+            if (!$scope.details.organisationName || !$scope.details.email) {
+                $scope.stageOneError = 'Please fill out all required fields';
+            } else {
+                $scope.signupStage = 2;
+            }
+        };
+
+        $scope.signup = function (details) {
+            AuthService.signup(details).success(function (res) {
+                AuthService.clearCredentials();
+                AuthService.setCredentials(details.displayName, details.password);
+
+                var credentials = {
+                    username: details.displayName,
+                    password: details.password
+                };
+
+                AuthService.login(credentials).success(function (res) {
+                    if (AuthService.isAuthenticated) {
+                        $rootScope.$broadcast(AUTH_EVENTS.loginSuccess);
+                        $modalInstance.close(true);
+                    } else {
+                        $scope.signupError = res.message || 'An error occurred while trying to log you in.';
+                    }
+                }).error(function (res) {
+                    AuthService.clearCredentials();
+                    $rootScope.$broadcast(AUTH_EVENTS.loginFailed);
+                    $scope.signupError = res.message || 'An error occurred while trying to log you in.';
+                });
+            }).error(function (res) {
+                $scope.signupError = res.message || 'An error occurred while trying to sign you up.';
+            });
+        };
 
     }]);
