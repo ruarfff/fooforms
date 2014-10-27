@@ -16,7 +16,7 @@
                     <li ng-repeat="form in team.defaultFolder.forms">
 
                         <a href="/{{organisation.displayName}}/teams/{{team.displayName}}/{{form.displayName}}">
-                            <img src="{{form.icon}}" class="nav-icon"> {{form.displayName}}</a>
+                            <img ng-src="{{form.icon}}" class="nav-icon"> {{form.displayName}}</a>
                     </li>
                 </ul>
             </li>
@@ -34,7 +34,7 @@
             <li ng-repeat="form in user.defaultFolder.forms">
 
                 <a href="/{{user.displayName}}/{{form.displayName}}">
-                    <img src="{{form.icon}}" class="nav-icon">  {{form.displayName}}
+                    <img ng-src="{{form.icon}}" class="nav-icon"> {{form.displayName}}
                 </a>
 
             </li>

@@ -27,9 +27,9 @@ module.exports = function (grunt) {
                 stripBanners: true
             },
             src: [
-                'frontend/src/bower/jquery/dist/jquery.min.js',
-                'frontend/src/bower/bootstrap/dist/js/bootstrap.min.js',
-                'frontend/src/bower/angular/angular.min.js'
+                'frontend/src/bower/jquery/dist/jquery.js',
+                'frontend/src/bower/bootstrap-sass-official/assets/javascripts/bootstrap.js',
+                'frontend/src/bower/angular/angular.js'
             ],
             dest: 'frontend/public/js/vendor-top.min.js'
         },
@@ -57,15 +57,17 @@ module.exports = function (grunt) {
                 'frontend/src/bower/fullcalendar/dist/fullcalendar.min.js',
                 'frontend/src/bower/angular-ui-codemirror/dist/ui-codemirror.min.js',
                 'frontend/src/bower/codemirror/lib/codemirror.js',
-                'frontend/src/bower/sweetalert/lib/sweet-alert.min.js'
+                'frontend/src/bower/pikaday/pikaday.js',
+                'frontend/src/bower/sweetalert/lib/sweet-alert.min.js',
+                'frontend/src/bower/angular-sweetalert/SweetAlert.min.js'
             ],
             dest: 'frontend/public/js/vendor.min.js'
         },
         vendorStyle: {
             src: [
-                'frontend/src/bower/bootstrap/dist/css/bootstrap.min.css',
                 'frontend/src/bower/codemirror/lib/codemirror.css',
-                'frontend/src/bower/codemirror/theme/mdn-like.css'
+                'frontend/src/bower/codemirror/theme/mdn-like.css',
+                'frontend/src/bower/pikaday/css/pikaday.css'
             ],
             dest: 'frontend/public/css/vendor.min.css'
         },

@@ -1,4 +1,6 @@
-$fa-font-path: "/assets/fonts";
+$fa-font-path: "/fonts";
+
+@import 'dashboard-variables-standard';
 
 @import '../bower/bootstrap-sass-official/assets/stylesheets/bootstrap';
 @import '../bower/bootstrap-sass-official/assets/stylesheets/bootstrap/theme';
@@ -9,4 +11,4 @@ $fa-font-path: "/assets/fonts";
 @import 'dashboard';
 @import 'formMaker';
 @import 'fullcalendar';
-@import 'login';
+@import 'auth';

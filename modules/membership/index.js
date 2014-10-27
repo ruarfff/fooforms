@@ -1,4 +1,5 @@
 var signupRoutes = require('./routes/signupRoutes');
+var signupViewRoutes = require('./routes/signupViewRoutes');
 var loginRoutes = require('./routes/loginRoutes');
 var loginViewRoutes = require('./routes/loginViewRoutes');
 var userViewRoutes = require('./routes/userViewRoutes');
@@ -10,6 +11,7 @@ var teamApiRoutes = require('./routes/teamApiRoutes');
 var passport = require('./passportConfig');
 
 exports.signupRoutes = signupRoutes;
+exports.signupViewRoutes = signupViewRoutes;
 exports.loginRoutes = loginRoutes;
 exports.loginViewRoutes = loginViewRoutes;
 exports.userViewRoutes = userViewRoutes;

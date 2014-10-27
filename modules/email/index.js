@@ -9,16 +9,16 @@ var transport = nodemailer.createTransport(smtpTransport({
     host: 'hydrogen.portfast.net',
     port: 25,
     auth: {
-        user: 'ruairi@fooforms.com',
-        pass: 'Aegis544789'
+        user: 'hello@fooforms.com',
+        pass: 'G0Fly09123*'
     }
 }));
 
 
 // setup e-mail data with unicode symbols
 var mailOptions = {
-    from: "Hello Foo <foo@fooforms.com>", // sender address
-    to: "ruairitobrien@gmail.com", // list of receivers
+    from: "Hello Foo <hello@fooforms.com>", // sender address
+    to: "test@fooforms.com", // list of receivers
     subject: "Hello", // Subject line
     text: "Hello world", // plaintext body
     html: "<b>Hello world ✔</b>" // html body
@@ -32,7 +32,7 @@ exports.sendHelloWorld = function (next) {
         if (error) {
             log.error(error);
         } else {
-            log.error("Message sent: " + response.message);
+            log.info("Message sent: " + response.response);
         }
 
         transport.close(); // shut down the connection pool, no more messages

@@ -53,6 +53,12 @@ exports.signup = function (req, res, next) {
             };
 
             defaultFolders.createDefaultFolders(args, function (err, result) {
+                if (err || !result.success) {
+                    log.error(err);
+                    log.info(result);
+                }
+                // TODO: At this point the user exist but something may have gone wrong creating default folders and
+                // this is not being handled. Need ot update to fix that but it's a bit of work.
                 res.status(200).end();
             });
         }

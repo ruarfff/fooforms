@@ -19,7 +19,11 @@ fooformsApp
                             $log.log(err);
                         }
                         if (!AuthService.isAuthenticated()) {
-                            $location.path("/login");
+                            if ($location.path() === '/signup') {
+                                $location.path("/signup");
+                            } else {
+                                $location.path("/login");
+                            }
                         } else {
                             DashboardService.getUserDashboard(function (err, result) {
                                 if (err) {
@@ -91,11 +95,8 @@ fooformsApp
                 controller: 'AuthCtrl'
             })
             .when('/signup', {
-                resolve: {
-                    message: function () {
-                        return window.location.href = '/signup';
-                    }
-                }
+                templateUrl: '/signup/partials/signup',
+                controller: 'AuthCtrl'
             })
             .when('/dashboard', {
                 templateUrl: '/dashboard/partials/main-view',

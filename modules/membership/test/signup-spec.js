@@ -44,8 +44,7 @@ describe('Signup Routes', function () {
     var wrongConfirmPass = 'wrong';
     var organisationName = 'fooforms';
 
-    var loginTitle = '<title>FOOFORMS - Login or Register</title>';
-    var signUpTitle = '<title>Sign Up</title>';
+    var signUpContent = 'id="signupContent.html"';
 
 
     afterEach(function () {
@@ -101,7 +100,7 @@ describe('Signup Routes', function () {
                     password: password, confirmPass: confirmPass, organisationName: organisationName })
                 .set('Accept', 'application/json')
                 .expect(200, function (err, data) {
-                    (data.text.indexOf(signUpTitle) > -1).should.equal(true);
+                    (data.text.indexOf(signUpContent) > -1).should.equal(true);
                     done()
                 });
         });
@@ -112,7 +111,7 @@ describe('Signup Routes', function () {
                     password: password, confirmPass: confirmPass, organisationName: organisationName })
                 .set('Accept', 'application/json')
                 .expect(200, function (err, data) {
-                    (data.text.indexOf(signUpTitle) > -1).should.equal(true);
+                    (data.text.indexOf(signUpContent) > -1).should.equal(true);
                     done()
                 });
         });
@@ -122,7 +121,7 @@ describe('Signup Routes', function () {
                 .send({ email: email, displayName: displayName })
                 .set('Accept', 'application/json')
                 .expect(200, function (err, data) {
-                    (data.text.indexOf(signUpTitle) > -1).should.equal(true);
+                    (data.text.indexOf(signUpContent) > -1).should.equal(true);
                     done()
                 });
         });
@@ -133,7 +132,7 @@ describe('Signup Routes', function () {
                     password: password, confirmPass: wrongConfirmPass, organisationName: organisationName })
                 .set('Accept', 'application/json')
                 .expect(200, function (err, data) {
-                    (data.text.indexOf(signUpTitle) > -1).should.equal(true);
+                    (data.text.indexOf(signUpContent) > -1).should.equal(true);
                     done()
                 });
         });
@@ -144,7 +143,7 @@ describe('Signup Routes', function () {
                     password: password, confirmPass: confirmPass })
                 .set('Accept', 'application/json')
                 .expect(200, function (err, data) {
-                    (data.text.indexOf(signUpTitle) > -1).should.equal(true);
+                    (data.text.indexOf(signUpContent) > -1).should.equal(true);
                     done()
                 });
         });
