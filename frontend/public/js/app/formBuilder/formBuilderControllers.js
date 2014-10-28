@@ -11,6 +11,7 @@ angular.module('formBuilder').controller('FormBuilderCtrl',
             $scope.advancedInputTypes = [];
             $scope.standardInputTypes = [];
 
+
             $http.get('/js/formBuilder/inputTypes.json').success(function (data) {
 
                 $scope.inputTypes = angular.copy(data.inputTypes);
@@ -29,13 +30,22 @@ angular.module('formBuilder').controller('FormBuilderCtrl',
 
                 var name = $routeParams.name;
                 var owner = _.find(Session.user.organisations, {displayName: name}) || _.find(Session.user.teams, {displayName: name}) || Session.user.displayName;
-
+                var team = _.find(Session.user.teams, {displayName: $routeParams.team});
                 var folder;
-                if (owner && owner === Session.user.displayName) {
+
+
+
+                folderDetect: if (owner && owner === Session.user.displayName) {
                     folder = Session.user.defaultFolder;
+                }else if(team){
+                    folder = team.defaultFolder;
+                    break folderDetect;
                 } else if (owner) {
                     folder = owner.defaultFolder || owner.folders[0];
+                } else {
+                    window.location.href = '/dashboard';
                 }
+
                 var formName = $routeParams.form;
 
                 if (formName) {
@@ -360,7 +370,7 @@ angular.module('formBuilder').controller('FormBuilderCtrl',
                             var oldForm = _.find(Session.user.defaultFolder.forms, {'_id': $scope.form._id});
                             if (oldForm) {
                                 var index = Session.user.defaultFolder.forms.indexOf(oldForm);
-                                if (~index) {
+                                if (index==-1) {
                                     Session.user.defaultFolder.forms = Session.user.defaultFolder.forms.push[$scope.form];
                                 } else {
                                     Session.user.defaultFolder.forms[index] = $scope.form;
@@ -370,7 +380,7 @@ angular.module('formBuilder').controller('FormBuilderCtrl',
                                     oldForm = _.find(team.defaultFolder.forms, {'_id': $scope.form._id});
                                     if (oldForm) {
                                         var index = team.defaultFolder.forms.indexOf(oldForm);
-                                        if (~index) {
+                                        if (index==-1) {
                                             Session.user.teams[Session.user.teams.indexOf(team)].defaultFolder.forms = Session.user.teams[Session.user.teams.indexOf(team)].defaultFolder.forms.push[$scope.form];
                                             //Session.user.organisations[0].teams[Session.user.teams.indexOf(team)].defaultFolder.forms = Session.user.organisations[0].teams[Session.user.teams.indexOf(team)].defaultFolder.forms.push[$scope.form];
                                         } else {
@@ -378,10 +388,10 @@ angular.module('formBuilder').controller('FormBuilderCtrl',
                                             //Session.user.organisations[0].teams[Session.user.teams.indexOf(team)].defaultFolder.forms[index] = $scope.form;
                                         }
 
-                                        if (index > -1) {
+                                       /* if (index > -1) {
                                             Session.user.teams[Session.user.teams.indexOf(team)].defaultFolder.forms.splice(index, 1);
                                             //Session.user.organisations[0].teams[Session.user.teams.indexOf(team)].defaultFolder.forms.splice(index, 1);
-                                        }
+                                        }*/
                                     }
                                 });
                             }
