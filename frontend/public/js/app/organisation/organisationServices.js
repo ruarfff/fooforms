@@ -35,27 +35,27 @@ angular.module('organisation').directive('uniqueOrgName', ['$http', function ($h
     ['$log', 'Restangular',
         function ($log, Restangular) {
             'use strict';
-            var orgApi = Restangular.all('organisation');
+            var orgApi = Restangular.all('organisations');
 
             return {
 
-                createOrg: function (team, next) {
-                    orgApi.post(team).then(function (res) {
+                createOrg: function (org, next) {
+                    orgApi.post(org).then(function (res) {
                         return next(null, res);
                     }, function (err) {
                         $log.error(err);
                         return next(err);
                     });
                 },
-                updateOrg: function (team, next) {
-                    orgApi.put().then(function (res) {
+                updateOrg: function (org, next) {
+                    orgApi.customPUT(org).then(function (res) {
                         return next(null, res);
                     }, function (err) {
                         $log.error(err);
                         return next(err);
                     });
                 },
-                deleteOrg: function (team, next) {
+                deleteOrg: function (org, next) {
                     orgApi.remove().then(function () {
                         return next(null);
                     }, function (err) {
