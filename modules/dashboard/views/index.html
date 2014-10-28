@@ -61,7 +61,7 @@
          ng-class="{showMenu : sideMenuVisible, hideMenu: !sideMenuVisible}">
 
         <div class="company">
-            <img src="/assets/images/logo.png">
+            <img src="{{user.organisations[0].photo || '/assets/images/blank.jpg' }}">
         </div>
 
 

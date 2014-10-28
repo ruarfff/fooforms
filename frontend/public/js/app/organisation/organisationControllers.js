@@ -7,9 +7,24 @@ angular.module('organisation').controller('OrganisationCtrl', ['$rootScope', '$s
 
         $scope.updateOrg = function (org) {
 
+            var orgDetails = {
+                "_id": org._id,
+                "photo": org.photo,
+                "billingEmail": org.billingEmail,
+                "title": org.title,
+                "displayName": org.displayName
 
-            OrganisationService.updateOrg(org, function (err, res) {
-                alert('done');
+            }
+
+
+            OrganisationService.updateOrg(orgDetails, function (err, res) {
+                if (err) {
+                    SweetAlert.swal('Not Saved!', 'An error occurred trying to update the organisation.', 'error');
+                } else {
+
+                    SweetAlert.swal('Saved!', 'Your organisation has been updated.', 'success');
+                }
+
             })
         }
 

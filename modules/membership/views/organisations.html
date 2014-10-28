@@ -11,9 +11,9 @@
                 <ul class="nav nav-pills nav-stacked" id="myTabs">
                     <li ng-repeat="org in user.organisations">
                         <a data-toggle="tab" data-target="#{{org.displayName}}">
-                            <img class="icon-xs" src="/assets/icons/color/folder.png"
-                                 alt="{{org.displayName}}">
-                            {{org.displayName}}</a></li>
+                            <img class="icon-xs" src="{{org.photo}}"
+                                 alt="{{org.title}}">
+                            {{org.title}}</a></li>
                 </ul>
             </div>
         </div>
@@ -77,8 +77,7 @@
                                 <form novalidate class="form-horizontal">
                                     <div class="col-sm-3">
                                         <org-photo org="org"></org-photo>
-                                        <input class="form-control" type="text" ng-model="org.photo"
-                                               />
+
                                     </div>
                                     <div class="col-sm-9">
 
