@@ -19,7 +19,9 @@ fooformsApp
                             $log.log(err);
                         }
                         if (!AuthService.isAuthenticated()) {
-                            $location.path("/login");
+                            if ($location.path() !== '/signup') {
+                                $location.path("/login");
+                            }
                         } else {
                             DashboardService.getUserDashboard(function (err, result) {
                                 if (err) {
@@ -91,11 +93,8 @@ fooformsApp
                 controller: 'AuthCtrl'
             })
             .when('/signup', {
-                resolve: {
-                    message: function () {
-                        return window.location.href = '/signup';
-                    }
-                }
+                templateUrl: '/signup/partials/signup',
+                controller: 'AuthCtrl'
             })
             .when('/dashboard', {
                 templateUrl: '/dashboard/partials/main-view',
@@ -185,7 +184,7 @@ fooformsApp
             })
             .when('/teams/:team', {
                 templateUrl: '/teams/partials/team-profile',
-                controller: 'TeamCtrl',
+                controller: 'TeamProfileCtrl',
                 resolve: {
                     message: function (SessionService) {
                         return SessionService.checkSession();
@@ -286,14 +285,18 @@ fooformsApp
             response: function (response) {
                 if (response.status === 401) {
                     $log.log("Response 401");
-                    $location.path("/login");
+                    if ($location.path() !== '/signup') {
+                        $location.path("/login");
+                    }
                 }
                 return response || $q.when(response);
             },
             responseError: function (rejection) {
                 if (rejection.status === 401) {
                     $log.log("Response Error 401", rejection);
-                    $location.path("/login");
+                    if ($location.path() !== '/signup') {
+                        $location.path("/login");
+                    }
                 }
                 return $q.reject(rejection);
             }

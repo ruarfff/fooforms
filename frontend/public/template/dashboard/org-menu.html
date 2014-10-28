@@ -13,10 +13,10 @@
                    <i class="fa fa-group"></i> {{teams.title || team.displayName}}
                 </a>
                 <ul class="nav nav-pills nav-stacked ml0">
-                    <li ng-repeat="form in team.defaultFolder.forms">
+                    <li ng-repeat="form in team.defaultFolder.forms track by $index">
 
                         <a href="/{{organisation.displayName}}/teams/{{team.displayName}}/{{form.displayName}}">
-                            <img src="{{form.icon}}" class="nav-icon"> {{form.displayName}}</a>
+                            <img ng-src="{{form.icon}}" class="nav-icon"> {{form.displayName}}</a>
                     </li>
                 </ul>
             </li>
@@ -31,10 +31,10 @@
 
     <li><a href="/forms"><i class="fa fa-lock"></i> My Forms</a>
         <ul class="nav nav-pills nav-stacked ml0">
-            <li ng-repeat="form in user.defaultFolder.forms">
+            <li ng-repeat="form in user.defaultFolder.forms track by $index">
 
                 <a href="/{{user.displayName}}/{{form.displayName}}">
-                    <img src="{{form.icon}}" class="nav-icon">  {{form.displayName}}
+                    <img ng-src="{{form.icon}}" class="nav-icon"> {{form.displayName}}
                 </a>
 
             </li>

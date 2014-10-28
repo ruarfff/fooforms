@@ -8,9 +8,6 @@ var router = express.Router();
 var passport = require('passport');
 
 router.route('/')
-    .all(function (req, res, next) {
-        next();
-    })
     .put(function (req, res, next) {
         next(new Error('not implemented'));
     })

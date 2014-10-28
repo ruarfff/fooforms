@@ -6,9 +6,10 @@ var mongoose = require('mongoose');
 var ObjectId = mongoose.Types.ObjectId();
 var mockgoose = require('mockgoose');
 mockgoose(mongoose);
+var Membership = require('fooforms-membership');
+var db = require('mongoose').connection;
+var membership = new Membership(db);
 
-global.config = {};
-global.config.root = '../../../';
 
 var request = require('supertest');
 var express = require('express');
@@ -28,20 +29,42 @@ app.use(rootUrl, teamApiRoutes);
 
 describe('Team API', function () {
     // Some test data
+    var owner = ObjectId;
+    var billingEmail = 'org@company.com';
     var name = 'aTeam';
-    var organisation = ObjectId;
+    var organisation;
     var otherName = 'anotherTeam';
-    var otherOrganisation = ObjectId.defineProperty;
+    var otherOrganisation;
 
-    var sampleTeam = {
-        displayName: name, organisation: organisation
-    };
-    var otherSampleTeam = {
-        displayName: otherName, organisation: otherOrganisation
-    };
+    var sampleTeam;
+    var otherSampleTeam;
 
-    before(function () {
+    beforeEach(function (done) {
         mockgoose.reset();
+        membership.createOrganisation({
+            owner: owner,
+            billingEmail: billingEmail,
+            displayName: 'org'
+        }, function (err, result) {
+            should.not.exist(err);
+            organisation = result.organisation;
+            membership.createOrganisation({
+                owner: owner,
+                billingEmail: billingEmail,
+                displayName: 'other-org'
+            }, function (err, result) {
+                otherOrganisation = result.organisation;
+
+                sampleTeam = {
+                    displayName: name, organisation: organisation._id
+                };
+                otherSampleTeam = {
+                    displayName: otherName, organisation: otherOrganisation._id
+                };
+
+                done(err);
+            });
+        })
     });
 
     describe('POST ' + rootUrl, function () {
@@ -61,6 +84,9 @@ describe('Team API', function () {
                     team.organisation.should.equal(sampleTeam.organisation.toString());
                     team.displayName.should.equal(name);
                     team.folders.length.should.equal(1);
+                    team.folders[0].displayName.should.equal('team-folder');
+                    should.exist(team.defaultFolder);
+                    team.defaultFolder.displayName.should.equal('team-folder');
                     done(err);
                 });
         });
@@ -106,6 +132,10 @@ describe('Team API', function () {
                 .expect('Content-Type', /json/)
                 .expect(200, function (err, res) {
                     res.body._id.should.equal(team._id);
+                    res.body.folders.length.should.equal(1);
+                    res.body.folders[0].displayName.should.equal('team-folder');
+                    should.exist(team.defaultFolder);
+                    team.defaultFolder.displayName.should.equal('team-folder');
                     done(err);
                 });
         });
@@ -147,6 +177,8 @@ describe('Team API', function () {
                     var updatedTeam = res.body;
                     updatedTeam._id.should.equal(team._id.toString());
                     updatedTeam.displayName.should.equal(newName);
+                    updatedTeam.folders.length.should.equal(1);
+                    updatedTeam.folders[0].displayName.should.equal('team-folder');
                     done(err);
                 });
         });

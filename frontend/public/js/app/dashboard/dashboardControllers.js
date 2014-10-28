@@ -20,12 +20,12 @@ angular.module('dashboard').controller('DashboardCtrl', ['$rootScope', '$scope',
             $scope.organisation = Session.user.organisations[0];
             forms = Session.user.defaultFolder.forms;
             _.forEach(Session.user.organisations, function (org) {
-                if (org.defaultFolder.forms && org.defaultFolder.forms > 0) {
+                if (org.defaultFolder.forms && org.defaultFolder.forms.length > 0) {
                     forms = forms.concat(org.defaultFolder.forms);
                 }
             });
             _.forEach(Session.user.teams, function (team) {
-                if (team.defaultFolder.forms && team.defaultFolder.forms > 0) {
+                if (team.defaultFolder.forms && team.defaultFolder.forms.length > 0) {
                     forms = forms.concat(team.defaultFolder.forms);
                 }
             });
@@ -48,7 +48,9 @@ angular.module('dashboard').controller('DashboardCtrl', ['$rootScope', '$scope',
             } else {
                 forms = $scope.organisation.defaultFolder.forms;
                 _.forEach($scope.organisation.teams, function (team) {
-                    forms = forms.concat(team.defaultFolder.forms);
+                    if (team.defaultFolder.forms && team.defaultFolder.forms.length > 0) {
+                        forms = forms.concat(team.defaultFolder.forms);
+                    }
                 });
             }
         }

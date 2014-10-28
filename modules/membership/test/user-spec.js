@@ -56,7 +56,7 @@ describe('User Routes', function () {
             .send({ email: email, displayName: displayName,
                 password: password, confirmPass: confirmPass, organisationName: organisationName })
             .set('Accept', 'application/json')
-            .expect(302)
+            .expect(200)
             .end(function (err, data) {
                 should.not.exist(err);
                 request(app)
@@ -70,7 +70,7 @@ describe('User Routes', function () {
                             .send({ email: otherEmail, displayName: otherDisplayName,
                                 password: password, confirmPass: confirmPass, organisationName: otherOrganisationName })
                             .set('Accept', 'application/json')
-                            .expect(302)
+                            .expect(200)
                             .end(function (err, data) {
                                 should.not.exist(err);
                                 request(app)
