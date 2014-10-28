@@ -19,6 +19,11 @@ module.exports = function (grunt) {
             files: {
                 "frontend/public/js/site.min.js": ["frontend/public/js/site.min.js"]
             }
+        },
+        embeddedForm: {
+            files: {
+                "frontend/public/js/embedded-form.min.js": ["frontend/public/js/embedded-form.min.js"]
+            }
         }
     });
     grunt.loadNpmTasks('grunt-contrib-uglify');

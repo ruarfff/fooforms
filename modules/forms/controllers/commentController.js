@@ -87,7 +87,7 @@ exports.listByStream = function (req, res, next) {
                         var index = docs.indexOf(comment);
                         if (index > -1) {
                             var fullComment = docs[index].toObject();
-                            fullComment.commenter = commenter
+                            fullComment.commenter = commenter;
                             docs[index] = fullComment;
                         }
                     }

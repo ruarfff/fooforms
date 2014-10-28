@@ -25,6 +25,7 @@ var createDefaultTeamFolder = function (args, next) {
                     if (!err && !result.success) {
                         err = new Error('There was an error trying to create default team folders');
                     }
+                    result.team.folders = [savedTeamFolder];
                     next(err, result);
                 });
             } else {

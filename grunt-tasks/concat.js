@@ -81,6 +81,21 @@ module.exports = function (grunt) {
                 'frontend/src/bower/bootstrap-sass-official/assets/javascripts/bootstrap.js'
             ],
             dest: 'frontend/public/js/site.min.js'
+        },
+        embeddedForm: {
+            options: {
+                separator: ';',
+                stripBanners: true
+            },
+            src: [
+                'frontend/src/bower/jquery/dist/jquery.js',
+                'frontend/src/bower/bootstrap-sass-official/assets/javascripts/bootstrap.js',
+                'frontend/src/bower/angular/angular.js',
+                'frontend/src/bower/angular-sanitize/angular-sanitize.min.js',
+                'frontend/src/bower/pikaday/pikaday.js',
+                'frontend/public/js/app/common/pikadayDirective.js'
+            ],
+            dest: 'frontend/public/js/embedded-form.min.js'
         }
 
     });

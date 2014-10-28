@@ -1,15 +1,25 @@
 angular.module('team')
     .factory('TeamService',
-    ['$log', 'Restangular',
-        function ($log, Restangular) {
+    ['$log', 'Restangular', 'Session',
+        function ($log, Restangular, Session) {
             'use strict';
             var teamApi = Restangular.all('teams');
 
             return {
 
                 createTeam: function (team, next) {
+                    if (!team.members) {
+                        team.members = [];
+                    }
+                    team.members.push(Session.user._id);
                     teamApi.post(team).then(function (res) {
-                        return next(null, res);
+                        Session.user.teams.push(res);
+                        Session.user.put().then(function (res) {
+                            return next(null, res);
+                        }, function (err) {
+                            $log.error(err);
+                            return next(err);
+                        });
                     }, function (err) {
                         $log.error(err);
                         return next(err);
@@ -35,7 +45,8 @@ angular.module('team')
             }
 
 
-        }]).service('Team', function () {
+        }])
+    .service('Team', function () {
         'use strict';
         this.activeTeam = {};
         this.newTeam = function () {

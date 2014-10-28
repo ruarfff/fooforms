@@ -39,7 +39,8 @@
                 "/js/app/post/postServices.js",
                 "/js/app/team/team.js",
                 "/js/app/team/teamControllers.js",
-                "/js/app/team/teamServices.js"
+                "/js/app/team/teamServices.js",
+                "/js/app/team/teamDirectives.js"
             ]
         }
     }

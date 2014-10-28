@@ -184,7 +184,7 @@ fooformsApp
             })
             .when('/teams/:team', {
                 templateUrl: '/teams/partials/team-profile',
-                controller: 'TeamCtrl',
+                controller: 'TeamProfileCtrl',
                 resolve: {
                     message: function (SessionService) {
                         return SessionService.checkSession();

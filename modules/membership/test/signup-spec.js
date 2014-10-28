@@ -7,9 +7,6 @@ var ObjectId = mongoose.Types.ObjectId();
 var mockgoose = require('mockgoose');
 mockgoose(mongoose);
 
-global.config = {};
-global.config.root = '../../../';
-
 var request = require('supertest');
 var express = require('express');
 var bodyParser = require('body-parser');
