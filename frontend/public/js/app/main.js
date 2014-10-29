@@ -263,6 +263,15 @@ fooformsApp
                     }
                 }
             })
+            .when('/:name/teams/:team/:form/edit', {
+                templateUrl: '/forms/partials/formBuilder',
+                controller: 'FormBuilderCtrl',
+                resolve: {
+                    message: function (SessionService) {
+                        return SessionService.checkSession();
+                    }
+                }
+            })
             .when('/:name/teams/:team/:form', {
                 templateUrl: '/dashboard/partials/main-view',
                 controller: 'FormViewerCtrl',

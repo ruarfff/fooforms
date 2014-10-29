@@ -15,12 +15,12 @@
 
                     <hr>
                     <div ng-repeat="team in user.teams">
-                        {{team.displayName}}
+
                         <div ng-repeat="folder in team.folders">
 
                             <input type="radio"
                                    ng-model="form.folder"
-                                   ng-value="folder._id"/> {{folder.displayName}} - {{ folder._id }}
+                                   ng-value="folder._id"/>  {{team.displayName}}
 
                         </div>
 

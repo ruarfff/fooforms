@@ -26,7 +26,7 @@ angular.module('authentication')
             keyboard: false,
             backdrop: 'static',
             backdropClass: 'auth-backdrop',
-            windowClass: 'auth-window'
+            windowClass: 'auth-window modal-trans'
         });
 
         modalInstance.result.then(function (loggedIn) {
