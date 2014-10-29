@@ -128,9 +128,10 @@ var routes = function (app, passport) {
         });
 
 
+    // TODO: repeating code all over the place here. Copy an past working but doign it right not figured out just yet
+
     app.get('/:username', function (req, res, next) {
         var username = req.params.username;
-        log.info(username);
         passport.authenticate('basic', { session: false}, function (err, user, info) {
             if (err) {
                 return next(err);
@@ -155,7 +156,6 @@ var routes = function (app, passport) {
     app.get('/:username/:form', function (req, res, next) {
         var username = req.params.username;
         var form = req.params.form;
-        log.info(username + '-' + form);
         passport.authenticate('basic', { session: false}, function (err, user, info) {
             if (err) {
                 return next(err);
@@ -179,7 +179,6 @@ var routes = function (app, passport) {
     app.get('/:username/:form/edit', function (req, res, next) {
         var username = req.params.username;
         var form = req.params.form;
-        log.info(username + '-' + form);
         passport.authenticate('basic', { session: false}, function (err, user, info) {
             if (err) {
                 return next(err);
@@ -199,6 +198,82 @@ var routes = function (app, passport) {
             });
         })(req, res, next);
     });
+
+    app.get('/:organisation/teams/:team', function (req, res, next) {
+        var organisation = req.params.username;
+        var team = req.params.team;
+        var form = req.params.form;
+
+        passport.authenticate('basic', { session: false}, function (err, user, info) {
+            if (err) {
+                return next(err);
+            }
+            if (!user) {
+                return res.render(dashboard.mainView, {
+                    dev: (process.env.NODE_ENV === 'development'),
+                    user: req.user || '',
+                    assets: assets
+                });
+            }
+            req.logIn(user, function (err) {
+                if (err) {
+                    return next(err);
+                }
+                return res.send();
+            });
+        })(req, res, next);
+    });
+
+    app.get('/:organisation/teams/:team/:form', function (req, res, next) {
+        var organisation = req.params.username;
+        var team = req.params.team;
+        var form = req.params.form;
+
+        passport.authenticate('basic', { session: false}, function (err, user, info) {
+            if (err) {
+                return next(err);
+            }
+            if (!user) {
+                return res.render(dashboard.mainView, {
+                    dev: (process.env.NODE_ENV === 'development'),
+                    user: req.user || '',
+                    assets: assets
+                });
+            }
+            req.logIn(user, function (err) {
+                if (err) {
+                    return next(err);
+                }
+                return res.send();
+            });
+        })(req, res, next);
+    });
+
+    app.get('/:organisation/teams/:team/:form/edit', function (req, res, next) {
+        var organisation = req.params.username;
+        var team = req.params.team;
+        var form = req.params.form;
+
+        passport.authenticate('basic', { session: false}, function (err, user, info) {
+            if (err) {
+                return next(err);
+            }
+            if (!user) {
+                return res.render(dashboard.mainView, {
+                    dev: (process.env.NODE_ENV === 'development'),
+                    user: req.user || '',
+                    assets: assets
+                });
+            }
+            req.logIn(user, function (err) {
+                if (err) {
+                    return next(err);
+                }
+                return res.send();
+            });
+        })(req, res, next);
+    });
+
 
 
     app.use(function (err, req, res, next) {
