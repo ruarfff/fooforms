@@ -2,8 +2,8 @@
 
     <div ng-class="{'col-sm-12': postView=='grid'}">
 
-        <div class="panel panel-default p0 b0" ng-class="{'m0 mr15': postView=='grid'}">
-            <div class="panel-heading" ng-class="{'m0 b0': postView=='grid'}">
+        <div class="panel panel-transparent p0 b0 mt10" ng-class="{'m0 mr15': postView=='grid'}">
+            <div class="panel-body" ng-class="{'m0 b0': postView=='grid'}">
 
                 <form ng-show="!form" class="form">
                     <div class="form-group">
@@ -24,16 +24,13 @@
                     </div>
                 </form>
                 <span ng-show="form">
-                    <button class="btn btn-primary pull-right" ng-click="newPost()">
-                        {{form.btnLabel}} <i class="fa fa-plus fa-lg"></i></button>
-                    <img class="icon  pull-left" ng-src="{{form.icon}}">
-                    <h4 class="inline">{{form.displayName}}
+
+                    <img class="form-icon" ng-src="{{form.icon}}">
+                    <h4>{{form.displayName}}
                         <a href="{{location}}/edit"><i class="fa fa-edit fa-lg"></i>
                         </a></h4>
-
-
-
-                    <p class='formDescription'>{{form.description}} </p>
+    <button class="btn btn-default pull-right" ng-click="newPost()">
+        {{form.btnLabel}} <i class="fa fa-plus fa-lg"></i></button>
 
                     <span class="label label-default"><i class="fa fa-search"></i></span>
                     <span ng-show="form.settings.displayOptions.feed" class="label label-default"
@@ -47,8 +44,8 @@
                             class="fa fa-table"></i></span>
                     <span ng-show="form.settings.displayOptions.customDashboard || true" class="label label-default"
                           ng-click="postView='custom';"><i class="fa fa-file-o"></i></span>
-                    <hr class="hr-condensed">
-                     <span class="label label-info" ng-click="filterStatusOff()">All</span>
+
+                     <span class="label label-success" ng-click="filterStatusOff()">All</span>
 
 
                     <div class="m5 p0 inline" ng-repeat="field in form.fields" ng-show="field.type=='status'">
