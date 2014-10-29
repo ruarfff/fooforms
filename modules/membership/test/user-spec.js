@@ -42,9 +42,6 @@ describe('User Routes', function () {
     var organisationName = 'fooforms';
     var otherOrganisationName = 'otherFooforms';
 
-    var loginTitle = '<title>FOOFORMS - Login or Register</title>';
-    var signUpTitle = '<title>Sign Up</title>';
-
     var user = {};
     var otherUser = {};
 
