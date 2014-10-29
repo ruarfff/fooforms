@@ -83,6 +83,7 @@ var routes = function (app, passport) {
     app.use(slash + rootUrls.organisations, membership.organisationViewRoutes);
     app.use(slash + rootUrls.teams, membership.teamViewRoutes);
     app.use(slash + rootUrls.files, file.fileViewRoutes);
+    app.use(slash + rootUrls.invite, membership.inviteViewRoutes);
 
 
     // If someone hits a root URL directly (not from dashboard) redirect them to the dashboard
@@ -107,6 +108,7 @@ var routes = function (app, passport) {
     app.use(api + slash + rootUrls.users, passport.authenticate('basic', {session: false}), membership.userApiRoutes);
     app.use(api + slash + rootUrls.organisations, passport.authenticate('basic', {session: false}), membership.organisationApiRoutes);
     app.use(api + slash + rootUrls.teams, passport.authenticate('basic', {session: false}), membership.teamApiRoutes);
+    app.use(api + slash + rootUrls.invite, passport.authenticate('basic', {session: false}), membership.inviteApiRoutes);
     app.use(api + slash + rootUrls.forms, passport.authenticate('basic', {session: false}), form.formRoutes);
     app.use(api + slash + rootUrls.posts, passport.authenticate('basic', {session: false}), form.postRoutes);
     app.use(api + slash + rootUrls.comments, passport.authenticate('basic', {session: false}), form.commentRoutes);
