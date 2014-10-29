@@ -14,7 +14,6 @@
 
     <link rel="stylesheet" href="/css/main.min.css">
     <link rel="stylesheet" href="/css/vendor.min.css">
-    <link href="//maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css" rel="stylesheet">
     <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
     <!--[if lt IE 9]>
     <script type="text/javascript" src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
@@ -78,14 +77,10 @@
          ng-class="{showMenu : sideMenuVisible, hideMenu: !sideMenuVisible}">
 
         <div class="company"><a href="/organisations">
-            <img src="{{user.organisations[0].photo || '/assets/images/pixel.png' }}"></a>
+            <img ng-src="{{user.organisations[0].photo || '/assets/images/pixel.png' }}"></a>
         </div>
 
-
-
             <org-menu></org-menu>
-
-
 
     </div>
     <div class="container-fluid" ng-class="{withSideMenu : sideMenuVisible, withoutSideMenu :!sideMenuVisible}">

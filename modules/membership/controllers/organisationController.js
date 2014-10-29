@@ -42,15 +42,84 @@ exports.listByDisplayName = function (req, res, next) {
 };
 
 exports.create = function (req, res, next) {
-    var orgName;
     if (req.body.displayName) {
-        orgName = req.body.displayName = slug(req.body.displayName);
+        req.body.displayName = slug(req.body.displayName);
     }
     if (req.user && req.user._id) {
         req.body.owner = req.user._id;
     }
+    var owner = req.body.owner._id || req.body.owner;
+    membership.User.findById(owner, function (err, user) {
+        if (err || !user) {
+            err = err || new Error('Could not find user');
+            next(err);
+        } else {
+            membership.createOrganisation(req.body, function (err, result) {
+                if (err) return next(err, result);
 
-    membership.createTeam({
+                if (result.success) {
+                    var organisation = result.organisation;
+
+                    membership.Organisation.populate(organisation, {
+                        path: 'members owners',
+                        model: 'Team'
+                    }, function (err, organisation) {
+                        if (!organisation.members.members) organisation.members.members = [];
+                        if (!organisation.owners.members) organisation.owners.members = [];
+
+                        organisation.members.members.push(owner);
+                        organisation.owners.members.push(owner);
+
+                        defaultFolders.createDefaultTeamFolder({
+                            membership: membership,
+                            Folder: fooForm.Folder,
+                            team: organisation.members
+                        }, function (err, result) {
+                            if (err) next(err);
+
+                            var members = result.team;
+
+                            defaultFolders.createDefaultTeamFolder({
+                                membership: membership,
+                                Folder: fooForm.Folder,
+                                team: organisation.owners
+                            }, function (err, result) {
+                                if (err) next(err);
+                                var owners = result.team;
+
+                                user.teams.push(owners._id);
+                                user.teams.push(members._id);
+                                user.organisations.push(organisation._id);
+                                user.save(function (err, user) {
+                                    if (err || !user) {
+                                        err = err || new Error('Could not save user');
+                                        next(err);
+                                    } else {
+                                        var args = {
+                                            organisation: organisation,
+                                            membership: membership,
+                                            Folder: fooForm.Folder
+                                        };
+                                        defaultFolders.createDefaultOrganisationFolder(args, function (err, result) {
+                                            res.location('/organisations/' + result.organisation._id);
+                                            result.organisation.defaultFolder = result.organisation.folders[0];
+                                            res.status(statusCodes.CREATED).json(result.organisation);
+                                        });
+                                    }
+                                });
+
+                            })
+                        });
+                    });
+                }
+
+            });
+        }
+
+    });
+
+    /**
+     membership.createTeam({
         displayName: orgName + '-owners',
         title: orgName + ' Owners',
         description: 'Owners of ' + orgName,
@@ -110,7 +179,7 @@ exports.create = function (req, res, next) {
                 });
             });
         });
-    });
+    });*/
 };
 
 exports.update = function (req, res, next) {
