@@ -335,20 +335,20 @@ $container-lg: $container-large-desktop;
 //##
 
 // Basics of a navbar
-$navbar-height: 46px;
+$navbar-height: 38px;
 $navbar-margin-bottom: $line-height-computed;
 $navbar-border-radius: $border-radius-base;
 $navbar-padding-horizontal: floor(($grid-gutter-width / 2));
 $navbar-padding-vertical: (($navbar-height - $line-height-computed) / 2);
 $navbar-collapse-max-height: 340px;
 
-$navbar-default-color: #888;
-$navbar-default-bg: #fff;
+$navbar-default-color: #3d4b5b;
+$navbar-default-bg: rgba(255,255,255,0);
 $navbar-default-border: none;
 
 // Navbar links
-$navbar-default-link-color: #FFF;
-$navbar-default-link-hover-color: #eee;
+$navbar-default-link-color: #3d4b5b;
+$navbar-default-link-hover-color: #ccc;
 $navbar-default-link-hover-bg: transparent;
 $navbar-default-link-active-color: #ddd;
 $navbar-default-link-active-bg: darken($navbar-default-bg, 6.5%);
@@ -404,11 +404,11 @@ $nav-disabled-link-hover-color: $gray-light;
 $nav-open-link-hover-color: #fff;
 
 //== Tabs
-$nav-tabs-border-color: #ddd;
+$nav-tabs-border-color: #fff;
 
 $nav-tabs-link-hover-border-color: $gray-lighter;
 
-$nav-tabs-active-link-hover-bg: $body-bg;
+$nav-tabs-active-link-hover-bg: #fff;
 $nav-tabs-active-link-hover-color: $gray;
 $nav-tabs-active-link-hover-border-color: #ddd;
 
