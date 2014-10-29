@@ -12,10 +12,10 @@ angular.module('team')
                         team.members = [];
                     }
                     team.members.push(Session.user._id);
-                    teamApi.post(team).then(function (res) {
-                        Session.user.teams.push(res);
+                    teamApi.post(team).then(function (teamResponse) {
+                        Session.user.teams.push(teamResponse);
                         Session.user.put().then(function (res) {
-                            return next(null, res);
+                            return next(null, teamResponse);
                         }, function (err) {
                             $log.error(err);
                             return next(err);
