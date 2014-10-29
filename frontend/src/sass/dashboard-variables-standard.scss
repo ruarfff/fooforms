@@ -28,7 +28,7 @@ $brand-danger: #d9534f;
 //## Settings for some of the most global styles.
 
 //** Background color for `<body>`.
-$body-bg: #E5F1FD;
+$body-bg: #efefef;
 //** Global text color on `<body>`.
 $text-color: $gray-dark;
 
@@ -342,8 +342,8 @@ $navbar-padding-horizontal: floor(($grid-gutter-width / 2));
 $navbar-padding-vertical: (($navbar-height - $line-height-computed) / 2);
 $navbar-collapse-max-height: 340px;
 
-$navbar-default-color: #FFF;
-$navbar-default-bg: #009EFC;
+$navbar-default-color: #888;
+$navbar-default-bg: #fff;
 $navbar-default-border: none;
 
 // Navbar links

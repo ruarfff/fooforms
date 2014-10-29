@@ -13,17 +13,20 @@ body {
 }
 
 ::-webkit-scrollbar {
-  width: 12px; /* for vertical scrollbars */
+  width: 10px; /* for vertical scrollbars */
   height: 12px; /* for horizontal scrollbars */
 }
 
 ::-webkit-scrollbar-track {
-  background: rgba(255, 255, 255, 0.4);
+  background: rgba(255, 255, 255, 0.8);
+ padding: 2px;
 }
 
 ::-webkit-scrollbar-thumb {
   // background: #aadef0;
-  background: #ddd;
+  background: #666;
+  border-radius: 5px;
+  margin: 2px;
 }
 
 #footer {
@@ -121,9 +124,9 @@ body {
   overflow: auto;
   height: auto;
   width: auto;
-  background: rgba(255, 255, 255, 1);
   margin: 0px !important;
   border-radius: 0px;
+  text-shadow: 0 1px 1px rgba(0,0,0,0.1);
 }
 
 .company {
@@ -176,7 +179,7 @@ body {
 .panel-feed {
   width: 100%;
   display: block;
-  margin-bottom: 5px;
+  margin-bottom: 1px;
 }
 
 .panel-feed .panel-heading {
@@ -184,7 +187,7 @@ body {
 }
 
 .panel-feed:hover, .panel-feed-selected {
-  background: #E7FAE9 !important;
+  border-bottom: 5px solid #E7FAE9 !important;
 }
 
 .panel-feed .label-foo {
@@ -506,11 +509,14 @@ input[type=checkbox]:focus {
   //background: #fff;
 }
 
-.foo-menu {
-  margin-left: 10px;
+.navbar-foo {
+  background : #efefef;
   // border-left: 1px solid #e7e7e7;
 }
-
+.navbar-foo .navbar-collapse{
+  margin-left: 5px;
+  background: #fff;
+}
 .foo-menu, .foo-menu li, .foo-menu li a {
   height: 50px;
   line-height: 50px;
@@ -617,44 +623,51 @@ li.profile img {
   left: 0;
   bottom: 22px;
   width: 15%;
-  background: #cde4fb;
+  background: #3d4b5b;
   overflow: auto;
   z-index: 10001;
 
 }
 
 .sideMenu ul li {
-  font-weight: 500 !important;
+  font-weight: 400 !important;
   text-shadow: none;
   padding: 0px;
   margin: 0px !important;
+  background: rgba(0,0,0,.1);
 
 }
 
 .sideMenu ul li a{
 padding-left: 5%;
   display: block;
-  border-bottom: 1px solid #f4f4f4;
-  color: #666;
+  color: #D9E5F4;
+font-size: 1.4rem;
 }
-
+.sideMenu a:hover{
+  background: #3d4b5b !important;
+  color: #fff;
+}
 .sideMenu ul li ul li a{
-font-weight: 500 !important;
+font-weight: 300 !important;
+  color: #D9E5F4;
 }
 
 .sideMenu ul li ul li ul{
-  background: #f4f4f4
+  background: #3d4b5b;
+border-bottom: 1px solid rgba(255,255,255,0.1);
 }
 .sideMenu ul li ul li ul li a{
   font-weight: 300 !important;
-  border-bottom: 1px solid #fff;
+  color: #f4f4f4;
+
 }
 .sideMenu i.fa {
   vertical-align: middle;
 
 }
-.sideMenu .nav-icon{
-  height: 16px;
+.nav .nav-icon{
+  height: 24px;
 }
 .sideMenu .text-muted{
   font-weight: 300 !important;
