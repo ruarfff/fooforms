@@ -18,6 +18,18 @@
             </div>
         </div>
 
+        <form name="sendInviteForm" ng-controller="SendInviteCtrl" ng-submit="invite()">
+
+            <h2>Invite a user</h2>
+            <label for="inviteEmail">Name</label>
+            <input id="inviteEmail" type="email" name="inviteEmail" ng-model="inviteEmail" required />
+            <span class="error" ng-show="sendInviteForm.inviteEmail.$error.required">Email Required!</span>
+            <span class="error" ng-show="sendInviteForm.inviteEmail.$error.email">Not valid email!</span>
+            <span class="error" ng-show="inviteError">Invitation could not be sent</span>
+            <input type="submit" value="Send">
+
+        </form>
+
     </div>
     <div class="col-md-9 slideRight">
         <div class="tab-content">

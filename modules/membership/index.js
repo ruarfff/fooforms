@@ -10,6 +10,7 @@ var teamViewRoutes = require('./routes/teamViewRoutes');
 var teamApiRoutes = require('./routes/teamApiRoutes');
 var inviteViewRoutes = require('./routes/inviteViewRoutes');
 var inviteApiRoutes = require('./routes/inviteApiRoutes');
+var invitePublicApiRoutes = require('./routes/invitePublicApiRoutes');
 var passport = require('./passportConfig');
 
 exports.signupRoutes = signupRoutes;
@@ -24,5 +25,6 @@ exports.teamViewRoutes = teamViewRoutes;
 exports.teamApiRoutes = teamApiRoutes;
 exports.inviteViewRoutes = inviteViewRoutes;
 exports.inviteApiRoutes = inviteApiRoutes;
+exports.invitePublicApiRoutes = invitePublicApiRoutes;
 exports.passport = passport;
 

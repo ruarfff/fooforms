@@ -14,7 +14,7 @@ angular.module('organisation').controller('OrganisationCtrl', ['$rootScope', '$s
                 "title": org.title,
                 "displayName": org.displayName
 
-            }
+            };
 
 
             OrganisationService.updateOrg(orgDetails, function (err, res) {

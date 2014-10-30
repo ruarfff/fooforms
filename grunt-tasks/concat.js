@@ -59,7 +59,8 @@ module.exports = function (grunt) {
                 'frontend/src/bower/codemirror/lib/codemirror.js',
                 'frontend/src/bower/pikaday/pikaday.js',
                 'frontend/src/bower/sweetalert/lib/sweet-alert.min.js',
-                'frontend/src/bower/angular-sweetalert/SweetAlert.min.js'
+                'frontend/src/bower/angular-sweetalert/SweetAlert.min.js',
+                'frontend/src/bower/angular-busy/dist/angular-busy.min.js'
             ],
             dest: 'frontend/public/js/vendor.min.js'
         },
@@ -67,7 +68,8 @@ module.exports = function (grunt) {
             src: [
                 'frontend/src/bower/codemirror/lib/codemirror.css',
                 'frontend/src/bower/codemirror/theme/mdn-like.css',
-                'frontend/src/bower/pikaday/css/pikaday.css'
+                'frontend/src/bower/pikaday/css/pikaday.css',
+                'frontend/src/bower/angular-busy/dist/angular-busy.min.css'
             ],
             dest: 'frontend/public/css/vendor.min.css'
         },

@@ -3,9 +3,9 @@
 
 var fooformsApp = angular.module('fooformsApp', [
     // Vendor dependencies
-    'ngRoute', 'ngSanitize', 'trNgGrid', 'restangular', 'ui.bootstrap', 'textAngular', 'ui.calendar', 'angularFileUpload', 'ui.sortable', 'infinite-scroll', 'oitozero.ngSweetAlert',
+    'ngRoute', 'ngSanitize', 'trNgGrid', 'restangular', 'ui.bootstrap', 'textAngular', 'ui.calendar', 'angularFileUpload', 'ui.sortable', 'infinite-scroll', 'oitozero.ngSweetAlert', 'cgBusy',
     // Custom dependencies
-    'dashboard', 'form', 'formBuilder', 'formViewer', 'user', 'organisation', 'team', 'authentication', 'post', 'comment'
+    'dashboard', 'form', 'formBuilder', 'formViewer', 'user', 'organisation', 'team', 'authentication', 'post', 'comment', 'invite'
 ]);
 
 fooformsApp
@@ -52,7 +52,6 @@ fooformsApp
             }
         }
     }]);
-
 
 fooformsApp
     .config(['$routeProvider', '$locationProvider', 'RestangularProvider', function ($routeProvider, $locationProvider, RestangularProvider) {
@@ -104,6 +103,10 @@ fooformsApp
                         return SessionService.checkSession();
                     }
                 }
+            })
+            .when('/invite/:invite', {
+                templateUrl: '/invite/partials/invite',
+                controller: 'InviteCtrl'
             })
             .when('/people', {
                 templateUrl: '/users/partials/people',

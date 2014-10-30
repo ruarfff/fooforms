@@ -74,6 +74,7 @@ var routes = function (app, passport) {
     app.use(slash + rootUrls.signup, membership.signupRoutes);
     app.use(slash + rootUrls.signup, membership.signupViewRoutes);
     app.use(slash + rootUrls.login, membership.loginRoutes);
+    app.use(api + slash + rootUrls.invite, membership.invitePublicApiRoutes);
 
     /**
      * Some basic view routes that wont's bother authenticating since they have no data in them
@@ -104,11 +105,11 @@ var routes = function (app, passport) {
     /**
      * API and other routes that are protected
      */
+    app.use(api + slash + rootUrls.invite, passport.authenticate('basic', {session: false}), membership.inviteApiRoutes);
     app.use(api + slash + rootUrls.dashboard, passport.authenticate('basic', {session: false}), dashboard.dashboardApiRoutes);
     app.use(api + slash + rootUrls.users, passport.authenticate('basic', {session: false}), membership.userApiRoutes);
     app.use(api + slash + rootUrls.organisations, passport.authenticate('basic', {session: false}), membership.organisationApiRoutes);
     app.use(api + slash + rootUrls.teams, passport.authenticate('basic', {session: false}), membership.teamApiRoutes);
-    app.use(api + slash + rootUrls.invite, passport.authenticate('basic', {session: false}), membership.inviteApiRoutes);
     app.use(api + slash + rootUrls.forms, passport.authenticate('basic', {session: false}), form.formRoutes);
     app.use(api + slash + rootUrls.posts, passport.authenticate('basic', {session: false}), form.postRoutes);
     app.use(api + slash + rootUrls.comments, passport.authenticate('basic', {session: false}), form.commentRoutes);
@@ -279,7 +280,7 @@ var routes = function (app, passport) {
 
 
     app.use(function (err, req, res, next) {
-        if (err.message.indexOf('not found')) {
+        if (err.message.indexOf('not found') > -1) {
             //Treat as 404
             return next();
         }
