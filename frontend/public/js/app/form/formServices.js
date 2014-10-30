@@ -1,6 +1,7 @@
 /* global angular */
 
-angular.module('form').factory('FormService',
+angular.module('form')
+    .factory('FormService',
     ['$log', 'Restangular', 'Session',
         function ($log, Restangular, Session) {
             'use strict';

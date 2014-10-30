@@ -11,7 +11,7 @@ var request = require('supertest');
 var express = require('express');
 var bodyParser = require('body-parser');
 var should = require('should');
-var rootUrls = require(global.config.root + '/config/rootUrls');
+var rootUrls = require('../../../config/rootUrls');
 var signupRoutes = require('../routes/signupRoutes');
 var userRoutes = require('../routes/userApiRoutes');
 
