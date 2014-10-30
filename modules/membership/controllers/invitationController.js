@@ -24,7 +24,8 @@ exports.create = function (req, res, next) {
         status: 'started',
         organisation: req.body.organisation,
         inviter: req.user,
-        email: req.body.email
+        email: req.body.email,
+        message: req.body.message
     });
     invite.save(function (err, savedInvite) {
         if (err) next(err);
@@ -36,7 +37,8 @@ exports.create = function (req, res, next) {
                 status: savedInvite.status,
                 organisation: savedInvite.organisation,
                 inviter: req.user,
-                email: savedInvite.email
+                email: savedInvite.email,
+                message: savedInvite.message
             }, function (err, updatedInvite) {
                 if (err) next(err);
                 savedInvite.status = updatedInvite.status;
