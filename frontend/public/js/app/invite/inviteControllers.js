@@ -8,7 +8,8 @@ angular.module('invite')
         $scope.invite = function () {
             var invite = {
                 organisation: Session.user.organisations[0]._id,
-                email: $scope.inviteEmail
+                email: $scope.inviteEmail,
+                message: $scope.message || ''
             };
 
             InviteService.createInvitation(invite, function (err, createdInvite) {

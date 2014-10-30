@@ -19,6 +19,7 @@ var inviteSchema = new Schema({
         type: String,
         required: true
     },
+    message: String,
     status: String,
     timeToLive: {
         type: Number,

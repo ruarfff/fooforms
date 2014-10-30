@@ -42,6 +42,7 @@ exports.sendInvitation = function (invite, next) {
     var organisationName = invite.organisation.displayName;
     var inviterName = invite.inviter.displayName;
     var to = invite.email;
+    var message = invite.message;
 
 
     var mailOptions = {
@@ -49,7 +50,11 @@ exports.sendInvitation = function (invite, next) {
         to: to,
         subject: "Invitation from " + inviterName + " to join " + organisationName,
         text: url,
-        html: '<a href="' + url + '">Accept Invitation</a>'
+        html: '<p>Hi, you have been invited to join the organisation called ' + organisationName + ' on FOOFORMS</p>' +
+        '<p><a href="' + url + '">Accept Invitation</a></p>' +
+        '<h4>Message from sender</h4>' +
+        '<p>' + message + '</p>' +
+        '<p><a href="' + url + '">Click here</a> to be brought to FOOFORMS and become part of '+ organisationName +'</p>'
     };
     // send mail with defined transport object
     emailer.send(mailOptions, function (error, response) {
