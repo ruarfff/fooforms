@@ -4,8 +4,8 @@
     <div class="col-md-3 slideLeft">
         <div class="panel panel-info">
             <div class="panel-heading">
-                <a class="btn btn-success" data-toggle="tab" data-target="#newOrganisation">
-                    <i class="fa fa-plus"></i> New Organisation</a>
+                <!--<a class="btn btn-success" data-toggle="tab" data-target="#newOrganisation">
+                    <i class="fa fa-plus"></i> New Organisation</a>-->
             </div>
             <div class="panel-body">
                 <ul class="nav nav-pills nav-stacked" id="myTabs">
@@ -42,39 +42,39 @@
     </div>
     <div class="col-md-9 slideRight">
         <div class="tab-content">
-            <div class="tab-pane" id="newOrganisation">
-                <div class="panel panel-success">
-                    <div class="panel-heading">
-                        <h4>New Organisation</h4>
-                    </div>
-                    <div class="panel-body">
-                        <form novalidate class="css-form" role="form" name="createOrganisation">
-                            <org-photo org="newOrg"></org-photo>
-                            <div class="form-group">
-                                <label for="orgName">Name</label>
-                                <input type="text" class="form-control" id="orgName"
-                                       ng-model="newOrg.displayName" required
-                                       placeholder="Organisation Name"/><br/>
+            <!--        <div class="tab-pane" id="newOrganisation">
+                        <div class="panel panel-success">
+                            <div class="panel-heading">
+                                <h4>New Organisation</h4>
                             </div>
-                            <div class="form-group">
-                                <label for="orgDomain">Domain</label>
-                                <input type="text" class="form-control" id="orgDomain"
-                                       ng-model="newOrg.domain"
-                                       placeholder="The organisation domain"/>
-                            </div>
-                            <button ng-click="createOrganisation(newOrg)" class="btn btn-success">Save
-                            </button>
-                        </form>
-                        <div id="createOrganisation-error" class="alert alert-danger alert-dismissable"
-                             ng-show="createOrganisationError">
-                            <button type="button" class="close" data-dismiss="alert"
-                                    aria-hidden="true">&times;</button>
-                            {{createOrganisationError}}
-                        </div>
+                            <div class="panel-body">
+                                <form novalidate class="css-form" role="form" name="createOrganisation">
+                                    <org-photo org="newOrg"></org-photo>
+                                    <div class="form-group">
+                                        <label for="orgName">Name</label>
+                                        <input type="text" class="form-control" id="orgName"
+                                               ng-model="newOrg.displayName" required
+                                               placeholder="Organisation Name"/><br/>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="orgDomain">Domain</label>
+                                        <input type="text" class="form-control" id="orgDomain"
+                                               ng-model="newOrg.domain"
+                                               placeholder="The organisation domain"/>
+                                    </div>
+                                    <button ng-click="createOrganisation(newOrg)" class="btn btn-success">Save
+                                    </button>
+                                </form>
+                                <div id="createOrganisation-error" class="alert alert-danger alert-dismissable"
+                                     ng-show="createOrganisationError">
+                                    <button type="button" class="close" data-dismiss="alert"
+                                            aria-hidden="true">&times;</button>
+                                    {{createOrganisationError}}
+                                </div>
 
-                    </div>
-                </div>
-            </div>
+                            </div>
+                        </div>
+                    </div>-->
 
             <div ng-repeat="org in user.organisations" class="tab-pane" id="{{org.displayName}}">
 
