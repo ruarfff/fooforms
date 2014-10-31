@@ -5,17 +5,32 @@ var statusCodes = require('fooforms-rest').statusCodes;
 var fooForm = new FooForm(db);
 var paginate = require('express-paginate');
 
+var sanitizeUser = function (user) {
+    var sanitizedUser;
+    if (user && user._id) {
+        sanitizedUser = {
+            _id: user._id,
+            displayName: user.displayName,
+            name: user.name,
+            photo: user.photo
+        };
+    }
+    return sanitizedUser;
+};
+
 exports.create = function (req, res, next) {
     if (req.user) {
         req.body.createdBy = req.user._id;
     }
     fooForm.createPost(req.body, function (err, result) {
-        if (err) {
-            return next(err);
-        }
+        if (err) return next(err);
+
         if (result.success) {
-            res.location('/posts/' + result.post._id);
-            res.status(statusCodes.CREATED).json(result.post);
+            fooForm.Post.populate(result.post, {path: 'createdBy', model: 'User'}, function (err, post) {
+                post.createdBy = sanitizeUser(post.createdBy);
+                res.location('/posts/' + post._id);
+                res.status(statusCodes.CREATED).json(post);
+            });
         } else {
             res.status(statusCodes.BAD_REQUEST).json(result);
         }
@@ -24,11 +39,15 @@ exports.create = function (req, res, next) {
 
 exports.findById = function (req, res, next) {
     fooForm.findPostById(req.params.post, function (err, result) {
-        if (err) {
-            next(err);
-        }
+        if (err) return next(err);
+
         if (result.success) {
-            res.send(result.data);
+
+            fooForm.Post.populate(result.data, {path: 'createdBy', model: 'User'}, function (err, post) {
+                post.createdBy = sanitizeUser(post.createdBy);
+                res.send(post);
+            });
+
         } else {
             res.status(statusCodes.NOT_FOUND).json(result.message);
         }
@@ -39,13 +58,19 @@ exports.listByPostStream = function (req, res, next) {
     var postStreams = req.query.postStreams.split(',');
     fooForm.Post
         .paginate({postStream: {$in: postStreams}}, req.query.page, req.query.limit, function (err, pageCount, docs, itemCount) {
-            if (err) {
-                next(err);
-            }
-            res.json({
-                object: 'list',
-                has_more: paginate.hasNextPages(req)(pageCount),
-                data: docs
+            if (err) return next(err);
+
+            fooForm.Post.populate(docs, {path: 'createdBy', model: 'User'}, function (err, docs) {
+
+                for (var i = 0; i < docs.length; i++) {
+                    docs[i].createdBy = sanitizeUser(docs[i].createdBy);
+                }
+
+                res.json({
+                    object: 'list',
+                    has_more: paginate.hasNextPages(req)(pageCount),
+                    data: docs
+                });
             });
         }, {sortBy: {lastModified: -1}});
 };
@@ -55,11 +80,13 @@ exports.update = function (req, res, next) {
         req.body.commentStream = req.body.commentStream._id || req.body.commentStream;
     }
     fooForm.updatePost(req.body, function (err, result) {
-        if (err) {
-            next(err);
-        }
+        if (err) return next(err);
+
         if (result.success) {
-            res.send(result.post);
+            fooForm.Post.populate(result.post, {path: 'createdBy', model: 'User'}, function (err, post) {
+                post.createdBy = sanitizeUser(post.createdBy);
+                res.send(post);
+            });
 
         } else {
             res.status(statusCodes.BAD_REQUEST).json(result.message);

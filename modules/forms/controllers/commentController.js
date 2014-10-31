@@ -94,13 +94,13 @@ exports.listByStream = function (req, res, next) {
                     callback();
                 });
             }, function () {
-                res.json({
+                res.send({
                     object: 'list',
                     has_more: paginate.hasNextPages(req)(pageCount),
                     data: docs
                 });
             });
-        }, {sortBy: {lastModified: -1}});
+        }, {sortBy: {lastModified: 1}});
 };
 
 exports.update = function (req, res, next) {

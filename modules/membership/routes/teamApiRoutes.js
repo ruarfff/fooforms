@@ -8,6 +8,14 @@ router.get('/:team', function (req, res, next) {
     teamController.findById(req, res, next);
 });
 
+router.get('/:team/members', function (req, res, next) {
+    teamController.listMembers(req, res, next);
+});
+
+router.get('/:team/members/:name', function (req, res, next) {
+    teamController.searchMembers(req, res, next);
+});
+
 router.post('', function (req, res, next) {
     teamController.create(req, res, next);
 });

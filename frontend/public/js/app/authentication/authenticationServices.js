@@ -30,10 +30,10 @@ angular.module('authentication')
                             document.execCommand("ClearAuthenticationCache");
                             $cookieStore.remove('authdata');
                             $http.defaults.headers.common.Authorization = 'Basic ';
-                            next(new Error('Error ' + status));
+                            next(data + ' - ' + status);
                         });
                 } else {
-                    next(new Error('Error. No stored credentials found.'));
+                    next('Login required.');
                 }
             },
             setCredentials: function (username, password) {

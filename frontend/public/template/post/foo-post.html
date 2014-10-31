@@ -3,8 +3,10 @@
     <div class="panel-heading">
         <img class="media-object icon icon-xs" ng-src="{{activePost.icon}}" alt="">
         <div class="inline-block">
-            <div class="m0 p0 slideUp" ng-show="!doingPostApi">
-                <span class="small text-opacity-5">{{activePost.createdBy}}:</span><span class="small"> {{activePost.lastModified | date : 'MMM d, y @ h:mm a'}} </span>
+            <div class="m0 p0 slideUp" ng-show="!doingPostApi" ng-hide="!activePost.createdBy">
+                <span class="small text-opacity-5">Posted by {{activePost.createdBy.displayName}}</span><img
+                    class="img-responsive img-circle post-user-img" ng-src="{{activePost.createdBy.photo}}"/><span
+                    class="small"> {{activePost.lastModified | date : 'MMM d, y @ h:mm a'}} </span>
             </div>
             <div class="m0 p0 slideDown" ng-show="doingPostApi">
                 <i class="fa fa-refresh fa-spin"></i> Updating...

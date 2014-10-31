@@ -1,8 +1,16 @@
 /* global angular */
 
-angular.module('organisation').controller('OrganisationCtrl', ['$rootScope', '$scope', '$log', '_', 'SweetAlert', 'OrganisationService', 'Organisation',
-    function ($rootScope, $scope, $log, _, SweetAlert, OrganisationService, Organisation) {
+angular.module('organisation').controller('OrganisationCtrl', ['$rootScope', '$scope', '$log', '_', 'SweetAlert', 'OrganisationService', 'Organisation', 'Session',
+    function ($rootScope, $scope, $log, _, SweetAlert, OrganisationService, Organisation, Session) {
         'use strict';
+
+        $scope.members = [];
+
+        $scope.organisation = Session.user.organisations[0];
+
+        OrganisationService.getMembers($scope.organisation, function (err, members) {
+           $scope.members = members;
+        });
 
 
         $scope.updateOrg = function (org) {
