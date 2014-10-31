@@ -7,6 +7,7 @@ var slug = require('slug');
 var membership = new Membership(db);
 var fooForm = new FooForm(db);
 var defaultFolders = require('../lib/defaultFolders');
+var userProfile = require('../lib/userProfile');
 var _ = require('underscore');
 
 
@@ -40,6 +41,52 @@ exports.findById = function (req, res, next) {
         }
     });
 };
+
+exports.searchMembers = function (req, res, next) {
+    var searchName = req.params.name;
+    membership.Team.findById(req.params.team).populate('members').exec(function (err, team) {
+        if (err) next(err);
+        if (!team) {
+            res.status(statusCodes.NOT_FOUND).end();
+        } else {
+            var users = _.filter(team.members, function (user) {
+                return user['displayName'].match(new RegExp('^' + searchName, 'i'));
+            });
+
+            var userProfiles = [];
+
+            if (users && users.length > 0) {
+                users.forEach(function (user) {
+                    userProfiles.push(userProfile.userToProfile(user));
+                });
+            }
+
+            res.status(statusCodes.OK).json(userProfiles);
+        }
+    });
+};
+
+exports.listMembers = function (req, res, next) {
+    membership.Team.findById(req.params.team).populate('members').exec(function (err, team) {
+        if (err) next(err);
+        if (!team) {
+            res.status(statusCodes.NOT_FOUND).end();
+        } else {
+            var userProfiles = [];
+
+            log.info(team);
+
+            if (team.members && team.members.length > 0) {
+                team.members.forEach(function (user) {
+                    userProfiles.push(userProfile.userToProfile(user));
+                });
+            }
+
+            res.status(statusCodes.OK).json(userProfiles);
+        }
+    });
+};
+
 
 exports.create = function (req, res, next) {
     if (req.body.displayName) {

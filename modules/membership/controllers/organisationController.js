@@ -8,6 +8,8 @@ var slug = require('slug');
 var membership = new Membership(db);
 var fooForm = new FooForm(db);
 var defaultFolders = require('../lib/defaultFolders');
+var userProfile = require('../lib/userProfile');
+var _ = require('underscore');
 
 
 exports.findById = function (req, res, next) {
@@ -21,6 +23,60 @@ exports.findById = function (req, res, next) {
             res.send(org);
         } else {
             res.status(statusCodes.NOT_FOUND).json('Organisation not found');
+        }
+    });
+};
+
+exports.searchMembers = function (req, res, next) {
+    var searchName = req.params.name;
+    membership.Organisation.findById(req.params.organisation).populate('members').exec(function (err, organisation) {
+        if (err) next(err);
+        if (!organisation) {
+            res.status(statusCodes.NOT_FOUND).end();
+        } else {
+            membership.Organisation.populate(organisation, {
+                path: 'members.members',
+                model: 'User'
+            }, function (err, organisation) {
+                var users = _.filter(organisation.members.members, function (user) {
+                    return user['displayName'].match(new RegExp('^' + searchName, 'i'));
+                });
+
+                var userProfiles = [];
+
+                if (users && users.length > 0) {
+                    users.forEach(function (user) {
+                        userProfiles.push(userProfile.userToProfile(user));
+                    });
+                }
+
+                res.status(statusCodes.OK).json(userProfiles);
+            });
+        }
+    });
+};
+
+exports.listMembers = function (req, res, next) {
+    membership.Organisation.findById(req.params.organisation).populate('members').exec(function (err, organisation) {
+        if (err) next(err);
+        if (!organisation) {
+            res.status(statusCodes.NOT_FOUND).end();
+        } else {
+
+            membership.Organisation.populate(organisation, {
+                path: 'members.members',
+                model: 'User'
+            }, function (err, organisation) {
+                var userProfiles = [];
+
+                if (organisation.members.members && organisation.members.members.length > 0) {
+                    organisation.members.members.forEach(function (user) {
+                        userProfiles.push(userProfile.userToProfile(user));
+                    });
+                }
+
+                res.status(statusCodes.OK).json(userProfiles);
+            });
         }
     });
 };
@@ -117,69 +173,6 @@ exports.create = function (req, res, next) {
         }
 
     });
-
-    /**
-     membership.createTeam({
-        displayName: orgName + '-owners',
-        title: orgName + ' Owners',
-        description: 'Owners of ' + orgName,
-        members: [req.body.owner],
-        permissionLevel: 'admin'
-    }, function (err, ownersResult) {
-        if (err || ownersResult.err || !ownersResult.team) {
-            res.status(statusCodes.BAD_REQUEST).json(ownersResult);
-        }
-        var args = {
-            teamId: ownersResult.team._id || ownersResult.team,
-            membership: membership,
-            Folder: fooForm.Folder
-        };
-        defaultFolders.createDefaultTeamFolder(args, function (err, ownersResult) {
-            if (err || ownersResult.err || !ownersResult.team) {
-                res.status(statusCodes.BAD_REQUEST).json(ownersResult);
-            }
-            membership.createTeam({
-                displayName: orgName + '-members',
-                title: orgName + ' Members',
-                description: 'Members of ' + orgName,
-                members: [req.body.owner]
-            }, function (err, membersResult) {
-                var args = {
-                    teamId: membersResult.team._id ||  membersResult.team,
-                    membership: membership,
-                    Folder: fooForm.Folder
-                };
-                defaultFolders.createDefaultTeamFolder(args, function (err, membersResult) {
-                    if (err || membersResult.err || !membersResult.team) {
-                        res.status(statusCodes.BAD_REQUEST).json(membersResult);
-                    }
-
-                    // Teams are set up, now create new org with these teams
-                    req.body.members = membersResult.team._id;
-                    req.body.owners = ownersResult.team._id;
-                    membership.createOrganisation(req.body, function (err, result) {
-                        if (err) {
-                            return next(err);
-                        }
-                        if (result.success) {
-                            var args = {
-                                organisation: result.organisation,
-                                membership: membership,
-                                Folder: fooForm.Folder
-                            };
-                            defaultFolders.createDefaultOrganisationFolder(args, function (err, result) {
-                                res.location('/organisations/' + result.organisation._id);
-                                result.organisation.defaultFolder = result.organisation.folders[0];
-                                res.status(statusCodes.CREATED).json(result.organisation);
-                            });
-                        } else {
-                            res.status(statusCodes.BAD_REQUEST).json(result);
-                        }
-                    });
-                });
-            });
-        });
-    });*/
 };
 
 exports.update = function (req, res, next) {
