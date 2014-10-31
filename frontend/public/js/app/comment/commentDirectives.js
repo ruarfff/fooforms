@@ -5,15 +5,27 @@ angular.module('comment')
         function () {
             return {
                 restrict: 'E',
-                scope: {stream: '@'},
+                scope: {activePost: '=activePost'},
                 transclude: true,
                 controller: function ($log, $scope, _, CommentService) {
-                    var currentPostPage = 0;
-                    var postPageSize = 10;
+                    var currentPage = 0;
+                    var pageSize = 10;
                     var hasMore = true;
 
                     $scope.comment = {};
                     $scope.comments = [];
+
+                    $scope.$watch('activePost', function (newValue, oldValue) {
+                        if (newValue.commentStream != oldValue.commentStream) {
+                            currentPage = 0;
+                            pageSize = 10;
+                            hasMore = true;
+
+                            $scope.comment = {};
+                            $scope.comments = [];
+                            getComments(currentPage, pageSize, $scope.activePost.commentStream);
+                        }
+                    });
 
 
                     var getComments = function (page, pageSize, stream) {
@@ -40,21 +52,22 @@ angular.module('comment')
 
                     $scope.addMore = function () {
                         if (hasMore) {
-                            currentPostPage = currentPostPage + 1;
-                            getComments(currentPostPage, postPageSize, $scope.stream);
+                            currentPage = currentPage + 1;
+                            getComments(currentPage, pageSize, $scope.activePost.commentStream);
                         }
                     };
 
                     $scope.postComment = function () {
                         try {
                             if ($scope.comment.content) {
-                                $scope.comment.commentStream = $scope.stream;
+                                $scope.comment.commentStream = $scope.activePost.commentStream;
                                 CommentService.create($scope.comment, function (err, comment) {
                                     if (err) {
                                         $log.error(err);
                                     }
                                     if (comment) {
                                         $scope.comments.push(comment);
+                                        $scope.comment = {};
                                     }
                                 });
                             }
