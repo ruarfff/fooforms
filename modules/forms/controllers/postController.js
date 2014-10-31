@@ -79,6 +79,10 @@ exports.update = function (req, res, next) {
     if (req.body.commentStream) {
         req.body.commentStream = req.body.commentStream._id || req.body.commentStream;
     }
+    if (req.body.createdBy) {
+        req.body.createdBy = req.body.createdBy._id || req.body.createdBy;
+    }
+
     fooForm.updatePost(req.body, function (err, result) {
         if (err) return next(err);
 
