@@ -63,6 +63,7 @@ angular.module('post')
                 restrict: 'E',
                 scope: {
                     activePost: '=activePost',
+                    members: '=members',
                     delete: '&deletePost',
                     copy: '&copyPost',
                     cancel: '&cancelPost',

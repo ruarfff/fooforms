@@ -75,7 +75,7 @@
                             </li>
                         </ul>
                         <div class="tab-content">
-                            <div class="tab-pane active" id="orgSettings"><h4>{{ org.title}} on Fooforms</h4>
+                            <div class="tab-pane active" id="orgSettings">
 
                                 <form novalidate class="form-horizontal">
                                     <div class="col-sm-3">
@@ -123,11 +123,15 @@
                             </div>
                             <div class="tab-pane" id="orgMembers">
                                 <h4>Members</h4>
+                                <div ng-repeat="member in members"  class="col-sm-4 col-md-3">
+                                <div class="thumbnail">
+                                    <img class="icon" src="{{member.photo}}">
+                                    <div class="caption">
 
-                                <div ng-repeat="member in members">
-                                    <h4>{{member.displayName}}</h4>
+                                        <p>  {{member.displayName}}<br>{{ member.name.givenName + ' ' + member.name.familyName}}</p>
+                                    </div>
                                 </div>
-
+</div>
                             </div>
 
                             <div class="tab-pane" id="orgStats">

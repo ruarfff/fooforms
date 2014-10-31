@@ -3,16 +3,15 @@
     <!-- Navigation Buttons -->
     <div class="col-md-3 slideLeft">
         <div class="panel panel-info">
-            <div class="panel-heading">
-                <a class="btn btn-success" data-toggle="tab" data-target="#newTeam">
+            <div class="panel-body">
+                <a class="btn btn-success" ng-click="newTeam()">
                     <i class="fa fa-plus"></i> New Team</a>
             </div>
             <div class="panel-body">
                 <ul class="nav nav-pills nav-stacked" id="myTabs">
                     <li ng-repeat="team in user.teams">
-                        <a>
-                            <img class="icon-xs" src="/assets/icons/color/folder.png"
-                                 alt="{{team.displayName}}">
+                        <a  ng-click="selectTeam(team)">
+
                             {{team.displayName}}</a></li>
                 </ul>
             </div>
@@ -20,60 +19,94 @@
 
     </div>
     <div class="col-md-9 slideRight">
-        <div class="tab-content">
-            <div class="tab-pane" id="newTeam">
-                <div class="panel panel-info">
-                    <div class="panel-heading">
-                        <h4>New Team</h4>
-                    </div>
-                    <div class="panel-body">
-                        <form novalidate class="css-form" role="form" name="createTeam">
-                            <div class="form-group">
-                                <label for="teamName">Name</label>
-                                <input type="text" class="form-control" id="teamName"
-                                       ng-model="team.displayName" required
-                                       placeholder="Team Name"/><br/>
-                            </div>
-                            <div class="form-group">
-                                <label for="teamDomain">Description</label>
-                                <input type="text" class="form-control" id="teamDomain"
-                                       ng-model="team.description"
-                                       placeholder="The team description"/>
-                            </div>
-                            <div class="form-group">
-                                <label for="org-select">Organisation</label>
+        <tabset>
+            <tab class="tab-pane" heading="{{team.displayName}}">
 
-                                <div id="org-select" class="btn-group" dropdown is-open="status.isopen">
-                                    <h2><span class="label label-default">{{currentOrganisation.title || currentOrganisation.displayName}}</span>
-                                    </h2>
-                                    <button type="button" class="btn btn-info dropdown-toggle">
-                                        Change <span class="caret"></span>
+                <div class="panel">
+                    <div class="panel-body">
+                        <ul class="nav nav-pills" id="orgTabs">
+                            <li>
+                                <a data-toggle="tab" data-target="#teamSettings">Team Settings</a>
+                            </li>
+                            <li>
+                                <a data-toggle="tab" data-target="#teamMembers">Members</a>
+                            </li>
+
+                        </ul>
+                        <div class="tab-content">
+                            <div class="tab-pane active pt10" id="teamSettings">
+
+
+                                <form novalidate class="css-form" role="form" name="createTeam">
+                                    <div class="form-group">
+                                        <label for="teamName">Name</label>
+                                        <input type="text" class="form-control" id="teamName"
+                                               ng-model="team.displayName" required
+                                               placeholder="Team Name"/><br/>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="teamDomain">Description</label>
+                                        <input type="text" class="form-control" id="teamDomain"
+                                               ng-model="team.description"
+                                               placeholder="The team description"/>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="team-select">organisation</label>
+
+                                        <div id="team-select" class="btn-group" dropdown is-open="status.isopen">
+                                            <h2><span class="label label-default">{{currentOrganisation.title || currentOrganisation.displayName}}</span>
+                                            </h2>
+                                            <button type="button" class="btn btn-info dropdown-toggle">
+                                                Change <span class="caret"></span>
+                                            </button>
+                                            <ul class="dropdown-menu" role="menu">
+                                                <li ng-repeat="organisation in organisations"><a
+                                                        ng-click="currentOrganisation = organisation">{{organisation.title ||
+                                                    organisation.displayName}}</a></li>
+                                            </ul>
+                                        </div>
+                                    </div>
+
+
+                                    <button ng-click="saveTeam()" class="btn btn-success">Save
                                     </button>
-                                    <ul class="dropdown-menu" role="menu">
-                                        <li ng-repeat="organisation in organisations"><a
-                                                ng-click="currentOrganisation = organisation">{{organisation.title ||
-                                            organisation.displayName}}</a></li>
+                                </form>
+                                <div id="createorganisation-error" class="alert alert-danger alert-dismissable"
+                                     ng-show="saveTeamError">
+                                    <button type="button" class="close" data-dismiss="alert"
+                                            aria-hidden="true">&times;</button>
+                                    {{saveTeamError}}
+                                </div>
+
+                            </div>
+                            <div class="tab-pane pt10" id="teamMembers">
+
+                                <div class="col-sm-6">
+                                    <h4 class="text-info"> All Users</h4>
+                                    <ul class="memberList">
+                                        <li ng-repeat = "member in org.members track by $index" class="roundy-border">
+
+                                            <img class="icon" src="{{member.photo}}"/>{{member.displayName}}
+                                        </li>
                                     </ul>
                                 </div>
+                                <div class="col-sm-6">
+                                    <h4 class="text-info"> Team Members</h4>
+                                    <ul class="memberList">
+                                        <li ng-repeat = "member in team.members track by $index">
+                                            <img class="icon" src="{{member.photo}}"/>{{member.displayName}} {{member}}</li>
+                                        </li>
+                                    </ul>
+                                </div>
+
+
                             </div>
-
-
-                            <button ng-click="saveTeam(team)" class="btn btn-success">Save
-                            </button>
-                        </form>
-                        <div id="createOrganisation-error" class="alert alert-danger alert-dismissable"
-                             ng-show="saveTeamError">
-                            <button type="button" class="close" data-dismiss="alert"
-                                    aria-hidden="true">&times;</button>
-                            {{saveTeamError}}
                         </div>
-
                     </div>
                 </div>
-            </div>
+
+            </tab>
+            </tabset>
+
         </div>
     </div>
-
-</div>
-
-

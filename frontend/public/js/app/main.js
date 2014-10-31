@@ -9,7 +9,7 @@ var fooformsApp = angular.module('fooformsApp', [
 ]);
 
 fooformsApp
-    .factory("SessionService", ['$location', '$q', '$log', 'Restangular', '_', 'AuthService', 'DashboardService', 'Session', function ($location, $q, $log, Restangular, _, AuthService, DashboardService, Session) {
+    .factory("SessionService", ['$location', '$q', '$log', 'Restangular', '_', 'AuthService', 'DashboardService', 'OrganisationService','Session', function ($location, $q, $log, Restangular, _, AuthService, DashboardService, OrganisationService,Session) {
         return {
             checkSession: function () {
                 var deferred = $q.defer();
@@ -38,7 +38,16 @@ fooformsApp
                                         organisation.teams = _.filter(Session.user.teams, {organisation: organisation._id});
                                     });
 
+
+
                                     Session.org = Session.user.organisations[0];
+                                    OrganisationService.getMembers(Session.user.organisations[0], function (err, members) {
+
+                                        Session.org.members = members;
+                                    });
+
+
+
 
                                     deferred.resolve(Session.user);
                                 }

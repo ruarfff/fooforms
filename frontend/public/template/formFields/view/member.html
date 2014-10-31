@@ -1,0 +1,18 @@
+<div class="form-group clearfix">
+    <label for="{{formField.id}}">{{formField.label}}
+        <i class="fa fa-question-circle"
+           ng-hide="!formField.userInstructions"
+           popover="{{formField.userInstructions}}"
+           popover-trigger="mouseenter"
+           popover-append-to-body="true"></i>
+    </label>
+
+    <div class="input-group" ng-style="{'width': formField.size+'%'}">
+        <span class="input-group-addon" ng-show="formField.required">*</span>
+        <select class="form-control"
+               id="{{formField.id}}"
+               ng-model="formField.value">
+        <option ng-repeat="member in members">{{member.name.givenName + ' ' + member.name.familyName }}</option>
+        </select>
+    </div>
+</div>

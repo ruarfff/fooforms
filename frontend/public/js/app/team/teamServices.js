@@ -50,7 +50,7 @@ angular.module('team')
         'use strict';
         this.activeTeam = {};
         this.newTeam = function () {
-            this.activeTeam = {displayName: '', description: ''};
+            this.activeTeam = {displayName: 'New Team', description: ''};
             if (this.activeTeam._id) {
                 delete this.activeTeam._id;
             }
