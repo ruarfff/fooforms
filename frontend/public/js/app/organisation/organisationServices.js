@@ -1,4 +1,5 @@
-angular.module('organisation').directive('uniqueOrgName', ['$http', function ($http) {
+angular.module('organisation')
+    .directive('uniqueOrgName', ['$http', function ($http) {
     return {
         require: 'ngModel',
         link: function (scope, elem, attrs, ctrl) {
@@ -31,7 +32,8 @@ angular.module('organisation').directive('uniqueOrgName', ['$http', function ($h
             })
         }
     }
-}]).factory('OrganisationService',
+}])
+    .factory('OrganisationService',
     ['$log', 'Restangular',
         function ($log, Restangular) {
             'use strict';
@@ -62,12 +64,24 @@ angular.module('organisation').directive('uniqueOrgName', ['$http', function ($h
                         $log.error(err);
                         return next(err);
                     });
+                },
+                getMembers: function (org, next) {
+                    if(typeof org.getList !== 'function') {
+                        org = Restangular.restangularizeElement(orgApi, org, '');
+                    }
+                    org.getList('members').then(function (members) {
+                        return next(null, members);
+                    }, function (err) {
+                        $log.error(err);
+                        return next(err);
+                    });
                 }
 
             }
 
 
-        }]).service('Organisation', function () {
+        }])
+    .service('Organisation', function () {
         'use strict';
         this.activeOrg = {};
 

@@ -10,7 +10,7 @@
             <div class="panel-body">
                 <ul class="nav nav-pills nav-stacked" id="myTabs">
                     <li ng-repeat="org in user.organisations">
-                        <a data-toggle="tab" data-target="#{{org.displayName}}">
+                        <a data-toggle="tab" data-target="#{{org.displayName}}" ng-click="org.active = true">
                             <img class="icon-xs" ng-src="{{org.photo}}"
                                  alt="{{org.title}}">
                             {{org.title}}</a></li>
@@ -18,30 +18,9 @@
             </div>
         </div>
 
-        <form name="sendInviteForm" ng-controller="SendInviteCtrl" ng-submit="invite()">
-
-            <h2>Invite a user</h2>
-
-            <div class="form-group">
-                <label for="inviteEmail">Name</label>
-                <input id="inviteEmail" type="email" name="inviteEmail" ng-model="inviteEmail" required/>
-                <span class="error" ng-show="sendInviteForm.inviteEmail.$error.required">Email Required!</span>
-                <span class="error" ng-show="sendInviteForm.inviteEmail.$error.email">Not valid email!</span>
-                <span class="error" ng-show="inviteError">Invitation could not be sent</span>
-            </div>
-
-            <div class="form-group">
-                <label for="message">Leave a message</label>
-                <input type="text" name="message" id="message" ng-model="message" />
-            </div>
-            <div class="form-group">
-                <input type="submit" value="Send">
-            </div>
-        </form>
-
     </div>
     <div class="col-md-9 slideRight">
-        <div class="tab-content">
+        <tabset>
             <!--        <div class="tab-pane" id="newOrganisation">
                         <div class="panel panel-success">
                             <div class="panel-heading">
@@ -76,7 +55,7 @@
                         </div>
                     </div>-->
 
-            <div ng-repeat="org in user.organisations" class="tab-pane" id="{{org.displayName}}">
+            <tab ng-repeat="org in user.organisations" active="org.active" class="tab-pane" heading="{{org.displayName}}" id="{{org.displayName}}">
 
 
                 <div class="panel panel-info">
@@ -90,6 +69,9 @@
                             </li>
                             <li>
                                 <a data-toggle="tab" data-target="#orgStats">Stats</a>
+                            </li>
+                            <li>
+                                <a data-toggle="tab" data-target="#orgActions">Actions</a>
                             </li>
                         </ul>
                         <div class="tab-content">
@@ -142,6 +124,9 @@
                             <div class="tab-pane" id="orgMembers">
                                 <h4>Members</h4>
 
+                                <div ng-repeat="member in members">
+                                    <h4>{{member.displayName}}</h4>
+                                </div>
 
                             </div>
 
@@ -151,16 +136,39 @@
                                 Created: {{org.created | date : 'dd-MMM-yy'}} <br>
                                 Teams: {{org.teams.length}} <br>
                                 Folders: {{org.folders.length}} <br>
-                                Members: {{org.owners.length}} <br>
+                                Members: {{members.length}} <br>
                                 Users: {{ org.readOnlyUsers.length}} <br>
+                            </div>
+
+                            <div class="tab-pane" id="orgActions">
+                                <form name="sendInviteForm" ng-controller="SendInviteCtrl" ng-submit="invite()">
+
+                                    <h2>Invite a user</h2>
+
+                                    <div class="form-group">
+                                        <label for="inviteEmail">Name</label>
+                                        <input id="inviteEmail" type="email" name="inviteEmail" ng-model="inviteEmail" required/>
+                                        <span class="error" ng-show="sendInviteForm.inviteEmail.$error.required">Email Required!</span>
+                                        <span class="error" ng-show="sendInviteForm.inviteEmail.$error.email">Not valid email!</span>
+                                        <span class="error" ng-show="inviteError">Invitation could not be sent</span>
+                                    </div>
+
+                                    <div class="form-group">
+                                        <label for="message">Leave a message</label>
+                                        <input type="text" name="message" id="message" ng-model="message" />
+                                    </div>
+                                    <div class="form-group">
+                                        <input type="submit" value="Send">
+                                    </div>
+                                </form>
                             </div>
                         </div>
                     </div>
                 </div>
 
 
-            </div>
-        </div>
+            </tab>
+        </tabset>
 
     </div>
 
