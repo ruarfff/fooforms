@@ -100,6 +100,7 @@
 
 </div>
 <script type="text/javascript" src="/js/vendor.min.js"></script>
+<script src="/socket.io/socket.io.js"></script>
 
 <% if (dev) { %>
 <script src="//localhost:35729/livereload.js"></script>
@@ -124,6 +125,12 @@
 
     ga('create', 'UA-40607409-2', 'auto');
     ga('send', 'pageview');
+
+</script>
+
+<script>
+
+    var socket = io();
 
 </script>
 </body>

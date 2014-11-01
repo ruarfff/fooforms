@@ -10,7 +10,7 @@
             <div class="panel-body">
                 <ul class="nav nav-pills nav-stacked" id="myTabs">
                     <li ng-repeat="team in user.teams">
-                        <a  ng-click="selectTeam(team)">
+                        <a ng-click="selectTeam(team)">
 
                             {{team.displayName}}</a></li>
                 </ul>
@@ -20,7 +20,7 @@
     </div>
     <div class="col-md-9 slideRight">
         <tabset>
-            <tab class="tab-pane" heading="{{team.displayName}}">
+            <tab class="tab-pane" heading="{{currentTeam.displayName}}">
 
                 <div class="panel">
                     <div class="panel-body">
@@ -41,13 +41,13 @@
                                     <div class="form-group">
                                         <label for="teamName">Name</label>
                                         <input type="text" class="form-control" id="teamName"
-                                               ng-model="team.displayName" required
+                                               ng-model="currentTeam.displayName" required
                                                placeholder="Team Name"/><br/>
                                     </div>
                                     <div class="form-group">
                                         <label for="teamDomain">Description</label>
                                         <input type="text" class="form-control" id="teamDomain"
-                                               ng-model="team.description"
+                                               ng-model="currentTeam.description"
                                                placeholder="The team description"/>
                                     </div>
                                     <div class="form-group">
@@ -61,7 +61,8 @@
                                             </button>
                                             <ul class="dropdown-menu" role="menu">
                                                 <li ng-repeat="organisation in organisations"><a
-                                                        ng-click="currentOrganisation = organisation">{{organisation.title ||
+                                                        ng-click="currentOrganisation = organisation">{{organisation.title
+                                                    ||
                                                     organisation.displayName}}</a></li>
                                             </ul>
                                         </div>
@@ -84,17 +85,17 @@
                                 <div class="col-sm-6">
                                     <h4 class="text-info"> All Users</h4>
                                     <ul class="memberList">
-                                        <li ng-repeat = "member in org.members track by $index" class="roundy-border">
+                                        <li ng-repeat="member in org.members track by $index" class="roundy-border">
 
-                                            <img class="icon" src="{{member.photo}}"/>{{member.displayName}}
+                                            <img class="icon" ng-src="{{member.photo}}"/>{{member.displayName}}
                                         </li>
                                     </ul>
                                 </div>
                                 <div class="col-sm-6">
                                     <h4 class="text-info"> Team Members</h4>
                                     <ul class="memberList">
-                                        <li ng-repeat = "member in team.members track by $index">
-                                            <img class="icon" src="{{member.photo}}"/>{{member.displayName}} {{member}}</li>
+                                        <li ng-repeat="member in members track by $index">
+                                            <img class="icon" ng-src="{{member.photo}}"/>{{member.displayName}}
                                         </li>
                                     </ul>
                                 </div>
@@ -106,7 +107,7 @@
                 </div>
 
             </tab>
-            </tabset>
+        </tabset>
 
-        </div>
     </div>
+</div>

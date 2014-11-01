@@ -39,7 +39,7 @@ angular.module('formBuilder')
 
                 var index;
                 if (angular.isUndefined($scope.postObj)) {
-                    $scope.postObj = $scope.posts.activePost;
+                    $scope.postObj = $scope.activePost;
                 }
                 var count = $scope.postObj.fields.length;
 

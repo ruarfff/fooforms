@@ -40,6 +40,17 @@ angular.module('team')
                         $log.error(err);
                         return next(err);
                     });
+                },
+                getMembers: function (team, next) {
+                    if(typeof team.getList !== 'function') {
+                        team = Restangular.restangularizeElement(teamApi, team, '');
+                    }
+                    team.getList('members').then(function (members) {
+                        return next(null, members);
+                    }, function (err) {
+                        $log.error(err);
+                        return next(err);
+                    });
                 }
 
             }

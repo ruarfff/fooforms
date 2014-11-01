@@ -10,8 +10,9 @@ var env = process.env.NODE_ENV = process.env.NODE_ENV || 'development';
  */
 global.config = require('./config/config')(env);
 
-var http = require('http');
-var express = require('express');
+var app = require('express')();
+var http = require('http').Server(app);
+var io = require('socket.io')(http);
 var passport = require('passport');
 var path = require('path');
 var fs = require('fs');
@@ -45,7 +46,7 @@ var FooFormsServerApp = function () {
         self.ipaddress = "127.0.0.1";
         self.port = 3000;
         // Set up the express object to initialize the application
-        self.app = express();
+        self.app = app;
     };
 
 
@@ -142,7 +143,13 @@ var FooFormsServerApp = function () {
      */
     self.start = function () {
         log.info(__filename, ' - ', 'Starting web server...');
-        http.createServer(self.app).listen(self.port, self.ipaddress, function () {
+        io.on('connection', function(socket){
+            log.info('a user connected');
+            socket.on('disconnect', function(){
+                log.info('user disconnected');
+            });
+        });
+        http.listen(self.port, self.ipaddress, function () {
             log.info(__filename, ' - ', '%s: Node server started on %s:%d ...',
                 new Date(Date.now()), self.ipaddress, self.port);
         });
@@ -165,6 +172,7 @@ var FooFormsServerApp = function () {
             membership.passport(passport);
             require('./config/express')(self.app, passport);
             require('./config/routes')(self.app, passport);
+
 
             log.info(__filename, ' - ', 'Running environment: ' + env);
             log.info(__filename, ' - ', 'Initializing database connection...');
