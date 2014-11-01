@@ -74,8 +74,6 @@ exports.listMembers = function (req, res, next) {
         } else {
             var userProfiles = [];
 
-            log.info(team);
-
             if (team.members && team.members.length > 0) {
                 team.members.forEach(function (user) {
                     userProfiles.push(userProfile.userToProfile(user));
