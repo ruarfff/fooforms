@@ -10,8 +10,22 @@ angular.module('team')
             var setTeam = function (team) {
                 $scope.currentTeam = team;
                 $scope.members = [];
+                $scope.orgMembers = [];
                 TeamService.getMembers($scope.currentTeam, function (err, members) {
                     $scope.members = members;
+
+                    for(var i = 0; i < $scope.members.length; i++) {
+                        // This is to allow Restangular do put & remove on these objects.
+                        $scope.members[i].self = {};
+                        $scope.members[i].self.link = '/api/users/' + $scope.members[i]._id;
+                    }
+
+                    // Only show users that are not in the current team, in the org team list
+                    $scope.orgMembers = _.filter(Session.org.members, function(member) {
+                        var found = !!_.find($scope.members, { _id: member._id });
+
+                        return !found;
+                    });
                 });
             };
 
@@ -53,7 +67,69 @@ angular.module('team')
 
             $scope.selectTeam = function(team){
                 setTeam(team);
-            }
+            };
+/**
+            $scope.removeFromTeam = function (member) {
+                _.pull(member.teams, $scope.currentTeam);
+                _.pull($scope.currentTeam.members, member);
+
+                TeamService.updateTeam($scope.currentTeam, function (err, next) {
+                    if(err) {
+                        alert(err);
+                    }
+                    else {
+                        member.put().then(function (data) {
+                            Session.user = _.extend(Session.user, _(data).pick(_(Session.user).keys()));
+
+                            _.pull($scope.members, member);
+                            $scope.orgMembers.push(member);
+
+                        }, function (err) {
+                            console.log("There was an error saving");
+                            alert(err);
+                        });
+                    }
+
+                });
+            };
+
+            $scope.addToTeam = function (member) {
+                member.teams.push($scope.currentTeam);
+                $scope.currentTeam.members.push(member);
+
+                TeamService.updateTeam($scope.currentTeam, function (err, next) {
+                    if(err) {
+                        alert(err);
+                    }
+                    else {
+                        var teamIds = [];
+
+                        for(var i = 0; i < member.teams.length; i++) {
+                            var team = member.teams[i];
+                            if(team) {
+                                if(team._id) {
+                                    team = team._id;
+                                }
+                                teamIds.push(team);
+                            }
+
+                        }
+                        member.teams = teamIds;
+                        member.put().then(function (data) {
+                            Session.user = _.extend(Session.user, _(data).pick(_(Session.user).keys()));
+
+                            _.pull($scope.orgMembers, member);
+                            $scope.members.push(member);
+
+
+                        }, function (err) {
+                            console.log("There was an error saving");
+                            alert(err);
+                        });
+                    }
+
+                })
+            };*/
 
         }])
     .controller('TeamProfileCtrl',

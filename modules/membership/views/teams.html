@@ -83,21 +83,35 @@
                             <div class="tab-pane pt10" id="teamMembers">
 
                                 <div class="col-sm-6">
-                                    <h4 class="text-info"> All Users</h4>
-                                    <ul class="memberList">
-                                        <li ng-repeat="member in org.members track by $index" class="roundy-border">
+                                    <div class="panel panel-default">
+                                        <div class="panel-heading">All Users in {{org.title || org.displayName}}</div>
+                                        <div class="panel-body">
+                                            <ul class="memberList list-group">
+                                                <li ng-repeat="member in orgMembers track by $index" class="roundy-border list-group-item"
+                                                    ng-mouseover="member.highlighted = true" ng-mouseleave="member.highlighted = false"
+                                                        ng-click="addToTeam(member)">
 
-                                            <img class="icon" ng-src="{{member.photo}}"/>{{member.displayName}}
-                                        </li>
-                                    </ul>
+                                                    <img class="icon" ng-src="{{member.photo || '/assets/images/photo.jpg'}}"/>{{member.displayName}}
+                                                    <span ng-show="member.highlighted" class="fa fa-arrow-circle-right"></span>
+                                                </li>
+                                            </ul>
+                                        </div>
+                                    </div>
                                 </div>
                                 <div class="col-sm-6">
-                                    <h4 class="text-info"> Team Members</h4>
-                                    <ul class="memberList">
-                                        <li ng-repeat="member in members track by $index">
-                                            <img class="icon" ng-src="{{member.photo}}"/>{{member.displayName}}
-                                        </li>
-                                    </ul>
+                                    <div class="panel panel-default">
+                                        <div class="panel-heading">{{currentTeam.title || currentTeam.displayName}} Members</div>
+                                        <div class="panel-body">
+                                            <ul class="memberList list-group">
+                                                <li ng-repeat="member in members track by $index" class="roundy-border list-group-item"
+                                                    ng-mouseover="member.highlighted = true" ng-mouseleave="member.highlighted = false"
+                                                        ng-click="removeFromTeam(member)">
+                                                    <img class="icon" ng-src="{{member.photo || '/assets/images/photo.jpg'}}"/>{{member.displayName}}
+                                                    <span ng-show="member.highlighted" class="glyphicon glyphicon-minus-sign"></span>
+                                                </li>
+                                            </ul>
+                                        </div>
+                                    </div>
                                 </div>
 
 

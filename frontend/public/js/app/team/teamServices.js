@@ -1,7 +1,7 @@
 angular.module('team')
     .factory('TeamService',
-    ['$log', 'Restangular', 'Session',
-        function ($log, Restangular, Session) {
+    ['$log', 'Restangular', 'Session', '_',
+        function ($log, Restangular, Session, _) {
             'use strict';
             var teamApi = Restangular.all('teams');
 
@@ -26,7 +26,25 @@ angular.module('team')
                     });
                 },
                 updateTeam: function (team, next) {
-                    teamApi.put().then(function (res) {
+                    if(typeof team.put !== 'function') {
+                        team = Restangular.restangularizeElement(teamApi, team, '');
+                    }
+                    var memberIds = [];
+
+                    for(var i = 0; i < team.members.length; i++) {
+                        var member = team.members[i];
+                        if(member) {
+                            if(member._id) {
+                                member = member._id;
+                            }
+                            memberIds.push(member);
+                        }
+
+                    }
+
+                    team.members = memberIds;
+
+                    team.put().then(function (res) {
                         return next(null, res);
                     }, function (err) {
                         $log.error(err);
@@ -34,7 +52,10 @@ angular.module('team')
                     });
                 },
                 deleteTeam: function (team, next) {
-                    teamApi.remove().then(function () {
+                    if(typeof team.remove !== 'function') {
+                        team = Restangular.restangularizeElement(teamApi, team, '');
+                    }
+                    team.remove().then(function () {
                         return next(null);
                     }, function (err) {
                         $log.error(err);
@@ -52,7 +73,6 @@ angular.module('team')
                         return next(err);
                     });
                 }
-
             }
 
 

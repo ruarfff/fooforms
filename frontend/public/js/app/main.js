@@ -42,8 +42,12 @@ fooformsApp
 
                                     Session.org = Session.user.organisations[0];
                                     OrganisationService.getMembers(Session.user.organisations[0], function (err, members) {
-
                                         Session.org.members = members;
+                                        for(var i = 0; i < Session.org.members .length; i++) {
+                                            // This is to allow Restangular do put & remove on these objects.
+                                            Session.org.members[i].self = {};
+                                            Session.org.members [i].self.link = '/api/users/' + Session.org.members[i]._id;
+                                        }
                                     });
 
 
