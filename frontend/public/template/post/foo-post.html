@@ -1,8 +1,18 @@
-<form role="form" class="panel panel-default">
+<form role="form" class="panel panel-default roundy-border">
 
     <div class="panel-heading">
         <img class="media-object icon icon-xs" ng-src="{{activePost.icon}}" alt="">
-        <h4 class="inline-block">{{activePost.displayName}}</h4>
+        <div class="inline-block">
+            <div class="m0 p0 slideUp" ng-show="!doingPostApi" ng-hide="!activePost.createdBy">
+                <span class="small text-opacity-5">Posted by {{activePost.createdBy.displayName}}</span><img
+                    class="img-responsive img-circle post-user-img" ng-src="{{activePost.createdBy.photo || '/assets/images/photo.jpg'}}"/><span
+                    class="small"> {{activePost.lastModified | date : 'MMM d, y @ h:mm a'}} </span>
+            </div>
+            <div class="m0 p0 slideDown" ng-show="doingPostApi">
+                <i class="fa fa-refresh fa-spin"></i> Updating...
+            </div>
+
+        </div>
 
         <div class="btn-group pull-right">
             <button id='deletePost' ng-click="delete()"
@@ -18,13 +28,7 @@
                     class="btn btn-success btn-sm"><i class="fa fa-save"></i> Save
             </button>
         </div>
-        <hr class="m10">
-        <div class="m0 p0 slideUp" ng-show="!doingPostApi">
-            <span class="small text-opacity-5">Last Update:</span><span class="small"> {{activePost.lastModified | date : 'MMM d, y @ h:mm a'}}</span>
-        </div>
-        <div class="m0 p0 slideDown" ng-show="doingPostApi">
-            <i class="fa fa-refresh fa-spin"></i> Updating...
-        </div>
+
 
     </div>
     <div class="panel-body light-gray">

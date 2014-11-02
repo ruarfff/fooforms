@@ -11,6 +11,7 @@ angular.module('formBuilder').controller('FormBuilderCtrl',
             $scope.advancedInputTypes = [];
             $scope.standardInputTypes = [];
 
+
             $http.get('/js/formBuilder/inputTypes.json').success(function (data) {
 
                 $scope.inputTypes = angular.copy(data.inputTypes);
@@ -29,13 +30,22 @@ angular.module('formBuilder').controller('FormBuilderCtrl',
 
                 var name = $routeParams.name;
                 var owner = _.find(Session.user.organisations, {displayName: name}) || _.find(Session.user.teams, {displayName: name}) || Session.user.displayName;
-
+                var team = _.find(Session.user.teams, {displayName: $routeParams.team});
                 var folder;
-                if (owner && owner === Session.user.displayName) {
+
+
+
+                folderDetect: if (owner && owner === Session.user.displayName) {
                     folder = Session.user.defaultFolder;
+                }else if(team){
+                    folder = team.defaultFolder;
+                    break folderDetect;
                 } else if (owner) {
                     folder = owner.defaultFolder || owner.folders[0];
+                } else {
+                    window.location.href = '/dashboard';
                 }
+
                 var formName = $routeParams.form;
 
                 if (formName) {
@@ -82,7 +92,7 @@ angular.module('formBuilder').controller('FormBuilderCtrl',
 
             $scope.sortableOptions = {
                 connectWith: ".connected-apps-container, .repeat-apps-container",
-                cursorAt: { left: 15, top: 15},
+                cursorAt: {left: 15, top: 15},
                 "opacity": 0.7,
                 distance: 5, forceHelperSize: true,
                 helper: "clone",
@@ -127,7 +137,7 @@ angular.module('formBuilder').controller('FormBuilderCtrl',
 
             $scope.eventSortableOptions = {
                 connectWith: ".connected-events-container",
-                cursorAt: { left: 15, top: 15},
+                cursorAt: {left: 15, top: 15},
                 "opacity": 0.7,
                 distance: 5, forceHelperSize: true,
                 helper: "clone",
@@ -192,9 +202,15 @@ angular.module('formBuilder').controller('FormBuilderCtrl',
             // Used to add options to checkboxes i.e. Multiple selection
             $scope.addOptionObject = function ($index) {
                 if ($scope.nowSubEditing === null) {
-                    $scope.form.fields[$scope.nowEditing].options.splice($index + 1, 0, {"label": "", "selected": false});
+                    $scope.form.fields[$scope.nowEditing].options.splice($index + 1, 0, {
+                        "label": "",
+                        "selected": false
+                    });
                 } else {
-                    $scope.form.fields[$scope.nowEditing].fields[$scope.nowSubEditing].options.splice($index + 1, 0, {"label": "", "selected": false});
+                    $scope.form.fields[$scope.nowEditing].fields[$scope.nowSubEditing].options.splice($index + 1, 0, {
+                        "label": "",
+                        "selected": false
+                    });
                 }
             };
 
@@ -350,13 +366,36 @@ angular.module('formBuilder').controller('FormBuilderCtrl',
                         } else {
                             $scope.form = form;
 
-                            var oldForm = _.find(Session.user.forms, { '_id': $scope.form._id });
-                            var index = Session.user.defaultFolder.forms.indexOf(oldForm);
-                            if (~index) {
-                                Session.user.defaultFolder.forms = Session.user.defaultFolder.forms.push[$scope.form];
+
+                            var oldForm = _.find(Session.user.defaultFolder.forms, {'_id': $scope.form._id});
+                            if (oldForm) {
+                                var index = Session.user.defaultFolder.forms.indexOf(oldForm);
+                                if (index==-1) {
+                                    Session.user.defaultFolder.forms = Session.user.defaultFolder.forms.push[$scope.form];
+                                } else {
+                                    Session.user.defaultFolder.forms[index] = $scope.form;
+                                }
                             } else {
-                                Session.user.defaultFolder.forms[index] = $scope.form;
+                                _.forEach(Session.user.teams, function (team) {
+                                    oldForm = _.find(team.defaultFolder.forms, {'_id': $scope.form._id});
+                                    if (oldForm) {
+                                        var index = team.defaultFolder.forms.indexOf(oldForm);
+                                        if (index==-1) {
+                                            Session.user.teams[Session.user.teams.indexOf(team)].defaultFolder.forms = Session.user.teams[Session.user.teams.indexOf(team)].defaultFolder.forms.push[$scope.form];
+                                            //Session.user.organisations[0].teams[Session.user.teams.indexOf(team)].defaultFolder.forms = Session.user.organisations[0].teams[Session.user.teams.indexOf(team)].defaultFolder.forms.push[$scope.form];
+                                        } else {
+                                            Session.user.teams[Session.user.teams.indexOf(team)].defaultFolder.forms[index] = $scope.form;
+                                            //Session.user.organisations[0].teams[Session.user.teams.indexOf(team)].defaultFolder.forms[index] = $scope.form;
+                                        }
+
+                                       /* if (index > -1) {
+                                            Session.user.teams[Session.user.teams.indexOf(team)].defaultFolder.forms.splice(index, 1);
+                                            //Session.user.organisations[0].teams[Session.user.teams.indexOf(team)].defaultFolder.forms.splice(index, 1);
+                                        }*/
+                                    }
+                                });
                             }
+
                             SweetAlert.swal('Saved!', 'Your form has been updated.', 'success');
                         }
                     });
@@ -366,8 +405,18 @@ angular.module('formBuilder').controller('FormBuilderCtrl',
                             SweetAlert.swal('Not Saved!', 'An error occurred trying to create the form.', 'error');
                             $log.error(err);
                         } else {
+                            var folder = form.folder;
                             $scope.form = form;
-                            Session.user.defaultFolder.forms.push(form);
+                            if (folder == Session.user.defaultFolder._id) {
+                                Session.user.defaultFolder.forms.push($scope.form);
+                            } else {
+                                _.forEach(Session.user.teams, function (team) {
+                                    if (folder == team.defaultFolder._id) {
+                                        team.defaultFolder.forms.push($scope.form);
+                                        //Session.user.organisations[0].teams[Session.user.teams.indexOf(team)].defaultFolder.forms.push($scope.form);
+                                    }
+                                });
+                            }
                             SweetAlert.swal('Saved!', 'Your form has been created.', 'success');
 
                         }
@@ -376,20 +425,35 @@ angular.module('formBuilder').controller('FormBuilderCtrl',
             };
 
             $scope.deleteForm = function () {
-                SweetAlert.swal({   title: 'Are you sure?', text: 'Your will not be able to recover this form!',
+                SweetAlert.swal({
+                        title: 'Are you sure?', text: 'Your will not be able to recover this form!',
                         type: 'warning',
                         showCancelButton: true, confirmButtonColor: '#DD6B55',
-                        confirmButtonText: 'Yes, delete it!', closeOnConfirm: false },
+                        confirmButtonText: 'Yes, delete it!', closeOnConfirm: false
+                    },
                     function () {
                         FormService.deleteForm($scope.form, function (err) {
                             if (err) {
                                 SweetAlert.swal('Not Deleted!', 'An error occurred trying to delete the form.', 'error');
                                 $log.error(err);
                             } else {
-                                var oldForm = _.find(Session.user.defaultFolder.forms, { '_id': $scope.form._id });
-                                var index = Session.user.defaultFolder.forms.indexOf(oldForm);
-                                if (index > -1) {
-                                    Session.user.defaultFolder.forms.splice(index, 1);
+                                var oldForm = _.find(Session.user.defaultFolder.forms, {'_id': $scope.form._id});
+                                if (oldForm) {
+                                    var index = Session.user.defaultFolder.forms.indexOf(oldForm);
+                                    if (index > -1) {
+                                        Session.user.defaultFolder.forms.splice(index, 1);
+                                    }
+                                } else {
+                                    _.forEach(Session.user.teams, function (team) {
+                                        oldForm = _.find(team.defaultFolder.forms, {'_id': $scope.form._id});
+                                        if (oldForm) {
+                                            var index = team.defaultFolder.forms.indexOf(oldForm);
+                                            if (index > -1) {
+                                                Session.user.teams[Session.user.teams.indexOf(team)].defaultFolder.forms.splice(index, 1);
+                                                Session.user.organisations[0].teams[Session.user.teams.indexOf(team)].defaultFolder.forms.splice(index, 1);
+                                            }
+                                        }
+                                    });
                                 }
                                 $scope.form = FormService.getFormTemplateObject();
                                 SweetAlert.swal('Deleted!', 'Your form has been deleted.', 'success');
@@ -400,11 +464,15 @@ angular.module('formBuilder').controller('FormBuilderCtrl',
             };
 
             $scope.copyForm = function () {
-                SweetAlert.swal({   title: 'Are you sure?', text: 'Your will lose any unsaved changes on the current form but they will be applied to the copy.',
+                SweetAlert.swal({
+                    title: 'Are you sure?',
+                    text: 'Your will lose any unsaved changes on the current form but they will be applied to the copy.',
                     type: 'warning',
-                    showCancelButton: true, confirmButtonColor: '#DD6B55',
+                    showCancelButton: true,
+                    confirmButtonColor: '#DD6B55',
                     confirmButtonText: 'Yes, copy it!',
-                    closeOnConfirm: false }, function () {
+                    closeOnConfirm: false
+                }, function () {
                     SweetAlert.swal('Done!', 'Form Copied', 'success');
                     var newForm = angular.copy($scope.form);
                     if (newForm._id) {
@@ -415,10 +483,12 @@ angular.module('formBuilder').controller('FormBuilderCtrl',
             };
 
             $scope.dontSaveForm = function () {
-                SweetAlert.swal({   title: 'Are you sure?', text: 'Your will lose any unsaved changes on the form.',
+                SweetAlert.swal({
+                    title: 'Are you sure?', text: 'Your will lose any unsaved changes on the form.',
                     type: 'warning',
                     showCancelButton: true, confirmButtonColor: '#DD6B55',
-                    confirmButtonText: 'Yes, cancel it!'}, function () {
+                    confirmButtonText: 'Yes, cancel it!'
+                }, function () {
                     $scope.form = FormService.getFormTemplateObject();
                     $scope.$apply();
                 });
@@ -538,7 +608,7 @@ var ModalListManagerCtrl = function ($scope, $modalInstance, list, $upload) {
         $scope.uploadProgress = 1;
 
         $scope.upload = $upload.upload({
-            url: '/file', //upload.php script, node.js route, or servlet url
+            url: '/api/files', //upload.php script, node.js route, or servlet url
             // method: POST or PUT,
             // headers: {'header-key': 'header-value'},
             // withCredentials: true,

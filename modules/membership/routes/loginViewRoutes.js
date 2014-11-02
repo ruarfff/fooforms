@@ -7,9 +7,7 @@ var express = require('express');
 var router = express.Router();
 
 router.get('/partials/login', function (req, res) {
-    res.render(loginPath, {
-        title: 'Login'
-    });
+    res.render(loginPath);
 });
 
 

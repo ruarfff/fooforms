@@ -11,7 +11,7 @@ var request = require('supertest');
 var express = require('express');
 var bodyParser = require('body-parser');
 var should = require('should');
-var rootUrls = require(global.config.root + '/config/rootUrls');
+var rootUrls = require('../../../config/rootUrls');
 var signupRoutes = require('../routes/signupRoutes');
 var userRoutes = require('../routes/userApiRoutes');
 
@@ -42,9 +42,6 @@ describe('User Routes', function () {
     var organisationName = 'fooforms';
     var otherOrganisationName = 'otherFooforms';
 
-    var loginTitle = '<title>FOOFORMS - Login or Register</title>';
-    var signUpTitle = '<title>Sign Up</title>';
-
     var user = {};
     var otherUser = {};
 
@@ -56,7 +53,7 @@ describe('User Routes', function () {
             .send({ email: email, displayName: displayName,
                 password: password, confirmPass: confirmPass, organisationName: organisationName })
             .set('Accept', 'application/json')
-            .expect(302)
+            .expect(200)
             .end(function (err, data) {
                 should.not.exist(err);
                 request(app)
@@ -70,7 +67,7 @@ describe('User Routes', function () {
                             .send({ email: otherEmail, displayName: otherDisplayName,
                                 password: password, confirmPass: confirmPass, organisationName: otherOrganisationName })
                             .set('Accept', 'application/json')
-                            .expect(302)
+                            .expect(200)
                             .end(function (err, data) {
                                 should.not.exist(err);
                                 request(app)

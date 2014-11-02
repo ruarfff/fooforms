@@ -2,36 +2,62 @@
 
     <div ng-class="{'col-sm-12': postView=='grid'}">
 
-        <div class="panel panel-default p0 b0" ng-class="{'m0 mr15': postView=='grid'}">
-            <div ng-class="{'panel-heading m0 b0': postView=='grid'}">
+        <div class="panel panel-transparent p0 b0 mt10" ng-class="{'m0 mr15': postView=='grid'}">
+            <div class="panel-body" ng-class="{'m0 b0': postView=='grid'}">
 
-                <form ng-show="!form" class="form">
-                    <div class="form-group">
-                        <textarea class='form-control' placeholder="What's Up?"></textarea>
-                    </div>
-                    <div class="form-group">
-                        <button class="btn btn-primary pull-right" ng-click="newPost()">Post</button>
-                    </div>
-                    <div class="form-group">
-                        <span class="label label-default">All</span>
-                        <span class="label label-default mr5"
-                              ng-repeat="team in user.teams">{{ team.title || team.displayName }}
-                        </span>
-                        <span class="label label-default"><i class="fa fa-search"></i></span>
-                        <span class="label label-default" ng-click="postView='list';"><i class="fa fa-bars"></i></span>
-                        <span class="label label-default" ng-click="postView='feed';"><i
-                                class="fa fa-square"></i></span>
-                    </div>
+                <form ng-show="!form && !team" class="form">
+
+                        <img class="form-icon" ng-src="{{user.photo}}">
+                        <h4>{{(user.name.givenName + ' ' + user.name.familyName) || user.displayName}}
+                           </h4>
+
+                    <button class="btn btn-default pull-right" ng-click="newPost()">
+                        New Post <i class="fa fa-plus fa-lg"></i></button>
+
+                    <span class="label label-default"><i class="fa fa-search"></i></span>
+                    <span class="label label-default"
+                          ng-click="postView='feed';"><i
+                            class="fa fa-square"></i></span>
+                    <span class="label label-default"
+                          ng-click="postView='list';"><i
+                            class="fa fa-bars"></i></span>
+                    <span   class="label label-default"
+                            ng-click="postView='grid';"><i
+                            class="fa fa-table"></i></span>
+
+                </form>
+
+
+                <form ng-show="team" class="form"><a href="/teams" class="pull-left"><i class="fa fa-edit fa-lg"></i>
+                </a>
+                    <div class="form-icon">
+                    <i class="fa fa-group fa-lg">
+                        </i></div>
+                    <h4>{{team.title || team.displayName}}
+                        </h4>
+                    <button class="btn btn-default pull-right" ng-click="newPost()">
+                        New Team Post <i class="fa fa-plus fa-lg"></i></button>
+
+                    <span class="label label-default"><i class="fa fa-search"></i></span>
+                    <span class="label label-default"
+                          ng-click="postView='feed';"><i
+                            class="fa fa-square"></i></span>
+                    <span class="label label-default"
+                          ng-click="postView='list';"><i
+                            class="fa fa-bars"></i></span>
+                    <span   class="label label-default"
+                          ng-click="postView='grid';"><i
+                            class="fa fa-table"></i></span>
+
                 </form>
                 <span ng-show="form">
-                    <button class="btn btn-primary pull-right" ng-click="newPost()">
-                        {{form.btnLabel}} <i class="fa fa-plus fa-lg"></i></button>
-                    <img class="icon  pull-left" ng-src="{{form.icon}}">
-                    <h4 class="inline">{{form.name}}
-                        <a href="{{owner}}/{{form.displayName}}/edit"><i class="fa fa-edit fa-lg"></i>
-                        </a></h4>
 
-                    <p class='formDescription'>{{form.description}} </p>
+                    <img class="form-icon" ng-src="{{form.icon}}">
+                    <h4>{{form.displayName}}
+                        <a href="{{location}}/edit"><i class="fa fa-edit fa-lg"></i>
+                        </a></h4>
+    <button class="btn btn-default pull-right" ng-click="newPost()">
+        {{form.btnLabel}} <i class="fa fa-plus fa-lg"></i></button>
 
                     <span class="label label-default"><i class="fa fa-search"></i></span>
                     <span ng-show="form.settings.displayOptions.feed" class="label label-default"
@@ -45,8 +71,8 @@
                             class="fa fa-table"></i></span>
                     <span ng-show="form.settings.displayOptions.customDashboard || true" class="label label-default"
                           ng-click="postView='custom';"><i class="fa fa-file-o"></i></span>
-                    <hr class="hr-condensed">
-                     <span class="label label-info" ng-click="filterStatusOff()">All</span>
+
+                     <span class="label label-success" ng-click="filterStatusOff()">All</span>
 
 
                     <div class="m5 p0 inline" ng-repeat="field in form.fields" ng-show="field.type=='status'">
@@ -97,12 +123,11 @@
         <p ng-bind="msg"></p>
     </div>
 
-    <div ng-show="activePost" class="container-fluid">
 
         <div class="row">
             <div class="col-sm-12">
 
-                <foo-post active-post="activePost" delete-post="deletePost()" copy-post="copyPost()" save-post="savePost()"
+                <foo-post active-post="activePost" members="org.members" delete-post="deletePost()" copy-post="copyPost()" save-post="savePost()"
                           cancel-post="cancelPost()"></foo-post>
 
             </div>
@@ -111,7 +136,7 @@
 
         <div class="row" ng-if="activePost.commentStream">
             <div class="col-sm-12">
-                <foo-comment-collection stream="{{activePost.commentStream}}"></foo-comment-collection>
+                <foo-comment-collection active-post="activePost"></foo-comment-collection>
             </div>
         </div>
 

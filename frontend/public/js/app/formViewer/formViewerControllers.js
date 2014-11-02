@@ -1,21 +1,30 @@
 /* Controllers */
 
 angular.module('formViewer')
-    .controller('FormViewerCtrl', ['$scope', '$route', '$log', '$http' , '$modal', 'Restangular', 'SweetAlert', 'Session', 'FormService', 'PostService', 'Posts', '_',
-        function ($scope, $route, $log, $http, $modal, Restangular, SweetAlert, Session, FormService, PostService, Posts, _) {
+    .controller('FormViewerCtrl', ['$scope', '$route','$location', '$log', '$http' , '$modal', 'Restangular', 'SweetAlert', 'Session', 'FormService', 'PostService', 'Posts', '_',
+        function ($scope, $route,$location, $log, $http, $modal, Restangular, SweetAlert, Session, FormService, PostService, Posts, _) {
             "use strict";
 
             $scope.postView = 'feed';
             // Posts are linked to the post collection directive
             $scope.posts = [];
+            // Need location to set correct url for Edit button
+            $scope.location = $location.path();
 
             $scope.owner = $route.current.params.name;
             var org = _.find(Session.user.organisations, {displayName: $scope.owner});
+
+
+                var team = _.find(Session.user.teams, {displayName:  $route.current.params.team});
+
             var formName = $route.current.params.form;
             var folder;
 
-            if (Session.user.displayName === $scope.owner) {
+            folderDetect: if (Session.user.displayName === $scope.owner) {
                 folder = Session.user.defaultFolder;
+            }else if(team){
+                folder = team.defaultFolder;
+                break folderDetect;
             } else if (org) {
                 folder = org.defaultFolder;
             } else {

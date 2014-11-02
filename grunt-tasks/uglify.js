@@ -5,9 +5,24 @@ module.exports = function (grunt) {
         options: {
             mangle: false
         },
-        js: {
+        vendor: {
             files: {
-                'frontend/public/js/vendor.min.js': ['frontend/public/js/vendor.min.js']
+                "frontend/public/js/vendor.min.js": ["frontend/public/js/vendor.min.js"]
+            }
+        },
+        vendorTop: {
+            files: {
+                "frontend/public/js/vendor-top.min.js": ["frontend/public/js/vendor-top.min.js"]
+            }
+        },
+        site: {
+            files: {
+                "frontend/public/js/site.min.js": ["frontend/public/js/site.min.js"]
+            }
+        },
+        embeddedForm: {
+            files: {
+                "frontend/public/js/embedded-form.min.js": ["frontend/public/js/embedded-form.min.js"]
             }
         }
     });

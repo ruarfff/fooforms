@@ -1,120 +1,73 @@
-<!DOCTYPE html>
-<html>
-<head>
-    <title><%= title %></title>
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <!-- Bootstrap core CSS -->
-    <link rel="stylesheet" href="/vendor/bootstrap/css/bootstrap.min.css">
-    <link rel="stylesheet" href="/vendor/font-awesome/css/font-awesome.min.css">
-    <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
-    <!--[if lt IE 9]>
-    <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
-    <script src="https://oss.maxcdn.com/libs/respond.js/1.3.0/respond.min.js"></script>
-    <![endif]-->
-    <link rel="stylesheet" href="/css/halflings.css">
-    <link rel="stylesheet" href="/css/login.min.css">
-</head>
-<body ng-app="authentication">
-<div class='container' ng-controller="SignupCtrl">
-    <div class="rounded-image-border">
-        <img src="/assets/images/foo-icon.png"/></div>
+<script type="text/ng-template" id="signupContent.html">
 
+    <div id="signup-form" class="membership">
+        <div class="rounded-image-border">
+            <img src="/assets/images/foo-icon.png"/></div>
 
-    <div class='row wrapper'>
-        <div class="col-sm-12">
-            <div id="loginForm">
+        <div class="panel panel-default">
 
+            <div class="panel-body">
+                <form class="form" name="form" method="post" novalidate="novalidate" ng-submit="signup(details)">
 
-                <div class="panel panel-default">
+                    <div ng-show="signupStage==1">
+                        <h4>Let's get you signed up!</h4>
 
+                        <div class="form-group col-xs-12">
+                            <label for="email" class="form-label">Email</label>
 
-                    <div class="panel-body">
-                        <% if (error) { %>
-                        <% if (error.message) { %>
-                        <div class="alert alert-danger"><%= error.message %></div>
-                        <% } else { %>
-                        <div class="alert alert-danger">An unknown error occurred</div>
-                        <% } %>
-                        <% } %>
-                        <form class="form" name="form" method="post" action="/signup" novalidate="novalidate">
-
-                            <div ng-show="signupStage==1">
-                                <h4>Let's get you signed up!</h4>
-
-                                <div class="form-group col-xs-6">
-                                    <label for="givenName" class="form-label">First Name</label>
-
-                                    <input type="text" ng-model="givenName" name="givenName"
-                                           id="givenName"
-                                           autofocus="autofocus"
-                                           class="form-control form-control-sm"/>
-
-                                </div>
-                                <div class="form-group col-xs-6">
-                                    <label for="familyName" class="form-label">Last Name</label>
-
-                                    <input type="text" ng-model="familyName" name="familyName"
-                                           id="familyName"
-
-                                           class="form-control"/>
-                                </div>
-
-                                <div class="form-group col-xs-12">
-                                    <label for="email" class="form-label">Email</label>
-
-                                    <input type="email" ng-model="email" name="email" id="email" required="required"
-                                           class="form-control"/>
+                            <input type="email" ng-model="details.email" name="email" id="email" required="required"
+                                   class="form-control"/>
                             <span ng-show="form.email.$error.email" class="bg-warning"><span
                                     class="glyphicon glyphicon-warning-sign"></span></span>
 
-                                </div>
+                        </div>
 
+                        <div class="form-group col-xs-12">
+                            <label class="form-label">Company / Organisation</label>
 
-                                <div class="form-group col-xs-12">
-                                    <label class="form-label">Company / Organisation</label>
+                            <div class="input-group">
+                                <span class="input-group-addon">fooforms.com / </span>
 
-                                    <div class="input-group">
-                                        <span class="input-group-addon">fooforms.com / </span>
-
-                                        <input type="text" ng-model="organisationName" name="organisationName"
-                                               id="organisationName"
-                                               required="required" unique-orgname="unique-orgname"
-                                               class="form-control"/>
-                                        <i ng-show="orgnameBusy"
-                                           class="halflings-icon refresh rotating"></i>
-                                    </div>
-                                    <div ng-show="form.organisationName.$dirty &amp;&amp; form.organisationName.$error.required"
-                                         class="help-block">You need an organisation name
-                                    </div>
-                                    <div ng-show="form.organisationName.$dirty &amp;&amp; form.organisationName.$error.isTaken"
-                                         class="help-block alert alert-danger">Organisation name already taken
-                                    </div>
-                                    <div ng-show="form.organisationName.$dirty &amp;&amp; form.organisationName.$error.error"
-                                         class="help-block alert alert-danger">Invalid organisation name
-                                    </div>
-                                    <div ng-show="sluggedOrgName"
-                                         class="help-block alert alert-warning">Organisation will become
-                                        {{sluggedOrgName}}
-                                    </div>
-
-                                </div>
-
-
-                                <div class="form-group">
-                                    <span ng-click="validateStageOne()" class="btn btn-primary pull-right">Next</span>
-                                </div>
+                                <input type="text" ng-model="details.organisationName" name="organisationName"
+                                       id="organisationName"
+                                       required="required" unique-orgname="unique-orgname"
+                                       class="form-control"/>
+                                <i ng-show="orgnameBusy"
+                                   class="halflings-icon refresh rotating"></i>
                             </div>
-                            <div class="panel-body" ng-show="signupStage==2">
-                                <h4>Last step!</h4>
+                            <div ng-show="form.organisationName.$dirty &amp;&amp; form.organisationName.$error.required"
+                                 class="help-block">You need an organisation name
+                            </div>
+                            <div ng-show="form.organisationName.$dirty &amp;&amp; form.organisationName.$error.isTaken"
+                                 class="help-block alert alert-danger">Organisation name already taken
+                            </div>
+                            <div ng-show="form.organisationName.$dirty &amp;&amp; form.organisationName.$error.error"
+                                 class="help-block alert alert-danger">Invalid organisation name
+                            </div>
+                            <div ng-show="sluggedOrgName"
+                                 class="help-block alert alert-warning">Organisation will become
+                                {{sluggedOrgName}}
+                            </div>
 
-                                <div class="form-group">
-                                    <label class="form-label">Choose a username</label>
-                                    <input type="text" name="displayName" id="displayName"
-                                           unique-username="unique-username" different="organisationName"
-                                           required="required"
-                                           ng-model="displayName"
-                                           class="form-control"/><i ng-show="usernameBusy"
-                                                                    class="halflings-icon refresh rotating"></i>
+                        </div>
+                        <div class="alert alert-danger ng-hide" ng-show="stageOneError">
+                            {{stageOneError}}
+                        </div>
+                        <div class="form-group">
+                            <span ng-click="validateStageOne()" class="btn btn-primary pull-right">Next</span>
+                        </div>
+                    </div>
+                    <div class="panel-body" ng-show="signupStage==2">
+                        <h4>Last step!</h4>
+
+                        <div class="form-group">
+                            <label class="form-label">Choose a username</label>
+                            <input type="text" name="displayName" id="displayName"
+                                   unique-username="unique-username" different="organisationName"
+                                   required="required"
+                                   ng-model="details.displayName"
+                                   class="form-control"/><i ng-show="usernameBusy"
+                                                            class="halflings-icon refresh rotating"></i>
                             <span ng-show="form.displayName.$dirty &amp;&amp; form.displayName.$error.required"
                                   class="help-block">Please choose a username</span>
                             <span ng-show="form.displayName.$dirty &amp;&amp; form.displayName.$error.isTaken"
@@ -127,54 +80,43 @@
                             <span
                                     ng-show="form.displayName.$dirty &amp;&amp; form.displayName.$error.different &amp;&amp; !form.displayName.$error.required &amp;&amp; !form.organisationName.$error.required"
                                     class="help-block alert alert-danger">Username cannot be the same as organisation name</span>
-                                </div>
+                        </div>
 
-                                <div class="form-group">
-                                    <label class="form-label">Choose a Password</label>
-                                    <input type="password" name="password" id="password" ng-model="password"
-                                           required="required"
-                                           class="form-control"/>
-
-                                    <span
-                                        ng-show="form.password.$dirty &amp;&amp; form.password.$error.required"
-                                        class="help-block">Please enter a password</span>
-                                </div>
-
-                                <div class="form-group">
-                                    <label class="form-label">Confirm Password</label>
-                                    <input type="password" name="confirmPass" id="confirmPass" ng-model="confirmPass"
-                                           required match="password" class="form-control"/>
+                        <div class="form-group">
+                            <label class="form-label">Choose a Password</label>
+                            <input type="password" name="password" id="password" ng-model="details.password"
+                                   required="required"
+                                   class="form-control"/>
 
                                     <span
-                                        ng-show="form.confirmPass.$dirty &amp;&amp; form.confirmPass.$error.required"
-                                        class="help-block">Please repeat your password</span><span
-                                        ng-show="form.confirmPass.$dirty &amp;&amp; form.confirmPass.$error.match &amp;&amp; !form.confirmPass.$error.required"
-                                        class="help-block">Passwords don't match</span>
-                                </div>
-                                <div class="form-group">
-                                    <input type="submit" value="Create Account" ng-disabled="form.$invalid"
-                                           class="btn btn-primary pull-right"/>
-                                </div>
-                            </div>
+                                            ng-show="form.password.$dirty &amp;&amp; form.password.$error.required"
+                                            class="help-block">Please enter a password</span>
+                        </div>
 
+                        <div class="form-group">
+                            <label class="form-label">Confirm Password</label>
+                            <input type="password" name="confirmPass" id="confirmPass" ng-model="details.confirmPass"
+                                   required match="details.password" class="form-control"/>
 
-                        </form>
+                                    <span
+                                            ng-show="form.confirmPass.$dirty &amp;&amp; form.confirmPass.$error.required"
+                                            class="help-block">Please repeat your password</span><span
+                                ng-show="form.confirmPass.$dirty &amp;&amp; form.confirmPass.$error.match &amp;&amp; !form.confirmPass.$error.required"
+                                class="help-block">Passwords don't match</span>
+                        </div>
+                        <div class="alert alert-danger ng-hide" ng-show="signupError">{{signupError}}
+                        </div>
+                        <div class="form-group clearfix">
+                            <input type="submit" id="submit" class="form-control btn btn-primary"
+                                   ng-disabled="form.$invalid"
+                                   value='Create Account'/>
+                        </div>
                     </div>
-                </div>
+
+                </form>
             </div>
-
         </div>
-
-
     </div>
-</div>
 
-<script type="text/javascript" src="/vendor/jquery/jquery-2.1.1.min.js"></script>
-<script type="text/javascript" src="/vendor/bootstrap/js/bootstrap.min.js"></script>
-<script type="text/javascript" src="/vendor/angular/angular.min.js"></script>
 
-<script type="text/javascript" src="/vendor/angular/angular-cookies.min.js"></script>
-<script type="text/javascript" src="/js/auth.min.js"></script>
-
-</body>
-</html>
+</script>

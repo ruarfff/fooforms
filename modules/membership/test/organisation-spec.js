@@ -7,15 +7,15 @@ var ObjectId = mongoose.Types.ObjectId();
 var mockgoose = require('mockgoose');
 mockgoose(mongoose);
 
-global.config = {};
-global.config.root = '../../../';
-
 var request = require('supertest');
 var express = require('express');
 var bodyParser = require('body-parser');
 var should = require('should');
-var rootUrls = require(global.config.root + '/config/rootUrls');
+var rootUrls = require('../../../config/rootUrls');
 var organisationApiRoutes = require('../routes/organisationApiRoutes');
+var Membership = require('fooforms-membership');
+var db = require('mongoose').connection;
+var membership = new Membership(db);
 
 var app = express();
 app.use(bodyParser.json());
@@ -29,21 +29,31 @@ app.use(rootUrl, organisationApiRoutes);
 describe('Organisation API', function () {
     // Some test data
     var displayName = 'organisation';
-    var owner = ObjectId;
+    var owner;
     var billingEmail = 'org@company.com';
     var otherDisplayName = 'otherOrganisation';
-    var otherOwner = ObjectId;
     var otherBillingEmail = 'otherorg@company.com';
 
-    var sampleOrg = {
-        owner: owner, displayName: displayName, billingEmail: billingEmail
-    };
-    var otherSampleOrg = {
-        owner: otherOwner, displayName: otherDisplayName, billingEmail: otherBillingEmail
-    };
+    var sampleOrg;
+    var otherSampleOrg;
 
-    before(function () {
+    beforeEach(function (done) {
         mockgoose.reset();
+        var user = new membership.User({
+            email: 'some@email.com', displayName: 'someone', password: 'pass'
+        });
+        user.save(function (err, user) {
+            should.not.exist(err);
+            should.exist(user);
+            owner = user;
+            sampleOrg = {
+                owner: owner, displayName: displayName, billingEmail: billingEmail
+            };
+            otherSampleOrg = {
+                owner: owner, displayName: otherDisplayName, billingEmail: otherBillingEmail
+            };
+            done(err);
+        })
     });
 
     describe('POST ' + rootUrl, function () {

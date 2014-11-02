@@ -4,8 +4,7 @@ module.exports = function (grunt) {
     grunt.config('concat', {
         js: {
             options: {
-                separator: ';',
-                stripBanners: true
+                separator: ';'
             },
             src: [
                 'frontend/public/js/app/main.js',
@@ -23,20 +22,22 @@ module.exports = function (grunt) {
             dest: 'frontend/public/js/auth.min.js'
         },
         vendorTop: {
-            js: {
-
+            options: {
+                separator: ';',
+                stripBanners: true
             },
             src: [
-                'frontend/src/bower/jquery/dist/jquery.min.js',
-                'frontend/src/bower/bootstrap/dist/js/bootstrap.min.js',
-                'frontend/src/bower/angular/angular.min.js'
+                'frontend/src/bower/jquery/dist/jquery.js',
+                'frontend/src/bower/bootstrap-sass-official/assets/javascripts/bootstrap.js',
+                'frontend/src/bower/angular/angular.js'
             ],
             dest: 'frontend/public/js/vendor-top.min.js'
         },
         // Vendor JS to be included just before body end
         vendor: {
             options: {
-                separator: ';'
+                separator: ';',
+                stripBanners: true
             },
             src: [
                 'frontend/src/bower/angular-route/angular-route.min.js',
@@ -56,17 +57,47 @@ module.exports = function (grunt) {
                 'frontend/src/bower/fullcalendar/dist/fullcalendar.min.js',
                 'frontend/src/bower/angular-ui-codemirror/dist/ui-codemirror.min.js',
                 'frontend/src/bower/codemirror/lib/codemirror.js',
-                'frontend/src/bower/sweetalert/lib/sweet-alert.min.js'
+                'frontend/src/bower/pikaday/pikaday.js',
+                'frontend/src/bower/sweetalert/lib/sweet-alert.min.js',
+                'frontend/src/bower/angular-sweetalert/SweetAlert.min.js',
+                'frontend/src/bower/angular-busy/dist/angular-busy.min.js'
             ],
             dest: 'frontend/public/js/vendor.min.js'
         },
         vendorStyle: {
             src: [
-                'frontend/src/bower/bootstrap/dist/css/bootstrap.min.css',
                 'frontend/src/bower/codemirror/lib/codemirror.css',
-                'frontend/src/bower/codemirror/theme/mdn-like.css'
+                'frontend/src/bower/codemirror/theme/mdn-like.css',
+                'frontend/src/bower/pikaday/css/pikaday.css',
+                'frontend/src/bower/angular-busy/dist/angular-busy.min.css'
             ],
             dest: 'frontend/public/css/vendor.min.css'
+        },
+        site: {
+            options: {
+                separator: ';',
+                stripBanners: true
+            },
+            src: [
+                'frontend/src/bower/jquery/dist/jquery.js',
+                'frontend/src/bower/bootstrap-sass-official/assets/javascripts/bootstrap.js'
+            ],
+            dest: 'frontend/public/js/site.min.js'
+        },
+        embeddedForm: {
+            options: {
+                separator: ';',
+                stripBanners: true
+            },
+            src: [
+                'frontend/src/bower/jquery/dist/jquery.js',
+                'frontend/src/bower/bootstrap-sass-official/assets/javascripts/bootstrap.js',
+                'frontend/src/bower/angular/angular.js',
+                'frontend/src/bower/angular-sanitize/angular-sanitize.min.js',
+                'frontend/src/bower/pikaday/pikaday.js',
+                'frontend/public/js/app/common/pikadayDirective.js'
+            ],
+            dest: 'frontend/public/js/embedded-form.min.js'
         }
 
     });

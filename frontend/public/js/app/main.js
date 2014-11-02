@@ -3,13 +3,13 @@
 
 var fooformsApp = angular.module('fooformsApp', [
     // Vendor dependencies
-    'ngRoute', 'ngSanitize', 'trNgGrid', 'restangular', 'ui.bootstrap', 'textAngular', 'ui.calendar', 'angularFileUpload', 'ui.sortable', 'infinite-scroll', 'oitozero.ngSweetAlert',
+    'ngRoute', 'ngSanitize', 'trNgGrid', 'restangular', 'ui.bootstrap', 'textAngular', 'ui.calendar', 'angularFileUpload', 'ui.sortable', 'infinite-scroll', 'oitozero.ngSweetAlert', 'cgBusy',
     // Custom dependencies
-    'dashboard', 'form', 'formBuilder', 'formViewer', 'user', 'organisation', 'team', 'authentication', 'post', 'comment'
+    'dashboard', 'form', 'formBuilder', 'formViewer', 'user', 'organisation', 'team', 'authentication', 'post', 'comment', 'invite'
 ]);
 
 fooformsApp
-    .factory("SessionService", ['$location', '$q', '$log', 'Restangular', '_', 'AuthService', 'DashboardService', 'Session', function ($location, $q, $log, Restangular, _, AuthService, DashboardService, Session) {
+    .factory("SessionService", ['$location', '$q', '$log', 'Restangular', '_', 'AuthService', 'DashboardService', 'OrganisationService','Session', function ($location, $q, $log, Restangular, _, AuthService, DashboardService, OrganisationService,Session) {
         return {
             checkSession: function () {
                 var deferred = $q.defer();
@@ -19,7 +19,9 @@ fooformsApp
                             $log.log(err);
                         }
                         if (!AuthService.isAuthenticated()) {
-                            $location.path("/login");
+                            if ($location.path() !== '/signup') {
+                                $location.path("/login");
+                            }
                         } else {
                             DashboardService.getUserDashboard(function (err, result) {
                                 if (err) {
@@ -36,7 +38,20 @@ fooformsApp
                                         organisation.teams = _.filter(Session.user.teams, {organisation: organisation._id});
                                     });
 
-                                    Session.org = Session.user.organisations[0];
+
+
+                                    Session.org = angular.copy(Session.user.organisations[0]);
+                                    OrganisationService.getMembers(Session.user.organisations[0], function (err, members) {
+                                        Session.org.members = members;
+                                        for(var i = 0; i < Session.org.members .length; i++) {
+                                            // This is to allow Restangular do put & remove on these objects.
+                                            Session.org.members[i].self = {};
+                                            Session.org.members [i].self.link = '/api/users/' + Session.org.members[i]._id;
+                                        }
+                                    });
+
+
+
 
                                     deferred.resolve(Session.user);
                                 }
@@ -50,7 +65,6 @@ fooformsApp
             }
         }
     }]);
-
 
 fooformsApp
     .config(['$routeProvider', '$locationProvider', 'RestangularProvider', function ($routeProvider, $locationProvider, RestangularProvider) {
@@ -91,11 +105,8 @@ fooformsApp
                 controller: 'AuthCtrl'
             })
             .when('/signup', {
-                resolve: {
-                    message: function () {
-                        return window.location.href = '/signup';
-                    }
-                }
+                templateUrl: '/signup/partials/signup',
+                controller: 'AuthCtrl'
             })
             .when('/dashboard', {
                 templateUrl: '/dashboard/partials/main-view',
@@ -105,6 +116,10 @@ fooformsApp
                         return SessionService.checkSession();
                     }
                 }
+            })
+            .when('/invite/:invite', {
+                templateUrl: '/invite/partials/invite',
+                controller: 'InviteCtrl'
             })
             .when('/people', {
                 templateUrl: '/users/partials/people',
@@ -185,7 +200,7 @@ fooformsApp
             })
             .when('/teams/:team', {
                 templateUrl: '/teams/partials/team-profile',
-                controller: 'TeamCtrl',
+                controller: 'TeamProfileCtrl',
                 resolve: {
                     message: function (SessionService) {
                         return SessionService.checkSession();
@@ -264,6 +279,24 @@ fooformsApp
                     }
                 }
             })
+            .when('/:name/teams/:team/:form/edit', {
+                templateUrl: '/forms/partials/formBuilder',
+                controller: 'FormBuilderCtrl',
+                resolve: {
+                    message: function (SessionService) {
+                        return SessionService.checkSession();
+                    }
+                }
+            })
+            .when('/:name/teams/:team/:form', {
+                templateUrl: '/dashboard/partials/main-view',
+                controller: 'FormViewerCtrl',
+                resolve: {
+                    message: function (SessionService) {
+                        return SessionService.checkSession();
+                    }
+                }
+            })
             .otherwise({redirectTo: '/'});
     }])
     .config(['$httpProvider', function ($httpProvider) {
@@ -277,14 +310,18 @@ fooformsApp
             response: function (response) {
                 if (response.status === 401) {
                     $log.log("Response 401");
-                    $location.path("/login");
+                    if ($location.path() !== '/signup') {
+                        $location.path("/login");
+                    }
                 }
                 return response || $q.when(response);
             },
             responseError: function (rejection) {
                 if (rejection.status === 401) {
                     $log.log("Response Error 401", rejection);
-                    $location.path("/login");
+                    if ($location.path() !== '/signup') {
+                        $location.path("/login");
+                    }
                 }
                 return $q.reject(rejection);
             }

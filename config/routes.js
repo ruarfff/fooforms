@@ -16,7 +16,7 @@ var formViewer = require('../modules/formViewer');
 var membership = require('../modules/membership');
 var site = require('../modules/site');
 
-
+/**
 var loginOrContinue = function (req, res, next) {
     var username = req.params.username;
     var form = req.params.form;
@@ -39,7 +39,7 @@ var loginOrContinue = function (req, res, next) {
             return res.send();
         });
     })(req, res, next);
-};
+};*/
 
 /**
  * Main configuration for all routes in application.
@@ -63,12 +63,18 @@ var routes = function (app, passport) {
      */
 
     app.use(slash, site.siteViewRoutes);
-    app.use(slash + rootUrls.signup, membership.signupRoutes);
-    app.use(slash + rootUrls.login, membership.loginRoutes);
 
     // For the dashboard, authentication is handled on the client by not fetching or showing anything until user is checked.
     app.use(slash + rootUrls.dashboard, dashboard.dashboardViewRoutes);
 
+
+    /**
+     * Authentication routes
+     */
+    app.use(slash + rootUrls.signup, membership.signupRoutes);
+    app.use(slash + rootUrls.signup, membership.signupViewRoutes);
+    app.use(slash + rootUrls.login, membership.loginRoutes);
+    app.use(api + slash + rootUrls.invite, membership.invitePublicApiRoutes);
 
     /**
      * Some basic view routes that wont's bother authenticating since they have no data in them
@@ -78,6 +84,7 @@ var routes = function (app, passport) {
     app.use(slash + rootUrls.organisations, membership.organisationViewRoutes);
     app.use(slash + rootUrls.teams, membership.teamViewRoutes);
     app.use(slash + rootUrls.files, file.fileViewRoutes);
+    app.use(slash + rootUrls.invite, membership.inviteViewRoutes);
 
 
     // If someone hits a root URL directly (not from dashboard) redirect them to the dashboard
@@ -98,6 +105,7 @@ var routes = function (app, passport) {
     /**
      * API and other routes that are protected
      */
+    app.use(api + slash + rootUrls.invite, passport.authenticate('basic', {session: false}), membership.inviteApiRoutes);
     app.use(api + slash + rootUrls.dashboard, passport.authenticate('basic', {session: false}), dashboard.dashboardApiRoutes);
     app.use(api + slash + rootUrls.users, passport.authenticate('basic', {session: false}), membership.userApiRoutes);
     app.use(api + slash + rootUrls.organisations, passport.authenticate('basic', {session: false}), membership.organisationApiRoutes);
@@ -123,9 +131,10 @@ var routes = function (app, passport) {
         });
 
 
+    // TODO: repeating code all over the place here. Copy an past working but doign it right not figured out just yet
+
     app.get('/:username', function (req, res, next) {
         var username = req.params.username;
-        log.info(username);
         passport.authenticate('basic', { session: false}, function (err, user, info) {
             if (err) {
                 return next(err);
@@ -150,7 +159,6 @@ var routes = function (app, passport) {
     app.get('/:username/:form', function (req, res, next) {
         var username = req.params.username;
         var form = req.params.form;
-        log.info(username + '-' + form);
         passport.authenticate('basic', { session: false}, function (err, user, info) {
             if (err) {
                 return next(err);
@@ -174,7 +182,81 @@ var routes = function (app, passport) {
     app.get('/:username/:form/edit', function (req, res, next) {
         var username = req.params.username;
         var form = req.params.form;
-        log.info(username + '-' + form);
+        passport.authenticate('basic', { session: false}, function (err, user, info) {
+            if (err) {
+                return next(err);
+            }
+            if (!user) {
+                return res.render(dashboard.mainView, {
+                    dev: (process.env.NODE_ENV === 'development'),
+                    user: req.user || '',
+                    assets: assets
+                });
+            }
+            req.logIn(user, function (err) {
+                if (err) {
+                    return next(err);
+                }
+                return res.send();
+            });
+        })(req, res, next);
+    });
+
+    app.get('/:organisation/teams/:team', function (req, res, next) {
+        var organisation = req.params.username;
+        var team = req.params.team;
+        var form = req.params.form;
+
+        passport.authenticate('basic', { session: false}, function (err, user, info) {
+            if (err) {
+                return next(err);
+            }
+            if (!user) {
+                return res.render(dashboard.mainView, {
+                    dev: (process.env.NODE_ENV === 'development'),
+                    user: req.user || '',
+                    assets: assets
+                });
+            }
+            req.logIn(user, function (err) {
+                if (err) {
+                    return next(err);
+                }
+                return res.send();
+            });
+        })(req, res, next);
+    });
+
+    app.get('/:organisation/teams/:team/:form', function (req, res, next) {
+        var organisation = req.params.username;
+        var team = req.params.team;
+        var form = req.params.form;
+
+        passport.authenticate('basic', { session: false}, function (err, user, info) {
+            if (err) {
+                return next(err);
+            }
+            if (!user) {
+                return res.render(dashboard.mainView, {
+                    dev: (process.env.NODE_ENV === 'development'),
+                    user: req.user || '',
+                    assets: assets
+                });
+            }
+            req.logIn(user, function (err) {
+                if (err) {
+                    return next(err);
+                }
+                return res.send();
+            });
+        })(req, res, next);
+    });
+
+    app.get('/:organisation/teams/:team/:form/edit', function (req, res, next) {
+        var organisation = req.params.username;
+        var team = req.params.team;
+        var form = req.params.form;
+
         passport.authenticate('basic', { session: false}, function (err, user, info) {
             if (err) {
                 return next(err);
@@ -196,8 +278,9 @@ var routes = function (app, passport) {
     });
 
 
+
     app.use(function (err, req, res, next) {
-        if (err.message.indexOf('not found')) {
+        if (err.message.indexOf('not found') > -1) {
             //Treat as 404
             return next();
         }
