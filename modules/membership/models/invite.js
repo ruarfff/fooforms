@@ -36,6 +36,13 @@ inviteSchema.pre('save', function (next) {
     this.lastModified = new Date();
     return next();
 });
+/**
+ var Invite;
+ try {
+    Invite = mongoose.model('Invite');
+} catch (err) {
+    Invite =
+}*/
 
 exports.Invite = mongoose.model('Invite', inviteSchema);
 
