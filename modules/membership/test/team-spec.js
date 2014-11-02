@@ -215,5 +215,92 @@ describe('Team API', function () {
         });
 
     });
+
+    describe('PATCH ' + rootUrl, function () {
+        var team = {};
+        var resourceUrl;
+        var user;
+
+        beforeEach(function (done) {
+            var userModel = membership.User({displayName: 'aUser', email: 'user@email.com', password: 'somepass'});
+            userModel.save(function (err, savedUser) {
+                user = savedUser;
+                request(app)
+                    .post(rootUrl)
+                    .send(sampleTeam)
+                    .set('Accept', 'application/json')
+                    .expect('Content-Type', /json/)
+                    .expect(201)
+                    .end(function (err, res) {
+                        team = res.body;
+                        res.headers.location.should.equal(rootUrl + '/' + team._id);
+                        resourceUrl = res.headers.location;
+                        done(err);
+                    });
+            });
+        });
+
+        afterEach(function () {
+            mockgoose.reset();
+        });
+
+        it('responds with 200 and user is added to team, also team is added to user', function (done) {
+            request(app)
+                .patch(resourceUrl)
+                .send({
+                    action: 'addMember',
+                    user: user._id
+                })
+                .set('Accept', 'application/json')
+                .expect('Content-Type', /json/)
+                .expect(200, function (err, res) {
+                    var updatedTeam = res.body;
+                    updatedTeam._id.should.equal(team._id.toString());
+                    updatedTeam.members.length.should.equal(1);
+                    updatedTeam.members[0].should.eql(user._id.toString());
+                    membership.User.findById(user._id, function (err, updatedUser) {
+                        updatedUser.teams.length.should.equal(1);
+                        updatedUser.teams[0].toString().should.eql(updatedTeam._id.toString());
+                        done(err);
+                    });
+                });
+        });
+
+        it('responds with 200 and user is removed from team, also team is removed from user', function (done) {
+            request(app)
+                .patch(resourceUrl)
+                .send({
+                    action: 'addMember',
+                    user: user._id
+                })
+                .set('Accept', 'application/json')
+                .expect('Content-Type', /json/)
+                .expect(200, function (err, res) {
+                    should.not.exist(err);
+                    var updatedTeam = res.body;
+                    updatedTeam._id.should.equal(team._id.toString());
+                    updatedTeam.members.length.should.equal(1);
+
+                    request(app)
+                        .patch(resourceUrl)
+                        .send({
+                            action: 'removeMember',
+                            user: user._id
+                        })
+                        .set('Accept', 'application/json')
+                        .expect('Content-Type', /json/)
+                        .expect(200, function (err, res) {
+                            var updatedTeam = res.body;
+                            updatedTeam._id.should.equal(team._id.toString());
+                            updatedTeam.members.length.should.equal(0);
+                            membership.User.findById(user._id, function (err, updatedUser) {
+                                updatedUser.teams.length.should.equal(0);
+                                done(err);
+                            });
+                        });
+                });
+
+        });
+    });
 });
 

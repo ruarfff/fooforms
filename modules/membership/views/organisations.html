@@ -125,7 +125,7 @@
                                 <h4>Members</h4>
                                 <div ng-repeat="member in members"  class="col-sm-4 col-md-3">
                                 <div class="thumbnail">
-                                    <img class="icon" src="{{member.photo}}">
+                                    <img class="icon" ng-src="{{member.photo || '/assets/images/photo.jpg'}}">
                                     <div class="caption">
 
                                         <p>  {{member.displayName}}<br>{{ member.name.givenName + ' ' + member.name.familyName}}</p>

@@ -40,7 +40,7 @@ fooformsApp
 
 
 
-                                    Session.org = Session.user.organisations[0];
+                                    Session.org = angular.copy(Session.user.organisations[0]);
                                     OrganisationService.getMembers(Session.user.organisations[0], function (err, members) {
                                         Session.org.members = members;
                                         for(var i = 0; i < Session.org.members .length; i++) {
