@@ -13,9 +13,8 @@ var _ = require('underscore');
 
 var populateForms = function (team, next) {
     membership.Team.populate(team, {path: 'folders', model: 'Folder'}, function (err, team) {
-        if (err) {
-            return next(err);
-        }
+        if (err) return next(err);
+
         membership.Team.populate(team, {path: 'folders.forms', model: 'Form'}, function (err, team) {
             if (typeof team.toObject === 'function') {
                 team = team.toObject();
@@ -28,9 +27,8 @@ var populateForms = function (team, next) {
 
 exports.findById = function (req, res, next) {
     membership.findTeamById(req.params.team, function (err, result) {
-        if (err) {
-            next(err);
-        }
+        if (err) return next(err);
+
         if (result.success) {
             var team = result.data;
             populateForms(team, function (err, team) {
@@ -45,7 +43,7 @@ exports.findById = function (req, res, next) {
 exports.searchMembers = function (req, res, next) {
     var searchName = req.params.name;
     membership.Team.findById(req.params.team).populate('members').exec(function (err, team) {
-        if (err) next(err);
+        if (err) return next(err);
         if (!team) {
             res.status(statusCodes.NOT_FOUND).end();
         } else {
@@ -68,7 +66,7 @@ exports.searchMembers = function (req, res, next) {
 
 exports.listMembers = function (req, res, next) {
     membership.Team.findById(req.params.team).populate('members').exec(function (err, team) {
-        if (err) next(err);
+        if (err) return next(err);
         if (!team) {
             res.status(statusCodes.NOT_FOUND).end();
         } else {
@@ -142,9 +140,8 @@ exports.update = function (req, res, next) {
         req.body.folders = _.pluck(req.body.folders, "_id")
     }
     membership.updateTeam(req.body, function (err, result) {
-        if (err) {
-            next(err);
-        }
+        if (err) return next(err);
+
         if (result.success) {
             var team = result.team;
 
@@ -160,13 +157,79 @@ exports.update = function (req, res, next) {
 
 exports.remove = function (req, res, next) {
     membership.deleteTeam({_id: req.body._id}, function (err, result) {
-        if (err) {
-            next(err);
-        }
+        if (err) return next(err);
+
         if (result.success) {
             res.status(statusCodes.NO_CONTENT).send();
         } else {
             res.status(statusCodes.BAD_REQUEST).json(result.message);
         }
     });
+};
+
+exports.addMember = function (req, res, next) {
+    if (req.team && req.team._id) {
+        membership.Team.findById(req.team, function (err, team) {
+            if (err) return next(err);
+            if (!team) {
+                res.status(statusCodes.NOT_FOUND).send();
+            } else {
+                membership.User.findById(req.user, function (err, user) {
+                    if (err) return next(err);
+                    if (!user) {
+                        res.status(statusCodes.NOT_FOUND).send();
+                    } else {
+                        team.members.push(user._id);
+                        user.teams.push(team._id);
+                        user.save(function (err) {
+                            if (err) return next(err);
+                            team.save(function (err) {
+                                if (err) return next(err);
+                                res.status(statusCodes.OK).send('User added to team');
+                            });
+                        })
+                    }
+                });
+            }
+        });
+    } else {
+        res.status(statusCodes.NOT_FOUND).send();
+    }
+};
+
+exports.removeMember = function (req, res, next) {
+    if (req.team && req.team._id) {
+        membership.Team.findById(req.team, function (err, team) {
+            if (err) return next(err);
+            if (!team) {
+                res.status(statusCodes.NOT_FOUND).send();
+            } else {
+                membership.User.findById(req.user, function (err, user) {
+                    if (err) return next(err);
+                    if (!user) {
+                        res.status(statusCodes.NOT_FOUND).send();
+                    } else {
+                        var index = team.members.indexOf(user._id);
+                        if (index > -1) {
+                            team.members.splice(index, 1);
+                        }
+                        index = user.teams.indexOf(team._id);
+                        if (index > -1) {
+                            user.teams.splice(team._id, 1);
+                        }
+
+                        user.save(function (err) {
+                            if (err) return next(err);
+                            team.save(function (err) {
+                                if (err) return next(err);
+                                res.status(statusCodes.OK).send('User removed from team');
+                            });
+                        })
+                    }
+                });
+            }
+        });
+    } else {
+        res.status(statusCodes.NOT_FOUND).send();
+    }
 };

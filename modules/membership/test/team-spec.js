@@ -215,5 +215,47 @@ describe('Team API', function () {
         });
 
     });
+
+    describe('PATCH ' + rootUrl, function () {
+        var team = {};
+        var resourceUrl;
+
+        beforeEach(function (done) {
+            request(app)
+                .post(rootUrl)
+                .send(sampleTeam)
+                .set('Accept', 'application/json')
+                .expect('Content-Type', /json/)
+                .expect(201)
+                .end(function (err, res) {
+                    team = res.body;
+                    res.headers.location.should.equal(rootUrl + '/' + team._id);
+                    resourceUrl = res.headers.location;
+                    done(err);
+                });
+        });
+
+        afterEach(function () {
+            mockgoose.reset();
+        });
+
+        it('responds with 200 and the updated json', function (done) {
+            var newName = 'newName';
+            team.displayName = newName;
+            request(app)
+                .put(resourceUrl)
+                .send(team)
+                .set('Accept', 'application/json')
+                .expect('Content-Type', /json/)
+                .expect(200, function (err, res) {
+                    var updatedTeam = res.body;
+                    updatedTeam._id.should.equal(team._id.toString());
+                    updatedTeam.displayName.should.equal(newName);
+                    updatedTeam.folders.length.should.equal(1);
+                    updatedTeam.folders[0].displayName.should.equal('team-folder');
+                    done(err);
+                });
+        });
+    });
 });
 

@@ -28,4 +28,14 @@ router.delete('', function (req, res, next) {
     teamController.remove(req, res, next);
 });
 
+router.patch('', function (req, res, next) {
+    if (req.body.action === 'addMember') {
+        teamController.addMember(req, res, next);
+    } else if (req.body.action === 'removeMember') {
+        teamController.removeMember(req, res, next);
+    } else {
+        res.status(400).send();
+    }
+});
+
 module.exports = router;
