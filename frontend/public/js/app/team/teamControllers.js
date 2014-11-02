@@ -4,8 +4,15 @@ angular.module('team')
         function ($scope, $route, $log, Restangular, SweetAlert, TeamService, Team, Session, _) {
             "use strict";
 
-            $scope.currentTeam = Session.user.teams[0];
             $scope.currentOrganisation = Session.user.organisations[0];
+
+            $scope.teams = _.filter(Session.user.teams, function (team) {
+                var orgMemberId = $scope.currentOrganisation.members._id || $scope.currentOrganisation.members;
+                return team._id != orgMemberId;
+            });
+
+            $scope.currentTeam = $scope.teams[0];
+
 
             var setTeam = function (team) {
                 $scope.currentTeam = team;
@@ -81,7 +88,7 @@ angular.module('team')
                         $scope.addMemberError = err.message;
                     } else {
                         if (team) {
-                            $scope.currentTeam = team
+                            $scope.currentTeam = team;
                             if (Session.user._id == member._id) {
                                 Session.user.teams.push($scope.currentTeam);
                             }
@@ -89,7 +96,6 @@ angular.module('team')
                             _.pull($scope.orgMembers, member);
                             $scope.members.push(member);
                             member.teams.push($scope.currentTeam);
-                            $scope.currentTeam.members.push(member);
 
 
                         } else {
@@ -97,34 +103,35 @@ angular.module('team')
                         }
                     }
                 });
-            }
-            /**
-             $scope.removeFromTeam = function (member) {
-                _.pull(member.teams, $scope.currentTeam);
-                _.pull($scope.currentTeam.members, member);
+            };
 
-                TeamService.updateTeam($scope.currentTeam, function (err, next) {
-                    if(err) {
-                        alert(err);
-                    }
-                    else {
-                        member.put().then(function (data) {
-                            Session.user = _.extend(Session.user, _(data).pick(_(Session.user).keys()));
+            $scope.removeFromTeam = function (member) {
 
+                var args = {
+                    team: $scope.currentTeam,
+                    userId: member._id || member
+                };
+
+                TeamService.removeMember(args, function (err, team) {
+                    if (err) {
+                        $scope.removeMemberError = err.message;
+                    } else {
+                        if (team) {
                             _.pull($scope.members, member);
+                            if (Session.user._id == member._id) {
+                                _.pull(Session.user.teams, $scope.currentTeam);
+                            }
+                            _.pull(member.teams, $scope.currentTeam);
                             $scope.orgMembers.push(member);
+                            $scope.currentTeam = team;
 
-                        }, function (err) {
-                            console.log("There was an error saving");
-                            alert(err);
-                        });
+                        } else {
+                            $scope.removeMemberError = 'There was an error adding that member to the team';
+                        }
                     }
 
                 });
             };
-
-
-             };*/
 
         }
     ])

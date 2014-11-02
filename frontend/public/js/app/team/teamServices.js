@@ -85,6 +85,19 @@ angular.module('team')
                     }, function (err) {
                         return next(err);
                     });
+                },
+                removeMember: function (args, next) {
+                    if (typeof args.team.patch !== 'function') {
+                        args.team = Restangular.restangularizeElement(teamApi, args.team, '');
+                    }
+                    args.team.patch({
+                        action: 'removeMember',
+                        user: args.userId
+                    }).then(function (team) {
+                        return next(null, team);
+                    }, function (err) {
+                        return next(err);
+                    });
                 }
             }
 

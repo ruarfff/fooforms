@@ -31,7 +31,8 @@ exports.create = function (req, res, next) {
         if (err) return next(err);
         if (savedInvite) {
             Invite.populate(savedInvite, {path: 'organisation', model: 'Organisation'}, function (err, savedInvite) {
-                if (!savedInvite) res.status(statusCodes.BAD_REQUEST).send();
+                if(err) return next(err);
+                if (!savedInvite) return res.status(statusCodes.BAD_REQUEST).send();
                 // Passing in json like this to avoid another populate call for user
                 email.sendInvitation({
                     _id: savedInvite._id,
