@@ -121,6 +121,21 @@ body {
   overflow: auto;
   padding: 0px 10px 100px 10px !important;
 }
+.feed-fixed-small {
+  position: fixed;
+
+  top: 48px;
+  overflow: auto;
+  padding: 0px 10px 10px 10px !important;
+}
+
+.feed-fixed-grid {
+  position: fixed;
+  top: 0px;
+  overflow: hidden;
+  padding: 40px 0px 0px 0px;
+  z-index: 1000;
+}
 
 .relative {
   position: relative;
@@ -138,6 +153,18 @@ body {
   overflow: auto;
   height: auto;
   width: auto;
+}
+
+.scroll-grid{
+position: absolute;
+top: 150px;
+bottom: 0px;
+right: 0;
+display: block;
+overflow: auto;
+height: auto;
+width: auto;
+
 }
 
 .scrollSidebar {
@@ -285,68 +312,20 @@ margin-top: -56px;
   border: 0px !important;
   background: #fff !important;
 }
-.panel-feed {
 
-  display: block;
-  margin: 8px;
-margin-bottom: 0px;
-  display: block;
-  padding: 10px;
-  -webkit-border-radius: 6px;
-  -moz-border-radius: 6px;
-  -ms-border-radius: 6px;
-  -o-border-radius: 6px;
-  border-radius: 6px;
-  -webkit-box-shadow: inset 0 1px 0 rgba(0, 0, 0, 0.1), 0 1px 0 rgba(0, 0, 0, 0.1);
-  -moz-box-shadow: inset 0 1px 0 rgba(0, 0, 0, 0.1), 0 1px 0 rgba(0, 0, 0, 0.1);
-  -ms-box-shadow: inset 0 1px 0 rgba(0, 0, 0, 0.1), 0 1px 0 rgba(0, 0, 0, 0.1);
-  -o-box-shadow: inset 0 1px 0 rgba(0, 0, 0, 0.1), 0 1px 0 rgba(0, 0, 0, 0.1);
-  box-shadow: inset 0 1px 0 rgba(0, 0, 0, 0.1), 0 1px 0 rgba(0, 0, 0, 0.1);
-  border: 1px solid rgba(14, 41, 57, 0.5);
-}
-
-.panel-feed .panel-heading {
-  background: transparent !important;
-}
-
-.panel-feed:hover, .panel-feed-selected {
-  border: 1px solid #E7FAE9 !important;
-}
-
-.panel-feed .label-foo {
-
-  color: #666 !important;
-  padding: 3px;
-}
-
-.icon-feed {
-  margin-top: -10px;
-  margin-left: -10px;
-  width: 24px;
-  padding: 0px;
-}
-
-.feed .feed-item:last-child {
-  border-bottom: none;
-  border-radius: 0px;
-}
-
-.feed .feed-item:first-child {
-  border-radius: 0px;
-}
-
-.feed .feed-item {
-  //background: #fff;
-  margin: 4px;
-  border-radius: 0px;
-  margin-top: 5px;
-  margin-bottom: 0px;
-}
-
-.feed .feed-item:hover {
-  cursor: pointer;
+.panel-foo-dark .panel-heading{
   color: #fff;
+  background: #3d4b5b;
+  line-height: 16px;
 }
+.panel-foo-dark label{
+  color: #63768C !important;
+  font-weight: 400;
+}
+
+
+
+
 
 input[type=text], input[type=date], input[type=email], textarea, select, input[type=checkbox] {
   background: #FFF !important;
@@ -540,47 +519,7 @@ input[type=checkbox]:focus {
   background: rgba(0, 0, 0, .2);
 }
 
-.gridWrapper {
-  position: absolute;
-  display: block;
-  top: 108px;
-  bottom: 30px;
-  overflow: scroll;
-  background: #fff;
-  right: 10px;
-  left: 10px;
-}
 
-.foo-grid {
-  position: relative;
-  display: block;
-  width: 100%;
-}
-
-.foo-grid th {
-  background: #EEE;
-  font-weight: 300;
-
-}
-
-.foo-grid th .text-muted {
-  font-size: .8em;
-  color: #fff;
-  display: inline-block;
-}
-
-.foo-grid td {
-  vertical-align: middle;
-
-}
-
-.foo-grid th input {
-  padding: 2px;
-  font-size: 10px;
-  line-height: 10px;
-  height: 16px;
-
-}
 
 .bg-highlight {
   background: rgba(255, 255, 255, 0.2);
@@ -906,13 +845,12 @@ video {
   position: fixed;
   right: 100%;
   left: 100%;
-  top: 120px;
+  top: 50px;
   bottom: -20px;
   width: 50%;
   overflow: scroll;
   z-index: 200;
-  background: #FAFAFA;
-
+background: #fff;
   -moz-background-clip: padding;
   -webkit-background-clip: padding-box;
   background-clip: padding-box;
@@ -927,11 +865,10 @@ video {
   transition: 0.5s linear all;
 }
 
-.panel-slider .panel-heading {
-  background: #f5f5f5 !important;
-}
+
 
 .panel-slider .panel-body {
+  background: #fff;
   position: absolute;
   top: 60px;
   bottom: 60px;

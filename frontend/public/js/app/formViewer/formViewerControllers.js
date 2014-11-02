@@ -37,7 +37,7 @@ angular.module('formViewer')
 
             $scope.showPostForm = false;
 
-            $scope.gridData = [];
+            $scope.gridData = [1,2,3,4,5];
             $scope.gridSelectedPost = [];
 
             $scope.doingPostApi = false;
@@ -49,6 +49,7 @@ angular.module('formViewer')
             };
 
             $scope.cancelPost = function () {
+
                 $scope.gridSelectedPost = [];
             };
             $scope.copyPost = function () {
@@ -135,38 +136,7 @@ angular.module('formViewer')
             };
 
 
-            $scope.addRepeat = function (groupBox, field) {
-                var repeater = {};
-                repeater.id = new Date().getTime();
-                repeater.fields = angular.copy($scope.activePost.fields[groupBox].fields);
 
-                // need to swap out the field.id's for new ones.
-                var fieldCount = repeater.fields.length;
-
-                for (var fieldIndex = 0; fieldIndex < fieldCount; fieldIndex++) {
-                    var fieldId = repeater.fields[fieldIndex].id
-                    repeater.fields[fieldIndex].id = repeater.id + '_' + fieldId;
-
-                    // Fields specified in calculation need filedIds updated
-                    if (repeater.fields[fieldIndex].type == 'calculation') {
-
-                        if (repeater.fields[fieldIndex].options.field1.item != 'Specified Value') {
-                            var fieldItem = repeater.fields[fieldIndex].options.field1.item;
-                            repeater.fields[fieldIndex].options.field1.item = repeater.id + '_' + fieldItem;
-                        }
-                        if (repeater.fields[fieldIndex].options.field2.item != 'Specified Value') {
-                            var fieldItem = repeater.fields[fieldIndex].options.field2.item;
-                            repeater.fields[fieldIndex].options.field2.item = repeater.id + '_' + fieldItem;
-                        }
-                    }
-                }
-
-                $scope.activePost.fields[groupBox].repeaters.push(repeater);
-
-            };
-            $scope.removeRepeat = function (groupBox, field) {
-
-            };
 
 
             //Grid Related
@@ -178,49 +148,70 @@ angular.module('formViewer')
             $scope.posts2Grid = function () {
                 $scope.gridData = [];
                 var counter = 0;
+                $scope.gridFields =[];
                 angular.forEach($scope.posts, function (postEntry) {
                     var map = _.pick(postEntry, 'menuLabel', 'fields');
                     var entry = {};
                     entry['id'] = counter;
                     counter++;
                     angular.forEach(map.fields, function (field) {
+if (field.showInGrid) {
 
 
-                        var reduce = _.pick(field, 'label', 'value', 'type', 'selected', 'options');
-                        var safeLabel = reduce.label.replace(/\s+/g, "_");
+    var reduce = _.pick(field, 'label', 'value', 'type', 'selected', 'options');
+    var safeLabel = reduce.label.replace(/\s+/g, "_");
 
-                        switch (reduce.type) {
-                            case "radio":
-                            case "status":
-                                entry[safeLabel] = reduce.selected;
-                                break;
-                            case "textarea":
-                                entry[safeLabel] = reduce.value;
-                                break;
-                            case "checkbox":
-                                var selectedOptions = "";
-                                for (var i = 0; i < reduce.options.length; i++) {
-                                    if (reduce.options[i].selected) {
-                                        selectedOptions += reduce.options[i].label + ": ";
-                                    }
-                                }
-                                entry[safeLabel] = selectedOptions;
-                                break;
-                            default:
-                                entry[safeLabel] = reduce.value;
-                                break;
-                        }
+    if (counter == 1) {
+        $scope.gridFields.push( safeLabel);
 
+    }
+    switch (reduce.type) {
+        case "radio":
+        case "status":
+            entry[safeLabel] = reduce.selected;
+            break;
+        case "textarea":
+            entry[safeLabel] = reduce.value;
+            break;
+        case "checkbox":
+            var selectedOptions = "";
+            for (var i = 0; i < reduce.options.length; i++) {
+                if (reduce.options[i].selected) {
+                    selectedOptions += reduce.options[i].label + ": ";
+                }
+            }
+            entry[safeLabel] = selectedOptions;
+            break;
+        default:
+            entry[safeLabel] = reduce.value;
+            break;
+    }
 
+}
                     });
                     $scope.gridData.push(entry);
 
                 });
+
             };
+
+
+            $scope.$watch('postView', function (value) {
+
+                if ((typeof (value ) != 'undefined') && value=='grid') {
+                    $scope.posts2Grid();
+
+                }
+
+
+
+
+            });
 
             $scope.$watch('gridSelectedPost[0]', function (value) {
 
                 if (typeof (value ) != 'undefined') {
+                    $scope.showPostForm = true;
                     $scope.activePost = $scope.posts[value.id];
 
                 }
