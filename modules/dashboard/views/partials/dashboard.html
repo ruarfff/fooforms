@@ -7,7 +7,7 @@
 
                 <form ng-show="!form && !team" class="form">
 
-                        <img class="form-icon" ng-src="{{user.photo}}">
+                        <a href="/profile"><img class="form-icon" ng-src="{{user.photo}}"></a>
                         <h4>{{(user.name.givenName + ' ' + user.name.familyName) || user.displayName}}
                            </h4>
 

@@ -20,7 +20,7 @@ body {
 }
 
 ::-webkit-scrollbar {
-  width: 10px; /* for vertical scrollbars */
+  width: 8px; /* for vertical scrollbars */
   height: 12px; /* for horizontal scrollbars */
 }
 
@@ -32,8 +32,7 @@ body {
 ::-webkit-scrollbar-thumb {
   // background: #aadef0;
   background: #3d4b5b;
-  border-radius: 5px;
-  margin: 2px;
+  border-radius: 4px;
 }
 
 .roundy-border{
@@ -120,10 +119,7 @@ body {
   bottom: 22px;
   top: 48px;
   overflow: auto;
-  padding: 0px;
-  padding-bottom: 100px;
-
-
+  padding: 0px 10px 100px 10px !important;
 }
 
 .relative {
@@ -433,13 +429,21 @@ input[type=checkbox]:focus {
   margin-bottom: 0px;
 }
 
+.m0 {
+  margin: 0px !important;
+}
+
+.p0 {
+  padding: 0px !important;
+}
+
 .pl15p {
   padding-left: 15%;
 }
 
 .plr5 {
-  padding-left: 5px;
-  padding-right: 5px;
+  padding-left: 5px !important;
+  padding-right: 5px !important;
 }
 
 .m2 {
@@ -465,18 +469,15 @@ input[type=checkbox]:focus {
 .pt5 {
   padding-top: 5px !important;
 }
+.pt10 {
+  padding-top: 10px !important;
+}
 
 .p10 {
   padding: 10px !important;
 }
 
-.m0 {
-  margin: 0px !important;
-}
 
-.p0 {
-  padding: 0px !important;
-}
 
 .br0 {
   border-radius: 0px !important;
@@ -507,7 +508,7 @@ input[type=checkbox]:focus {
 }
 
 .light-gray {
-  background: #f9f9f9;
+  background: transparent !important;
 }
 
 .text-opacity-5 {

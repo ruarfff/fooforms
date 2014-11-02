@@ -111,6 +111,30 @@ angular.module('post')
                 },
                 templateUrl: '/template/post/foo-post-feed.html'
             };
-        }]);
+        }]).directive('feedHeader', [function () {
+
+        return {
+            restrict: 'E',
+            scope: false,
+
+
+            link: function (scope, $element) {
+
+
+                var index;
+                if (angular.isUndefined(scope.post)) {
+                    scope.post = scope.posts.activePost;
+                }
+                var titles = _.where(scope.post.fields, {'useAsTitle': true});
+                var titlesplucked = _.pluck(titles, 'value');
+                scope.titleStr = titlesplucked.toString().replace(',',' - ');
+
+
+            },
+            replace: false,
+            templateUrl: '/template/post/feed-header.html'
+        };
+
+    }]);
 
 
