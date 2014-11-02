@@ -168,13 +168,13 @@ exports.remove = function (req, res, next) {
 };
 
 exports.addMember = function (req, res, next) {
-    if (req.team && req.team._id) {
-        membership.Team.findById(req.team, function (err, team) {
+    if (req.body.team) {
+        membership.Team.findById(req.body.team, function (err, team) {
             if (err) return next(err);
             if (!team) {
                 res.status(statusCodes.NOT_FOUND).send();
             } else {
-                membership.User.findById(req.user, function (err, user) {
+                membership.User.findById(req.body.user, function (err, user) {
                     if (err) return next(err);
                     if (!user) {
                         res.status(statusCodes.NOT_FOUND).send();
@@ -183,9 +183,9 @@ exports.addMember = function (req, res, next) {
                         user.teams.push(team._id);
                         user.save(function (err) {
                             if (err) return next(err);
-                            team.save(function (err) {
+                            team.save(function (err, team) {
                                 if (err) return next(err);
-                                res.status(statusCodes.OK).send('User added to team');
+                                res.status(statusCodes.OK).send(team);
                             });
                         })
                     }
@@ -198,13 +198,13 @@ exports.addMember = function (req, res, next) {
 };
 
 exports.removeMember = function (req, res, next) {
-    if (req.team && req.team._id) {
-        membership.Team.findById(req.team, function (err, team) {
+    if (req.body.team) {
+        membership.Team.findById(req.body.team, function (err, team) {
             if (err) return next(err);
             if (!team) {
                 res.status(statusCodes.NOT_FOUND).send();
             } else {
-                membership.User.findById(req.user, function (err, user) {
+                membership.User.findById(req.body.user, function (err, user) {
                     if (err) return next(err);
                     if (!user) {
                         res.status(statusCodes.NOT_FOUND).send();
@@ -220,9 +220,9 @@ exports.removeMember = function (req, res, next) {
 
                         user.save(function (err) {
                             if (err) return next(err);
-                            team.save(function (err) {
+                            team.save(function (err, team) {
                                 if (err) return next(err);
-                                res.status(statusCodes.OK).send('User removed from team');
+                                res.status(statusCodes.OK).send(team);
                             });
                         })
                     }

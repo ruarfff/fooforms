@@ -65,6 +65,10 @@ angular.module('authentication')
             });
         };
 
+        $scope.close = function () {
+            $modalInstance.close(false);
+        }
+
     }])
     .controller('LogoutCtrl', ['$scope', '$rootScope', 'AUTH_EVENTS', 'AuthService', function ($scope, $rootScope, AUTH_EVENTS, AuthService) {
         'use strict';

@@ -72,6 +72,19 @@ angular.module('team')
                         $log.error(err);
                         return next(err);
                     });
+                },
+                addMember: function (args, next) {
+                    if (typeof args.team.patch !== 'function') {
+                        args.team = Restangular.restangularizeElement(teamApi, args.team, '');
+                    }
+                    args.team.patch({
+                        action: 'addMember',
+                        user: args.userId
+                    }).then(function (team) {
+                        return next(null, team);
+                    }, function (err) {
+                        return next(err);
+                    });
                 }
             }
 

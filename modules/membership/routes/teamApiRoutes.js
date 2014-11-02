@@ -28,7 +28,8 @@ router.delete('', function (req, res, next) {
     teamController.remove(req, res, next);
 });
 
-router.patch('', function (req, res, next) {
+router.patch('/:team', function (req, res, next) {
+    req.body.team = req.params.team;
     if (req.body.action === 'addMember') {
         teamController.addMember(req, res, next);
     } else if (req.body.action === 'removeMember') {
