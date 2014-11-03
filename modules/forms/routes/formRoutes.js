@@ -29,5 +29,14 @@ router.delete('/:form', function (req, res, next) {
     formController.remove(req, res, next);
 });
 
+router.patch('/:form', function (req, res, next) {
+    req.body.form = req.params.form;
+    if (req.body.action === 'moveToFolder') {
+        formController.moveToFolder(req, res, next);
+    } else {
+        res.status(400).send();
+    }
+});
+
 
 module.exports = router;

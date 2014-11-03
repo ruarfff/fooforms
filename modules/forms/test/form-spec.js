@@ -229,6 +229,91 @@ describe('Form API', function () {
         });
 
     });
-})
-;
+
+    describe('PATCH ' + rootUrl, function () {
+        var form = {};
+        var resourceUrl;
+        var otherFolder = {};
+
+        beforeEach(function (done) {
+            sampleForm.folder = folder._id;
+            var otherTestFolder = {displayName: 'anotherFolder'};
+            var folderModel = new fooForm.Folder(otherTestFolder);
+            folderModel.save(function (err, savedFolder) {
+                should.not.exist(err);
+                should.exist(savedFolder);
+                otherFolder = savedFolder;
+                request(app)
+                    .post(rootUrl)
+                    .send(sampleForm)
+                    .set('Accept', 'application/json')
+                    .expect('Content-Type', /json/)
+                    .expect(201)
+                    .end(function (err, res) {
+                        form = res.body;
+                        res.headers.location.should.equal(rootUrl + '/' + form._id);
+                        resourceUrl = res.headers.location;
+                        done(err);
+                    });
+            });
+        });
+
+        it('successfully moves a form', function (done) {
+            request(app)
+                .patch(resourceUrl)
+                .send({
+                    action: 'moveToFolder',
+                    folder: otherFolder._id
+                })
+                .expect(200, function (err, res) {
+                    should.not.exist(err);
+                    var updatedForm = res.body;
+                    should.exist(updatedForm);
+                    updatedForm.folder.should.eql(otherFolder._id.toString());
+
+                    fooForm.Folder.findById(folder._id, function (err, folder) {
+                        should.not.exist(err);
+                        should.exist(folder);
+                        folder.forms.length.should.equal(0);
+                        fooForm.Folder.findById(otherFolder._id, function (err, otherFolder) {
+                            should.not.exist(err);
+                            should.exist(otherFolder);
+                            otherFolder.forms.length.should.equal(1);
+                            otherFolder.forms[0].toString().should.eql(updatedForm._id);
+                            done(err);
+                        });
+                    });
+                });
+        });
+
+        it('does not move a form to a folder that does not exist', function (done) {
+            request(app)
+                .patch(resourceUrl)
+                .send({
+                    action: 'moveToFolder',
+                    folder: ObjectId
+                })
+                .expect(404, function (err, res) {
+                    should.not.exist(err);
+                    fooForm.Folder.findById(folder._id, function (err, folder) {
+                        should.exist(folder);
+                        folder.forms.length.should.equal(1);
+                        folder.forms[0].toString().should.eql(form._id);
+                        done(err);
+                    });
+                });
+        });
+
+        it('returns 400 for bad request', function (done) {
+            request(app)
+                .patch(resourceUrl)
+                .send({
+                    action: 'moveToFolderXXXXX',
+                    folder: otherFolder._id
+                })
+                .expect(400, done);
+        });
+
+    });
+});
 

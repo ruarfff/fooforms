@@ -106,3 +106,40 @@ exports.checkName = function (req, res, next) {
         return res.send({"exists": false});
     }
 };
+
+exports.moveToFolder = function (req, res, next) {
+    var formId = req.body.form;
+    var folderId = req.body.folder;
+
+    fooForm.Form.findById(formId, function (err, form) {
+        if (err) return next(err);
+        if (!form) return res.status(statusCodes.NOT_FOUND).send('Form Not Found');
+        fooForm.Folder.findById(form.folder, function (err, previousFolder) {
+            if (err) return next(err);
+            if (!previousFolder) return res.status(statusCodes.NOT_FOUND).send('Folder Not Found');
+            fooForm.Folder.findById(folderId, function (err, folder) {
+                if (err) return next(err);
+                if (!folder) return res.status(statusCodes.NOT_FOUND).send('Folder Not Found');
+
+                folder.forms.push(form._id);
+                form.folder = folder._id;
+
+                folder.save(function (err) {
+                    if (err) return next(err);
+                    form.save(function (err, updatedForm) {
+                        if (err) return next(err);
+                        var index = previousFolder.forms.indexOf(form._id);
+                        if (index > -1) {
+                            previousFolder.forms.splice(index, 1);
+                        }
+                        previousFolder.save(function (err) {
+                            if (err) return next(err);
+                            res.status(statusCodes.OK).send(updatedForm);
+                        });
+                    });
+                });
+            });
+        });
+
+    });
+};

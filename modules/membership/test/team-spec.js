@@ -299,6 +299,32 @@ describe('Team API', function () {
                             });
                         });
                 });
+        });
+        it('does not add user that does not exist', function (done) {
+            request(app)
+                .patch(resourceUrl)
+                .send({
+                    action: 'addMember',
+                    user: ObjectId
+                })
+                .expect(404, function (err, res) {
+                    should.not.exist(err);
+                    membership.Team.findById(team._id, function (err, team) {
+                        should.exist(team);
+                        team.members.length.should.equal(0);
+                        done(err);
+                    });
+                });
+        });
+        it('responds with 400 for a bad request', function (done) {
+            request(app)
+                .patch(resourceUrl)
+                .send({
+                    action: 'addMemberXXXX',
+                    user: user._id
+                })
+                .set('Accept', 'application/json')
+                .expect(400, done);
 
         });
     });
