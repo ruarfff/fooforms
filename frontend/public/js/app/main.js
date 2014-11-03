@@ -9,7 +9,7 @@ var fooformsApp = angular.module('fooformsApp', [
 ]);
 
 fooformsApp
-    .factory("SessionService", ['$location', '$q', '$log', 'Restangular', '_', 'AuthService', 'DashboardService', 'OrganisationService','Session', function ($location, $q, $log, Restangular, _, AuthService, DashboardService, OrganisationService,Session) {
+    .factory("SessionService", ['$location', '$q', '$log', 'Restangular', '_', 'AuthService', 'DashboardService', 'OrganisationService', 'Session', function ($location, $q, $log, Restangular, _, AuthService, DashboardService, OrganisationService, Session) {
         return {
             checkSession: function () {
                 var deferred = $q.defer();
@@ -39,18 +39,15 @@ fooformsApp
                                     });
 
 
-
                                     Session.org = angular.copy(Session.user.organisations[0]);
                                     OrganisationService.getMembers(Session.user.organisations[0], function (err, members) {
                                         Session.org.members = members;
-                                        for(var i = 0; i < Session.org.members .length; i++) {
+                                        for (var i = 0; i < Session.org.members.length; i++) {
                                             // This is to allow Restangular do put & remove on these objects.
                                             Session.org.members[i].self = {};
                                             Session.org.members [i].self.link = '/api/users/' + Session.org.members[i]._id;
                                         }
                                     });
-
-
 
 
                                     deferred.resolve(Session.user);
@@ -95,7 +92,7 @@ fooformsApp
             .when('/', {
                 redirectTo: '/dashboard',
                 resolve: {
-                    message: function (SessionService) {
+                    session: function (SessionService) {
                         return SessionService.checkSession();
                     }
                 }
@@ -112,7 +109,7 @@ fooformsApp
                 templateUrl: '/dashboard/partials/main-view',
                 controller: 'DashboardCtrl',
                 resolve: {
-                    message: function (SessionService) {
+                    session: function (SessionService) {
                         return SessionService.checkSession();
                     }
                 }
@@ -125,7 +122,7 @@ fooformsApp
                 templateUrl: '/users/partials/people',
                 controller: 'PeopleCtrl',
                 resolve: {
-                    message: function (SessionService) {
+                    session: function (SessionService) {
                         return SessionService.checkSession();
                     }
                 }
@@ -134,7 +131,7 @@ fooformsApp
                 templateUrl: '/users/partials/profile',
                 controller: 'ProfileCtrl',
                 resolve: {
-                    message: function (SessionService) {
+                    session: function (SessionService) {
                         return SessionService.checkSession();
                     }
                 }
@@ -142,7 +139,7 @@ fooformsApp
             .when('/userGuide', {
                 templateUrl: '/dashboard/partials/userGuide',
                 resolve: {
-                    message: function (SessionService) {
+                    session: function (SessionService) {
                         return SessionService.checkSession();
                     }
                 }
@@ -150,7 +147,7 @@ fooformsApp
             .when('/settings', {
                 templateUrl: '/dashboard/partials/settings',
                 resolve: {
-                    message: function (SessionService) {
+                    session: function (SessionService) {
                         return SessionService.checkSession();
                     }
                 }
@@ -158,7 +155,7 @@ fooformsApp
             .when('/admin', {
                 templateUrl: '/admin/partials/admin',
                 resolve: {
-                    message: function (SessionService) {
+                    session: function (SessionService) {
                         return SessionService.checkSession();
                     }
                 }
@@ -166,7 +163,7 @@ fooformsApp
             .when('/calendar', {
                 templateUrl: '/calendar/partials/calendar',
                 resolve: {
-                    message: function (SessionService) {
+                    session: function (SessionService) {
                         return SessionService.checkSession();
                     }
                 }
@@ -175,7 +172,7 @@ fooformsApp
                 templateUrl: '/organisations/partials/organisations',
                 controller: 'OrganisationCtrl',
                 resolve: {
-                    message: function (SessionService) {
+                    session: function (SessionService) {
                         return SessionService.checkSession();
                     }
                 }
@@ -184,7 +181,7 @@ fooformsApp
                 templateUrl: '/organisations/partials/organisation-profile',
                 controller: 'OrganisationCtrl',
                 resolve: {
-                    message: function (SessionService) {
+                    session: function (SessionService) {
                         return SessionService.checkSession();
                     }
                 }
@@ -193,7 +190,7 @@ fooformsApp
                 templateUrl: '/teams/partials/teams',
                 controller: 'TeamCtrl',
                 resolve: {
-                    message: function (SessionService) {
+                    session: function (SessionService) {
                         return SessionService.checkSession();
                     }
                 }
@@ -202,7 +199,7 @@ fooformsApp
                 templateUrl: '/teams/partials/team-profile',
                 controller: 'TeamProfileCtrl',
                 resolve: {
-                    message: function (SessionService) {
+                    session: function (SessionService) {
                         return SessionService.checkSession();
                     }
                 }
@@ -211,7 +208,7 @@ fooformsApp
                 templateUrl: '/forms/partials/formBuilder',
                 controller: 'FormBuilderCtrl',
                 resolve: {
-                    message: function (SessionService) {
+                    session: function (SessionService) {
                         return SessionService.checkSession();
                     }
                 }
@@ -220,7 +217,7 @@ fooformsApp
                 templateUrl: '/forms/partials/forms',
                 controller: 'FormCtrl',
                 resolve: {
-                    message: function (SessionService) {
+                    session: function (SessionService) {
                         return SessionService.checkSession();
                     }
                 }
@@ -229,7 +226,7 @@ fooformsApp
                 templateUrl: '/users/partials/user-profile',
                 controller: 'UserViewCtrl',
                 resolve: {
-                    message: function (SessionService) {
+                    session: function (SessionService) {
                         return SessionService.checkSession();
                     }
                 }
@@ -238,7 +235,7 @@ fooformsApp
                 templateUrl: '/dashboard/partials/main-view',
                 controller: 'DashboardCtrl',
                 resolve: {
-                    message: function (SessionService) {
+                    session: function (SessionService) {
                         return SessionService.checkSession();
                     }
                 }
@@ -247,7 +244,7 @@ fooformsApp
                 templateUrl: '/dashboard/partials/main-view',
                 controller: 'DashboardCtrl',
                 resolve: {
-                    message: function (SessionService) {
+                    session: function (SessionService) {
                         return SessionService.checkSession();
                     }
                 }
@@ -256,7 +253,7 @@ fooformsApp
                 templateUrl: '/forms/partials/formBuilder',
                 controller: 'FormBuilderCtrl',
                 resolve: {
-                    message: function (SessionService) {
+                    session: function (SessionService) {
                         return SessionService.checkSession();
                     }
                 }
@@ -265,7 +262,7 @@ fooformsApp
                 templateUrl: '/forms/partials/formBuilder',
                 controller: 'FormBuilderCtrl',
                 resolve: {
-                    message: function (SessionService) {
+                    session: function (SessionService) {
                         return SessionService.checkSession();
                     }
                 }
@@ -274,7 +271,7 @@ fooformsApp
                 templateUrl: '/dashboard/partials/main-view',
                 controller: 'FormViewerCtrl',
                 resolve: {
-                    message: function (SessionService) {
+                    session: function (SessionService) {
                         return SessionService.checkSession();
                     }
                 }
@@ -283,7 +280,7 @@ fooformsApp
                 templateUrl: '/forms/partials/formBuilder',
                 controller: 'FormBuilderCtrl',
                 resolve: {
-                    message: function (SessionService) {
+                    session: function (SessionService) {
                         return SessionService.checkSession();
                     }
                 }
@@ -292,7 +289,7 @@ fooformsApp
                 templateUrl: '/dashboard/partials/main-view',
                 controller: 'FormViewerCtrl',
                 resolve: {
-                    message: function (SessionService) {
+                    session: function (SessionService) {
                         return SessionService.checkSession();
                     }
                 }
