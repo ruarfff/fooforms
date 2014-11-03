@@ -45,6 +45,19 @@ angular.module('form')
                         next(err);
                     });
                 },
+                moveToFolder: function (args, next) {
+                    if (typeof args.form.patch !== 'function') {
+                        args.form = Restangular.restangularizeElement(formApi, args.form, '');
+                    }
+                    args.form.patch({
+                        action: 'moveToFolder',
+                        folder: args.folderId
+                    }).then(function (form) {
+                        return next(null, form);
+                    }, function (err) {
+                        return next(err);
+                    });
+                },
                 getFormTemplateObject: function () {
                     var defaultFolder = Session.user.defaultFolder;
                     var template = {

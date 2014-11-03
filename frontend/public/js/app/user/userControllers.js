@@ -2,7 +2,7 @@
 
 angular.module('user')
 
-    .controller('ProfileCtrl', ['$scope', 'Restangular', '_', 'Session', function ($scope, Restangular, _, Session) {
+    .controller('ProfileCtrl', ['$scope', 'Restangular', '_', 'Session', 'SweetAlert', function ($scope, Restangular, _, Session, SweetAlert) {
         'use strict';
         $scope.userProfile = Restangular.copy(Session.user);
 
@@ -14,9 +14,12 @@ angular.module('user')
 
         $scope.update = function () {
             $scope.userProfile.put().then(function (data) {
-                Session.user = _.extend(Session.user, _(data).pick(_(Session.user).keys()));
+                Session.user.name = data.name;
+                Session.user.email = data.email;
+
+                SweetAlert.swal('Updated!', 'Your profile has been saved.', 'success');
             }, function (err) {
-                console.log("There was an error saving");
+                SweetAlert.swal('Not Updated!', 'An error occurred trying to update your profile.', 'error');
             });
         };
     }])

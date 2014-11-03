@@ -5,6 +5,8 @@ angular.module('formBuilder').controller('FormBuilderCtrl',
         function ($log, $routeParams, $scope, $http, $modal, $filter, Restangular, SweetAlert, FormService, Session, _) {
             "use strict";
 
+            $scope.organisation = Session.user.organisations[0]; // Using this for a filter in sharing view
+
             $scope.userInputTypes = [];
             $scope.numberInputTypes = [];
             $scope.fileInputTypes = [];
@@ -34,10 +36,9 @@ angular.module('formBuilder').controller('FormBuilderCtrl',
                 var folder;
 
 
-
                 folderDetect: if (owner && owner === Session.user.displayName) {
                     folder = Session.user.defaultFolder;
-                }else if(team){
+                } else if (team) {
                     folder = team.defaultFolder;
                     break folderDetect;
                 } else if (owner) {
@@ -152,8 +153,6 @@ angular.module('formBuilder').controller('FormBuilderCtrl',
                         $scope.lastChanged();
                     });
                     // if the element is removed from the first container
-
-
                 }
 
             };
@@ -162,9 +161,7 @@ angular.module('formBuilder').controller('FormBuilderCtrl',
                 $scope.form.lastChanged = new Date().getTime();
             };
 
-
             //Delete form Items
-
 
             $scope.deleteItem = function (itemId) {
                 $scope.form.fields = _.reject($scope.form.fields, function (field) {
@@ -358,69 +355,44 @@ angular.module('formBuilder').controller('FormBuilderCtrl',
             // End Icon Selection -  Modal Dialog
 
             $scope.saveForm = function () {
-                if ($scope.form._id) {
-                    FormService.updateForm($scope.form, function (err, form) {
-                        if (err) {
-                            SweetAlert.swal('Not Updated!', 'An error occurred trying to update the form.', 'error');
-                            $log.error(err);
-                        } else {
-                            $scope.form = form;
-
-
-                            var oldForm = _.find(Session.user.defaultFolder.forms, {'_id': $scope.form._id});
-                            if (oldForm) {
-                                var index = Session.user.defaultFolder.forms.indexOf(oldForm);
-                                if (index==-1) {
-                                    Session.user.defaultFolder.forms = Session.user.defaultFolder.forms.push[$scope.form];
-                                } else {
-                                    Session.user.defaultFolder.forms[index] = $scope.form;
-                                }
-                            } else {
-                                _.forEach(Session.user.teams, function (team) {
-                                    oldForm = _.find(team.defaultFolder.forms, {'_id': $scope.form._id});
-                                    if (oldForm) {
-                                        var index = team.defaultFolder.forms.indexOf(oldForm);
-                                        if (index==-1) {
-                                            Session.user.teams[Session.user.teams.indexOf(team)].defaultFolder.forms = Session.user.teams[Session.user.teams.indexOf(team)].defaultFolder.forms.push[$scope.form];
-                                            //Session.user.organisations[0].teams[Session.user.teams.indexOf(team)].defaultFolder.forms = Session.user.organisations[0].teams[Session.user.teams.indexOf(team)].defaultFolder.forms.push[$scope.form];
-                                        } else {
-                                            Session.user.teams[Session.user.teams.indexOf(team)].defaultFolder.forms[index] = $scope.form;
-                                            //Session.user.organisations[0].teams[Session.user.teams.indexOf(team)].defaultFolder.forms[index] = $scope.form;
-                                        }
-
-                                       /* if (index > -1) {
-                                            Session.user.teams[Session.user.teams.indexOf(team)].defaultFolder.forms.splice(index, 1);
-                                            //Session.user.organisations[0].teams[Session.user.teams.indexOf(team)].defaultFolder.forms.splice(index, 1);
-                                        }*/
-                                    }
-                                });
-                            }
-
-                            SweetAlert.swal('Saved!', 'Your form has been updated.', 'success');
-                        }
-                    });
+                if (!$scope.form.displayName) {
+                    SweetAlert.swal('Form name required', 'Please enter a form name before saving.', 'error');
                 } else {
-                    FormService.createForm($scope.form, function (err, form) {
-                        if (err) {
-                            SweetAlert.swal('Not Saved!', 'An error occurred trying to create the form.', 'error');
-                            $log.error(err);
-                        } else {
-                            var folder = form.folder;
-                            $scope.form = form;
-                            if (folder == Session.user.defaultFolder._id) {
-                                Session.user.defaultFolder.forms.push($scope.form);
+                    if ($scope.form._id) {
+                        FormService.updateForm($scope.form, function (err, form) {
+                            if (err) {
+                                SweetAlert.swal('Not Updated!', 'An error occurred trying to update the form.', 'error');
+                                $log.error(err);
                             } else {
-                                _.forEach(Session.user.teams, function (team) {
-                                    if (folder == team.defaultFolder._id) {
-                                        team.defaultFolder.forms.push($scope.form);
-                                        //Session.user.organisations[0].teams[Session.user.teams.indexOf(team)].defaultFolder.forms.push($scope.form);
-                                    }
-                                });
-                            }
-                            SweetAlert.swal('Saved!', 'Your form has been created.', 'success');
+                                $scope.form = form;
 
-                        }
-                    });
+                                addFormToSessionFolder();
+
+                                SweetAlert.swal('Saved!', 'Your form has been updated.', 'success');
+                            }
+                        });
+                    } else {
+                        FormService.createForm($scope.form, function (err, form) {
+                            if (err) {
+                                SweetAlert.swal('Not Saved!', 'An error occurred trying to create the form.', 'error');
+                                $log.error(err);
+                            } else {
+                                var folder = form.folder;
+                                $scope.form = form;
+                                if (folder == Session.user.defaultFolder._id) {
+                                    Session.user.defaultFolder.forms.push($scope.form);
+                                } else {
+                                    _.forEach(Session.user.teams, function (team) {
+                                        if (folder == team.defaultFolder._id) {
+                                            team.defaultFolder.forms.push($scope.form);
+                                        }
+                                    });
+                                }
+                                SweetAlert.swal('Saved!', 'Your form has been created.', 'success');
+
+                            }
+                        });
+                    }
                 }
             };
 
@@ -437,24 +409,7 @@ angular.module('formBuilder').controller('FormBuilderCtrl',
                                 SweetAlert.swal('Not Deleted!', 'An error occurred trying to delete the form.', 'error');
                                 $log.error(err);
                             } else {
-                                var oldForm = _.find(Session.user.defaultFolder.forms, {'_id': $scope.form._id});
-                                if (oldForm) {
-                                    var index = Session.user.defaultFolder.forms.indexOf(oldForm);
-                                    if (index > -1) {
-                                        Session.user.defaultFolder.forms.splice(index, 1);
-                                    }
-                                } else {
-                                    _.forEach(Session.user.teams, function (team) {
-                                        oldForm = _.find(team.defaultFolder.forms, {'_id': $scope.form._id});
-                                        if (oldForm) {
-                                            var index = team.defaultFolder.forms.indexOf(oldForm);
-                                            if (index > -1) {
-                                                Session.user.teams[Session.user.teams.indexOf(team)].defaultFolder.forms.splice(index, 1);
-                                                Session.user.organisations[0].teams[Session.user.teams.indexOf(team)].defaultFolder.forms.splice(index, 1);
-                                            }
-                                        }
-                                    });
-                                }
+                                removeFormFromSessionFolder();
                                 $scope.form = FormService.getFormTemplateObject();
                                 SweetAlert.swal('Deleted!', 'Your form has been deleted.', 'success');
                             }
@@ -492,11 +447,69 @@ angular.module('formBuilder').controller('FormBuilderCtrl',
                     $scope.form = FormService.getFormTemplateObject();
                     $scope.$apply();
                 });
-            }
+            };
 
+            $scope.updateFolder = function (folderId) {
+                if ($scope.form._id) { // If the form has an ID it was previously saved and already has a folder
+                    var args = {
+                        form: $scope.form,
+                        folderId: folderId
+                    };
+
+                    FormService.moveToFolder(args, function (err, form) {
+                        if (err) {
+                            SweetAlert.swal('Not Moved!', 'An error occurred trying to move the form.', 'error');
+                        } else {
+                            $scope.form = form;
+
+                            // Updated side menu
+                            removeFormFromSessionFolder();
+                            addFormToSessionFolder();
+
+                            SweetAlert.swal('Moved!', 'Form was moved.', 'success');
+                        }
+
+                    });
+                }
+            };
+
+            // This is used to update side menu after form update
+            var removeFormFromSessionFolder = function () {
+                var oldForm = _.find(Session.user.defaultFolder.forms, {'_id': $scope.form._id});
+                if (oldForm) {
+                    var index = Session.user.defaultFolder.forms.indexOf(oldForm);
+                    if (index > -1) {
+                        Session.user.defaultFolder.forms.splice(index, 1);
+                    }
+                } else {
+                    _.forEach(Session.user.teams, function (team) {
+                        oldForm = _.find(team.defaultFolder.forms, {'_id': $scope.form._id});
+                        if (oldForm) {
+                            var index = team.defaultFolder.forms.indexOf(oldForm);
+                            if (index > -1) {
+                                Session.user.teams[Session.user.teams.indexOf(team)].defaultFolder.forms.splice(index, 1);
+                                Session.user.organisations[0].teams[Session.user.teams.indexOf(team)].defaultFolder.forms.splice(index, 1);
+                            }
+                        }
+                    });
+                }
+            };
+
+            // This is used to update side menu after form update
+            var addFormToSessionFolder = function () {
+                var folder = $scope.form.folder;
+                if (folder == Session.user.defaultFolder._id) {
+                    Session.user.defaultFolder.forms.push($scope.form);
+                } else {
+                    _.forEach(Session.user.teams, function (team) {
+                        if (folder == team.defaultFolder._id) {
+                            team.defaultFolder.forms.push($scope.form);
+                        }
+                    });
+                }
+            };
         }
-    ])
-;
+    ]);
 
 
 var ModalEditorCtrl = function ($scope, $modalInstance, fieldData) {
