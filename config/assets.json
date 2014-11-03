@@ -40,6 +40,7 @@
                 "/js/app/post/post.js",
                 "/js/app/post/postDirectives.js",
                 "/js/app/post/postServices.js",
+                "/js/app/post/postFilters.js",
                 "/js/app/team/team.js",
                 "/js/app/team/teamControllers.js",
                 "/js/app/team/teamServices.js",

@@ -65,6 +65,7 @@ var getFileById = function (req, res) {
                     expires: Math.round(Date.now() / 1000) + (60 * 60), // 1 hour.
                     resource: file.name
                 }, function (err, url) {
+                    url = url.replace(/^http:\/\//i, 'https://');
                     res.redirect(url);
                 });
             }
