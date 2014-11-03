@@ -5,6 +5,8 @@ angular.module('formViewer')
         function ($scope, $route, $location, $log, $http, $modal, Restangular, SweetAlert, Session, FormService, PostService, Posts, _) {
             "use strict";
 
+            $scope.selectedStatus = 'All';
+
             $scope.postView = 'feed';
             // Posts are linked to the post collection directive
             $scope.posts = [];
@@ -219,20 +221,9 @@ angular.module('formViewer')
 
             });
 
-            $scope.filterStatus = function (option) {
-                $scope.posts.forEach(function (post) {
-                    // TODO: filtering of some sort
-                    post.hide = false;
-                });
+            $scope.filterStatus = function (status) {
+                $scope.selectedStatus = status;
             };
-
-            $scope.filterStatusOff = function () {
-                $scope.posts.forEach(function (post) {
-                    post.hide = false;
-                });
-
-            };
-
 
         }]);
 

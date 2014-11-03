@@ -4,7 +4,7 @@ angular.module('post')
         function () {
             return {
                 restrict: 'E',
-                scope: {view: '@', streams: '@', activePost: '=activePost', posts: '=posts'},
+                scope: {view: '@', streams: '@', activePost: '=activePost', posts: '=posts', status: '@'},
                 transclude: true,
                 controller: function ($log, $scope, PostService, _, Session) {
                     var currentPostPage = 0;
@@ -48,9 +48,6 @@ angular.module('post')
                             $scope.gridData = [ {'test':1},{'test2': 2}];
                         }
                     };
-
-                    //this.activePost = $scope.activePost;
-
 
 
                 },
@@ -116,11 +113,12 @@ angular.module('post')
                 restrict: 'E',
                 scope: {
                     posts: '=posts',
-                    activePost: '=activePost'
+                    activePost: '=activePost',
+                    status: '@'
                 },
                 controller: function ($scope) {
-                    $scope.selectPost = function (index) {
-                        $scope.activePost = $scope.posts[index];
+                    $scope.selectPost = function (post) {
+                        $scope.activePost = post;
                     };
                 },
                 link: function (scope, element, attrs, postCollectionCtrl) {
@@ -136,11 +134,12 @@ angular.module('post')
                 restrict: 'E',
                 scope: {
                     posts: '=posts',
-                    activePost: '=activePost'
+                    activePost: '=activePost',
+                    status: '@'
                 },
                 controller: function ($scope) {
-                    $scope.selectPost = function (index) {
-                        $scope.activePost = $scope.posts[index];
+                    $scope.selectPost = function (post) {
+                        $scope.activePost = post;
                     };
                 },
                 link: function (scope, element, attrs, postCollectionCtrl) {

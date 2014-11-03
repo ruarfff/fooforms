@@ -22,7 +22,6 @@
                           ng-click="postView='list';"><i
                             class="fa fa-bars"></i></span>
 
-
                 </form>
 
 
@@ -68,12 +67,16 @@
                     <span ng-show="form.settings.displayOptions.customDashboard || true" class="label label-default"
                           ng-click="postView='custom';"><i class="fa fa-file-o"></i></span>
 
-                     <span class="label label-success" ng-click="filterStatusOff()">All</span>
+                     <span class="label"
+                           ng-class="{'label-success' : selectedStatus === 'All', 'label-default' : selectedStatus !== 'All'}"
+                           ng-click="filterStatus('All')">All</span>
 
 
                     <div class="m5 p0 inline" ng-repeat="field in form.fields" ng-show="field.type=='status'">
-                        <span class="label darker m5" ng-repeat="option in field.options"
-                              ng-click="filterStatus(option)">
+                        <span class="label"
+                              ng-class="{'label-success' : selectedStatus === option.label, 'label-default' : selectedStatus !== option.label}"
+                              ng-repeat="option in field.options"
+                              ng-click="filterStatus(option.label)">
                              {{option.label}}</span>
                     </div>
                 </span>
@@ -85,7 +88,8 @@
 
     <div class="scroll m0 b0" ng-show="postView=='list' || postView=='feed'" ng-hide="post.hide">
 
-        <foo-post-collection view="{{postView}}" streams="{{postStreams}}" active-post="activePost" posts="posts" grid-data="gridData">
+        <foo-post-collection view="{{postView}}" streams="{{postStreams}}" active-post="activePost" posts="posts"
+                             grid-data="gridData" status="{{selectedStatus}}">
         </foo-post-collection>
 
     </div>
