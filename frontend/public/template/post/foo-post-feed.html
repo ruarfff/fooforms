@@ -10,7 +10,7 @@
     <div class="panel-body">
 
         <div class='plr5 col-xs-12 col-sm-{{formField.boxSize}}'
-             ng-repeat="formField in post.fields track by $index"
+             ng-repeat="formField in post.fields track by $index | filter:status"
              ng-show="formField.showInFeed"
              ng-include='formField.feedTemplate'>
         </div>

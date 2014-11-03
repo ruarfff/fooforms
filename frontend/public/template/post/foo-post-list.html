@@ -1,5 +1,5 @@
 <table class="table feedTable m0 p0 b0 panel-foo-list">
-    <tr ng-repeat="post in posts track by $index" ng-click="selectPost($index)"
+    <tr ng-repeat="post in posts track by $index | filter:status" ng-click="selectPost($index)"
         ng-class-odd="'feedOdd'" ng-class-even="'feedEven'"
         ng-class="{ 'panel-feed-selected': activePost._id == post._id }">
         <td class="b0">
