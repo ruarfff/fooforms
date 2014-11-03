@@ -366,8 +366,13 @@ angular.module('formBuilder').controller('FormBuilderCtrl',
                             } else {
                                 $scope.form = form;
 
-                                addFormToSessionFolder();
-
+                                var oldForm = _.find(Session.user.forms, { '_id': $scope.form._id });
+                                var index = Session.user.defaultFolder.forms.indexOf(oldForm);
+                                if (~index) {
+                                    Session.user.defaultFolder.forms = Session.user.defaultFolder.forms.push[$scope.form];
+                                } else {
+                                    Session.user.defaultFolder.forms[index] = $scope.form;
+                                }
                                 SweetAlert.swal('Saved!', 'Your form has been updated.', 'success');
                             }
                         });
@@ -377,17 +382,8 @@ angular.module('formBuilder').controller('FormBuilderCtrl',
                                 SweetAlert.swal('Not Saved!', 'An error occurred trying to create the form.', 'error');
                                 $log.error(err);
                             } else {
-                                var folder = form.folder;
                                 $scope.form = form;
-                                if (folder == Session.user.defaultFolder._id) {
-                                    Session.user.defaultFolder.forms.push($scope.form);
-                                } else {
-                                    _.forEach(Session.user.teams, function (team) {
-                                        if (folder == team.defaultFolder._id) {
-                                            team.defaultFolder.forms.push($scope.form);
-                                        }
-                                    });
-                                }
+                                addFormToSessionFolder();
                                 SweetAlert.swal('Saved!', 'Your form has been created.', 'success');
 
                             }
@@ -488,7 +484,6 @@ angular.module('formBuilder').controller('FormBuilderCtrl',
                             var index = team.defaultFolder.forms.indexOf(oldForm);
                             if (index > -1) {
                                 Session.user.teams[Session.user.teams.indexOf(team)].defaultFolder.forms.splice(index, 1);
-                                Session.user.organisations[0].teams[Session.user.teams.indexOf(team)].defaultFolder.forms.splice(index, 1);
                             }
                         }
                     });

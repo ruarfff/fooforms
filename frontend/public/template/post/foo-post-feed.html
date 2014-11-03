@@ -1,7 +1,7 @@
 <div class="panel panel-foo-feed"
-     ng-repeat="post in posts track by $index"
+     ng-repeat="post in posts | statusFilter:status"
      ng-class="{ 'panel-feed-selected': activePost._id == post._id }"
-     ng-click="selectPost($index)">
+     ng-click="selectPost(post)">
 
     <feed-header class="panel-heading">
 
