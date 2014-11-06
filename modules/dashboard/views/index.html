@@ -84,7 +84,9 @@
          ng-class="{showMenu : sideMenuVisible, hideMenu: !sideMenuVisible}">
 
         <div class="company"><a href="/organisations">
-            <img ng-src="{{user.organisations[0].photo || '/assets/images/pixel.png' }}"></a>
+            <i ng-if="!user.organisations[0].photo" class="fa fa-sun-o"></i>
+            <img ng-if="user.organisations[0].photo"
+                 ng-src="{{user.organisations[0].photo || '/assets/images/pixel.png' }}"></a>
         </div>
 
         <org-menu></org-menu>

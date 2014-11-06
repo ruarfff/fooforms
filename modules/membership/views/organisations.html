@@ -55,7 +55,8 @@
                         </div>
                     </div>-->
 
-            <tab ng-repeat="org in user.organisations" active="org.active" class="tab-pane" heading="{{org.displayName}}" id="{{org.displayName}}">
+            <tab ng-repeat="org in user.organisations" active="org.active" class="tab-pane"
+                 heading="{{org.displayName}}" id="{{org.displayName}}">
 
 
                 <div class="panel panel-info">
@@ -123,15 +124,18 @@
                             </div>
                             <div class="tab-pane" id="orgMembers">
                                 <h4>Members</h4>
-                                <div ng-repeat="member in members"  class="col-sm-4 col-md-3">
-                                <div class="thumbnail">
-                                    <img class="icon" ng-src="{{member.photo || '/assets/images/photo.jpg'}}">
-                                    <div class="caption">
 
-                                        <p>  {{member.displayName}}<br>{{ member.name.givenName + ' ' + member.name.familyName}}</p>
+                                <div ng-repeat="member in members" class="col-sm-4 col-md-3">
+                                    <div class="thumbnail">
+                                        <img class="icon" ng-src="{{member.photo || '/assets/images/photo.jpg'}}">
+
+                                        <div class="caption">
+
+                                            <p> {{member.displayName}}<br>{{ member.name.givenName + ' ' +
+                                                member.name.familyName}}</p>
+                                        </div>
                                     </div>
                                 </div>
-</div>
                             </div>
 
                             <div class="tab-pane" id="orgStats">
@@ -145,21 +149,31 @@
                             </div>
 
                             <div class="tab-pane" id="orgActions">
-                                <form name="sendInviteForm" ng-controller="SendInviteCtrl" ng-submit="invite()">
+                                <form name="sendInviteForm" ng-controller="SendInviteCtrl" ng-submit="invite()"
+                                      class="form-horizontal">
 
                                     <h2>Invite a user</h2>
 
-                                    <div class="form-group">
-                                        <label for="inviteEmail">Name</label>
-                                        <input id="inviteEmail" type="email" name="inviteEmail" ng-model="inviteEmail" required/>
-                                        <span class="error" ng-show="sendInviteForm.inviteEmail.$error.required">Email Required!</span>
-                                        <span class="error" ng-show="sendInviteForm.inviteEmail.$error.email">Not valid email!</span>
-                                        <span class="error" ng-show="inviteError">Invitation could not be sent</span>
+                                    <div class="form-group"><label class="col-sm-3 control-label" for="inviteEmail">Email</label>
+
+                                        <div class="col-sm-9">
+                                            <input id="inviteEmail" type="email" name="inviteEmail"
+                                                   ng-model="inviteEmail" required/>
+                                            <span class="error" ng-show="sendInviteForm.inviteEmail.$error.required">Email Required!</span>
+                                            <span class="error" ng-show="sendInviteForm.inviteEmail.$error.email">Not valid email!</span>
+                                            <span class="error"
+                                                  ng-show="inviteError">Invitation could not be sent</span>
+                                        </div>
                                     </div>
 
+
                                     <div class="form-group">
-                                        <label for="message">Leave a message</label>
-                                        <input type="text" name="message" id="message" ng-model="message" />
+                                        <label class="col-sm-3 control-label" for="message">Leave a message</label>
+
+                                        <div class="col-sm-9">
+                                            <textarea rows="4" cols="50" name="message" id="message"
+                                                      ng-model="message"></textarea>
+                                        </div>
                                     </div>
                                     <div class="form-group">
                                         <input type="submit" value="Send">
