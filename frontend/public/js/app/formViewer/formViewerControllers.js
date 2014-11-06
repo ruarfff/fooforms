@@ -153,6 +153,7 @@ angular.module('formViewer')
             $scope.posts2Grid = function () {
                 $scope.gridData = [];
                 var counter = 0;
+                var hasField = false;
                 $scope.gridFields = [];
 
                 var map = _.pick($scope.form, 'fields');
@@ -169,6 +170,7 @@ angular.module('formViewer')
                 });
 
                 angular.forEach($scope.posts, function (postEntry) {
+                    hasField = false;
                     var map = _.pick(postEntry, 'menuLabel', 'fields');
                     var entry = {};
                     entry['id'] = counter;
@@ -181,6 +183,7 @@ angular.module('formViewer')
                             var safeLabel = reduce.label.replace(/\s+/g, "_");
 
 if ($scope.gridFields.indexOf(safeLabel)>-1) {
+    hasField = true;
     switch (reduce.type) {
         case "radio":
         case "status":
@@ -205,7 +208,9 @@ if ($scope.gridFields.indexOf(safeLabel)>-1) {
 
 }
                     });
-                    $scope.gridData.push(entry);
+                    if(hasField) {
+                        $scope.gridData.push(entry);
+                    }
 
                 });
 
