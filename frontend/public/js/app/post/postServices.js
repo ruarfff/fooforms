@@ -53,7 +53,7 @@ angular.module('post').factory('PostService',
             };
         }]);
 
-angular.module('form').service('Posts', function () {
+angular.module('post').service('Posts', function () {
     'use strict';
     this.activePost = {};
     this.newPost = function (form) {

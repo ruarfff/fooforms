@@ -20,8 +20,7 @@ var rootUrls = {
     invite: 'invite',
     forgottenPassword: 'forgot-password',
     resetPassword: 'reset-password',
-    store: 'store',
-    formstore: 'formstore'
+    store: 'store'
 };
 
 module.exports = exports = rootUrls;
