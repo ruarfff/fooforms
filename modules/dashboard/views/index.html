@@ -44,28 +44,34 @@
                         </li>
                         <li>
                             <a class="navbar-brand" href="#">
-                                <span class="text-foo">FOOFORMS</span></a>
+                                <span class="text-foo">FOOFORMS </span><span class="beta-tag">Beta</span></a>
                         </li>
 
 
                     </ul>
                     <ul class="nav navbar-nav navbar-right">
-                    <li class="dropdown" ng-cloak><a href="#" class="dropdown-toggle">&nbsp;
-                        <img class="nav-icon" ng-src="{{user.photo}}"/>
-                        {{user.displayName}}
+                        <li class="dropdown" ng-cloak><a href="#" class="dropdown-toggle">&nbsp;
+                            <img class="nav-icon" ng-src="{{user.photo}}"/>
+                            {{user.displayName}}
 
-                        <b class="caret"></b></a>
-                        <ul class="dropdown-menu">
+                            <b class="caret"></b></a>
+                            <ul class="dropdown-menu">
 
-                            <li><a href="/profile"><i class="fa fa-user"></i> Profile</a></li>
-                            <li><a href="/teams"><i class="fa fa-folder"></i> Teams</a></li>
-                            <li><a href="/organisations"><i class="fa fa-sitemap"></i> Organisations</a></li>
-                            <li class="divider"></li>
-                            <li ng-controller="LogoutCtrl"><a ng-click="logout()"><i
-                                    class="fa fa-lock"></i> Logout</a></li>
-                        </ul>
-                    </li>
-</ul>
+                                <li><a href="/profile"><i class="fa fa-user"></i> Profile</a></li>
+                                <li><a href="/teams"><i class="fa fa-folder"></i> Teams</a></li>
+                                <li><a href="/organisations"><i class="fa fa-sitemap"></i> Organisations</a></li>
+                                <li class="divider"></li>
+                                <li>
+                                    <a href="mailto:support@fooforms.com?subject=FOOFORMS%20Feedback&body=Thank you for taking the time to contact us. We are currently in Beta and we really appreciate your feedback. Please leave any comments and questions below.">
+                                        <i class="fa fa-ticket"></i>Email Us
+                                    </a>
+                                </li>
+                                <li class="divider"></li>
+                                <li ng-controller="LogoutCtrl"><a ng-click="logout()"><i
+                                        class="fa fa-lock"></i> Logout</a></li>
+                            </ul>
+                        </li>
+                    </ul>
 
                 </div>
                 <!-- /.nav-collapse -->
@@ -78,10 +84,12 @@
          ng-class="{showMenu : sideMenuVisible, hideMenu: !sideMenuVisible}">
 
         <div class="company"><a href="/organisations">
-            <img ng-src="{{user.organisations[0].photo || '/assets/images/pixel.png' }}"></a>
+            <i ng-if="!user.organisations[0].photo" class="fa fa-sun-o"></i>
+            <img ng-if="user.organisations[0].photo"
+                 ng-src="{{user.organisations[0].photo || '/assets/images/pixel.png' }}"></a>
         </div>
 
-            <org-menu></org-menu>
+        <org-menu></org-menu>
 
     </div>
     <div class="container-fluid" ng-class="{withSideMenu : sideMenuVisible, withoutSideMenu :!sideMenuVisible}">

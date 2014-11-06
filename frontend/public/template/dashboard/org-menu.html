@@ -3,8 +3,14 @@
         <a href="/dashboard" class="fa-container"><i class="fa fa-desktop"></i> Dashboard</a>
     </li>
 
-    <li ng-repeat="organisation in user.organisations">
+    <li>
+        <a href="/forms" class="text-muted"><i class="fa fa-plus"></i> Add a Form</a>
+    </li>
+    <li>
+        <a href="/teams" class="text-muted"><i class="fa fa-plus"></i> Create a New Team</a>
+    </li>
 
+    <li ng-repeat="organisation in user.organisations">
 
         <ul class="nav nav-pills nav-stacked ml0">
             <li ng-repeat="team in organisation.teams | filter:{ _id: '!' + organisation.owners} ">
@@ -20,12 +26,6 @@
                     </li>
                 </ul>
             </li>
-            <li>
-                <a href="/forms" class="text-muted"><i class="fa fa-plus"></i> Add a Form</a>
-            </li>
-            <li>
-                <a href="/teams" class="text-muted"><i class="fa fa-plus"></i> Create a New Team</a>
-            </li>
 
 
 
@@ -40,8 +40,6 @@
             </li>
         </ul>
     </li>
-
-
 
 
 </ul>

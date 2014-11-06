@@ -15,6 +15,7 @@ var form = require('../modules/forms');
 var formViewer = require('../modules/formViewer');
 var membership = require('../modules/membership');
 var site = require('../modules/site');
+var store = require('../modules/store');
 
 /**
 var loginOrContinue = function (req, res, next) {
@@ -103,6 +104,13 @@ var routes = function (app, passport) {
     app.use(api + slash + rootUrls.files, file.filePublicApiRoutes);
 
     /**
+     * Fooforms store
+     */
+    app.use(slash + rootUrls.store, passport.authenticate('basic', {session: false}), store.storeViewRoutes);
+    app.use(api + slash + rootUrls.store, passport.authenticate('basic', {session: false}), store.storeApiRoutes);
+
+
+    /**
      * API and other routes that are protected
      */
     app.use(api + slash + rootUrls.invite, passport.authenticate('basic', {session: false}), membership.inviteApiRoutes);
@@ -113,7 +121,6 @@ var routes = function (app, passport) {
     app.use(api + slash + rootUrls.forms, passport.authenticate('basic', {session: false}), form.formRoutes);
     app.use(api + slash + rootUrls.posts, passport.authenticate('basic', {session: false}), form.postRoutes);
     app.use(api + slash + rootUrls.comments, passport.authenticate('basic', {session: false}), form.commentRoutes);
-
     app.use(slash + rootUrls.admin, passport.authenticate('basic', {session: false}), admin.adminViewRoutes);
     app.use(slash + rootUrls.calendar, passport.authenticate('basic', {session: false}), calendar.calendarViewRoutes);
     app.use(slash + rootUrls.forms, passport.authenticate('basic', {session: false}), formBuilder.formBuilderViewRoutes);

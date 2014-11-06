@@ -19,7 +19,8 @@ var rootUrls = {
     notFound: '404',
     invite: 'invite',
     forgottenPassword: 'forgot-password',
-    resetPassword: 'reset-password'
+    resetPassword: 'reset-password',
+    store: 'store'
 };
 
 module.exports = exports = rootUrls;

@@ -41,9 +41,6 @@ describe('Signup Routes', function () {
     var wrongConfirmPass = 'wrong';
     var organisationName = 'fooforms';
 
-    var signUpContent = 'id="signupContent.html"';
-
-
     afterEach(function () {
         mockgoose.reset();
     });

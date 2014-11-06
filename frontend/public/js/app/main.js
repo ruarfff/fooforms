@@ -5,7 +5,7 @@ var fooformsApp = angular.module('fooformsApp', [
     // Vendor dependencies
     'ngRoute', 'ngSanitize', 'trNgGrid', 'restangular', 'ui.bootstrap', 'textAngular', 'ui.calendar', 'angularFileUpload', 'ui.sortable', 'infinite-scroll', 'oitozero.ngSweetAlert', 'cgBusy',
     // Custom dependencies
-    'dashboard', 'form', 'formBuilder', 'formViewer', 'user', 'organisation', 'team', 'authentication', 'post', 'comment', 'invite'
+    'dashboard', 'form', 'formBuilder', 'formViewer', 'user', 'organisation', 'team', 'authentication', 'post', 'comment', 'invite', 'store'
 ]);
 
 fooformsApp
@@ -331,42 +331,51 @@ fooformsApp
             $scope.stylesheet = style;
         }
     }])
-    .controller('MainController', ['$scope', '$location', '$log', '$upload', 'USER_ROLES', 'AuthService', 'Session', 'DashboardService', function ($scope, $location, $log, $upload, USER_ROLES, AuthService, Session, DashboardService) {
-        'use strict';
-        $scope.sideMenuVisible = true;
+    .controller('MainController', ['$scope', '$location', '$log', '$upload', 'USER_ROLES', 'AuthService', 'Session', 'ContactService',
+        function ($scope, $location, $log, $upload, USER_ROLES, AuthService, Session, ContactService) {
+            'use strict';
+            $scope.sideMenuVisible = true;
 
-        //Messaging throughout App
-        $scope.activeMsgBox = ''; // any string --matches ng-show of various msgboxes.
-        $scope.msgStatus = ''; // used in class, so alert-danger, etc...
-        $scope.msgTitle = ''; // optional -
-        $scope.msg = ''; // optional, but pretty stupid not to populate it
+            //Messaging throughout App
+            $scope.activeMsgBox = ''; // any string --matches ng-show of various msgboxes.
+            $scope.msgStatus = ''; // used in class, so alert-danger, etc...
+            $scope.msgTitle = ''; // optional -
+            $scope.msg = ''; // optional, but pretty stupid not to populate it
 
-        // Allow the user to be update throughout the app using the Session service.
-        $scope.$watch(function () {
-            return Session.user
-        }, function (newVal, oldVal) {
-            if (typeof newVal !== 'undefined') {
-                $scope.user = Session.user;
+            // Allow the user to be update throughout the app using the Session service.
+            $scope.$watch(function () {
+                return Session.user
+            }, function (newVal, oldVal) {
+                if (typeof newVal !== 'undefined') {
+                    $scope.user = Session.user;
 
-            }
-        });
-        $scope.$watch(function () {
-            return Session.org
-        }, function (newVal, oldVal) {
-            if (typeof newVal !== 'undefined') {
+                    if ($scope.user && !$scope.contactUsForm) {
+                        ContactService.getContactUsForm().then(function (res) {
+                            $scope.contactUsForm = res.data;
+                        }, function (err) {
+                            $log.error(err);
+                        });
+                    }
 
-                $scope.org = Session.org;
-            }
-        });
+                }
+            });
+            $scope.$watch(function () {
+                return Session.org
+            }, function (newVal, oldVal) {
+                if (typeof newVal !== 'undefined') {
 
-        $scope.setMessage = function (msgBox, status, title, message) {
-            $scope.activeMsgBox = msgBox;
-            $scope.msgStatus = status;
-            $scope.msgTitle = title;
-            $scope.msg = message;
-        };
+                    $scope.org = Session.org;
+                }
+            });
 
-    }]);
+            $scope.setMessage = function (msgBox, status, title, message) {
+                $scope.activeMsgBox = msgBox;
+                $scope.msgStatus = status;
+                $scope.msgTitle = title;
+                $scope.msg = message;
+            };
+
+        }]);
 
 
 

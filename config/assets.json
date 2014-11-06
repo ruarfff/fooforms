@@ -44,7 +44,9 @@
                 "/js/app/team/team.js",
                 "/js/app/team/teamControllers.js",
                 "/js/app/team/teamServices.js",
-                "/js/app/team/teamDirectives.js"
+                "/js/app/team/teamDirectives.js",
+                "/js/app/store/store.js",
+                "/js/app/store/storeServices.js"
             ]
         }
     }
