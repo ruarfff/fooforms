@@ -154,45 +154,56 @@ angular.module('formViewer')
                 $scope.gridData = [];
                 var counter = 0;
                 $scope.gridFields = [];
+
+                var map = _.pick($scope.form, 'fields');
+
+                angular.forEach(map.fields, function (fieldData) {
+
+
+                    if (fieldData.showInGrid===true) {
+                        var field = _.pick(fieldData, 'label', 'value', 'type', 'selected', 'options');
+                        var safeLabel = field.label.replace(/\s+/g, "_");
+                        $scope.gridFields.push(safeLabel);
+
+                    }
+                });
+
                 angular.forEach($scope.posts, function (postEntry) {
                     var map = _.pick(postEntry, 'menuLabel', 'fields');
                     var entry = {};
                     entry['id'] = counter;
                     counter++;
                     angular.forEach(map.fields, function (field) {
-                        if (field.showInGrid) {
+
 
 
                             var reduce = _.pick(field, 'label', 'value', 'type', 'selected', 'options');
                             var safeLabel = reduce.label.replace(/\s+/g, "_");
 
-                            if (counter == 1) {
-                                $scope.gridFields.push(safeLabel);
+if ($scope.gridFields.indexOf(safeLabel)>-1) {
+    switch (reduce.type) {
+        case "radio":
+        case "status":
+            entry[safeLabel] = reduce.selected;
+            break;
+        case "textarea":
+            entry[safeLabel] = reduce.value;
+            break;
+        case "checkbox":
+            var selectedOptions = "";
+            for (var i = 0; i < reduce.options.length; i++) {
+                if (reduce.options[i].selected) {
+                    selectedOptions += reduce.options[i].label + ": ";
+                }
+            }
+            entry[safeLabel] = selectedOptions;
+            break;
+        default:
+            entry[safeLabel] = reduce.value;
+            break;
+    }
 
-                            }
-                            switch (reduce.type) {
-                                case "radio":
-                                case "status":
-                                    entry[safeLabel] = reduce.selected;
-                                    break;
-                                case "textarea":
-                                    entry[safeLabel] = reduce.value;
-                                    break;
-                                case "checkbox":
-                                    var selectedOptions = "";
-                                    for (var i = 0; i < reduce.options.length; i++) {
-                                        if (reduce.options[i].selected) {
-                                            selectedOptions += reduce.options[i].label + ": ";
-                                        }
-                                    }
-                                    entry[safeLabel] = selectedOptions;
-                                    break;
-                                default:
-                                    entry[safeLabel] = reduce.value;
-                                    break;
-                            }
-
-                        }
+}
                     });
                     $scope.gridData.push(entry);
 
