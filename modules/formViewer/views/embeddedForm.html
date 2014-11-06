@@ -4,194 +4,24 @@
     <meta charset="UTF-8">
     <title><%= formName %></title>
     <link rel="stylesheet" href="/css/embedded-form.min.css">
-    <link href="//maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css" rel="stylesheet">
-    <style>
-        .br0 {
-            border-radius: 0;
-        }
-
-        .b0 {
-            border: 0;
-        }
-
-        #formHeading h2 {
-            font-size: 16px;
-            font-weight: bold;
-            line-height: 22px;
-            margin: 0px;
-            padding: 0px;
-            display: inline-block;
-        }
-
-        #formHeading p {
-            margin: 0px;
-            padding: 0px;
-            font-size: 10px;
-            font-weight: normal;
-            line-height: 14px;
-        }
-
-        .inline {
-            display: inline-block;
-        }
-
-        #formLayout, .formLayout {
-            display: block;
-            padding-bottom: 0px;
-            background: #f7f7f7;
-            border: 1px solid #efefef;
-        }
-
-        .modal.fade {
-            bottom: -100%;
-            -webkit-transition: opacity 0.3s linear, left 0.3s ease-out;
-            -moz-transition: opacity 0.3s linear, left 0.3s ease-out;
-            -o-transition: opacity 0.3s linear, left 0.3s ease-out;
-            transition: opacity 0.3s linear, left 0.3s ease-out;
-        }
-
-        .modal.fade.in {
-
-            top: auto;
-            bottom: 150px;
-
-        }
-
-        select.form-control {
-            margin-right: 10px !important;
-        }
-
-        /*placeholder for draggies*/
-        #formFields div.fieldObject, #formEvents div.fieldObject {
-            clear: both !important;
-            padding: 30px !important;
-            border-radius: 0px !important;
-            border: 1px solid #EFE3AE;
-        }
-
-        textarea.tandc {
-            display: block;
-            min-height: 400px;
-            min-width: 540px !important;
-        }
-
-        .icons a {
-            border: 3px solid #fff;
-            display: inline-block;
-            padding: 4px;
-            margin: 0px;
-        }
-
-        .icons a:hover {
-            border: 3px solid #D2E5F7;
-
-        }
-
-        img.icon {
-            max-width: 48px;
-            margin: 4px;
-        }
-
-        label i.fa {
-            font-size: 1.4em;
-            color: #185aa7;
-            margin-left: 5px;
-        }
-
-        img.icon {
-            max-height: 48px !important;
-            display: inline-block;
-            vertical-align: middle;
-        }
-
-        .inline {
-            display: inline;
-        }
-
-
-    </style>
+    <!--<link href="//maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css" rel="stylesheet">-->
 
     <script type="text/javascript" src="/js/embedded-form.min.js"></script>
 
-
-    <script>
-
-        var FooForm = angular.module('FooForm', ['ngSanitize', 'pikaday']);
-        FooForm.controller('FormCtrl', function ($scope, $http) {
-            var formId = '<%- formId %>';
-            $scope.sorted = false;
-            $scope.errorPosting = false;
-            $http({
-                url: '/forms/repo/fetch/' + formId,
-                method: 'GET'
-            }).success(function (data) {
-                $scope.post = angular.copy(data);
-                $scope.post.form = data._id;
-                delete $scope.post._id;
-
-            }).error(function (data, status) {
-                $scope.error = status;
-            });
-            $scope.submit = function () {
-                $http({
-                    url: '/forms/repo/post',
-                    method: "POST",
-                    data: $scope.post,
-                    headers: {'Content-Type': 'application/json'}
-                }).success(function () {
-                    $scope.sorted = true;
-                    $scope.$apply();
-                }).error(function (data, status) {
-                    $scope.sorted = false;
-                    $scope.errorPosting = true;
-                    $scope.status = status;
-                    $scope.$apply();
-                });
-            };
-        }).directive('compile', function ($compile) {
-            'use strict';
-            // directive factory creates a link function
-            return function (scope, element, attrs) {
-                scope.$watch(
-                        function (scope) {
-                            // watch the 'compile' expression for changes
-                            return scope.$eval(attrs.compile);
-                        },
-                        function (value) {
-                            // when the 'compile' expression changes
-                            // assign it into the current DOM
-                            element.html(value);
-
-                            // compile the new DOM and link it to the current
-                            // scope.
-                            // NOTE: we only compile .childNodes so that
-                            // we don't get into infinite loop compiling ourselves
-                            $compile(element.contents())(scope);
-                        }
-                );
-            };
-        });
-
-        function nl2br(str, is_xhtml) {
-
-            var breakTag = (is_xhtml || typeof is_xhtml === 'undefined') ? '<br ' + '/>' : '<br>'; // Adjust comment to avoid issue on phpjs.org display
-
-            return (str + '')
-                    .replace(/([^>\r\n]?)(\r\n|\n\r|\r|\n)/g, '$1' + breakTag + '$2');
-        }
-    </script>
 </head>
 <body ng-controller="FormCtrl">
 
 <div id='formLayout' class="container">
-    <div compile="post.settings.customFormHtml"></div>
+    <div ng-if="post.settings.customForm">
+        <div compile="post.settings.customFormHtml"></div>
+    </div>
     <form role="form" class="panel panel-info b0">
 
         <div class="foo-header panel-heading text-info">
             <img class="icon pull-left" ng-src="{{post.icon}}" alt="">
-            <h4 class="inline p0 text-info">{{post.name}}</h4>
+            <h4 class="inline p0 text-info">{{post.title || post.displayName}}</h4>
 
-            <p class="text-primary">{{ post.description}}</p>
+            <p class="text-primary">{{post.description}}</p>
         </div>
         <div class="foo-body panel-body">
 
@@ -206,7 +36,7 @@
         </div>
     </form>
     <div class="row" ng-show="errorPosting">
-        <div class="col-sm-12 p5 alert alert-success">
+        <div class="col-sm-12 p5 alert alert-danger">
             <h4>Oops!</h4>
 
             <p>There seems to have been an error processing your form. Please review and try again.<br>{{status}}</p>
@@ -251,8 +81,6 @@
     <div class="row" ng-show="sorted">
         <div class="col-sm-12 p5 alert alert-success br0">
             <h4>Thank you</h4>
-
-            <p>Your order has been received.</p>
         </div>
     </div>
 

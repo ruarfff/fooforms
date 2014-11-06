@@ -2,3 +2,105 @@ $fa-font-path: "/fonts";
 
 @import '../../bower/bootstrap-sass-official/assets/stylesheets/bootstrap';
 @import '../../bower/bootstrap-sass-official/assets/stylesheets/bootstrap/theme';
+
+.br0 {
+  border-radius: 0;
+}
+
+.b0 {
+  border: 0;
+}
+
+#formHeading h2 {
+  font-size: 16px;
+  font-weight: bold;
+  line-height: 22px;
+  margin: 0px;
+  padding: 0px;
+  display: inline-block;
+}
+
+#formHeading p {
+  margin: 0px;
+  padding: 0px;
+  font-size: 10px;
+  font-weight: normal;
+  line-height: 14px;
+}
+
+.inline {
+  display: inline-block;
+}
+
+#formLayout, .formLayout {
+  display: block;
+  padding-bottom: 0px;
+  background: #f7f7f7;
+  border: 1px solid #efefef;
+}
+
+.modal.fade {
+  bottom: -100%;
+  -webkit-transition: opacity 0.3s linear, left 0.3s ease-out;
+  -moz-transition: opacity 0.3s linear, left 0.3s ease-out;
+  -o-transition: opacity 0.3s linear, left 0.3s ease-out;
+  transition: opacity 0.3s linear, left 0.3s ease-out;
+}
+
+.modal.fade.in {
+
+  top: auto;
+  bottom: 150px;
+
+}
+
+select.form-control {
+  margin-right: 10px !important;
+}
+
+/*placeholder for draggies*/
+#formFields div.fieldObject, #formEvents div.fieldObject {
+  clear: both !important;
+  padding: 30px !important;
+  border-radius: 0px !important;
+  border: 1px solid #EFE3AE;
+}
+
+textarea.tandc {
+  display: block;
+  min-height: 400px;
+  min-width: 540px !important;
+}
+
+.icons a {
+  border: 3px solid #fff;
+  display: inline-block;
+  padding: 4px;
+  margin: 0px;
+}
+
+.icons a:hover {
+  border: 3px solid #D2E5F7;
+
+}
+
+img.icon {
+  max-width: 48px;
+  margin: 4px;
+}
+
+label i.fa {
+  font-size: 1.4em;
+  color: #185aa7;
+  margin-left: 5px;
+}
+
+img.icon {
+  max-height: 48px !important;
+  display: inline-block;
+  vertical-align: middle;
+}
+
+.inline {
+  display: inline;
+}

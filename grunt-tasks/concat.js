@@ -95,7 +95,8 @@ module.exports = function (grunt) {
                 'frontend/src/bower/angular/angular.js',
                 'frontend/src/bower/angular-sanitize/angular-sanitize.min.js',
                 'frontend/src/bower/pikaday/pikaday.js',
-                'frontend/public/js/app/common/pikadayDirective.js'
+                'frontend/public/js/app/common/pikadayDirective.js',
+                'frontend/public/js/app/embeddedForm/embeddedForm.js'
             ],
             dest: 'frontend/public/js/embedded-form.min.js'
         }

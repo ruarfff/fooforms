@@ -10,11 +10,10 @@ var membership = new Membership(db);
 
 
 exports.renderForm = function (req, res, next) {
-    fooForm.findFormById(req.params.form, function (err, form) {
-        if (err) {
-            next(err);
-        }
-        else if (!form) {
+    fooForm.findFormById(req.params.form, function (err, result) {
+        if (err) return next(err);
+        var form = result.data;
+        if (!result.success || !form) {
             res.status(404).json('form not found');
         } else {
             res.render(viewDir + '/embeddedForm', {
@@ -25,6 +24,25 @@ exports.renderForm = function (req, res, next) {
     });
 };
 
+exports.getForm = function (req, res, next) {
+    fooForm.findFormById(req.params.form, function (err, result) {
+        if (err) return next(err);
+        var form = result.data;
+        if (!result.success || !form) {
+            res.status(404).json('form not found');
+        } else {
+            res.send(form);
+        }
+    });
+};
+
 exports.createPost = function (req, res, next) {
-    next();
+    fooForm.createPost(req.body, function (err, result) {
+        if (err) return next(err);
+        if (result.success) {
+            res.status(statusCodes.CREATED).json(result.post);
+        } else {
+            res.status(statusCodes.BAD_REQUEST).json(result);
+        }
+    });
 };

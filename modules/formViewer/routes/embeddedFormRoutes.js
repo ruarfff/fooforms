@@ -15,7 +15,7 @@ router.get('/:form', function (req, res, next) {
 });
 
 router.get('/fetch/:form', function (req, res, next) {
-    embeddedFormController.renderForm(req, res, next);
+    embeddedFormController.getForm(req, res, next);
 });
 
 module.exports = router;
