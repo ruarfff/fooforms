@@ -1,19 +1,46 @@
-<li ng-repeat="organisation in user.organisations">
-    <h5>{{organisation.displayName}}</h5>
+<ul class="nav nav-pills nav-stacked scrollSidebar ml0">
+    <li>
+        <a href="/dashboard" class="fa-container"><i class="fa fa-desktop"></i> Dashboard</a>
+    </li>
 
-    <div><a ng-click="isTeamsCollapsed = !isTeamsCollapsed"><i class="fa fa-sitemap"></i></a></div>
-    <div><a ng-click="isTeamsCollapsed = !isTeamsCollapsed">Team Folders<span class="caret"></span></a>
-    </div>
-    <ul class="nav nav-pills nav-stacked ml0">
-    <li ng-repeat="team in organisation.teams | filter:{ _id: '!' + organisation.owners} ">
-            <a href="/{{organisation.displayName}}/teams/{{team.displayName}}"><h5>{{teams.title || team.displayName}}</h5></a>
-            <ul class="nav nav-pills nav-stacked ml0">
-                <li ng-repeat="form in team.defaultFolder.forms">
-                    <a href="/{{organisation.displayName}}/{{team.displayName}}/{{form.displayName}}">{{form.displayName}}</a>
-                </li>
-            </ul>
-        </li>
-        <li class="divider"></li>
-        <li><a href="/teams">Manage Team Folders</a></li>
-    </ul>
-</li>
+    <li>
+        <a href="/forms" class="text-muted"><i class="fa fa-plus"></i> Add a Form</a>
+    </li>
+    <li>
+        <a href="/teams" class="text-muted"><i class="fa fa-plus"></i> Create a New Team</a>
+    </li>
+
+    <li ng-repeat="organisation in user.organisations">
+
+        <ul class="nav nav-pills nav-stacked ml0">
+            <li ng-repeat="team in organisation.teams | filter:{ _id: '!' + organisation.owners} ">
+
+                <a href="/{{organisation.displayName}}/teams/{{team.displayName}}">
+                   <i class="fa fa-group"></i> {{teams.title || team.displayName}}
+                </a>
+                <ul class="nav nav-pills nav-stacked ml0">
+                    <li ng-repeat="form in team.defaultFolder.forms track by $index">
+
+                        <a href="/{{organisation.displayName}}/teams/{{team.displayName}}/{{form.displayName}}">
+                            <img ng-src="{{form.icon}}" class="nav-icon"> {{form.displayName}}</a>
+                    </li>
+                </ul>
+            </li>
+
+
+
+    <li><a href="/forms"><i class="fa fa-lock"></i> My Forms</a>
+        <ul class="nav nav-pills nav-stacked ml0">
+            <li ng-repeat="form in user.defaultFolder.forms track by $index">
+
+                <a href="/{{user.displayName}}/{{form.displayName}}">
+                    <img ng-src="{{form.icon}}" class="nav-icon"> {{form.displayName}}
+                </a>
+
+            </li>
+        </ul>
+    </li>
+
+
+</ul>
+</ul>

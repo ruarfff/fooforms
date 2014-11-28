@@ -1,34 +1,49 @@
 /* Controllers */
 
 angular.module('formViewer')
-    .controller('FormViewerCtrl', ['$scope', '$route', '$log', '$http' , '$modal', 'Restangular', 'SweetAlert', 'Session', 'FormService', 'PostService', 'Posts', '_',
-        function ($scope, $route, $log, $http, $modal, Restangular, SweetAlert, Session, FormService, PostService, Posts, _) {
+    .controller('FormViewerCtrl', ['$scope', '$route', '$location', '$log', '$http', '$modal', 'Restangular', 'SweetAlert', 'Session', 'FormService', 'PostService', 'Posts', '_',
+        function ($scope, $route, $location, $log, $http, $modal, Restangular, SweetAlert, Session, FormService, PostService, Posts, _) {
             "use strict";
+
+            $scope.selectedStatus = 'All';
 
             $scope.postView = 'feed';
             // Posts are linked to the post collection directive
             $scope.posts = [];
+            // Need location to set correct url for Edit button
+            $scope.location = $location.path();
 
             $scope.owner = $route.current.params.name;
             var org = _.find(Session.user.organisations, {displayName: $scope.owner});
+
+            var team = _.find(Session.user.teams, {displayName: $route.current.params.team});
+
             var formName = $route.current.params.form;
             var folder;
 
-            if (Session.user.displayName === $scope.owner) {
+            folderDetect: if (Session.user.displayName === $scope.owner) {
                 folder = Session.user.defaultFolder;
+            } else if (team) {
+                folder = team.defaultFolder;
+                break folderDetect;
             } else if (org) {
                 folder = org.defaultFolder;
             } else {
                 window.location.href = '/dashboard';
             }
             $scope.form = _.find(folder.forms, {displayName: formName});
+
+            if (!$scope.form) {
+                window.location.href = '/dashboard';
+            }
+
             $scope.activePost = Posts.newPost($scope.form);
 
             $scope.postStreams = $scope.form.postStreams.join(',');
 
             $scope.showPostForm = false;
 
-            $scope.gridData = [];
+            $scope.gridData = [1, 2, 3, 4, 5];
             $scope.gridSelectedPost = [];
 
             $scope.doingPostApi = false;
@@ -40,6 +55,7 @@ angular.module('formViewer')
             };
 
             $scope.cancelPost = function () {
+
                 $scope.gridSelectedPost = [];
             };
             $scope.copyPost = function () {
@@ -86,10 +102,12 @@ angular.module('formViewer')
 
             $scope.deletePost = function () {
                 if ($scope.activePost._id) {
-                    SweetAlert.swal({   title: 'Are you sure?', text: 'Your will not be able to recover this post!',
+                    SweetAlert.swal({
+                            title: 'Are you sure?', text: 'Your will not be able to recover this post!',
                             type: 'warning',
                             showCancelButton: true, confirmButtonColor: '#DD6B55',
-                            confirmButtonText: 'Yes, delete it!', closeOnConfirm: false },
+                            confirmButtonText: 'Yes, delete it!', closeOnConfirm: false
+                        },
                         function () {
                             PostService.deletePost($scope.activePost, function (err) {
                                 $scope.doingPostApi = false;
@@ -126,50 +144,33 @@ angular.module('formViewer')
             };
 
 
-            $scope.addRepeat = function (groupBox, field) {
-                var repeater = {};
-                repeater.id = new Date().getTime();
-                repeater.fields = angular.copy($scope.activePost.fields[groupBox].fields);
-
-                // need to swap out the field.id's for new ones.
-                var fieldCount = repeater.fields.length;
-
-                for (var fieldIndex = 0; fieldIndex < fieldCount; fieldIndex++) {
-                    var fieldId = repeater.fields[fieldIndex].id
-                    repeater.fields[fieldIndex].id = repeater.id + '_' + fieldId;
-
-                    // Fields specified in calculation need filedIds updated
-                    if (repeater.fields[fieldIndex].type == 'calculation') {
-
-                        if (repeater.fields[fieldIndex].options.field1.item != 'Specified Value') {
-                            var fieldItem = repeater.fields[fieldIndex].options.field1.item;
-                            repeater.fields[fieldIndex].options.field1.item = repeater.id + '_' + fieldItem;
-                        }
-                        if (repeater.fields[fieldIndex].options.field2.item != 'Specified Value') {
-                            var fieldItem = repeater.fields[fieldIndex].options.field2.item;
-                            repeater.fields[fieldIndex].options.field2.item = repeater.id + '_' + fieldItem;
-                        }
-                    }
-                }
-
-                $scope.activePost.fields[groupBox].repeaters.push(repeater);
-
-            };
-            $scope.removeRepeat = function (groupBox, field) {
-
-            };
-
-
             //Grid Related
             $scope.stGridHeight = function () {
 
-                return{'height': (window.innerHeight - 170)}
+                return {'height': (window.innerHeight - 170)}
             };
 
             $scope.posts2Grid = function () {
                 $scope.gridData = [];
                 var counter = 0;
+                var hasField = false;
+                $scope.gridFields = [];
+
+                var map = _.pick($scope.form, 'fields');
+
+                angular.forEach(map.fields, function (fieldData) {
+
+
+                    if (fieldData.showInGrid===true) {
+                        var field = _.pick(fieldData, 'label', 'value', 'type', 'selected', 'options');
+                        var safeLabel = field.label.replace(/\s+/g, "_");
+                        $scope.gridFields.push(safeLabel);
+
+                    }
+                });
+
                 angular.forEach($scope.posts, function (postEntry) {
+                    hasField = false;
                     var map = _.pick(postEntry, 'menuLabel', 'fields');
                     var entry = {};
                     entry['id'] = counter;
@@ -177,61 +178,68 @@ angular.module('formViewer')
                     angular.forEach(map.fields, function (field) {
 
 
-                        var reduce = _.pick(field, 'label', 'value', 'type', 'selected', 'options');
-                        var safeLabel = reduce.label.replace(/\s+/g, "_");
 
-                        switch (reduce.type) {
-                            case "radio":
-                            case "status":
-                                entry[safeLabel] = reduce.selected;
-                                break;
-                            case "textarea":
-                                entry[safeLabel] = reduce.value;
-                                break;
-                            case "checkbox":
-                                var selectedOptions = "";
-                                for (var i = 0; i < reduce.options.length; i++) {
-                                    if (reduce.options[i].selected) {
-                                        selectedOptions += reduce.options[i].label + ": ";
-                                    }
-                                }
-                                entry[safeLabel] = selectedOptions;
-                                break;
-                            default:
-                                entry[safeLabel] = reduce.value;
-                                break;
-                        }
+                            var reduce = _.pick(field, 'label', 'value', 'type', 'selected', 'options');
+                            var safeLabel = reduce.label.replace(/\s+/g, "_");
 
+if ($scope.gridFields.indexOf(safeLabel)>-1) {
+    hasField = true;
+    switch (reduce.type) {
+        case "radio":
+        case "status":
+            entry[safeLabel] = reduce.selected;
+            break;
+        case "textarea":
+            entry[safeLabel] = reduce.value;
+            break;
+        case "checkbox":
+            var selectedOptions = "";
+            for (var i = 0; i < reduce.options.length; i++) {
+                if (reduce.options[i].selected) {
+                    selectedOptions += reduce.options[i].label + ": ";
+                }
+            }
+            entry[safeLabel] = selectedOptions;
+            break;
+        default:
+            entry[safeLabel] = reduce.value;
+            break;
+    }
 
+}
                     });
-                    $scope.gridData.push(entry);
+                    if(hasField) {
+                        $scope.gridData.push(entry);
+                    }
 
                 });
+
             };
+
+
+            $scope.$watch('postView', function (value) {
+
+                if ((typeof (value ) != 'undefined') && value == 'grid') {
+                    $scope.posts2Grid();
+
+                }
+
+
+            });
 
             $scope.$watch('gridSelectedPost[0]', function (value) {
 
                 if (typeof (value ) != 'undefined') {
+                    $scope.showPostForm = true;
                     $scope.activePost = $scope.posts[value.id];
 
                 }
 
             });
 
-            $scope.filterStatus = function (option) {
-                $scope.posts.forEach(function (post) {
-                    // TODO: filtering of some sort
-                    post.hide = false;
-                });
+            $scope.filterStatus = function (status) {
+                $scope.selectedStatus = status;
             };
-
-            $scope.filterStatusOff = function () {
-                $scope.posts.forEach(function (post) {
-                    post.hide = false;
-                });
-
-            };
-
 
         }]);
 

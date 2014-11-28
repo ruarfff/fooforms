@@ -4,7 +4,7 @@ angular.module('post')
         function () {
             return {
                 restrict: 'E',
-                scope: {view: '@', streams: '@', activePost: '=activePost', posts: '=posts'},
+                scope: {view: '@', streams: '@', activePost: '=activePost', posts: '=posts', status: '@'},
                 transclude: true,
                 controller: function ($log, $scope, PostService, _, Session) {
                     var currentPostPage = 0;
@@ -45,10 +45,9 @@ angular.module('post')
                         if (hasMorePosts) {
                             currentPostPage = currentPostPage + 1;
                             getPosts(currentPostPage, postPageSize, $scope.streams);
+                            $scope.gridData = [ {'test':1},{'test2': 2}];
                         }
                     };
-
-                    //this.activePost = $scope.activePost;
 
 
                 },
@@ -63,10 +62,45 @@ angular.module('post')
                 restrict: 'E',
                 scope: {
                     activePost: '=activePost',
+                    members: '=members',
                     delete: '&deletePost',
                     copy: '&copyPost',
                     cancel: '&cancelPost',
                     save: '&savePost'
+                },
+                controller: function($scope){
+                    $scope.addRepeat = function (groupBox, field) {
+                        var repeater = {};
+                        repeater.id = new Date().getTime();
+                        repeater.fields = angular.copy($scope.activePost.fields[groupBox].fields);
+
+                        // need to swap out the field.id's for new ones.
+                        var fieldCount = repeater.fields.length;
+
+                        for (var fieldIndex = 0; fieldIndex < fieldCount; fieldIndex++) {
+                            var fieldId = repeater.fields[fieldIndex].id
+                            repeater.fields[fieldIndex].id = repeater.id + '_' + fieldId;
+
+                            // Fields specified in calculation need filedIds updated
+                            if (repeater.fields[fieldIndex].type == 'calculation') {
+
+                                if (repeater.fields[fieldIndex].options.field1.item != 'Specified Value') {
+                                    var fieldItem = repeater.fields[fieldIndex].options.field1.item;
+                                    repeater.fields[fieldIndex].options.field1.item = repeater.id + '_' + fieldItem;
+                                }
+                                if (repeater.fields[fieldIndex].options.field2.item != 'Specified Value') {
+                                    var fieldItem = repeater.fields[fieldIndex].options.field2.item;
+                                    repeater.fields[fieldIndex].options.field2.item = repeater.id + '_' + fieldItem;
+                                }
+                            }
+                        }
+
+                        $scope.activePost.fields[groupBox].repeaters.push(repeater);
+
+                    };
+                    $scope.removeRepeat = function (groupBox, field) {
+
+                    };
                 },
                 templateUrl: '/template/post/foo-post.html'
             };
@@ -79,11 +113,12 @@ angular.module('post')
                 restrict: 'E',
                 scope: {
                     posts: '=posts',
-                    activePost: '=activePost'
+                    activePost: '=activePost',
+                    status: '@'
                 },
                 controller: function ($scope) {
-                    $scope.selectPost = function (index) {
-                        $scope.activePost = $scope.posts[index];
+                    $scope.selectPost = function (post) {
+                        $scope.activePost = post;
                     };
                 },
                 link: function (scope, element, attrs, postCollectionCtrl) {
@@ -99,17 +134,65 @@ angular.module('post')
                 restrict: 'E',
                 scope: {
                     posts: '=posts',
-                    activePost: '=activePost'
+                    activePost: '=activePost',
+                    status: '@'
                 },
                 controller: function ($scope) {
-                    $scope.selectPost = function (index) {
-                        $scope.activePost = $scope.posts[index];
+                    $scope.selectPost = function (post) {
+                        $scope.activePost = post;
                     };
                 },
                 link: function (scope, element, attrs, postCollectionCtrl) {
                 },
                 templateUrl: '/template/post/foo-post-feed.html'
             };
-        }]);
+        }]) .directive('fooPostGrid', [
+        function () {
+            return {
+                require: '?^fooPostCollection',
+                restrict: 'E',
+                transclude: true,
+                scope: {
+                    posts: '=posts',
+                    activePost: '=activePost',
+                    gridData: '=gridData'
+                },
+                controller: function ($scope) {
+                    $scope.selectPost = function (index) {
+                        $scope.activePost = $scope.posts[index];
+                    };
+
+
+
+                },
+                link: function (scope, element, attrs, postCollectionCtrl) {
+                },
+                templateUrl: '/template/post/foo-post-grid.html'
+            };
+        }]).directive('feedHeader', [function () {
+
+        return {
+            restrict: 'E',
+            scope: false,
+
+
+            link: function (scope, $element) {
+
+
+                var index;
+                if (angular.isUndefined(scope.post)) {
+                    scope.post = scope.posts.activePost;
+                }
+                var titles = _.where(scope.post.fields, {'useAsTitle': true});
+                var titlesplucked = _.pluck(titles, 'value');
+                scope.titleStr = titlesplucked.toString().replace(',',' - ');
+
+
+            },
+            replace: false,
+            templateUrl: '/template/post/feed-header.html'
+        };
+
+    }]);
 
 

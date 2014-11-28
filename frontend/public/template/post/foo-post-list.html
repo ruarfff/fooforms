@@ -1,10 +1,10 @@
-<table class="table feedTable m0 p0 b0">
-    <tr ng-repeat="post in posts track by $index" ng-click="selectPost($index)"
+<table class="table feedTable m0 p0 b0 panel-foo-list">
+    <tr ng-repeat="post in posts | statusFilter:status" ng-click="selectPost(post)"
         ng-class-odd="'feedOdd'" ng-class-even="'feedEven'"
         ng-class="{ 'panel-feed-selected': activePost._id == post._id }">
         <td class="b0">
-            <img class="media-object icon icon-feed pull-left" ng-src="{{post.icon}}" alt="">
-            <span>{{post.fields[0].value}}</span>
+            <img class="img-responsive img-circle post-user-img" ng-src="{{post.createdBy.photo || '/assets/images/photo.jpg'}}"/>
+         </td><td>   <span>{{post.fields[0].value}}</span>
 
             <span class="pull-right text-muted">{{post.displayName}}, {{post.lastModified | date : 'HH:mm'}} </span>
             <br><label class="label label-default pull-right" ng-repeat="field in post.fields"

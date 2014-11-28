@@ -6,6 +6,7 @@
                 "/js/app/authentication/authentication.js",
                 "/js/app/authentication/authenticationConstants.js",
                 "/js/app/authentication/authenticationControllers.js",
+                "/js/app/authentication/authenticationDirectives.js",
                 "/js/app/authentication/authenticationServices.js",
                 "/js/app/calendar/calendarDirectives.js",
                 "/js/app/comment/comment.js",
@@ -26,6 +27,9 @@
                 "/js/app/formBuilder/uiSortable.js",
                 "/js/app/formViewer/formViewer.js",
                 "/js/app/formViewer/formViewerControllers.js",
+                "/js/app/invite/invite.js",
+                "/js/app/invite/inviteControllers.js",
+                "/js/app/invite/inviteServices.js",
                 "/js/app/user/user.js",
                 "/js/app/user/userControllers.js",
                 "/js/app/user/userServices.js",
@@ -36,9 +40,13 @@
                 "/js/app/post/post.js",
                 "/js/app/post/postDirectives.js",
                 "/js/app/post/postServices.js",
+                "/js/app/post/postFilters.js",
                 "/js/app/team/team.js",
                 "/js/app/team/teamControllers.js",
-                "/js/app/team/teamServices.js"
+                "/js/app/team/teamServices.js",
+                "/js/app/team/teamDirectives.js",
+                "/js/app/store/store.js",
+                "/js/app/store/storeServices.js"
             ]
         }
     }

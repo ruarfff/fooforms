@@ -7,16 +7,13 @@ var ObjectId = mongoose.Types.ObjectId();
 var mockgoose = require('mockgoose');
 mockgoose(mongoose);
 
-global.config = {};
-global.config.root = '../../../';
-
 var request = require('supertest');
 var express = require('express');
 var bodyParser = require('body-parser');
 var should = require('should');
 var signupRoutes = require('../routes/signupRoutes');
 var dashboardRoutes = require('../../dashboard/routes/dashboardApiRoutes');
-var rootUrls = require(global.config.root + '/config/rootUrls');
+var rootUrls = require('../../../config/rootUrls');
 var Membership = require('fooforms-membership');
 var db = require('mongoose').connection;
 var membership = new Membership(db);
@@ -43,10 +40,6 @@ describe('Signup Routes', function () {
     var confirmPass = 'pass';
     var wrongConfirmPass = 'wrong';
     var organisationName = 'fooforms';
-
-    var loginTitle = '<title>FOOFORMS - Login or Register</title>';
-    var signUpTitle = '<title>Sign Up</title>';
-
 
     afterEach(function () {
         mockgoose.reset();
@@ -94,57 +87,62 @@ describe('Signup Routes', function () {
                     });
                 });
         });
-        it('responds with sign up page when no email is provided', function (done) {
+        it('responds with error when no email is provided', function (done) {
             request(app)
                 .post(rootUrl)
                 .send({ email: '', displayName: displayName,
                     password: password, confirmPass: confirmPass, organisationName: organisationName })
                 .set('Accept', 'application/json')
-                .expect(200, function (err, data) {
-                    (data.text.indexOf(signUpTitle) > -1).should.equal(true);
+                .expect(400, function (err, data) {
+                    var result = data.res.body;
+                    result.success.should.equal(false);
                     done()
                 });
         });
-        it('responds with sign up page when no displayName is provided', function (done) {
+        it('responds with error when no displayName is provided', function (done) {
             request(app)
                 .post(rootUrl)
                 .send({ email: email, displayName: '',
                     password: password, confirmPass: confirmPass, organisationName: organisationName })
                 .set('Accept', 'application/json')
-                .expect(200, function (err, data) {
-                    (data.text.indexOf(signUpTitle) > -1).should.equal(true);
+                .expect(400, function (err, data) {
+                    var result = data.res.body;
+                    result.success.should.equal(false);
                     done()
                 });
         });
-        it('responds with sign up page when no password is provided', function (done) {
+        it('responds with error when no password is provided', function (done) {
             request(app)
                 .post(rootUrl)
                 .send({ email: email, displayName: displayName })
                 .set('Accept', 'application/json')
-                .expect(200, function (err, data) {
-                    (data.text.indexOf(signUpTitle) > -1).should.equal(true);
+                .expect(400, function (err, data) {
+                    var result = data.res.body;
+                    result.success.should.equal(false);
                     done()
                 });
         });
-        it('responds with sign up page when passwords do not match', function (done) {
+        it('responds with error when passwords do not match', function (done) {
             request(app)
                 .post(rootUrl)
                 .send({ email: email, displayName: displayName,
                     password: password, confirmPass: wrongConfirmPass, organisationName: organisationName })
                 .set('Accept', 'application/json')
-                .expect(200, function (err, data) {
-                    (data.text.indexOf(signUpTitle) > -1).should.equal(true);
+                .expect(400, function (err, data) {
+                    var result = data.res.body;
+                    result.success.should.equal(false);
                     done()
                 });
         });
-        it('responds with sign up page when no organisation name provided', function (done) {
+        it('responds with error when no organisation name provided', function (done) {
             request(app)
                 .post(rootUrl)
                 .send({ email: email, displayName: displayName,
                     password: password, confirmPass: confirmPass })
                 .set('Accept', 'application/json')
-                .expect(200, function (err, data) {
-                    (data.text.indexOf(signUpTitle) > -1).should.equal(true);
+                .expect(400, function (err, data) {
+                    var result = data.res.body;
+                    result.success.should.equal(false);
                     done()
                 });
         });

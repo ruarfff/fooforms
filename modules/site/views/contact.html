@@ -9,12 +9,10 @@
     <link rel="shortcut icon" href="/assets/ico/favicon.ico" type="image/x-icon">
     <link rel="icon" href="/assets/ico/favicon.ico" type="image/x-icon">
 
-    <title><%= title %></title>
+    <title>FooForms, Enterprise Form Builder and Social Dashboard</title>
 
-    <!-- Bootstrap core CSS -->
-    <link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.0.3/css/bootstrap.min.css">
-    <link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.0.3/css/bootstrap-theme.min.css">
-    <link rel="stylesheet" href="//netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.css">
+    <link href="/css/fooforms.min.css" rel="stylesheet">
+    <link href="//maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css" rel="stylesheet">
     <link href='http://fonts.googleapis.com/css?family=Play' rel='stylesheet' type='text/css'>
     <link href='http://fonts.googleapis.com/css?family=Open+Sans+Condensed:300' rel='stylesheet' type='text/css'>
 
@@ -24,8 +22,6 @@
     <script src="https://oss.maxcdn.com/libs/respond.js/1.3.0/respond.min.js"></script>
     <![endif]-->
 
-    <!-- Custom styles for this template -->
-    <link href="/css/main.min.css" rel="stylesheet">
 </head>
 <!-- NAVBAR
 ================================================== -->
@@ -33,30 +29,31 @@
 <div class="navbar-wrapper">
 
 
-    <div class="navbar navbar-default navbar-fixed-top navbar-foo" role="navigation">
-        <div class="container">
+    <nav class="navbar navbar-default navbar-fixed-top navbar-foo" role="navigation">
+        <div class="container-fluid">
+            <!-- Brand and toggle get grouped for better mobile display -->
             <div class="navbar-header">
-                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                <button type="button" class="navbar-toggle collapsed" data-toggle="collapse"
+                        data-target="#bs-example-navbar-collapse-1">
                     <span class="sr-only">Toggle navigation</span>
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
                 </button>
-                <a class="navbar-brand" href="#"><i class="fa fa-signal fa-rotate-270 fa-big"></i><span
-                        class="text-foo">FOO</span>FORMS</a>
+                <a class="navbar-brand" href="#"><img class='logo' src="/assets/images/fooLogo-sm.png"></a>
             </div>
-            <div class="navbar-collapse collapse">
-                <ul class="nav navbar-nav foo-menu navbar-right">
 
-                    <li><a href="/about">About</a></li>
-                    <li><a href="/contact">Contact</a></li>
-                    <li><a href="/login" class="text-success">Sign in</a></li>
+            <!-- Collect the nav links, forms, and other content for toggling -->
+            <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+                <ul class="nav navbar-nav navbar-right foo-menu">
 
+                    <li><a href="/dashboard/" class="btn-transparent">Back to Dashboard</a></li>
                 </ul>
-
             </div>
+            <!-- /.navbar-collapse -->
         </div>
-    </div>
+        <!-- /.container-fluid -->
+    </nav>
 
 </div>
 
@@ -64,13 +61,13 @@
 <div class="container marketing">
 
     <div class="row">
-        <div class="page-content">
+        <div class="container m10">
 
             <div class="col-md-12">
-                <h1>Got Questions? <span class="text-muted">contact us</span>
+                <h1>Found a bug? <span class="text-muted">Please let us know</span>
                 </h1>
 
-                <iframe class="iframe-large" src="/forms/repo/53cbac674c7e97a5e6cdeaaf"></iframe>
+                <iframe class="iframe-large" src="https://fooforms.com/forms/repo/54523daf9f3c3a3652c50d08"></iframe>
             </div>
         </div>
     </div>

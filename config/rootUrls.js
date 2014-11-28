@@ -16,7 +16,11 @@ var rootUrls = {
     people: 'people',
     profile: 'profile',
     edit: 'edit',
-    notFound: '404'
+    notFound: '404',
+    invite: 'invite',
+    forgottenPassword: 'forgot-password',
+    resetPassword: 'reset-password',
+    store: 'store'
 };
 
 module.exports = exports = rootUrls;

@@ -39,7 +39,7 @@ angular.module('formBuilder')
 
                 var index;
                 if (angular.isUndefined($scope.postObj)) {
-                    $scope.postObj = $scope.posts.activePost;
+                    $scope.postObj = $scope.activePost;
                 }
                 var count = $scope.postObj.fields.length;
 
@@ -163,32 +163,6 @@ angular.module('formBuilder')
             },
             replace: false,
             templateUrl: '/partials/calculationGroupBox.html'
-        };
-
-    }]).directive('feedHeader', [function () {
-
-        return {
-            restrict: 'E',
-            scope: false,
-
-
-            link: function (scope, $element) {
-
-
-                var index;
-                if (angular.isUndefined(scope.post)) {
-                    scope.post = scope.posts.activePost;
-                }
-                var titles = _.where(scope.post.fields, {'useAsTitle': true});
-                var titlesplucked = _.pluck(titles, 'value');
-                scope.titleStr = titlesplucked.toString();
-
-
-            },
-            replace: false,
-            template: '<img class="media-object icon icon-feed pull-left" ng-src="{{post.icon}}" alt=""> \
-                <span class="pull-right text-muted">{{post.lastModified | date : "HH:mm"}} </span> \
-        <span> {{titleStr}}</span>'
         };
 
     }]).directive('uploader', ['$upload', '$log', function ($upload, $log) {

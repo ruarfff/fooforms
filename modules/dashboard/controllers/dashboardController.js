@@ -61,7 +61,7 @@ exports.getUserDashboard = function (req, res, next) {
     });
 };
 
-// TODO: Remove this. No longer used but the test that runs agians it is handy for now.
+// TODO: Remove this. No longer used but the test that runs against it is handy for now.
 // Will refactor to have the test run against the function in the forms module.
 exports.getDashboardPosts = function (req, res, next) {
     var postStreams = req.query.postStreams.split(',');

@@ -1,6 +1,6 @@
 <div class="row">
 <div class="col-sm-12 scrollPanel">
-<div class="panel panel-default">
+<div class="panel panel-foo">
 <div class="panel-heading p0">
     <ul id='optionTabs' class="nav nav-tabs">
         <li class="active"><a id='formTabFields' data-target="#formTabs-fields" data-toggle="tab">Add a New Field</a>
@@ -150,7 +150,7 @@
 
 
 <div id="formTabs-settings" class="tab-pane">
-    <div class="panel" ng-class="{'panel-primary': showFieldSettings, 'panel-success' : showEventSettings} ">
+    <div class="panel" ng-class="{'panel-foo-dark': showFieldSettings, 'panel-success' : showEventSettings} ">
         <div class='panel-heading' ng-show="nowEditing>=0 && showFieldSettings" class="appear">
             <h6><span class="badge">{{nowEditing}}</span> <span>{{form.fields[nowEditing].name}} </span>
             <span ng-show="nowSubEditing">

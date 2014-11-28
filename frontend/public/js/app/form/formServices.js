@@ -1,6 +1,7 @@
 /* global angular */
 
-angular.module('form').factory('FormService',
+angular.module('form')
+    .factory('FormService',
     ['$log', 'Restangular', 'Session',
         function ($log, Restangular, Session) {
             'use strict';
@@ -42,6 +43,19 @@ angular.module('form').factory('FormService',
                     }, function (err) {
                         $log.error(err);
                         next(err);
+                    });
+                },
+                moveToFolder: function (args, next) {
+                    if (typeof args.form.patch !== 'function') {
+                        args.form = Restangular.restangularizeElement(formApi, args.form, '');
+                    }
+                    args.form.patch({
+                        action: 'moveToFolder',
+                        folder: args.folderId
+                    }).then(function (form) {
+                        return next(null, form);
+                    }, function (err) {
+                        return next(err);
                     });
                 },
                 getFormTemplateObject: function () {

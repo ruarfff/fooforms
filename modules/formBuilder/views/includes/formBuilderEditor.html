@@ -1,4 +1,4 @@
-<div id="tabs-newForm" class="tab-pane active panel panel-default">
+<div id="tabs-newForm" class="tab-pane active panel panel-foo-dark">
     <div class="panel-heading"
          ng-class="{ 'bg-warning': showFormSettings}"
          ng-click="editField(null,null,'Form', $event)"><img class='icon pull-left'
@@ -8,7 +8,7 @@
 
         <p id='formDescription'>{{form.description}} </p>
     </div>
-    <div class="container-fluid well"
+    <div class="container-fluid p10"
          ng-class="{ 'newForm': form.fields.length==0}">
         <form role="form" class="fooform">
 

@@ -22,12 +22,10 @@ exports.signup = function (req, res, next) {
     var organisationName = formDetails.organisationName || '';
 
     var userDetail = {
-        name: {
-            givenName: formDetails.givenName,
-            familyName: formDetails.familyName
-        },
+        isInvite: formDetails.isInvite || false,
         email: formDetails.email,
         organisationName: slug(organisationName),
+        organisation: formDetails.organisation,
         displayName: slug(displayName),
         password: formDetails.password,
         confirmPass: formDetails.confirmPass
@@ -39,10 +37,7 @@ exports.signup = function (req, res, next) {
                 result = {};
                 result.err = err || new Error('An unknown error occurred.');
             }
-            res.render(signupPath, {
-                title: 'Sign Up',
-                error: result
-            });
+            res.status(400).send(result);
         } else {
 
             var args = {
@@ -52,9 +47,25 @@ exports.signup = function (req, res, next) {
                 Folder: fooForm.Folder
             };
 
-            defaultFolders.createDefaultFolders(args, function (err, result) {
-                res.redirect('/login');
-            });
+            if(userDetail.isInvite) {
+                defaultFolders.createDefaultUserFolder(args, function(err, result) {
+                    if (err || !result.success) {
+                        log.error(err);
+                        log.info(result);
+                    }
+                    res.status(200).end();
+                });
+            } else {
+                defaultFolders.createDefaultFolders(args, function (err, result) {
+                    if (err || !result.success) {
+                        log.error(err);
+                        log.info(result);
+                    }
+                    // TODO: At this point the user exist but something may have gone wrong creating default folders and
+                    // this is not being handled. Need ot update to fix that but it's a bit of work.
+                    res.status(200).end();
+                });
+            }
         }
     });
 };

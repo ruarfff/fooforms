@@ -1,26 +1,23 @@
 /* global angular */
 
 angular.module('form').controller('FormCtrl',
-    ['$scope', '$location', '$log', 'FormService',
-        function ($scope, $location, $log, FormService) {
+    ['$scope', '$location', '$log', 'FormService', 'StoreService',
+        function ($scope, $location, $log, FormService, StoreService) {
             'use strict';
-            $scope.formUrl = ''; // Temporary helper variable to view form JSON
-            $scope.formName = '';
 
+            $scope.store = {};
+            $scope.categories = [];
+            $scope.activeCategory = 'yourForms';
 
-            $scope.hover = function (form) {
-                // Shows/hides the delete button on hover
-                return form.showOptions = !form.showOptions;
+            $scope.setCategory = function (category) {
+                $scope.activeCategory = category.displayName;
             };
 
-            $scope.viewForm = function (form) {
-                $scope.formUrl = form.url;
-                $scope.formName = form.name;
-            };
-
-            $scope.openForm = function (form) {
-                $location.path($scope.user.displayName + '/' + form.name);
-            };
+            StoreService.getStore().then(function (res) {
+                $scope.categories = res.data.teams;
+            }, function (err) {
+                $log.error(err);
+            })
 
         }]);
 

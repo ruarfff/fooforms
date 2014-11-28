@@ -7,17 +7,25 @@
             <ul class="list-group">
                 <li class="list-group-item">
 
-                    <input type="radio" ng-model="form.folder" ng-value="user.defaultFolder._id"> Private
+                    <input type="radio" ng-click="updateFolder(user.defaultFolder._id)" ng-model="form.folder"
+                           ng-value="user.defaultFolder._id"> Private
 
                     <p class="list-group-item-text">
                         Your form will be visible to just you. Good for personal ToDo Lists, Notes, etc.
                     </p>
 
                     <hr>
-                    <div ng-repeat="folder in org.folders">
-                        <input type="radio"
-                               ng-model="form.folder"
-                               ng-value="folder._id"/> {{folder.displayName}}
+                    <div ng-repeat="team in user.teams | filter:{ _id: '!' + organisation.owners}">
+
+                        <div ng-repeat="folder in team.folders">
+
+                            <input type="radio"
+                                   ng-click="updateFolder(folder._id)"
+                                   ng-model="form.folder"
+                                   ng-value="folder._id"/>  {{team.displayName}}
+
+                        </div>
+
                     </div>
 
                     <p class="list-group-item-text">
@@ -36,7 +44,7 @@
                     </div>
                 </li>
 
-                <li class="list-group-item">
+                <li class="list-group-item" ng-show="form.url">
                     <h4 class="list-group-item-heading text-primary">External Website or Blog</h4>
 
                     <p class="list-group-item-text">
@@ -44,9 +52,9 @@
                         <br><strong>Note:</strong> If you publish a private form on a website or blog, anyone
                         can use the form but only you can see the form submissions.
                     </p>
-                    <textarea class='form-control'>
+                    <!--<textarea class='form-control'>
                         <iframe ng-src="{{form.url}}"></iframe>
-                    </textarea>
+                    </textarea>-->
 
                 </li>
                 <li class="list-group-item">
