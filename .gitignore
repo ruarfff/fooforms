@@ -32,4 +32,4 @@ frontend/public/js/*.min.js
 
 modules/.DS_Store
 
-.DS_Store
+*.DS_Store
