@@ -86,14 +86,17 @@
     <div id='sideMenu' class="sideMenu hidden-print" ng-show="user"
          ng-class="{showMenu : sideMenuVisible, hideMenu: !sideMenuVisible}">
 
-        <div class="company"><a href="/organisations">
-            <i ng-if="!user.organisations[0].photo" class="fa fa-sun-o"></i>
-            <img ng-if="user.organisations[0].photo"
-                 ng-src="{{user.organisations[0].photo || '/assets/images/pixel.png' }}"></a>
+        <div class="company">
+            <div ng-if="!user.organisations[0].photo" >
+               <h2><a href="/organisations"> {{user.organisations[0].displayName}}</a></h2>
+                <a href="/organisations"><i class="fa fa-cloud-upload"></i> Upload a Logo</a>
+            </div>
+
+            <a href="/organisations">   <img ng-if="user.organisations[0].photo"
+                 ng-src="{{user.organisations[0].photo}}"></a>
         </div>
 
         <org-menu></org-menu>
-
     </div>
     <div class="container-fluid" ng-class="{withSideMenu : sideMenuVisible, withoutSideMenu :!sideMenuVisible}">
 

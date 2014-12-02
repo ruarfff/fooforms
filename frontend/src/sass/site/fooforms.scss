@@ -50,8 +50,6 @@ img.logo {
   padding: 6px 0px 0px 40px;
   background: #fff;
   margin: 0px 10px 0px 25px;
-  border-radius: 0px 0px 10px 10px;
-  border: 5px solid rgba(38, 113, 204, 0.7);
   border-top: 0px;
 }
 
@@ -96,15 +94,15 @@ iframe div.alert {
   padding: 0px;
   font-size: 44px;
   color: #68B3AF;
-  font-family: 'Play', sans-serif;
-background: transparent !important;
+  font-family: 'Open Sans Condensed', sans-serif;
+background: #fff !important;
 }
 
 .navbar-foo {
   box-shadow: none;
   padding-left: 140px;
   padding-right: 140px;
-  background: transparent !important;
+  background: #fff !important;
 }
 
 .foo-menu {
@@ -131,12 +129,10 @@ background: transparent !important;
    padding-left: 20px!important;
    padding-right: 20px!important;
    margin-top: 15px;
-    border: 2px solid rgba(255,255,255,.4);
-border-radius: 6px;
-   color: #e7e7e7 !important;
+   color: #263042 !important;
    height: 30px !important;
    line-height: 30px !important;
-   background: rgba(255,255,255,.2);
+
   }
 /* CUSTOMIZE THE CAROUSEL
 -------------------------------------------------- */
@@ -150,7 +146,7 @@ border-radius: 6px;
   right: 0;
   width: 100%;
   height: 100%;
-  margin: 0px;
+  margin: 1px;
   padding: 0px;
   font-family: 'Open Sans Condensed', sans-serif;
   text-align: center;
@@ -167,22 +163,33 @@ position: absolute;
 .jumbotron div.img-container img{
   margin: 0;
   padding: 0;
-  min-height: 100%;
   min-width: 100%;
+  min-height: 100%;
   vertical-align: middle;
 }
 .jumbotron-filter {
-  background-color: rgba(38, 113, 204, .7);
   position: absolute;
   top: 0;
   left: 0;
   width: 100%;
   height: 100%;
 }
+
+.percent-height-30{
+   height: 30%;
+  background: rgba(0,0,0,.1);
+  text-align: left;
+ }
+
+.percent-height-40{
+  height: 40%;
+  background: rgba(31, 39, 54, 0.52);
+}
+
 .jumbotron h1 {
   margin: 0px;
   margin-top: 8%;
-  font-size: 48px;
+  font-size: 1em;
   color: #fff;
   font-weight: 300;
   font-family: 'Open Sans Condensed', sans-serif;
@@ -216,7 +223,7 @@ position: absolute;
   font-weight: 500;
   max-width: 1000px;
   margin: 0 auto 0;
-  text-align: center;
+
 }
 
 .jumbotron h2 span.highlighted {
@@ -310,10 +317,10 @@ position: absolute;
 
 .highlight {
   color: #f6f6f6;
-  background: #3a4556 url('/assets/images/tile-bg.png');
+  background: #263042 url('/assets/images/tile-bg2.png');
   padding: 20px 0px;
-  border-top: 20px solid #3a4556;
-  border-bottom: 20px solid #3a4556;
+  border-top: 20px solid #1f2736;
+  border-bottom: 20px solid #1f2736;
 
 }
 
@@ -330,7 +337,7 @@ position: absolute;
 
 .highlight h2 {
   font-family: 'Open Sans Condensed', sans-serif;
-  color: #449632;
+  color: #1f2736;
   text-align: center;
   text-shadow: 0px 1px 0px rgba(255, 255, 255, .3);
 }
@@ -363,10 +370,12 @@ position: absolute;
 }
 
 .marketing h2 {
+  font-family: 'Open Sans Condensed', sans-serif;
   font-weight: 300;
 }
 
 .marketing .col-lg-4 p {
+  font-family: 'Open Sans Condensed', sans-serif;
   margin-left: 10px;
   margin-right: 10px;
 }
@@ -381,7 +390,7 @@ position: absolute;
 .featurette {
   margin: 0 auto 0;
   padding: 20px 0px;
-
+  font-family: 'Open Sans Condensed', sans-serif;
   background: #fff url('/assets/images/tile-bg3.png');;
 }
 
@@ -471,7 +480,7 @@ position: absolute;
     padding-bottom: 250px;
   }
   .jumbotron h1 {
-    font-size: 80px;
+    font-size: 60px;
     font-weight: 900;
 padding-bottom: 2.5%;
   }
