@@ -49,7 +49,7 @@
                                                ng-model="currentTeam.description"
                                                placeholder="The team description"/>
                                     </div>
-                                    <div class="form-group">
+                                    <div class="form-group" ng-show="false">
                                         <label for="team-select">organisation</label>
 
                                         <div id="team-select" class="btn-group" dropdown is-open="status.isopen">
@@ -82,31 +82,35 @@
                             <div class="tab-pane pt10" id="teamMembers">
 
                                 <div class="col-sm-6">
-                                    <div class="panel panel-default">
+                                    <div class="panel panel-foo-post">
                                         <div class="panel-heading">All Users in {{org.title || org.displayName}}</div>
-                                        <div class="panel-body">
-                                            <ul class="memberList list-group">
-                                                <li ng-repeat="member in orgMembers track by $index" class="roundy-border list-group-item"
+                                        <div class="panel-body m0 p0">
+                                            <ul class="memberList list-group roundy-border m0 p0">
+                                                <li ng-repeat="member in orgMembers track by $index" class="list-group-item m0 p0 clearfix"
                                                     ng-mouseover="member.highlighted = true" ng-mouseleave="member.highlighted = false"
                                                         ng-click="addToTeam(member)">
+                                                    <img class="icon pull-left" ng-src="{{member.photo || '/assets/images/photo.jpg'}}"/>
 
-                                                    <img class="icon" ng-src="{{member.photo || '/assets/images/photo.jpg'}}"/>{{member.displayName}}
-                                                    <span ng-show="member.highlighted" class="fa fa-arrow-circle-right"></span>
+                                                    <h4>{{member.name.givenName + ' ' + member.name.familyName}}
+                                                        </h4><p>{{member.displayName}}</p>
+
                                                 </li>
                                             </ul>
                                         </div>
                                     </div>
                                 </div>
                                 <div class="col-sm-6">
-                                    <div class="panel panel-default">
+                                    <div class="panel panel-foo-post">
                                         <div class="panel-heading">{{currentTeam.title || currentTeam.displayName}} Members</div>
-                                        <div class="panel-body">
-                                            <ul class="memberList list-group">
-                                                <li ng-repeat="member in members track by $index" class="roundy-border list-group-item"
+                                        <div class="panel-body m0 p0">
+                                            <ul class="memberList list-group m0 p0">
+                                                <li ng-repeat="member in members track by $index" class="list-group-item p0 m0 clearfix"
                                                     ng-mouseover="member.highlighted = true" ng-mouseleave="member.highlighted = false"
                                                         ng-click="removeFromTeam(member)">
-                                                    <img class="icon" ng-src="{{member.photo || '/assets/images/photo.jpg'}}"/>{{member.displayName}}
-                                                    <span ng-show="member.highlighted" class="glyphicon glyphicon-minus-sign"></span>
+
+                                                    <img class="icon pull-left" ng-src="{{member.photo || '/assets/images/photo.jpg'}}"/>
+                                                    <h4>{{member.name.givenName + ' ' + member.name.familyName}}
+                                                    </h4><p>{{member.displayName}}</p>
                                                 </li>
                                             </ul>
                                         </div>

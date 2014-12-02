@@ -72,12 +72,12 @@
                                 <a data-toggle="tab" data-target="#orgStats">Stats</a>
                             </li>
                             <li>
-                                <a data-toggle="tab" data-target="#orgActions">Actions</a>
+                                <a data-toggle="tab" data-target="#orgActions">Invite New Members</a>
                             </li>
                         </ul>
                         <div class="tab-content">
                             <div class="tab-pane active" id="orgSettings">
-
+                                <h4>Organisation Settings</h4>
                                 <form novalidate class="form-horizontal">
                                     <div class="col-sm-3">
                                         <org-photo org="org"></org-photo>
@@ -86,7 +86,7 @@
                                     <div class="col-sm-9">
 
 
-                                        <div class="form-group"><label class="col-sm-3 control-label">org Name:</label>
+                                        <div class="form-group"><label class="col-sm-3 control-label">Organisation Name:</label>
 
                                             <div class="col-sm-9">
                                                 <input class="form-control" type="text" ng-model="org.title"
@@ -125,6 +125,10 @@
                             <div class="tab-pane" id="orgMembers">
                                 <h4>Members</h4>
 
+                                <p>
+                                    <a data-toggle="tab" data-target="#orgActions"
+                                            class="btn btn-default">Invite New Members</a>
+                                </p>
                                 <div ng-repeat="member in members" class="col-sm-4 col-md-3">
                                     <div class="thumbnail">
                                         <img class="icon" ng-src="{{member.photo || '/assets/images/photo.jpg'}}">
@@ -152,12 +156,13 @@
                                 <form name="sendInviteForm" ng-controller="SendInviteCtrl" ng-submit="invite()"
                                       class="form-horizontal">
 
-                                    <h2>Invite a user</h2>
+                                    <h4>Invite a New Member</h4>
 
                                     <div class="form-group"><label class="col-sm-3 control-label" for="inviteEmail">Email</label>
 
                                         <div class="col-sm-9">
                                             <input id="inviteEmail" type="email" name="inviteEmail"
+                                                   class="form-control"
                                                    ng-model="inviteEmail" required/>
                                             <span class="error" ng-show="sendInviteForm.inviteEmail.$error.required">Email Required!</span>
                                             <span class="error" ng-show="sendInviteForm.inviteEmail.$error.email">Not valid email!</span>
@@ -172,6 +177,7 @@
 
                                         <div class="col-sm-9">
                                             <textarea rows="4" cols="50" name="message" id="message"
+                                                      class="form-control"
                                                       ng-model="message"></textarea>
                                         </div>
                                     </div>

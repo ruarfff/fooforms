@@ -24,17 +24,19 @@ color: #fff;
 display: block;
   margin: 8px 5px 5px 5px !important;
   border-radius: 6px;
+  word-wrap: break-word;
 }
 .panel-foo-feed .post-user-img {
-  width: 40px;
-  height: 40px;
+  width: 28px;
+  height: 28px;
   box-shadow:   -1px -1px 1px  rgba(0,0,0,.3)  ;
   float: left;
   vertical-align: middle;
   margin-right: 5px;
   margin-left: -6px;
   margin-top: -3px;
-}
+  border-radius: 4px;
+  }
 .panel-foo-list .post-user-img{
   width: 30px;
   height: 30px;
