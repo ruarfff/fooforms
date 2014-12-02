@@ -50,7 +50,6 @@ module.exports = function (grunt) {
                 'frontend/src/bower/restangular/dist/restangular.min.js',
                 'frontend/src/bower/angular-route/angular-route.min.js',
                 'frontend/src/bower/angular-sanitize/angular-sanitize.min.js',
-                'frontend/src/bower/ng-grid/build/ng-grid.min.js',
                 'frontend/src/bower/textAngular/dist/textAngular.min.js',
                 'frontend/src/bower/ngInfiniteScroll/build/ng-infinite-scroll.min.js',
                 'frontend/src/bower/moment/min/moment.min.js',
@@ -94,6 +93,7 @@ module.exports = function (grunt) {
                 'frontend/src/bower/bootstrap-sass-official/assets/javascripts/bootstrap.js',
                 'frontend/src/bower/angular/angular.js',
                 'frontend/src/bower/angular-sanitize/angular-sanitize.min.js',
+                'frontend/src/bower/textAngular/dist/textAngular.min.js',
                 'frontend/src/bower/pikaday/pikaday.js',
                 'frontend/public/js/app/common/pikadayDirective.js',
                 'frontend/public/js/app/embeddedForm/embeddedForm.js'

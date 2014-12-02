@@ -22,7 +22,9 @@ exports.getStore = function (req, res, next) {
                     }, function (err, store) {
                         for (var i = 0; i < store.teams.length; i++) {
                             for (var j = 0; j < store.teams[i].folders[0].forms.length; j++) {
+                                store.teams[i].folders[0].forms[j] = store.teams[i].folders[0].forms[j].toObject();
                                 delete store.teams[i].folders[0].forms[j]._id;
+                                delete store.teams[i].folders[0].forms[j].folder;
                             }
                         }
                         res.send(store);
