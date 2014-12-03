@@ -3,7 +3,11 @@
 
 
     <div class="panel panel-transparent p0 b0 mt10">
+        <!--Feed Header for dashboard, teams and forms-->
+
         <div class="panel-body" id="feedHeader">
+
+            <!--Users Dashboard - ie, it's not a form and it's not a team-->
 
             <form ng-show="!form && !team" class="form">
 
@@ -11,10 +15,6 @@
                 <h4 ng-if="user.name.givenName">{{user.name.givenName + ' ' + user.name.familyName}}</h4>
                 <h4 ng-if="!user.name.givenName">{{user.displayName}}</h4>
 
-                <!--<button class="btn btn-default pull-right" ng-click="newPost()">
-                    New Post <i class="fa fa-plus fa-lg"></i></button>-->
-
-                <span class="label label-default"><i class="fa fa-search"></i></span>
                     <span class="label label-default cursor-hand"
                           ng-click="postView='feed';"><i
                             class="fa fa-square"></i></span>
@@ -24,7 +24,7 @@
 
             </form>
 
-
+            <!--Team Header -->
             <form ng-show="team" class="form">
 
                 <div class="form-icon">
@@ -32,21 +32,16 @@
                 </div>
                 <h4>{{team.title || team.displayName}}
                 </h4>
-                <!--<button class="btn btn-default pull-right" ng-click="newPost()">
-                    New Team Post <i class="fa fa-plus fa-lg"></i></button>-->
 
-                <!--<span class="label label-default"><i class="fa fa-search"></i></span>-->
                     <span class="label label-default cursor-hand"
                           ng-click="postView='feed';"><i
                             class="fa fa-square"></i></span>
                     <span class="label label-default cursor-hand"
                           ng-click="postView='list';"><i
                             class="fa fa-bars"></i></span>
-
-
             </form>
-                <span ng-show="form">
 
+                <span ng-show="form">
                     <img class="form-icon" ng-src="{{form.icon}}">
                     <h4>{{form.displayName}}
                         <a href="{{location}}/edit"><i class="fa fa-edit"></i>
@@ -85,9 +80,9 @@
     </div>
 
 
-    <div class="scroll m0 b0" ng-style="setFeedHeight()" ng-show="postView=='list' || postView=='feed'" ng-hide="post.hide">
+    <div class="scroll m0 b0" ng-style="setFeedHeight()" ng-show="postView=='list' || postView=='feed'" ng-hide="post.hide" ng-cloak >
 
-        <foo-post-collection view="{{postView}}" streams="{{postStreams}}" active-post="activePost" posts="posts"
+        <foo-post-collection view="{{postView}}" streams="{{postStreams}}" active-post="activePost" posts="posts" team="team"
                              grid-data="gridData" status="{{selectedStatus}}">
         </foo-post-collection>
 
@@ -98,9 +93,10 @@
 
 
 <div class="feed-fixed-wide"
-     ng-show="(postView=='feed' || postView=='list') && posts.length>0"
+     ng-show="(postView=='feed' || postView=='list')"
      ng-class="{percentageScreenWide : sideMenuVisible,
-      halfScreenWide :!sideMenuVisible}">
+      halfScreenWide :!sideMenuVisible}"
+     ng-cloak >
 
 
     <div class="alert fade-in br0 m0 {{msgStatus}} " ng-show="activeMsgBox=='formViewer'">
@@ -108,7 +104,7 @@
     </div>
 
 
-    <div class="row">
+    <div class="row" ng-if="activePost">
         <div class="col-sm-12">
 
             <foo-post active-post="activePost" members="org.members" delete-post="deletePost()" copy-post="copyPost()"
@@ -127,7 +123,7 @@
 
 </div>
 
-<div class="feed-fixed-grid" ng-show="postView=='grid'"
+<div class="feed-fixed-grid" ng-cloak ng-if="postView=='grid'"
      ng-class="{ percentageScreen : sideMenuVisible, halfScreen :!sideMenuVisible}">
 
     <div class="panel panel-transparent p0 b0 mt10">
@@ -206,7 +202,7 @@
 
 </div>
 
-<div class="feed-fixed-wide" ng-if="posts.length==0"
+<div class="feed-fixed-wide" ng-cloak ng-show="posts.length===0 && !activePost"
      ng-class="{percentageScreenWide : sideMenuVisible, halfScreenWide :!sideMenuVisible}">
     <div class="row">
         <div class="col-sm-12">
@@ -215,7 +211,30 @@
                 <div class="panel-heading">
                     <h5>Quick Start Guide</h5>
                 </div>
-                <div class="panel-body">
+                <div class="panel-body" ng-show="team">
+                    <h4>OK, you've got a team called <span class="text-primary">{{team.displayName}}</span></h4>
+                    <p>Now you need to create one or more forms for the team to use.</p>
+
+                    <ul class="icon-list clearfix">
+                        <li>
+                            <div class="form-icon-wrapper">
+                                <div class="form-icon yellow">
+                                    <a  href="/formBuilder"> <i class="fa fa-edit fa-lg"></i></a>
+                                </div>
+                                <a  href="/formBuilder">Create New Forms with Form Builder</a>
+                            </div>
+                        </li>
+                        <li>
+                            <div class="form-icon-wrapper">
+                                <div class="form-icon purple">
+                                    <a  href="/forms"> <i class="fa fa-th fa-lg"></i></a>
+                                </div>
+                                <a  href="/forms">Browse Form Templates in the Catalog</a>
+                            </div>
+                        </li>
+                        </ul>
+                    </div>
+                <div class="panel-body"  ng-hide="team">
 
                     <h4>How it works</h4>
                     <p>
@@ -225,6 +244,23 @@
 </p>
                     <h4>Quick Start Links</h4>
                     <ul class="icon-list clearfix">
+                        <li>
+                            <div class="form-icon-wrapper">
+                                <div class="form-icon yellow">
+                                    <a  href="/formBuilder"> <i class="fa fa-edit fa-lg"></i></a>
+                                </div>
+                                <a  href="/formBuilder">Create New Forms with Form Builder</a>
+                            </div>
+                        </li>
+                        <li>
+                            <div class="form-icon-wrapper">
+                                <div class="form-icon purple">
+                                    <a  href="/forms"> <i class="fa fa-th fa-lg"></i></a>
+                                </div>
+                                <a  href="/forms">Browse Form Templates in the Catalog</a>
+                            </div>
+                        </li>
+
                         <li>
                             <div class="form-icon-wrapper">
                                 <div class="form-icon red">
@@ -249,22 +285,7 @@
                                 <a  href="/profile">Manage your profile picture, name and preferences </a>
                             </div>
                         </li>
-                        <li>
-                            <div class="form-icon-wrapper">
-                                <div class="form-icon purple">
-                                    <a  href="/forms"> <i class="fa fa-th fa-lg"></i></a>
-                                </div>
-                                <a  href="/forms">Browse Forms in the Catalog</a>
-                            </div>
-                        </li>
-                        <li>
-                            <div class="form-icon-wrapper">
-                                <div class="form-icon yellow">
-                                    <a  href="/formBuilder"> <i class="fa fa-edit fa-lg"></i></a>
-                                </div>
-                                <a  href="/formBuilder">Create New Forms with Form Builder</a>
-                            </div>
-                        </li>
+
 
                     </ul>
                     <p><strong>Form Builder</strong><br>
@@ -274,6 +295,7 @@
                     <li>Team Collaboration</li>
                     <li>Bug Tracker</li>
                     <li>Holiday Requests</li>
+                    <li>Sales Leads</li>
                     </ul>
                     </p>
 
