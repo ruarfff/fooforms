@@ -14,7 +14,6 @@
 <body ng-controller="FormCtrl">
 
 <div id='formLayout' class="container">
- <pre><code>{{post | json}}</code></pre>
     <div ng-if="post.settings.displayOptions.customForm">
         <div compile="post.settings.customFormHtml"></div>
     </div>
