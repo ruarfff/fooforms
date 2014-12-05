@@ -15,21 +15,27 @@
                     </p>
 
                     <hr>
-                    <div ng-repeat="team in user.teams | filter:{ _id: '!' + organisation.owners}">
 
-                        <div ng-repeat="folder in team.folders">
+                    <div ng-repeat="team in user.teams | filter:{ _id: '!' + organisation.owners}" class="form-group row m2 p0">
 
-                            <input type="radio"
-                                   ng-click="updateFolder(folder._id)"
-                                   ng-model="form.folder"
-                                   ng-value="folder._id"/>  {{team.displayName}}
+                        <div ng-repeat="folder in team.folders" class="col-sm-12 col-md-6 col-lg-3 m0 p0">
+
+
+                            <button class="btn btn-block"
+                                    ng-class="{ 'btn-success': form.folder == folder._id ,'btn-default' : form.folder != folder._id}"
+                                   ng-click="updateFolder(folder._id)">
+                                <i class="fa fa-check" ng-show="form.folder == folder._id"></i>
+                                {{team.displayName}}
+                            </button>
+
 
                         </div>
+
 
                     </div>
 
                     <p class="list-group-item-text">
-                        Users with access to the selected shared folder will have access to your form.
+                        Members of the selected team will have access to this form.
                         <br>Good for things like Helpdesks, Invoices, Tasks, Holiday Requests, etc.</p>
 
                     <div class="alert">

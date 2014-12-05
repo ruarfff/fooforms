@@ -13,8 +13,8 @@
 
     <link href="/css/fooforms.min.css" rel="stylesheet">
     <link href="//maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css" rel="stylesheet">
-    <link href='http://fonts.googleapis.com/css?family=Play' rel='stylesheet' type='text/css'>
-    <link href='http://fonts.googleapis.com/css?family=Open+Sans+Condensed:300' rel='stylesheet' type='text/css'>
+    <link href='//fonts.googleapis.com/css?family=Play' rel='stylesheet' type='text/css'>
+    <link href='//fonts.googleapis.com/css?family=Open+Sans+Condensed:300' rel='stylesheet' type='text/css'>
 
     <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
     <!--[if lt IE 9]>
@@ -26,45 +26,48 @@
 <!-- NAVBAR
 ================================================== -->
 <body>
-<div class="navbar-wrapper">
 
 
-    <nav class="navbar navbar-default navbar-fixed-top navbar-foo" role="navigation">
-        <div class="container-fluid">
-            <!-- Brand and toggle get grouped for better mobile display -->
-            <div class="navbar-header">
-                <button type="button" class="navbar-toggle collapsed" data-toggle="collapse"
-                        data-target="#bs-example-navbar-collapse-1">
-                    <span class="sr-only">Toggle navigation</span>
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                </button>
-                <a class="navbar-brand" href="#"><img class='logo' src="/assets/images/fooLogo-sm.png"></a>
-            </div>
+<!-- jumbotron
+================================================== -->
 
-            <!-- Collect the nav links, forms, and other content for toggling -->
-            <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
-                <ul class="nav navbar-nav navbar-right foo-menu">
 
-                    <li><a href="/dashboard/" class="btn-transparent">Back to Dashboard</a></li>
-                </ul>
-            </div>
-            <!-- /.navbar-collapse -->
+<nav class="navbar navbar-default navbar-fixed-top navbar-foo" role="navigation">
+    <div class="container-fluid">
+        <!-- Brand and toggle get grouped for better mobile display -->
+        <div class="navbar-header">
+            <button type="button" class="navbar-toggle collapsed" data-toggle="collapse"
+                    data-target="#bs-example-navbar-collapse-1">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand" href="#"><img class='logo' src="/assets/images/fooLogo-sm.png"></a>
         </div>
-        <!-- /.container-fluid -->
-    </nav>
 
-</div>
+        <!-- Collect the nav links, forms, and other content for toggling -->
+        <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+            <ul class="nav navbar-nav navbar-right foo-menu">
+
+                <li><a href="/dashboard/" class="btn-transparent"><i class="fa fa-lock"></i> Sign In</a></li>
+            </ul>
+        </div>
+        <!-- /.navbar-collapse -->
+    </div>
+    <!-- /.container-fluid -->
+</nav>
 
 
-<div class="container marketing">
 
-    <div class="row">
-        <div class="container m10">
 
+
+
+<!-- Three columns of text below the carousel -->
+<div class="row featurette lightOnDark">
+    <div class="page-content">
             <div class="col-md-12">
-                <h1>Found a bug? <span class="text-muted">Please let us know</span>
+                <h1>Found a bug? <span class="text-primary">Please let us know</span>
                 </h1>
 
                 <iframe class="iframe-large" src="https://fooforms.com/forms/repo/54523daf9f3c3a3652c50d08"></iframe>
@@ -77,12 +80,54 @@
 <!-- /.container -->
 
 
+
+<div class="row highlight footer">
+    <div class="page-content">
+        <div class="col-sm-4">
+            <p><i class="fa fa-twitter"></i><a href="https://twitter.com/FOOFORMS"> @fooforms</a></p>
+
+            <p><i class="fa fa-facebook"></i><a href="https://twitter.com/FOOFORMS"> facebook.com/fooforms</a></p>
+
+            <p><i class="fa fa-linkedin"></i><a href="https://twitter.com/FOOFORMS">
+                linkedin.com/company/fooforms</a></p>
+
+        </div>
+        <div class="col-sm-8">
+        </div>
+    </div>
+</div>
+</div>
+<!-- /.container -->
+
+
 <!-- Bootstrap core JavaScript
 ================================================== -->
 <!-- Placed at the end of the document so the pages load faster -->
-<script src="https://code.jquery.com/jquery-1.10.2.min.js"></script>
-<script src="//netdna.bootstrapcdn.com/bootstrap/3.0.3/js/bootstrap.min.js"></script>
-<script src="/js/holder.js"></script>
+<script src="/js/site.min.js"></script>
+
+<% if (dev) { %>
+<script src="//localhost:35729/livereload.js"></script>
+<% } %>
+
+<script>
+    (function (i, s, o, g, r, a, m) {
+        i['GoogleAnalyticsObject'] = r;
+        i[r] = i[r] || function () {
+            (i[r].q = i[r].q || []).push(arguments)
+        }, i[r].l = 1 * new Date();
+        a = s.createElement(o),
+                m = s.getElementsByTagName(o)[0];
+        a.async = 1;
+        a.src = g;
+        m.parentNode.insertBefore(a, m)
+    })(window, document, 'script', '//www.google-analytics.com/analytics.js', 'ga');
+
+    ga('create', 'UA-40607409-2', 'auto');
+    ga('send', 'pageview');
+
+</script>
 
 </body>
 </html>
+
+

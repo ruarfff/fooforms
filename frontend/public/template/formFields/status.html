@@ -7,12 +7,13 @@
     </label>
 
     <div class="input-group" ng-style="{'width': formField.size+'%'}">
-        <label class="btn m5"
-               ng-class="{ 'btn-success disabled': formField.selected == option.label ,'btn-default' : formField.selected != option.label}"
-               ng-repeat='option in formField.options'>
-            <input type="radio" name="formField.id" ng-model="formField.selected" ng-value="option.label">
+        <button class="btn m5"
+                ng-class="{ 'btn-success': formField.selected == option.label ,'btn-default' : formField.selected != option.label}"
+                ng-repeat='option in formField.options'
+                ng-click="formField.selected=option.label">
+            <i class="fa fa-check" ng-show="formField.selected == option.label"></i>
             {{option.label}}
-        </label>
+        </button>
 
     </div>
 </div>
