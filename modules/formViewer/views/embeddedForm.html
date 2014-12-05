@@ -14,7 +14,8 @@
 <body ng-controller="FormCtrl">
 
 <div id='formLayout' class="container">
-    <div ng-if="post.settings.customForm">
+ <pre><code>{{post | json}}</code></pre>
+    <div ng-if="post.settings.displayOptions.customForm">
         <div compile="post.settings.customFormHtml"></div>
     </div>
     <form role="form" class="panel panel-default b0 br0">
