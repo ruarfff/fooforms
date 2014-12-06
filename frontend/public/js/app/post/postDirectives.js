@@ -4,7 +4,14 @@ angular.module('post')
         function () {
             return {
                 restrict: 'E',
-                scope: {view: '@', streams: '@', activePost: '=activePost', posts: '=posts', status: '@', team: '=team'},
+                scope: {
+                    view: '@',
+                    streams: '@',
+                    activePost: '=activePost',
+                    posts: '=posts',
+                    status: '@',
+                    team: '=team'
+                },
                 transclude: true,
                 controller: function ($log, $scope, PostService, _, Session) {
                     var currentPostPage = 0;
