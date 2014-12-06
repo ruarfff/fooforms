@@ -86,13 +86,17 @@
                                         <div class="panel-heading">All Users in {{org.title || org.displayName}}</div>
                                         <div class="panel-body m0 p0">
                                             <ul class="memberList list-group roundy-border m0 p0">
-                                                <li ng-repeat="member in orgMembers track by $index" class="list-group-item m0 p0 clearfix"
+                                                <li ng-repeat="member in orgMembers track by $index"
+                                                    class="list-group-item m0 p0 clearfix"
                                                     ng-mouseover="member.highlighted = true" ng-mouseleave="member.highlighted = false"
                                                         ng-click="addToTeam(member)">
-                                                    <img class="icon pull-left" ng-src="{{member.photo || '/assets/images/photo.jpg'}}"/>
+                                                    <img class="icon pull-left"
+                                                         ng-src="{{member.photo || '/assets/images/photo.jpg'}}"/>
 
                                                     <h4>{{member.name.givenName + ' ' + member.name.familyName}}
-                                                        </h4><p>{{member.displayName}}</p>
+                                                    </h4>
+
+                                                    <p>{{member.displayName}}</p>
 
                                                 </li>
                                             </ul>
@@ -104,13 +108,17 @@
                                         <div class="panel-heading">{{currentTeam.title || currentTeam.displayName}} Members</div>
                                         <div class="panel-body m0 p0">
                                             <ul class="memberList list-group m0 p0">
-                                                <li ng-repeat="member in members track by $index" class="list-group-item p0 m0 clearfix"
+                                                <li ng-repeat="member in members track by $index"
+                                                    class="list-group-item p0 m0 clearfix"
                                                     ng-mouseover="member.highlighted = true" ng-mouseleave="member.highlighted = false"
                                                         ng-click="removeFromTeam(member)">
 
-                                                    <img class="icon pull-left" ng-src="{{member.photo || '/assets/images/photo.jpg'}}"/>
+                                                    <img class="icon pull-left"
+                                                         ng-src="{{member.photo || '/assets/images/photo.jpg'}}"/>
                                                     <h4>{{member.name.givenName + ' ' + member.name.familyName}}
-                                                    </h4><p>{{member.displayName}}</p>
+                                                    </h4>
+
+                                                    <p>{{member.displayName}}</p>
                                                 </li>
                                             </ul>
                                         </div>

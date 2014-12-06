@@ -146,13 +146,13 @@ angular.module('formViewer')
 
             //Grid Related
             $scope.stGridHeight = function () {
-var feedHeader = angular.element('feedHeader');
+                var feedHeader = angular.element('feedHeader');
                 return {'height': (window.innerHeight - 170)}
             };
 
             $scope.setFeedHeight = function () {
                 var postsHeader = angular.element('#feedHeader')[0];
-                if (postsHeader.offsetHeight==0){
+                if (postsHeader.offsetHeight == 0) {
                     postsHeader = angular.element('#gridHeader')[0];
                 }
                 return {'top': (postsHeader.offsetHeight + postsHeader.offsetTop)}
@@ -216,7 +216,7 @@ if ($scope.gridFields.indexOf(safeLabel)>-1) {
 
 }
                     });
-                    if(hasField) {
+                    if (hasField) {
                         $scope.gridData.push(entry);
                     }
 

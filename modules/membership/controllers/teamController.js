@@ -215,7 +215,7 @@ exports.removeMember = function (req, res, next) {
                         }
                         index = user.teams.indexOf(team._id);
                         if (index > -1) {
-                            user.teams.splice(team._id, 1);
+                            user.teams.splice(index, 1);
                         }
 
                         user.save(function (err) {
