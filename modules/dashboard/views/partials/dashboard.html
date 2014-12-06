@@ -59,7 +59,8 @@
                     <span ng-show="form.settings.displayOptions.grid" class="label label-default cursor-hand"
                           ng-click="postView='grid';"><i
                             class="fa fa-table"></i></span>
-                    <span ng-show="form.settings.displayOptions.customDashboard || true" class="label label-default cursor-hand"
+                    <span ng-show="form.settings.displayOptions.customDashboard || true"
+                          class="label label-default cursor-hand"
                           ng-click="postView='custom';"><i class="fa fa-file-o"></i></span>
 
                      <span class="label cursor-hand"
@@ -80,9 +81,11 @@
     </div>
 
 
-    <div class="scroll m0 b0" ng-style="setFeedHeight()" ng-show="postView=='list' || postView=='feed'" ng-hide="post.hide" ng-cloak >
+    <div class="scroll m0 b0" ng-style="setFeedHeight()" ng-show="postView=='list' || postView=='feed'"
+         ng-hide="post.hide" ng-cloak>
 
-        <foo-post-collection view="{{postView}}" streams="{{postStreams}}" active-post="activePost" posts="posts" team="team"
+        <foo-post-collection view="{{postView}}" streams="{{postStreams}}" active-post="activePost" posts="posts"
+                             team="team"
                              grid-data="gridData" status="{{selectedStatus}}">
         </foo-post-collection>
 
@@ -96,7 +99,7 @@
      ng-show="(postView=='feed' || postView=='list')"
      ng-class="{percentageScreenWide : sideMenuVisible,
       halfScreenWide :!sideMenuVisible}"
-     ng-cloak >
+     ng-cloak>
 
 
     <div class="alert fade-in br0 m0 {{msgStatus}} " ng-show="activeMsgBox=='formViewer'">
@@ -171,7 +174,7 @@
 
 <div class="clearfix scroll-grid" ng-show="postView=='grid' || postView=='custom'"
      ng-class="{ percentageFullScreen : sideMenuVisible, fullScreen :!sideMenuVisible}"
-        ng-style="setFeedHeight()">
+     ng-style="setFeedHeight()">
 
 
     <div ng-show="postView=='grid'" class="gridWrapper">
@@ -213,106 +216,112 @@
                 </div>
                 <div class="panel-body" ng-show="team">
                     <h4>OK, you've got a team called <span class="text-primary">{{team.displayName}}</span></h4>
+
                     <p>Now you need to create one or more forms for the team to use.</p>
 
                     <ul class="icon-list clearfix">
                         <li>
                             <div class="form-icon-wrapper">
                                 <div class="form-icon yellow">
-                                    <a  href="/formBuilder"> <i class="fa fa-edit fa-lg"></i></a>
+                                    <a href="/formBuilder"> <i class="fa fa-edit fa-lg"></i></a>
                                 </div>
-                                <a  href="/formBuilder">Create New Forms with Form Builder</a>
+                                <a href="/formBuilder">Create New Forms with Form Builder</a>
                             </div>
                         </li>
                         <li>
                             <div class="form-icon-wrapper">
                                 <div class="form-icon purple">
-                                    <a  href="/forms"> <i class="fa fa-th fa-lg"></i></a>
+                                    <a href="/forms"> <i class="fa fa-th fa-lg"></i></a>
                                 </div>
-                                <a  href="/forms">Browse Form Templates in the Catalog</a>
+                                <a href="/forms">Browse Form Templates in the Catalog</a>
                             </div>
                         </li>
-                        </ul>
-                    </div>
-                <div class="panel-body"  ng-hide="team">
+                    </ul>
+                </div>
+                <div class="panel-body" ng-hide="team">
 
                     <h4>How it works</h4>
+
                     <p>
                         Fooforms let's you share posts with your team just like any other social network.<br>
-                        You can share basic posts like you get in Twitter but you can create and share more complex forms too.
+                        You can share basic posts like you get in Twitter but you can create and share more complex
+                        forms too.
                         <br>
-</p>
+                    </p>
                     <h4>Quick Start Links</h4>
                     <ul class="icon-list clearfix">
                         <li>
                             <div class="form-icon-wrapper">
                                 <div class="form-icon yellow">
-                                    <a  href="/formBuilder"> <i class="fa fa-edit fa-lg"></i></a>
+                                    <a href="/formBuilder"> <i class="fa fa-edit fa-lg"></i></a>
                                 </div>
-                                <a  href="/formBuilder">Create New Forms with Form Builder</a>
+                                <a href="/formBuilder">Create New Forms with Form Builder</a>
                             </div>
                         </li>
                         <li>
                             <div class="form-icon-wrapper">
                                 <div class="form-icon purple">
-                                    <a  href="/forms"> <i class="fa fa-th fa-lg"></i></a>
+                                    <a href="/forms"> <i class="fa fa-th fa-lg"></i></a>
                                 </div>
-                                <a  href="/forms">Browse Form Templates in the Catalog</a>
+                                <a href="/forms">Browse Form Templates in the Catalog</a>
                             </div>
                         </li>
 
                         <li>
                             <div class="form-icon-wrapper">
                                 <div class="form-icon red">
-                                    <a  href="/organisations"> <i class="fa fa-group fa-sitemap"></i></a>
+                                    <a href="/organisations"> <i class="fa fa-group fa-sitemap"></i></a>
                                 </div>
-                                <a  href="/organisations">Manage your Organisation, Add members, etc.</a>
+                                <a href="/organisations">Manage your Organisation, Add members, etc.</a>
                             </div>
                         </li>
                         <li>
                             <div class="form-icon-wrapper">
                                 <div class="form-icon blue">
-                                    <a  href="/teams"> <i class="fa fa-group fa-lg"></i></a>
+                                    <a href="/teams"> <i class="fa fa-group fa-lg"></i></a>
                                 </div>
-                                <a  href="/teams">Create Teams, Add & Remove Members</a>
+                                <a href="/teams">Create Teams, Add & Remove Members</a>
                             </div>
                         </li>
                         <li>
                             <div class="form-icon-wrapper">
                                 <div class="form-icon green">
-                                    <a  href="/profile"> <i class="fa fa-user fa-lg"></i></a>
+                                    <a href="/profile"> <i class="fa fa-user fa-lg"></i></a>
                                 </div>
-                                <a  href="/profile">Manage your profile picture, name and preferences </a>
+                                <a href="/profile">Manage your profile picture, name and preferences </a>
                             </div>
                         </li>
 
 
                     </ul>
                     <p><strong>Form Builder</strong><br>
-                    Use the form builder to create form templates for everything and anything. Here's a few ideas.
+                        Use the form builder to create form templates for everything and anything. Here's a few ideas.
                     <ul>
-                    <li>Helpdesk</li>
-                    <li>Team Collaboration</li>
-                    <li>Bug Tracker</li>
-                    <li>Holiday Requests</li>
-                    <li>Sales Leads</li>
+                        <li>Helpdesk</li>
+                        <li>Team Collaboration</li>
+                        <li>Bug Tracker</li>
+                        <li>Holiday Requests</li>
+                        <li>Sales Leads</li>
                     </ul>
                     </p>
 
 
-                    <p> <strong>Sharing Forms</strong><br>
-                        Each form you create can be private, shared with a team or published to your website, blog or facebook page.
+                    <p><strong>Sharing Forms</strong><br>
+                        Each form you create can be private, shared with a team or published to your website, blog or
+                        facebook page.
                     </p>
 
 
-                    <p><strong>Form Catalog</strong><br>We've already made a bunch of useful form templates that you can take and modify to your exact requirements. It's the easiest way to get up and running.
+                    <p><strong>Form Catalog</strong><br>We've already made a bunch of useful form templates that you can
+                        take and modify to your exact requirements. It's the easiest way to get up and running.
                     </p>
+
                     <p><strong>Teams and members</strong><br>
-                    You can use teams to give users access only to the forms that are useful to them.
+                        You can use teams to give users access only to the forms that are useful to them.
                     </p>
 
 
-<div class="m10 p10">&nbsp;</div>
+                    <div class="m10 p10">&nbsp;</div>
                 </div>
             </div>
         </div>
