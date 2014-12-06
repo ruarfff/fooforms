@@ -12,7 +12,7 @@
                 <ul class="nav nav-pills nav-stacked" id="category-tabs">
                     <li>
                         <a data-toggle="tab" data-target="#yourForms" ng-click="setCategory({displayName: 'yourForms'})"
-                           ng-class="{active: activeCategory==='yourForms'}">Your Forms</a>
+                           ng-class="{active: activeCategory==='yourForms'}">My Forms</a>
                     </li>
                     <li ng-repeat="category in categories">
                         <a data-toggle="tab" data-target="#{{category.displayName}}" ng-click="setCategory(category)"
@@ -32,7 +32,7 @@
                 <div class="tab-content">
                     <div class="tab-pane"
                          ng-class="{active: activeCategory==='yourForms'}" id="yourForms">
-                        <h4>Your Forms</h4>
+                        <h4>My Forms</h4>
 
                         <div class="row m5 p5">
                             <div class="col-sm-3 col-md-3"
@@ -45,6 +45,7 @@
                                             {{form.displayName | uppercase}}
                                         </div>
                                     </a>
+
                                 </div>
                             </div>
                         </div>
@@ -65,6 +66,7 @@
                                             {{form.displayName | uppercase}}
                                         </div>
                                     </a>
+
                                     <input ng-click="installForm(form)" value="Install Now" type="button"/>
                                 </div>
                             </div>

@@ -49,7 +49,10 @@
 
 
                     </ul>
+                    <a target="_new" href="/contact" class="btn btn-default btn-sm btn-nav">Report a Bug</a>
+
                     <ul class="nav navbar-nav navbar-right">
+
                         <li class="dropdown" ng-cloak><a href="#" class="dropdown-toggle">&nbsp;
                             <img class="nav-icon" ng-src="{{user.photo}}"/>
                             {{user.displayName}}
@@ -83,14 +86,17 @@
     <div id='sideMenu' class="sideMenu hidden-print" ng-show="user"
          ng-class="{showMenu : sideMenuVisible, hideMenu: !sideMenuVisible}">
 
-        <div class="company"><a href="/organisations">
-            <i ng-if="!user.organisations[0].photo" class="fa fa-sun-o"></i>
-            <img ng-if="user.organisations[0].photo"
-                 ng-src="{{user.organisations[0].photo || '/assets/images/pixel.png' }}"></a>
+        <div class="company">
+            <div ng-if="!user.organisations[0].photo" >
+               <h2><a href="/organisations"> {{user.organisations[0].displayName}}</a></h2>
+                <a href="/organisations"><i class="fa fa-cloud-upload"></i> Upload a Logo</a>
+            </div>
+
+            <a href="/organisations">   <img ng-if="user.organisations[0].photo"
+                 ng-src="{{user.organisations[0].photo}}"></a>
         </div>
 
         <org-menu></org-menu>
-
     </div>
     <div class="container-fluid" ng-class="{withSideMenu : sideMenuVisible, withoutSideMenu :!sideMenuVisible}">
 
@@ -108,7 +114,7 @@
 
 </div>
 <script type="text/javascript" src="/js/vendor.min.js"></script>
-<script src="/socket.io/socket.io.js"></script>
+<!--<script src="/socket.io/socket.io.js"></script>-->
 
 <% if (dev) { %>
 <script src="//localhost:35729/livereload.js"></script>

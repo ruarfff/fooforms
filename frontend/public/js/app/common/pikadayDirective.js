@@ -1,3 +1,6 @@
+/**
+ * Created by mcaulb1 on 04/12/2014.
+ */
 angular.module('pikaday', [])
 
     .constant('PikadayConfig', {})

@@ -146,13 +146,22 @@ angular.module('formViewer')
 
             //Grid Related
             $scope.stGridHeight = function () {
-
+var feedHeader = angular.element('feedHeader');
                 return {'height': (window.innerHeight - 170)}
+            };
+
+            $scope.setFeedHeight = function () {
+                var postsHeader = angular.element('#feedHeader')[0];
+                if (postsHeader.offsetHeight==0){
+                    postsHeader = angular.element('#gridHeader')[0];
+                }
+                return {'top': (postsHeader.offsetHeight + postsHeader.offsetTop)}
             };
 
             $scope.posts2Grid = function () {
                 $scope.gridData = [];
                 var counter = 0;
+                var hasField = false;
                 $scope.gridFields = [];
 
                 var map = _.pick($scope.form, 'fields');
@@ -169,6 +178,7 @@ angular.module('formViewer')
                 });
 
                 angular.forEach($scope.posts, function (postEntry) {
+                    hasField = false;
                     var map = _.pick(postEntry, 'menuLabel', 'fields');
                     var entry = {};
                     entry['id'] = counter;
@@ -181,6 +191,7 @@ angular.module('formViewer')
                             var safeLabel = reduce.label.replace(/\s+/g, "_");
 
 if ($scope.gridFields.indexOf(safeLabel)>-1) {
+    hasField = true;
     switch (reduce.type) {
         case "radio":
         case "status":
@@ -205,7 +216,9 @@ if ($scope.gridFields.indexOf(safeLabel)>-1) {
 
 }
                     });
-                    $scope.gridData.push(entry);
+                    if(hasField) {
+                        $scope.gridData.push(entry);
+                    }
 
                 });
 

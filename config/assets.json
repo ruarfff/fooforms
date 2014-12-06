@@ -13,6 +13,7 @@
                 "/js/app/comment/commentDirectives.js",
                 "/js/app/comment/commentServices.js",
                 "/js/app/common/lodashWrapper.js",
+                "/js/app/common/pikadayDirective.js",
                 "/js/app/dashboard/dashboard.js",
                 "/js/app/dashboard/dashboardControllers.js",
                 "/js/app/dashboard/dashboardDirectives.js",

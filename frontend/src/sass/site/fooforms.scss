@@ -8,10 +8,10 @@ $fa-font-path: "/fonts";
 /* Padding below the footer and lighter body text */
 
 body {
-  padding: 0px 0px 40px;
+  padding: 0px;
   color: #212930;
   background: #fff;
-
+  font-family: 'Roboto', sans-serif;
 }
 
 .T09 {
@@ -28,8 +28,16 @@ body {
 
 .m0 {
 
-  margin: 0px;
+   margin: 0px;
 
+ }
+.m2 {
+
+  margin: 2px;
+
+}
+.mt20 {
+  margin-top: 20px !important;
 }
 
 .text-shadow-light {
@@ -47,12 +55,10 @@ body {
   text-align: center;
 }
 img.logo {
-  padding: 6px 0px 0px 40px;
+  padding: 0px;
   background: #fff;
-  margin: 0px 10px 0px 25px;
-  border-radius: 0px 0px 10px 10px;
-  border: 5px solid rgba(38, 113, 204, 0.7);
-  border-top: 0px;
+  margin: 0px 0px 0px 0px;
+height: 50px;
 }
 
 .page-content {
@@ -89,22 +95,18 @@ iframe div.alert {
   color: #fff;
 }
 .navbar-default{
-  border: 0px;
+  border-bottom: 2px rgba(14, 41, 57, 0.15);
 }
 
 .navbar-foo > .container-fluid .navbar-brand {
   padding: 0px;
-  font-size: 44px;
-  color: #68B3AF;
-  font-family: 'Play', sans-serif;
-background: transparent !important;
+height: 50px;
 }
 
 .navbar-foo {
-  box-shadow: none;
   padding-left: 140px;
   padding-right: 140px;
-  background: transparent !important;
+  background: #fff !important;
 }
 
 .foo-menu {
@@ -112,149 +114,48 @@ background: transparent !important;
 }
 
 .foo-menu, .foo-menu li {
-  height: 70px;
-  line-height: 70px;
+  height: 50px;
+  line-height: 50px;
   padding: 0px;
-  font-family: 'Play', sans-serif;
+
 
 }
 
 .foo-menu li {
-  height: 70px;
-  line-height: 70px;
+  height: 50px;
+  line-height: 50px;
   padding-left: 20px;
   padding-right: 20px;
 
 }
  .foo-menu li a{
+   display: inline-block;
    padding: 0px !important;
    padding-left: 20px!important;
    padding-right: 20px!important;
-   margin-top: 15px;
-    border: 2px solid rgba(255,255,255,.4);
-border-radius: 6px;
-   color: #e7e7e7 !important;
+   margin-top: 10px;
+   color: #424d66 !important;
    height: 30px !important;
    line-height: 30px !important;
-   background: rgba(255,255,255,.2);
+   background: -webkit-linear-gradient(#fff, #f2f6f9);
+   background: -moz-linear-gradient(#fff, #f2f6f9);
+   background: -ms-linear-gradient(#fff, #f2f6f9);
+   background: -o-linear-gradient(#fff, #f2f6f9);
+   background: linear-gradient(#fff, #f2f6f9);
+   -webkit-border-radius: 15px;
+   -moz-border-radius: 15px;
+   -ms-border-radius: 15px;
+   -o-border-radius: 15px;
+   border-radius: 15px;
+   -webkit-box-shadow: 0 0 0 1px rgba(14, 41, 57, 0.12), 0 2px 5px rgba(14, 41, 57, 0.044), inset 0 -1px 2px rgba(14, 41, 57, 0.15);
+   -moz-box-shadow: 0 0 0 1px rgba(14, 41, 57, 0.12), 0 2px 5px rgba(14, 41, 57, 0.044), inset 0 -1px 2px rgba(14, 41, 57, 0.15);
+   -ms-box-shadow: 0 0 0 1px rgba(14, 41, 57, 0.12), 0 2px 5px rgba(14, 41, 57, 0.044), inset 0 -1px 2px rgba(14, 41, 57, 0.15);
+   -o-box-shadow: 0 0 0 1px rgba(14, 41, 57, 0.12), 0 2px 5px rgba(14, 41, 57, 0.044), inset 0 -1px 2px rgba(14, 41, 57, 0.15);
+   box-shadow: 0 0 0 1px rgba(14, 41, 57, 0.12), 0 2px 5px rgba(14, 41, 57, 0.044), inset 0 -1px 2px rgba(14, 41, 57, 0.15);
   }
 /* CUSTOMIZE THE CAROUSEL
 -------------------------------------------------- */
 
-/* Carousel base class */
-.jumbotron {
-  position: absolute;
-  bottom: 0;
-  top: 0;
-  left: 0;
-  right: 0;
-  width: 100%;
-  height: 100%;
-  margin: 0px;
-  padding: 0px;
-  font-family: 'Open Sans Condensed', sans-serif;
-  text-align: center;
-}
-.jumbotron div.img-container{
-  width: 100%;
-  height: 100%;
-  overflow: hidden;
-  text-align: center;
-  vertical-align: middle;
-position: absolute;
-  top:0;bottom:0;left:0; right: 0;
-}
-.jumbotron div.img-container img{
-  margin: 0;
-  padding: 0;
-  min-height: 100%;
-  min-width: 100%;
-  vertical-align: middle;
-}
-.jumbotron-filter {
-  background-color: rgba(38, 113, 204, .7);
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-}
-.jumbotron h1 {
-  margin: 0px;
-  margin-top: 8%;
-  font-size: 48px;
-  color: #fff;
-  font-weight: 300;
-  font-family: 'Open Sans Condensed', sans-serif;
-  text-shadow: 1px 1px 4px rgba(0, 0, 0, .3);
-}
-
-.jumbotron h2 {
-  margin: 0px;
-  padding-top: 2%;
-  font-size: 20px;
-  color: #fff;
-  font-weight: 900;
-  font-family: 'Open Sans Condensed', sans-serif;
-  text-shadow: 1px 1px 4px rgba(0, 0, 0, .3);
-
-}
-.jumbotron h3 {
-  margin: 0px;
-  padding-top: 3%;
-  font-size: 24px;
-  color: #263042;
-
-  font-weight: 900;
-  font-family: 'Open Sans Condensed', sans-serif;
-  text-shadow: 1px 1px 3px rgba(255,255,255,.3);
-
-}
-
-.jumbotron h2, .jumbotron h3, .jumbotron h4, .jumbotron h5 {
-  font-family: 'Open Sans Condensed', sans-serif;
-  font-weight: 500;
-  max-width: 1000px;
-  margin: 0 auto 0;
-  text-align: center;
-}
-
-.jumbotron h2 span.highlighted {
-  color: #0279d2;
-  font-weight: 500;
-}
-
-.jumbotron i.fa {
-  color: #3a4556;
-  font-weight: 300;
-}
-
-/* Declare heights because of positioning of img element */
-.jumbotron-home {
-
-}
-
-
-
-.bg-transparent-1 {
-  background: rgba(255, 255, 255, 0.1);
-}
-
-.bg-transparent-2 {
-  background: rgba(255, 255, 255, 0.2);
-}
-
-.bg-transparent-3 {
-  background: rgba(255, 255, 255, 0.3);
-}
-
-.bg-transparent-4 {
-  background: rgba(255, 255, 255, 0.4);
-}
-
-.bg-transparent-5 {
-  background: rgba(255, 255, 255, 0.5);
-}
 
 .rounded-top {
   background: rgba(255, 255, 255, 0.4);
@@ -285,14 +186,6 @@ position: absolute;
   font-size: 1em;
 }
 
-.jumbotron-home .item {
-
-  padding: 10px;
-}
-
-.jumbotron-home .item ul {
-  margin: 5px;
-}
 
 .fa-huge {
   font-size: 12em !important;
@@ -310,10 +203,10 @@ position: absolute;
 
 .highlight {
   color: #f6f6f6;
-  background: #3a4556 url('/assets/images/tile-bg.png');
+  background: #263042 url('/assets/images/tile-bg2.png');
   padding: 20px 0px;
-  border-top: 20px solid #3a4556;
-  border-bottom: 20px solid #3a4556;
+  border-top: 20px solid #1f2736;
+  border-bottom: 20px solid #1f2736;
 
 }
 
@@ -330,7 +223,7 @@ position: absolute;
 
 .highlight h2 {
   font-family: 'Open Sans Condensed', sans-serif;
-  color: #449632;
+  color: #1f2736;
   text-align: center;
   text-shadow: 0px 1px 0px rgba(255, 255, 255, .3);
 }
@@ -363,10 +256,12 @@ position: absolute;
 }
 
 .marketing h2 {
+  font-family: 'Open Sans Condensed', sans-serif;
   font-weight: 300;
 }
 
 .marketing .col-lg-4 p {
+  font-family: 'Open Sans Condensed', sans-serif;
   margin-left: 10px;
   margin-right: 10px;
 }
@@ -381,7 +276,7 @@ position: absolute;
 .featurette {
   margin: 0 auto 0;
   padding: 20px 0px;
-
+  font-family: 'Open Sans Condensed', sans-serif;
   background: #fff url('/assets/images/tile-bg3.png');;
 }
 
@@ -391,9 +286,11 @@ position: absolute;
 
 /* Thin out the marketing headings */
 .featurette-heading {
+  margin-top: 30px;
   font-weight: 300 !important;
-  line-height: 1;
+  line-height: 1.1em;
   letter-spacing: -1px;
+  font-size: 2.2em;
 }
 
 .text-highlight {
@@ -406,9 +303,6 @@ position: absolute;
   color: #fff;
   background: #009de6 url('/assets/images/tile-bg2.png');
   padding: 20px 0px;
-  border-top: 20px solid #3a4556;
-  border-bottom: 20px solid #3a4556;
-
   font-weight: 300 !important;
 }
 
@@ -416,8 +310,6 @@ position: absolute;
   color: #efefef;
   background: #5D4157;
   padding: 20px 0px;
-  border-top: 20px solid #3a4556;
-  border-bottom: 20px solid #3a4556;
 
   font-weight: 300 !important;
 }
@@ -427,21 +319,6 @@ position: absolute;
 
 @media (min-width: 768px) {
 
-  .jumbotron {
-
-
-  }
-  .jumbotron-home {
-
-
-  }
-  .jumbotron h1 {
-    font-size: 60px;
-  }
-
-  .jumbotron h2 {
-    font-size: 26px;
-  }
 
   /* Remove the edge padding needed for mobile */
   .marketing {
@@ -450,8 +327,9 @@ position: absolute;
   }
 
   .featurette-heading {
-    font-size: 50px;
+    margin-top: 60px;
     font-weight: 300;
+    font-size: 2.5em;
   }
 
   .highlight div.col-sm-4 {
@@ -463,33 +341,9 @@ position: absolute;
 
 @media (min-width: 992px) {
 
-  .jumbotron-home{
-
-  }
-  .jumbotron {
-    padding-top: 50px;
-    padding-bottom: 250px;
-  }
-  .jumbotron h1 {
-    font-size: 80px;
-    font-weight: 900;
-padding-bottom: 2.5%;
-  }
-
-  .jumbotron h2 {
-    font-size: 40px;
-    font-weight: 900;
-padding-bottom: 2.5%;
-
-  }
-
-  .jumbotron h3 {
-    font-size: 40px;
-    font-weight: 500;
-  }
-
   .featurette-heading {
     margin-top: 120px;
+    font-size: 3.2em;
   }
 
   .content-secondary .ui-collapsible {
