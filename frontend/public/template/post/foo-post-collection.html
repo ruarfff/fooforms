@@ -12,33 +12,36 @@
 </div>
 
 <!--Default Emplty Post Display -->
-        <div ng-cloak ng-if="posts.length==0 && !activePost" >
+<div ng-cloak ng-if="posts.length==0 && !activePost">
 
-            <div class="panel panel-foo-feed">
+    <div class="panel panel-foo-feed">
 
-               <div class="panel-body" ng-hide="team">
+        <div class="panel-body" ng-hide="team">
 
-                    <h2 class="text-primary">hello :-)</h2>
-<h4>Welcome to Fooforms.</h4>
-                   <p>Please take a moment to read the Quick Start Guide, it's so much easier than fumbling about.</p>
-                   <p class="pt5">Be sure to get in touch if you find any bugs or have any questions.</p>
-<br><br>
-                   Follow us <a href="https://twitter.com/fooforms">@fooforms</a> for updates.<br>
-                   <strong><i>The Fooforms Team</i></strong>
-                </div>
+            <h2 class="text-primary">hello :-)</h2>
+            <h4>Welcome to Fooforms.</h4>
 
+            <p>Please take a moment to read the Quick Start Guide, it's so much easier than fumbling about.</p>
 
-                <div class="panel-body" ng-show="team">
-
-                    <h2 class="text-primary">hello :-)</h2>
-                    <h4>This is where posts for the {{team.displayName}} team will appear.</h4>
-                    <p></p>
-                </div>
-
-            </div>
-
-
+            <p class="pt5">Be sure to get in touch if you find any bugs or have any questions.</p>
+            <br><br>
+            Follow us <a href="https://twitter.com/fooforms">@fooforms</a> for updates.<br>
+            <strong><i>The Fooforms Team</i></strong>
         </div>
+
+
+        <div class="panel-body" ng-show="team">
+
+            <h2 class="text-primary">hello :-)</h2>
+            <h4>This is where posts for the {{team.displayName}} team will appear.</h4>
+
+            <p></p>
+        </div>
+
+    </div>
+
+
+</div>
 
 <div ng-cloak ng-if="posts.length==0 && activePost">
 
@@ -49,6 +52,7 @@
 
             <h2 class="text-primary">hello :-)</h2>
             <h4>No posts yet.</h4>
+
             <p>Use your new form to create the first post now.</p>
             <br>
         </div>
