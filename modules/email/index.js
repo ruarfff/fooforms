@@ -6,10 +6,10 @@ var smtpTransport = require('nodemailer-smtp-transport');
 
 
 var transport = nodemailer.createTransport(smtpTransport({
-    host: 'hydrogen.portfast.net',
-    port: 25,
+    host: 'smtp.sendgrid.net',
+    port: 2525,
     auth: {
-        user: 'hello@fooforms.com',
+        user: 'fooforms',
         pass: 'G0Fly09123*'
     }
 }));
