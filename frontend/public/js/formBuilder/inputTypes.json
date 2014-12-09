@@ -664,7 +664,7 @@
 {
 "type": "to",
 "name": "To",
-"label" : "To",
+"label" : "Assigned To",
 "placeholder": "Pick a user",
 "size" : 100,
 "boxSize" : 12,
@@ -682,9 +682,9 @@
 "groupOptions": "/template/formFields/groupOptions/member.html",
 "optionsTemplate": "/template/formFields/options/member.html",
 "viewTemplate": "/template/formFields/view/member.html",
-"listTemplate": "/template/formFields/list/textbox.html",
-"feedTemplate": "/template/formFields/feed/textbox.html",
-"groupViewTemplate": "/template/formFields/groupView/textbox.html",
+"listTemplate": "/template/formFields/list/member.html",
+"feedTemplate": "/template/formFields/feed/member.html",
+"groupViewTemplate": "/template/formFields/groupView/member.html",
 "value" : ""
 },
 {
