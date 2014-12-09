@@ -1,13 +1,19 @@
 /* global angular */
 
 angular.module('form').controller('FormCtrl',
-    ['$scope', '$location', '$log', 'FormService', 'StoreService', 'Session', 'SweetAlert',
-        function ($scope, $location, $log, FormService, StoreService, Session, SweetAlert) {
+    ['$scope', '$location', '$window','$log', 'FormService', 'StoreService', 'Session', 'SweetAlert',
+        function ($scope, $location, $window, $log, FormService, StoreService, Session, SweetAlert) {
             'use strict';
 
             $scope.store = {};
             $scope.categories = [];
-            $scope.activeCategory = 'yourForms';
+            if (Session.user.defaultFolder.forms.length===0){
+                $scope.activeCategory = 'Featured';
+
+            }else{
+                $scope.activeCategory = 'yourForms';
+
+            }
 
             StoreService.getStore().then(function (res) {
                 $scope.categories = res.data.teams;
@@ -28,6 +34,7 @@ angular.module('form').controller('FormCtrl',
                     } else {
                         addFormToSessionFolder(form);
                         SweetAlert.swal('Saved!', 'The form has been added to your collection.', 'success');
+                        $window.location.reload();
                     }
                 });
             };
