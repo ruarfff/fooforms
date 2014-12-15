@@ -1,0 +1,19 @@
+<% ORGANISATION %> is ready on FOOFORMS!
+Hey <% FIRSTNAME %>,
+
+Your account is setup on on FOOFORMS
+
+
+Be sure to check out our Form Templates, they're the easiest way to get up and running quickly.
+If you've got any questions please do reach out, we're waiting to assist you.
+
+You can create your first forms and teams right now.
+
+https://fooforms.com/dashboard/
+
+Kind regards,
+
+everyone@fooforms
+
+
+
