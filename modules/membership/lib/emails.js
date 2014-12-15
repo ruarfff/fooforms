@@ -2,6 +2,9 @@
 
 var log = require('fooforms-logging').LOG;
 var emailer = require('../../email');
+var fs = require('fs');
+var path = require('path');
+var templateDir = path.join(__dirname, '../../email/templates');
 
 
 exports.sendHelloWorld = function (next) {
@@ -30,7 +33,7 @@ exports.sendInvitation = function (invite, next) {
     var env = process.env.NODE_ENV;
     var rootUrl;
     if (env === 'production') {
-        rootUrl = 'http://fooforms.com';
+        rootUrl = 'https://fooforms.com';
     } else if (env === 'staging') {
         rootUrl = 'http://fooforms.jit.su';
     } else {
@@ -68,5 +71,56 @@ exports.sendInvitation = function (invite, next) {
         }
 
         next(error, invite);
+    });
+};
+
+exports.sendWelcomeEmail = function (welcome) {
+    log.info('sending welcome email');
+
+
+    var htmlTemplate = path.join(templateDir, 'welcome.html');
+    var txtTemplate =  path.join(templateDir, 'welcome.txt');
+
+    var env = process.env.NODE_ENV;
+    var url;
+    if (env === 'production') {
+        url = 'https://fooforms.com';
+    } else if (env === 'staging') {
+        url = 'http://fooforms.jit.su';
+    } else {
+        url = 'http://localhost:3000';
+    }
+
+    var organisationName = welcome.organisation.displayName;
+    var to = welcome.user.email;
+
+
+    var htmlContent = fs.readFileSync(htmlTemplate).toString();
+    htmlContent = htmlContent.replace('<% ORGANISATION %>', organisationName);
+    htmlContent = htmlContent.replace('<% FIRSTNAME %>', welcome.user.displayName);
+
+    var textContent = fs.readFileSync(txtTemplate).toString();
+    textContent = textContent.replace('<% ORGANISATION >%', organisationName);
+    textContent = textContent.replace('<% FIRSTNAME %>', welcome.user.displayName);
+
+
+    var mailOptions = {
+        from: "FOOFORMS <brian@fooforms.com>",
+        to: to,
+        subject: organisationName + " on Fooforms",
+        text: textContent,
+        html: htmlContent
+    };
+    // send mail with defined transport object
+    emailer.send(mailOptions, function (error, response) {
+        if (error) {
+            log.error(error);
+            welcome.status = 'failed';
+        } else {
+            log.info("Message sent: " + response.response);
+            log.info(response);
+            welcome.status = 'sent';
+        }
+
     });
 };
