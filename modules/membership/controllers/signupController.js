@@ -12,6 +12,8 @@ var db = require('mongoose').connection;
 var membership = new Membership(db);
 var fooForm = new FooForm(db);
 var defaultFolders = require('../lib/defaultFolders');
+var email = require('../lib/emails');
+
 
 
 exports.signup = function (req, res, next) {
@@ -63,6 +65,9 @@ exports.signup = function (req, res, next) {
                     }
                     // TODO: At this point the user exist but something may have gone wrong creating default folders and
                     // this is not being handled. Need ot update to fix that but it's a bit of work.
+
+                    email.sendWelcomeEmail(args);
+
                     res.status(200).end();
                 });
             }
