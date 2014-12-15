@@ -1,4 +1,5 @@
 <% ORGANISATION %> is ready on FOOFORMS!
+
 Hey <% FIRSTNAME %>,
 
 Your account is setup on on FOOFORMS
