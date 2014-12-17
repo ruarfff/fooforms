@@ -1,0 +1,10 @@
+<div class="clearfix" ng-style="{'width': formField.size+'%'}" ng-hide="formField.options=='Profile'">
+    <label>{{formField.label}}</label>
+    {{formField.value}}
+</div>
+
+<div class="clearfix" ng-style="{'width': formField.size+'%'}" ng-show="formField.options=='Profile'">
+    <label>{{formField.label}}</label>
+    <span>
+   {{formField.value.displayName}}</span>
+</div>
