@@ -70,7 +70,16 @@ angular.module('formViewer')
             $scope.savePost = function () {
                 if ($scope.activePost._id) {
                     // Post already exists on server
-                    var postToSave = angular.copy($scope.activePost);
+
+                    // var postToSave = angular.copy($scope.activePost);
+                    // This was causing mods to postToSave to not get sent to the server
+                    // Something to do with restangular I expect.
+                    // Removed angular.copy and does not seem to cause any issues.
+                    // Brian
+                    var postToSave = $scope.activePost;
+
+
+                    postToSave.team = team._id;
                     delete postToSave.commentStreams;
                     PostService.updatePost(postToSave, function (err, post) {
                         if (err) {

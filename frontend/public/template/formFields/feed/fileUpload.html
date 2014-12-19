@@ -1,4 +1,23 @@
-<div class="thumbnail" ng-show="formField.value._id">
-    <img  ng-src="/api/files/{{formField.value._id}}">
+<div class="thumbnail b0 bg-white" ng-show="formField.value._id
+    && (formField.value.mimeType=='image/gif'
+    || formField.value.mimeType=='image/png'
+    || formField.value.mimeType=='image/jpg'
+    || formField.value.mimeType=='image/jpeg'
+    )" >
+    <img ng-src="/api/files/{{formField.value._id}}">
+
+</div>
+
+<div class="roundy-border p5 mb10" ng-hide="(formField.value.mimeType=='image/gif'
+    || formField.value.mimeType=='image/png'
+    || formField.value.mimeType=='image/jpg'
+    || formField.value.mimeType=='image/jpeg'
+    )" ng-show="formField.value._id">
+
+
+    <h5> <a href="/api/files/{{formField.value._id}}" target="_new">
+        <i class="fa fa-download"></i>
+        {{ formField.value.originalName }}
+    </a></h5>
 
 </div>

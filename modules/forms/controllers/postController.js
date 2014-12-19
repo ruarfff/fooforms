@@ -1,9 +1,13 @@
 var FooForm = require('fooforms-forms');
+var Membership = require('fooforms-membership');
 var log = require('fooforms-logging').LOG;
 var db = require('mongoose').connection;
 var statusCodes = require('fooforms-rest').statusCodes;
 var fooForm = new FooForm(db);
+var membership = new Membership(db);
 var paginate = require('express-paginate');
+var _ = require('underscore');
+var emailer = require('../lib/emails');
 
 var sanitizeUser = function (user) {
     var sanitizedUser;
@@ -16,6 +20,35 @@ var sanitizeUser = function (user) {
         };
     }
     return sanitizedUser;
+};
+
+var sendNotification = function(updatedBy, post){
+
+
+
+    var postDetails = post;
+
+    membership.Team.findById(post.team).populate('members').exec(function (err, team) {
+        if (err) return next(err);
+        if (!team) {
+            //res.status(statusCodes.NOT_FOUND).end();
+        } else {
+            var users = _.reject(team.members, function (user) {
+                return user.displayName===updatedBy.displayName;
+            });
+
+            var distributionList = [];
+
+            if (users && users.length > 0) {
+                users.forEach(function (user) {
+                    distributionList.push(user.email);
+                });
+            }
+
+            emailer.sendUpdatePostNotification(updatedBy,distributionList,postDetails)
+        }
+    });
+
 };
 
 exports.create = function (req, res, next) {
@@ -90,6 +123,7 @@ exports.update = function (req, res, next) {
             fooForm.Post.populate(result.post, {path: 'createdBy', model: 'User'}, function (err, post) {
                 post.createdBy = sanitizeUser(post.createdBy);
                 res.send(post);
+                sendNotification(req.user,req.body);
             });
 
         } else {

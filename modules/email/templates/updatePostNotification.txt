@@ -1,0 +1,6 @@
+<% DISPLAYNAME %> updated the following post on FOOFORMS!
+
+
+<% CONTENT %>
+
+https://fooforms.com/dashboard/
