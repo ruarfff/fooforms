@@ -4,9 +4,9 @@
          ng-click="editField(null,null,'Form', $event)"><img class='icon pull-left'
                                                              ng-src="{{form.icon}}">
 
-        <h4 id='formName'>{{form.displayName}}</h4>
+        <h4 id='formName'>{{form.displayName || 'Click Here To Edit Form Name'}}</h4>
 
-        <p id='formDescription'>{{form.description}} </p>
+        <p id='formDescription'>{{form.description || 'Your Form Description'}} </p>
     </div>
     <div class="container-fluid p10"
          ng-class="{ 'newForm': form.fields.length==0}">

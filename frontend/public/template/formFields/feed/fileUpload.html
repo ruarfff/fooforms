@@ -8,16 +8,17 @@
 
 </div>
 
-<div class="roundy-border p5 mb10" ng-hide="(formField.value.mimeType=='image/gif'
+<div class="p5 mb10" ng-hide="(formField.value.mimeType=='image/gif'
     || formField.value.mimeType=='image/png'
     || formField.value.mimeType=='image/jpg'
     || formField.value.mimeType=='image/jpeg'
-    )" ng-show="formField.value._id">
+    || !formField.value._id
+    )">
 
 
-    <h5> <a href="/api/files/{{formField.value._id}}" target="_new">
-        <i class="fa fa-download"></i>
+    <p ng-show="formField.value._id"> <a href="/api/files/{{formField.value._id}}" target="_new" class="btn btn-link">
+        <i class="fa fa-file-text-o text-muted"></i>
         {{ formField.value.originalName }}
-    </a></h5>
+    </a></p>
 
 </div>

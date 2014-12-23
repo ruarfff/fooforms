@@ -17,19 +17,21 @@ angular.module('post')
                     var currentPostPage = 0;
                     var postPageSize = 10;
                     var hasMorePosts = true;
+                    $scope.fetching=true;
 
                     $scope.noUserForms = Session.user.defaultFolder.forms.length === 0;
 
                     $scope.posts = [];
 
                     var getPosts = function (page, pageSize, postStreams) {
-
+                        $scope.fetching=true;
                         if(postStreams) {
                             PostService.getPostsByStreamList({
                                 postStreams: postStreams,
                                 page: page,
                                 pageSize: pageSize
                             }, function (err, posts) {
+                                $scope.fetching=false;
                                 if (err) {
                                     $log.error(err);
                                 }
@@ -44,6 +46,7 @@ angular.module('post')
                             });
 
                         } else {
+                            $scope.fetching=false;
                             $log.debug('Could not load posts. No post streams provided.');
                         }
                     };

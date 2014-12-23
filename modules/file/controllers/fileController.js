@@ -53,8 +53,11 @@ var getFileById = function (req, res) {
             if (err || !file) {
                 if (!err) {
                     new Error('file not found');
+                    err={http_code : 404};
+                }else{
+                    err.http_code = 404;
                 }
-                err.http_code = 404;
+
                 errorResponseHandler.handleError(res, err, __filename);
             } else {
                 res.setHeader("Content-Type", file.mimeType || file.contentType);

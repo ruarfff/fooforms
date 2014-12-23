@@ -46,7 +46,7 @@
                     <h4>{{form.displayName}}
                         <a href="{{location}}/edit"><i class="fa fa-edit"></i>
                         </a></h4>
-    <button class="btn btn-default pull-right" ng-click="newPost()">
+    <button class="btn btn-success pull-right" ng-click="newPost()">
         {{form.btnLabel}} <i class="fa fa-plus fa-lg"></i></button>
 
 
@@ -118,11 +118,12 @@
 
     </div>
 
-    <div class="row" ng-if="activePost.commentStream">
+    <div class="row" ng-if="activePost.commentStream && form.settings.allowComments">
         <div class="col-sm-12">
             <foo-comment-collection active-post="activePost"></foo-comment-collection>
         </div>
     </div>
+
 
 </div>
 

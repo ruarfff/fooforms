@@ -165,7 +165,7 @@ angular.module('formBuilder')
             templateUrl: '/partials/calculationGroupBox.html'
         };
 
-    }]).directive('uploader', ['$upload', '$log', function ($upload, $log) {
+    }]).directive('uploader', ['$upload', '$log','SweetAlert' ,function ($upload, $log,SweetAlert) {
 
         return {
             restrict: 'E',
@@ -190,7 +190,7 @@ angular.module('formBuilder')
                 };
 
                 scope.doFileUpload = function () {
-
+                    scope.uploading=true;
                     scope.upload = $upload.upload({
                         url: '/api/files',
                         method: 'POST',
@@ -204,6 +204,9 @@ angular.module('formBuilder')
                         // file is uploaded successfully
                         scope.uploadFile = [];
                         scope.allowUpload = null;
+                        scope.formField.progress = 0;
+                        scope.uploading=false;
+
                         if (data.err) {
                             $log.error(data.err);
                             //ctrl.$setValidity('error', false);
@@ -211,9 +214,10 @@ angular.module('formBuilder')
                             scope.formField.value = data;
                         }
 
-                    }).error(function (err) {
-                        $log.error(err);
-                        //ctrl.$setValidity('error', false);
+                    }).error(function (err, code,headers) {
+                        SweetAlert.swal('Not Saved!', 'An error occurred trying to upload this file.', 'error');
+                        scope.formField.progress = 0;
+                        scope.uploading=false;
                     });
                 }
             },

@@ -30,7 +30,7 @@
                 </li>
                 <li><a class="br0" data-toggle="tab" data-target="#advanced" ng-click="openDesignTab()">Advanced</a>
                 </li>
-                <li><a class="br0" id='sideEventTab' data-toggle="tab" data-target="#events" ng-click="openEventTabs()">Events</a>
+                <li ng-if="false"><a class="br0" id='sideEventTab' data-toggle="tab" data-target="#events" ng-click="openEventTabs()">Events</a>
                 </li>
 
             </ul>
@@ -258,6 +258,18 @@
                         <input type='text' class="form-control" ng-model="form.btnLabel"/>
                     </div>
                 </div>
+                <div class="form-group">
+                    <label class="col-sm-4 control-label">Allow Comments</label>
+
+                    <div class="col-sm-8">
+
+                        <label class="checkbox-inline"><input type="checkbox"
+                                                              ng-model="form.settings.allowComments">&nbsp;</label>
+
+
+                    </div>
+                </div>
+
                 <div class="form-group">
                     <label class="col-sm-4 control-label">Display Options</label>
 

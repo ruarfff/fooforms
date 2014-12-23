@@ -1,3 +1,6 @@
+<div ng-cloak ng-if="fetching" class="text-center mt10">
+    <i class="fa fa-spinner fa-spin fa-2x text-muted"></i>
+</div>
 <div infinite-scroll="addMorePosts()" infinite-scroll-distance="3">
     <!-- TODO: Move feed and list to own templates and directives -->
 
@@ -43,7 +46,7 @@
 
 </div>
 
-<div ng-cloak ng-if="posts.length==0 && activePost">
+<div ng-cloak ng-if="posts.length==0 && activePost && !fetching">
 
 
     <div class="panel panel-foo-feed">
@@ -61,6 +64,7 @@
 
 
 </div>
+
 
 
 

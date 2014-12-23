@@ -25,7 +25,8 @@
     || formField.value.mimeType=='image/png'
     || formField.value.mimeType=='image/jpg'
     || formField.value.mimeType=='image/jpeg'
-    )" ng-show="formField.value._id">
+    || !formField.value._id
+    )" >
 
 
            <h5> <a href="/api/files/{{formField.value._id}}" target="_new">
@@ -56,7 +57,7 @@
       </span>
         </div>
         <div class="progress mt5 progress-striped" ng-class="{'fadeOutDelayed' : formField.progress==100}"
-             ng-show="formField.progress>0">
+             ng-show="formField.progress>0 && uploading">
             <div class="progress-bar" ng-class="{'progress-bar-success' : formField.progress==100}" role="progressbar"
                  aria-valuenow="{{formField.progress}}" aria-valuemin="0" aria-valuemax="100"
                  style="width: {{formField.progress+'%'}}">

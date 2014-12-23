@@ -32,7 +32,7 @@ display: block;
 }
 
 .panel-foo-feed .feed-title {
-  font-weight: 500;
+  font-weight: 400;
   font-size: 1.1em;
 }
 .panel-foo-feed .post-user-img {
@@ -72,8 +72,20 @@ box-shadow: 1px 1px 7px rgba(255,255,255,.3);
 
 .panel-feed-selected{
 border-bottom: 1px solid #9bd843 !important;
+  border-top: 1px solid #9bd843 !important;
 }
 
+.panel-feed-selected .feed-title{
+  color: #4c5e74 !important;
+}
+
+.panel-foo-light{
+  background:  transparent !important;
+}
+.panel-foo-light .panel-heading{
+  color: #3d4b5b;
+  background: rgba(76, 94, 116, 0.1);
+}
 .gridWrapper {
   position: absolute;
   display: block;
