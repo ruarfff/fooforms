@@ -4,7 +4,7 @@
     </li>
 
     <li>
-        <a href="/forms" class="text-muted"><i class="fa fa-plus"></i> Add a Form</a>
+        <a href="/forms" class="text-muted"><i class="fa fa-plus"></i> Add a New App</a>
     </li>
     <li>
         <a href="/teams" class="text-muted"><i class="fa fa-plus"></i> Create a New Team</a>
@@ -22,7 +22,7 @@
                     <li ng-repeat="form in team.defaultFolder.forms track by $index">
 
                         <a href="/{{organisation.displayName}}/teams/{{team.displayName}}/{{form.displayName}}">
-                            <img ng-src="{{form.icon}}" class="nav-icon"> {{form.displayName}}</a>
+                            <img ng-src="{{form.icon}}" class="nav-icon"> {{form.title}}</a>
                     </li>
                 </ul>
             </li>
@@ -34,7 +34,7 @@
             <li ng-repeat="form in user.defaultFolder.forms track by $index">
 
                 <a href="/{{user.displayName}}/{{form.displayName}}">
-                    <img ng-src="{{form.icon}}" class="nav-icon"> {{form.displayName}}
+                    <img ng-src="{{form.icon}}" class="nav-icon"> {{form.title}}
                 </a>
 
             </li>

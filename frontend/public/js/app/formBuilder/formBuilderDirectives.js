@@ -231,32 +231,43 @@ angular.module('formBuilder')
             link: function (scope, elem, attrs, ctrl) {
                 scope.busy = false;
                 scope.$watch(attrs.ngModel, function (value) {
-
+                    scope.ctrl = ctrl;
                     // hide old error messages
                     ctrl.$setValidity('isTaken', true);
                     ctrl.$setValidity('error', true);
                     ctrl.$setValidity('invalidChars', true);
-                    scope.sluggedFormName = '';
 
                     if (!value) {
                         // don't send undefined to the server during dirty check
                         // empty form name is caught by required directive
                         return;
                     }
+                    if (!scope.formLoaded) {
+                        // don't send undefined to the server during dirty check
+                        // empty form name is caught by required directive
+                        scope.formLoaded=true;
+                        return;
+                    }
 
                     scope.formNameBusy = true;
                     $http.get('/api/forms/check/name/' + attrs.folder + '/' + value)
                         .success(function (data) {
-                            if (data.exists) {
+                          if (data.exists) {
                                 scope.sluggedFormName = '';
                                 ctrl.$setValidity('isTaken', false);
                             } else if (data.slugged) {
                                 scope.sluggedFormName = data.sluggedValue;
+                            }else{
+                                scope.sluggedFormName=scope.form.title;
                             }
-                            // everything is fine -> do nothing
+
+                            scope.form.displayName=scope.sluggedFormName ;
+
+
                             scope.formNameBusy = false;
                         }).error(function (data) {
                             scope.sluggedFormName = '';
+                            scope.form.displayName=scope.sluggedFormName;
                             ctrl.$setValidity('error', false);
                             scope.formNameBusy = false;
                         });
