@@ -13,6 +13,7 @@ var favicon = require('serve-favicon');
 var methodOverride = require('method-override')();
 var logger = require('fooforms-logging').expressLogger;
 var appRoot = require('app-root-path');
+var cors = require('cors');
 
 var errorHandler;
 var compress = require('compression')({
@@ -34,6 +35,7 @@ module.exports = function (app, passport) {
     app.set('showStackError', true);
     //Should be placed before express.static
     app.use(compress);
+    app.use(cors());
     app.set('title', global.config.app.name);
     app.set('port', global.config.port);
     app.set('views', global.config.root + '/frontend/views');
