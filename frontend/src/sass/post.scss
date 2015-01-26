@@ -23,24 +23,30 @@ color: #fff;
 .panel-foo-feed{
 display: block;
   margin: 8px 5px 5px 5px !important;
-  border-radius: 6px;
+  border-radius: 0px;
   word-wrap: break-word;
+  box-shadow: none;
+  border: 1px solid #d8d8d8 !important;
+  border-top-width: 0 !important;
+  border-left: 5px solid #fff !important;
+
 }
 
 .panel-foo-feed .feed-title {
-  font-weight: 500;
+  font-weight: 400;
   font-size: 1.1em;
 }
 .panel-foo-feed .post-user-img {
   width: 28px;
   height: 28px;
-  box-shadow:   -1px -1px 1px  rgba(0,0,0,.3)  ;
   float: left;
+  background: #fff;
   vertical-align: middle;
   margin-right: 5px;
   margin-left: -6px;
   margin-top: -3px;
-  border-radius: 4px;
+  border-radius: 50%;
+  border: 1px solid #efefef;
 }
 .panel-foo-list .post-user-img{
   width: 30px;
@@ -59,13 +65,28 @@ min-height: 30px;
 .panel-foo-feed label{
   color: #63768C !important;
   font-weight: 400;
+
 }
 
 .panel-foo-feed:hover{
 box-shadow: 1px 1px 7px rgba(255,255,255,.3);
 }
 
+.panel-feed-selected{
+border-left: 5px solid #9bd843 !important;
+}
 
+.panel-feed-selected .feed-title{
+  color: #4c5e74 !important;
+}
+
+.panel-foo-light{
+  background:  transparent !important;
+}
+.panel-foo-light .panel-heading{
+  color: #3d4b5b;
+  background: rgba(76, 94, 116, 0.1);
+}
 .gridWrapper {
   position: absolute;
   display: block;
