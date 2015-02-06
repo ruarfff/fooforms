@@ -8,7 +8,7 @@
                 <ul class="nav nav-pills nav-stacked" id="myTabs">
                     <li class="active"><a data-toggle="tab" data-target="#profile">Your Profile</a></li>
                     <li><a data-toggle="tab" data-target="#notificationSettings">Notification Settings</a></li>
-                    <li><a data-toggle="tab" data-target="#history">History</a></li>
+                    <li><a data-toggle="tab" data-target="#appCodes">Application Codes</a></li>
 
                 </ul>
             </div>
@@ -70,7 +70,7 @@
                                         <input class="form-control" type="email" ng-model="userProfile.email" required/>
                                     </div>
                                 </div>
-                                <div class="col-sm-12 align-right">
+                                <div class="col-sm-12 text-align-right">
                                     <button class="btn btn-success" ng-click="update()">SAVE</button>
                                 </div>
                             </div>
@@ -79,9 +79,31 @@
                     </div>
                     <div class="tab-pane" id="notificationSettings"><h4>Notification Settings</h4>
 
+                        <div class="checkbox">
+                            <label>
+                                <input type="checkbox" id="blankCheckbox" value="option1" aria-label="..."> Send email notification for new posts
+                            </label>
+                        </div>
+                        <div class="checkbox">
+                            <label>
+                                <input type="checkbox" id="blankCheckbox" value="option1" aria-label="..."> Send email notification for any updated posts
+                            </label>
+                        </div>
+                        <div class="checkbox">
+                            <label>
+                                <input type="checkbox" id="blankCheckbox" value="option1" aria-label="..."> Send email notification for new comments
+                            </label>
+                        </div>
 
                     </div>
-                    <div class="tab-pane" id="history">Your Usage History</div>
+                    <div class="tab-pane" id="appCodes">
+                        <h4>Your Application Code</h4>
+
+                    <p>If you wish to connect external applications such as the Fooforms Wordpress Plugin to your account then use the code below when requested.</p>
+
+                        <div class="alert alert-info col-sm-6 zoomBox">{{user._id}}</div>
+                        <h5 class="col-sm-12">This code gives other applications access to your forms and should not be shared with anyone.</h5>
+                    </div>
 
                 </div>
             </div>

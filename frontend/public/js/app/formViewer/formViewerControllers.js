@@ -70,7 +70,18 @@ angular.module('formViewer')
             $scope.savePost = function () {
                 if ($scope.activePost._id) {
                     // Post already exists on server
-                    var postToSave = angular.copy($scope.activePost);
+
+                    // var postToSave = angular.copy($scope.activePost);
+                    // This was causing mods to postToSave to not get sent to the server
+                    // Something to do with restangular I expect.
+                    // Removed angular.copy and does not seem to cause any issues.
+                    // Brian
+                    var postToSave = $scope.activePost;
+
+                    if (team) {
+                        postToSave.team = team._id;
+                    }
+
                     delete postToSave.commentStreams;
                     PostService.updatePost(postToSave, function (err, post) {
                         if (err) {
@@ -169,7 +180,7 @@ angular.module('formViewer')
                 angular.forEach(map.fields, function (fieldData) {
 
 
-                    if (fieldData.showInGrid===true) {
+                    if (fieldData.showInGrid === true) {
                         var field = _.pick(fieldData, 'label', 'value', 'type', 'selected', 'options');
                         var safeLabel = field.label.replace(/\s+/g, "_");
                         $scope.gridFields.push(safeLabel);
@@ -186,42 +197,45 @@ angular.module('formViewer')
                     angular.forEach(map.fields, function (field) {
 
 
+                        var reduce = _.pick(field, 'label', 'value', 'type', 'selected', 'options');
+                        var safeLabel = reduce.label.replace(/\s+/g, "_");
 
-                            var reduce = _.pick(field, 'label', 'value', 'type', 'selected', 'options');
-                            var safeLabel = reduce.label.replace(/\s+/g, "_");
+                        if ($scope.gridFields.indexOf(safeLabel) > -1) {
+                            hasField = true;
+                            switch (reduce.type) {
+                                case "radio":
+                                case "status":
+                                    entry[safeLabel] = reduce.selected;
+                                    break;
+                                case "textarea":
+                                    entry[safeLabel] = reduce.value;
+                                    break;
+                                case "checkbox":
+                                    var selectedOptions = "";
+                                    for (var i = 0; i < reduce.options.length; i++) {
+                                        if (reduce.options[i].selected) {
+                                            selectedOptions += reduce.options[i].label + ": ";
+                                        }
+                                    }
+                                    entry[safeLabel] = selectedOptions;
+                                    break;
+                                case "file":
+                                    if (reduce.value.hasOwnProperty('originalName')) {
+                                        entry[safeLabel] = reduce.value.originalName;
+                                    }
+                                    break;
+                                default:
+                                    entry[safeLabel] = reduce.value;
+                                    break;
+                            }
 
-if ($scope.gridFields.indexOf(safeLabel)>-1) {
-    hasField = true;
-    switch (reduce.type) {
-        case "radio":
-        case "status":
-            entry[safeLabel] = reduce.selected;
-            break;
-        case "textarea":
-            entry[safeLabel] = reduce.value;
-            break;
-        case "checkbox":
-            var selectedOptions = "";
-            for (var i = 0; i < reduce.options.length; i++) {
-                if (reduce.options[i].selected) {
-                    selectedOptions += reduce.options[i].label + ": ";
-                }
-            }
-            entry[safeLabel] = selectedOptions;
-            break;
-        default:
-            entry[safeLabel] = reduce.value;
-            break;
-    }
-
-}
+                        }
                     });
                     if (hasField) {
                         $scope.gridData.push(entry);
                     }
 
                 });
-
             };
 
 

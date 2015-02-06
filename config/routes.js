@@ -1,4 +1,4 @@
-/*jslint node: true */
+3/*jslint node: true */
 'use strict';
 
 var log = require('fooforms-logging').LOG;

@@ -25,6 +25,8 @@ exports.getStore = function (req, res, next) {
                                 store.teams[i].folders[0].forms[j] = store.teams[i].folders[0].forms[j].toObject();
                                 delete store.teams[i].folders[0].forms[j]._id;
                                 delete store.teams[i].folders[0].forms[j].folder;
+                                delete store.teams[i].folders[0].forms[j].url;
+                                delete store.teams[i].folders[0].forms[j].postStreams;
                             }
                         }
                         res.send(store);

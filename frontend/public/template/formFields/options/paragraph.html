@@ -26,34 +26,33 @@
 
     <div class="form-group">
         <label class="col-sm-4 control-label">Style</label>
-    </div>
-    <div>
-        <label class="bg-default col-sm-2">
-            <input type='radio' class="form-control" name="style_{{nowEditing}}"
-                   ng-model="form.fields[nowEditing].style" value="default"/> Default
-        </label>
-        <label class="bg-primary col-sm-2">
-            <input type='radio' class="form-control" name="style_{{nowEditing}}"
-                   ng-model="form.fields[nowEditing].style" value="primary"/> Primary
-        </label>
-        <label class="bg-info col-sm-2">
-            <input type='radio' class="form-control" name="style_{{nowEditing}}"
-                   ng-model="form.fields[nowEditing].style" value="info"/> Info
-        </label>
-        <label class="bg-success col-sm-2">
-            <input type='radio' class="form-control" name="style_{{nowEditing}}"
-                   ng-model="form.fields[nowEditing].style" value="success"/> Success
-        </label>
-        <label class="bg-warning col-sm-2">
-            <input type='radio' class="form-control" name="style_{{nowEditing}}"
-                   ng-model="form.fields[nowEditing].style" value="warning"/> Warning
-        </label>
-        <label class="bg-danger col-sm-2">
-            <input type='radio' class="form-control" name="style_{{nowEditing}}"
-                   ng-model="form.fields[nowEditing].style" value="danger"/> Danger
-        </label>
-    </div>
-    </div>
+
+    <div class="col-sm-8">
+        <div class="btn-group">
+            <button class="btn btn-default" ng-click="form.fields[nowEditing].style='default'">
+                <i class="fa fa-check" ng-show="form.fields[nowEditing].style=='default'"></i>
+                <i ng-show="form.fields[nowEditing].style!='default'">&nbsp;&nbsp;</i>
+            </button>
+            <button class="btn btn-primary" ng-click="form.fields[nowEditing].style='primary'">
+                <i class="fa fa-check" ng-show="form.fields[nowEditing].style=='primary'"></i>
+                <i ng-show="form.fields[nowEditing].style!='primary'">&nbsp;&nbsp;</i>
+            </button>
+            <button class="btn btn-success" ng-click="form.fields[nowEditing].style='success'">
+                <i class="fa fa-check" ng-show="form.fields[nowEditing].style=='success'"></i>
+                <i ng-show="form.fields[nowEditing].style!='success'">&nbsp;&nbsp;</i>
+            </button>
+            <button class="btn btn-warning" ng-click="form.fields[nowEditing].style='warning'">
+                <i class="fa fa-check" ng-show="form.fields[nowEditing].style=='warning'"></i>
+                <i ng-show="form.fields[nowEditing].style!='warning'">&nbsp;&nbsp;</i>
+            </button>
+            <button class="btn btn-danger" ng-click="form.fields[nowEditing].style='danger'">
+                <i class="fa fa-check" ng-show="form.fields[nowEditing].style=='danger'"></i>
+                <i ng-show="form.fields[nowEditing].style!='danger'">&nbsp;&nbsp;</i>
+            </button>
+        </div>
+       </div>
+</div>
+
     <div class="form-group">
         <label class="col-sm-4 control-label">Admin Only </label>
 

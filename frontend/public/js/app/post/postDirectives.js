@@ -17,19 +17,21 @@ angular.module('post')
                     var currentPostPage = 0;
                     var postPageSize = 10;
                     var hasMorePosts = true;
+                    $scope.fetching=true;
 
                     $scope.noUserForms = Session.user.defaultFolder.forms.length === 0;
 
                     $scope.posts = [];
 
                     var getPosts = function (page, pageSize, postStreams) {
-
+                        $scope.fetching=true;
                         if(postStreams) {
                             PostService.getPostsByStreamList({
                                 postStreams: postStreams,
                                 page: page,
                                 pageSize: pageSize
                             }, function (err, posts) {
+                                $scope.fetching=false;
                                 if (err) {
                                     $log.error(err);
                                 }
@@ -44,6 +46,7 @@ angular.module('post')
                             });
 
                         } else {
+                            $scope.fetching=false;
                             $log.debug('Could not load posts. No post streams provided.');
                         }
                     };
@@ -187,13 +190,23 @@ angular.module('post')
 
 
                 var index;
+                scope.titleStr = "";
                 if (angular.isUndefined(scope.post)) {
                     scope.post = scope.posts.activePost;
                 }
                 var titles = _.where(scope.post.fields, {'useAsTitle': true});
                 var titlesplucked = _.pluck(titles, 'value');
-                scope.titleStr = titlesplucked.toString().replace(',',' - ');
 
+                var fieldCount = titlesplucked.length;
+
+                 for (var i=0;i<fieldCount;i++){
+                      if (typeof(titlesplucked[i])=='object'){
+                          scope.titleStr = scope.titleStr + ' - ' + titlesplucked[i].displayName;
+                      }else{
+                          scope.titleStr = scope.titleStr + ' - ' + titlesplucked[i];
+                      }
+                 }
+                scope.titleStr = scope.titleStr.replace(' - ','');
 
             },
             replace: false,

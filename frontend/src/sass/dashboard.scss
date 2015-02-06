@@ -492,7 +492,9 @@ input[type=checkbox]:focus {
 .cursor-hand {
   cursor: pointer;
 }
-
+.bg-white{
+  background: #fff;
+}
 .m0 {
   margin: 0px !important;
 }
@@ -585,6 +587,9 @@ input[type=checkbox]:focus {
 
 .ml10 {
   margin-left: 10px !important;
+}
+.mb10{
+  margin-bottom: 10px;
 }
 
 .light-gray {
@@ -750,13 +755,22 @@ input[type=checkbox]:focus {
   border-radius: 50%;
   margin-right: 6px;
 }
-
 div.nav-profile, div.nav-search {
   display: inline;
   min-width: 100px;
   margin: 0 !important;
   padding-top: 1px;
   padding: 0px;
+}
+
+.profile-icon{
+  border: 1px solid rgba(0, 0, 0, .1);
+  border-radius: 50%;
+}
+
+.profile-icon-sm{
+  height: 24px;
+  width: 24px;
 }
 
 .input-search {

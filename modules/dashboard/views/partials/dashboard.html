@@ -30,8 +30,8 @@
                 <div class="form-icon">
                     <i class="fa fa-group fa-lg"></i>
                 </div>
-                <h4>{{team.title || team.displayName}}
-                </h4>
+                <p>{{team.title || team.displayName}}
+                </p>
 
                     <span class="label label-default cursor-hand"
                           ng-click="postView='feed';"><i
@@ -43,10 +43,10 @@
 
                 <span ng-show="form">
                     <img class="form-icon" ng-src="{{form.icon}}">
-                    <h4>{{form.displayName}}
+                    <p>{{form.displayName}}
                         <a href="{{location}}/edit"><i class="fa fa-edit"></i>
-                        </a></h4>
-    <button class="btn btn-default pull-right" ng-click="newPost()">
+                        </a></p>
+    <button class="btn btn-success pull-right" ng-click="newPost()">
         {{form.btnLabel}} <i class="fa fa-plus fa-lg"></i></button>
 
 
@@ -118,15 +118,16 @@
 
     </div>
 
-    <div class="row" ng-if="activePost.commentStream">
+    <div class="row" ng-if="activePost.commentStream && form.settings.allowComments">
         <div class="col-sm-12">
             <foo-comment-collection active-post="activePost"></foo-comment-collection>
         </div>
     </div>
 
+
 </div>
 
-<div class="feed-fixed-grid" ng-cloak ng-if="postView=='grid'"
+<div class="feed-fixed-grid" ng-cloak ng-show="postView=='grid'"
      ng-class="{ percentageScreen : sideMenuVisible, halfScreen :!sideMenuVisible}">
 
     <div class="panel panel-transparent p0 b0 mt10">
@@ -134,9 +135,9 @@
             <span ng-show="form">
 
                     <img class="form-icon" ng-src="{{form.icon}}">
-                    <h4>{{form.displayName}}
+                    <p>{{form.displayName}}
                         <a href="{{location}}/edit"><i class="fa fa-edit fa-lg"></i>
-                        </a></h4>
+                        </a></p>
     <button class="btn btn-default pull-right" ng-click="newPost()">
         {{form.btnLabel}} <i class="fa fa-plus fa-lg"></i></button>
 
