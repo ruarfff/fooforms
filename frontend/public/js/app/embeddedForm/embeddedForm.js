@@ -56,14 +56,8 @@ var FooForm = angular.module('FooForm', ['ngSanitize', 'pikaday'])
                 $scope.$apply();
             });
         };
-    }]).config(function($sceDelegateProvider) {
-        $sceDelegateProvider.resourceUrlWhitelist([
-            // Allow same origin resource loads.
-            'self',
-            // Allow loading from fooforms domain.
-            'https://fooforms.com/template/**'
-        ]);
-    }).directive('compile', ['$compile', function ($compile) {
+    }])
+    .directive('compile', ['$compile', function ($compile) {
         'use strict';
         // directive factory creates a link function
         return function (scope, element, attrs) {
