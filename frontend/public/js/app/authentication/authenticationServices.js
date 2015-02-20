@@ -52,6 +52,7 @@ angular.module('authentication')
         'use strict';
         this.posts = [];
         this.org = {};
+        this.forms=[];
         this.create = function (userProfile) {
             this.user = userProfile;
         };

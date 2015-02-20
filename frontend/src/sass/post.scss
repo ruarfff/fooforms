@@ -27,8 +27,9 @@ display: block;
   word-wrap: break-word;
   box-shadow: none;
   border: 1px solid #d8d8d8 !important;
-  border-left-width: 0px !important;
   border-top-width: 0 !important;
+  border-left: 5px solid #fff !important;
+
 }
 
 .panel-foo-feed .feed-title {
@@ -64,6 +65,7 @@ min-height: 30px;
 .panel-foo-feed label{
   color: #63768C !important;
   font-weight: 400;
+
 }
 
 .panel-foo-feed:hover{
@@ -71,8 +73,7 @@ box-shadow: 1px 1px 7px rgba(255,255,255,.3);
 }
 
 .panel-feed-selected{
-border-bottom: 1px solid #9bd843 !important;
-  border-top: 1px solid #9bd843 !important;
+border-left: 5px solid #9bd843 !important;
 }
 
 .panel-feed-selected .feed-title{

@@ -2,7 +2,7 @@
      ng-class="{ percentageScreen : sideMenuVisible, halfScreen :!sideMenuVisible}">
 
 
-    <div class="panel panel-transparent p0 b0 mt10">
+    <div class="panel panel-transparent p0 b0">
         <!--Feed Header for dashboard, teams and forms-->
 
         <div class="panel-body" id="feedHeader">
@@ -80,11 +80,13 @@
 
     </div>
 
+    <!--Feed LIST for dashboard, teams and forms-->
+
 
     <div class="scroll m0 b0" ng-style="setFeedHeight()" ng-show="postView=='list' || postView=='feed'"
          ng-hide="post.hide" ng-cloak>
 
-        <foo-post-collection view="{{postView}}" streams="{{postStreams}}" active-post="activePost" posts="posts"
+        <foo-post-collection view="{{postView}}" streams="{{postStreams}}" active-post="activePost"  active-form="activeForm"  posts="posts"
                              team="team"
                              grid-data="gridData" status="{{selectedStatus}}">
         </foo-post-collection>
@@ -101,24 +103,17 @@
       halfScreenWide :!sideMenuVisible}"
      ng-cloak>
 
-
-    <div class="alert fade-in br0 m0 {{msgStatus}} " ng-show="activeMsgBox=='formViewer'">
-        <p ng-bind="msg"></p>
-    </div>
-
-
     <div class="row" ng-if="activePost">
         <div class="col-sm-12">
 
-            <foo-post active-post="activePost" members="org.members" delete-post="deletePost()" copy-post="copyPost()"
+            <foo-post active-post="activePost"  active-form="activeForm"  members="org.members" delete-post="deletePost()" copy-post="copyPost()"
                       save-post="savePost()"
                       cancel-post="cancelPost()" add-repeat="addRepeat()"></foo-post>
 
         </div>
 
     </div>
-
-    <div class="row" ng-if="activePost.commentStream && form.settings.allowComments">
+    <div class="row" ng-if="activePost.commentStream && (form.settings.allowComments || activeForm.settings.allowComments )">
         <div class="col-sm-12">
             <foo-comment-collection active-post="activePost"></foo-comment-collection>
         </div>

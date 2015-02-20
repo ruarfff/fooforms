@@ -78,7 +78,35 @@
                         <div class="panel-body">
                             <div class="list-group">
                                 <div class='fieldObject list-group-item'
-                                     ng-repeat="inputType3 in inputTypes | filterTypes:'advanced'"
+                                     ng-repeat="inputType4 in inputTypes | filterTypes:'advanced'"
+                                     ng-show="inputType4.name"
+                                     draggable="inputType4"
+                                     ng-border="showBorders(show)"
+                                     ng-showBorder="showBorders(show)"
+                                     draggable-target="#formFields, .repeatBox"
+                                        >
+                                    {{inputType3.name}}
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+
+                <div class="panel panel-info">
+                    <div class="panel-heading">
+                        <h6 class="panel-title">
+                            <a class='center-block' data-toggle="collapse" data-parent="#accordion"
+                               data-target="#collapseEvents">
+                                Events
+                            </a>
+                        </h6>
+                    </div>
+                    <div id="collapseEvents" class="panel-collapse collapse">
+                        <div class="panel-body">
+                            <div class="list-group">
+                                <div class='fieldObject list-group-item'
+                                     ng-repeat="inputType3 in inputTypes | filterTypes:'events'"
                                      ng-show="inputType3.name"
                                      draggable="inputType3"
                                      ng-border="showBorders(show)"

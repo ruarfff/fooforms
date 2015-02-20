@@ -79,8 +79,8 @@ angular.module('form')
                                 "customForm": false
 
                             },
-                            "customDashboardHtml": '<div>Custom Dashboard View</div>',
-                            "customFormHtml": '<div>Custom Form View</div>'
+                            "customDashboardHtml": '<div>Replace This with your Custom Dashboard View</div>',
+                            "customFormHtml": '<div>Replace This with your Custom Form View</div>'
                         },
                         "fields": [],
                         "owner": "",

@@ -58,12 +58,13 @@ angular.module('dashboard').controller('DashboardCtrl', ['$rootScope', '$scope',
         _.forEach(forms, function (form) {
             if (form)
                 postStreamsArray = postStreamsArray.concat(form.postStreams);
-
+                Session.forms.push(form);
         });
 
         $scope.postStreams = postStreamsArray.join(',');
         if (forms.length > 0) {
             $scope.activePost = Posts.newPost(forms[0]);
+            $scope.activeForm = forms[0];
         }
 
         $scope.cancelPost = function () {

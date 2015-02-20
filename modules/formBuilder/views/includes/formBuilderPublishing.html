@@ -9,51 +9,48 @@
             </div>
             <ul class="list-group" ng-show="form.url">
 
+                <li class="list-group-item">
+                    <h4 class="list-group-item-heading bg-info text-info p10"><i class="fa fa-link"></i> Online Link to this Form</h4>
+
+                    <p class="list-group-item-text">
+                        Share the link below in emails, etc. to give anyone access to your form.<br>
+
+                    </p>
+
+                    <h5>With Form Title<br><a href="https://fooforms.com/{{form.url}}" target="_new">https://fooforms.com/{{form.url}}</a></h5>
+
+                    <h5>Without Form Title<br><a href="https://fooforms.com/forms/repo/embed/{{form._id}}" target="_new">https://fooforms.com/forms/repo/embed/{{form._id}}</a></h5>
+
+
+
+                </li>
 
                 <li class="list-group-item" >
 
 
 
 
-                    <h4 class="list-group-item-heading text-primary">Embed Code</h4>
+                    <h4 class="list-group-item-heading bg-info text-info p10"><i class="fa fa-file-text-o"></i> Embed Code</h4>
                     <p class="list-group-item-text">
                         Simply copy and paste the code below into any HTML page.
-                    </p>
-                    <textarea class='form-control p10 m5 zoomBox'><iframe ng-src="https://fooforms.com/{{form.url}}"></iframe>
-                    </textarea>
-
+                    </p><strong>
+<textarea class='form-control p10 m5 zoomBox'><script  type="text/javascript" id="{{form._id}}" src="https://fooforms.com/forms/repo/js/{{form._id}}"></script>
+</textarea></strong>
                 </li>
 
                 <li class="list-group-item">
-                    <h4 class="list-group-item-heading text-primary">Wordpress</h4>
+                    <h4 class="list-group-item-heading bg-info text-info p10"><i class="fa fa-wordpress"></i> Wordpress</h4>
 
                     <p class="list-group-item-text">
-                        If you've already installed the Fooforms Wordpress Plugin on your site then simply choose the Fooforms Icon on the Page Editor Toolbar<br>
+                        If you've already installed the Fooforms Wordpress Plugin on your site then simply Copy and Paste the following Wordpress Embed code to your page or post.<br>
 
-                    </p>
-
-
-                    <p class="pt10">The Wordpress Plugin will require the following application token for permission to access your forms.</p>
-                    <form class="form-horizontal" role="form">
-                    <div class="form-group">
-                        <label class="col-sm-4 control-label">Application Token</label>
-                        <div class="col-sm-6"> <input type="text" ng-model="user._id" class="form-control">
-</div></div>
-                        </form>
-                </li>
-                <li class="list-group-item">
-                    <h4 class="list-group-item-heading text-primary">Online Link to this Form</h4>
-
-                    <p class="list-group-item-text">
-                        Share the link below in emails, etc. to give anyone access to your form.<br>
-
-                    </p>
-                    <h5><a href="https://fooforms.com/{{form.url}}" target="_new">https://fooforms.com/{{form.url}}</a></h5>
-
-
+                    </p><strong>
+<textarea class='p10 m5 zoomBox form-control'>
+[fooform id='{{form._id}}']</textarea></strong>
 
 
                 </li>
+
 
 
             </ul>

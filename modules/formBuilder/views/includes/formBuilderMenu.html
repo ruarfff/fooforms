@@ -30,7 +30,7 @@
                 </li>
                 <li><a class="br0" data-toggle="tab" data-target="#advanced" ng-click="openDesignTab()">Advanced</a>
                 </li>
-                <li ng-if="false"><a class="br0" id='sideEventTab' data-toggle="tab" data-target="#events" ng-click="openEventTabs()">Events</a>
+                <li><a class="br0" id='sideEventTab' data-toggle="tab" data-target="#events" ng-click="openEventTabs()">Events</a>
                 </li>
 
             </ul>
@@ -167,6 +167,15 @@
 
 
         <!-- Settings Block for Standard Fields -->
+        <div  class="appear alert alert-warning"
+              ng-hide="showFieldSettings || showGroupSettings || showEventSettings || showFormSettings"
+                >
+<h4>Nothing Selected to Edit</h4>
+            <p>Please Select a <strong>Form Field</strong> or the <strong>Form Title</strong> from the Design Tab to Edit Settings.<strong> &raquo;</strong></p>
+
+
+        </div>
+
 
         <div id="FieldSettings" class="appear panel-body" ng-show="showFieldSettings">
 
@@ -197,13 +206,14 @@
                 <div class="form-group">
 
 
-                    <label class="col-sm-4 control-label">Form Name</label>
+                    <label class="col-sm-4 control-label">App Name</label>
 
                     <div class="col-sm-8">
                         <input type="text" ng-model="form.title" name="name"
                                id="name" folder="{{form.folder._id || form.folder}}"
                                required form-name="form-name"
-                               class="form-control"/>
+                               class="form-control"
+                                placeholder="Name your App"/>
                         <input type="text" ng-show="false" ng-model="form.displayName">
                         <i ng-show="formNameBusy"
                            class="halflings-icon refresh rotating"></i>
@@ -319,9 +329,8 @@
             </form>
         </div>
     </div>
-    <div class="panel-footer">
 
-    </div>
+
 </div>
 </div>
 

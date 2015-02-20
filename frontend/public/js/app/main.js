@@ -350,13 +350,16 @@ fooformsApp
                 if (typeof newVal !== 'undefined') {
                     $scope.user = Session.user;
 
-                    if ($scope.user && !$scope.contactUsForm) {
+                    // Not sure what this is about
+                    // It's contactus form is returning a 404
+                    // So disconnecting call until advised otherwise
+                    /*if ($scope.user && !$scope.contactUsForm) {
                         ContactService.getContactUsForm().then(function (res) {
                             $scope.contactUsForm = res.data;
                         }, function (err) {
                             $log.error(err);
                         });
-                    }
+                    }*/
 
                 }
             });

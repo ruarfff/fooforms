@@ -54,7 +54,7 @@ module.exports = function (grunt) {
                 'frontend/src/bower/ngInfiniteScroll/build/ng-infinite-scroll.min.js',
                 'frontend/src/bower/moment/min/moment.min.js',
                 'frontend/src/bower/fullcalendar/dist/fullcalendar.min.js',
-                'frontend/src/bower/angular-ui-codemirror/dist/ui-codemirror.min.js',
+                'frontend/src/bower/angular-ui-codemirror/ui-codemirror.min.js',
                 'frontend/src/bower/codemirror/lib/codemirror.js',
                 'frontend/src/bower/pikaday/pikaday.js',
                 'frontend/src/bower/sweetalert/lib/sweet-alert.min.js',

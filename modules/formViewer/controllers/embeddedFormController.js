@@ -16,7 +16,7 @@ exports.renderForm = function (req, res, next) {
         if (!result.success || !form) {
             res.status(404).json('form not found');
         } else {
-            res.render(viewDir + '/embeddedForm', {
+            res.render(viewDir + '/renderedForm', {
                 formId: form._id,
                 formName: form.displayName
             });
@@ -24,6 +24,34 @@ exports.renderForm = function (req, res, next) {
     });
 };
 
+exports.renderEmbedForm = function (req, res, next) {
+    fooForm.findFormById(req.params.form, function (err, result) {
+        if (err) return next(err);
+        var form = result.data;
+        if (!result.success || !form) {
+            res.status(404).json('form not found');
+        } else {
+            res.render(viewDir + '/embeddedForm', {
+                formId: form._id,
+                formName: form.displayName
+            });
+        }
+    });
+};
+exports.renderJSForm = function (req, res, next) {
+    fooForm.findFormById(req.params.form, function (err, result) {
+        if (err) return next(err);
+        var form = result.data;
+        if (!result.success || !form) {
+            res.status(404).json('form not found');
+        } else {
+            res.render(viewDir + '/embeddedFormJS', {
+                formId: form._id,
+                formName: form.displayName
+            });
+        }
+    });
+};
 exports.getForm = function (req, res, next) {
     fooForm.findFormById(req.params.form, function (err, result) {
         if (err) return next(err);

@@ -8,6 +8,7 @@ angular.module('post')
                     view: '@',
                     streams: '@',
                     activePost: '=activePost',
+                    activeForm: '=activeForm',
                     posts: '=posts',
                     status: '@',
                     team: '=team'
@@ -41,6 +42,8 @@ angular.module('post')
                                 }
                                 if ($scope.posts.length > 0) {
                                     $scope.activePost = $scope.posts[0];
+                                    $scope.activeForm = _.find(Session.forms, {displayName : $scope.activePost.displayName});
+
                                 }
 
                             });
@@ -72,6 +75,7 @@ angular.module('post')
                 restrict: 'E',
                 scope: {
                     activePost: '=activePost',
+                    activeForm: '=activeForm',
                     members: '=members',
                     delete: '&deletePost',
                     copy: '&copyPost',
@@ -124,11 +128,14 @@ angular.module('post')
                 scope: {
                     posts: '=posts',
                     activePost: '=activePost',
+                    activeForm: '=activeForm',
                     status: '@'
                 },
-                controller: function ($scope) {
+                controller: function ($scope, Session) {
                     $scope.selectPost = function (post) {
                         $scope.activePost = post;
+                        $scope.activeForm = _.find(Session.forms, {displayName : post.displayName});
+
                     };
                 },
                 link: function (scope, element, attrs, postCollectionCtrl) {
@@ -145,11 +152,14 @@ angular.module('post')
                 scope: {
                     posts: '=posts',
                     activePost: '=activePost',
+                    activeForm: '=activeForm',
                     status: '@'
                 },
-                controller: function ($scope) {
+                controller: function ($scope, Session) {
                     $scope.selectPost = function (post) {
                         $scope.activePost = post;
+                        $scope.activeForm = _.find(Session.forms, {displayName : post.displayName});
+
                     };
                 },
                 link: function (scope, element, attrs, postCollectionCtrl) {
@@ -165,11 +175,14 @@ angular.module('post')
                 scope: {
                     posts: '=posts',
                     activePost: '=activePost',
+                    activeForm: '=activeForm',
                     gridData: '=gridData'
                 },
-                controller: function ($scope) {
+                controller: function ($scope,Session) {
                     $scope.selectPost = function (index) {
                         $scope.activePost = $scope.posts[index];
+                        $scope.activeForm = _.find(Session.forms, {displayName : $scope.activePost.displayName});
+
                     };
 
 
@@ -186,7 +199,7 @@ angular.module('post')
             scope: false,
 
 
-            link: function (scope, $element) {
+            link: function (scope, Session,$element) {
 
 
                 var index;
@@ -194,6 +207,8 @@ angular.module('post')
                 if (angular.isUndefined(scope.post)) {
                     scope.post = scope.posts.activePost;
                 }
+                scope.activeForm = _.find(Session.forms, {displayName : scope.post.displayName});
+
                 var titles = _.where(scope.post.fields, {'useAsTitle': true});
                 var titlesplucked = _.pluck(titles, 'value');
 

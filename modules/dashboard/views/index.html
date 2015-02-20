@@ -31,28 +31,28 @@
     <div class="navbar-wrapper hidden-print" ng-show="user">
         <div class="navbar navbar-default navbar-fixed-top navbar-foo" role="navigation">
             <div class="container-fluid" ng-class="{withSideMenu : sideMenuVisible, withoutSideMenu :!sideMenuVisible}">
-                <div class="navbar-header">
-                </div>
-                <div class="collapse navbar-collapse">
-
+                <div class="navbar-header col-xs-12">
                     <ul class="nav navbar-nav">
-                        <li>
+                        <li class="pull-left">
                             <a ng-click="sideMenuVisible=!sideMenuVisible">
                                 <span class="sr-only">Toggle navigation</span>
                                 <i class="fa fa-bars"></i>
                             </a>
                         </li>
-                        <li>
+                        <li class="pull-left">
                             <a class="navbar-brand" href="#">
                                 <span class="text-foo">FOOFORMS </span><span class="beta-tag">Beta</span></a>
                         </li>
 
 
                     </ul>
-                    <a target="_new" href="/contact" class="btn btn-default btn-sm btn-nav">Report a Bug</a>
 
-                    <ul class="nav navbar-nav navbar-right">
 
+                    <ul class="nav navbar-nav navbar-right hidden-xs hidden-sm">
+<li><span>
+    <a target="_new" href="/contact" class="btn btn-default btn-sm mt10">Report a Bug</a>
+    </span>
+</li>
                         <li class="dropdown" ng-cloak><a href="#" class="dropdown-toggle">&nbsp;
                             <img class="nav-icon" ng-src="{{user.photo}}"/>
                             {{user.displayName}}
@@ -77,7 +77,7 @@
                     </ul>
 
                 </div>
-                <!-- /.nav-collapse -->
+
             </div>
             <!-- /.container -->
         </div>
@@ -99,7 +99,6 @@
         <org-menu></org-menu>
     </div>
     <div class="container-fluid" ng-class="{withSideMenu : sideMenuVisible, withoutSideMenu :!sideMenuVisible}">
-
         <div id='fooforms' class="row" ng-view>
         </div>
 
