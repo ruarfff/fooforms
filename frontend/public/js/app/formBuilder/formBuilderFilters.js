@@ -9,6 +9,7 @@ angular.module('formBuilder')
             var files = ["file", "image"];
             var people = ["givenName", "middleName", "familyName", "email", "phone", "mobile", "address", "company", "from", "to"];
             var advanced = ["status", "labels", "html", "groupBox", "rating", "canvas", "button"];
+            var events = ["statusChange", "newPost", "updatePost"];
 
             // The filter array to be assigned based on the category
             var categoryFilter;
@@ -30,6 +31,9 @@ angular.module('formBuilder')
                         break;
                     case "advanced" :
                         categoryFilter = advanced;
+                        break;
+                    case "events" :
+                        categoryFilter = events;
                         break;
                     default :
                         return inputs; // If no category, might as well not filter

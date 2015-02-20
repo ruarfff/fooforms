@@ -7,14 +7,25 @@ function nl2br(str, is_xhtml) {
 }
 
 var FooForm = angular.module('FooForm', ['ngSanitize', 'pikaday'])
+    .config(function($sceDelegateProvider) {
+        $sceDelegateProvider.resourceUrlWhitelist([
+            // Allow same origin resource loads.
+            'self',
+            // Allow loading from our assets domain.  Notice the difference between * and **.
+            'https://fooforms.com/**'
+        ])})
     .controller('FormCtrl', ['$scope', '$http', '$location', function ($scope, $http, $location) {
         var path = $location.absUrl().split('/');
         path = path[path.length - 1];
-        var formId = path;
+        if (!window.hasOwnProperty(formId)) {
+            var formId = path;
+        }else{
+            var formId=window.formId;
+        }
         $scope.sorted = false;
         $scope.errorPosting = false;
         $http({
-            url: '/forms/repo/fetch/' + formId,
+            url: 'https://fooforms.com/forms/repo/fetch/' + formId,
             method: 'GET'
         }).success(function (data) {
             var form = data;
@@ -31,7 +42,7 @@ var FooForm = angular.module('FooForm', ['ngSanitize', 'pikaday'])
         });
         $scope.submit = function () {
             $http({
-                url: '/forms/repo/post',
+                url: 'https://fooforms.com/forms/repo/post',
                 method: "POST",
                 data: $scope.post,
                 headers: {'Content-Type': 'application/json'}
@@ -45,8 +56,14 @@ var FooForm = angular.module('FooForm', ['ngSanitize', 'pikaday'])
                 $scope.$apply();
             });
         };
-    }])
-    .directive('compile', ['$compile', function ($compile) {
+    }]).config(function($sceDelegateProvider) {
+        $sceDelegateProvider.resourceUrlWhitelist([
+            // Allow same origin resource loads.
+            'self',
+            // Allow loading from fooforms domain.
+            'https://fooforms.com/template/**'
+        ]);
+    }).directive('compile', ['$compile', function ($compile) {
         'use strict';
         // directive factory creates a link function
         return function (scope, element, attrs) {

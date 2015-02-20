@@ -3,39 +3,50 @@
 <head lang="en">
     <meta charset="UTF-8">
     <title><%= formName %></title>
-    <script>
+    <link rel="stylesheet" href="/css/embedded-form.min.css">
+    <link rel="stylesheet" href="/css/vendor.min.css">
 
-        formId = '<%= formId %>';
-    </script>
-    <link rel="stylesheet" href="https://fooforms.com/css/embedded-form.min.css">
-    <link rel="stylesheet" href="https://fooforms.com/css/vendor.min.css">
- <script type="text/javascript" src="https://fooforms.com/js/embedded-form.min.js"></script>
-    <script type="text/javascript" src=https://fooforms.com/js/embeddedForm.js"></script>
+    <!--<link href="//maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css" rel="stylesheet">-->
 
+    <script type="text/javascript" src="/js/embedded-form.min.js"></script>
 
 </head>
-<body ng-controller="FormCtrl" ng-cloak class="ng-cloak">
-<div id='formLayout' class="container foo-resize" foo-resize>
+<body ng-controller="FormCtrl">
+
+<div id='formLayout' class="container">
     <div ng-if="post.settings.displayOptions.customForm">
         <div compile="post.settings.customFormHtml"></div>
     </div>
     <form role="form" class="panel panel-default b0 br0">
+
+        <div class="foo-header panel-heading text-info">
+            <img class="icon pull-left" ng-src="{{post.icon}}" alt="">
+            <h4 class="inline p0 text-info">{{post.title || post.displayName}}</h4>
+
+            <p class="text-primary">{{post.description}}</p>
+        </div>
         <div class="foo-body panel-body">
+
             <div class="row" ng-hide="sorted">
                 <div class='col-sm-{{formField.boxSize}} under viewFormObject'
                      ng-repeat="formField in post.fields track by $index"
                      ng-show="!formField.adminOnly">
 
-                    <div ng-include='"https://fooforms.com/"+formField.viewTemplate'></div>
+                    <div ng-include='formField.viewTemplate'></div>
                 </div>
             </div>
         </div>
     </form>
     <div class="row" ng-show="errorPosting">
         <div class="col-sm-12 p5 alert alert-danger">
-            <h4>Oops!</h4><p>There seems to have been an error processing your form. Please review and try again.<br>{{status}}</p>
+            <h4>Oops!</h4>
+
+            <p>There seems to have been an error processing your form. Please review and try again.<br>{{status}}</p>
         </div>
-    </div><div class="modal fade" id="tandc" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    </div>
+
+
+    <div class="modal fade" id="tandc" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
         <div class="modal-dialog">
             <div class="modal-content">
                 <div class="modal-header">
@@ -74,6 +85,8 @@
             <h4>Thank you</h4>
         </div>
     </div>
+
 </div>
+
 </body>
 </html>

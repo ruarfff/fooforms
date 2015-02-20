@@ -1,0 +1,57 @@
+if (typeof(Function)!=typeof('HttpClient')){
+var HttpClient = function() {
+this.get = function(fooformUrl, Callback) {
+var fooHttpRequest = new XMLHttpRequest();
+fooHttpRequest.onreadystatechange = function() {
+if (fooHttpRequest.readyState == 4 && fooHttpRequest.status == 200)
+Callback(fooHttpRequest.responseText);
+}
+
+fooHttpRequest.open( "GET", fooformUrl, true );
+fooHttpRequest.send( null );
+}
+}
+}
+
+if (typeof(Function)!=typeof('resizeIframe')){
+var resizeIframe = function(formID,height){
+try{
+var newheight=height + "px";
+var newwidth = "100%";
+
+var iframe = document.getElementById("fooform_"+formID);
+iframe.width = newwidth;
+iframe.height = newheight;
+
+}catch(e){
+alert('Failed to resize form correctly, Please reload the page to try again. - ' + e);
+}
+
+}
+}
+if (typeof(Function)!=typeof('createIframe')){
+var createIframe = function(formID){
+var fooframe = document.createElement("iframe");
+fooframe.id="fooform_"+formID;
+fooframe.style.display = "block";
+fooframe.style.border = "none";
+fooframe.style.width = "100%";
+
+var scr = document.getElementById(formID);
+scr.parentNode.insertBefore(fooframe, scr);
+
+
+var fooClient = new HttpClient();
+fooClient.get('https://fooforms.com/forms/repo/embed/' + formID, function(formContent) {
+var iframe = document.getElementById("fooform_"+formID);
+var doc = iframe.contentWindow.document;
+doc.open();
+doc.write(formContent);
+doc.close();
+});
+}
+}
+
+createIframe('<%= formId %>');
+
+
