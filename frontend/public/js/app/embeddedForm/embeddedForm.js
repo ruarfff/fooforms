@@ -14,7 +14,7 @@ var FooForm = angular.module('FooForm', ['ngSanitize', 'pikaday'])
             // Allow loading from our assets domain.  Notice the difference between * and **.
             'https://fooforms.com/**'
         ])})
-    .controller('FormCtrl', ['$scope', '$http', '$location', function ($scope, $http, $location, $timeout) {
+    .controller('FormCtrl', ['$scope', '$http', '$location', '$timeout',function ($scope, $http, $location, $timeout) {
 
 
 
@@ -35,7 +35,7 @@ var FooForm = angular.module('FooForm', ['ngSanitize', 'pikaday'])
             $timeout(function(){
                 var height = angular.element('#formLayout').height();
                 parent.resizeIframe(formId,height);
-            }, 0);
+            }, 500);
 
         };
 
