@@ -26,7 +26,7 @@
                      ng-repeat="formField in post.fields track by $index"
                      ng-show="!formField.adminOnly">
 
-                    <div ng-include='"https://fooforms.com/"+formField.viewTemplate'></div>
+                    <div ng-include='"https://fooforms.com"+formField.viewTemplate'></div>
                 </div>
             </div>
         </div>
