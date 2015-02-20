@@ -14,7 +14,12 @@ var FooForm = angular.module('FooForm', ['ngSanitize', 'pikaday'])
             // Allow loading from our assets domain.  Notice the difference between * and **.
             'https://fooforms.com/**'
         ])})
-    .controller('FormCtrl', ['$scope', '$http', '$location', function ($scope, $http, $location) {
+    .controller('FormCtrl', ['$scope', '$http', '$location', function ($scope, $http, $location, $timeout) {
+
+
+
+
+
         var path = $location.absUrl().split('/');
         path = path[path.length - 1];
         if (!window.hasOwnProperty(formId)) {
@@ -22,6 +27,19 @@ var FooForm = angular.module('FooForm', ['ngSanitize', 'pikaday'])
         }else{
             var formId=window.formId;
         }
+
+
+        $scope.doResize = function(){
+
+            // This will only run after the ng-repeat has rendered its things to the DOM
+            $timeout(function(){
+                var height = angular.element('#formLayout').height();
+                parent.resizeIframe(formId,height);
+            }, 0);
+
+        };
+
+
         $scope.sorted = false;
         $scope.errorPosting = false;
         $http({
