@@ -37,6 +37,11 @@ var FooForm = angular.module('FooForm', ['ngSanitize', 'pikaday'])
                 delete $scope.post._id;
             }
 
+            setTimeout(function(){
+                var height = angular.element('#formLayout').height();
+                parent.resizeIframe(formId,height);
+            },350);
+
         }).error(function (data, status) {
             $scope.error = status;
         });
