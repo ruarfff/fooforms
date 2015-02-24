@@ -60,6 +60,7 @@ angular.module('post').service('Posts', function () {
         this.activePost = angular.copy(form);
         this.activePost.postStream = form.postStreams[0]._id || form.postStreams[0];
         if (this.activePost._id) {
+            this.activePost.formId = this.activePost._id;
             delete this.activePost._id;
         }
         return this.activePost;

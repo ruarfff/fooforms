@@ -16,10 +16,6 @@ var FooForm = angular.module('FooForm', ['ngSanitize', 'pikaday'])
         ])})
     .controller('FormCtrl', ['$scope', '$http', '$location', '$timeout',function ($scope, $http, $location, $timeout) {
 
-
-
-
-
         var path = $location.absUrl().split('/');
         path = path[path.length - 1];
         if (!window.hasOwnProperty(formId)) {
@@ -35,7 +31,7 @@ var FooForm = angular.module('FooForm', ['ngSanitize', 'pikaday'])
             $timeout(function(){
                 var height = angular.element('#formLayout').height();
                 parent.resizeIframe(formId,height);
-            }, 500);
+            }, 600);
 
         };
 
