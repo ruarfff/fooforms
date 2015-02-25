@@ -1,7 +1,8 @@
 <div ng-cloak ng-if="fetching" class="text-center mt10">
     <i class="fa fa-spinner fa-spin fa-2x text-muted"></i>
 </div>
-<div infinite-scroll="addMorePosts()" infinite-scroll-distance="3" infinite-scroll-parent="true">
+<div infinite-scroll="addMorePosts()" infinite-scroll-distance="1" infinite-scroll-parent="true"
+     infinite-scroll-container="'#foo-post-collection'">
     <!-- TODO: Move feed and list to own templates and directives -->
 
     <!-- List View -->
