@@ -4,9 +4,8 @@ module.exports = function(config){
     basePath : '../',
 
     files : [
-      'frontend/src/bower/angular/angular.js',
-      'frontend/src/js/**/*.js',
-      'test/spec/frontend/**/*.js'
+        'bower/angular/angular.js',
+        'public/js/**/*.js'
     ],
 
     autoWatch : true,

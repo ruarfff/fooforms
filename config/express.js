@@ -38,12 +38,12 @@ module.exports = function (app, passport) {
     app.use(cors());
     app.set('title', global.config.app.name);
     app.set('port', global.config.port);
-    app.set('views', global.config.root + '/frontend/views');
+    app.set('views', global.config.root + '/views');
     app.set('files', global.config.root + '/files');
     app.engine('.html', engine.__express);
     app.set('view engine', 'html');
-    app.use(favicon(appRoot + '/frontend/public/assets/ico/favicon.ico'));
-    app.use(express.static(appRoot + '/frontend/public'));
+    app.use(favicon(appRoot + '/public/assets/ico/favicon.ico'));
+    app.use(express.static(appRoot + '/public'));
     //Don't use logger for test env
     if (process.env.NODE_ENV !== 'test') {
         app.use(logger);
@@ -58,10 +58,6 @@ module.exports = function (app, passport) {
 
     app.use(methodOverride);
     app.use(cookieParser('f0of09m5s3ssi0n'));
-    /**app.use(session({secret: 'f0of09m5s3ssi0n',
-        saveUninitialized: true,
-        resave: true}));*/
-   // app.use(flash());
     app.use(helpers(global.config.app.name));
     app.use(passport.initialize());
     app.use(passport.session());

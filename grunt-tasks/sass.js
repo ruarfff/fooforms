@@ -7,9 +7,9 @@ module.exports = function (grunt) {
                 style: 'compressed'
             },
             files: {
-                'frontend/public/css/fooforms.min.css': 'frontend/src/sass/site/fooforms.scss',
-                'frontend/public/css/main.min.css': 'frontend/src/sass/main.scss',
-                'frontend/public/css/embedded-form.min.css': 'frontend/src/sass/embedded-form/embedded-form.scss'
+                'public/css/fooforms.min.css': 'sass/site/fooforms.scss',
+                'public/css/main.min.css': 'sass/main.scss',
+                'public/css/embedded-form.min.css': 'sass/embedded-form/embedded-form.scss'
             }
         }
     });

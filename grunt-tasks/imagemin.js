@@ -12,10 +12,10 @@ module.exports = function (grunt) {
                     // Set to true to enable the following options…
                     expand: true,
                     // cwd is 'current working directory'
-                    cwd: 'frontend/public/assets/images/',
+                    cwd: 'public/assets/images/',
                     src: ['**/*.png'],
                     // Could also match cwd line above. i.e. project-directory/img/
-                    dest: 'frontend/public/assets/images/',
+                    dest: 'public/assets/images/',
                     ext: '.png'
                 }
             ]
@@ -29,10 +29,10 @@ module.exports = function (grunt) {
                     // Set to true to enable the following options…
                     expand: true,
                     // cwd is 'current working directory'
-                    cwd: 'frontend/public/assets/images/',
+                    cwd: 'public/assets/images/',
                     src: ['**/*.jpg'],
                     // Could also match cwd. i.e. project-directory/img/
-                    dest: 'frontend/public/assets/images/',
+                    dest: 'public/assets/images/',
                     ext: '.jpg'
                 }
             ]

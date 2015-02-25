@@ -3,8 +3,8 @@
   "version": "0.1.0",
   "homepage": "https://github.com/ruairitobrien/fooforms",
   "authors": [
-    "Brian McAuliffe <brianmca@gmail.com>",
-    "Ruairi O Brien <ruairitobrien@gmail.com>"
+    "Brian McAuliffe <brian@fooforms.com>",
+    "Ruairi O Brien <ruairi@fooforms.com>"
   ],
   "description": "Makes forms",
   "license": "Whichever gives us most money",
@@ -13,8 +13,7 @@
     "**/.*",
     "node_modules",
     "bower_components",
-    "frontend/src/bower",
-    "test",
+    "bower",
     "tests"
   ],
   "dependencies": {

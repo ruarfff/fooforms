@@ -4,7 +4,7 @@ module.exports = function (grunt) {
     grunt.config('bower', {
         install: {
             options: {
-                targetDir: './frontend/src/bower',
+                targetDir: './bower',
                 install: true,
                 verbose: true,
                 cleanTargetDir: false,
