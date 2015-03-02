@@ -8,6 +8,14 @@ var templateDir = path.join(__dirname, '../../email/templates');
 var _ = require('underscore');
 
 
+// Newline to <br>
+function nl2br(str, is_xhtml) {
+
+    var breakTag = (is_xhtml || typeof is_xhtml === 'undefined') ? '<br ' + '/>' : '<br>';
+
+    return (str + '')
+        .replace(/([^>\r\n]?)(\r\n|\n\r|\r|\n)/g, '$1' + breakTag + '$2');
+}
 
 exports.sendUpdatePostNotification = function (from,distributionList,post) {
     log.info('sending post Update Notification email');
@@ -85,4 +93,42 @@ exports.sendUpdatePostNotification = function (from,distributionList,post) {
         });
 
     };
+};
+
+exports.sendEventEmail = function (from,to,msgTitle,msgContent) {
+    log.info('sending post Update Notification email');
+
+
+    var htmlTemplate = path.join(templateDir, 'genericEmail.html');
+    var txtTemplate =  path.join(templateDir, 'genericEmail.txt');
+
+    var textContent = fs.readFileSync(txtTemplate).toString();
+    textContent = textContent.replace('<% CONTENT %>', msgContent);
+
+    var htmlContent = fs.readFileSync(htmlTemplate).toString();
+    htmlContent = htmlContent.replace('<% CONTENT %>', nl2br(msgContent));
+
+
+
+
+
+        var mailOptions = {
+            from: "FOOFORMS <notify@fooforms.com>",
+            to: to,
+            replyTo: from,
+            subject: msgTitle,
+            text: textContent,
+            html: htmlContent
+        };
+        // send mail with defined transport object
+        emailer.send(mailOptions, function (error, response) {
+            if (error) {
+                log.error(error);
+            } else {
+                log.info("Message sent: " + response.response);
+                log.info(response);
+            }
+
+        });
+
 };

@@ -8,6 +8,8 @@ var membership = new Membership(db);
 var paginate = require('express-paginate');
 var _ = require('underscore');
 var emailer = require('../lib/emails');
+var postEvents = require('../lib/postEvents');
+
 
 var sanitizeUser = function (user) {
     var sanitizedUser;
@@ -22,35 +24,6 @@ var sanitizeUser = function (user) {
     return sanitizedUser;
 };
 
-var sendNotification = function(updatedBy, post){
-
-
-
-    var postDetails = post;
-
-    membership.Team.findById(post.team).populate('members').exec(function (err, team) {
-        if (err) return next(err);
-        if (!team) {
-            //res.status(statusCodes.NOT_FOUND).end();
-        } else {
-            var users = _.reject(team.members, function (user) {
-                return user.displayName===updatedBy.displayName;
-            });
-
-            var distributionList = [];
-
-            if (users && users.length > 0) {
-                users.forEach(function (user) {
-                    distributionList.push(user.email);
-                });
-            }
-
-            emailer.sendUpdatePostNotification(updatedBy,distributionList,postDetails)
-        }
-    });
-
-};
-
 exports.create = function (req, res, next) {
     if (req.user) {
         req.body.createdBy = req.user._id;
@@ -63,6 +36,17 @@ exports.create = function (req, res, next) {
                 post.createdBy = sanitizeUser(post.createdBy);
                 res.location('/posts/' + post._id);
                 res.status(statusCodes.CREATED).json(post);
+
+                fooForm.findFormById(req.body.formId, function (err, result) {
+                    if (err) {
+                        next(err);
+                    }
+                    if (result.success) {
+                        postEvents.doPostEvents( result.data,null,post,true); // (form,oldPost,NewPost,isNewPost)
+                    } else {
+                        log.error(__filename, ' - ', result.message);
+                    }
+                });
             });
         } else {
             res.status(statusCodes.BAD_REQUEST).json(result);
@@ -115,21 +99,48 @@ exports.update = function (req, res, next) {
     if (req.body.createdBy) {
         req.body.createdBy = req.body.createdBy._id || req.body.createdBy;
     }
-
-    fooForm.updatePost(req.body, function (err, result) {
+// Get the original post before updating
+// Required for processing Post Events After we do the update
+    fooForm.findPostById(req.body._id, function (err, result) {
         if (err) return next(err);
 
         if (result.success) {
-            fooForm.Post.populate(result.post, {path: 'createdBy', model: 'User'}, function (err, post) {
-                post.createdBy = sanitizeUser(post.createdBy);
-                res.send(post);
-                sendNotification(req.user,req.body);
+
+            var oldPost = result.data;
+
+            fooForm.updatePost(req.body, function (err, result) {
+                if (err) return next(err);
+
+                if (result.success) {
+                    fooForm.Post.populate(result.post, {path: 'createdBy', model: 'User'}, function (err, post) {
+                        post.createdBy = sanitizeUser(post.createdBy);
+                        res.send(post);
+                        // Handle Post Triggers / Events
+
+                        fooForm.search({"postStreams": post.postStream.toHexString()}, function (err, form) {
+                            if (err) {
+                                next(err);
+                            }
+                            if (form.success) {
+                                postEvents.doPostEvents( form.data[0],oldPost,post,false); // (form,oldPost,NewPost,isNewPost)
+                            } else {
+                                log.error(__filename, ' - ', result.message);
+                            }
+                        });
+                    });
+
+                } else {
+                    res.status(statusCodes.BAD_REQUEST).json(result.message);
+                }
             });
 
         } else {
-            res.status(statusCodes.BAD_REQUEST).json(result.message);
+            res.status(statusCodes.NOT_FOUND).json(result.message);
         }
     });
+
+
+
 };
 
 exports.remove = function (req, res, next) {
