@@ -2,24 +2,51 @@
 
     <p class="m0 p0">{{form.formEvents[nowEditing].description}}</p>
 
-    <div class="p10 m0">
+    <div class="p0 m0">
         <form class="form-horizontal" role="form">
+            <h4 class="bg-info text-info p5">IF</h4>
             <div class="form-group">
                 <label class="col-sm-3 control-label">Status Field</label>
 
                 <div class="col-sm-9">
-                    <input type="text" class="form-control" placeholder="Status Field Name to Watch"
-                           ng-model="form.formEvents[nowEditing].actionData.statusField">
+
+
+                    <select ng-model="form.formEvents[nowEditing].actionData.statusField"
+                            class="form-control">
+
+                        <option ng-repeat="field in form.fields track by $index"
+                                value="{{field.id}}"
+                                ng-if="field.type=='status'"
+                                ng-selected="form.formEvents[nowEditing].actionData.statusField">
+                            {{field.label}} ({{$index}})
+                        </option>
+                    </select>
                 </div>
             </div>
             <div class="form-group">
-                <label class="col-sm-3 control-label">Status Value</label>
+                <label class="col-sm-3 control-label">Changes to</label>
 
                 <div class="col-sm-9">
-                    <input type="text" class="form-control" placeholder="Status Value to Trigger form.formEvents[nowEditing]"
-                           ng-model="form.formEvents[nowEditing].actionData.statusValue">
+
+                    <div class="input-group" ng-style="{'width': formField.size+'%'}"
+                            ng-repeat="field in form.fields track by $index"
+                            ng-if="field.type=='status' && form.formEvents[nowEditing].actionData.statusField==field.id">
+                        <button class="btn m5"
+                                ng-class="{ 'btn-success': form.formEvents[nowEditing].actionData.statusValue == option.label ,'btn-default' : form.formEvents[nowEditing].actionData.statusValue != option.label}"
+                                ng-repeat='option in field.options'
+                                ng-click="form.formEvents[nowEditing].actionData.statusValue=option.label">
+                            <i class="fa fa-check" ng-show="form.formEvents[nowEditing].actionData.statusValue== option.label"></i>
+                            {{option.label}}
+                        </button>
+
+                    </div>
+
+
+
                 </div>
             </div>
+            <h4 class="bg-info text-info p5">THEN</h4>
+
             <div class="form-group">
                 <label class="col-sm-3 control-label">From</label>
 
@@ -30,9 +57,18 @@
             <div class="form-group">
                 <label class="col-sm-3 control-label">To</label>
 
-                <div class="col-sm-9">
-                    <input type="text" class="form-control" placeholder="Email address or [[Email Field]]"
-                           ng-model="form.formEvents[nowEditing].actionData.emailTo">
+                <div class="col-sm-9 form-inline">
+                    <select ng-model="form.formEvents[nowEditing].actionData.emailToFormId"
+                            class="form-control">
+                        <option value="SpecifiedEmail">Specified Email</option>
+                        <option value="Team">All Team Members</option>
+
+                    </select>
+
+                    <input type="text" class="form-control" placeholder="Email address"
+                           ng-model="form.formEvents[nowEditing].actionData.emailTo"
+                           ng-show="form.formEvents[nowEditing].actionData.emailToFormId=='SpecifiedEmail'">
+
                 </div>
             </div>
 
@@ -47,9 +83,12 @@
                 <label class="col-sm-3 control-label">Email Body</label>
 
                 <div class="col-sm-9">
-                    <textarea class="form-control"
-                              ng-model="form.formEvents[nowEditing].actionData.emailContent"></textarea>
+                    <button class="btn btn-xs btn-primary" ng-click="openEmailEditor()"
+                            >Open Editor
+                    </button>
+
                 </div>
+
             </div>
         </form>
 

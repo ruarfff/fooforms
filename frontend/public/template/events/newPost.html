@@ -14,9 +14,22 @@
             <div class="form-group">
                 <label class="col-sm-3 control-label">To</label>
 
-                <div class="col-sm-9">
-                    <input type="text" class="form-control" placeholder="Email address or [[Email Field]]"
-                           ng-model="form.formEvents[nowEditing].actionData.emailTo">
+                <div class="col-sm-9 form-inline">
+                    <select ng-model="form.formEvents[nowEditing].actionData.emailToFormId"
+                            class="form-control">
+                        <option value="SpecifiedEmail">Specified Email</option>
+                        <option value="Team">All Team Members</option>
+                        <option ng-repeat="field in form.fields track by $index"
+                                value="{{field.id}}"
+                                ng-if="field.type=='email'"
+                                >{{field.label}} ({{$index}})
+                        </option>
+                    </select>
+
+                    <input type="text" class="form-control" placeholder="Email address"
+                           ng-model="form.formEvents[nowEditing].actionData.emailTo"
+                            ng-show="form.formEvents[nowEditing].actionData.emailToFormId=='SpecifiedEmail'">
+
                 </div>
             </div>
 
@@ -31,9 +44,12 @@
                 <label class="col-sm-3 control-label">Email Body</label>
 
                 <div class="col-sm-9">
-                    <textarea class="form-control"
-                              ng-model="form.formEvents[nowEditing].actionData.emailContent"></textarea>
+                    <button class="btn btn-xs btn-primary" ng-click="openEmailEditor()"
+                            >Open Editor
+                    </button>
+
                 </div>
+
             </div>
         </form>
 
