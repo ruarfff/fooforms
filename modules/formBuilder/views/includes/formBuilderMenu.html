@@ -19,7 +19,7 @@
         <div class="col-sm-6">
 
             <ul class="nav nav-pills nav-stacked" id="myTabs">
-                <li class="active"><a class="br0" data-toggle="tab" data-target="#standard" ng-click="openDesignTab()">Standard</a>
+                <li class="active"><a class="br0" id='standardFieldTab' data-toggle="tab" data-target="#standard" ng-click="openDesignTab()">Standard</a>
                 </li>
                 <li><a class="br0" data-toggle="tab" data-target="#users" ng-click="openDesignTab()">Users & People</a>
                 </li>
@@ -150,7 +150,7 @@
 
 
 <div id="formTabs-settings" class="tab-pane">
-    <div class="panel" ng-class="{'panel-foo-dark': showFieldSettings, 'panel-success' : showEventSettings} ">
+    <div class="panel panel-foo-dark" >
         <div class='panel-heading' ng-show="nowEditing>=0 && showFieldSettings" class="appear">
             <h6><span class="badge">{{nowEditing}}</span> <span>{{form.fields[nowEditing].name}} </span>
             <span ng-show="nowSubEditing">
@@ -168,36 +168,27 @@
 
         <!-- Settings Block for Standard Fields -->
         <div  class="appear alert alert-warning"
-              ng-hide="showFieldSettings || showGroupSettings || showEventSettings || showFormSettings"
-                >
+              ng-hide="showFieldSettings || showGroupSettings || showEventSettings || showFormSettings">
+
 <h4>Nothing Selected to Edit</h4>
-            <p>Please Select a <strong>Form Field</strong> or the <strong>Form Title</strong> from the Design Tab to Edit Settings.<strong> &raquo;</strong></p>
+            <p>Please Select a <strong>Form Field</strong> or the <strong>Form Title</strong> from the Design Tab or an <strong>Event</strong> from the Form Events Tab to Edit Settings.<strong> &raquo;</strong></p>
 
 
         </div>
 
 
         <div id="FieldSettings" class="appear panel-body" ng-show="showFieldSettings">
-
-
             <div ng-include="form.fields[nowEditing].optionsTemplate" class="appear"></div>
-
         </div>
         <!-- Settings Block for Group Fields -->
 
         <div id="groupSettings" class="appear panel-body" ng-show="showGroupSettings">
-
             <div ng-include="form.fields[nowEditing].fields[nowSubEditing].groupOptions"></div>
-
-
         </div>
 
 
-        <div id="EventSettings" class="appear panel-body" ng-show="showEventSettings">
-
-
+        <div id="EventSettings" class="appear panel-body m0 p0" ng-show="showEventSettings">
             <div ng-include="form.formEvents[nowEditing].template" class="appear"></div>
-
         </div>
         <!-- Settings Block for Basic Form Settings -->
 
@@ -309,6 +300,18 @@
                         </label>
                         <button class="btn btn-xs btn-default pull-right" ng-click="openEditor('customFormHtml')"
                                 ng-show="form.settings.displayOptions.customForm">Open Editor
+                        </button>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="col-sm-4 control-label">Custom Submit Message</label>
+
+                    <div class="col-sm-8">
+                        <label class="checkbox-inline"><input type="checkbox"
+                                                              ng-model="form.settings.displayOptions.customSubmitMsg">&nbsp;
+                        </label>
+                        <button class="btn btn-xs btn-default pull-right" ng-click="openEditor('customSubmitHtml')"
+                                ng-show="form.settings.displayOptions.customSubmitMsg">Open Editor
                         </button>
                     </div>
                 </div>

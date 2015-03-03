@@ -6,7 +6,7 @@ function nl2br(str, is_xhtml) {
         .replace(/([^>\r\n]?)(\r\n|\n\r|\r|\n)/g, '$1' + breakTag + '$2');
 }
 
-var FooForm = angular.module('FooForm', ['ngSanitize', 'pikaday'])
+var FooForm = angular.module('FooForm', ['ngSanitize', 'pikaday','textAngular'])
     .config(function($sceDelegateProvider) {
         $sceDelegateProvider.resourceUrlWhitelist([
             // Allow same origin resource loads.
@@ -24,22 +24,34 @@ var FooForm = angular.module('FooForm', ['ngSanitize', 'pikaday'])
             var formId=window.formId;
         }
 
-
+        var resizeCount =0;
         $scope.doResize = function(){
+            if (typeof parent.resizeIframe === "function") {
+                resizeCount++;
+                if (resizeCount<10) {
+                    var height = angular.element('#formLayout').height();
+                    parent.resizeIframe(formId, height);
 
-            // This will only run after the ng-repeat has rendered its things to the DOM
-            $timeout(function(){
-                var height = angular.element('#formLayout').height();
-                parent.resizeIframe(formId,height);
-            }, 600);
+                    $timeout($scope.doResize(), 500);
+                };
+            }
 
         };
 
-
         $scope.sorted = false;
         $scope.errorPosting = false;
+
+        var hostName =window.location.hostname;
+        if(hostName=='localhost'){
+            var url='http://localhost:3000/forms/repo/fetch/' + formId;
+            var postUrl = 'http://localhost:3000/forms/repo/post';
+        }else{
+            var url='https://fooforms.com/forms/repo/fetch/' + formId;
+            var postUrl = 'https://fooforms.com/forms/repo/post';
+        }
+
         $http({
-            url: 'https://fooforms.com/forms/repo/fetch/' + formId,
+            url: url,
             method: 'GET'
         }).success(function (data) {
             var form = data;
@@ -51,25 +63,23 @@ var FooForm = angular.module('FooForm', ['ngSanitize', 'pikaday'])
                 delete $scope.post._id;
             }
 
-            setTimeout(function(){
-                var height = angular.element('#formLayout').height();
-                parent.resizeIframe(formId,height);
-            },350);
-
         }).error(function (data, status) {
             $scope.error = status;
         });
         $scope.submit = function () {
+            $scope.processing=true;
             $http({
-                url: 'https://fooforms.com/forms/repo/post',
+                url: postUrl,
                 method: "POST",
                 data: $scope.post,
                 headers: {'Content-Type': 'application/json'}
             }).success(function () {
                 $scope.sorted = true;
+                $scope.processing=false;
                 $scope.$apply();
             }).error(function (data, status) {
                 $scope.sorted = false;
+                $scope.processing=false;
                 $scope.errorPosting = true;
                 $scope.status = status;
                 $scope.$apply();

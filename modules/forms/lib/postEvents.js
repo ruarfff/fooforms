@@ -1,40 +1,35 @@
 /*jslint node: true */
 'use strict';
 
-var Post = require('../models/post').Post;
-var formErrors = require('./formErrors');
-var log = require(global.config.modules.LOGGING).LOG;
 
-var mail = require("nodemailer").mail;
+var FooForm = require('fooforms-forms');
+var db = require('mongoose').connection;
+var statusCodes = require('fooforms-rest').statusCodes;
+var fooForm = new FooForm(db);
+var _ = require('underscore');
+var slug = require('slug');
+var log = require('fooforms-logging').LOG;
+var emailer = require('../lib/emails');
+
+var Membership = require('fooforms-membership');
+var membership = new Membership(db);
+
 
 // Newline to <br>
 function nl2br(str, is_xhtml) {
 
-    var breakTag = (is_xhtml || typeof is_xhtml === 'undefined') ? '<br ' + '/>' : '<br>'; // Adjust comment to avoid issue on phpjs.org display
+    var breakTag = (is_xhtml || typeof is_xhtml === 'undefined') ? '<br ' + '/>' : '<br>';
 
     return (str + '')
         .replace(/([^>\r\n]?)(\r\n|\n\r|\r|\n)/g, '$1' + breakTag + '$2');
 }
 
-var sendMail = function (from, to, subject, content, next) {
-    try {
-        mail({
-            from: "Auto Notification <notifier@fooforms.com>",
-            "reply_to": from, // sender address
-            to: to, // list of receivers
-            subject: subject, // Subject line
-            text: content, // plaintext body
-            html: nl2br(content, true) // html body
-        });
-        next(null);
-    } catch (err) {
-        log.error(__filename, ' - ', err);
-        next(err);
-    }
-};
+function isNumber(n) {
+    return !isNaN(parseFloat(n)) && isFinite(n);
+}
 
 var getFieldValue = function (fieldName, postJson) {
-    var fieldValue = null;
+    var fieldValue = fieldName;
     if (fieldName.indexOf("[[") >= 0) {
 
         var emailToField = fieldName.replace("[[", "");
@@ -48,41 +43,172 @@ var getFieldValue = function (fieldName, postJson) {
     }
     return fieldValue;
 };
+var getStatusFieldValue = function (fieldId, post) {
+    var fieldValue = '';
+        post.fields.forEach(function (field) {
+            if (field.id == fieldId) {
+                fieldValue = field.selected;
+            }
+        });
+
+    return fieldValue;
+};
+
+var getFieldValueFromId = function (fieldId, post) {
+    var fieldValue = '';
+    post.fields.forEach(function (field) {
+        if (field.id == fieldId) {
+            if (field.hasOwnProperty('selected')) {
+                fieldValue = field.selected;
+            }
+            if (field.hasOwnProperty('value')) {
+                fieldValue = field.value;
+            }
+        }
+    });
+
+    return fieldValue;
+};
+
+var insertFieldValues = function(content,newPost){
+    while (content.indexOf("fooField-embed ") >= 0) {
+var fieldValue='';
+        var startPos = content.indexOf('<label class="fooField-embed');
+        var endPos = content.indexOf("</label>");
+        var placeHolder = content.substring(startPos, endPos+8);
+        var fieldIdStart = placeHolder.indexOf('id=');
+        var fieldID =  placeHolder.substring(fieldIdStart+4,fieldIdStart+17);
+
+        if (isNumber(fieldID)){
+            fieldValue = getFieldValueFromId(fieldID,newPost);
+            content = content.replace(placeHolder, fieldValue);
+        }else{
+            content = content.replace(placeHolder, '!**[Error In Field Placeholder]**!');
+        }
+    }
+    return content;
+};
 
 
-exports.doPostEvents = function (trigger, postJson, next) {
+var getTeamMembers = function(post,next){
+    var distributionList = [];
+
+    membership.searchTeams({"folders": post.folder}, function (err, team) {
+        if (err) {
+            next(err);
+        }
+        if (team.success) {
+
+            var users =team.data[0].members;
+
+
+
+            if (users && users.length > 0) {
+                users.forEach(function (user) {
+                    distributionList.push(user.email);
+                });
+            }
+
+        } else {
+            log.error(__filename, ' - ', result.message);
+        }
+        return next(err,distributionList);
+    });
+
+
+/*    membership.Team.searchTeams({folders: post.folder}).populate('members').exec(function (err, team) {
+        distributionList=[];
+        if (err) return next(err);
+        if (!team) {
+            //res.status(statusCodes.NOT_FOUND).end();
+        } else {
+            var users = _.reject(team.members, function (user) {
+                return user.displayName===updatedBy.displayName;
+            });
+
+            var distributionList = [];
+
+            if (users && users.length > 0) {
+                users.forEach(function (user) {
+                    distributionList.push(user.email);
+                });
+            }
+
+           return distributionList;
+        }
+    });*/
+
+};
+
+var sendEmails = function(from, recipients, subject, text){
+
+    recipients.forEach(function (to) {
+        emailer.sendEventEmail(from, to, subject, text);
+        log.debug(__filename, ' - ', 'EMail: From:' + from + ' To: ' + to + ' Subject: ' + subject + ' Text: ' + text);
+
+    });
+}
+
+exports.doPostEvents = function (form,oldPost,newPost, isNewPost) {
     try {
-
-        postJson.formEvents.forEach(function (formEvent) {
-            if (formEvent.type === trigger) {
+// Get the current Saved form
+// As the post may not contain the full or latest trigger / events details
+        form.formEvents.forEach(function (formEvent) {
+            //Test if the event should be processed
                 var processEvent = false;
-                switch (trigger) {
+                switch (formEvent.type) {
                     case "statusChange":
 
-                        if (getFieldValue(formEvent.actionData.statusField) === getFieldValue(formEvent.actionData.statusValue)) {
-                            processEvent = true;
+                        if (getStatusFieldValue(formEvent.actionData.statusField,newPost) === formEvent.actionData.statusValue) {
+                            if (oldPost && getStatusFieldValue(formEvent.actionData.statusField,oldPost) === formEvent.actionData.statusValue) {
+                                // Status was previously set to target value so no need to fire event.
+                                processEvent = false;
+                            }else{
+                                processEvent = true;
+                            }
                         }
                         break;
 
                     case "newPost" :
-                        processEvent = true;
+                        if (isNewPost){
+                            processEvent = true;
+                        }
+
+                        break;
+
+                    case "updatePost" :
+                        if (!isNewPost){
+                            processEvent = true;
+                        }
+
                         break;
 
                 }
+            if (processEvent){
+                //Procees The event
                 switch (formEvent.action) {
 
                     case  "Email":
                         var from = formEvent.actionData.emailFrom;
-                        var to = getFieldValue(formEvent.actionData.emailTo, postJson);
                         var subject = formEvent.actionData.emailTitle;
-                        var text = formEvent.actionData.emailContent;
-                        log.debug(__filename, ' - ', 'EMail: From:' + from + ' To: ' + to + ' Subject: ' + subject + ' Text: ' + text);
+                        var text = insertFieldValues(formEvent.actionData.emailContent,newPost);
 
-                        sendMail(from, to, subject, text, function (err) {
-                            if (err) {
-                                log.error(__filename, ' - ', err);
-                            }
-                        });
+                        var recipients=[];
+                        if(formEvent.actionData.emailToFormId=='SpecifiedEmail'){
+                            recipients.push(formEvent.actionData.emailTo);
+                            sendEmails(from, recipients, subject, text);
+                        }else if(formEvent.actionData.emailToFormId=='Team'){
+                            getTeamMembers(form,function(err,recipients){
+                                sendEmails(from, recipients, subject, text);
+                            });
+                        }else{
+                            recipients.push(getFieldValueFromId(formEvent.actionData.emailToFormId, newPost));
+                            sendEmails(from, recipients, subject, text);
+                        }
+
+
+
+
 
 
                         break;
@@ -92,19 +218,19 @@ exports.doPostEvents = function (trigger, postJson, next) {
 
                         break;
 
-                    case "Launch":
 
-                    // Launch Inter-continental Ballistic Missiles!!
 
 
                 }
             }
+
+
         });
 
-        next();
+
     } catch (err) {
         log.error(__filename, ' - ', err);
-        next(err);
+
     }
 
 };

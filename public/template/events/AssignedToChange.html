@@ -1,9 +1,34 @@
-<div class=" m0 br0 p5"><h5>{{form.formEvents[nowEditing].name}}</h5>
+<div class="m0 br0 p5"><h5>{{form.formEvents[nowEditing].name}}</h5>
 
     <p class="m0 p0">{{form.formEvents[nowEditing].description}}</p>
 
     <div class="p10 m0">
         <form class="form-horizontal" role="form">
+            <h4 class="bg-info text-info p5">IF</h4>
+            <div class="form-group">
+                <label class="col-sm-3 control-label">Form Field</label>
+
+                <div class="col-sm-9">
+                    <select ng-model="form.formEvents[nowEditing].actionData.statusField"
+                            class="form-control">
+
+                        <option ng-repeat="field in form.fields track by $index"
+                                value="{{field.id}}"
+                                ng-if="field.type=='to'"
+                                ng-selected="form.formEvents[nowEditing].actionData.statusField">
+                            {{field.label}} ({{$index}})
+                        </option>
+                    </select>
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="col-sm-3 control-label">Changes Value</label>
+
+                <div class="col-sm-9">
+
+                </div>
+            </div>
+            <h4 class="bg-info text-info p5">THEN</h4>
             <div class="form-group">
                 <label class="col-sm-3 control-label">From</label>
 
@@ -17,13 +42,9 @@
                 <div class="col-sm-9 form-inline">
                     <select ng-model="form.formEvents[nowEditing].actionData.emailToFormId"
                             class="form-control">
+                        <option value="SelectedUser">Selected User</option>
                         <option value="SpecifiedEmail">Specified Email</option>
-                        <option value="Team">All Team Members</option>
-                        <option ng-repeat="field in form.fields track by $index"
-                                value="{{field.id}}"
-                                ng-if="field.type=='email'"
-                                >{{field.label}} ({{$index}})
-                        </option>
+
                     </select>
 
                     <input type="text" class="form-control" placeholder="Email address"

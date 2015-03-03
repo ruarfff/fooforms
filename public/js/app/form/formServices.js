@@ -76,11 +76,13 @@ angular.module('form')
                                 "list": true,
                                 "grid": true,
                                 "customDashboard": false,
-                                "customForm": false
+                                "customForm": false,
+                                "customSubmitMsg":false
 
                             },
                             "customDashboardHtml": '<div>Replace This with your Custom Dashboard View</div>',
-                            "customFormHtml": '<div>Replace This with your Custom Form View</div>'
+                            "customFormHtml": '<div>Replace This with your Custom Form View</div>',
+                            "customSubmitHtml": '<div>Replace This with your Custom Form View</div>'
                         },
                         "fields": [],
                         "owner": "",

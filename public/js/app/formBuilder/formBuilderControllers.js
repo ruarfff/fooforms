@@ -167,6 +167,7 @@ angular.module('formBuilder').controller('FormBuilderCtrl',
                 $scope.form.fields = _.reject($scope.form.fields, function (field) {
                     return field.id === itemId;
                 });
+                $scope.resetSelectedFields();
             };
 
             $scope.deleteSubItem = function (itemId) {
@@ -179,6 +180,7 @@ angular.module('formBuilder').controller('FormBuilderCtrl',
                 $scope.form.formEvents = _.reject($scope.form.formEvents, function (formEvent) {
                     return formEvent.id === delEvent.id;
                 });
+                $scope.resetSelectedFields();
             };
 
             // Drag Drop Events
@@ -227,7 +229,10 @@ angular.module('formBuilder').controller('FormBuilderCtrl',
             };
 
             // switch on/off the various option panels and track / highlight the selected form-fields
+
             $scope.editField = function (fieldId, subFieldId, objectType, $event) {
+                $scope.nowEditing = null;
+                $scope.nowSubEditing = null;
                 switch (objectType) {
                     case 'Form':
                         $scope.nowEditing = null;
@@ -276,6 +281,14 @@ angular.module('formBuilder').controller('FormBuilderCtrl',
 
             };
 
+            $scope.resetSelectedFields = function(){
+                $scope.nowEditing = null;
+                $scope.nowSubEditing = null;
+                $scope.showFieldSettings = false;
+                $scope.showGroupSettings = false;
+                $scope.showFormSettings = false;
+                $scope.showEventSettings = false;
+            }
             // Set Calculation Field Options
             $scope.setCalculationField = function (selectedItem) {
 
@@ -287,11 +300,16 @@ angular.module('formBuilder').controller('FormBuilderCtrl',
             };
 
             $scope.openEventTabs = function () {
+                $scope.resetSelectedFields();
                 angular.element('#eventsTab').tab('show');
                 angular.element('#sideEventTab').tab('show');
+                angular.element('#formTabFields').tab('show');
             };
             $scope.openDesignTab = function () {
+                $scope.resetSelectedFields();
                 angular.element('#designTab').tab('show');
+                angular.element('#formTabFields').tab('show');
+
             };
 
             //Icon Selection -  Modal Dialog
@@ -343,12 +361,36 @@ angular.module('formBuilder').controller('FormBuilderCtrl',
                     resolve: {
                         fieldData: function () {
                             return $scope.form.settings[field];
+                        },
+                        form: function () {
+                            return $scope.form;
                         }
                     }
                 });
 
                 modalInstance.result.then(function (returnedContent) {
                     $scope.form.settings[field] = returnedContent;
+                });
+            };
+
+            $scope.openEmailEditor = function () {
+
+                var modalInstance = $modal.open({
+                    templateUrl: '/partials/htmlEmailEditor.html',
+                    controller: ModalEditorCtrl,
+                    size: "modal-lg",
+                    resolve: {
+                        fieldData: function () {
+                            return $scope.form.formEvents[$scope.nowEditing].actionData.emailContent;
+                        },
+                        form: function () {
+                            return $scope.form;
+                        }
+                    }
+                });
+
+                modalInstance.result.then(function (returnedContent) {
+                    $scope.form.formEvents[$scope.nowEditing].actionData.emailContent = returnedContent;
                 });
             };
 
@@ -503,14 +545,107 @@ angular.module('formBuilder').controller('FormBuilderCtrl',
                     });
                 }
             };
+
+// Adding Insert at caret to textArea prototype
+
         }
-    ]);
+    ]).config(function ($provide) {
+
+        $provide.decorator('taSelectableElements', [
+            function() {
+                return ['a','img','label']
+            }
+            ]);
+
+        $provide.decorator('taOptions', [ 'taRegisterTool', '$delegate', '$timeout','$injector', '$compile',
+            function(taRegisterTool, taOptions, $timeout, $injector, $compile) {
+
+                //var $editor;
+               // $rootScope.$on('someEvent', function(event, mass) {
+                 //   alert(mass); });
 
 
-var ModalEditorCtrl = function ($scope, $modalInstance, fieldData) {
+                var rScope = $injector.get('$rootScope');
+                if(rScope){
+                    rScope.$on('insertFooField', function(event, field) {
+
+
+                        function insertTextAtCursor(node) {
+                            var sel, range, html;
+                            if (window.getSelection) {
+                                sel = window.getSelection();
+                                if (sel.getRangeAt && sel.rangeCount) {
+                                    range = sel.getRangeAt(0);
+                                    range.collapse(false);
+                                    var intersects = range.intersectsNode(angular.element(".ta-editor")[0]);
+                                    if (intersects){
+                                        range.insertNode(node);
+                                    }
+                                }
+                            } else if (document.selection && document.selection.createRange) {
+                                range = document.selection.createRange();
+                                html = (node.nodeType == 3) ? node.data : node.outerHTML;
+                                range.pasteHTML(html);
+                            }
+                        }
+
+
+                        function moveCaret(charCount) {
+                            var sel, range;
+                            if (window.getSelection) {
+                                sel = window.getSelection();
+                                if (sel.rangeCount > 0) {
+                                    var textNode = sel.focusNode;
+                                    sel.collapse(textNode.nextSibling, charCount);
+                                }
+                            } else if ((sel = window.document.selection)) {
+                                if (sel.type != "Control") {
+                                    range = sel.createRange();
+                                    range.move("character", charCount);
+                                    range.select();
+                                }
+                            }
+                        }
+
+                        var fooField = document.createElement("label");
+                        var t = document.createTextNode(field.label);
+
+                        fooField.appendChild(t);
+
+                        var att = document.createAttribute("class");
+                        att.value = "fooField-embed disable-text-selection label label-warning";
+                        fooField.setAttributeNode(att);
+                        fooField.setAttribute("id", field.id);
+                        insertTextAtCursor(fooField);
+                        return moveCaret(2);
+
+                    });
+                }
+
+
+
+
+                return taOptions;
+
+            }]);
+
+
+
+    });
+
+
+var ModalEditorCtrl = function ($scope, $modalInstance, fieldData, form) {
     'use strict';
 
     $scope.fieldDatax = angular.copy(fieldData);
+    $scope.form = form;
+
+    $scope.addFooField = function(field){
+
+        $scope.$emit('insertFooField',field);
+
+
+    };
 
     $scope.editorOptions = {
         lineNumbers: true,

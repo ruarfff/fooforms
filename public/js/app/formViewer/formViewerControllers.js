@@ -78,10 +78,6 @@ angular.module('formViewer')
                     // Brian
                     var postToSave = $scope.activePost;
 
-                    if (team) {
-                        postToSave.team = team._id;
-                    }
-
                     delete postToSave.commentStreams;
                     PostService.updatePost(postToSave, function (err, post) {
                         if (err) {

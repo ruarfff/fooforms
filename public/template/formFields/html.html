@@ -1,13 +1,14 @@
-<div class="form-group clearfix">
+<div class="form-group clearfix" >
     <label for="{{formField.id}}">{{formField.label}}
         <i class="fa fa-question-circle"
            ng-hide="!formField.userInstructions"
            popover="{{formField.userInstructions}}"
-           popover-trigger="mouseenter"></i>
+           popover-trigger="mouseenter"
+           popover-append-to-body="true"></i>
     </label>
 
-    <div id="{{formField.id}}" ng-style="{'width': formField.size+'%', height: formField.rows}">
-         <div text-angular
+    <div id="{{formField.id}}" ng-style="{'width': formField.size+'%'}"
+         text-angular
          ng-model="formField.value">
-    </div> </div>
+    </div>
 </div>

@@ -4,8 +4,7 @@
 
             <h4 class="text-info">Form Events</h4>
 
-            <div
-                    ng-class="{ 'newForm': form.formEvents.length==0}">
+            <div ng-class="{ 'newForm': form.formEvents.length==0}">
 
                 <div ui-sortable="sortableOptions"
                      ng-model="form.formEvents"
@@ -13,26 +12,31 @@
                      class="connected-events-container row">
 
 
-                    <div class='col-sm-12 under alert alert-success'
+                    <div class='col-sm-12 under panel panel-info b1'
                          ng-repeat="event in form.formEvents track by $index"
                          ng-show="event.name"
                          ng-border="showBorders(show)"
                          ng-click="editField($index,null,'Event', $event)"
                          ng-class="{ 'selected': $index == nowEditing ,'dragging' : dragging}">
-                        <div class="btn-group pull-right onTop">
+                        <div class="panel-heading">
+                            <div class="btn-group pull-right">
 
-                            <button ng-click="editField($index,null,'Event', $event)"
-                                    class='btn btn-xs btn-default'
-                                    >{{$index}}
-                            </button>
-                            <button ng-click='deleteEvent(event)'
-                                    class='btn btn-xs btn-danger'
-                                    ng-show="$index == nowEditing">X
-                            </button>
+                                <button ng-click="editField($index,null,'Event', $event)"
+                                        class='btn btn-xs btn-default'
+                                        >{{$index}}
+                                </button>
+                                <button ng-click='deleteEvent(event)'
+                                        class='btn btn-xs btn-danger'
+                                        ng-show="$index == nowEditing">X
+                                </button>
+
+                            </div>If <strong>{{ event.name}}</strong>, then
                         </div>
-                        <div class="under"><h4>{{ event.name}}</h4>
+                        <div class="panel-footer">
+                            <p>Send an Email &raquo; {{ event.description}}</p>
+                        </div>
 
-                            <p>{{ event.description}}</p></div>
+
                     </div>
                 </div>
 
