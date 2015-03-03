@@ -3,6 +3,9 @@
 <head lang="en">
     <meta charset="UTF-8">
     <title><%= formName %></title>
+    <script>
+        formId = '<%= formId %>';
+    </script>
     <link rel="stylesheet" href="/css/embedded-form.min.css">
     <link rel="stylesheet" href="/css/vendor.min.css">
 
@@ -27,7 +30,7 @@
         </div>
         <div class="foo-body panel-body">
 
-            <div class="row" ng-hide="sorted">
+            <div class="row fadeIn" ng-hide="sorted">
                 <div class='col-sm-{{formField.boxSize}} under viewFormObject'
                      ng-repeat="formField in post.fields track by $index"
                      ng-show="!formField.adminOnly">
@@ -80,9 +83,17 @@
             </button>
         </div>
     </div>
-    <div class="row" ng-show="sorted">
-        <div class="col-sm-12 p5 alert alert-success br0">
-            <h4>Thank you</h4>
+    <div class="row slideExpandUp" ng-show="sorted">
+        <div class="col-sm-12 p5 alert alert-success br0" ng-if="!post.settings.displayOptions.customSubmitMsg">
+            <div class="pull-left mr10">
+                <i class="fa fa-check-square-o fa-4x"></i>
+            </div>
+            <div><h4>Thank you</h4><p>Your form has been submitted successfully.</p></div>
+        </div>
+
+        <div class="col-sm-12 p5 alert alert-success br0" ng-if="post.settings.displayOptions.customSubmitMsg">
+            <div compile="post.settings.customSubmitHtml"></div>
+
         </div>
     </div>
 
