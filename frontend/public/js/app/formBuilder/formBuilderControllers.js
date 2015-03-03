@@ -308,7 +308,6 @@ angular.module('formBuilder').controller('FormBuilderCtrl',
             $scope.openDesignTab = function () {
                 $scope.resetSelectedFields();
                 angular.element('#designTab').tab('show');
-                angular.element('#standardFieldTab').tab('show');
                 angular.element('#formTabFields').tab('show');
 
             };
@@ -362,6 +361,9 @@ angular.module('formBuilder').controller('FormBuilderCtrl',
                     resolve: {
                         fieldData: function () {
                             return $scope.form.settings[field];
+                        },
+                        form: function () {
+                            return $scope.form;
                         }
                     }
                 });

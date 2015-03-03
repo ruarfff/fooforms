@@ -94,8 +94,9 @@ module.exports = function (grunt) {
                 'frontend/src/bower/jquery/dist/jquery.js',
                 'frontend/src/bower/bootstrap-sass-official/assets/javascripts/bootstrap.js',
                 'frontend/src/bower/angular/angular.js',
-                'frontend/src/bower/angular-sanitize/angular-sanitize.min.js',
                 'frontend/src/bower/textAngular/dist/textAngular.min.js',
+                'frontend/src/bower/textAngular/dist/textAngular-sanitize.min.js',
+                'frontend/src/bower/textAngular/dist/textAngular-rangy.min.js',
                 'frontend/src/bower/pikaday/pikaday.js',
                 'frontend/public/js/app/common/pikadayDirective.js',
                 'frontend/public/js/app/embeddedForm/embeddedForm.js'

@@ -109,9 +109,6 @@ exports.sendEventEmail = function (from,to,msgTitle,msgContent) {
     htmlContent = htmlContent.replace('<% CONTENT %>', nl2br(msgContent));
 
 
-
-
-
         var mailOptions = {
             from: "FOOFORMS <notify@fooforms.com>",
             to: to,

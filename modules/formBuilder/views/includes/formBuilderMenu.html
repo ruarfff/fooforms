@@ -303,6 +303,18 @@
                         </button>
                     </div>
                 </div>
+                <div class="form-group">
+                    <label class="col-sm-4 control-label">Custom Submit Message</label>
+
+                    <div class="col-sm-8">
+                        <label class="checkbox-inline"><input type="checkbox"
+                                                              ng-model="form.settings.displayOptions.customSubmitMsg">&nbsp;
+                        </label>
+                        <button class="btn btn-xs btn-default pull-right" ng-click="openEditor('customSubmitHtml')"
+                                ng-show="form.settings.displayOptions.customSubmitMsg">Open Editor
+                        </button>
+                    </div>
+                </div>
 
                 <div class="form-group">
                     <label class="col-sm-4 control-label">Terms & Conditions</label>
