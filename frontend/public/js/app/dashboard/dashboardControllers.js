@@ -4,6 +4,7 @@ angular.module('dashboard').controller('DashboardCtrl', ['$rootScope', '$scope',
     function ($rootScope, $scope, $routeParams, $log, _, SweetAlert, DashboardService, Session, PostService, Posts) {
         'use strict';
         $scope.postView = 'feed';
+        $scope.printPreview = false;
 
         // Posts are linked to the post collection directive
         $scope.posts = [];
@@ -134,6 +135,13 @@ angular.module('dashboard').controller('DashboardCtrl', ['$rootScope', '$scope',
             } else {
                 SweetAlert.swal('Not Deleted!', 'Post was never saved.', 'error');
             }
+        };
+
+        $scope.printPost = function(){
+            $scope.printPreview=true;
+        };
+        $scope.closePrintPreview = function(){
+            $scope.printPreview=false;
         };
 
     }]);

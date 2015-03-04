@@ -80,7 +80,10 @@ angular.module('post')
                     delete: '&deletePost',
                     copy: '&copyPost',
                     cancel: '&cancelPost',
-                    save: '&savePost'
+                    save: '&savePost',
+                    printPreview: '=printPreview',
+                    printPost: '&printPost',
+                    cancelPrint: '&cancelPrint'
                 },
                 controller: function($scope){
                     $scope.addRepeat = function (groupBox, field) {

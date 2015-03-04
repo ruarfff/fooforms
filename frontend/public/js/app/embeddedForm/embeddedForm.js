@@ -75,11 +75,10 @@ var FooForm = angular.module('FooForm', ['ngSanitize', 'pikaday','textAngular'])
                 headers: {'Content-Type': 'application/json'}
             }).success(function () {
                 $scope.sorted = true;
-                $scope.processing=false;
                 $scope.$apply();
+                $scope.doResize();
             }).error(function (data, status) {
                 $scope.sorted = false;
-                $scope.processing=false;
                 $scope.errorPosting = true;
                 $scope.status = status;
                 $scope.$apply();

@@ -8,6 +8,7 @@ angular.module('formViewer')
             $scope.selectedStatus = 'All';
 
             $scope.postView = 'feed';
+            $scope.printPreview = false;
             // Posts are linked to the post collection directive
             $scope.posts = [];
             // Need location to set correct url for Edit button
@@ -150,6 +151,12 @@ angular.module('formViewer')
                 }, 0);
             };
 
+            $scope.printPost = function(){
+                $scope.printPreview=true;
+            };
+            $scope.closePrintPreview = function(){
+                $scope.printPreview=false;
+            };
 
             //Grid Related
             $scope.stGridHeight = function () {

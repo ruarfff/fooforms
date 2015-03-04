@@ -16,12 +16,16 @@
 
                 <div class="col-sm-9 form-inline">
                     <select ng-model="form.formEvents[nowEditing].actionData.emailToFormId"
-                            class="form-control">
-                        <option value="SpecifiedEmail">Specified Email</option>
-                        <option value="Team">All Team Members</option>
+                            class="form-control"
+                            >
+                        <option value="SpecifiedEmail"
+                                ng-selected="form.formEvents[nowEditing].actionData.emailToFormId=='SpecifiedEmail'">Specified Email</option>
+                        <option value="Team"
+                                ng-selected="form.formEvents[nowEditing].actionData.emailToFormId=='Team'">All Team Members</option>
                         <option ng-repeat="field in form.fields track by $index"
                                 value="{{field.id}}"
                                 ng-if="field.type=='email'"
+                                ng-selected="form.formEvents[nowEditing].actionData.emailToFormId==field.id"
                                 >{{field.label}} ({{$index}})
                         </option>
                     </select>
