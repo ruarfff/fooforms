@@ -7,6 +7,7 @@ var db = require('mongoose').connection;
 var statusCodes = require('fooforms-rest').statusCodes;
 var fooForm = new FooForm(db);
 var membership = new Membership(db);
+var postEvents = require('../../forms/lib/postEvents');
 
 
 exports.renderForm = function (req, res, next) {
@@ -69,6 +70,18 @@ exports.createPost = function (req, res, next) {
         if (err) return next(err);
         if (result.success) {
             res.status(statusCodes.CREATED).json(result.post);
+
+            fooForm.findFormById(req.body.formId, function (err, result) {
+                if (err) {
+                    next(err);
+                }
+                if (result.success) {
+                    postEvents.doPostEvents( result.data,null,post,true); // (form,oldPost,NewPost,isNewPost)
+                } else {
+                    log.error(__filename, ' - ', result.message);
+                }
+            });
+
         } else {
             res.status(statusCodes.BAD_REQUEST).json(result);
         }

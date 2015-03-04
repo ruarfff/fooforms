@@ -1,13 +1,14 @@
 /* Controllers */
 
 angular.module('formViewer')
-    .controller('FormViewerCtrl', ['$scope', '$route', '$location', '$log', '$http', '$modal', 'Restangular', 'SweetAlert', 'Session', 'FormService', 'PostService', 'Posts', '_',
-        function ($scope, $route, $location, $log, $http, $modal, Restangular, SweetAlert, Session, FormService, PostService, Posts, _) {
+    .controller('FormViewerCtrl', ['$scope', '$route', '$location', '$log', '$http', '$modal', 'Restangular', 'SweetAlert', 'Session', 'FormService', 'PostService', 'Posts', '_', '$timeout',
+        function ($scope, $route, $location, $log, $http, $modal, Restangular, SweetAlert, Session, FormService, PostService, Posts, _, $timeout) {
             "use strict";
 
             $scope.selectedStatus = 'All';
 
             $scope.postView = 'feed';
+            $scope.printPreview = false;
             // Posts are linked to the post collection directive
             $scope.posts = [];
             // Need location to set correct url for Edit button
@@ -148,6 +149,20 @@ angular.module('formViewer')
                         $scope.setMessage('');
                     });
                 }, 0);
+            };
+
+            $scope.printPost = function(){
+
+                    window.print();
+
+            };
+
+            $scope.showFullScreen = function(){
+                $scope.fullScreen=true;
+
+            };
+            $scope.cancelFullScreen = function(){
+                $scope.fullScreen=false;
             };
 
 

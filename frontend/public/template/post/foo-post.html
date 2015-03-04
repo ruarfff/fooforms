@@ -17,21 +17,48 @@
 
         </div>
 
-        <div class="btn-group col-sm-6 pt5">
+        <div class="btn-group col-sm-6 pt5" ng-hide="fullScreen">
             <div class="button-group pull-right">
-            <button id='deletePost' ng-click="delete()"
-                    class="btn btn-default btn-sm"><i class="fa fa-trash-o"></i> Delete
-            </button>
+                <button id='fullScreen' ng-click="showFullScreen()"
+                        class="btn btn-default"><i class="fa fa-expand"></i>
+                </button>
+                <button id='printPost' ng-click="printPost()"
+                        class="btn btn-default"><i class="fa fa-print"></i>
+                </button>
+
             <button id='copyPost' ng-click="copy()"
-                    class="btn btn-default btn-sm"><i class="fa fa-copy"></i> Copy
+                    class="btn btn-default"><i class="fa fa-copy"></i>
             </button>
             <button id='cancelPost' ng-click="cancel()"
-                    class="btn btn-default btn-sm"><i class="fa fa-reply"></i> Cancel
+                    class="btn btn-default"><i class="fa fa-reply"></i>
             </button>
+                <button id='deletePost' ng-click="delete()"
+                        class="btn btn-danger"><i class="fa fa-trash-o"></i> Delete
+                </button>
             <button id='savePost' ng-click="save()"
-                    class="btn btn-default btn-sm"><i class="fa fa-save"></i> Save
+                    class="btn btn-success"><i class="fa fa-save"></i> Save
             </button>
         </div></div>
+
+    <div class="btn-group col-sm-6 pt5" ng-show="fullScreen">
+        <div class="button-group pull-right">
+            <button ng-click="cancelFullScreen()"
+                    class="btn btn-default"><i class="fa fa-close"></i> Close
+            </button>
+
+            <button id='printPost' ng-click="printPost()"
+                    class="btn btn-default"><i class="fa fa-print"></i>
+            </button>
+
+            <button id='deletePost' ng-click="delete()"
+                    class="btn btn-danger"><i class="fa fa-trash-o"></i> Delete
+            </button>
+            <button id='savePost' ng-click="save()"
+                    class="btn btn-success"><i class="fa fa-save"></i> Save
+            </button>
+
+
+            </div></div>
 </div>
 
     </div>
