@@ -96,7 +96,7 @@ exports.sendUpdatePostNotification = function (from,distributionList,post) {
 };
 
 exports.sendEventEmail = function (from,to,msgTitle,msgContent) {
-    log.info('sending post Update Notification email');
+    log.info('Sending Event Notification email');
 
 
     var htmlTemplate = path.join(templateDir, 'genericEmail.html');

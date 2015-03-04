@@ -66,21 +66,14 @@ exports.getForm = function (req, res, next) {
 };
 
 exports.createPost = function (req, res, next) {
+    var form=req.body;
     fooForm.createPost(req.body, function (err, result) {
         if (err) return next(err);
         if (result.success) {
             res.status(statusCodes.CREATED).json(result.post);
 
-            fooForm.findFormById(req.body.formId, function (err, result) {
-                if (err) {
-                    next(err);
-                }
-                if (result.success) {
-                    postEvents.doPostEvents( result.data,null,post,true); // (form,oldPost,NewPost,isNewPost)
-                } else {
-                    log.error(__filename, ' - ', result.message);
-                }
-            });
+            postEvents.doPostEvents( form,null,result.post,true);
+
 
         } else {
             res.status(statusCodes.BAD_REQUEST).json(result);
