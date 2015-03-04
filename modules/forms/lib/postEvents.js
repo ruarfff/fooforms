@@ -110,7 +110,7 @@ var getTeamMembers = function(post,next){
             }
 
         } else {
-            log.error(__filename, ' - ', result.message);
+            log.error(__filename, ' - ', 'Team Not Found');
         }
         return next(err,distributionList);
     });
