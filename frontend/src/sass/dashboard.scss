@@ -1241,15 +1241,16 @@ video {
   position: absolute;
   top: 0;
   left: 0;
+  right: 0;
   margin: 0 auto 0;
   width: 100%;
-  max-width: 1000px;
   z-index: 99999;
   background: rgba(0,0,0,.7);
   min-height: 100%;
   height: auto;
   padding: 0px;
   overflow: scroll;
+  padding: 30px;
 }
 .printPost{
   margin: 0 auto 0;

@@ -1,8 +1,8 @@
 /* Controllers */
 
 angular.module('formViewer')
-    .controller('FormViewerCtrl', ['$scope', '$route', '$location', '$log', '$http', '$modal', 'Restangular', 'SweetAlert', 'Session', 'FormService', 'PostService', 'Posts', '_',
-        function ($scope, $route, $location, $log, $http, $modal, Restangular, SweetAlert, Session, FormService, PostService, Posts, _) {
+    .controller('FormViewerCtrl', ['$scope', '$route', '$location', '$log', '$http', '$modal', 'Restangular', 'SweetAlert', 'Session', 'FormService', 'PostService', 'Posts', '_', '$timeout',
+        function ($scope, $route, $location, $log, $http, $modal, Restangular, SweetAlert, Session, FormService, PostService, Posts, _, $timeout) {
             "use strict";
 
             $scope.selectedStatus = 'All';
@@ -152,11 +152,19 @@ angular.module('formViewer')
             };
 
             $scope.printPost = function(){
-                $scope.printPreview=true;
+
+                    window.print();
+
             };
-            $scope.closePrintPreview = function(){
-                $scope.printPreview=false;
+
+            $scope.showFullScreen = function(){
+                $scope.fullScreen=true;
+
             };
+            $scope.cancelFullScreen = function(){
+                $scope.fullScreen=false;
+            };
+
 
             //Grid Related
             $scope.stGridHeight = function () {

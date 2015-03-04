@@ -1,7 +1,7 @@
 /* global angular */
 
-angular.module('dashboard').controller('DashboardCtrl', ['$rootScope', '$scope', '$routeParams', '$log', '_', 'SweetAlert', 'DashboardService', 'Session', 'PostService', 'Posts',
-    function ($rootScope, $scope, $routeParams, $log, _, SweetAlert, DashboardService, Session, PostService, Posts) {
+angular.module('dashboard').controller('DashboardCtrl', ['$rootScope', '$scope', '$routeParams', '$log', '_', 'SweetAlert', 'DashboardService', 'Session', 'PostService', 'Posts', '$timeout',
+    function ($rootScope, $scope, $routeParams, $log, _, SweetAlert, DashboardService, Session, PostService, Posts, $timeout) {
         'use strict';
         $scope.postView = 'feed';
         $scope.printPreview = false;
@@ -138,10 +138,17 @@ angular.module('dashboard').controller('DashboardCtrl', ['$rootScope', '$scope',
         };
 
         $scope.printPost = function(){
-            $scope.printPreview=true;
+
+            window.print();
+
         };
-        $scope.closePrintPreview = function(){
-            $scope.printPreview=false;
+
+        $scope.showFullScreen = function(){
+            $scope.fullScreen=true;
+
+        };
+        $scope.cancelFullScreen = function(){
+            $scope.fullScreen=false;
         };
 
     }]);

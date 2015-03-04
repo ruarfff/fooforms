@@ -4,7 +4,7 @@
 
     <div class="panel panel-transparent p0 b0">
         <!--Feed Header for dashboard, teams and forms-->
-        pp={{printPreview}}
+
         <div class="panel-body" id="feedHeader">
 
             <!--Users Dashboard - ie, it's not a form and it's not a team-->
@@ -107,7 +107,7 @@
         <div class="col-sm-12">
 
             <foo-post active-post="activePost"  active-form="activeForm"  members="org.members" delete-post="deletePost()" copy-post="copyPost()"
-                      save-post="savePost()" print-preview="printPreview" print-post="printPost()" cancel-print="closePrintPreview()"
+                      save-post="savePost()" print-preview="printPreview" full-screen="fullScreen" print-post="printPost()" show-full-screen="showFullScreen()" cancel-full-screen="cancelFullScreen()"
                       cancel-post="cancelPost()" add-repeat="addRepeat()"></foo-post>
 
         </div>
@@ -325,12 +325,12 @@
 </div>
 
 
-<div class="printPreview hidden-print slideExpandUp" ng-show="printPreview">
+<div class="printPreview hidden-print slideExpandUp" ng-show="fullScreen">
     <div class="row" ng-if="activePost">
         <div class="col-sm-12">
 
             <foo-post active-post="activePost"  active-form="activeForm"  members="org.members" delete-post="deletePost()" copy-post="copyPost()"
-                      save-post="savePost()" print-preview="printPreview" print-post="printPost()" cancel-print="closePrintPreview()"
+                      save-post="savePost()" print-preview="printPreview" full-screen="fullScreen" print-post="printPost()" show-full-screen="showFullScreen()" cancel-full-screen="cancelFullScreen()"
                       cancel-post="cancelPost()" add-repeat="addRepeat()"></foo-post>
 
         </div>
@@ -338,12 +338,12 @@
     </div>
 </div>
 
-<div class="printPost visible-print-block container" ng-show="printPreview">
+<div class="printPost visible-print-block container">
     <div class="row" ng-if="activePost">
         <div class="col-sm-12">
 
             <foo-post active-post="activePost"  active-form="activeForm"  members="org.members" delete-post="deletePost()" copy-post="copyPost()"
-                      save-post="savePost()" print-post="printPost()" print-preview="printPreview" print-post="printPost()" cancel-print="closePrintPreview()"
+                      save-post="savePost()" print-preview="printPreview" full-screen="fullScreen" print-post="printPost()" show-full-screen="showFullScreen()" cancel-full-screen="cancelFullScreen()"
                       cancel-post="cancelPost()" add-repeat="addRepeat()"></foo-post>
 
 </div></div>
