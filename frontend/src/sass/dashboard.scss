@@ -113,7 +113,7 @@ body {
 
   overflow: hidden;
   padding: 40px 0px 0px 0px;
-  z-index: 1000;
+  z-index: 10;
 }
 
 .feed-fixed-wide {
@@ -137,7 +137,7 @@ body {
   top: 0px;
   overflow: hidden;
   padding: 40px 0px 0px 0px;
-  z-index: 1000;
+  z-index: 10;
 }
 
 .relative {
@@ -378,7 +378,7 @@ div.form-icon i.fa {
   background: #3bc9d0;
 }
 .panel-transparent .panel-body .btn {
-  margin-top: -56px;
+  margin-top: -42px;
 
 }
 
@@ -706,7 +706,7 @@ input[type=checkbox]:focus {
 .navbar-wrapper {
   position: fixed;
   top: 0;
-  z-index: 2000;
+  z-index: 20;
   width: 100%;
   margin: 0 auto 0;
   // border-top: 5px solid #68B3AF;
@@ -831,7 +831,7 @@ div.nav-profile, div.nav-search {
   width: 15%;
   background: #3d4b5b;
   overflow: auto;
-  z-index: 10001;
+  z-index: 20;
 
 }
 
@@ -1024,7 +1024,7 @@ video {
   bottom: -20px;
   width: 50%;
   overflow: scroll;
-  z-index: 200;
+  z-index: 30;
   background: #fff;
   -moz-background-clip: padding;
   -webkit-background-clip: padding-box;
@@ -1244,7 +1244,7 @@ video {
   right: 0;
   margin: 0 auto 0;
   width: 100%;
-  z-index: 99999;
+  z-index: 40;
   background: rgba(0,0,0,.7);
   min-height: 100%;
   height: auto;
