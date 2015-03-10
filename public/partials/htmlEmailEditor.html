@@ -2,13 +2,14 @@
     .ta-editor {
         height: auto !important;
         min-height: 300px !important;
-       overflow: auto;
+        overflow: auto;
         font-family: inherit;
         font-size: 100%;
-        margin:5px 0;
+        margin: 5px 0;
         padding: 10px;
     }
-    .ta-bind{
+
+    .ta-bind {
         min-height: 300px !important;
     }
 
@@ -38,25 +39,25 @@
         <div class="col-sm-10">
             <form class="form">
                 <div class="form-group">
-                    <div text-angular ng-model="fieldDatax" id="emailEditor" style ="min-height: 300px;"></div>
-
+                    <div text-angular ng-model="fieldDatax" id="emailEditor" style="min-height: 300px;"></div>
 
 
                 </div>
             </form>
         </div>
 
-    <div class="col-sm-2">
-        <div class="panel panel-info">
-            <div class="panel-heading">Insert Form Field</div>
-            <div class="panel-body p0 m0">
-                <button class="btn btn-warning btn-xs m2"
-                        ng-repeat="field in form.fields"
-                        ng-click="addFooField(field)">{{field.label}}</button>
+        <div class="col-sm-2">
+            <div class="panel panel-info">
+                <div class="panel-heading">Insert Form Field</div>
+                <div class="panel-body p0 m0">
+                    <button class="btn btn-warning btn-xs m2"
+                            ng-repeat="field in form.fields"
+                            ng-click="addFooField(field)">{{field.label}}
+                    </button>
+                </div>
             </div>
         </div>
     </div>
-</div>
 </div>
 <div class="modal-footer">
 

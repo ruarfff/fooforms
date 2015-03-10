@@ -77,7 +77,7 @@ angular.module('form')
                                 "grid": true,
                                 "customDashboard": false,
                                 "customForm": false,
-                                "customSubmitMsg":false
+                                "customSubmitMsg": false
 
                             },
                             "customDashboardHtml": '<div>Replace This with your Custom Dashboard View</div>',

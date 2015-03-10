@@ -29,18 +29,18 @@
                 <div class="col-sm-9">
 
                     <div class="input-group" ng-style="{'width': formField.size+'%'}"
-                            ng-repeat="field in form.fields track by $index"
-                            ng-if="field.type=='status' && form.formEvents[nowEditing].actionData.statusField==field.id">
+                         ng-repeat="field in form.fields track by $index"
+                         ng-if="field.type=='status' && form.formEvents[nowEditing].actionData.statusField==field.id">
                         <button class="btn m5"
                                 ng-class="{ 'btn-success': form.formEvents[nowEditing].actionData.statusValue == option.label ,'btn-default' : form.formEvents[nowEditing].actionData.statusValue != option.label}"
                                 ng-repeat='option in field.options'
                                 ng-click="form.formEvents[nowEditing].actionData.statusValue=option.label">
-                            <i class="fa fa-check" ng-show="form.formEvents[nowEditing].actionData.statusValue== option.label"></i>
+                            <i class="fa fa-check"
+                               ng-show="form.formEvents[nowEditing].actionData.statusValue== option.label"></i>
                             {{option.label}}
                         </button>
 
                     </div>
-
 
 
                 </div>

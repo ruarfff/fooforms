@@ -281,14 +281,14 @@ angular.module('formBuilder').controller('FormBuilderCtrl',
 
             };
 
-            $scope.resetSelectedFields = function(){
+            $scope.resetSelectedFields = function () {
                 $scope.nowEditing = null;
                 $scope.nowSubEditing = null;
                 $scope.showFieldSettings = false;
                 $scope.showGroupSettings = false;
                 $scope.showFormSettings = false;
                 $scope.showEventSettings = false;
-            }
+            };
             // Set Calculation Field Options
             $scope.setCalculationField = function (selectedItem) {
 
@@ -552,22 +552,22 @@ angular.module('formBuilder').controller('FormBuilderCtrl',
     ]).config(function ($provide) {
 
         $provide.decorator('taSelectableElements', [
-            function() {
-                return ['a','img','label']
+            function () {
+                return ['a', 'img', 'label']
             }
-            ]);
+        ]);
 
-        $provide.decorator('taOptions', [ 'taRegisterTool', '$delegate', '$timeout','$injector', '$compile',
-            function(taRegisterTool, taOptions, $timeout, $injector, $compile) {
+        $provide.decorator('taOptions', ['taRegisterTool', '$delegate', '$timeout', '$injector', '$compile',
+            function (taRegisterTool, taOptions, $timeout, $injector, $compile) {
 
                 //var $editor;
-               // $rootScope.$on('someEvent', function(event, mass) {
-                 //   alert(mass); });
+                // $rootScope.$on('someEvent', function(event, mass) {
+                //   alert(mass); });
 
 
                 var rScope = $injector.get('$rootScope');
-                if(rScope){
-                    rScope.$on('insertFooField', function(event, field) {
+                if (rScope) {
+                    rScope.$on('insertFooField', function (event, field) {
 
 
                         function insertTextAtCursor(node) {
@@ -578,7 +578,7 @@ angular.module('formBuilder').controller('FormBuilderCtrl',
                                     range = sel.getRangeAt(0);
                                     range.collapse(false);
                                     var intersects = range.intersectsNode(angular.element(".ta-editor")[0]);
-                                    if (intersects){
+                                    if (intersects) {
                                         range.insertNode(node);
                                     }
                                 }
@@ -623,12 +623,9 @@ angular.module('formBuilder').controller('FormBuilderCtrl',
                 }
 
 
-
-
                 return taOptions;
 
             }]);
-
 
 
     });
@@ -640,9 +637,9 @@ var ModalEditorCtrl = function ($scope, $modalInstance, fieldData, form) {
     $scope.fieldDatax = angular.copy(fieldData);
     $scope.form = form;
 
-    $scope.addFooField = function(field){
+    $scope.addFooField = function (field) {
 
-        $scope.$emit('insertFooField',field);
+        $scope.$emit('insertFooField', field);
 
 
     };

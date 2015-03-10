@@ -8,8 +8,7 @@ module.exports = function (grunt) {
         // No need to livereload for js and css as it will be triggered when the files are processed and added to public
         js: {
             files: ['public/js/**/*.js'],
-            tasks: ['concat:js', 'uglify'],
-            livereload: false
+            tasks: ['concat:js', 'uglify']
         },
         css: {
             files: ['sass/**/*.scss'],
@@ -21,7 +20,7 @@ module.exports = function (grunt) {
             files: ['views/**', 'modules/*/views/**']
         },
         public: {
-            files: ['public/css/**', 'public/js/**', 'public/template/**', 'public/partials/**']
+            files: ['public/css/**', 'public/template/**', 'public/partials/**']
         },
         // Watch the js files that matter on the server and run tests when they are changed.
         tests: {

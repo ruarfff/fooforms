@@ -80,6 +80,7 @@
     "grunt-contrib-sass": "*",
     "grunt-contrib-uglify": "*",
     "grunt-contrib-watch": "*",
+    "grunt-karma": "^0.10.1",
     "grunt-mocha-test": "*",
     "grunt-newer": "*",
     "grunt-nodemon": "*",

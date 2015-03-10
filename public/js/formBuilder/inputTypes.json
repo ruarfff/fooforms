@@ -722,7 +722,7 @@
 "type": "newPost",
 "name": "New Post",
 "description": "Triggerd whenever a new post is created.",
-"helpText" : "To insert a Field Value into the email body use the following syntax\n\r[[Field-ID|Field-Name]]\n\re.g. [[3|First Name]]",
+"helpText": "To insert a Field Value into the email body use the following syntax\n\r[[Field-ID|Field-Name]]\n\re.g. [[3|First Name]]",
 "action": "Email",
 "actionData": {
 "emailFrom": "",
@@ -736,7 +736,7 @@
 "type": "updatePost",
 "name": "Post Updated",
 "description": "Triggerd whenever a post is updated.",
-"helpText" : "To insert a Field Value into the email body use the following syntax\n\r[[Field-ID|Field-Name]]\n\re.g. [[3|First Name]]",
+"helpText": "To insert a Field Value into the email body use the following syntax\n\r[[Field-ID|Field-Name]]\n\re.g. [[3|First Name]]",
 "action": "Email",
 "actionData": {
 "emailFrom": "",
@@ -750,7 +750,7 @@
 "type": "statusChange",
 "name": "Status Change",
 "description": "Triggerd whenever a Status Field is changed.",
-"helpText" : "To insert a Field Value into the email body use the following syntax\n\r[[Field-ID|Field-Name]]\n\re.g. [[3|First Name]]",
+"helpText": "To insert a Field Value into the email body use the following syntax\n\r[[Field-ID|Field-Name]]\n\re.g. [[3|First Name]]",
 "action": "Email",
 "actionData": {
 "statusField": "",
@@ -766,11 +766,12 @@
 "type": "assignedToChange",
 "name": "Assigned To Change",
 "description": "Triggerd whenever an Assigned To Field is changed.",
-"helpText" : "To insert a Field Value into the email body use the following syntax\n\r[[Field-ID|Field-Name]]\n\re.g. [[3|First Name]]",
+"helpText": "To insert a Field Value into the email body use the following syntax\n\r[[Field-ID|Field-Name]]\n\re.g. [[3|First Name]]",
 "action": "Email",
-"actionData": {
+"actionData":
+{
 "statusField": "",
-"statusValue" : "",
+"statusValue": "",
 "emailFrom": "",
 "emailTo": "",
 "emailToFormId": "Specified Email",

@@ -6,7 +6,7 @@ function nl2br(str, is_xhtml) {
         .replace(/([^>\r\n]?)(\r\n|\n\r|\r|\n)/g, '$1' + breakTag + '$2');
 }
 
-var FooForm = angular.module('FooForm', ['ngSanitize', 'pikaday','textAngular'])
+var FooForm = angular.module('FooForm', ['ngSanitize', 'pikaday', 'textAngular'])
     .config(function($sceDelegateProvider) {
         $sceDelegateProvider.resourceUrlWhitelist([
             // Allow same origin resource loads.
@@ -24,16 +24,16 @@ var FooForm = angular.module('FooForm', ['ngSanitize', 'pikaday','textAngular'])
             var formId=window.formId;
         }
 
-        var resizeCount =0;
+        var resizeCount = 0;
         $scope.doResize = function(){
             if (typeof parent.resizeIframe === "function") {
                 resizeCount++;
-                if (resizeCount<10) {
+                if (resizeCount < 10) {
                     var height = angular.element('#formLayout').height();
                     parent.resizeIframe(formId, height);
 
                     $timeout($scope.doResize(), 500);
-                };
+                }
             }
 
         };
@@ -41,12 +41,12 @@ var FooForm = angular.module('FooForm', ['ngSanitize', 'pikaday','textAngular'])
         $scope.sorted = false;
         $scope.errorPosting = false;
 
-        var hostName =window.location.hostname;
-        if(hostName=='localhost'){
-            var url='http://localhost:3000/forms/repo/fetch/' + formId;
+        var hostName = window.location.hostname;
+        if (hostName == 'localhost') {
+            var url = 'http://localhost:3000/forms/repo/fetch/' + formId;
             var postUrl = 'http://localhost:3000/forms/repo/post';
-        }else{
-            var url='https://fooforms.com/forms/repo/fetch/' + formId;
+        } else {
+            var url = 'https://fooforms.com/forms/repo/fetch/' + formId;
             var postUrl = 'https://fooforms.com/forms/repo/post';
         }
 
@@ -67,7 +67,7 @@ var FooForm = angular.module('FooForm', ['ngSanitize', 'pikaday','textAngular'])
             $scope.error = status;
         });
         $scope.submit = function () {
-            $scope.processing=true;
+            $scope.processing = true;
             $http({
                 url: postUrl,
                 method: "POST",
@@ -75,11 +75,11 @@ var FooForm = angular.module('FooForm', ['ngSanitize', 'pikaday','textAngular'])
                 headers: {'Content-Type': 'application/json'}
             }).success(function () {
                 $scope.sorted = true;
-                $scope.processing=false;
+                $scope.processing = false;
                 $scope.$apply();
             }).error(function (data, status) {
                 $scope.sorted = false;
-                $scope.processing=false;
+                $scope.processing = false;
                 $scope.errorPosting = true;
                 $scope.status = status;
                 $scope.$apply();

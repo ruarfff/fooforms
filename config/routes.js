@@ -138,7 +138,7 @@ var routes = function (app, passport) {
         });
 
 
-    // TODO: repeating code all over the place here. Copy an past working but doign it right not figured out just yet
+    // TODO: repeating code all over the place here. Copy an past working but doing it right not figured out just yet
 
     app.get('/:username', function (req, res, next) {
         var username = req.params.username;

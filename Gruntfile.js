@@ -17,5 +17,6 @@ module.exports = function (grunt) {
     grunt.registerTask('test-nowatch', 'only run tests and generate coverage report', ['mochaTest']);
     grunt.registerTask('test', 'only run tests and generate coverage report', ['mochaTest', 'watch:tests']);
     grunt.registerTask('skip-test', 'start application in dev mode using watch and nodemon', ['deploy', 'nodemon']);
+    grunt.registerTask('brian', 'start app in dev mode only running UI tests', []);
 
 };
