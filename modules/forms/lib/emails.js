@@ -95,7 +95,7 @@ exports.sendUpdatePostNotification = function (from,distributionList,post) {
     }
 };
 
-exports.sendEventEmail = function (from,to,msgTitle,msgContent) {
+exports.sendEventEmail = function (from, to, msgTitle, msgContent) {
     log.info('Sending Event Notification email');
 
 

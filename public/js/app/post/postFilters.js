@@ -3,7 +3,7 @@
 angular.module('post')
     .filter('statusFilter', function () {
         return function (posts, status) {
-            if (!status || (status.indexOf('All')>-1)) {
+            if (!status || (status.indexOf('All') > -1)) {
                 return posts;
             }
 
@@ -14,7 +14,7 @@ angular.module('post')
                         if (element.fields[i].type === 'status') {
                             hasStatus = true;
                             var selected = element.fields[i].selected;
-                            if (status.indexOf(selected)>-1) {
+                            if (status.indexOf(selected) > -1) {
                                 return true;
                             }
 

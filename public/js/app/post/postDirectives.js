@@ -96,7 +96,7 @@ angular.module('post')
                         var fieldCount = repeater.fields.length;
 
                         for (var fieldIndex = 0; fieldIndex < fieldCount; fieldIndex++) {
-                            var fieldId = repeater.fields[fieldIndex].id
+                            var fieldId = repeater.fields[fieldIndex].id;
                             repeater.fields[fieldIndex].id = repeater.id + '_' + fieldId;
 
                             // Fields specified in calculation need filedIds updated

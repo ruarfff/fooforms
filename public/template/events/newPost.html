@@ -19,9 +19,13 @@
                             class="form-control"
                             >
                         <option value="SpecifiedEmail"
-                                ng-selected="form.formEvents[nowEditing].actionData.emailToFormId=='SpecifiedEmail'">Specified Email</option>
+                                ng-selected="form.formEvents[nowEditing].actionData.emailToFormId=='SpecifiedEmail'">
+                            Specified Email
+                        </option>
                         <option value="Team"
-                                ng-selected="form.formEvents[nowEditing].actionData.emailToFormId=='Team'">All Team Members</option>
+                                ng-selected="form.formEvents[nowEditing].actionData.emailToFormId=='Team'">All Team
+                            Members
+                        </option>
                         <option ng-repeat="field in form.fields track by $index"
                                 value="{{field.id}}"
                                 ng-if="field.type=='email'"

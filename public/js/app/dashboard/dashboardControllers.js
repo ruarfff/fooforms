@@ -137,18 +137,18 @@ angular.module('dashboard').controller('DashboardCtrl', ['$rootScope', '$scope',
             }
         };
 
-        $scope.printPost = function(){
+        $scope.printPost = function () {
 
             window.print();
 
         };
 
-        $scope.showFullScreen = function(){
-            $scope.fullScreen=true;
+        $scope.showFullScreen = function () {
+            $scope.fullScreen = true;
 
         };
-        $scope.cancelFullScreen = function(){
-            $scope.fullScreen=false;
+        $scope.cancelFullScreen = function () {
+            $scope.fullScreen = false;
         };
 
     }]);

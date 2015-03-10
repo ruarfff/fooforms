@@ -66,13 +66,13 @@ exports.getForm = function (req, res, next) {
 };
 
 exports.createPost = function (req, res, next) {
-    var form=req.body;
+    var form = req.body;
     fooForm.createPost(req.body, function (err, result) {
         if (err) return next(err);
         if (result.success) {
             res.status(statusCodes.CREATED).json(result.post);
 
-            postEvents.doPostEvents( form,null,result.post,true);
+            postEvents.doPostEvents(form, null, result.post, true);
 
 
         } else {

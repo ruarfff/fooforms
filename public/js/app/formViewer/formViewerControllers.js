@@ -280,14 +280,14 @@ angular.module('formViewer')
                 };
 
 
-                switch(status){
+                switch (status) {
                     case 'All':
                         $scope.selectedStatus = ['All'];
                         break;
                     default:
                         //filter selected so remove all
                         var allPos = $scope.selectedStatus.indexOf('All');
-                        if (allPos>-1){
+                        if (allPos > -1) {
                             $scope.selectedStatus.splice(allPos, 1);
                         }
 
@@ -299,7 +299,7 @@ angular.module('formViewer')
                         }
                 }
                 // reset if empty
-                if($scope.selectedStatus.length===0)
+                if ($scope.selectedStatus.length === 0)
                     $scope.selectedStatus = ['All'];
             };
 
