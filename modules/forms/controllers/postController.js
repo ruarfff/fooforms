@@ -117,8 +117,9 @@ exports.update = function (req, res, next) {
                         res.send(post);
                         // Handle Post Triggers / Events
 
-                        fooForm.search({"postStreams": post.postStream.toHexString()}, function (err, form) {
+                        fooForm.search({"postStreams": post.postStream.toHexString(),"displayName": req.body.displayName}, function (err, form) {
                             if (err) {
+                                log.error(__filename, ' - ', 'Form was not found');
                                 next(err);
                             }
                             if (form.success) {

@@ -7,6 +7,7 @@ var db = require('mongoose').connection;
 var statusCodes = require('fooforms-rest').statusCodes;
 var fooForm = new FooForm(db);
 var membership = new Membership(db);
+var postEvents = require('../../forms/lib/postEvents');
 
 
 exports.renderForm = function (req, res, next) {
@@ -65,10 +66,15 @@ exports.getForm = function (req, res, next) {
 };
 
 exports.createPost = function (req, res, next) {
+    var form=req.body;
     fooForm.createPost(req.body, function (err, result) {
         if (err) return next(err);
         if (result.success) {
             res.status(statusCodes.CREATED).json(result.post);
+
+            postEvents.doPostEvents( form,null,result.post,true);
+
+
         } else {
             res.status(statusCodes.BAD_REQUEST).json(result);
         }

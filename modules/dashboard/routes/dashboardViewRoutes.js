@@ -19,6 +19,11 @@ router.get('/partials/main-view',
         res.render(viewDir + '/partials/dashboard');
     });
 
+router.get('/partials/print-view',
+    function (req, res) {
+        res.render(viewDir + '/partials/singlePost');
+    });
+
 router.get('/partials/userGuide', function (req, res) {
     res.render(viewDir + '/userGuide');
 });

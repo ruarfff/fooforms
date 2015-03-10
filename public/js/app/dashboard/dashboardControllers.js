@@ -1,9 +1,10 @@
 /* global angular */
 
-angular.module('dashboard').controller('DashboardCtrl', ['$rootScope', '$scope', '$routeParams', '$log', '_', 'SweetAlert', 'DashboardService', 'Session', 'PostService', 'Posts',
-    function ($rootScope, $scope, $routeParams, $log, _, SweetAlert, DashboardService, Session, PostService, Posts) {
+angular.module('dashboard').controller('DashboardCtrl', ['$rootScope', '$scope', '$routeParams', '$log', '_', 'SweetAlert', 'DashboardService', 'Session', 'PostService', 'Posts', '$timeout',
+    function ($rootScope, $scope, $routeParams, $log, _, SweetAlert, DashboardService, Session, PostService, Posts, $timeout) {
         'use strict';
         $scope.postView = 'feed';
+        $scope.printPreview = false;
 
         // Posts are linked to the post collection directive
         $scope.posts = [];
@@ -134,6 +135,20 @@ angular.module('dashboard').controller('DashboardCtrl', ['$rootScope', '$scope',
             } else {
                 SweetAlert.swal('Not Deleted!', 'Post was never saved.', 'error');
             }
+        };
+
+        $scope.printPost = function(){
+
+            window.print();
+
+        };
+
+        $scope.showFullScreen = function(){
+            $scope.fullScreen=true;
+
+        };
+        $scope.cancelFullScreen = function(){
+            $scope.fullScreen=false;
         };
 
     }]);

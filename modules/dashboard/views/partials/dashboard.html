@@ -1,4 +1,4 @@
-<div class="feed-fixed" ng-show="postView!='grid'"
+<div class="feed-fixed hidden-print" ng-show="postView!='grid'"
      ng-class="{ percentageScreen : sideMenuVisible, halfScreen :!sideMenuVisible}">
 
 
@@ -64,13 +64,13 @@
                           ng-click="postView='custom';"><i class="fa fa-file-o"></i></span>
 
                      <span class="label cursor-hand"
-                           ng-class="{'label-success' : selectedStatus === 'All', 'label-default' : selectedStatus !== 'All'}"
+                           ng-class="{'label-success' : isFilter('All'), 'label-default' : !isFilter('All')}"
                            ng-click="filterStatus('All')">All</span>
 
 
                     <div class="m5 p0 inline" ng-repeat="field in form.fields" ng-if="field.type=='status'">
                         <span class="label ml5 cursor-hand"
-                              ng-class="{'label-success' : selectedStatus === option.label, 'label-default' : selectedStatus !== option.label}"
+                              ng-class="{'label-success' : isFilter(option.label), 'label-default' : !isFilter(option.label)}"
                               ng-repeat="option in field.options"
                               ng-click="filterStatus(option.label)">
                              {{option.label}}</span>
@@ -88,7 +88,7 @@
 
         <foo-post-collection view="{{postView}}" streams="{{postStreams}}" active-post="activePost"  active-form="activeForm"  posts="posts"
                              team="team"
-                             grid-data="gridData" status="{{selectedStatus}}">
+                             grid-data="gridData" status="selectedStatus">
         </foo-post-collection>
 
     </div>
@@ -97,7 +97,7 @@
 </div>
 
 
-<div class="feed-fixed-wide"
+<div class="feed-fixed-wide hidden-print"
      ng-show="(postView=='feed' || postView=='list')"
      ng-class="{percentageScreenWide : sideMenuVisible,
       halfScreenWide :!sideMenuVisible}"
@@ -107,7 +107,7 @@
         <div class="col-sm-12">
 
             <foo-post active-post="activePost"  active-form="activeForm"  members="org.members" delete-post="deletePost()" copy-post="copyPost()"
-                      save-post="savePost()"
+                      save-post="savePost()" print-preview="printPreview" full-screen="fullScreen" print-post="printPost()" show-full-screen="showFullScreen()" cancel-full-screen="cancelFullScreen()"
                       cancel-post="cancelPost()" add-repeat="addRepeat()"></foo-post>
 
         </div>
@@ -122,7 +122,7 @@
 
 </div>
 
-<div class="feed-fixed-grid" ng-cloak ng-show="postView=='grid'"
+<div class="feed-fixed-grid hidden-print" ng-cloak ng-show="postView=='grid'"
      ng-class="{ percentageScreen : sideMenuVisible, halfScreen :!sideMenuVisible}">
 
     <div class="panel panel-transparent p0 b0 mt10">
@@ -162,13 +162,13 @@
         </div>
     </div>
 </div>
-<div class="feed-fixed-small" ng-show="postView=='grid' && posts.length>0"
+<div class="feed-fixed-small hidden-print" ng-show="postView=='grid' && posts.length>0"
      ng-class="{percentageScreenWide : sideMenuVisible,
       halfScreenWide :!sideMenuVisible}">
     <div class="gridOptions"></div>
 </div>
 
-<div class="clearfix scroll-grid" ng-show="postView=='grid' || postView=='custom'"
+<div class="clearfix scroll-grid hidden-print" ng-show="postView=='grid' || postView=='custom'"
      ng-class="{ percentageFullScreen : sideMenuVisible, fullScreen :!sideMenuVisible}"
      ng-style="setFeedHeight()">
 
@@ -201,7 +201,7 @@
 
 </div>
 
-<div class="feed-fixed-wide" ng-cloak ng-show="posts.length===0 && !activePost"
+<div class="feed-fixed-wide hidden-print" ng-cloak ng-show="posts.length===0 && !activePost"
      ng-class="{percentageScreenWide : sideMenuVisible, halfScreenWide :!sideMenuVisible}">
     <div class="row">
         <div class="col-sm-12">
@@ -322,6 +322,31 @@
             </div>
         </div>
     </div>
+</div>
+
+
+<div class="printPreview hidden-print slideExpandUp" ng-show="fullScreen">
+    <div class="row" ng-if="activePost">
+        <div class="col-sm-12">
+
+            <foo-post active-post="activePost"  active-form="activeForm"  members="org.members" delete-post="deletePost()" copy-post="copyPost()"
+                      save-post="savePost()" print-preview="printPreview" full-screen="fullScreen" print-post="printPost()" show-full-screen="showFullScreen()" cancel-full-screen="cancelFullScreen()"
+                      cancel-post="cancelPost()" add-repeat="addRepeat()"></foo-post>
+
+        </div>
+
+    </div>
+</div>
+
+<div class="printPost visible-print-block container">
+    <div class="row" ng-if="activePost">
+        <div class="col-sm-12">
+
+            <foo-post active-post="activePost"  active-form="activeForm"  members="org.members" delete-post="deletePost()" copy-post="copyPost()"
+                      save-post="savePost()" print-preview="printPreview" full-screen="fullScreen" print-post="printPost()" show-full-screen="showFullScreen()" cancel-full-screen="cancelFullScreen()"
+                      cancel-post="cancelPost()" add-repeat="addRepeat()"></foo-post>
+
+</div></div>
 </div>
 
 
