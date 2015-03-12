@@ -14,14 +14,14 @@
 
 </head>
 <body ng-controller="FormCtrl" ng-cloak class="ng-cloak">
-<div id='formLayout' class="container">
+<div id='formLayout' class="container-fluid p10">
     <div ng-if="post.settings.displayOptions.customForm">
         <div compile="post.settings.customFormHtml"></div>
     </div>
-    <form role="form" class="panel panel-default b0 br0">
-        <div class="foo-body panel-body" ng-hide="sorted">
+    <form role="form" class="b0 br0">
+        <div class="foo-body" ng-hide="sorted">
             <div class="row fadeIn">
-                <div class='col-sm-{{formField.boxSize}} under viewFormObject'
+                <div class='col-xs-{{formField.boxSize}} under viewFormObject'
                      ng-repeat="formField in post.fields track by $index"
                      ng-show="!formField.adminOnly">
 

@@ -20,19 +20,21 @@ body {
 }
 
 ::-webkit-scrollbar {
-  width: 8px; /* for vertical scrollbars */
+  width: 9px; /* for vertical scrollbars */
   height: 12px; /* for horizontal scrollbars */
 }
 
 ::-webkit-scrollbar-track {
   background: transparent;
-  padding: 2px;
+  padding: 0px;
 }
 
 ::-webkit-scrollbar-thumb {
   // background: #aadef0;
   background: #3d4b5b;
-  border-radius: 4px;
+
+
+  border-radius: 1px;
 }
 
 .roundy-border {
@@ -151,7 +153,7 @@ body {
   top: 142px;
   bottom: 0px;
   left: 10px;
-  right: 0;
+  right: 1px;
   display: block;
   overflow: auto;
   height: auto;
@@ -600,6 +602,9 @@ input[type=checkbox]:focus {
 .ml10 {
   margin-left: 10px !important;
 }
+.mr10 {
+  margin-right: 10px !important;
+}
 .mb10{
   margin-bottom: 10px;
 }
@@ -832,7 +837,7 @@ div.nav-profile, div.nav-search {
   background: #3d4b5b;
   overflow: auto;
   z-index: 20;
-
+font-size: 1.2em;
 }
 
 .sideMenu ul li {
@@ -840,8 +845,6 @@ div.nav-profile, div.nav-search {
   text-shadow: none;
   padding: 0px;
   margin: 0px !important;
-
-
 }
 
 .sideMenu ul li a {
@@ -851,11 +854,18 @@ div.nav-profile, div.nav-search {
   text-shadow: 0px 1px 4px rgba(0, 0, 0, .2);
 }
 
-.sideMenu a:hover, .sideMenu a:focus {
+.sideMenu a:hover {
   background: #3d4b5b !important;
   color: #fff;
   font-weight: 900;
 }
+.sideMenu a:focus {
+  background: #3d4b5b !important;
+  color: #fff;
+  font-weight: 900;
+  border-radius: 15px 0px 0px 15px;
+}
+
 
 .sideMenu ul li ul li ul li {
   font-weight: 300 !important;
@@ -887,7 +897,8 @@ div.nav-profile, div.nav-search {
 }
 
 .nav .nav-icon {
-  height: 20px;
+  height: 26px;
+  padding-right: 4px;
 }
 
 .sideMenu .text-muted {
@@ -895,6 +906,12 @@ div.nav-profile, div.nav-search {
   font-style: oblique;
 }
 
+.animated{
+  -webkit-transition: 0.2s linear all;
+  -moz-transition: 0.2s linear all;
+  -o-transition: 0.2s linear all;
+  transition: 0.2s linear all;
+}
 .showMenu {
   left: 0;
   -webkit-transition: 0.3s linear all;
