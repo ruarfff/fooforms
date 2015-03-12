@@ -10,7 +10,7 @@ angular.module('post')
                     activePost: '=activePost',
                     activeForm: '=activeForm',
                     posts: '=posts',
-                    status: '@',
+                    status: '=status',
                     team: '=team'
                 },
                 transclude: true,

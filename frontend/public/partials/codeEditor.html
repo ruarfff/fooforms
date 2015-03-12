@@ -1,0 +1,33 @@
+<div class="modal-header bg-info">
+    <div class="row">
+        <div class="col-xs-12"><h4 class="text-info">Custom Content Editor</h4>
+        </div>
+
+    </div>
+
+</div>
+<div class="modal-body">
+
+    <div class="row">
+
+        <div class="col-sm-12">
+            <form class="form">
+                <div class="form-group">
+
+                    <textarea ui-codemirror ng-model="fieldDatax"></textarea>
+
+
+
+
+
+                </div>
+            </form>
+        </div>
+    </div>
+
+</div>
+<div class="modal-footer">
+
+    <button class="btn btn-success" ng-click="ok(fieldDatax)">Save</button>
+    <button class="btn btn-default" ng-click="cancel()">Cancel</button>
+</div>

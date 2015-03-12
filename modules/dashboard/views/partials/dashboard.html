@@ -2,7 +2,7 @@
      ng-class="{ percentageScreen : sideMenuVisible, halfScreen :!sideMenuVisible}">
 
 
-    <div class="panel panel-transparent p0 b0">
+    <div class="panel panel-transparent p0 b0 ml5 mr10">
         <!--Feed Header for dashboard, teams and forms-->
 
         <div class="panel-body" id="feedHeader">
@@ -64,13 +64,13 @@
                           ng-click="postView='custom';"><i class="fa fa-file-o"></i></span>
 
                      <span class="label cursor-hand"
-                           ng-class="{'label-success' : selectedStatus === 'All', 'label-default' : selectedStatus !== 'All'}"
+                           ng-class="{'label-success' : isFilter('All'), 'label-default' : !isFilter('All')}"
                            ng-click="filterStatus('All')">All</span>
 
 
                     <div class="m5 p0 inline" ng-repeat="field in form.fields" ng-if="field.type=='status'">
                         <span class="label ml5 cursor-hand"
-                              ng-class="{'label-success' : selectedStatus === option.label, 'label-default' : selectedStatus !== option.label}"
+                              ng-class="{'label-success' : isFilter(option.label), 'label-default' : !isFilter(option.label)}"
                               ng-repeat="option in field.options"
                               ng-click="filterStatus(option.label)">
                              {{option.label}}</span>
@@ -88,7 +88,7 @@
 
         <foo-post-collection view="{{postView}}" streams="{{postStreams}}" active-post="activePost"  active-form="activeForm"  posts="posts"
                              team="team"
-                             grid-data="gridData" status="{{selectedStatus}}">
+                             grid-data="gridData" status="selectedStatus">
         </foo-post-collection>
 
     </div>

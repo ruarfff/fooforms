@@ -5,7 +5,7 @@ angular.module('formViewer')
         function ($scope, $route, $location, $log, $http, $modal, Restangular, SweetAlert, Session, FormService, PostService, Posts, _, $timeout) {
             "use strict";
 
-            $scope.selectedStatus = 'All';
+            $scope.selectedStatus = ['All'];
 
             $scope.postView = 'feed';
             $scope.printPreview = false;
@@ -151,18 +151,18 @@ angular.module('formViewer')
                 }, 0);
             };
 
-            $scope.printPost = function(){
+            $scope.printPost = function () {
 
-                    window.print();
-
-            };
-
-            $scope.showFullScreen = function(){
-                $scope.fullScreen=true;
+                window.print();
 
             };
-            $scope.cancelFullScreen = function(){
-                $scope.fullScreen=false;
+
+            $scope.showFullScreen = function () {
+                $scope.fullScreen = true;
+
+            };
+            $scope.cancelFullScreen = function () {
+                $scope.fullScreen = false;
             };
 
 
@@ -271,7 +271,45 @@ angular.module('formViewer')
             });
 
             $scope.filterStatus = function (status) {
-                $scope.selectedStatus = status;
+                var hasAll = function () {
+                    if ($scope.selectedStatus.indexOf('All')) {
+                        return true
+                    } else {
+                        return false;
+                    }
+                };
+
+
+                switch(status){
+                    case 'All':
+                        $scope.selectedStatus = ['All'];
+                        break;
+                    default:
+                        //filter selected so remove all
+                        var allPos = $scope.selectedStatus.indexOf('All');
+                        if (allPos>-1){
+                            $scope.selectedStatus.splice(allPos, 1);
+                        }
+
+                        var statusPos = $scope.selectedStatus.indexOf(status);
+                        if (statusPos === -1) {
+                            $scope.selectedStatus.push(status);
+                        } else {
+                            $scope.selectedStatus.splice(statusPos, 1);
+                        }
+                }
+                // reset if empty
+                if($scope.selectedStatus.length===0)
+                    $scope.selectedStatus = ['All'];
+            };
+
+            $scope.isFilter = function (status) {
+                var statusPos = $scope.selectedStatus.indexOf(status);
+                if (statusPos === -1) {
+                    return false;
+                } else {
+                    return true;
+                }
             };
 
         }]);

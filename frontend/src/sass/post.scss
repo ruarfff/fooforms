@@ -22,23 +22,45 @@ color: #fff;
 
 .panel-foo-feed{
 display: block;
-  margin: 8px 5px 5px 5px !important;
+  margin: 0px 0px 20px 5px !important;
   border-radius: 0px;
   word-wrap: break-word;
   box-shadow: none;
-  border: 1px solid #d8d8d8 !important;
-  border-top-width: 0 !important;
-  border-left: 5px solid #fff !important;
-
+  border: none !important;
+  border-right: 1px solid rgba(0,0,0,.12) !important;
+}
+.panel-foo-list{
+  display: block;
+  margin: 0px 0px 1px 5px !important;
+  border-radius: 0px;
+  word-wrap: break-word;
+  box-shadow: none;
+  border: none !important;
+  border-right: 1px solid rgba(0,0,0,.12) !important;
+  min-height: 50px;
 }
 
-.panel-foo-feed .feed-title {
+.panel-foo-feed .feed-title, .panel-foo-list .feed-title {
   font-weight: 400;
-  font-size: 1.1em;
+  font-size: 1.2em;
+  color: #6e85a5 !important;
+  text-shadow: none;
 }
-.panel-foo-feed .post-user-img {
-  width: 28px;
-  height: 28px;
+
+.panel-foo-feed .text-smaller, .panel-foo-list .text-smaller {
+  font-weight: 300;
+  font-size: .9em;
+  color: #5a6d8d !important;
+  text-shadow: none;
+}
+.panel-foo-feed .text-smaller i, .panel-foo-list .text-smaller i {
+  color: rgba(110, 133, 165, 0.53) !important;
+}
+
+
+.panel-foo-feed .post-user-img, .panel-foo-list .post-user-img  {
+  width: 38px;
+  height: 38px;
   float: left;
   background: #fff;
   vertical-align: middle;
@@ -48,36 +70,26 @@ display: block;
   border-radius: 50%;
   border: 1px solid #efefef;
 }
-.panel-foo-list .post-user-img{
-  width: 30px;
-  height: 30px;
-  box-shadow:   -1px -1px 1px  rgba(0,0,0,.3)  ;
-  vertical-align: top;
-  margin-right: 5px;
-}
 
-.panel-foo-feed .panel-heading{
+
+.panel-foo-feed .panel-heading, .panel-foo-list .panel-heading{
   color: #63768C !important;
 min-height: 30px;
   line-height: 16px;
   display: block;
 }
-.panel-foo-feed label{
+.panel-foo-feed label, .panel-foo-list label{
   color: #63768C !important;
   font-weight: 400;
 
 }
 
-.panel-foo-feed:hover{
+.panel-foo-feed:hover, .panel-foo-list:hover{
 box-shadow: 1px 1px 7px rgba(255,255,255,.3);
 }
 
 .panel-feed-selected{
-border-left: 5px solid #9bd843 !important;
-}
-
-.panel-feed-selected .feed-title{
-  color: #4c5e74 !important;
+border-left: 10px solid #9bd843 !important;
 }
 
 .panel-foo-light{
