@@ -1,7 +1,10 @@
-<div class="feed-fixed hidden-print" ng-show="postView!='grid'"
-     ng-class="{ percentageScreen : sideMenuVisible, halfScreen :!sideMenuVisible}">
-
-
+<div class="feed-fixed hidden-print animated"
+     ng-class="{
+     percentageScreen : sideMenuVisible && (postView=='list' || postView=='feed'),
+     halfScreen : !sideMenuVisible && (postView=='list' || postView=='feed'),
+     percentageFullScreen : sideMenuVisible && (postView=='grid' || postView=='custom'),
+     fullScreen :!sideMenuVisible && (postView=='grid' || postView=='custom')
+      }">
     <div class="panel panel-transparent p0 b0 ml5 mr10">
         <!--Feed Header for dashboard, teams and forms-->
 
@@ -15,12 +18,14 @@
                 <h4 ng-if="user.name.givenName">{{user.name.givenName + ' ' + user.name.familyName}}</h4>
                 <h4 ng-if="!user.name.givenName">{{user.displayName}}</h4>
 
-                    <span class="label label-default cursor-hand"
-                          ng-click="postView='feed';"><i
-                            class="fa fa-square"></i></span>
-                    <span class="label label-default cursor-hand"
-                          ng-click="postView='list';"><i
-                            class="fa fa-bars"></i></span>
+
+                <span class="label cursor-hand"
+                      ng-class="{'label-success' : postView=='list' , 'label-default':postView!='list'}"
+                      ng-click="postView='list';"><i class="fa fa-bars"></i></span>
+                <span class="label cursor-hand"
+                      ng-class="{'label-success' : postView=='feed' , 'label-default':postView!='feed'}"
+                          ng-click="postView='feed';"><i class="fa fa-square"></i></span>
+
 
             </form>
 
@@ -33,12 +38,12 @@
                 <p>{{team.title || team.displayName}}
                 </p>
 
-                    <span class="label label-default cursor-hand"
-                          ng-click="postView='feed';"><i
-                            class="fa fa-square"></i></span>
-                    <span class="label label-default cursor-hand"
-                          ng-click="postView='list';"><i
-                            class="fa fa-bars"></i></span>
+                     <span class="label cursor-hand"
+                           ng-class="{'label-success' : postView=='list' , 'label-default':postView!='list'}"
+                           ng-click="postView='list';"><i class="fa fa-bars"></i></span>
+                <span class="label cursor-hand"
+                      ng-class="{'label-success' : postView=='feed' , 'label-default':postView!='feed'}"
+                      ng-click="postView='feed';"><i class="fa fa-square"></i></span>
             </form>
 
                 <span ng-show="form">
@@ -50,29 +55,33 @@
         {{form.btnLabel}} <i class="fa fa-plus fa-lg"></i></button>
 
 
-                    <span ng-show="form.settings.displayOptions.feed" class="label label-default cursor-hand"
-                          ng-click="postView='feed';"><i
-                            class="fa fa-square"></i></span>
-                    <span ng-show="form.settings.displayOptions.list" class="label label-default cursor-hand"
-                          ng-click="postView='list';"><i
-                            class="fa fa-bars"></i></span>
-                    <span ng-show="form.settings.displayOptions.grid" class="label label-default cursor-hand"
-                          ng-click="postView='grid';"><i
-                            class="fa fa-table"></i></span>
+                    <span ng-show="form.settings.displayOptions.list" class="label cursor-hand"
+                          ng-class="{'label-success' : postView=='list' , 'label-default':postView!='list'}"
+                          ng-click="postView='list';"><i class="fa fa-bars"></i></span>
+
+                    <span ng-show="form.settings.displayOptions.feed" class="label cursor-hand"
+                          ng-class="{'label-success' : postView=='feed' , 'label-default':postView!='feed'}"
+                          ng-click="postView='feed';"><i class="fa fa-square"></i></span>
+
+                    <span ng-show="form.settings.displayOptions.grid" class="label cursor-hand"
+                          ng-class="{'label-success' : postView=='grid' , 'label-default':postView!='grid'}"
+                          ng-click="postView='grid';"><i class="fa fa-table"></i></span>
+
                     <span ng-show="form.settings.displayOptions.customDashboard || true"
                           class="label label-default cursor-hand"
+                          ng-class="{'label-success' : postView=='custom' , 'label-default':postView!='custom'}"
                           ng-click="postView='custom';"><i class="fa fa-file-o"></i></span>
 
                      <span class="label cursor-hand"
-                           ng-class="{'label-success' : isFilter('All'), 'label-default' : !isFilter('All')}"
-                           ng-click="filterStatus('All')">All</span>
+                           ng-class="{'label-success' : isFilter('All','All'), 'label-default' : !isFilter('All','All')}"
+                           ng-click="filterStatus('All','All')">All</span>
 
 
                     <div class="m5 p0 inline" ng-repeat="field in form.fields" ng-if="field.type=='status'">
                         <span class="label ml5 cursor-hand"
-                              ng-class="{'label-success' : isFilter(option.label), 'label-default' : !isFilter(option.label)}"
+                              ng-class="{'label-success' : isFilter(option.label,field.id), 'label-default' : !isFilter(option.label,field.id)}"
                               ng-repeat="option in field.options"
-                              ng-click="filterStatus(option.label)">
+                              ng-click="filterStatus(option.label, field)">
                              {{option.label}}</span>
                     </div>
                 </span>
@@ -83,7 +92,7 @@
     <!--Feed LIST for dashboard, teams and forms-->
 
 
-    <div id='foo-post-collection' class="scroll m0 b0" ng-style="setFeedHeight()" ng-show="postView=='list' || postView=='feed'"
+    <div id='foo-post-collection' class="scroll m0 b0 animated" ng-style="feedPosition" ng-show="postView=='list' || postView=='feed'"
          ng-hide="post.hide" ng-cloak>
 
         <foo-post-collection view="{{postView}}" streams="{{postStreams}}" active-post="activePost"  active-form="activeForm"  posts="posts"
@@ -97,7 +106,7 @@
 </div>
 
 
-<div class="feed-fixed-wide hidden-print"
+<div class="feed-fixed-wide hidden-print animated"
      ng-show="(postView=='feed' || postView=='list')"
      ng-class="{percentageScreenWide : sideMenuVisible,
       halfScreenWide :!sideMenuVisible}"
@@ -122,64 +131,20 @@
 
 </div>
 
-<div class="feed-fixed-grid hidden-print" ng-cloak ng-show="postView=='grid'"
-     ng-class="{ percentageScreen : sideMenuVisible, halfScreen :!sideMenuVisible}">
 
-    <div class="panel panel-transparent p0 b0 mt10">
-        <div class="panel-body" id="gridHeader">
-            <span ng-show="form">
-
-                    <img class="form-icon" ng-src="{{form.icon}}">
-                    <p>{{form.displayName}}
-                        <a href="{{location}}/edit"><i class="fa fa-edit fa-lg"></i>
-                        </a></p>
-    <button class="btn btn-default pull-right" ng-click="newPost()">
-        {{form.btnLabel}} <i class="fa fa-plus fa-lg"></i></button>
-
-
-                    <span ng-show="form.settings.displayOptions.feed" class="label label-default"
-                          ng-click="postView='feed';"><i
-                            class="fa fa-square"></i></span>
-                    <span ng-show="form.settings.displayOptions.list" class="label label-default"
-                          ng-click="postView='list';"><i
-                            class="fa fa-bars"></i></span>
-                    <span ng-show="form.settings.displayOptions.grid" class="label label-default"
-                          ng-click="postView='grid';"><i
-                            class="fa fa-table"></i></span>
-                    <span ng-show="form.settings.displayOptions.customDashboard || true" class="label label-default"
-                          ng-click="postView='custom';"><i class="fa fa-file-o"></i></span>
-
-                     <span class="label label-success" ng-click="filterStatusOff()">All</span>
-
-
-                    <div class="m5 p0 inline" ng-repeat="field in form.fields" ng-show="field.type=='status'">
-                        <span class="label darker m5" ng-repeat="option in field.options"
-                              ng-click="filterStatus(option)">
-                             {{option.label}}</span>
-                    </div>
-                </span>
-
-        </div>
-    </div>
-</div>
-<div class="feed-fixed-small hidden-print" ng-show="postView=='grid' && posts.length>0"
-     ng-class="{percentageScreenWide : sideMenuVisible,
-      halfScreenWide :!sideMenuVisible}">
-    <div class="gridOptions"></div>
-</div>
-
-<div class="clearfix scroll-grid hidden-print" ng-show="postView=='grid' || postView=='custom'"
+<div class="clearfix scroll-grid hidden-print animated" ng-show="postView=='grid' || postView=='custom'"
      ng-class="{ percentageFullScreen : sideMenuVisible, fullScreen :!sideMenuVisible}"
-     ng-style="setFeedHeight()">
+     ng-style="feedPosition">
 
 
-    <div ng-show="postView=='grid'" class="gridWrapper">
+    <div ng-show="postView=='grid'" class="gridWrapper clearfix" id="gridWrapper">
 
-        <table class="table table-responsive foo-grid" tr-ng-grid="" items="gridData"
+        <table class="table table-responsive table-hover table-striped table-bordered table-condensed foo-grid" tr-ng-grid="" items="gridData"
                fields="gridFields"
                enable-filtering="false"
                selection-mode="SingleRow"
                selected-items="gridSelectedPost"
+               page-items="tableRows"
                 >
 
         </table>
@@ -201,7 +166,7 @@
 
 </div>
 
-<div class="feed-fixed-wide hidden-print" ng-cloak ng-show="posts.length===0 && !activePost"
+<div class="feed-fixed-wide hidden-print animated" ng-cloak ng-show="posts.length===0 && !activePost"
      ng-class="{percentageScreenWide : sideMenuVisible, halfScreenWide :!sideMenuVisible}">
     <div class="row">
         <div class="col-sm-12">

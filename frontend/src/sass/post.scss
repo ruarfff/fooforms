@@ -42,7 +42,7 @@ display: block;
 
 .panel-foo-feed .feed-title, .panel-foo-list .feed-title {
   font-weight: 400;
-  font-size: 1.2em;
+  font-size: 1.1em;
   color: #6e85a5 !important;
   text-shadow: none;
 }
@@ -103,7 +103,7 @@ border-left: 10px solid #9bd843 !important;
   position: absolute;
   display: block;
   top: 0px;
-  bottom: 30px;
+  bottom: 0px;
   overflow: scroll;
   background: #fff;
   right: 10px;
@@ -113,26 +113,46 @@ border-left: 10px solid #9bd843 !important;
 
 
 .foo-grid th {
-  color: #263042;
-  background: -webkit-linear-gradient(#fff, #f2f6f9);
-  background: -moz-linear-gradient(#fff, #f2f6f9);
-  background: -ms-linear-gradient(#fff, #f2f6f9);
-  background: -o-linear-gradient(#fff, #f2f6f9);
-  background: linear-gradient(#fff, #f2f6f9);
-  font-weight: 400;
-
+  padding: 6px 12px;
+display: table-cell;
+  background: #3d4b5b;
+  color: #fff;
+  font-weight: 300;
+  border: 1px solid #fff !important;
+@media screen and (max-width: 580px) {
+  padding: 2px 12px;
+  display: block;
+}
 }
 
 .foo-grid th .text-muted {
   font-size: .8em;
-  color: #263042;
+  color: #fff;
   display: inline-block;
-  font-weight: 600;
+  font-weight: 400;
+  float: right;
+
+}
+
+.table-striped > tbody > tr:nth-child(odd) > td, .table-striped > tbody > tr:nth-child(odd) > th {
+  background-color: #f7f7f7;
+}
+
+.foo-grid tr.active, .foo-grid tr.active td{
+  background-color: #9bd843 !important;
+  color: #fff;
 }
 
 .foo-grid td {
   vertical-align: middle;
+  padding: 6px 12px !important;
+  display: table-cell;
+  border-color: #fff !important;
+  @media screen and (max-width: 580px) {
 
+  padding: 2px 12px;
+  display: block;
+}
 }
 
 .foo-grid th input {

@@ -17,6 +17,10 @@ body {
   background: -o-linear-gradient(rgba(255, 255, 255, 0.3), rgba(255, 255, 255, 0));
   background: linear-gradient(rgba(255, 255, 255, 0.3), rgba(255, 255, 255, 0));
 
+  font-family: 'Helvetica Neue', Helvetica, Arial;
+color: #3b3b3b;
+
+
 }
 
 ::-webkit-scrollbar {
@@ -65,6 +69,7 @@ body {
   margin: 0 auto 0;
   width: 100%;
   bottom: 0;
+  display: none;
 }
 
 footer {
@@ -88,7 +93,7 @@ body {
   min-height: 100%;
   height: auto !important;
   height: 100%;
-  margin: 0 auto -22px;
+  margin: 0 auto -1px;
 }
 
 /*
@@ -110,7 +115,7 @@ body {
 
 .feed-fixed {
   position: fixed;
-  bottom: 22px;
+  bottom: 0px;
   top: 0px;
 
   overflow: hidden;
@@ -120,7 +125,7 @@ body {
 
 .feed-fixed-wide {
   position: fixed;
-  bottom: 22px;
+  bottom: 0px;
   top: 48px;
   overflow: auto;
   padding: 0px 10px 100px 10px !important;
@@ -138,7 +143,7 @@ body {
   position: fixed;
   top: 0px;
   overflow: hidden;
-  padding: 40px 0px 0px 0px;
+  padding: 40px 0px 0px 10px;
   z-index: 10;
 }
 
@@ -150,7 +155,7 @@ body {
 
 .scroll {
   position: absolute;
-  top: 142px;
+  top: 170px;
   bottom: 0px;
   left: 10px;
   right: 1px;
@@ -162,14 +167,14 @@ body {
 
 .scroll-grid {
   position: absolute;
-  top: 150px;
+  top: 136px;
   bottom: 0px;
   right: 0;
   display: block;
   overflow: auto;
   height: auto;
   width: auto;
-
+z-index: 50;
 }
 
 .scrollSidebar {
@@ -229,7 +234,7 @@ body {
   padding: 0px;
   margin: 0px;
   padding: 0px;
-  max-height: 100px;
+  max-height: 100px !important;
   max-width: 100%;
 }
 
@@ -832,12 +837,12 @@ div.nav-profile, div.nav-search {
   position: fixed;
   top: 0px;
   left: 0;
-  bottom: 22px;
+  bottom: 0px;
   width: 15%;
   background: #3d4b5b;
   overflow: auto;
   z-index: 20;
-font-size: 1.2em;
+font-size: 1.1em;
 }
 
 .sideMenu ul li {
@@ -907,25 +912,25 @@ font-size: 1.2em;
 }
 
 .animated{
-  -webkit-transition: 0.2s linear all;
-  -moz-transition: 0.2s linear all;
-  -o-transition: 0.2s linear all;
-  transition: 0.2s linear all;
+  -webkit-transition: 0.2s ease-in-out all;
+  -moz-transition: 0.2s ease-in-out all;
+  -o-transition: 0.2s ease-in-out all;
+  transition: 0.2s ease-in-out all;
 }
 .showMenu {
   left: 0;
-  -webkit-transition: 0.3s linear all;
-  -moz-transition: 0.3s linear all;
-  -o-transition: 0.3s linear all;
-  transition: 0.3s linear all;
+  -webkit-transition: 0.3s ease-in-out all;
+  -moz-transition: 0.3s ease-in-out all;
+  -o-transition: 0.3s ease-in-out all;
+  transition: 0.3s ease-in-out all;
 }
 
 .hideMenu {
   left: -300px;
-  -webkit-transition: 0.3s linear all;
-  -moz-transition: 0.3s linear all;
-  -o-transition: 0.3s linear all;
-  transition: 0.3s linear all;
+  -webkit-transition: 0.3s ease-in-out all;
+  -moz-transition: 0.3s ease-in-out all;
+  -o-transition: 0.3s ease-in-out all;
+  transition: 0.3s ease-in-out all;
 }
 
 .withSideMenu {
@@ -1041,7 +1046,7 @@ video {
   bottom: -20px;
   width: 50%;
   overflow: scroll;
-  z-index: 30;
+  z-index: 60;
   background: #fff;
   -moz-background-clip: padding;
   -webkit-background-clip: padding-box;

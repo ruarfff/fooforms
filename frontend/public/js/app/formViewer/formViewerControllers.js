@@ -1,14 +1,16 @@
 /* Controllers */
 
 angular.module('formViewer')
-    .controller('FormViewerCtrl', ['$scope', '$route', '$location', '$log', '$http', '$modal', 'Restangular', 'SweetAlert', 'Session', 'FormService', 'PostService', 'Posts', '_', '$timeout',
-        function ($scope, $route, $location, $log, $http, $modal, Restangular, SweetAlert, Session, FormService, PostService, Posts, _, $timeout) {
+    .controller('FormViewerCtrl', ['$scope', '$route', '$location', '$log', '$http', '$modal', 'Restangular', 'SweetAlert', 'Session', 'FormService', 'PostService', 'Posts', '_', '$timeout','$window','statusFilterFilter',
+        function ($scope, $route, $location, $log, $http, $modal, Restangular, SweetAlert, Session, FormService, PostService, Posts, _, $timeout, $window, statusFilterFilter) {
             "use strict";
 
-            $scope.selectedStatus = ['All'];
+            $scope.selectedStatus = [{fieldID: 'All',status:'All'}];
 
-            $scope.postView = 'feed';
+            $scope.postView = 'list';
             $scope.printPreview = false;
+            $scope.tableRows = 10;
+            $scope.feedPosition = {'top': '170px'};
             // Posts are linked to the post collection directive
             $scope.posts = [];
             // Need location to set correct url for Edit button
@@ -167,18 +169,27 @@ angular.module('formViewer')
 
 
             //Grid Related
-            $scope.stGridHeight = function () {
-                var feedHeader = angular.element('feedHeader');
-                return {'height': (window.innerHeight - 170)}
+            $scope.setFeedHeight = function () {
+
+                $scope.feedPosition = {'opacity': 0  };
+                $timeout(function(){
+                    var feedHeader = angular.element('#feedHeader')[0];
+                    var height=$window.innerHeight - (feedHeader.offsetHeight + feedHeader.offsetTop);
+
+                    $scope.tableRows=parseInt(height/42);
+                    $scope.feedPosition = {'top': feedHeader.offsetHeight+feedHeader.offsetTop };
+                },500);
+
+
             };
 
-            $scope.setFeedHeight = function () {
-                var postsHeader = angular.element('#feedHeader')[0];
-                if (postsHeader.offsetHeight == 0) {
-                    postsHeader = angular.element('#gridHeader')[0];
-                }
-                return {'top': (postsHeader.offsetHeight + postsHeader.offsetTop)}
-            };
+            angular.element($window).bind('resize', function() {
+                $scope.$apply(function() {
+                    $scope.setFeedHeight();
+                });
+            });
+
+
 
             $scope.posts2Grid = function () {
                 $scope.gridData = [];
@@ -199,7 +210,7 @@ angular.module('formViewer')
                     }
                 });
 
-                angular.forEach($scope.posts, function (postEntry) {
+                angular.forEach(statusFilterFilter($scope.posts, $scope.selectedStatus), function (postEntry) {
                     hasField = false;
                     var map = _.pick(postEntry, 'menuLabel', 'fields');
                     var entry = {};
@@ -253,9 +264,10 @@ angular.module('formViewer')
             $scope.$watch('postView', function (value) {
 
                 if ((typeof (value ) != 'undefined') && value == 'grid') {
-                    $scope.posts2Grid();
+                   $scope.posts2Grid();
 
                 }
+                $scope.setFeedHeight();
 
 
             });
@@ -270,9 +282,10 @@ angular.module('formViewer')
 
             });
 
-            $scope.filterStatus = function (status) {
+            $scope.filterStatus = function (status, field) {
+
                 var hasAll = function () {
-                    if ($scope.selectedStatus.indexOf('All')) {
+                    if (_.indexOf($scope.selectedStatus,{fieldID: 'All',status:'All'})>-1) {
                         return true
                     } else {
                         return false;
@@ -282,30 +295,37 @@ angular.module('formViewer')
 
                 switch(status){
                     case 'All':
-                        $scope.selectedStatus = ['All'];
+                        $scope.selectedStatus = [{fieldID: 'All',status:'All'}];
                         break;
                     default:
                         //filter selected so remove all
-                        var allPos = $scope.selectedStatus.indexOf('All');
+                        var allPos = _.findIndex($scope.selectedStatus,{fieldID: 'All',status:'All'});
                         if (allPos>-1){
                             $scope.selectedStatus.splice(allPos, 1);
                         }
 
-                        var statusPos = $scope.selectedStatus.indexOf(status);
+                        var statusPos = _.findIndex($scope.selectedStatus,{fieldID: field.id, status: status});
                         if (statusPos === -1) {
-                            $scope.selectedStatus.push(status);
+                            $scope.selectedStatus.push({fieldID: field.id, status: status});
                         } else {
                             $scope.selectedStatus.splice(statusPos, 1);
                         }
                 }
                 // reset if empty
-                if($scope.selectedStatus.length===0)
-                    $scope.selectedStatus = ['All'];
+                if($scope.selectedStatus.length===0) {
+                    $scope.selectedStatus = [{fieldID: 'All',status:'All'}];
+                }
+                if ($scope.postView  == 'grid') {
+                    $scope.posts2Grid();
+
+                }
+
+               $scope.setFeedHeight();
             };
 
-            $scope.isFilter = function (status) {
-                var statusPos = $scope.selectedStatus.indexOf(status);
-                if (statusPos === -1) {
+            $scope.isFilter = function (status,field) {
+                var statusPos = _.where($scope.selectedStatus,{fieldID: field, status: status});
+                if (statusPos.length === 0) {
                     return false;
                 } else {
                     return true;

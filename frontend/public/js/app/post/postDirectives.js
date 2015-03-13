@@ -16,7 +16,7 @@ angular.module('post')
                 transclude: true,
                 controller: function ($log, $scope, PostService, _, Session) {
                     var currentPostPage = 0;
-                    var postPageSize = 10;
+                    var postPageSize = 15;
                     var hasMorePosts = true;
                     $scope.fetching=true;
 
@@ -58,7 +58,6 @@ angular.module('post')
                         if (hasMorePosts) {
                             currentPostPage = currentPostPage + 1;
                             getPosts(currentPostPage, postPageSize, $scope.streams);
-                            $scope.gridData = [ {'test':1},{'test2': 2}];
                         }
                     };
 
@@ -133,7 +132,7 @@ angular.module('post')
                     posts: '=posts',
                     activePost: '=activePost',
                     activeForm: '=activeForm',
-                    status: '@'
+                    status: '=status'
                 },
                 controller: function ($scope, Session) {
                     $scope.selectPost = function (post) {
@@ -157,7 +156,7 @@ angular.module('post')
                     posts: '=posts',
                     activePost: '=activePost',
                     activeForm: '=activeForm',
-                    status: '@'
+                    status: '=status'
                 },
                 controller: function ($scope, Session) {
                     $scope.selectPost = function (post) {
