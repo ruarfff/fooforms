@@ -1,4 +1,4 @@
-<div ng-cloak ng-if="fetching" class="text-center mt10">
+<div ng-cloak ng-if="fetching" class="text-center mt10 animated">
     <i class="fa fa-spinner fa-spin fa-2x text-muted"></i>
 </div>
 <div infinite-scroll="addMorePosts()" infinite-scroll-distance="1" infinite-scroll-parent="true"
@@ -6,11 +6,11 @@
     <!-- TODO: Move feed and list to own templates and directives -->
 
     <!-- List View -->
-    <foo-post-list posts="posts" active-post="activePost" active-form="activeForm" ng-show="view=='list'" status="{{status}}"></foo-post-list>
+    <foo-post-list posts="posts" active-post="activePost" active-form="activeForm" ng-show="view=='list'" status="status"></foo-post-list>
 
     <!-- Feed View -->
 
-    <foo-post-feed posts="posts" active-post="activePost" active-form="activeForm"  ng-show="view=='feed'" status="{{status}}"></foo-post-feed>
+    <foo-post-feed posts="posts" active-post="activePost" active-form="activeForm"  ng-show="view=='feed'" status="status"></foo-post-feed>
 
 
 </div>
@@ -18,7 +18,7 @@
 <!--Default Emplty Post Display -->
 <div ng-cloak ng-if="posts.length==0 && !activePost">
 
-    <div class="panel panel-foo-feed">
+    <div class="panel panel-foo-feed animated">
 
         <div class="panel-body" ng-hide="team">
 
