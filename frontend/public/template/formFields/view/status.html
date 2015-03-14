@@ -8,7 +8,7 @@
     </label>
 
     <div class="input-group" ng-style="{'width': formField.size+'%'}">
-        <button class="btn m5"
+        <button class="btn m5 animated"
                ng-class="{ 'btn-success': formField.selected == option.label ,'btn-default' : formField.selected != option.label}"
                ng-repeat='option in formField.options'
                 ng-click="formField.selected=option.label">

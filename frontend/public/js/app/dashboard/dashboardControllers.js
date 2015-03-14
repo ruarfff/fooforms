@@ -5,6 +5,7 @@ angular.module('dashboard').controller('DashboardCtrl', ['$rootScope', '$scope',
         'use strict';
         $scope.postView = 'list';
         $scope.printPreview = false;
+        $scope.fullScreen = false;
 
         // Posts are linked to the post collection directive
         $scope.posts = [];
