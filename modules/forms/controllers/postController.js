@@ -113,7 +113,13 @@ exports.update = function (req, res, next) {
 
                 if (result.success) {
                     fooForm.Post.populate(result.post, {path: 'createdBy', model: 'User'}, function (err, post) {
-                        post.createdBy = sanitizeUser(post.createdBy);
+
+                        //unpopulated createdBy seems to be an issue
+                        // not sure why it would be unpopulated
+                        // but I've seen crashes here
+                        if (post.hasOwnProperty('createdBy')) {
+                            post.createdBy = sanitizeUser(post.createdBy);
+                        }
                         res.send(post);
                         // Handle Post Triggers / Events
 

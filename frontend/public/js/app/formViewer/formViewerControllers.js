@@ -214,7 +214,7 @@ angular.module('formViewer')
                     hasField = false;
                     var map = _.pick(postEntry, 'menuLabel', 'fields');
                     var entry = {};
-                    entry['id'] = counter;
+                    entry['id'] = postEntry._id;
                     counter++;
                     angular.forEach(map.fields, function (field) {
 
@@ -276,7 +276,12 @@ angular.module('formViewer')
 
                 if (typeof (value ) != 'undefined') {
                     $scope.showPostForm = true;
-                    $scope.activePost = $scope.posts[value.id];
+                    var postIndex= _.findIndex($scope.posts,{'_id' : value.id});
+if (postIndex>-1){
+    $scope.activePost = $scope.posts[postIndex];
+}else{
+    alert("Could not find the post? Please reload the page and try again");
+}
 
                 }
 
