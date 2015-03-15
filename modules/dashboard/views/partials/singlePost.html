@@ -1,11 +1,10 @@
+<div class="row" ng-if="activePost">
+    <div class="col-sm-12">
+        <foo-post active-post="activePost" active-form="activeForm" members="org.members" delete-post="deletePost()"
+                  copy-post="copyPost()"
+                  save-post="savePost()"
+                  cancel-post="cancelPost()" add-repeat="addRepeat()"></foo-post>
 
-
-    <div class="row" ng-if="activePost">
-        <div class="col-sm-12">
-            <foo-post active-post="activePost"  active-form="activeForm"  members="org.members" delete-post="deletePost()" copy-post="copyPost()"
-                      save-post="savePost()"
-                      cancel-post="cancelPost()" add-repeat="addRepeat()"></foo-post>
-
-        </div>
     </div>
+</div>
 

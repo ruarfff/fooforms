@@ -12,12 +12,12 @@
                 <ul class="nav nav-pills nav-stacked" id="category-tabs">
                     <li ng-class="{active: activeCategory==='yourForms'}">
                         <a data-toggle="tab" data-target="#yourForms" ng-click="setCategory({displayName: 'yourForms'})"
-                           >My Apps</a>
+                                >My Apps</a>
                     </li>
                     <li ng-repeat="category in categories track by $index"
                         ng-class="{active: activeCategory===category.displayName}">
                         <a data-toggle="tab" data-target="#{{category.displayName}}" ng-click="setCategory(category)"
-                           >{{category.displayName ||
+                                >{{category.displayName ||
                             category.displayName}}</a>
                     </li>
                 </ul>
@@ -41,13 +41,18 @@
                                 <div class="thumbnail">
                                     <a href="/{{user.displayName}}/{{form.displayName}}">
                                         <img ng-src="{{form.icon}}" alt="{{form.displayName}}">
-</a>
-                                        <div class="caption">
-                                            {{form.displayName | uppercase}}<br>
-                                            <div class="btn-group btn-group-justified">
-                                            <a class="btn btn-sm btn-default" href="/{{user.displayName}}/{{form.displayName}}">View</a>
-                                            <a class="btn btn-sm btn-default" href="/{{user.displayName}}/{{form.displayName}}/edit">Edit</a>
-                                        </div></div>
+                                    </a>
+
+                                    <div class="caption">
+                                        {{form.displayName | uppercase}}<br>
+
+                                        <div class="btn-group btn-group-justified">
+                                            <a class="btn btn-sm btn-default"
+                                               href="/{{user.displayName}}/{{form.displayName}}">View</a>
+                                            <a class="btn btn-sm btn-default"
+                                               href="/{{user.displayName}}/{{form.displayName}}/edit">Edit</a>
+                                        </div>
+                                    </div>
                                     </a>
 
                                 </div>
@@ -64,15 +69,15 @@
                                  ng-repeat="form in category.folders[0].forms">
                                 <div class="thumbnail align-center">
 
-                                        <img ng-src="{{form.icon}}" alt="{{form.displayName}}">
+                                    <img ng-src="{{form.icon}}" alt="{{form.displayName}}">
 
-                                        <div class="caption  align-center">
-                                           <p>
-                                               {{form.title | uppercase}}<br>
-                                               {{form.description}}
-                                           </p>
-                                            <a class="btn btn-sm btn-success" ng-click="installForm(form)">Install</a>
-                                        </div>
+                                    <div class="caption  align-center">
+                                        <p>
+                                            {{form.title | uppercase}}<br>
+                                            {{form.description}}
+                                        </p>
+                                        <a class="btn btn-sm btn-success" ng-click="installForm(form)">Install</a>
+                                    </div>
 
 
                                 </div>

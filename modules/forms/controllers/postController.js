@@ -7,7 +7,6 @@ var fooForm = new FooForm(db);
 var membership = new Membership(db);
 var paginate = require('express-paginate');
 var _ = require('underscore');
-var emailer = require('../lib/emails');
 var postEvents = require('../lib/postEvents');
 
 
@@ -42,7 +41,7 @@ exports.create = function (req, res, next) {
                         next(err);
                     }
                     if (result.success) {
-                        postEvents.doPostEvents( result.data,null,post,true); // (form,oldPost,NewPost,isNewPost)
+                        postEvents.doPostEvents(result.data, null, post, true); // (form,oldPost,NewPost,isNewPost)
                     } else {
                         log.error(__filename, ' - ', result.message);
                     }
@@ -123,13 +122,16 @@ exports.update = function (req, res, next) {
                         res.send(post);
                         // Handle Post Triggers / Events
 
-                        fooForm.search({"postStreams": post.postStream.toHexString(),"displayName": req.body.displayName}, function (err, form) {
+                        fooForm.search({
+                            "postStreams": post.postStream.toHexString(),
+                            "displayName": req.body.displayName
+                        }, function (err, form) {
                             if (err) {
                                 log.error(__filename, ' - ', 'Form was not found');
                                 next(err);
                             }
                             if (form.success) {
-                                postEvents.doPostEvents( form.data[0],oldPost,post,false); // (form,oldPost,NewPost,isNewPost)
+                                postEvents.doPostEvents(form.data[0], oldPost, post, false); // (form,oldPost,NewPost,isNewPost)
                             } else {
                                 log.error(__filename, ' - ', result.message);
                             }
@@ -145,7 +147,6 @@ exports.update = function (req, res, next) {
             res.status(statusCodes.NOT_FOUND).json(result.message);
         }
     });
-
 
 
 };

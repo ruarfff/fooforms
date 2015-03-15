@@ -2,7 +2,9 @@
 node_modules/**
 public/**
 .git/**
-frontend/**
+public/**
+sass/**
+bower/**
 .gitignore/**
 package.json/**
 Profile/**,

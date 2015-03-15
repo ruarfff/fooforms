@@ -19,7 +19,8 @@
         <div class="col-sm-6">
 
             <ul class="nav nav-pills nav-stacked" id="myTabs">
-                <li class="active"><a class="br0" id='standardFieldTab' data-toggle="tab" data-target="#standard" ng-click="openDesignTab()">Standard</a>
+                <li class="active"><a class="br0" id='standardFieldTab' data-toggle="tab" data-target="#standard"
+                                      ng-click="openDesignTab()">Standard</a>
                 </li>
                 <li><a class="br0" data-toggle="tab" data-target="#users" ng-click="openDesignTab()">Users & People</a>
                 </li>
@@ -150,7 +151,7 @@
 
 
 <div id="formTabs-settings" class="tab-pane">
-    <div class="panel panel-foo-dark" >
+    <div class="panel panel-foo-dark">
         <div class='panel-heading' ng-show="nowEditing>=0 && showFieldSettings" class="appear">
             <h6><span class="badge">{{nowEditing}}</span> <span>{{form.fields[nowEditing].name}} </span>
             <span ng-show="nowSubEditing">
@@ -170,8 +171,10 @@
         <div  class="appear alert alert-warning"
               ng-hide="showFieldSettings || showGroupSettings || showEventSettings || showFormSettings">
 
-<h4>Nothing Selected to Edit</h4>
-            <p>Please Select a <strong>Form Field</strong> or the <strong>Form Title</strong> from the Design Tab or an <strong>Event</strong> from the Form Events Tab to Edit Settings.<strong> &raquo;</strong></p>
+            <h4>Nothing Selected to Edit</h4>
+
+            <p>Please Select a <strong>Form Field</strong> or the <strong>Form Title</strong> from the Design Tab or an
+                <strong>Event</strong> from the Form Events Tab to Edit Settings.<strong> &raquo;</strong></p>
 
 
         </div>
