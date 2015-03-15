@@ -373,6 +373,27 @@ angular.module('formBuilder').controller('FormBuilderCtrl',
                 });
             };
 
+            $scope.openCodeEditor = function (field) {
+
+                var modalInstance = $modal.open({
+                    templateUrl: '/partials/codeEditor.html',
+                    controller: ModalEditorCtrl,
+                    size: "modal-lg",
+                    resolve: {
+                        fieldData: function () {
+                            return $scope.form.settings[field];
+                        },
+                        form: function () {
+                            return $scope.form;
+                        }
+                    }
+                });
+
+                modalInstance.result.then(function (returnedContent) {
+                    $scope.form.settings[field] = returnedContent;
+                });
+            };
+
             $scope.openEmailEditor = function () {
 
                 var modalInstance = $modal.open({
@@ -646,19 +667,25 @@ var ModalEditorCtrl = function ($scope, $modalInstance, fieldData, form) {
 
     $scope.editorOptions = {
         lineNumbers: true,
-        theme: 'twilight',
         lineWrapping: true,
-        mode: 'xml',
-        onLoad: function (_cm) {
+        mode: 'htmlmixed',
+        theme: 'mdn-like',
+        onLoad: function (_editor) {
 
             // HACK to have the codemirror instance in the scope...
 
-            _cm.setOption("mode", 'xml');
-            _cm.refresh();
-
+            _editor.setOption("mode", 'htmlmixed');
+            _editor.setOption("lineNumbers", true);
+            _editor.setOption('firstLineNumber', 10);
+            _editor.setOption('theme', 'mdn-like');
+            _editor.refresh();
+            _editor.focus();
 
         }
     };
+
+
+
 
     $scope.ok = function (datax) {
         $modalInstance.close(datax);

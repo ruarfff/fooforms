@@ -4,12 +4,13 @@ angular.module('post').factory('PostService',
     ['$log', 'Restangular',
         function ($log, Restangular) {
             'use strict';
+            Restangular.setDefaultRequestParams('get', {limit: 15});
             var postApi = Restangular.all('posts');
             return {
                 getPostsByStreamList: function (args, next) {
                     var postStreams = args.postStreams;
                     var page = args.page || 1;
-                    var pageSize = args.pageSize || 10;
+                    var pageSize = args.pageSize || 15;
                     if (!postStreams) {
                         return next(new Error('PostStreams are required to get posts'));
                     }

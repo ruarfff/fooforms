@@ -3,24 +3,41 @@
 angular.module('post')
     .filter('statusFilter', function () {
         return function (posts, status) {
-            if (!status || (status.indexOf('All') > -1)) {
+            if (!status || _.findIndex(status,{fieldID: 'All',status:'All'})>-1) {
                 return posts;
             }
 
             return posts.filter(function (element, index, array) {
                 if (element.fields) {
                     var hasStatus = false; // Ugh.. to handle when there are posts with no status
-                    for (var i = 0; i < element.fields.length; i++) {
-                        if (element.fields[i].type === 'status') {
-                            hasStatus = true;
-                            var selected = element.fields[i].selected;
-                            if (status.indexOf(selected) > -1) {
-                                return true;
+
+                    var statusGroups = _.groupBy(status,'fieldID');
+
+                    for (var key in statusGroups) {
+                        if (statusGroups.hasOwnProperty(key)) {
+                            var statusGroup = statusGroups[key];
+
+                            for (var i = 0; i < element.fields.length; i++) {
+                                if (element.fields[i].type === 'status' && element.fields[i].id==key) {
+                                    hasStatus = true;
+                                    var selected = element.fields[i].selected;
+
+                                    if (_.findIndex(statusGroup,{fieldID: element.fields[i].id, status:selected})===-1){
+                                        return false;
+                                    }else{
+                                        continue;
+                                    }
+
+
+                                }
                             }
+
 
                         }
                     }
-                    return !hasStatus;
+
+
+                    return hasStatus;
                 }
                 return false;
             });

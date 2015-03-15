@@ -3,6 +3,11 @@ $fa-font-path: "/fonts";
 @import '../../bower/bootstrap-sass-official/assets/stylesheets/bootstrap';
 @import '../../bower/bootstrap-sass-official/assets/stylesheets/bootstrap/theme';
 
+body{
+  background-color: transparent !important;
+  padding: 0px;
+  margin: 0px;
+}
 .br0 {
   border-radius: 0;
 }
