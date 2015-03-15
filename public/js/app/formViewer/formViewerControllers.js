@@ -1,11 +1,11 @@
 /* Controllers */
 
 angular.module('formViewer')
-    .controller('FormViewerCtrl', ['$scope', '$route', '$location', '$log', '$http', '$modal', 'Restangular', 'SweetAlert', 'Session', 'FormService', 'PostService', 'Posts', '_', '$timeout','$window','statusFilterFilter',
+    .controller('FormViewerCtrl', ['$scope', '$route', '$location', '$log', '$http', '$modal', 'Restangular', 'SweetAlert', 'Session', 'FormService', 'PostService', 'Posts', '_', '$timeout', '$window', 'statusFilterFilter',
         function ($scope, $route, $location, $log, $http, $modal, Restangular, SweetAlert, Session, FormService, PostService, Posts, _, $timeout, $window, statusFilterFilter) {
             "use strict";
 
-            $scope.selectedStatus = [{fieldID: 'All',status:'All'}];
+            $scope.selectedStatus = [{fieldID: 'All', status: 'All'}];
 
             $scope.postView = 'list';
             $scope.printPreview = false;
@@ -171,20 +171,20 @@ angular.module('formViewer')
             //Grid Related
             $scope.setFeedHeight = function () {
 
-                $scope.feedPosition = {'opacity': 0  };
-                $timeout(function(){
+                $scope.feedPosition = {'opacity': 0};
+                $timeout(function () {
                     var feedHeader = angular.element('#feedHeader')[0];
-                    var height=$window.innerHeight - (feedHeader.offsetHeight + feedHeader.offsetTop);
+                    var height = $window.innerHeight - (feedHeader.offsetHeight + feedHeader.offsetTop);
 
-                    $scope.tableRows=parseInt(height/42);
-                    $scope.feedPosition = {'top': feedHeader.offsetHeight+feedHeader.offsetTop };
-                },500);
+                    $scope.tableRows = parseInt(height / 42);
+                    $scope.feedPosition = {'top': feedHeader.offsetHeight + feedHeader.offsetTop};
+                }, 500);
 
 
             };
 
-            angular.element($window).bind('resize', function() {
-                $scope.$apply(function() {
+            angular.element($window).bind('resize', function () {
+                $scope.$apply(function () {
                     $scope.setFeedHeight();
                 });
             });
@@ -264,7 +264,7 @@ angular.module('formViewer')
             $scope.$watch('postView', function (value) {
 
                 if ((typeof (value ) != 'undefined') && value == 'grid') {
-                   $scope.posts2Grid();
+                    $scope.posts2Grid();
 
                 }
                 $scope.setFeedHeight();
@@ -276,12 +276,12 @@ angular.module('formViewer')
 
                 if (typeof (value ) != 'undefined') {
                     $scope.showPostForm = true;
-                    var postIndex= _.findIndex($scope.posts,{'_id' : value.id});
-if (postIndex>-1){
-    $scope.activePost = $scope.posts[postIndex];
-}else{
-    alert("Could not find the post? Please reload the page and try again");
-}
+                    var postIndex = _.findIndex($scope.posts, {'_id': value.id});
+                    if (postIndex > -1) {
+                        $scope.activePost = $scope.posts[postIndex];
+                    } else {
+                        alert("Could not find the post? Please reload the page and try again");
+                    }
 
                 }
 
@@ -290,7 +290,7 @@ if (postIndex>-1){
             $scope.filterStatus = function (status, field) {
 
                 var hasAll = function () {
-                    if (_.indexOf($scope.selectedStatus,{fieldID: 'All',status:'All'})>-1) {
+                    if (_.indexOf($scope.selectedStatus, {fieldID: 'All', status: 'All'}) > -1) {
                         return true
                     } else {
                         return false;
@@ -298,18 +298,18 @@ if (postIndex>-1){
                 };
 
 
-                switch(status){
+                switch (status) {
                     case 'All':
-                        $scope.selectedStatus = [{fieldID: 'All',status:'All'}];
+                        $scope.selectedStatus = [{fieldID: 'All', status: 'All'}];
                         break;
                     default:
                         //filter selected so remove all
-                        var allPos = _.findIndex($scope.selectedStatus,{fieldID: 'All',status:'All'});
-                        if (allPos>-1){
+                        var allPos = _.findIndex($scope.selectedStatus, {fieldID: 'All', status: 'All'});
+                        if (allPos > -1) {
                             $scope.selectedStatus.splice(allPos, 1);
                         }
 
-                        var statusPos = _.findIndex($scope.selectedStatus,{fieldID: field.id, status: status});
+                        var statusPos = _.findIndex($scope.selectedStatus, {fieldID: field.id, status: status});
                         if (statusPos === -1) {
                             $scope.selectedStatus.push({fieldID: field.id, status: status});
                         } else {
@@ -317,19 +317,19 @@ if (postIndex>-1){
                         }
                 }
                 // reset if empty
-                if($scope.selectedStatus.length===0) {
-                    $scope.selectedStatus = [{fieldID: 'All',status:'All'}];
+                if ($scope.selectedStatus.length === 0) {
+                    $scope.selectedStatus = [{fieldID: 'All', status: 'All'}];
                 }
-                if ($scope.postView  == 'grid') {
+                if ($scope.postView == 'grid') {
                     $scope.posts2Grid();
 
                 }
 
-               $scope.setFeedHeight();
+                $scope.setFeedHeight();
             };
 
-            $scope.isFilter = function (status,field) {
-                var statusPos = _.where($scope.selectedStatus,{fieldID: field, status: status});
+            $scope.isFilter = function (status, field) {
+                var statusPos = _.where($scope.selectedStatus, {fieldID: field, status: status});
                 if (statusPos.length === 0) {
                     return false;
                 } else {

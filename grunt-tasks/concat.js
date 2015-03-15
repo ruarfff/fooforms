@@ -61,6 +61,7 @@ module.exports = function (grunt) {
                 'bower/codemirror/mode/javascript/javascript.js',
                 'bower/codemirror/mode/xml/xml.js',
                 'bower/codemirror/mode/htmlmixed/htmlmixed.js',
+                'bower/angular-ui-codemirror/ui-codemirror.min.js',
                 'bower/pikaday/pikaday.js',
                 'bower/sweetalert/lib/sweet-alert.min.js',
                 'bower/angular-sweetalert/SweetAlert.min.js',

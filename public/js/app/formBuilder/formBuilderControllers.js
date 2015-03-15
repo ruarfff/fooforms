@@ -685,8 +685,6 @@ var ModalEditorCtrl = function ($scope, $modalInstance, fieldData, form) {
     };
 
 
-
-
     $scope.ok = function (datax) {
         $modalInstance.close(datax);
     };

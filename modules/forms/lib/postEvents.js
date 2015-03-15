@@ -154,26 +154,26 @@ exports.doPostEvents = function (form, oldPost, newPost, isNewPost) {
 // As the post may not contain the full or latest trigger / events details
         form.formEvents.forEach(function (formEvent) {
             //Test if the event should be processed
-                var processEvent = false;
+            var processEvent = false;
             switch (formEvent.type) {
-                    case "statusChange":
+                case "statusChange":
 
-                        if (getStatusFieldValue(formEvent.actionData.statusField, newPost) === formEvent.actionData.statusValue) {
-                            if (oldPost && getStatusFieldValue(formEvent.actionData.statusField, oldPost) === formEvent.actionData.statusValue) {
-                                // Status was previously set to target value so no need to fire event.
-                                processEvent = false;
-                            } else {
-                                processEvent = true;
-                            }
-                        }
-                        break;
-
-                    case "newPost" :
-                        if (isNewPost) {
+                    if (getStatusFieldValue(formEvent.actionData.statusField, newPost) === formEvent.actionData.statusValue) {
+                        if (oldPost && getStatusFieldValue(formEvent.actionData.statusField, oldPost) === formEvent.actionData.statusValue) {
+                            // Status was previously set to target value so no need to fire event.
+                            processEvent = false;
+                        } else {
                             processEvent = true;
                         }
+                    }
+                    break;
 
-                        break;
+                case "newPost" :
+                    if (isNewPost) {
+                        processEvent = true;
+                    }
+
+                    break;
 
                 case "updatePost" :
                     if (!isNewPost) {
@@ -182,7 +182,7 @@ exports.doPostEvents = function (form, oldPost, newPost, isNewPost) {
 
                     break;
 
-                }
+            }
             if (processEvent) {
                 //Procees The event
                 switch (formEvent.action) {
@@ -212,8 +212,6 @@ exports.doPostEvents = function (form, oldPost, newPost, isNewPost) {
                         // Do some funky Rest API stuff to some far flung server
 
                         break;
-
-
 
 
                 }

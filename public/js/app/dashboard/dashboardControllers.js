@@ -1,6 +1,6 @@
 /* global angular */
 
-angular.module('dashboard').controller('DashboardCtrl', ['$rootScope', '$scope', '$routeParams', '$log', '_', 'SweetAlert', 'DashboardService', 'Session', 'PostService', 'Posts', '$timeout','$window',
+angular.module('dashboard').controller('DashboardCtrl', ['$rootScope', '$scope', '$routeParams', '$log', '_', 'SweetAlert', 'DashboardService', 'Session', 'PostService', 'Posts', '$timeout', '$window',
     function ($rootScope, $scope, $routeParams, $log, _, SweetAlert, DashboardService, Session, PostService, Posts, $timeout, $window) {
         'use strict';
         $scope.postView = 'list';
@@ -154,20 +154,20 @@ angular.module('dashboard').controller('DashboardCtrl', ['$rootScope', '$scope',
 
         $scope.setFeedHeight = function () {
 
-            $scope.feedPosition = {'opacity': 0  };
-            $timeout(function(){
+            $scope.feedPosition = {'opacity': 0};
+            $timeout(function () {
                 var feedHeader = angular.element('#feedHeader')[0];
-                var height=$window.innerHeight - (feedHeader.offsetHeight + feedHeader.offsetTop);
+                var height = $window.innerHeight - (feedHeader.offsetHeight + feedHeader.offsetTop);
 
-                $scope.tableRows=parseInt(height/42);
-                $scope.feedPosition = {'top': feedHeader.offsetHeight+feedHeader.offsetTop };
-            },500);
+                $scope.tableRows = parseInt(height / 42);
+                $scope.feedPosition = {'top': feedHeader.offsetHeight + feedHeader.offsetTop};
+            }, 500);
 
 
         };
 
-        angular.element($window).bind('resize', function() {
-            $scope.$apply(function() {
+        angular.element($window).bind('resize', function () {
+            $scope.$apply(function () {
                 $scope.setFeedHeight();
             });
         });
