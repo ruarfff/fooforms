@@ -57,7 +57,7 @@ exports.sendInvitation = function (invite, next) {
         '<p><a href="' + url + '">Accept Invitation</a></p>' +
         '<h4>Message from sender</h4>' +
         '<p>' + message + '</p>' +
-        '<p><a href="' + url + '">Click here</a> to be brought to FOOFORMS and become part of '+ organisationName +'</p>'
+        '<p><a href="' + url + '">Click here</a> to be brought to FOOFORMS and become part of ' + organisationName + '</p>'
     };
     // send mail with defined transport object
     emailer.send(mailOptions, function (error, response) {
@@ -79,7 +79,7 @@ exports.sendWelcomeEmail = function (welcome) {
 
 
     var htmlTemplate = path.join(templateDir, 'welcome.html');
-    var txtTemplate =  path.join(templateDir, 'welcome.txt');
+    var txtTemplate = path.join(templateDir, 'welcome.txt');
 
     var env = process.env.NODE_ENV;
     var url;
@@ -122,5 +122,25 @@ exports.sendWelcomeEmail = function (welcome) {
             welcome.status = 'sent';
         }
 
+    });
+};
+
+exports.sendForgottenPasswordEmail = function (args, next) {
+    var mailOptions = {
+        from: "Hello Foo <hello@fooforms.com>",
+        to: args.email,
+        subject: 'Fooforms Password Reset',
+        text: args.url,
+        html: '<p>Hi, You are receiving this because you (or someone else) have requested the reset of the password for your account.</p>' +
+        '<p>Please click on the following link:</p>' +
+        '<p><a href="' + args.url + '">Reset Password</a></p>' +
+        '<p>or paste this into your browser to complete the process:</p>' +
+        '<p>' + args.url + '</p>' +
+        '<p>If you did not request this, please ignore this email and your password will remain unchanged.</p>'
+    };
+    // send mail with defined transport object
+    emailer.send(mailOptions, function (error, response) {
+        if (error) log.error(error);
+        next(error, response);
     });
 };

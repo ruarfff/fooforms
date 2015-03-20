@@ -75,6 +75,10 @@ var routes = function (app, passport) {
     app.use(slash + rootUrls.signup, membership.signupRoutes);
     app.use(slash + rootUrls.signup, membership.signupViewRoutes);
     app.use(slash + rootUrls.login, membership.loginRoutes);
+    app.use(slash + rootUrls.forgottenPassword, membership.forgottenPasswordViewRoutes);
+    app.use(slash + rootUrls.resetPassword, membership.resetPasswordViewRoutes);
+    app.use(api + slash + rootUrls.forgottenPassword, membership.forgottenPasswordApiRoutes);
+    app.use(api + slash + rootUrls.resetPassword, membership.resetPasswordApiRoutes);
     app.use(api + slash + rootUrls.invite, membership.invitePublicApiRoutes);
 
     /**

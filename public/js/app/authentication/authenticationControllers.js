@@ -121,4 +121,70 @@ angular.module('authentication')
             });
         };
 
+    }])
+    .controller('ForgottenPasswordCtrl', ['$scope', '$modal', '$location', '$log', function ($scope, $modal, $location, $log) {
+        'use strict';
+        var modalInstance;
+
+        modalInstance = $modal.open({
+            templateUrl: 'forgottenPassword.html',
+            controller: 'ForgottenPasswordModalCtrl',
+            size: 'sm',
+            keyboard: false,
+            backdrop: 'static',
+            backdropClass: 'auth-backdrop',
+            windowClass: 'auth-window modal-trans'
+        });
+
+        modalInstance.result.then(function () {
+            $location.path("/login");
+        }, function (err) {
+            $log.error(err);
+            $location.path("/login");
+        });
+
+    }])
+    .controller('ForgottenPasswordModalCtrl', ['$scope', '$rootScope', '$modalInstance', 'PasswordService', function ($scope, $rootScope, $modalInstance, PasswordService) {
+        'use strict';
+
+        $scope.resetError = false;
+
+        $scope.sendReset = function (email) {
+            PasswordService.sendReset(email, function () {
+
+            });
+        };
+
+    }])
+    .controller('ResetPasswordCtrl', ['$scope', '$modal', '$location', '$log', function ($scope, $modal, $location, $log) {
+        'use strict';
+        var modalInstance;
+
+        modalInstance = $modal.open({
+            templateUrl: 'resetPassword.html',
+            controller: 'ResetPasswordModalCtrl',
+            size: 'sm',
+            keyboard: false,
+            backdrop: 'static',
+            backdropClass: 'auth-backdrop',
+            windowClass: 'auth-window modal-trans'
+        });
+
+        modalInstance.result.then(function () {
+            $location.path("/login");
+        }, function (err) {
+            $log.error(err);
+            $location.path("/login");
+        });
+
+    }])
+    .controller('ResetPasswordModalCtrl', ['$scope', '$rootScope', '$modalInstance', '$routeParams', 'PasswordService', function ($scope, $rootScope, $modalInstance, $routeParams, PasswordService) {
+        'use strict';
+
+        $scope.resetError = false;
+
+        $scope.updatePassword = function (password) {
+
+        };
+
     }]);
