@@ -28,6 +28,14 @@ module.exports = function (grunt) {
             tasks: ['mochaTest'],
             livereload: false
 
+        },
+        express: {
+            files: ['server.js', 'config/**/*.js', 'modules/**/*.js', '!modules/*/test/**', '!modules/*/views/**'],
+            tasks: ['express:dev'],
+            options: {
+                spawn: false
+            },
+            livereload: false
         }
     });
     grunt.loadNpmTasks("grunt-contrib-watch");
