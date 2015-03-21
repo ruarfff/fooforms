@@ -1,4 +1,6 @@
-var gcloud = require('gcloud')(
+var gcloud = require('gcloud');
+
+var storage = gcloud.storage(
     {
         projectId: 'zippy-carving-731',
         credentials: {
@@ -7,9 +9,8 @@ var gcloud = require('gcloud')(
             "client_email": "418935202925-h9s15gbkjghhulp7ko4r4pit1gqc62ah@developer.gserviceaccount.com",
             "client_id": "418935202925-h9s15gbkjghhulp7ko4r4pit1gqc62ah.apps.googleusercontent.com",
             "type": "service_account"
-        },
-        bucketName: 'fooforms-user-files'
+        }
     }
 );
 
-module.exports = gcloud.storage.bucket();
+module.exports = storage.bucket('fooforms-user-files');

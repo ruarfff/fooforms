@@ -144,13 +144,21 @@ angular.module('authentication')
         });
 
     }])
-    .controller('ForgottenPasswordModalCtrl', ['$scope', '$rootScope', '$modalInstance', 'PasswordService', function ($scope, $rootScope, $modalInstance, PasswordService) {
+    .controller('ForgottenPasswordModalCtrl', ['$scope', '$modalInstance', '$location', 'SweetAlert', 'PasswordService', function ($scope, $modalInstance, $location, SweetAlert, PasswordService) {
         'use strict';
 
         $scope.resetError = false;
 
         $scope.sendReset = function (email) {
             PasswordService.sendReset(email, function () {
+
+                SweetAlert.swal({
+                    title: "Sent",
+                    text: "An email has been sent with instructions for resetting your password.",
+                    type: "success"
+                }, function () {
+                    $location.path("/");
+                });
 
             });
         };
