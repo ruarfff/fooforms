@@ -18,8 +18,9 @@ var rootUrls = {
     edit: 'edit',
     notFound: '404',
     invite: 'invite',
-    forgottenPassword: 'forgot-password',
+    forgottenPassword: 'forgotten-password',
     resetPassword: 'reset-password',
+    resetPasswordToken: 'reset-password/:token',
     store: 'store'
 };
 

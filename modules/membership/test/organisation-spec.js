@@ -8,6 +8,7 @@ var mockgoose = require('mockgoose');
 mockgoose(mongoose);
 
 var request = require('supertest');
+var rewire = require("rewire");
 var express = require('express');
 var bodyParser = require('body-parser');
 var should = require('should');

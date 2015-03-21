@@ -2,45 +2,20 @@
 'use strict';
 
 var log = require('fooforms-logging').LOG;
-var rootUrls = require('./rootUrls');
-var assets = require('./assets');
+var rootUrls = require('./../config/rootUrls');
+var assets = require('./../config/assets');
 
 
-var admin = require('../modules/admin');
-var calendar = require('../modules/calendar');
-var dashboard = require('../modules/dashboard');
-var file = require('../modules/file');
-var formBuilder = require('../modules/formBuilder');
-var form = require('../modules/forms');
-var formViewer = require('../modules/formViewer');
-var membership = require('../modules/membership');
-var site = require('../modules/site');
-var store = require('../modules/store');
-
-/**
-var loginOrContinue = function (req, res, next) {
-    var username = req.params.username;
-    var form = req.params.form;
-    log.info(username + '-' + form);
-    passport.authenticate('basic', { session: false}, function (err, user, info) {
-        if (err) {
-            return next(err);
-        }
-        if (!user) {
-            return res.render(dashboard.mainView, {
-                dev: (process.env.NODE_ENV === 'development'),
-                user: req.user || '',
-                assets: assets
-            });
-        }
-        req.logIn(user, function (err) {
-            if (err) {
-                return next(err);
-            }
-            return res.send();
-        });
-    })(req, res, next);
-};*/
+var admin = require('../modules/admin/index');
+var calendar = require('../modules/calendar/index');
+var dashboard = require('../modules/dashboard/index');
+var file = require('../modules/file/index');
+var formBuilder = require('../modules/formBuilder/index');
+var form = require('../modules/forms/index');
+var formViewer = require('../modules/formViewer/index');
+var membership = require('../modules/membership/index');
+var site = require('../modules/site/index');
+var store = require('../modules/store/index');
 
 /**
  * Main configuration for all routes in application.
@@ -75,6 +50,10 @@ var routes = function (app, passport) {
     app.use(slash + rootUrls.signup, membership.signupRoutes);
     app.use(slash + rootUrls.signup, membership.signupViewRoutes);
     app.use(slash + rootUrls.login, membership.loginRoutes);
+    app.use(slash + rootUrls.forgottenPassword, membership.forgottenPasswordViewRoutes);
+    app.use(slash + rootUrls.resetPassword, membership.resetPasswordViewRoutes);
+    app.use(api + slash + rootUrls.forgottenPassword, membership.forgottenPasswordApiRoutes);
+    app.use(api + slash + rootUrls.resetPassword, membership.resetPasswordApiRoutes);
     app.use(api + slash + rootUrls.invite, membership.invitePublicApiRoutes);
 
     /**

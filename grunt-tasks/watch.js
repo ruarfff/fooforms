@@ -5,15 +5,14 @@ module.exports = function (grunt) {
         options: {
             livereload: true // Default port is 35729
         },
-        // No need to livereload for js and css as it will be triggered when the files are processed and added to public
-        js: {
-            files: ['public/js/**/*.js'],
-            tasks: ['concat:js', 'uglify']
-        },
         css: {
             files: ['sass/**/*.scss'],
             tasks: ['sass'],
             livereload: false
+        },
+        js: {
+            files: ['public/js/app/**/*.js'],
+            tasks: ['concat:js', 'uglify']
         },
         // No task here for views and public. Just livereload is run.
         views: {
@@ -28,6 +27,14 @@ module.exports = function (grunt) {
             tasks: ['mochaTest'],
             livereload: false
 
+        },
+        express: {
+            files: ['server.js', 'config/**/*.js', 'modules/**/*.js', 'routes/**/*.js', '!modules/*/test/**'],
+            tasks: ['express:dev'],
+            options: {
+                spawn: false
+            },
+            livereload: false
         }
     });
     grunt.loadNpmTasks("grunt-contrib-watch");

@@ -13,10 +13,9 @@ module.exports = function (grunt) {
 
     grunt.registerTask('deploy', 'deploy pre-processed assets', ['bower', 'newer:concat', 'newer:uglify', 'sass', 'newer:imagemin']);
     grunt.registerTask('preprocessing', 'deploy pre-processed assets, customised a little for nodejitsu', ['bower', 'concat', 'uglify', 'sass']);
-    grunt.registerTask('default', 'start application in dev mode using watch and nodemon', ['deploy', 'mochaTest', 'concurrent']);
-    grunt.registerTask('test-nowatch', 'only run tests and generate coverage report', ['mochaTest']);
-    grunt.registerTask('test', 'only run tests and generate coverage report', ['mochaTest', 'watch:tests']);
-    grunt.registerTask('skip-test', 'start application in dev mode using watch and nodemon', ['deploy', 'nodemon']);
-    grunt.registerTask('brian', 'start app in dev mode only running UI tests', []);
+    grunt.registerTask('default', 'start application in dev mode running tests and using watch', ['deploy', 'mochaTest', 'express:dev', 'watch']);
+    grunt.registerTask('test', 'only run tests and generate coverage report', ['env:test', 'mochaTest']);
+    grunt.registerTask('skip-test', 'start application in dev mode using watch and nodemon', ['deploy', 'express:dev', 'watch']);
+    grunt.registerTask('brian', 'start app in dev mode only running UI tests', ['deploy']);
 
 };

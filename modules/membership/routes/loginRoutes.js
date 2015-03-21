@@ -1,7 +1,5 @@
 "use strict";
 var log = require('fooforms-logging').LOG;
-var path = require('path');
-var viewDir = path.join(__dirname, '../views');
 
 var express = require('express');
 var router = express.Router();
