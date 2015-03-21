@@ -49,16 +49,26 @@ angular.module('authentication')
         };
     }])
     .factory('PasswordService', ['$log', 'Restangular', function ($log, Restangular) {
-        var forgottenPasswordApi = Restangular.all('forgotten-password');
-
         return {
             sendReset: function (email, next) {
+                var forgottenPasswordApi = Restangular.all('forgotten-password');
                 forgottenPasswordApi.post({email: email}).then(function () {
-                    next(null);
+                    next();
                 }, function (err) {
                     $log.error(err);
                     return next(err);
                 });
+            },
+            updatePassword: function (args, next) {
+                $log.debug(JSON.stringify(args));
+                var resetPasswordApi = Restangular.all('reset-password');
+                resetPasswordApi.post(args).then(function (data) {
+                    $log.debug(JSON.stringify(data));
+                    next(data);
+                }, function (err) {
+                    $log.error(err);
+                    next(err);
+                })
             }
         }
 

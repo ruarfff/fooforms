@@ -1,60 +1,61 @@
 "use strict";
 var log = require('fooforms-logging').LOG;
-var path = require('path');
-var viewDir = path.join(__dirname, '../views');
-var resetPasswordPath = path.join(viewDir, 'reset-password');
 var Membership = require('fooforms-membership');
 var db = require('mongoose').connection;
+var email = require('../lib/emails');
+var async = require('async');
 
 var express = require('express');
 var router = express.Router();
 
-router.post('/:token', function (req, res) {
-    async.waterfall([
-        function (done) {
-            User.findOne({
-                resetPasswordToken: req.params.token,
-                resetPasswordExpires: {$gt: Date.now()}
-            }, function (err, user) {
-                if (!user) {
-                    req.flash('error', 'Password reset token is invalid or has expired.');
-                    return res.redirect('back');
+router.route('/')
+    .post(function (req, res) {
+        var token = req.body.token;
+        var newPassword = req.body.password;
+
+        async.waterfall([
+            function (done) {
+
+                if (!newPassword) {
+                    done(new Error('Password cannot be empty.'), 'done');
                 }
 
-                user.password = req.body.password;
-                user.resetPasswordToken = undefined;
-                user.resetPasswordExpires = undefined;
+                var membership = new Membership(db);
 
-                user.save(function (err) {
-                    req.logIn(user, function (err) {
-                        done(err, user);
-                    });
+                membership.User.findOne({
+                    resetPasswordToken: token
+                }, function (err, user) {
+                    if (!user) {
+                        err = err || new Error('User not found');
+                        done(err, 'done');
+                    } else {
+                        user.password = membership.passwordUtil.encryptPassword(newPassword, user.salt);
+                        user.resetPasswordToken = undefined;
+                        user.resetPasswordExpires = undefined;
+
+                        user.save(function (err) {
+                            if (!err) {
+                                res.status(200).send();
+                            }
+
+                            done(err, user)
+                        });
+                    }
                 });
-            });
-        },
-        function (user, done) {
-            var smtpTransport = nodemailer.createTransport('SMTP', {
-                service: 'SendGrid',
-                auth: {
-                    user: '!!! YOUR SENDGRID USERNAME !!!',
-                    pass: '!!! YOUR SENDGRID PASSWORD !!!'
-                }
-            });
-            var mailOptions = {
-                to: user.email,
-                from: 'passwordreset@demo.com',
-                subject: 'Your password has been changed',
-                text: 'Hello,\n\n' +
-                'This is a confirmation that the password for your account ' + user.email + ' has just been changed.\n'
-            };
-            smtpTransport.sendMail(mailOptions, function (err) {
-                req.flash('success', 'Success! Your password has been changed.');
-                done(err);
-            });
-        }
-    ], function (err) {
-        res.redirect('/');
+            },
+            function (user, done) {
+                var emailArgs = {user: user};
+
+                email.sendUpdatedPasswordEmail(emailArgs, function (err) {
+                    done(err, 'done');
+                });
+            }
+        ], function (err) {
+            if (err) {
+                log.error(err);
+                res.status(404).send('Password reset token is invalid or has expired.');
+            }
+        });
     });
-});
 
 module.exports = router;

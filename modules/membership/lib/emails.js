@@ -144,3 +144,25 @@ exports.sendForgottenPasswordEmail = function (args, next) {
         next(error, response);
     });
 };
+
+exports.sendUpdatedPasswordEmail = function (args, next) {
+    var user = args.user;
+
+    var mailOptions = {
+        to: user.email,
+        from: "Hello Foo <hello@fooforms.com>",
+        subject: 'Your Fooforms password has been changed',
+        text: 'Hello,\n\n' +
+        'This is a confirmation that the password for your account ' + user.email + ' has just been changed.\n',
+        html: '<p>Hello,</p>' +
+        '<p>This is a confirmation that the password for your account ' + user.email + ' has just been changed</p>' +
+        '<p>If you did not initiate this password update request please contact us at:</p>' +
+        '<p><a href="mailto:support@fooforms.com?subject=Suspicious Password Change for account: ' + user.email + '">support@fooforms.com</a> </p>' +
+        '<p>Kind Regards,</p>' +
+        '<p><The Fooforms Team</p>'
+    };
+    emailer.send(mailOptions, function (err, response) {
+        if (err) log.error(err);
+        next(err, response);
+    });
+};

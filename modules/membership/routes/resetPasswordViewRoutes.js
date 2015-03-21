@@ -10,10 +10,8 @@ var express = require('express');
 var router = express.Router();
 
 router.get('/:token', function (req, res, next) {
-    log.debug('**************************');
     var membership = new Membership(db);
     membership.User.findOne({resetPasswordToken: req.params.token}, function (err, user) {
-        log.debug(JSON.stringify(user));
         if (!user) {
             return res.redirect('/404');
         }

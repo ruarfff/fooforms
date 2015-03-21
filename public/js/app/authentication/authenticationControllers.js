@@ -139,6 +139,7 @@ angular.module('authentication')
         modalInstance.result.then(function () {
             $location.path("/login");
         }, function (err) {
+            // TODO: Never happens, or should it........?
             $log.error(err);
             $location.path("/login");
         });
@@ -146,8 +147,6 @@ angular.module('authentication')
     }])
     .controller('ForgottenPasswordModalCtrl', ['$scope', '$modalInstance', '$location', 'SweetAlert', 'PasswordService', function ($scope, $modalInstance, $location, SweetAlert, PasswordService) {
         'use strict';
-
-        $scope.resetError = false;
 
         $scope.sendReset = function (email) {
             PasswordService.sendReset(email, function () {
@@ -157,7 +156,7 @@ angular.module('authentication')
                     text: "An email has been sent with instructions for resetting your password.",
                     type: "success"
                 }, function () {
-                    $location.path("/");
+                    $modalInstance.close();
                 });
 
             });
@@ -186,12 +185,19 @@ angular.module('authentication')
         });
 
     }])
-    .controller('ResetPasswordModalCtrl', ['$scope', '$rootScope', '$modalInstance', '$routeParams', 'PasswordService', function ($scope, $rootScope, $modalInstance, $routeParams, PasswordService) {
+    .controller('ResetPasswordModalCtrl', ['$scope', '$modalInstance', '$routeParams', 'PasswordService', function ($scope, $modalInstance, $routeParams, PasswordService) {
         'use strict';
 
         $scope.resetError = false;
 
         $scope.updatePassword = function (password) {
+            var args = {
+                password: password,
+                token: $routeParams.token
+            };
+            PasswordService.updatePassword(args, function (err) {
+                $modalInstance.close(err);
+            });
 
         };
 
