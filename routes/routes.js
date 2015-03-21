@@ -2,20 +2,20 @@
 'use strict';
 
 var log = require('fooforms-logging').LOG;
-var rootUrls = require('./rootUrls');
-var assets = require('./assets');
+var rootUrls = require('./../config/rootUrls');
+var assets = require('./../config/assets');
 
 
-var admin = require('../modules/admin');
-var calendar = require('../modules/calendar');
-var dashboard = require('../modules/dashboard');
-var file = require('../modules/file');
-var formBuilder = require('../modules/formBuilder');
-var form = require('../modules/forms');
-var formViewer = require('../modules/formViewer');
-var membership = require('../modules/membership');
-var site = require('../modules/site');
-var store = require('../modules/store');
+var admin = require('../modules/admin/index');
+var calendar = require('../modules/calendar/index');
+var dashboard = require('../modules/dashboard/index');
+var file = require('../modules/file/index');
+var formBuilder = require('../modules/formBuilder/index');
+var form = require('../modules/forms/index');
+var formViewer = require('../modules/formViewer/index');
+var membership = require('../modules/membership/index');
+var site = require('../modules/site/index');
+var store = require('../modules/store/index');
 
 /**
 var loginOrContinue = function (req, res, next) {
