@@ -48,9 +48,7 @@ describe('Post API', function () {
         var title = 'form title';
         var description = 'the form description';
         var btnLabel = 'the button label';
-        var formEvents = [
-            {}
-        ];
+        var formEvents = [];
         var folder;
         var settings = {"setting": {}, "something": [], "something-else": "test"};
         var sampleForm = {
@@ -74,7 +72,7 @@ describe('Post API', function () {
                 postStream = result.form.postStreams[0];
                 samplePost = {
                     postStream: postStream, displayName: displayName,
-                    icon: icon, fields: fields
+                    icon: icon, fields: fields, formId: result.form._id
                 };
                 done(err);
             });
@@ -161,6 +159,7 @@ describe('Post API', function () {
                 .expect(201)
                 .end(function (err, res) {
                     post = res.body;
+                    post.formId = ObjectId;
                     res.headers.location.should.equal(rootUrl + '/' + post._id);
                     resourceUrl = res.headers.location;
                     done(err);

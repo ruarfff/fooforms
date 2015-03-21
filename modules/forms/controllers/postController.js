@@ -40,7 +40,7 @@ exports.create = function (req, res, next) {
                     if (err) {
                         next(err);
                     }
-                    if (result.success) {
+                    if (result.success && result.data) {
                         postEvents.doPostEvents(result.data, null, post, true); // (form,oldPost,NewPost,isNewPost)
                     } else {
                         log.error(__filename, ' - ', result.message);
@@ -126,11 +126,11 @@ exports.update = function (req, res, next) {
                             "postStreams": post.postStream.toHexString(),
                             "displayName": req.body.displayName
                         }, function (err, form) {
-                            if (err) {
+                            if (err || !form.success) {
                                 log.error(__filename, ' - ', 'Form was not found');
                                 next(err);
                             }
-                            if (form.success) {
+                            if (form.data.length > 0) {
                                 postEvents.doPostEvents(form.data[0], oldPost, post, false); // (form,oldPost,NewPost,isNewPost)
                             } else {
                                 log.error(__filename, ' - ', result.message);

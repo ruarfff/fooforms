@@ -92,6 +92,7 @@
     "mockgoose": "1.10.2",
     "passport-stub": "^1.0.1",
     "protractor": "*",
+    "rewire": "^2.3.1",
     "should": "*",
     "supertest": "^0.14.0"
   },
