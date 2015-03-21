@@ -18,31 +18,6 @@ var site = require('../modules/site/index');
 var store = require('../modules/store/index');
 
 /**
-var loginOrContinue = function (req, res, next) {
-    var username = req.params.username;
-    var form = req.params.form;
-    log.info(username + '-' + form);
-    passport.authenticate('basic', { session: false}, function (err, user, info) {
-        if (err) {
-            return next(err);
-        }
-        if (!user) {
-            return res.render(dashboard.mainView, {
-                dev: (process.env.NODE_ENV === 'development'),
-                user: req.user || '',
-                assets: assets
-            });
-        }
-        req.logIn(user, function (err) {
-            if (err) {
-                return next(err);
-            }
-            return res.send();
-        });
-    })(req, res, next);
-};*/
-
-/**
  * Main configuration for all routes in application.
  * Any forms that are added should initialize their routes here.
  *
