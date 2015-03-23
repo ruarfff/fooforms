@@ -4,7 +4,7 @@
 var mongoose = require('mongoose');
 var Schema = mongoose.Schema;
 
-var openInviteSchema = new Schema({
+var inviteSchema = new Schema({
     organisation: {
         type: Schema.Types.ObjectId,
         ref: 'Organisation',
@@ -15,13 +15,21 @@ var openInviteSchema = new Schema({
         ref: 'User',
         required: true
     },
+    email: {
+        type: String,
+        required: true
+    },
     message: String,
     status: String,
     created: Date,
-    lastModified: Date
+    lastModified: Date,
+    timeToLive: {
+        type: Number,
+        default: -1
+    }
 });
 
-openInviteSchema.pre('save', function (next) {
+inviteSchema.pre('save', function (next) {
     if (!this.isNew) {
         this.lastModified = new Date();
         return next();
@@ -32,5 +40,4 @@ openInviteSchema.pre('save', function (next) {
 });
 
 
-exports.OpenInvite = mongoose.model('OpenInvite', openInviteSchema);
-
+exports.Invite = mongoose.model('Invite', inviteSchema);
