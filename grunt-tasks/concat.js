@@ -42,7 +42,7 @@ module.exports = function (grunt) {
             src: [
                 'bower/angular-route/angular-route.min.js',
                 'bower/angular-cookies/angular-cookies.min.js',
-                'bower/trNgGrid/release/trNgGrid.min.js',
+                'bower/trNgGrid/trNgGrid.min.js',
                 'bower/jquery-ui/jquery-ui.min.js',
                 'bower/angular-bootstrap/ui-bootstrap.min.js',
                 'bower/angular-bootstrap/ui-bootstrap-tpls.min.js',

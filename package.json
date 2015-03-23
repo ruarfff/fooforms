@@ -51,7 +51,7 @@
     "method-override": "2.3.x",
     "mkdirp": "0.5.x",
     "mongodb": "1.4.x",
-    "mongoose": "3.8.x",
+    "mongoose": "3.8",
     "mongoose-unique-validator": "0.4.x",
     "nodemailer": "1.3.x",
     "nodemailer-smtp-transport": "1.0.x",

@@ -16,7 +16,7 @@
                             <label for="email" class="form-label">Email</label>
 
                             <input type="email" ng-model="details.email" name="email" id="email" required="required"
-                                   class="form-control"/>
+                                   class="form-control" ng-disabled="details.email"/>
                             <span ng-show="form.email.$error.email" class="bg-warning"><span
                                     class="glyphicon glyphicon-warning-sign"></span></span>
 
