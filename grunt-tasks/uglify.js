@@ -5,6 +5,7 @@ module.exports = function (grunt) {
         options: {
             mangle: false
         },
+        app: {},
         vendor: {
             files: {
                 "public/js/vendor.min.js": ["public/js/vendor.min.js"]

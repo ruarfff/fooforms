@@ -12,7 +12,7 @@ module.exports = function (grunt) {
         },
         js: {
             files: ['public/js/app/**/*.js'],
-            tasks: ['concat:js', 'uglify']
+            tasks: ['process-frontend-js']
         },
         // No task here for views and public. Just livereload is run.
         views: {

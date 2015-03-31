@@ -40,7 +40,7 @@ module.exports = function (grunt) {
                 stripBanners: true
             },
             src: [
-                'bower/angular-route/angular-route.min.js',
+                'bower/angular-ui-router/release/angular-ui-router.min.js',
                 'bower/angular-cookies/angular-cookies.min.js',
                 'bower/trNgGrid/trNgGrid.min.js',
                 'bower/jquery-ui/jquery-ui.min.js',

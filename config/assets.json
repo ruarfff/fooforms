@@ -3,6 +3,7 @@
         "js": {
             "dashboard": [
                 "/js/app/main.js",
+              "/js/app/routes.js",
                 "/js/app/authentication/authentication.js",
                 "/js/app/authentication/authenticationConstants.js",
                 "/js/app/authentication/authenticationControllers.js",
