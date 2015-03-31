@@ -1,43 +1,16 @@
 angular.module('fooformsApp')
-    .config(['$stateProvider', '$urlRouterProvider', function ($stateProvider, $urlRouterProvider) {
+    .config(['$stateProvider', '$urlRouterProvider', '$locationProvider', function ($stateProvider, $urlRouterProvider, $locationProvider) {
+
+        $locationProvider.html5Mode(true).hashPrefix('!');
 
         $urlRouterProvider
             .when('/', '/dashboard')
             .otherwise('/');
 
 
-        $stateProvider.state('home', {
-            url: '/'
-
-        });
-
-
-        $routeProvider
-            .when('/', {
-                redirectTo: '/dashboard',
-                resolve: {
-                    session: function (SessionService) {
-                        return SessionService.checkSession();
-                    }
-                }
-            })
-            .when('/login', {
-                templateUrl: '/login/partials/login',
-                controller: 'AuthCtrl'
-            })
-            .when('/signup', {
-                templateUrl: '/signup/partials/signup',
-                controller: 'AuthCtrl'
-            })
-            .when('/forgotten-password', {
-                templateUrl: '/forgotten-password/partials/forgotten-password',
-                controller: 'ForgottenPasswordCtrl'
-            })
-            .when('/reset-password/:token', {
-                templateUrl: '/reset-password/partials/reset-password',
-                controller: 'ResetPasswordCtrl'
-            })
-            .when('/dashboard', {
+        $stateProvider
+            .state('dashboard', {
+                url: '/dashboard',
                 templateUrl: '/dashboard/partials/main-view',
                 controller: 'DashboardCtrl',
                 resolve: {
@@ -45,12 +18,35 @@ angular.module('fooformsApp')
                         return SessionService.checkSession();
                     }
                 }
+
             })
-            .when('/invite/:invite', {
+            .state('login', {
+                url: '/login',
+                templateUrl: '/login/partials/login',
+                controller: 'AuthCtrl'
+            })
+            .state('signup', {
+                url: '/signup',
+                templateUrl: '/signup/partials/signup',
+                controller: 'AuthCtrl'
+            })
+            .state('forgottenPassword', {
+                url: '/forgotten-password',
+                templateUrl: '/forgotten-password/partials/forgotten-password',
+                controller: 'ForgottenPasswordCtrl'
+            })
+            .state('resetPassword', {
+                url: '/reset-password/:token',
+                templateUrl: '/reset-password/partials/reset-password',
+                controller: 'ResetPasswordCtrl'
+            })
+            .state('invite', {
+                url: '/invite/:invite',
                 templateUrl: '/invite/partials/invite',
                 controller: 'InviteCtrl'
             })
-            .when('/people', {
+            .state('people', {
+                url: '/people',
                 templateUrl: '/users/partials/people',
                 controller: 'PeopleCtrl',
                 resolve: {
@@ -59,7 +55,8 @@ angular.module('fooformsApp')
                     }
                 }
             })
-            .when('/profile', {
+            .state('profile', {
+                url: '/profile',
                 templateUrl: '/users/partials/profile',
                 controller: 'ProfileCtrl',
                 resolve: {
@@ -68,7 +65,8 @@ angular.module('fooformsApp')
                     }
                 }
             })
-            .when('/userGuide', {
+            .state('userGuide', {
+                url: '/userGuide',
                 templateUrl: '/dashboard/partials/userGuide',
                 resolve: {
                     session: function (SessionService) {
@@ -76,7 +74,8 @@ angular.module('fooformsApp')
                     }
                 }
             })
-            .when('/settings', {
+            .state('settings', {
+                url: '/settings',
                 templateUrl: '/dashboard/partials/settings',
                 resolve: {
                     session: function (SessionService) {
@@ -84,7 +83,8 @@ angular.module('fooformsApp')
                     }
                 }
             })
-            .when('/admin', {
+            .state('admin', {
+                url: '/admin',
                 templateUrl: '/admin/partials/admin',
                 resolve: {
                     session: function (SessionService) {
@@ -92,7 +92,8 @@ angular.module('fooformsApp')
                     }
                 }
             })
-            .when('/calendar', {
+            .state('calendar', {
+                url: '/calendar',
                 templateUrl: '/calendar/partials/calendar',
                 resolve: {
                     session: function (SessionService) {
@@ -100,7 +101,8 @@ angular.module('fooformsApp')
                     }
                 }
             })
-            .when('/organisations', {
+            .state('organisations', {
+                url: '/organisations',
                 templateUrl: '/organisations/partials/organisations',
                 controller: 'OrganisationCtrl',
                 resolve: {
@@ -109,7 +111,8 @@ angular.module('fooformsApp')
                     }
                 }
             })
-            .when('/organisations/:organisation', {
+            .state('organisations.profile', {
+                url: '/organisations/:organisation',
                 templateUrl: '/organisations/partials/organisation-profile',
                 controller: 'OrganisationCtrl',
                 resolve: {
@@ -118,7 +121,8 @@ angular.module('fooformsApp')
                     }
                 }
             })
-            .when('/teams', {
+            .state('teams', {
+                url: '/teams',
                 templateUrl: '/teams/partials/teams',
                 controller: 'TeamCtrl',
                 resolve: {
@@ -127,7 +131,8 @@ angular.module('fooformsApp')
                     }
                 }
             })
-            .when('/teams/:team', {
+            .state('teams.profile', {
+                url: '/teams/:team',
                 templateUrl: '/teams/partials/team-profile',
                 controller: 'TeamProfileCtrl',
                 resolve: {
@@ -136,7 +141,8 @@ angular.module('fooformsApp')
                     }
                 }
             })
-            .when('/formBuilder', {
+            .state('formBuilder', {
+                url: '/formBuilder',
                 templateUrl: '/forms/partials/formBuilder',
                 controller: 'FormBuilderCtrl',
                 resolve: {
@@ -145,7 +151,8 @@ angular.module('fooformsApp')
                     }
                 }
             })
-            .when('/forms', {
+            .state('forms', {
+                url: '/forms',
                 templateUrl: '/forms/partials/forms',
                 controller: 'FormCtrl',
                 resolve: {
@@ -154,7 +161,8 @@ angular.module('fooformsApp')
                     }
                 }
             })
-            .when('/user/:name', {
+            .state('user.profile', {
+                url: '/user/:name',
                 templateUrl: '/users/partials/user-profile',
                 controller: 'UserViewCtrl',
                 resolve: {
@@ -163,7 +171,8 @@ angular.module('fooformsApp')
                     }
                 }
             })
-            .when('/:name', {
+            .state('main', {
+                url: '/:name',
                 templateUrl: '/dashboard/partials/main-view',
                 controller: 'DashboardCtrl',
                 resolve: {
@@ -172,7 +181,8 @@ angular.module('fooformsApp')
                     }
                 }
             })
-            .when('/:name/teams/:team', {
+            .state('main.team', {
+                url: '/:name/teams/:team',
                 templateUrl: '/dashboard/partials/main-view',
                 controller: 'DashboardCtrl',
                 resolve: {
@@ -181,7 +191,8 @@ angular.module('fooformsApp')
                     }
                 }
             })
-            .when('/:name/new-form', {
+            .state('main.newForm', {
+                url: '/:name/new-form',
                 templateUrl: '/forms/partials/formBuilder',
                 controller: 'FormBuilderCtrl',
                 resolve: {
@@ -190,7 +201,8 @@ angular.module('fooformsApp')
                     }
                 }
             })
-            .when('/:name/:form/edit', {
+            .state('main.editForm', {
+                url: '/:name/:form/edit',
                 templateUrl: '/forms/partials/formBuilder',
                 controller: 'FormBuilderCtrl',
                 resolve: {
@@ -199,7 +211,8 @@ angular.module('fooformsApp')
                     }
                 }
             })
-            .when('/:name/:form', {
+            .state('main.form', {
+                url: '/:name/:form',
                 templateUrl: '/dashboard/partials/main-view',
                 controller: 'FormViewerCtrl',
                 resolve: {
@@ -208,7 +221,8 @@ angular.module('fooformsApp')
                     }
                 }
             })
-            .when('/:name/teams/:team/:form/edit', {
+            .state('main.team.editForm', {
+                url: '/:name/teams/:team/:form/edit',
                 templateUrl: '/forms/partials/formBuilder',
                 controller: 'FormBuilderCtrl',
                 resolve: {
@@ -217,7 +231,8 @@ angular.module('fooformsApp')
                     }
                 }
             })
-            .when('/:name/teams/:team/:form', {
+            .state('main.team.form', {
+                url: '/:name/teams/:team/:form',
                 templateUrl: '/dashboard/partials/main-view',
                 controller: 'FormViewerCtrl',
                 resolve: {
@@ -225,6 +240,5 @@ angular.module('fooformsApp')
                         return SessionService.checkSession();
                     }
                 }
-            })
-            .otherwise({redirectTo: '/'});
+            });
     }]);

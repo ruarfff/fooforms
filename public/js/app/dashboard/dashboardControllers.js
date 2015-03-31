@@ -1,7 +1,7 @@
 /* global angular */
 
-angular.module('dashboard').controller('DashboardCtrl', ['$rootScope', '$scope', '$routeParams', '$log', '_', 'SweetAlert', 'DashboardService', 'Session', 'PostService', 'Posts', '$timeout', '$window',
-    function ($rootScope, $scope, $routeParams, $log, _, SweetAlert, DashboardService, Session, PostService, Posts, $timeout, $window) {
+angular.module('dashboard').controller('DashboardCtrl', ['$rootScope', '$scope', '$stateParams', '$log', '_', 'SweetAlert', 'DashboardService', 'Session', 'PostService', 'Posts', '$timeout', '$window',
+    function ($rootScope, $scope, $stateParams, $log, _, SweetAlert, DashboardService, Session, PostService, Posts, $timeout, $window) {
         'use strict';
         $scope.postView = 'list';
         $scope.printPreview = false;
@@ -14,8 +14,8 @@ angular.module('dashboard').controller('DashboardCtrl', ['$rootScope', '$scope',
         var forms = [];
 
 
-        var currentName = $routeParams.name;
-        var currentTeam = $routeParams.team;
+        var currentName = $stateParams.name;
+        var currentTeam = $stateParams.team;
 
         // Check if this is a user dashboard. If not, it is an organisation or team dashboard
         if (!currentName || Session.user.displayName === currentName) {

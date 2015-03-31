@@ -1,8 +1,8 @@
 /* global angular */
 
 angular.module('formBuilder').controller('FormBuilderCtrl',
-    ['$log', '$routeParams', '$scope', '$http', '$modal', '$filter', 'Restangular', 'SweetAlert', 'FormService', 'Session', '_',
-        function ($log, $routeParams, $scope, $http, $modal, $filter, Restangular, SweetAlert, FormService, Session, _) {
+    ['$log', '$stateParams', '$scope', '$http', '$modal', '$filter', 'Restangular', 'SweetAlert', 'FormService', 'Session', '_',
+        function ($log, $stateParams, $scope, $http, $modal, $filter, Restangular, SweetAlert, FormService, Session, _) {
             "use strict";
 
             $scope.organisation = Session.user.organisations[0]; // Using this for a filter in sharing view
@@ -30,7 +30,7 @@ angular.module('formBuilder').controller('FormBuilderCtrl',
                 $scope.standardInputTypes = $filter('filterTypes')($scope.inputTypesRefresh, 'standard');
                 $scope.resetEventTypes();
 
-                var name = $routeParams.name;
+                var name = $stateParams.name;
                 var owner = _.find(Session.user.organisations, {displayName: name}) || _.find(Session.user.teams, {displayName: name}) || Session.user.displayName;
                 var team = _.find(Session.user.teams, {displayName: $routeParams.team});
                 var folder;
@@ -47,7 +47,7 @@ angular.module('formBuilder').controller('FormBuilderCtrl',
                     window.location.href = '/dashboard';
                 }
 
-                var formName = $routeParams.form;
+                var formName = $stateParams.form;
 
                 if (formName) {
                     if (folder) {

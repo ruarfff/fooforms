@@ -46,9 +46,10 @@ angular.module('invite')
             $log.error(err);
         });
     }])
-    .controller('InviteModalCtrl', ['$scope', '$routeParams', 'SweetAlert', '$rootScope', '$modalInstance', 'AUTH_EVENTS', 'AuthService', 'InviteService', function ($scope, $routeParams, SweetAlert, $rootScope, $modalInstance, AUTH_EVENTS, AuthService, InviteService) {
+    .controller('InviteModalCtrl', ['$scope', '$stateParams', 'SweetAlert', '$rootScope', '$modalInstance', 'AUTH_EVENTS', 'AuthService', 'InviteService',
+        function ($scope, $stateParams, SweetAlert, $rootScope, $modalInstance, AUTH_EVENTS, AuthService, InviteService) {
         $scope.details = {};
-        $scope.busy = InviteService.getInvitation($routeParams.invite).then(function (invite) {
+            $scope.busy = InviteService.getInvitation($stateParams.invite).then(function (invite) {
             $scope.invite = invite;
             $scope.orgName = invite.organisation.displayName;
             $scope.details = {
@@ -113,9 +114,10 @@ angular.module('invite')
             $log.error(err);
         });
     }])
-    .controller('OpenInviteModalCtrl', ['$scope', '$routeParams', 'SweetAlert', '$rootScope', '$modalInstance', 'AUTH_EVENTS', 'AuthService', 'InviteService', function ($scope, $routeParams, SweetAlert, $rootScope, $modalInstance, AUTH_EVENTS, AuthService, InviteService) {
+    .controller('OpenInviteModalCtrl', ['$scope', '$stateParams', 'SweetAlert', '$rootScope', '$modalInstance', 'AUTH_EVENTS', 'AuthService', 'InviteService',
+        function ($scope, $stateParams, SweetAlert, $rootScope, $modalInstance, AUTH_EVENTS, AuthService, InviteService) {
         $scope.details = {};
-        $scope.busy = InviteService.getInvitation($routeParams.invite).then(function (invite) {
+            $scope.busy = InviteService.getInvitation($stateParams.invite).then(function (invite) {
             $scope.invite = invite;
             $scope.orgName = invite.organisation.displayName;
             $scope.details = {

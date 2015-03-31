@@ -26,7 +26,6 @@ var fooformsApp = angular.module('fooformsApp', [
 fooformsApp
     .config(['RestangularProvider', function (RestangularProvider) {
         'use strict';
-        $locationProvider.html5Mode(true).hashPrefix('!');
         RestangularProvider.setBaseUrl('/api');
         RestangularProvider.setDefaultHeaders({'Content-Type': 'application/json'});
         RestangularProvider.setRestangularFields({

@@ -185,7 +185,7 @@ angular.module('authentication')
         });
 
     }])
-    .controller('ResetPasswordModalCtrl', ['$scope', '$modalInstance', '$routeParams', 'PasswordService', function ($scope, $modalInstance, $routeParams, PasswordService) {
+    .controller('ResetPasswordModalCtrl', ['$scope', '$modalInstance', '$stateParams', 'PasswordService', function ($scope, $modalInstance, $stateParams, PasswordService) {
         'use strict';
 
         $scope.resetError = false;
@@ -193,7 +193,7 @@ angular.module('authentication')
         $scope.updatePassword = function (password) {
             var args = {
                 password: password,
-                token: $routeParams.token
+                token: $stateParams.token
             };
             PasswordService.updatePassword(args, function (err) {
                 $modalInstance.close(err);
