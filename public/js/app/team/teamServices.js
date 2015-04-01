@@ -1,12 +1,10 @@
 angular.module('team')
     .factory('TeamService',
-    ['$log', 'Restangular', 'Session', '_',
-        function ($log, Restangular, Session, _) {
+    ['$log', 'Restangular', 'Session',
+        function ($log, Restangular, Session) {
             'use strict';
             var teamApi = Restangular.all('teams');
-
             return {
-
                 createTeam: function (team, next) {
                     if (!team.members) {
                         team.members = [];
@@ -14,7 +12,7 @@ angular.module('team')
                     team.members.push(Session.user._id);
                     teamApi.post(team).then(function (teamResponse) {
                         Session.user.teams.push(teamResponse);
-                        Session.user.put().then(function (res) {
+                        Session.user.put().then(function () {
                             return next(null, teamResponse);
                         }, function (err) {
                             $log.error(err);

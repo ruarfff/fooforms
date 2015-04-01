@@ -1,5 +1,6 @@
 angular.module('fooformsApp')
     .config(['$routeProvider', '$locationProvider', function ($routeProvider, $locationProvider) {
+        'use strict';
 
         $locationProvider.html5Mode(true).hashPrefix('!');
 

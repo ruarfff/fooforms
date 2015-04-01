@@ -30,7 +30,7 @@
     "fullcalendar": "2.3.x",
     "angular-bootstrap": "0.12.x",
     "trNgGrid": "3.0.x",
-    "codemirror": "5.0.x",
+    "codemirror": "5.1.x",
     "angular-ui-codemirror": "0.2.x",
     "slug": "0.8.x",
     "sweetalert": "0.5.x",

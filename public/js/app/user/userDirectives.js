@@ -1,12 +1,9 @@
-/* global angular */
-
 angular.module('user')
     .directive('userPhoto', ['$upload', '$log', '_', 'Session', function ($upload, $log, _, Session) {
-
+        'use strict';
         return {
             restrict: 'E',
-
-            link: function (scope, elem, attrs, ctrl) {
+            link: function (scope) {
                 scope.onFileSelect = function (selectedFile) {
                     scope.uploadFile = selectedFile[0];
                     scope.doFileUpload();
@@ -24,7 +21,7 @@ angular.module('user')
 
                         }).progress(function (evt) {
                             scope.uploadProgress = (parseInt(100.0 * evt.loaded / evt.total));
-                        }).success(function (data, status, headers, config) {
+                        }).success(function (data) {
                             // file is uploaded successfully
                             scope.uploadFile = [];
                             scope.allowUpload = null;
@@ -44,12 +41,12 @@ angular.module('user')
             replace: true,
             templateUrl: '/partials/profileUploader.html'
         };
-    }]) .directive('orgPhoto', ['$upload', '$log', '_', 'Session', function ($upload, $log, _, Session) {
-
+    }]).directive('orgPhoto', ['$upload', '$log', '_', 'Session', function ($upload, $log, _, Session) {
+        'use strict';
         return {
             restrict: 'E',
 
-            link: function (scope, elem, attrs, ctrl) {
+            link: function (scope) {
                 scope.onFileSelect = function (selectedFile) {
                     scope.uploadFile = selectedFile[0];
                     scope.doFileUpload();
@@ -61,13 +58,11 @@ angular.module('user')
                         scope.upload = $upload.upload({
                             url: filesUrl,
                             method: 'POST',
-                            // headers: {'header-key': 'header-value'},
-                            // withCredentials: true,
                             data: {file: scope.uploadFile}
 
                         }).progress(function (evt) {
                             scope.uploadProgress = (parseInt(100.0 * evt.loaded / evt.total));
-                        }).success(function (data, status, headers, config) {
+                        }).success(function (data) {
                             // file is uploaded successfully
                             scope.uploadFile = [];
                             scope.allowUpload = null;

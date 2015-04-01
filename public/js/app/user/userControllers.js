@@ -1,8 +1,5 @@
-/* global angular */
-
 angular.module('user')
-
-    .controller('ProfileCtrl', ['$scope', 'Restangular', '_', 'Session', 'SweetAlert', function ($scope, Restangular, _, Session, SweetAlert) {
+    .controller('ProfileCtrl', ['$scope', '$log', 'Restangular', '_', 'Session', 'SweetAlert', function ($scope, $log, Restangular, _, Session, SweetAlert) {
         'use strict';
         $scope.userProfile = Restangular.copy(Session.user);
 
@@ -19,17 +16,18 @@ angular.module('user')
 
                 SweetAlert.swal('Updated!', 'Your profile has been saved.', 'success');
             }, function (err) {
+                $log.error(err);
                 SweetAlert.swal('Not Updated!', 'An error occurred trying to update your profile.', 'error');
             });
         };
     }])
-    .controller('UserViewCtrl', ['$scope', function ($scope) {
+    .controller('UserViewCtrl', [function () {
         'use strict';
 
     }])
     .controller('PeopleCtrl', ['$scope', '$http', function ($scope, $http) {
-        "use strict";
-        $scope.selectedUser = "";
+        'use strict';
+        $scope.selectedUser = '';
 
 
         $scope.getUsers = function (val) {

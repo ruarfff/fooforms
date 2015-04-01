@@ -2,7 +2,7 @@ angular.module('team')
     .controller('TeamCtrl',
     ['$scope', '$route', '$log', 'Restangular', 'SweetAlert', 'TeamService', 'Team', 'Session', '_',
         function ($scope, $route, $log, Restangular, SweetAlert, TeamService, Team, Session, _) {
-            "use strict";
+            'use strict';
 
             $scope.currentOrganisation = Session.user.organisations[0];
 
@@ -138,20 +138,24 @@ angular.module('team')
     .controller('TeamProfileCtrl',
     ['$scope', '$route', '$log', 'Restangular', 'TeamService', 'Team', 'Session', '_',
         function ($scope, $route, $log, Restangular, TeamService, Team, Session, _) {
-            "use strict";
+            'use strict';
 
             $scope.team = _.find(Session.user.teams, {'displayName': $route.current.params.team});
 
             $scope.createTeam = function () {
                 $scope.team = Team.createTeam();
-                TeamService.createTeam(team, function (err, res) {
-
+                TeamService.createTeam($scope.team, function (err, res) {
+                    if(err) {
+                        $log.error(err);
+                    }
                 })
             };
 
             $scope.saveTeam = function () {
                 TeamService.createTeam($scope.team, function (err, res) {
-
+                    if(err) {
+                        $log.error(err);
+                    }
                 })
             }
         }]);
