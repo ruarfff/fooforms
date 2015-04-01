@@ -21,6 +21,8 @@ var inviteSchema = new Schema({
     },
     message: String,
     status: String,
+    created: Date,
+    lastModified: Date,
     timeToLive: {
         type: Number,
         default: -1
@@ -36,13 +38,6 @@ inviteSchema.pre('save', function (next) {
     this.lastModified = new Date();
     return next();
 });
-/**
- var Invite;
- try {
-    Invite = mongoose.model('Invite');
-} catch (err) {
-    Invite =
-}*/
+
 
 exports.Invite = mongoose.model('Invite', inviteSchema);
-

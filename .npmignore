@@ -15,3 +15,5 @@ public/
 .bowerrc
 bower.json
 
+node_modules/
+
