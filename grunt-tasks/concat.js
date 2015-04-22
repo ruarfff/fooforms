@@ -43,7 +43,7 @@ module.exports = function (grunt) {
                 'bower/angular-route/angular-route.min.js',
                 'bower/angular-cookies/angular-cookies.min.js',
                 'bower/trNgGrid/release/trNgGrid.min.js',
-                'bower/jquery-ui/ui/minified/jquery-ui.min.js',
+                'bower/jquery-ui/jquery-ui.min.js',
                 'bower/angular-bootstrap/ui-bootstrap.min.js',
                 'bower/angular-bootstrap/ui-bootstrap-tpls.min.js',
                 'bower/lodash/dist/lodash.min.js',
@@ -65,7 +65,8 @@ module.exports = function (grunt) {
                 'bower/pikaday/pikaday.js',
                 'bower/sweetalert/lib/sweet-alert.min.js',
                 'bower/angular-sweetalert/SweetAlert.min.js',
-                'bower/angular-busy/dist/angular-busy.min.js'
+                'bower/angular-busy/dist/angular-busy.min.js',
+                'bower/angular-ui-sortable/sortable.min.js'
             ],
             dest: 'public/js/vendor.min.js'
         },

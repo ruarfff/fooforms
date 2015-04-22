@@ -2,6 +2,7 @@
 /*global describe, it, before, beforeEach, after, afterEach */
 'use strict';
 
+var rewire = require('rewire');
 var mongoose = require('mongoose');
 var ObjectId = mongoose.Types.ObjectId();
 var mockgoose = require('mockgoose');
@@ -12,7 +13,23 @@ var express = require('express');
 var bodyParser = require('body-parser');
 var should = require('should');
 var rootUrls = require('../../../config/rootUrls');
-var signupRoutes = require('../routes/signupRoutes');
+var signupRoutes = rewire('../routes/signupRoutes');
+var signupController = rewire('../controllers/signupController');
+
+var mockEmail = {
+    sendHelloWorld: function (next) {
+    },
+    sendInvitation: function (invite, next) {
+    },
+    sendWelcomeEmail: function (welcome) {
+    },
+    sendForgottenPasswordEmail: function (args, next) {
+    }
+};
+
+signupController.__set__('email', mockEmail);
+
+signupRoutes.__set__('signupController', signupController);
 var userRoutes = require('../routes/userApiRoutes');
 
 

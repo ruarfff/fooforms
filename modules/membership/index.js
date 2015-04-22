@@ -11,6 +11,10 @@ var teamApiRoutes = require('./routes/teamApiRoutes');
 var inviteViewRoutes = require('./routes/inviteViewRoutes');
 var inviteApiRoutes = require('./routes/inviteApiRoutes');
 var invitePublicApiRoutes = require('./routes/invitePublicApiRoutes');
+var forgottenPasswordViewRoutes = require('./routes/forgottenPasswordViewRoutes');
+var forgottenPasswordApiRoutes = require('./routes/forgottenPasswordApiRoutes');
+var resetPasswordViewRoutes = require('./routes/resetPasswordViewRoutes');
+var resetPasswordApiRoutes = require('./routes/resetPasswordApiRoutes');
 var passport = require('./passportConfig');
 
 exports.signupRoutes = signupRoutes;
@@ -26,5 +30,9 @@ exports.teamApiRoutes = teamApiRoutes;
 exports.inviteViewRoutes = inviteViewRoutes;
 exports.inviteApiRoutes = inviteApiRoutes;
 exports.invitePublicApiRoutes = invitePublicApiRoutes;
+exports.forgottenPasswordViewRoutes = forgottenPasswordViewRoutes;
+exports.forgottenPasswordApiRoutes = forgottenPasswordApiRoutes;
+exports.resetPasswordViewRoutes = resetPasswordViewRoutes;
+exports.resetPasswordApiRoutes = resetPasswordApiRoutes;
 exports.passport = passport;
 

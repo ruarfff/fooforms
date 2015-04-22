@@ -25,7 +25,6 @@
                 "/js/app/formBuilder/formBuilderControllers.js",
                 "/js/app/formBuilder/formBuilderDirectives.js",
                 "/js/app/formBuilder/formBuilderFilters.js",
-                "/js/app/formBuilder/uiSortable.js",
                 "/js/app/formViewer/formViewer.js",
                 "/js/app/formViewer/formViewerControllers.js",
                 "/js/app/invite/invite.js",

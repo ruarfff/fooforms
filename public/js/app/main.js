@@ -106,6 +106,14 @@ fooformsApp
                 templateUrl: '/signup/partials/signup',
                 controller: 'AuthCtrl'
             })
+            .when('/forgotten-password', {
+                templateUrl: '/forgotten-password/partials/forgotten-password',
+                controller: 'ForgottenPasswordCtrl'
+            })
+            .when('/reset-password/:token', {
+                templateUrl: '/reset-password/partials/reset-password',
+                controller: 'ResetPasswordCtrl'
+            })
             .when('/dashboard', {
                 templateUrl: '/dashboard/partials/main-view',
                 controller: 'DashboardCtrl',
@@ -354,12 +362,12 @@ fooformsApp
                     // It's contactus form is returning a 404
                     // So disconnecting call until advised otherwise
                     /*if ($scope.user && !$scope.contactUsForm) {
-                        ContactService.getContactUsForm().then(function (res) {
-                            $scope.contactUsForm = res.data;
-                        }, function (err) {
-                            $log.error(err);
-                        });
-                    }*/
+                     ContactService.getContactUsForm().then(function (res) {
+                     $scope.contactUsForm = res.data;
+                     }, function (err) {
+                     $log.error(err);
+                     });
+                     }*/
 
                 }
             });

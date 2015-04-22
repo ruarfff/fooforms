@@ -121,4 +121,84 @@ angular.module('authentication')
             });
         };
 
+    }])
+    .controller('ForgottenPasswordCtrl', ['$scope', '$modal', '$location', '$log', function ($scope, $modal, $location, $log) {
+        'use strict';
+        var modalInstance;
+
+        modalInstance = $modal.open({
+            templateUrl: 'forgottenPassword.html',
+            controller: 'ForgottenPasswordModalCtrl',
+            size: 'sm',
+            keyboard: false,
+            backdrop: 'static',
+            backdropClass: 'auth-backdrop',
+            windowClass: 'auth-window modal-trans'
+        });
+
+        modalInstance.result.then(function () {
+            $location.path("/login");
+        }, function (err) {
+            // TODO: Never happens, or should it........?
+            $log.error(err);
+            $location.path("/login");
+        });
+
+    }])
+    .controller('ForgottenPasswordModalCtrl', ['$scope', '$modalInstance', '$location', 'SweetAlert', 'PasswordService', function ($scope, $modalInstance, $location, SweetAlert, PasswordService) {
+        'use strict';
+
+        $scope.sendReset = function (email) {
+            PasswordService.sendReset(email, function () {
+
+                SweetAlert.swal({
+                    title: "Sent",
+                    text: "An email has been sent with instructions for resetting your password.",
+                    type: "success"
+                }, function () {
+                    $modalInstance.close();
+                });
+
+            });
+        };
+
+    }])
+    .controller('ResetPasswordCtrl', ['$scope', '$modal', '$location', '$log', function ($scope, $modal, $location, $log) {
+        'use strict';
+        var modalInstance;
+
+        modalInstance = $modal.open({
+            templateUrl: 'resetPassword.html',
+            controller: 'ResetPasswordModalCtrl',
+            size: 'sm',
+            keyboard: false,
+            backdrop: 'static',
+            backdropClass: 'auth-backdrop',
+            windowClass: 'auth-window modal-trans'
+        });
+
+        modalInstance.result.then(function () {
+            $location.path("/login");
+        }, function (err) {
+            $log.error(err);
+            $location.path("/login");
+        });
+
+    }])
+    .controller('ResetPasswordModalCtrl', ['$scope', '$modalInstance', '$routeParams', 'PasswordService', function ($scope, $modalInstance, $routeParams, PasswordService) {
+        'use strict';
+
+        $scope.resetError = false;
+
+        $scope.updatePassword = function (password) {
+            var args = {
+                password: password,
+                token: $routeParams.token
+            };
+            PasswordService.updatePassword(args, function (err) {
+                $modalInstance.close(err);
+            });
+
+        };
+
     }]);
