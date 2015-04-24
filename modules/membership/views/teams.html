@@ -68,6 +68,9 @@
                                     </div>
 
 
+                                    <button ng-click="deleteTeam()" class="btn btn-danger">Delete
+                                </button>
+
                                     <button ng-click="saveTeam()" class="btn btn-success">Save
                                     </button>
                                 </form>
@@ -90,16 +93,18 @@
                                                     class="list-group-item m0 p0 clearfix"
                                                     ng-mouseover="member.highlighted = true" ng-mouseleave="member.highlighted = false"
                                                         ng-click="addToTeam(member)">
-                                                    <img class="icon pull-left"
+                                                    <img class="icon pull-left img-circle"
                                                          ng-src="{{member.photo || '/assets/images/photo.jpg'}}"/>
 
-                                                    <h4>{{member.name.givenName + ' ' + member.name.familyName}}
+                                                    <h4>{{member.displayName}}
                                                     </h4>
 
-                                                    <p>{{member.displayName}}</p>
+                                                    <p>{{member.name.givenName + ' ' + member.name.familyName}}</p>
 
                                                 </li>
+
                                             </ul>
+
                                         </div>
                                     </div>
                                 </div>
@@ -113,18 +118,21 @@
                                                     ng-mouseover="member.highlighted = true" ng-mouseleave="member.highlighted = false"
                                                         ng-click="removeFromTeam(member)">
 
-                                                    <img class="icon pull-left"
+                                                    <img class="icon pull-left  img-circle"
                                                          ng-src="{{member.photo || '/assets/images/photo.jpg'}}"/>
-                                                    <h4>{{member.name.givenName + ' ' + member.name.familyName}}
+                                                    <h4>{{member.displayName}}
                                                     </h4>
 
-                                                    <p>{{member.displayName}}</p>
+                                                    <p>{{member.name.givenName + ' ' + member.name.familyName}}</p>
                                                 </li>
                                             </ul>
                                         </div>
                                     </div>
                                 </div>
-
+<div class="row">
+    <div class="col-sm-12"> <a href="/organisations">
+        <h5 class="p5">Invite New Users</h5></a></div>
+</div>
 
                             </div>
                         </div>

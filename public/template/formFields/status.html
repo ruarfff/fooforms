@@ -7,11 +7,10 @@
     </label>
 
     <div class="input-group" ng-style="{'width': formField.size+'%'}">
-        <button class="btn m5"
-                ng-class="{ 'btn-success': formField.selected == option.label ,'btn-default' : formField.selected != option.label}"
+        <button class="btn m5 mt0 btn-default"
                 ng-repeat='option in formField.options'
                 ng-click="formField.selected=option.label">
-            <i class="fa fa-check" ng-show="formField.selected == option.label"></i>
+            <i class="fa fa-check-circle text-success" ng-show="formField.selected == option.label"></i>
             {{option.label}}
         </button>
 

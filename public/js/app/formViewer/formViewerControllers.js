@@ -7,7 +7,8 @@ angular.module('formViewer')
 
             $scope.selectedStatus = [{fieldID: 'All', status: 'All'}];
 
-            $scope.postView = 'list';
+            $scope.postView = 'feed';
+            $scope.showPostForm = false;
             $scope.printPreview = false;
             $scope.tableRows = 10;
             $scope.feedPosition = {'top': '170px'};
@@ -35,21 +36,35 @@ angular.module('formViewer')
                 window.location.href = '/dashboard';
             }
             $scope.form = _.find(folder.forms, {displayName: formName});
-
+            $scope.activeForm = $scope.form;
             if (!$scope.form) {
                 window.location.href = '/dashboard';
             }
 
-            $scope.activePost = Posts.newPost($scope.form);
+            //$scope.activePost = Posts.newPost($scope.form);
 
             $scope.postStreams = $scope.form.postStreams.join(',');
 
             $scope.showPostForm = false;
 
-            $scope.gridData = [1, 2, 3, 4, 5];
-            $scope.gridSelectedPost = [];
-
             $scope.doingPostApi = false;
+
+            $scope.gridHeadings = [];
+
+            $scope.createGridHeadings = function () {
+
+                var map = _.pick($scope.form, 'fields');
+
+                angular.forEach(map.fields, function (fieldData) {
+
+                    if (fieldData.showInGrid === true) {
+                        $scope.gridHeadings.push({id: fieldData.id, label: fieldData.label});
+
+                    }
+                });
+            };
+
+            $scope.createGridHeadings();
 
             $scope.newPost = function () {
                 $scope.activePost = Posts.newPost(angular.copy($scope.form));
@@ -58,9 +73,9 @@ angular.module('formViewer')
             };
 
             $scope.cancelPost = function () {
-
-                $scope.gridSelectedPost = [];
+                $scope.showPostForm = false;
             };
+
             $scope.copyPost = function () {
                 var newPost = angular.copy($scope.activePost);
                 if (newPost._id) {
@@ -71,7 +86,9 @@ angular.module('formViewer')
 
             };
             $scope.savePost = function () {
+                $scope.doingPostApi = true;
                 if ($scope.activePost._id) {
+
                     // Post already exists on server
 
                     // var postToSave = angular.copy($scope.activePost);
@@ -79,34 +96,37 @@ angular.module('formViewer')
                     // Something to do with restangular I expect.
                     // Removed angular.copy and does not seem to cause any issues.
                     // Brian
+
+                    $scope.activePost.lastModified = new Date();
                     var postToSave = $scope.activePost;
 
                     delete postToSave.commentStreams;
                     PostService.updatePost(postToSave, function (err, post) {
+                        $scope.doingPostApi = false;
                         if (err) {
                             $log.error(err);
                             SweetAlert.swal('Not Saved!', 'An error occurred trying to update your post.', 'error');
                         } else {
                             $log.debug(post);
                             $scope.activePost = post;
-                            SweetAlert.swal('Saved!', 'Your post has been saved.', 'success');
 
+                            $scope.showPostForm = false;
                         }
                     });
                 } else {
                     PostService.createPost($scope.activePost, function (err, post) {
+                        $scope.doingPostApi = false;
                         if (err) {
                             $log.error(err);
                             SweetAlert.swal('Not Saved!', 'Your post has not been created.', 'error');
                         } else {
                             $scope.posts.unshift(post);
-                            $scope.activePost = Posts.newPost($scope.form);
-                            SweetAlert.swal('Saved!', 'Your post has been created.', 'success');
+                            $scope.activePost = post;
+                            $scope.showPostForm = false;
                         }
                     });
                 }
-                //Update the grid
-                $scope.posts2Grid();
+
 
             };
 
@@ -137,7 +157,7 @@ angular.module('formViewer')
                     $scope.activePost = Posts.newPost($scope.form);
                 }
                 //Update the grid
-                $scope.posts2Grid();
+                // $scope.posts2Grid();
             };
 
             $scope.viewPost = function (postIndex) {
@@ -170,14 +190,68 @@ angular.module('formViewer')
 
             //Grid Related
             $scope.setFeedHeight = function () {
-
-                $scope.feedPosition = {'opacity': 0};
+                var feedHeader = angular.element('#feedHeader')[0];
+                $scope.feedPosition = {'top': feedHeader.offsetHeight + feedHeader.offsetTop, opacity: '0.05'};
                 $timeout(function () {
-                    var feedHeader = angular.element('#feedHeader')[0];
-                    var height = $window.innerHeight - (feedHeader.offsetHeight + feedHeader.offsetTop);
 
-                    $scope.tableRows = parseInt(height / 42);
+                    //var height = $window.innerHeight - (feedHeader.offsetHeight + feedHeader.offsetTop);
+
                     $scope.feedPosition = {'top': feedHeader.offsetHeight + feedHeader.offsetTop};
+
+                    // Sort out the FooGrid
+                    var fooGrid = angular.element('#fooGrid');
+
+                    fooGrid[0].style.minWidth = feedHeader.offsetWidth;
+
+                    var cellCount = fooGrid[0].rows[0].cells.length;
+                 var rowCount = fooGrid[0].rows.length;
+                    var lastRowIndex = rowCount - 1;
+
+                    if (rowCount>1) {
+                        // First Clear existing width settings
+                        for (var i = 0; i < cellCount; i++) {
+                            var th = fooGrid[0].rows[0].cells[i];
+                            var firstRowTd = fooGrid[0].rows[1].cells[i];
+                            th.style.width = '';
+                            th.style.minWidth = '';
+                            th.style.maxWidth = '';
+                            firstRowTd.style.width = '';
+                            firstRowTd.style.minWidth = '';
+                            firstRowTd.style.maxWidth = '';
+                        }
+
+                        // Set minimum widths for td's based on width of th's
+                        for (var i = 0; i < cellCount; i++) {
+                            var th = fooGrid[0].rows[0].cells[i];
+                            var firstRowTd = fooGrid[0].rows[1].cells[i];
+                            firstRowTd.style.minWidth = th.offsetWidth + 'px';
+                        }
+
+
+                        // Now set th to value of last row td.width
+                        for (var i = 0; i < cellCount; i++) {
+                            var th = fooGrid[0].rows[0].cells[i];
+                            var lastRowTd = fooGrid[0].rows[lastRowIndex].cells[i];
+                            var firstRowTd = fooGrid[0].rows[1].cells[i];
+
+                            if (lastRowTd.offsetWidth >= th.offsetWidth) {
+                                th.style.width = lastRowTd.offsetWidth + 'px';
+                                th.style.minWidth = lastRowTd.offsetWidth + 'px';
+                                th.style.maxWidth = lastRowTd.offsetWidth + 'px';
+                                firstRowTd.style.width = lastRowTd.offsetWidth + 'px';
+                                firstRowTd.style.minWidth = lastRowTd.offsetWidth + 'px';
+                                firstRowTd.style.maxWidth = lastRowTd.offsetWidth + 'px';
+                            } else {
+                                th.style.width = th.offsetWidth + 'px';
+                                th.style.minWidth = th.offsetWidth + 'px';
+                                th.style.maxWidth = th.offsetWidth + 'px';
+                                firstRowTd.style.width = th.offsetWidth + 'px';
+                                firstRowTd.style.minWidth = th.offsetWidth + 'px';
+                                firstRowTd.style.maxWidth = th.offsetWidth + 'px';
+                            }
+                        }
+                    }
+
                 }, 500);
 
 
@@ -190,102 +264,14 @@ angular.module('formViewer')
             });
 
 
-
-            $scope.posts2Grid = function () {
-                $scope.gridData = [];
-                var counter = 0;
-                var hasField = false;
-                $scope.gridFields = [];
-
-                var map = _.pick($scope.form, 'fields');
-
-                angular.forEach(map.fields, function (fieldData) {
-
-
-                    if (fieldData.showInGrid === true) {
-                        var field = _.pick(fieldData, 'label', 'value', 'type', 'selected', 'options');
-                        var safeLabel = field.label.replace(/\s+/g, "_");
-                        $scope.gridFields.push(safeLabel);
-
-                    }
-                });
-
-                angular.forEach(statusFilterFilter($scope.posts, $scope.selectedStatus), function (postEntry) {
-                    hasField = false;
-                    var map = _.pick(postEntry, 'menuLabel', 'fields');
-                    var entry = {};
-                    entry['id'] = postEntry._id;
-                    counter++;
-                    angular.forEach(map.fields, function (field) {
-
-
-                        var reduce = _.pick(field, 'label', 'value', 'type', 'selected', 'options');
-                        var safeLabel = reduce.label.replace(/\s+/g, "_");
-
-                        if ($scope.gridFields.indexOf(safeLabel) > -1) {
-                            hasField = true;
-                            switch (reduce.type) {
-                                case "radio":
-                                case "status":
-                                    entry[safeLabel] = reduce.selected;
-                                    break;
-                                case "textarea":
-                                    entry[safeLabel] = reduce.value;
-                                    break;
-                                case "checkbox":
-                                    var selectedOptions = "";
-                                    for (var i = 0; i < reduce.options.length; i++) {
-                                        if (reduce.options[i].selected) {
-                                            selectedOptions += reduce.options[i].label + ": ";
-                                        }
-                                    }
-                                    entry[safeLabel] = selectedOptions;
-                                    break;
-                                case "file":
-                                    if (reduce.value.hasOwnProperty('originalName')) {
-                                        entry[safeLabel] = reduce.value.originalName;
-                                    }
-                                    break;
-                                default:
-                                    entry[safeLabel] = reduce.value;
-                                    break;
-                            }
-
-                        }
-                    });
-                    if (hasField) {
-                        $scope.gridData.push(entry);
-                    }
-
-                });
-            };
-
-
             $scope.$watch('postView', function (value) {
 
-                if ((typeof (value ) != 'undefined') && value == 'grid') {
-                    $scope.posts2Grid();
 
-                }
                 $scope.setFeedHeight();
 
 
             });
 
-            $scope.$watch('gridSelectedPost[0]', function (value) {
-
-                if (typeof (value ) != 'undefined') {
-                    $scope.showPostForm = true;
-                    var postIndex = _.findIndex($scope.posts, {'_id': value.id});
-                    if (postIndex > -1) {
-                        $scope.activePost = $scope.posts[postIndex];
-                    } else {
-                        alert("Could not find the post? Please reload the page and try again");
-                    }
-
-                }
-
-            });
 
             $scope.filterStatus = function (status, field) {
 
@@ -319,10 +305,6 @@ angular.module('formViewer')
                 // reset if empty
                 if ($scope.selectedStatus.length === 0) {
                     $scope.selectedStatus = [{fieldID: 'All', status: 'All'}];
-                }
-                if ($scope.postView == 'grid') {
-                    $scope.posts2Grid();
-
                 }
 
                 $scope.setFeedHeight();

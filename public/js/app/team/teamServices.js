@@ -63,15 +63,17 @@ angular.module('team')
                     });
                 },
                 getMembers: function (team, next) {
-                    if(typeof team.getList !== 'function') {
-                        team = Restangular.restangularizeElement(teamApi, team, '');
+                    if(team) {
+                        if (typeof team.getList !== 'function') {
+                            team = Restangular.restangularizeElement(teamApi, team, '');
+                        }
+                        team.getList('members').then(function (members) {
+                            return next(null, members);
+                        }, function (err) {
+                            $log.error(err);
+                            return next(err);
+                        });
                     }
-                    team.getList('members').then(function (members) {
-                        return next(null, members);
-                    }, function (err) {
-                        $log.error(err);
-                        return next(err);
-                    });
                 },
                 addMember: function (args, next) {
                     if (typeof args.team.patch !== 'function') {

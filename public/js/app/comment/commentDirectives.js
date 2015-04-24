@@ -1,12 +1,16 @@
 /* global angular */
 
 angular.module('comment')
-    .directive('fooCommentCollection', [
-        function () {
+    .directive('fooCommentCollection',  ['Session',
+        function (Session) {
             return {
                 restrict: 'E',
-                scope: {activePost: '=activePost'},
+                scope: {
+                    activePost: '=activePost',
+                    activeForm: '=activeForm'
+                },
                 transclude: true,
+                
                 controller: function ($log, $scope, _, CommentService) {
                     var currentPage = 0;
                     var pageSize = 10;
@@ -14,6 +18,9 @@ angular.module('comment')
 
                     $scope.comment = {};
                     $scope.comments = [];
+                    $scope.postTitle ='';
+                    $scope.fetchingComments=false;
+                    $scope.showCommentButton = false;
 
                     $scope.$watch('activePost', function (newValue, oldValue) {
                         if (newValue.commentStream != oldValue.commentStream) {
@@ -23,12 +30,15 @@ angular.module('comment')
 
                             $scope.comment = {};
                             $scope.comments = [];
+                            $scope.postTitle ='';
+
                             getComments(currentPage, pageSize, $scope.activePost.commentStream);
                         }
                     });
 
 
                     var getComments = function (page, pageSize, stream) {
+                        $scope.fetchingComments=true;
 
                         if (stream) {
                             CommentService.listByStream({
@@ -40,16 +50,49 @@ angular.module('comment')
                                     $log.error(err);
                                 }
                                 if (comments) {
+                                    $scope.fetchingComments=false;
                                     hasMore = comments.has_more;
                                     $scope.comments = $scope.comments.concat(comments);
+                                    getPostTitle();
                                 }
+
                             });
 
                         } else {
                             $log.debug('Could not load comments. No comment stream provided.');
+                            $scope.fetchingComments=false;
                         }
                     };
 
+
+                    var getPostTitle = function(){
+                        var postForm={};
+                        $scope.titles=[];
+
+                        if (!$scope.activeForm || ($scope.activePost.displayName !== $scope.activeForm.displayName)) {
+                            postForm =_.find(Session.forms, {displayName: $scope.activePost.displayName});
+                        }else{
+                            postForm =$scope.activeForm ;
+
+                        }
+                        var titles = _.where(postForm.fields, {'showInList': true});
+
+
+                        var fieldCount = titles.length;
+
+                        for (var i=0;i<fieldCount;i++){
+
+                            var postField = _.where($scope.activePost.fields, {'id': titles[i].id});
+
+                            if (postField.length>0 && postField[0].type!=='status'){
+
+                                    $scope.titles.push(postField[0]);
+                                }
+
+                        }
+                    }
+
+                    
                     $scope.addMore = function () {
                         if (hasMore) {
                             currentPage = currentPage + 1;
@@ -66,7 +109,8 @@ angular.module('comment')
                                         $log.error(err);
                                     }
                                     if (comment) {
-                                        $scope.comments.push(comment);
+                                        comment.commenter= {photo: Session.user.photo};
+                                        $scope.comments.unshift(comment);
                                         $scope.comment = {};
                                     }
                                 });
@@ -75,6 +119,43 @@ angular.module('comment')
                             $log.error(err);
                         }
                     };
+                    $scope.likePost = function () {
+                        try {
+                            var comment = {};
+                            var user = "";
+                            if (Session.user.name.givenName && Session.user.name.familyName){
+                                user = Session.user.name.givenName +' ' + Session.user.name.familyName;
+                            }else{
+                                user = Session.user.displayName;
+                            }
+
+                            comment.content= user + " likes this...";
+                            comment.commentStream = $scope.activePost.commentStream;
+                            CommentService.create(comment, function (err, comment) {
+                                if (err) {
+                                    $log.error(err);
+                                }
+                                if (comment) {
+                                    comment.commenter= {photo: Session.user.photo};
+                                    $scope.comments.unshift(comment);
+                                    $scope.comment = {};
+                                }
+                            });
+
+                        } catch (err) {
+                            $log.error(err);
+                        }
+                    };
+
+                    $scope.toggleCommentBox = function(){
+
+                        if (!$scope.showCommentButton || $scope.comment.content){
+                            $scope.showCommentButton = true;
+                        }else{
+                            $scope.showCommentButton = false;
+                        }
+
+                    }
 
                 },
                 templateUrl: '/template/comment/foo-comment-collection.html'

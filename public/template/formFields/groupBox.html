@@ -12,7 +12,7 @@
         <div class='formObject col-sm-{{subField.boxSize}}'
 
              ng-click="editField($parent.$index, $index, 'Group', $event)"
-             ng-class="{ 'bg-info': $index== nowSubEditing ,'dropped' : $index == nowSubEditing}"
+             ng-class="{ 'bg-warning': $index== nowSubEditing ,'dropped' : $index == nowSubEditing}"
              ng-repeat="subField in formField.fields track by $index">
             <div class="btn-group pull-right onTop">
 
@@ -25,7 +25,7 @@
                         ng-show="$index == nowEditing">X
                 </button>
             </div>
-            <div ng-include="subField.groupTemplate"></div>
+            <div ng-include="'/template/formFields/groupBoxed/' + subField.type + '.html'"></div>
         </div>
 
 

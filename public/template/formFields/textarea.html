@@ -1,5 +1,5 @@
 <div class="form-group clearfix">
-    <label for="{{formField.id}}">{{formField.label}}
+    <label for="{{formField.id}}">{{formField.label}} <span class="text-danger" ng-show="formField.required">*</span>
         <i class="fa fa-question-circle"
            ng-hide="!formField.userInstructions"
            popover="{{formField.userInstructions}}"
@@ -7,7 +7,6 @@
     </label>
 
     <div class="input-group" ng-style="{'width': formField.size+'%'}">
-        <span class="input-group-addon" ng-show="formField.required">*</span>
         <textarea
                 rows="{{formField.rows}}"
                 class="form-control"

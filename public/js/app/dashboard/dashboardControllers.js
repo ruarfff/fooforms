@@ -3,9 +3,10 @@
 angular.module('dashboard').controller('DashboardCtrl', ['$rootScope', '$scope', '$routeParams', '$log', '_', 'SweetAlert', 'DashboardService', 'Session', 'PostService', 'Posts', '$timeout', '$window',
     function ($rootScope, $scope, $routeParams, $log, _, SweetAlert, DashboardService, Session, PostService, Posts, $timeout, $window) {
         'use strict';
-        $scope.postView = 'list';
+        $scope.postView = 'feed';
         $scope.printPreview = false;
         $scope.fullScreen = false;
+        $scope.showIntroPage=false;
 
         // Posts are linked to the post collection directive
         $scope.posts = [];
@@ -64,12 +65,13 @@ angular.module('dashboard').controller('DashboardCtrl', ['$rootScope', '$scope',
         });
 
         $scope.postStreams = postStreamsArray.join(',');
-        if (forms.length > 0) {
+    /*    if (forms.length > 0) {
             $scope.activePost = Posts.newPost(forms[0]);
             $scope.activeForm = forms[0];
-        }
+        }*/
 
         $scope.cancelPost = function () {
+            $scope.showPostForm = false;
 
         };
 
@@ -83,29 +85,30 @@ angular.module('dashboard').controller('DashboardCtrl', ['$rootScope', '$scope',
         };
 
         $scope.savePost = function () {
+            $scope.doingPostApi = true;
             if ($scope.activePost._id) {
                 // Post already exists on server
                 var postToSave = angular.copy($scope.activePost);
                 PostService.updatePost(postToSave, function (err, post) {
+                    $scope.doingPostApi = false;
                     if (err) {
                         $log.error(err);
                         SweetAlert.swal('Not Saved!', 'An error occurred trying to update your post.', 'error');
                     } else {
                         $log.debug(post);
                         $scope.activePost = post;
-                        SweetAlert.swal('Saved!', 'Your post has been saved.', 'success');
 
                     }
                 });
             } else {
                 PostService.createPost($scope.activePost, function (err, post) {
+                    $scope.doingPostApi = false;
                     if (err) {
                         $log.error(err);
                         SweetAlert.swal('Not Saved!', 'Your post has not been created.', 'error');
                     } else {
                         $scope.posts.unshift(post);
                         $scope.activePost = post;
-                        SweetAlert.swal('Saved!', 'Your post has been created.', 'success');
                     }
                 });
             }
@@ -157,9 +160,7 @@ angular.module('dashboard').controller('DashboardCtrl', ['$rootScope', '$scope',
             $scope.feedPosition = {'opacity': 0};
             $timeout(function () {
                 var feedHeader = angular.element('#feedHeader')[0];
-                var height = $window.innerHeight - (feedHeader.offsetHeight + feedHeader.offsetTop);
 
-                $scope.tableRows = parseInt(height / 42);
                 $scope.feedPosition = {'top': feedHeader.offsetHeight + feedHeader.offsetTop};
             }, 500);
 

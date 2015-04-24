@@ -1,6 +1,1 @@
-       <tr> <td>
-            <button class="btn btn-xs btn-default" ng-click="selectPost(rowData)">E</button>
-            {{showPostForm}}
-        </td><td ng-repeat="formField in rowData track by $index"
-            ng-include='"/template/formFields/grid/"+formField.type+".html"'>
-          </td></tr>
+<div class="m0 p0" ng-include='"/template/formFields/grid/"+formField.type+".html"'></div>

@@ -3,7 +3,7 @@
     <!-- Navigation Buttons -->
     <div class="col-md-3 slideLeft">
         <div class="panel panel-info">
-            <div class="panel-heading">
+            <div class="panel-heading">Organisations
                 <!--<a class="btn btn-success" data-toggle="tab" data-target="#newOrganisation">
                     <i class="fa fa-plus"></i> New Organisation</a>-->
             </div>
@@ -11,8 +11,8 @@
                 <ul class="nav nav-pills nav-stacked" id="myTabs">
                     <li ng-repeat="org in user.organisations">
                         <a data-toggle="tab" data-target="#{{org.displayName}}" ng-click="org.active = true">
-                            <img class="icon-xs" ng-src="{{org.photo}}"
-                                 alt="{{org.title}}">
+                            <img class="icon-xs" src="{{org.photo}}"
+                                 alt="{{org.title}}" ng-show="org.photo">
                             {{org.title}}</a></li>
                 </ul>
             </div>
@@ -72,7 +72,7 @@
                                 <a data-toggle="tab" data-target="#orgStats">Stats</a>
                             </li>
                             <li>
-                                <a data-toggle="tab" data-target="#orgActions">Invite New Members</a>
+                                <a data-toggle="tab" data-target="#orgActions"><i class="fa fa-users"></i> Invite New Members</a>
                             </li>
                         </ul>
                         <div class="tab-content">
@@ -117,8 +117,8 @@
                                                        required/>
                                             </div>
                                         </div>
-                                        <div class="col-sm-12 align-right">
-                                            <button class="btn btn-success" ng-click="updateOrg(org);">SAVE</button>
+                                        <div class="col-sm-12 text-align-right">
+                                            <button class="btn btn-success" ng-click="updateOrg(org);">Save</button>
                                         </div>
                                     </div>
                                 </form>
@@ -128,11 +128,11 @@
 
                                 <p>
                                     <a data-toggle="tab" data-target="#orgActions"
-                                       class="btn btn-default">Invite New Members</a>
+                                       class="btn btn-link">Invite New Members</a>
                                 </p>
-                                <div ng-repeat="member in members" class="col-sm-4 col-md-3">
-                                    <div class="thumbnail">
-                                        <img class="icon" ng-src="{{member.photo || '/assets/images/photo.jpg'}}">
+                                <div ng-repeat="member in members" class="col-sm-3 col-md-2">
+                                    <div class="thumbnail text-center">
+                                        <img class="icon image-responsive" ng-src="{{member.photo || '/assets/images/photo.jpg'}}">
 
                                         <div class="caption">
 
@@ -141,16 +141,36 @@
                                         </div>
                                     </div>
                                 </div>
+
+                                <div class="col-sm-3 col-md-2">
+                                    <div class="thumbnail text-center">
+                                        <a  class="pointer" data-toggle="tab" data-target="#orgActions"><i class="fa fa-plus fa-3x mt10 text-primary"></i></a>
+
+                                        <div class="caption">
+
+                                            <p><a class="pointer" data-toggle="tab" data-target="#orgActions">Add a New Member</a></p>
+                                        </div>
+                                    </div>
+                                </div>
+
                             </div>
 
                             <div class="tab-pane" id="orgStats">
-                                <h4>Usage Stats</h4>
+                                <h4>{{org.displayName}} Usage Stats</h4>
+<table class="table table-bordered table-striped table-responsive"><tr>
+    <th>Created</th><td> {{org.created | date : 'dd-MMM-yy'}} </td>
+</tr>
+    <tr>
+        <th>Teams</th><td> {{org.teams.length - 1}}</td>
+    </tr>
+    <tr>
+        <th>Members</th><td> {{members.length}}</td>
+    </tr>
+    <tr>
+        <th>Forms</th><td>{{org.folders.length}}</td>
+    </tr>
+</table>
 
-                                Created: {{org.created | date : 'dd-MMM-yy'}} <br>
-                                Teams: {{org.teams.length}} <br>
-                                Folders: {{org.folders.length}} <br>
-                                Members: {{members.length}} <br>
-                                Users: {{ org.readOnlyUsers.length}} <br>
                             </div>
 
                             <div class="tab-pane" id="orgActions">
@@ -174,7 +194,7 @@
 
 
                                     <div class="form-group">
-                                        <label class="col-sm-3 control-label" for="message">Leave a message</label>
+                                        <label class="col-sm-3 control-label" for="message">Add a message</label>
 
                                         <div class="col-sm-9">
                                             <textarea rows="4" cols="50" name="message" id="message"
@@ -183,7 +203,8 @@
                                         </div>
                                     </div>
                                     <div class="form-group">
-                                        <input type="submit" value="Send">
+                                        <label class="col-sm-12 control-label" for="message"><input class='btn btn-success' type="submit" value="Send"></label>
+
                                     </div>
                                 </form>
                             </div>

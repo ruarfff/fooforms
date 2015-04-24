@@ -6,13 +6,13 @@
             <div class="panel-heading">
                 <a class="btn btn-success" href="/formBuilder"><i class="fa fa-plus"></i> Create a
                     New
-                    App</a>
+                    FooForm</a>
             </div>
             <div class="panel-body">
                 <ul class="nav nav-pills nav-stacked" id="category-tabs">
                     <li ng-class="{active: activeCategory==='yourForms'}">
                         <a data-toggle="tab" data-target="#yourForms" ng-click="setCategory({displayName: 'yourForms'})"
-                                >My Apps</a>
+                                >My FooForms</a>
                     </li>
                     <li ng-repeat="category in categories track by $index"
                         ng-class="{active: activeCategory===category.displayName}">
@@ -33,7 +33,7 @@
                 <div class="tab-content">
                     <div class="tab-pane"
                          ng-class="{active: activeCategory==='yourForms'}" id="yourForms">
-                        <h4>My Apps</h4>
+                        <h4>My FooForms</h4>
 
                         <div class="row m5 p5">
                             <div class="col-sm-3 col-md-3"

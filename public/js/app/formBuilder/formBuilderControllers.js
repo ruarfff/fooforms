@@ -119,7 +119,11 @@ angular.module('formBuilder').controller('FormBuilderCtrl',
                         if (ui.item.sortable.hasOwnProperty('droptarget')) {
                             // Are we dropping into a repeatBox or not?
                             if (ui.item.sortable.droptarget[0].className.indexOf("repeat-apps-container") > -1) {
+                                var repeatBoxId = parseInt(ui.item.sortable.droptarget[0].attributes.id.value);
+                                var rebeatBoxFormIndex = _.findIndex($scope.form.fields,  { id : repeatBoxId});
+
                                 $scope.dropped = $scope.nowSubEditing = ui.item.sortable.dropindex;
+                                $scope.nowEditing = rebeatBoxFormIndex;
                                 $scope.form.fields[$scope.nowEditing].fields[$scope.nowSubEditing].id = new Date().getTime();
                             } else {
                                 $scope.dropped = $scope.nowEditing = ui.item.sortable.dropindex;
@@ -306,7 +310,7 @@ angular.module('formBuilder').controller('FormBuilderCtrl',
                 angular.element('#formTabFields').tab('show');
             };
             $scope.openDesignTab = function () {
-                $scope.resetSelectedFields();
+                //$scope.resetSelectedFields();
                 angular.element('#designTab').tab('show');
                 angular.element('#formTabFields').tab('show');
 
@@ -491,6 +495,10 @@ angular.module('formBuilder').controller('FormBuilderCtrl',
                     var newForm = angular.copy($scope.form);
                     if (newForm._id) {
                         delete newForm._id;
+                        delete newForm.postStreams;
+                        newForm.folder = Session.user.defaultFolder._id;
+
+                        newForm.title='';
                     }
                     $scope.form = newForm;
                 });
@@ -630,6 +638,7 @@ angular.module('formBuilder').controller('FormBuilderCtrl',
 
                         var fooField = document.createElement("label");
                         var t = document.createTextNode(field.label);
+                        var space = document.createTextNode("\u00a0");
 
                         fooField.appendChild(t);
 
@@ -637,8 +646,11 @@ angular.module('formBuilder').controller('FormBuilderCtrl',
                         att.value = "fooField-embed disable-text-selection label label-warning";
                         fooField.setAttributeNode(att);
                         fooField.setAttribute("id", field.id);
+
+                        insertTextAtCursor(space);
                         insertTextAtCursor(fooField);
-                        return moveCaret(2);
+
+                        //return moveCaret(1);
 
                     });
                 }

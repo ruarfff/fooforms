@@ -16,8 +16,8 @@
         <option ng-repeat="member in members">{{member.name.givenName + ' ' + member.name.familyName }} ({{member.displayName}})</option>
         </select>
         <div class="button-group" ng-show="formField.options=='Profile'">
-            <button class="btn btn-default btn-lg dropdown-toggle" type="button" data-toggle="dropdown" aria-expanded="false">
-                <img class="profile-icon profile-icon-sm" ng-src="{{formField.value.photo || '/assets/images/photo.jpg'}}" /> {{formField.value.name.givenName + ' ' + formField.value.name.familyName}} ({{formField.value.displayName}})
+            <button class="btn btn-default btn-sm dropdown-toggle" type="button" data-toggle="dropdown" aria-expanded="false">
+                <img class="profile-icon profile-icon-sm m0 p0" ng-src="{{formField.value.photo || '/assets/images/photo.jpg'}}" /> {{formField.value.name.givenName + ' ' + formField.value.name.familyName}} ({{formField.value.displayName}})
                 &nbsp; &nbsp; <span class="caret"></span>&nbsp;&nbsp;&nbsp;
             </button>
 

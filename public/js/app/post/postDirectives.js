@@ -11,7 +11,9 @@ angular.module('post')
                     activeForm: '=activeForm',
                     posts: '=posts',
                     status: '=status',
-                    team: '=team'
+                    team: '=team',
+                    gridHeadings: '=gridHeadings',
+                    showPostForm: '=showPostForm'
                 },
                 transclude: true,
                 controller: function ($log, $scope, PostService, _, Session) {
@@ -19,6 +21,8 @@ angular.module('post')
                     var postPageSize = 15;
                     var hasMorePosts = true;
                     $scope.fetching=true;
+                    $scope.showIntroPage=false;
+                    $scope.view='list';
 
                     $scope.noUserForms = Session.user.defaultFolder.forms.length === 0;
 
@@ -33,26 +37,40 @@ angular.module('post')
                                 pageSize: pageSize
                             }, function (err, posts) {
                                 $scope.fetching=false;
+
                                 if (err) {
                                     $log.error(err);
                                 }
                                 hasMorePosts = posts.has_more;
+
                                 if (posts) {
                                     $scope.posts = $scope.posts.concat(posts);
                                 }
-                                if ($scope.posts.length > 0) {
+
+
+                                if ($scope.posts.length > 0 && !$scope.activePost) {
                                     $scope.activePost = $scope.posts[0];
-                                    $scope.activeForm = _.find(Session.forms, {displayName : $scope.activePost.displayName});
+                                }
+
+                                if (!$scope.activeForm){
+
+                                    $scope.activeForm =_.find(Session.forms, function(form){
+                                        return _.indexOf(form.postStreams, $scope.activePost.postStream) > -1 ? true: false;
+                                    });
 
                                 }
+
 
                             });
 
                         } else {
                             $scope.fetching=false;
+                            $scope.showIntroPage=true;
+                            $scope.$parent.postView='list';
                             $log.debug('Could not load posts. No post streams provided.');
                         }
                     };
+
 
                     $scope.addMorePosts = function () {
                         if (hasMorePosts) {
@@ -62,11 +80,18 @@ angular.module('post')
                     };
 
 
+
+
+
+
+
                 },
                 templateUrl: '/template/post/foo-post-collection.html'
             };
         }
     ])
+
+
     // Used to render a selected post
     .directive('fooPost', [
         function () {
@@ -83,7 +108,8 @@ angular.module('post')
                     printPost: '&printPost',
                     fullScreen: '=fullScreen',
                     showFullScreen: '&showFullScreen',
-                    cancelFullScreen: '&cancelFullScreen'
+                    cancelFullScreen: '&cancelFullScreen',
+                    doingPostApi: '=doingPostApi'
                 },
                 controller: function($scope){
                     $scope.addRepeat = function (groupBox, field) {
@@ -118,6 +144,7 @@ angular.module('post')
                     $scope.removeRepeat = function (groupBox, field) {
 
                     };
+
                 },
                 templateUrl: '/template/post/foo-post.html'
             };
@@ -136,8 +163,11 @@ angular.module('post')
                 },
                 controller: function ($scope, Session) {
                     $scope.selectPost = function (post) {
+                        $scope.postView='list';
                         $scope.activePost = post;
-                        $scope.activeForm = _.find(Session.forms, {displayName : post.displayName});
+                        $scope.activeForm =_.find(Session.forms, function(form){
+                            return _.indexOf(form.postStreams, $scope.activePost.postStream) > -1 ? true: false;
+                        });
 
                     };
                 },
@@ -156,79 +186,234 @@ angular.module('post')
                     posts: '=posts',
                     activePost: '=activePost',
                     activeForm: '=activeForm',
-                    status: '=status'
+                    status: '=status',
+                    showPostForm: '=showPostForm'
+
                 },
-                controller: function ($scope, Session) {
+                link: function (scope, $element) {
+
+                    var postForm={};
+                    scope.titles =[];
+                    scope.statusTitles =[];
+                    if (angular.isUndefined(scope.post)) {
+                        scope.post = scope.posts.activePost;
+                    }
+                    if (!scope.activeForm || (scope.post.postStream !== scope.activeForm.postStream)) {
+
+                        postForm =_.find(Session.forms, function(form){
+                            return _.indexOf(form.postStreams, scope.post.postStream) > -1 ? true: false;
+                        });
+
+                        // If we still don't have post form then the page has been loaded directly and thus Session.forms is empty
+                        // Hack for now is to get the form by looking at $scope great great granparents
+                        if (!postForm){
+                            postForm = scope.$parent.$parent.$parent.form;
+                        }
+                    }else{
+                        postForm =scope.activeForm ;
+
+                    }
+                    var titles = _.where(postForm.fields, {'showInList': true});
+
+
+                    var fieldCount = titles.length;
+
+                    for (var i=0;i<fieldCount;i++){
+
+                        var postField = _.where(scope.post.fields, {'id': titles[i].id});
+
+                        if (postField.length>0){
+
+                                scope.titles.push(postField[0]);
+
+
+                        }
+                    }
+
+
+                },
+                controller: function ($scope, Session, CommentService) {
                     $scope.selectPost = function (post) {
+                        $scope.postView='feed';
                         $scope.activePost = post;
-                        $scope.activeForm = _.find(Session.forms, {displayName : post.displayName});
+                        $scope.activeForm =_.find(Session.forms, function(form){
+                            return _.indexOf(form.postStreams, $scope.activePost.postStream) > -1 ? true: false;
+                        });
+                    };
+
+                    $scope.showForm = function (post) {
+
+                            $scope.activePost = post;
+                            $scope.showPostForm=true;
 
                     };
+
                 },
                 link: function (scope, element, attrs, postCollectionCtrl) {
                 },
                 templateUrl: '/template/post/foo-post-feed.html'
             };
-        }]) .directive('fooPostGrid', [
+        }]).directive('fooPostGrid', [
         function () {
             return {
                 require: '?^fooPostCollection',
                 restrict: 'E',
-                transclude: true,
                 scope: {
                     posts: '=posts',
                     activePost: '=activePost',
                     activeForm: '=activeForm',
-                    gridData: '=gridData'
+                    status: '=status',
+                    gridHeadings: '=gridHeadings',
+                    showPostForm: '=showPostForm'
                 },
-                controller: function ($scope,Session) {
-                    $scope.selectPost = function (index) {
-                        $scope.activePost = $scope.posts[index];
-                        $scope.activeForm = _.find(Session.forms, {displayName : $scope.activePost.displayName});
-
+                controller: function ($scope, Session) {
+                    $scope.selectPost = function (post) {
+                        if($scope.showPostForm && $scope.activePost._id===post._id){
+                            $scope.showPostForm=false;
+                        }else{
+                            $scope.activePost = post;
+                            $scope.showPostForm=true;
+                        }
                     };
-
-
-
                 },
                 link: function (scope, element, attrs, postCollectionCtrl) {
                 },
                 templateUrl: '/template/post/foo-post-grid.html'
             };
-        }]).directive('feedHeader', [function () {
+        }])
+    .directive('fooPostGridCell', [
+        function () {
+            return {
+                require: '?^fooPostCollection',
+                restrict: 'A',
+                scope: {
+                    cell: '=cell',
+                    row: '=row',
+                    formField: '='
+                },
+                controller: function ($scope, Session) {
+
+
+                },
+                link: function (scope, element, attrs, postCollectionCtrl) {
+                    var blankCell = {
+                        value:'',
+                        type:'text'
+                    };
+
+                    var hasField = _.where(scope.row.fields,{id: scope.cell.id});
+                    if (hasField.length>0){
+                        scope.formField = hasField[0];
+                    }else{
+                        scope.formField = blankCell;
+                    }
+
+                },
+                templateUrl: "/template/post/foo-post-grid-cell.html"
+
+            };
+        }])
+    .directive('feedHeader', ['Session',function (Session) {
 
         return {
             restrict: 'E',
             scope: false,
 
 
-            link: function (scope, Session,$element) {
+            link: function (scope, $element) {
 
-
-                var index;
-                scope.titleStr = "";
+                var postForm={};
+                scope.titles =[];
+                scope.statusTitles =[];
                 if (angular.isUndefined(scope.post)) {
                     scope.post = scope.posts.activePost;
                 }
-                scope.activeForm = _.find(Session.forms, {displayName : scope.post.displayName});
+                if (!scope.activeForm || (scope.post.postStream !== scope.activeForm.postStream)) {
+                    postForm =_.find(Session.forms, function(form){
+                        return _.indexOf(form.postStreams, scope.post.postStream) > -1 ? true: false;
+                    });                    // If we still don't have post form then the page has been loaded directly and thus Session.forms is empty
+                    // Hack for now is to get the form by looking at $scope great great granparents
+                    if (!postForm){
+                        postForm = scope.$parent.$parent.$parent.form;
+                    }
+                }else{
+                    postForm =scope.activeForm ;
 
-                var titles = _.where(scope.post.fields, {'useAsTitle': true});
-                var titlesplucked = _.pluck(titles, 'value');
+                }
+                var titles = _.where(postForm.fields, {'showInList': true});
 
-                var fieldCount = titlesplucked.length;
+
+                var fieldCount = titles.length;
 
                  for (var i=0;i<fieldCount;i++){
-                      if (typeof(titlesplucked[i])=='object'){
-                          scope.titleStr = scope.titleStr + ' - ' + titlesplucked[i].displayName;
-                      }else{
-                          scope.titleStr = scope.titleStr + ' - ' + titlesplucked[i];
+
+                     var postField = _.where(scope.post.fields, {'id': titles[i].id});
+
+                      if (postField.length>0){
+                          postField[0].label = titles[i].label;
+                          if (postField[0].type=='status'){
+                              scope.statusTitles.push(postField[0]);
+                          }else{
+                              scope.titles.push(postField[0]);
+                          }
+
                       }
                  }
-                scope.titleStr = scope.titleStr.replace(' - ','');
+
 
             },
             replace: false,
             templateUrl: '/template/post/feed-header.html'
+        };
+
+    }]).directive('feedBody', ['Session',function (Session) {
+
+        return {
+            restrict: 'E',
+            scope: false,
+
+
+            link: function (scope, $element) {
+
+                var postForm={};
+                scope.feedTitles =[];
+                  if (angular.isUndefined(scope.post)) {
+                    scope.post = scope.posts.activePost;
+                }
+                if (!scope.activeForm || (scope.post.postStream !== scope.activeForm.postStream)) {
+                    postForm =_.find(Session.forms, function(form){
+                        return _.indexOf(form.postStreams, scope.post.postStream) > -1 ? true: false;
+                    });
+                    // If we still don't have post form then the page has been loaded directly and thus Session.forms is empty
+                    // Hack for now is to get the form by looking at $scope great great granparents
+                    if (!postForm){
+                        postForm = scope.$parent.$parent.$parent.form;
+                    }
+                }else{
+                    postForm =scope.activeForm ;
+
+                }
+                var titles = _.where(postForm.fields, {'showInFeed': true});
+
+
+                var fieldCount = titles.length;
+
+                for (var i=0;i<fieldCount;i++){
+
+                    var postField = _.where(scope.post.fields, {'id': titles[i].id});
+
+                    if (postField.length>0){
+                        postField[0].label = titles[i].label;
+                       scope.feedTitles.push(postField[0]);
+
+
+                    }
+                }
+
+
+            },
+            replace: false,
+            templateUrl: '/template/post/feed-body.html'
         };
 
     }]);

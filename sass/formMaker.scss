@@ -1,5 +1,6 @@
 .form-control{
   padding: 4px 2px 4px 4px;
+  box-shadow: none;
 }
 
 .blockInsert {
@@ -176,7 +177,7 @@ background: #f5f5f5;
     -webkit-transform: scale(1.05);
     -moz-transform: scale(1.05);
     -o-transform: scale(1.05);
-    -ms-transform: sscale(1.05);
+    -ms-transform: scale(1.05);
     transform: scale(1.05);
   }100% {
      -webkit-transform: scale(1);
@@ -320,7 +321,8 @@ label i.fa {
   background: url('/assets/images/appCanvas.png') top left no-repeat;
   border: 2px dashed #D2E5F7;
   min-height: 300px;
-  width: 100%;
+  width: 98%;
+  margin: 1%;
 }
 
 img.icon {

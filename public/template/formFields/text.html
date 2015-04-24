@@ -1,5 +1,5 @@
 <div class="form-group clearfix">
-<label>{{formField.label}}
+    <label for="{{formField.id}}">{{formField.label}} <span class="text-danger" ng-show="formField.required">*</span>
         <i class="fa fa-question-circle"
            ng-hide="!formField.userInstructions"
            popover="{{formField.userInstructions}}"
@@ -8,12 +8,10 @@
     </label>
 
     <div class="input-group" ng-style="{'width': formField.size+'%'}">
-        <button class="btn btn-default mr5"
-               ng-repeat='option in formField.options'
-                ng-click="formField.selected=option.label">
-<i class="fa fa-check-circle text-success" ng-show="formField.selected == option.label"></i>
-            {{option.label}}
-        </button>
 
+        <input type="text"
+               class="form-control"
+               id="{{formField.id}}"
+               placeholder="{{formField.placeholder}}" ng-model="formField.value"/>
     </div>
 </div>

@@ -1,9 +1,11 @@
 <div class="feed-fixed hidden-print animated"
      ng-class="{
-     percentageScreen : sideMenuVisible && (postView=='list' || postView=='feed'),
-     halfScreen : !sideMenuVisible && (postView=='list' || postView=='feed'),
-     percentageFullScreen : sideMenuVisible && (postView=='grid' || postView=='custom'),
-     fullScreen :!sideMenuVisible && (postView=='grid' || postView=='custom')
+     'leftScreen-small' : sideMenuVisible && (postView=='list'),
+     'leftScreen-small-noMenu': !sideMenuVisible && (postView=='list'),
+     'fullScreen' : sideMenuVisible && (postView=='grid' || postView=='custom' ),
+     'fullScreen-noMenu':!sideMenuVisible && (postView=='grid' || postView=='custom'),
+     'leftScreen' : sideMenuVisible && (postView=='feed'),
+     'leftScreen-noMenu' :!sideMenuVisible && (postView=='feed')
       }">
     <div class="panel panel-transparent p0 b0 ml5 mr10">
         <!--Feed Header for dashboard, teams and forms-->
@@ -19,12 +21,13 @@
                 <h4 ng-if="!user.name.givenName">{{user.displayName}}</h4>
 
 
+                   <span class="label cursor-hand"
+                         ng-class="{'label-success' : postView=='feed' , 'label-default':postView!='feed'}"
+                         ng-click="postView='feed';"><i class="fa fa-square"></i></span>
+
                 <span class="label cursor-hand"
                       ng-class="{'label-success' : postView=='list' , 'label-default':postView!='list'}"
                       ng-click="postView='list';"><i class="fa fa-bars"></i></span>
-                <span class="label cursor-hand"
-                      ng-class="{'label-success' : postView=='feed' , 'label-default':postView!='feed'}"
-                      ng-click="postView='feed';"><i class="fa fa-square"></i></span>
 
 
             </form>
@@ -38,12 +41,13 @@
                 <p>{{team.title || team.displayName}}
                 </p>
 
+                    <span class="label cursor-hand"
+                          ng-class="{'label-success' : postView=='feed' , 'label-default':postView!='feed'}"
+                          ng-click="postView='feed';"><i class="fa fa-square"></i></span>
                      <span class="label cursor-hand"
                            ng-class="{'label-success' : postView=='list' , 'label-default':postView!='list'}"
                            ng-click="postView='list';"><i class="fa fa-bars"></i></span>
-                <span class="label cursor-hand"
-                      ng-class="{'label-success' : postView=='feed' , 'label-default':postView!='feed'}"
-                      ng-click="postView='feed';"><i class="fa fa-square"></i></span>
+
             </form>
 
                 <span ng-show="form">
@@ -55,13 +59,15 @@
         {{form.btnLabel}} <i class="fa fa-plus fa-lg"></i></button>
 
 
+                                        <span ng-show="form.settings.displayOptions.feed" class="label cursor-hand"
+                                              ng-class="{'label-success' : postView=='feed' , 'label-default':postView!='feed'}"
+                                              ng-click="postView='feed';"><i class="fa fa-square"></i></span>
+
                     <span ng-show="form.settings.displayOptions.list" class="label cursor-hand"
                           ng-class="{'label-success' : postView=='list' , 'label-default':postView!='list'}"
                           ng-click="postView='list';"><i class="fa fa-bars"></i></span>
 
-                    <span ng-show="form.settings.displayOptions.feed" class="label cursor-hand"
-                          ng-class="{'label-success' : postView=='feed' , 'label-default':postView!='feed'}"
-                          ng-click="postView='feed';"><i class="fa fa-square"></i></span>
+
 
                     <span ng-show="form.settings.displayOptions.grid" class="label cursor-hand"
                           ng-class="{'label-success' : postView=='grid' , 'label-default':postView!='grid'}"
@@ -92,42 +98,94 @@
     <!--Feed LIST for dashboard, teams and forms-->
 
 
-    <div id='foo-post-collection' class="scroll m0 b0 animated" ng-style="feedPosition"
-         ng-show="postView=='list' || postView=='feed'"
-         ng-hide="post.hide" ng-cloak>
+    <div id='foo-post-collection' class="scroll m0 b0" ng-style="feedPosition"
+         ng-show="postView=='list' || postView=='feed' || postView=='grid'"
+         ng-hide="post.hide" ng-cloak
+         ng-class="{
+              slideFeedIn: (!showPostForm && postView=='feed'),
+             slideFeedOut: (showPostForm && postView=='feed')
+             }">
 
-        <foo-post-collection view="{{postView}}" streams="{{postStreams}}" active-post="activePost"  active-form="activeForm"  posts="posts"
-                             team="team"
-                             grid-data="gridData" status="selectedStatus">
+        <foo-post-collection view="{{postView}}" streams="{{postStreams}}" active-post="activePost"
+                             active-form="activeForm" posts="posts"
+                             team="team" status="selectedStatus"
+                             grid-headings="gridHeadings"
+                             copy-post="copyPost()"
+                             save-post="savePost()"
+                             show-post-form="showPostForm">
         </foo-post-collection>
 
-    </div>
+        <div class="panel-slider hidden-print animated animated-slow ng-cloak" ng-show="postView=='grid'"
+             ng-class="{
+             slidePanelIn: showPostForm,
+             slidePanelOut: !showPostForm
+             }"
+             ng-style="feedPosition">
+           
+                <foo-post active-post="activePost" active-form="activeForm" members="org.members" delete-post="deletePost()"
+                          copy-post="copyPost()"
+                          save-post="savePost()" print-preview="printPreview" full-screen="fullScreen"
+                          print-post="printPost()" show-full-screen="showFullScreen()"
+                          cancel-full-screen="cancelFullScreen()"
+                          cancel-post="cancelPost()" add-repeat="addRepeat()"
+                          doing-post-api="doingPostApi"></foo-post>
 
+
+
+
+
+        </div>
+
+
+    </div>
+    <div class="scroll hidden-print animated animated-slow ng-cloak initOffScreen" ng-show="postView=='feed'"
+         ng-class="{
+             slideFeedPanelIn: showPostForm ,
+             slideFeedPanelOut: !showPostForm
+             }"
+         ng-style="feedPosition"
+            >
+
+        <foo-post active-post="activePost" active-form="activeForm" members="org.members" delete-post="deletePost()"
+                  copy-post="copyPost()"
+                  save-post="savePost()" print-preview="printPreview" full-screen="fullScreen"
+                  print-post="printPost()" show-full-screen="showFullScreen()"
+                  cancel-full-screen="cancelFullScreen()"
+                  cancel-post="cancelPost()" add-repeat="addRepeat()"
+                  doing-post-api="doingPostApi"></foo-post>
+
+    </div>
 
 </div>
 
 
-<div class="feed-fixed-wide hidden-print animated"
-     ng-show="(postView=='feed' || postView=='list')"
-     ng-class="{percentageScreenWide : sideMenuVisible,
-      halfScreenWide :!sideMenuVisible}"
+<div class="feed-fixed-wide hidden-print animated ng-cloak"
+     ng-show="(postView=='list' || postView=='feed')"
+     ng-class="{
+     'rightScreen-wide' : sideMenuVisible && (postView=='list'),
+     'rightScreen-wide-noMenu': !sideMenuVisible && (postView=='list'),
+     'rightScreen' : sideMenuVisible && (postView=='feed'),
+     'rightScreen-noMenu' :!sideMenuVisible && (postView=='feed')
+      }"
      ng-cloak>
 
-    <div class="row" ng-if="activePost">
+    <div class="row" ng-show="activePost && postView=='list'">
         <div class="col-sm-12">
-
-            <foo-post active-post="activePost"  active-form="activeForm"  members="org.members" delete-post="deletePost()" copy-post="copyPost()"
+            <foo-post active-post="activePost" active-form="activeForm" members="org.members" delete-post="deletePost()"
+                      copy-post="copyPost()"
                       save-post="savePost()" print-preview="printPreview" full-screen="fullScreen"
                       print-post="printPost()" show-full-screen="showFullScreen()"
                       cancel-full-screen="cancelFullScreen()"
-                      cancel-post="cancelPost()" add-repeat="addRepeat()"></foo-post>
+                      cancel-post="cancelPost()" add-repeat="addRepeat()"
+                      doing-post-api="doingPostApi"></foo-post>
 
         </div>
 
     </div>
-    <div class="row" ng-if="activePost.commentStream && (form.settings.allowComments || activeForm.settings.allowComments )">
+    <div class="row"
+         ng-if="activePost.commentStream && (form.settings.allowComments || activeForm.settings.allowComments )">
         <div class="col-sm-12">
-            <foo-comment-collection active-post="activePost"></foo-comment-collection>
+            <foo-comment-collection active-post="activePost" active-form="form"></foo-comment-collection>
         </div>
     </div>
 
@@ -135,166 +193,18 @@
 </div>
 
 
-<div class="clearfix scroll-grid hidden-print animated" ng-show="postView=='grid' || postView=='custom'"
+<div class="clearfix scroll-grid hidden-print animated ng-cloak" ng-show="postView=='custom'"
      ng-class="{ percentageFullScreen : sideMenuVisible, fullScreen :!sideMenuVisible}"
      ng-style="feedPosition">
-
-
-    <div ng-show="postView=='grid'" class="gridWrapper clearfix" id="gridWrapper">
-
-        <table class="table table-responsive table-hover table-striped table-bordered table-condensed foo-grid"
-               tr-ng-grid="" items="gridData"
-               fields="gridFields"
-               enable-filtering="false"
-               selection-mode="SingleRow"
-               selected-items="gridSelectedPost"
-               page-items="tableRows"
-                >
-
-        </table>
-
-    </div>
-
     <div ng-show="postView=='custom'" compile="form.settings.customDashboardHtml"></div>
 
 </div>
 
 
-<div class="panel-slider hidden-print animated" ng-show="postView=='grid' && showPostForm"
-     ng-class="{slidePanelIn: gridSelectedPost.length>0,
-    slidePanelOut: gridSelectedPost.length==0}">
-
-    <foo-post active-post="activePost" members="org.members" delete-post="deletePost()" copy-post="copyPost()"
-              save-post="savePost()"
-              cancel-post="cancelPost()"></foo-post>
-
-</div>
-
-<div class="feed-fixed-wide hidden-print animated" ng-cloak ng-show="posts.length===0 && !activePost"
-     ng-class="{percentageScreenWide : sideMenuVisible, halfScreenWide :!sideMenuVisible}">
-    <div class="row">
-        <div class="col-sm-12">
-
-            <div class="panel panel-foo-dark">
-                <div class="panel-heading">
-                    <h5>Quick Start Guide</h5>
-                </div>
-                <div class="panel-body" ng-show="team">
-                    <h4>OK, you've got a team called <span class="text-primary">{{team.displayName}}</span></h4>
-
-                    <p>Now you need to create one or more forms for the team to use.</p>
-
-                    <ul class="icon-list clearfix">
-                        <li>
-                            <div class="form-icon-wrapper">
-                                <div class="form-icon yellow">
-                                    <a href="/formBuilder"> <i class="fa fa-edit fa-lg"></i></a>
-                                </div>
-                                <a href="/formBuilder">Create New Forms with Form Builder</a>
-                            </div>
-                        </li>
-                        <li>
-                            <div class="form-icon-wrapper">
-                                <div class="form-icon purple">
-                                    <a href="/forms"> <i class="fa fa-th fa-lg"></i></a>
-                                </div>
-                                <a href="/forms">Browse Form Templates in the Catalog</a>
-                            </div>
-                        </li>
-                    </ul>
-                </div>
-                <div class="panel-body" ng-hide="team">
-
-                    <h4>How it works</h4>
-
-                    <p>
-                        Fooforms let's you share posts with your team just like any other social network.<br>
-                        You can share basic posts like you get in Twitter but you can create and share more complex
-                        forms too.
-                        <br>
-                    </p>
-                    <h4>Quick Start Links</h4>
-                    <ul class="icon-list clearfix">
-                        <li>
-                            <div class="form-icon-wrapper">
-                                <div class="form-icon yellow">
-                                    <a href="/formBuilder"> <i class="fa fa-edit fa-lg"></i></a>
-                                </div>
-                                <a href="/formBuilder">Create New Forms with Form Builder</a>
-                            </div>
-                        </li>
-                        <li>
-                            <div class="form-icon-wrapper">
-                                <div class="form-icon purple">
-                                    <a href="/forms"> <i class="fa fa-th fa-lg"></i></a>
-                                </div>
-                                <a href="/forms">Browse Form Templates in the Catalog</a>
-                            </div>
-                        </li>
-
-                        <li>
-                            <div class="form-icon-wrapper">
-                                <div class="form-icon red">
-                                    <a href="/organisations"> <i class="fa fa-group fa-sitemap"></i></a>
-                                </div>
-                                <a href="/organisations">Manage your Organisation, Add members, etc.</a>
-                            </div>
-                        </li>
-                        <li>
-                            <div class="form-icon-wrapper">
-                                <div class="form-icon blue">
-                                    <a href="/teams"> <i class="fa fa-group fa-lg"></i></a>
-                                </div>
-                                <a href="/teams">Create Teams, Add & Remove Members</a>
-                            </div>
-                        </li>
-                        <li>
-                            <div class="form-icon-wrapper">
-                                <div class="form-icon green">
-                                    <a href="/profile"> <i class="fa fa-user fa-lg"></i></a>
-                                </div>
-                                <a href="/profile">Manage your profile picture, name and preferences </a>
-                            </div>
-                        </li>
 
 
-                    </ul>
-                    <p><strong>Form Builder</strong><br>
-                        Use the form builder to create form templates for everything and anything. Here's a few ideas.
-                    <ul>
-                        <li>Helpdesk</li>
-                        <li>Team Collaboration</li>
-                        <li>Bug Tracker</li>
-                        <li>Holiday Requests</li>
-                        <li>Sales Leads</li>
-                    </ul>
-                    </p>
 
-
-                    <p><strong>Sharing Forms</strong><br>
-                        Each form you create can be private, shared with a team or published to your website, blog or
-                        facebook page.
-                    </p>
-
-
-                    <p><strong>Form Catalog</strong><br>We've already made a bunch of useful form templates that you can
-                        take and modify to your exact requirements. It's the easiest way to get up and running.
-                    </p>
-
-                    <p><strong>Teams and members</strong><br>
-                        You can use teams to give users access only to the forms that are useful to them.
-                    </p>
-
-
-                    <div class="m10 p10">&nbsp;</div>
-                </div>
-            </div>
-        </div>
-    </div>
-</div>
-
-
-<div class="printPreview hidden-print slideExpandUp" ng-show="fullScreen">
+<div class="printPreview hidden-print slideExpandUp ng-cloak" ng-show="fullScreen">
     <div class="row" ng-if="activePost">
         <div class="col-sm-12">
 
@@ -310,7 +220,7 @@
     </div>
 </div>
 
-<div class="printPost visible-print-block container">
+<div class="printPost visible-print-block container ng-cloak">
     <div class="row" ng-if="activePost">
         <div class="col-sm-12">
 
