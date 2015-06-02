@@ -1,6 +1,7 @@
 <form class="form-horizontal" role="form">
+    <h5 class="text-info optionsTitle"><i class="fa fa-caret-right"></i> Layout</h5>
     <div class="form-group">
-        <label class="col-sm-4 control-label">Heading</label>
+        <label class="col-sm-4 control-label">Label</label>
 
         <div class="col-sm-8">
             <input type='text' class="form-control" ng-model="form.fields[nowEditing].label"/>
@@ -11,7 +12,7 @@
 
         <div class="col-sm-8">
             <textarea class="form-control"
-                      ng-model="form.fields[nowEditing].placeholder"/></textarea>
+                      ng-model="form.fields[nowEditing].value"> </textarea>
         </div>
     </div>
     <div class="form-group">
@@ -23,63 +24,71 @@
         </div>
     </div>
 
-
     <div class="form-group">
-        <label class="col-sm-4 control-label">Style</label>
+        <label class="col-sm-4 control-label">Alignment</label>
 
-    <div class="col-sm-8">
-        <div class="btn-group">
-            <button class="btn btn-default" ng-click="form.fields[nowEditing].style='default'">
-                <i class="fa fa-check" ng-show="form.fields[nowEditing].style=='default'"></i>
-                <i ng-show="form.fields[nowEditing].style!='default'">&nbsp;&nbsp;</i>
-            </button>
-            <button class="btn btn-primary" ng-click="form.fields[nowEditing].style='primary'">
-                <i class="fa fa-check" ng-show="form.fields[nowEditing].style=='primary'"></i>
-                <i ng-show="form.fields[nowEditing].style!='primary'">&nbsp;&nbsp;</i>
-            </button>
-            <button class="btn btn-success" ng-click="form.fields[nowEditing].style='success'">
-                <i class="fa fa-check" ng-show="form.fields[nowEditing].style=='success'"></i>
-                <i ng-show="form.fields[nowEditing].style!='success'">&nbsp;&nbsp;</i>
-            </button>
-            <button class="btn btn-warning" ng-click="form.fields[nowEditing].style='warning'">
-                <i class="fa fa-check" ng-show="form.fields[nowEditing].style=='warning'"></i>
-                <i ng-show="form.fields[nowEditing].style!='warning'">&nbsp;&nbsp;</i>
-            </button>
-            <button class="btn btn-danger" ng-click="form.fields[nowEditing].style='danger'">
-                <i class="fa fa-check" ng-show="form.fields[nowEditing].style=='danger'"></i>
-                <i ng-show="form.fields[nowEditing].style!='danger'">&nbsp;&nbsp;</i>
-            </button>
-        </div>
-       </div>
-</div>
+        <div class="col-sm-8 btn-group">
+            <a class="btn btn-default"
+               ng-class="{'btn-success' : form.fields[nowEditing].alignment=='text-justify' }"
+                   ng-click="form.fields[nowEditing].alignment='text-justify'"><i class="fa fa-align-justify"></i></a>
 
-    <div class="form-group">
-        <label class="col-sm-4 control-label">Admin Only </label>
+            <a class="btn btn-default"
+               ng-class="{'btn-success' : form.fields[nowEditing].alignment=='text-left' }"
+               ng-click="form.fields[nowEditing].alignment='text-left'"><i class="fa fa-align-left"></i></a>
 
-        <div class="col-sm-8">
-            <input type='checkbox' ng-model="form.fields[nowEditing].adminOnly"></label>
+            <a class="btn btn-default"
+               ng-class="{'btn-success' : form.fields[nowEditing].alignment=='text-center' }"
+               ng-click="form.fields[nowEditing].alignment='text-center'"><i class="fa fa-align-center"></i></a>
+            <a class="btn btn-default"
+               ng-class="{'btn-success' : form.fields[nowEditing].alignment=='text-right' }"
+               ng-click="form.fields[nowEditing].alignment='text-right'"><i class="fa fa-align-right"></i></a>
         </div>
     </div>
-    <div class="form-group">
-        <label class="col-sm-4 control-label">Show in Feed View</label>
 
-        <div class="col-sm-8">
-            <input type='checkbox' name='showInFeed' ng-model="form.fields[nowEditing].showInFeed"></label>
-        </div>
-    </div>
-    <div class="form-group">
-        <label class="col-sm-4 control-label">Show in List View</label>
+        <h4 class="text-info">Display Options</h4><hr>
 
-        <div class="col-sm-8">
-            <input type='checkbox' name='showInList' ng-model="form.fields[nowEditing].showInList"></label>
-        </div>
-    </div>
-    <div class="form-group">
-        <label class="col-sm-4 control-label">Show in Grid View</label>
+        <div class="form-group">
+            <label class="col-sm-4 control-label">Show in Post Title</label>
 
-        <div class="col-sm-8">
-            <input type='checkbox' name='showInGrid' ng-model="form.fields[nowEditing].showInGrid"></label>
+            <div class="col-sm-8">
+                <toggle-switch off-text="Hide" on-text="Show" off-style="danger" on-style="success"
+                               ng-model="form.fields[nowEditing].showInList"></toggle-switch>
+            </div>
         </div>
-    </div>
+
+        <div class="form-group">
+            <label class="col-sm-4 control-label">Show in Post Body</label>
+
+            <div class="col-sm-8">
+                <toggle-switch off-text="Hide" on-text="Show" off-style="danger" on-style="success"
+                               ng-model="form.fields[nowEditing].showInFeed"></toggle-switch>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label class="col-sm-4 control-label">Show in Grid View</label>
+
+            <div class="col-sm-8">
+                <toggle-switch off-text="Hide" on-text="Show" off-style="danger" on-style="success"
+                               ng-model="form.fields[nowEditing].showInGrid"></toggle-switch>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label class="col-sm-4 control-label">Show in Public Form </label>
+
+            <div class="col-sm-8">
+                <toggle-switch off-text="Hide" on-text="Show" off-style="danger" on-style="success"
+                               ng-model="form.fields[nowEditing].showInEmbedded"></toggle-switch>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label class="col-sm-4 control-label">Show Only to Admins </label>
+
+            <div class="col-sm-8">
+                <toggle-switch off-text="No, Visible to Everyone" on-text="Yes" off-style="danger" on-style="success"
+                               ng-model="form.fields[nowEditing].adminOnly"></toggle-switch>
+            </div>
+        </div>
 </form>
-</div>

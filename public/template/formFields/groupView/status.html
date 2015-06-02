@@ -1,11 +1,11 @@
 <div class="form-group clearfix">
 
 
-    <div class="input-group" ng-style="{'width': formField.size+'%'}">
+    <div class="input-group" ng-style="{'width': repeater.size+'%'}">
         <label class="btn m5"
-               ng-class="{ 'btn-success disabled': formField.selected == option.label ,'btn-default' : formField.selected != option.label}"
-               ng-repeat='option in formField.options'>
-            <input type="radio" name="formField.id" ng-model="formField.selected" ng-value="option.label">
+               ng-class="{ 'btn-success disabled': repeater.selected == option.label ,'btn-default' : repeater.selected != option.label}"
+               ng-repeat='option in repeater.options'>
+            <input type="radio" name="repeater.id" ng-model="repeater.selected" ng-value="option.label">
             {{option.label}}
         </label>
 

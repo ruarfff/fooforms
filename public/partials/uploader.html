@@ -57,7 +57,7 @@
       </span>
         </div>
         <div class="progress mt5 progress-striped" ng-class="{'fadeOutDelayed' : formField.progress==100}"
-             ng-show="formField.progress>0 && uploading">
+             ng-show="uploading">
             <div class="progress-bar" ng-class="{'progress-bar-success' : formField.progress==100}" role="progressbar"
                  aria-valuenow="{{formField.progress}}" aria-valuemin="0" aria-valuemax="100"
                  style="width: {{formField.progress+'%'}}">

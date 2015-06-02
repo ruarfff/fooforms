@@ -1,0 +1,12 @@
+<div class="form-group clearfix">
+
+
+    <div class="input-group" ng-style="{'width': formField.size+'%'}">
+        <span class="input-group-addon" ng-show="formField.required">*</span>
+        <input type="email"
+               class="form-control"
+               id="{{formField.id}}"
+               placeholder="{{formField.placeholder}}"
+               ng-model="formField.value"/>
+    </div>
+</div>

@@ -153,14 +153,21 @@
 
 <div id="formTabs-settings" class="tab-pane">
     <div class="panel panel-foo-dark">
-        <div class='panel-heading' ng-show="nowEditing>=0 && showFieldSettings" class="appear">
-            <h6><span class="badge">{{nowEditing}}</span> <span>{{form.fields[nowEditing].name}} </span>
-            <span ng-show="nowSubEditing">
-            <span class="badge">{{nowSubEditing}}</span> <span>{{form.fields[nowEditing].fields[nowSubEditing].name}} </span></span>
-            </h6>
+        <div class='panel-heading appear' ng-show="nowEditing>=0 && (showFieldSettings || showGroupSettings)" >
+            <h5><span class="badge">{{nowEditing}}</span> <span>{{form.fields[nowEditing].label}}</span>
+                <span class="text-muted"> ({{form.fields[nowEditing].name}}) </span>
+            <span ng-show="nowSubEditing>=0 && showGroupSettings">
+                 <i class="fa fa-caret-right"></i>
+
+                <span class="badge">{{nowSubEditing}}</span>
+             <span>{{form.fields[nowEditing].fields[nowSubEditing].label}} </span>
+
+            <span class="text-muted"> ({{form.fields[nowEditing].fields[nowSubEditing].name}})</span>
+            </span>
+            </h5>
         </div>
 
-        <div class='panel-heading' ng-show="nowEditing>=0 && showEventSettings" class="appear">
+        <div class='panel-heading appear' ng-show="nowEditing>=0 && showEventSettings">
             <h6><span class="badge">{{nowEditing}}</span> <span>{{form.formEvents[nowEditing].name}} </span>
 
 

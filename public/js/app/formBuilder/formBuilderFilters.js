@@ -4,11 +4,11 @@ angular.module('formBuilder')
     .filter('filterTypes', function () {
         'use strict';
         return function (inputs, category) {
-            var standard = ["text", "textarea", "email", "select", "checkbox", "radio", "paragraph", "date", "groupbox"];
-            var numbers = ["number", "calculation", "currency", "sum", "payment", "progress"];
+            var standard = ["text", "textarea",  "select", "checkbox", "radio", "heading", "paragraph", "date", "progress"];
+            var numbers = ["number", "calculation","sum", "currency", "progress"];
             var files = ["file", "image"];
-            var people = ["givenName", "middleName", "familyName", "email", "phone", "mobile", "address", "company", "from", "to"];
-            var advanced = ["status", "labels", "html", "groupBox", "rating", "canvas", "button"];
+            var people = ["givenName", "middleName", "familyName", "email", "phone", "mobile", "address", "company",  "to"];
+            var advanced = ["status", "html", "groupBox","table"];
             var events = ["statusChange", "newPost", "updatePost"];
 
             // The filter array to be assigned based on the category

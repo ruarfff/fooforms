@@ -46,7 +46,7 @@ angular.module('formBuilder').controller('FormBuilderCtrl',
                 } else {
                     window.location.href = '/dashboard';
                 }
-
+$scope.formFolder = folder;
                 var formName = $routeParams.form;
 
                 if (formName) {
@@ -689,7 +689,6 @@ var ModalEditorCtrl = function ($scope, $modalInstance, fieldData, form) {
             _editor.setOption("mode", 'htmlmixed');
             _editor.setOption("lineNumbers", true);
             _editor.setOption('firstLineNumber', 10);
-            _editor.setOption('theme', 'mdn-like');
             _editor.refresh();
             _editor.focus();
 

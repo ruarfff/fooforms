@@ -1,0 +1,40 @@
+<div class="form-group clearfix">
+    <label for="{{repeater.id}}">{{repeater.label}}
+        <i class="fa fa-question-circle"
+           ng-hide="!repeater.userInstructions"
+           popover="{{repeater.userInstructions}}"
+           popover-trigger="mouseenter"
+           popover-append-to-body="true"></i>
+    </label>
+
+    <div class="input-group" ng-style="{'width': repeater.size+'%'}">
+        <span class="input-group-addon" ng-show="repeater.required">*</span>
+        <select class="form-control"
+               id="{{repeater.id}}"
+               ng-model="repeater.value"
+               ng-show="repeater.options!='Profile'">
+        <option ng-repeat="member in members">{{member.name.givenName + ' ' + member.name.familyName }} ({{member.displayName}})</option>
+        </select>
+        <div class="button-group" ng-show="repeater.options=='Profile'">
+            <button class="btn btn-default btn-lg dropdown-toggle" type="button" data-toggle="dropdown" aria-expanded="false">
+                <img class="profile-icon profile-icon-sm" ng-src="{{repeater.value.photo || '/assets/images/photo.jpg'}}" /> {{repeater.value.name.givenName + ' ' + repeater.value.name.familyName}} ({{repeater.value.displayName}})
+                &nbsp; &nbsp; <span class="caret"></span>&nbsp;&nbsp;&nbsp;
+            </button>
+
+            <span class="sr-only">Toggle Dropdown</span>
+
+            <ul class="dropdown-menu" role="menu">
+                <li ng-repeat="member in members"><a
+                        ng-click="repeater.value=member">
+                    <img class="profile-icon profile-icon-sm" ng-src="{{member.photo || '/assets/images/photo.jpg'}}" />
+
+                    {{member.name.givenName + ' ' + member.name.familyName }} ({{member.displayName}})</a></li>
+
+            </ul>
+    </div>
+
+    </div>
+
+    <!-- Split button -->
+
+</div>

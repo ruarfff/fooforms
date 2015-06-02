@@ -1,0 +1,43 @@
+<div class="form-group clearfix">
+    <label for="{{formField.id}}">{{formField.label}}
+        <i class="fa fa-question-circle"
+           ng-hide="!formField.userInstructions"
+           popover="{{formField.userInstructions}}"
+           popover-trigger="mouseenter"></i>
+    </label>
+<div ng-if="formField.fields.length===0">
+    <span class="text-muted">Add table columns by dragging new form fields into the space below.</span><br>
+    <i class="fa fa-info-circle text-primary"></i> <span class="text-muted">Ensure that all fields display on a single line or your table will not display correctly.</span>
+</div>
+    <div ui-sortable="repeatSortableOptions" ng-model="formField.fields" id='{{formField.id}}'
+         class="repeat-apps-container col-sm-12 repeatBox"
+            >
+        <div class='formObject col-sm-{{subField.boxSize}}'
+
+             ng-click="editField($parent.$index, $index, 'Group', $event)"
+             ng-class="{ 'bg-warning': $index== nowSubEditing  && $parent.$index == nowEditing,'dropped' : $index == nowSubEditing  && $parent.$index == nowEditing}"
+             ng-repeat="subField in formField.fields track by $index">
+            <div class="btn-group pull-right onTop">
+
+                <button ng-click="editField($parent.$index, $index, 'Group', $event)"
+                        class='btn btn-xs btn-default'
+                        >{{$parent.$index}}.{{$index}}
+                </button>
+                <button ng-click='deleteSubItem(subField.id)'
+                        class='btn btn-xs btn-danger'
+                        ng-show="$index == nowSubEditing">X
+                </button>
+            </div>
+            <div ng-include="'/template/formFields/groupBoxed/' + subField.type + '.html'"></div>
+        </div>
+
+
+    </div>
+
+    <div ng-show="formField.repeatable">
+        <button class="btn btn-default" ng-click="addRepeat($index,0);">+</button>
+    </div>
+
+
+</div>
+

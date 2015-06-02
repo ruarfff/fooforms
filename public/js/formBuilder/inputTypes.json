@@ -147,8 +147,8 @@
 }
 ,
 {
-"type": "paragraph",
-"name": "Paragraph Text",
+"type": "heading",
+"name": "heading",
 "label" : "Heading",
 "placeholder": "",
 "size" :100,
@@ -156,12 +156,29 @@
 "required" : false, "adminOnly" : false,
 "rows" : false,
 "style" : "default",
-"description": "A file upload box.",
+"description": "A field for adding a plain text heading.",
 "help": "Use it to gather text with multiple rows such as address or questions, etc.",
 "showInFeed":true,
 "showInList":false,
 "showInGrid":true,
 "value" : ""
+},
+{
+"type": "paragraph",
+"name": "Paragraph Text",
+"label" : "",
+"placeholder": "",
+"size" :100,
+"boxSize" : 12,
+"required" : false, "adminOnly" : false,
+"rows" : false,
+"alignment" : "text-left",
+"description": "A plain text field.",
+"help": "Use it to gather text with multiple rows such as address or questions, etc.",
+"showInFeed":true,
+"showInList":false,
+"showInGrid":true,
+"value" : "Custom Text"
 }
 ,
 {
@@ -201,8 +218,36 @@
 ["Data A2","Data B2","Data C2"]
 ]
 },
+"repeatable": true,
 "repeaters": [],
 "description": "A group box.",
+"help": "Use it to group items in a single container or  to enable the user to 'add' additional line items to the form, such as invoice items, etc.",
+"showInFeed":true,
+"showInList":false,
+"showInGrid":true
+},
+{
+"type": "table",
+"name": "Table",
+"label" : "Table",
+"placeholder": "",
+"size" :100,
+"boxSize" : 12,
+"required" : false, "adminOnly" : false,
+"rows" : false,
+"options" : false,
+"fields" : [],
+"list": {
+"enabled" : false,
+"columns" : ["Column A", "Column B", "Another Column"],
+"rows" :[
+["Data A1","Data B1","Data C1"],
+["Data A2","Data B2","Data C2"]
+]
+},
+"repeatable": true,
+"repeaters": [],
+"description": "Table",
 "help": "Use it to group items in a single container or  to enable the user to 'add' additional line items to the form, such as invoice items, etc.",
 "showInFeed":true,
 "showInList":false,
@@ -213,7 +258,7 @@
 "name": "Number",
 "label" : "Number",
 "placeholder": "",
-"size" :25,
+"size" :100,
 "boxSize" : 12,
 "required" : false, "adminOnly" : false,
 "rows" : false,
@@ -224,14 +269,14 @@
 "showInFeed":true,
 "showInList":false,
 "showInGrid":true,
-"value" : ""
+"value" : 0
 },
 {
 "type": "currency",
 "name": "Currency",
 "label" : "Currency",
 "placeholder": "",
-"size" :25,
+"size" :100,
 "boxSize" : 12,
 "required" : false, "adminOnly" : false,
 "rows" : false,
@@ -242,14 +287,14 @@
 "showInFeed":true,
 "showInList":false,
 "showInGrid":true,
-"value" : ""
+"value" : 0
 },
 {
 "type": "calculation",
 "name": "Calculation",
 "label" : "Calculation",
 "placeholder": "",
-"size" :25,
+"size" :100,
 "boxSize" : 12,
 "required" : false, "adminOnly" : false,
 "rows" : false,
@@ -262,7 +307,23 @@
 "showInFeed":true,
 "showInList":false,
 "showInGrid":true,
-"value" : ""
+"value" : 0
+},
+{
+"type": "sum",
+"name": "Sum",
+"label" : "Sum",
+"placeholder": "",
+"size" :100,
+"boxSize" : 12,
+"required" : false, "adminOnly" : false,
+"options" : {"groupBoxId" : 0, "calcFieldId" : 0 },
+"description": "A Sum field.",
+"help": "Use it to  calculate the SUM of individual Calculaton fields used in a table, good for invoice items, etc.",
+"showInFeed":true,
+"showInList":false,
+"showInGrid":true,
+"value" : 0
 },
 {
 "type": "color",
@@ -499,6 +560,42 @@
 "showInFeed":true,
 "showInList":true,
 "showInGrid":true
+},
+{
+"type": "progress",
+"name": "Progress Bar",
+"label" : "Progress Bar",
+"placeholder": "",
+"size" : 100,
+"boxSize" : 12,
+"required" : false, "adminOnly" : false,
+"rows" : false,
+"userInstructions": "",
+"description": "A progress bar",
+"help": "The most common form field. Use it to gather text data such as name, email address, etc.",
+"showInFeed":true,
+"showInList":true,
+"showInGrid":true,
+"value" : 0,
+"options" : {"updateMethod" : "Manual", "updateField" : ""}
+},
+{
+"type": "link",
+"name": "Form Link",
+"label" : "Form Link",
+"placeholder": "",
+"size" : 100,
+"boxSize" : 12,
+"required" : false, "adminOnly" : false,
+"rows" : false,
+"userInstructions": "",
+"description": "A progress bar",
+"help": "The most common form field. Use it to gather text data such as name, email address, etc.",
+"showInFeed":true,
+"showInList":true,
+"showInGrid":true,
+"value" : 0,
+"options" : {"formId" : "", "postId" : "", "fields": []}
 }
 
 ]

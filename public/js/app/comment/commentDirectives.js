@@ -23,7 +23,7 @@ angular.module('comment')
                     $scope.showCommentButton = false;
 
                     $scope.$watch('activePost', function (newValue, oldValue) {
-                        if (newValue.commentStream != oldValue.commentStream) {
+                        if (newValue && (newValue.commentStream != oldValue.commentStream)) {
                             currentPage = 0;
                             pageSize = 10;
                             hasMore = true;
@@ -69,8 +69,10 @@ angular.module('comment')
                         var postForm={};
                         $scope.titles=[];
 
-                        if (!$scope.activeForm || ($scope.activePost.displayName !== $scope.activeForm.displayName)) {
-                            postForm =_.find(Session.forms, {displayName: $scope.activePost.displayName});
+                        if (!$scope.activeForm || ($scope.activePost.postStream !== $scope.activeForm.postStreams[0])) {
+                            postForm =_.find(Session.forms, function(form){
+                                return form.postStreams[0]== $scope.activePost.postStream;
+                            });
                         }else{
                             postForm =$scope.activeForm ;
 
@@ -90,7 +92,7 @@ angular.module('comment')
                                 }
 
                         }
-                    }
+                    };
 
                     
                     $scope.addMore = function () {

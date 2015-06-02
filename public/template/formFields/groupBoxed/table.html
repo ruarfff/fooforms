@@ -1,0 +1,19 @@
+<div class="form-group clearfix">
+    <label for="{{subField.id}}">{{subField.label}}
+        <i class="fa fa-question-circle"
+           ng-hide="!formField.userInstructions"
+           popover="{{formField.userInstructions}}"
+           popover-trigger="mouseenter"></i>
+    </label>
+
+    <div class=" alert alert-danger"
+         id="{{subField.id}}">
+        <h4>This just isn't going to work!</h4>
+
+        <p>Brian spent much time worrying about people putting nested group boxes inside other nested group boxes.
+            His head still hurts.<br><strong> If you really need this feature,</strong> please send us your 'Use Case'
+            and we
+            will endeavour to find a solution for you.</p>
+    </div>
+
+</div>

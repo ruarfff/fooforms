@@ -2,22 +2,16 @@
      infinite-scroll-container="'#foo-post-collection'"  ng-show="view!='grid'"
      >
 
-
-
     <!-- TODO: Move feed and list to own templates and directives -->
 
     <!-- List View -->
     <foo-post-list posts="posts" active-post="activePost" active-form="activeForm" ng-show="view=='list'"
-                   status="status" view="list"></foo-post-list>
+                   status="status" view="list" deleting-post-id="deletingPostId"></foo-post-list>
 
     <!-- Feed View -->
 
     <foo-post-feed posts="posts" active-post="activePost" active-form="activeForm" ng-show="view=='feed'"
-                   status="status" view="feed" show-post-form="showPostForm"></foo-post-feed>
-
-    <div ng-cloak class="text-center mt10 animated" ng-show="fetching">
-        <i class="fa fa-circle-o-notch fa-spin fa-3x text-muted"></i>
-    </div>
+                   status="status" view="feed" show-post-form="showPostForm"  deleting-post-id="deletingPostId"></foo-post-feed>
 
 
 </div>
@@ -25,7 +19,7 @@
 
 
 <foo-post-grid posts="posts" active-post="activePost" active-form="activeForm" ng-show="view=='grid'"
-                   status="status" grid-headings="gridHeadings" show-post-form="showPostForm"></foo-post-grid>
+                   status="status" grid-headings="gridHeadings" show-post-form="showPostForm" deleting-post-id="deletingPostId"></foo-post-grid>
 
 
 <!--Default Emplty Post Display -->

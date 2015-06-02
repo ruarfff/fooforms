@@ -16,7 +16,7 @@
             <li ng-repeat="team in organisation.teams | filter:{ _id: '!' + organisation.owners} ">
 
                 <a href="/{{organisation.displayName}}/teams/{{team.displayName}}">
-                   <i class="fa fa-group"></i> {{teams.title || team.displayName}}
+                   <i class="fa fa-group"></i> {{team.title || team.displayName}}
                 </a>
                 <ul class="nav nav-pills nav-stacked ml0">
                     <li ng-repeat="form in team.defaultFolder.forms track by $index">

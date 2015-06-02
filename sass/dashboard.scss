@@ -10,7 +10,7 @@ body {
   top: 0;
   left: 0;
   right: 0;
-  background-color: #ede9da !important;
+  background: #e8ebef !important;
 
   font-family: 'Helvetica Neue', Helvetica, Arial;
   color: #3b3b3b;
@@ -85,7 +85,6 @@ body {
 
 #wrap {
   min-height: 100%;
-  height: auto !important;
   height: 100%;
   margin: 0 auto -1px;
 }
@@ -149,7 +148,7 @@ body {
 
 .scroll {
   position: absolute;
-  top: 140px;
+  top: 40px;
   bottom: 0px;
   left: 10px;
   right: 1px;
@@ -189,15 +188,15 @@ body {
 .company {
   display: block;
   text-align: center;
-  max-width: 100%;
-  overflow-x: hidden;
+  width: 100%;
   margin-bottom: 0px;
   height: 100px;
   line-height: 100px;
-  border: 5px solid #FFF;
+  border-bottom: 5px solid #374555;
+
   background: #fff;
-  color: #263042;
-  padding: 0px;
+  color: #374555;
+  padding: 2px;
   overflow: hidden;
 }
 
@@ -205,31 +204,31 @@ body {
   line-height: 20px;
   padding: 0px;
   margin: 0px;
-  color: #424d66;
+  color: rgba(55, 69, 85, 0.66);
 }
 
 .company div {
   line-height: 20px;
   padding: 0px;
   margin: 0px;
+  width: 100%;
+  text-align: center;
 }
 
 .company div a {
-  color: #1f2736;
+  color: #c0c0c0;
 }
 
 .company div a:hover {
-  background: #fff !important;
   text-decoration: none;
-  color: #424d66;
+
 }
 
 .company img {
   padding: 0px;
   margin: 0px;
-  padding: 0px;
-  max-height: 100px !important;
   max-width: 100%;
+  max-height: 100px !important;
 }
 
 .foo-thumbnail{
@@ -269,22 +268,32 @@ body {
 .panel-transparent {
   background: none !important;
 margin-top: 8px;
+  box-shadow: none !important;
+
 }
 
 .panel-transparent .panel-body {
   margin: 0px;
   display: block;
   padding: 10px;
-  -webkit-border-radius: 3px;
-  border-radius: 3px;
-  -webkit-box-sizing: border-box;
-  box-sizing: border-box;
-  background-color: #E2DECF;
-  border: 1px solid rgba(204, 200, 185, 0.69);
-  border-bottom-width: 2px;
-  border-top-width: 0;
+  -webkit-border-radius: 0px;
+  -moz-border-radius: 0px;
+  -ms-border-radius: 0px;
+  -o-border-radius: 0px;
+  border-radius: 0px;
+  -webkit-box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.5), 0 1px 0 rgba(255, 255, 255, 0.5);
+  -moz-box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.5), 0 1px 0 rgba(255, 255, 255, 0.5);
+  -ms-box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.5), 0 1px 0 rgba(255, 255, 255, 0.5);
+  -o-box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.5), 0 1px 0 rgba(255, 255, 255, 0.5);
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.5), 0 1px 0 rgba(255, 255, 255, 0.5);
+  border: 1px solid rgba(14, 41, 57, 0.1);
+  background: -webkit-linear-gradient(rgba(255, 255, 255, 0.5), rgba(255, 255, 255, 0)) !important;
+  background: -moz-linear-gradient(rgba(255, 255, 255, 0.5), rgba(255, 255, 255, 0));
+  background: -ms-linear-gradient(rgba(255, 255, 255, 0.5), rgba(255, 255, 255, 0));
+  background: -o-linear-gradient(rgba(255, 255, 255, 0.5), rgba(255, 255, 255, 0));
+  background: linear-gradient(rgba(255, 255, 255, 0.5), rgba(255, 255, 255, 0));
   vertical-align: top;
-  color: #424d66;;
+  color: #424d66;
   font-size: 13px;
   font-weight: bold;
   text-align: center;
@@ -479,14 +488,29 @@ input[type=checkbox]:focus {
 
 .odd {
   padding: 4px 0px;
-  background: #fff !important;
+  background: #f7f7f7 !important;
+  border-bottom: 1px solid #fff;
 
 }
 
 .even {
   padding: 4px 0px;
-  background: #fff !important;
+  background: #f0f0f0 !important;
+border-bottom: 1px solid #fff;
+}
 
+.oddGroup {
+  padding: 4px 6px;
+  border-top: 5px solid #fff;
+  border-bottom: 5px solid #fff;
+  border-left: 5px solid #dedede;
+}
+
+.evenGroup {
+  padding: 4px 6px;
+  border-top: 5px solid #fff;
+  border-bottom: 5px solid #fff;
+  border-left: 5px solid #dedede;
 }
 
 .odd .form-group, .even .form-group {
@@ -586,6 +610,9 @@ input[type=checkbox]:focus {
 .p10 {
   padding: 10px !important;
 }
+.pb10{
+  padding-bottom: 10px !important;
+}
 
 .br0 {
   border-radius: 0px !important;
@@ -604,6 +631,12 @@ input[type=checkbox]:focus {
 
 .b0 {
   border: 0px;
+}
+.bb0{
+  border-bottom-width: 0px !important;
+}
+.bt0{
+  border-top-width: 0px !important;
 }
 .b1{
   border: 1px solid #efefef;
@@ -627,13 +660,21 @@ input[type=checkbox]:focus {
 .mb10{
   margin-bottom: 10px;
 }
-
+.mt-1{
+  margin-top: -1px !important;
+}
 .light-gray {
   background: transparent !important;
 }
 
+.text-opacity-2 {
+  opacity: 0.3 !important;
+}
 .text-opacity-5 {
   opacity: 0.5 !important;
+}
+.text-opacity-7 {
+  opacity: 0.7 !important;
 }
 
 .clear {
@@ -738,7 +779,7 @@ input[type=checkbox]:focus {
   // border-top: 5px solid #68B3AF;
   // border-bottom: 1px solid #e7e7e7;
   display: block;
-  //background: #fff;
+  background: #fff !important;
   text-shadow: 1px 1px 1px rgba(255, 255, 255, .3);
   color: #3d4b5b;
 }
@@ -754,7 +795,7 @@ input[type=checkbox]:focus {
 
 .navbar-foo .navbar-collapse {
   margin-left: 5px;
-  background: none;
+  background: #fff;
 
 }
 
@@ -797,7 +838,6 @@ div.nav-profile, div.nav-search {
   display: inline;
   min-width: 100px;
   margin: 0 !important;
-  padding-top: 1px;
   padding: 0px;
 }
 
@@ -816,7 +856,6 @@ div.nav-profile, div.nav-search {
   border-radius: 15px;
   line-height: 28px;
   margin: 2px;
-  padding-left: 12px;
   color: #3B8686;
   background: #fff;
   border: 1px solid #3B8686;
@@ -1161,7 +1200,7 @@ video {
   -o-transition: 0.3s linear all;
   transition: 0.3s linear all;
   left: 15px !important;
-  right:50% !important;
+  right:0 !important;
   width: 100% !important;
   display: block;
 }
@@ -1173,8 +1212,8 @@ video {
   -o-transition: 0.3s linear all;
   transition: 0.3s linear all;
   width: 100% !important;
-  left: 110% !important;
-right: 110% !important;
+  left: 200% !important;
+right: -200% !important;
 }
 
 .slideFeedIn {
@@ -1183,7 +1222,7 @@ right: 110% !important;
   -o-transition: 0.5s linear all;
   transition: 0.5s linear all;
   left: 11px !important;
-  right: 0% !important;
+  right: 0 !important;
 }
 
 .slideFeedOut {
@@ -1192,8 +1231,8 @@ right: 110% !important;
   -moz-transition: 0.5s linear all;
   -o-transition: 0.5s linear all;
   transition: 0.5s linear all;
-  left: -100% !important;
-  right: 100% !important;
+  left: -200% !important;
+  right: 200% !important;
 }
 
 .initOffScreen{
@@ -1204,9 +1243,9 @@ right: 110% !important;
 }
 .appear {
   opacity: .5;
-  -webkit-animation: appear 0.3s forwards;
+  -webkit-animation: appear 0.6s forwards;
   -webkit-animation-delay: 0.1s;
-  animation: appear 0.3s forwards;
+  animation: appear 0.6s forwards;
   animation-delay: 0.1s;
 }
 
@@ -1372,7 +1411,6 @@ right: 110% !important;
   background: rgba(80, 76, 68, 0.89) !important;
   min-height: 100%;
   height: auto;
-  padding: 0px;
   overflow: scroll;
   padding: 30px;
 }

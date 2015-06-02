@@ -1,0 +1,18 @@
+<div class="form-group clearfix">
+    <label for="{{subField.id}}">{{subField.label}}
+        <i class="fa fa-question-circle"
+           ng-hide="!subField.userInstructions"
+           popover="{{subField.userInstructions}}"
+           popover-trigger="mouseenter"></i>
+    </label>
+
+    <div class="input-group" ng-style="{'width': subField.size+'%'}">
+        <span class="input-group-addon" ng-show="subField.required">*</span>
+        <input type="file"
+               rows="{{subField.rows}}"
+               class="form-control"
+               disabled
+               id="{{subField.id}}"
+               placeholder="{{subField.placeholder}}"/>
+    </div>
+</div>

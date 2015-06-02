@@ -1,76 +1,83 @@
 <form role="form" class="panel panel-foo-post fixed">
     <div class="panel-heading pt10">
-<div class="row">
-        <div class="col-sm-12  col-md-6 plr5">
-            <div class="m0 p0 animated" ng-hide="!activePost.createdBy">
-            <img ng-show="!$parent.form " class="img-responsive img-circle post-user-img" ng-src="{{activePost.icon}}" alt="">
-            <img class="img-responsive img-circle post-user-img" ng-src="{{activePost.createdBy.photo || '/assets/images/photo.jpg'}}"/>
+        <div class="row">
+            <div class="col-sm-12  col-md-6 plr5">
+                <div class="m0 p0 animated" ng-hide="!activePost.createdBy">
+                    <img ng-show="!$parent.form " class="img-responsive img-circle post-user-img"
+                         ng-src="{{activePost.icon}}" alt="">
+                    <img class="img-responsive img-circle post-user-img"
+                         ng-src="{{activePost.createdBy.photo || '/assets/images/photo.jpg'}}"/>
 
-            <p class="small pull-left inline-block"><span class="text-opacity-5" >{{activePost.createdBy.displayName}}</span><br>
-              <span class="m0 p0" ng-show="!doingPostApi">
-                {{activePost.created | date : 'd MMM, y @ h:mma'}} <i class="fa fa-caret-right"></i> Last Update: {{activePost.lastModified | ago}}
+                    <p class="small pull-left inline-block"><span>{{activePost.createdBy.displayName}}</span>
+                        <i class="fa fa-caret-right"></i>
+              <span class="m0 p0 text-opacity-7" ng-show="!doingPostApi">
+                {{activePost.created | date : 'd MMM, y @ h:mma'}}<br> Last Update: {{activePost.lastModified | ago}}
             </span>
 
             <span class="m0 p0" ng-show="doingPostApi">
                 <i class="fa fa-circle-o-notch fa-spin"></i> Saving...
             </span>
-            </p>
+                    </p>
+                </div>
+            <span class="m0 p0" ng-show="doingPostApi && !activePost.lastModified ">
+                <i class="fa fa-circle-o-notch fa-spin"></i> Saving...
+            </span>
+
             </div>
 
+            <div class="btn-group col-sm-12  col-md-6 pt5" ng-hide="fullScreen">
+                <div class="button-group pull-right">
+                    <button id='closePost' ng-click="cancel()"
+                            class="btn btn-default"
+                            ng-show="$parent.postView=='grid' ||  $parent.postView=='feed'"><i class="fa fa-close"></i>
+                        Close
+                    </button>
 
+
+                    <button id='fullScreen' ng-click="showFullScreen()"
+                            class="btn btn-default"
+                            ng-hide="$parent.postView=='grid'"><i class="fa fa-expand"></i>
+                    </button>
+                    <button id='printPost' ng-click="printPost()"
+                            class="btn btn-default"><i class="fa fa-print"></i>
+                    </button>
+
+                    <button id='copyPost' ng-click="copy()"
+                            class="btn btn-default"><i class="fa fa-copy"></i>
+                    </button>
+
+                    <button id='deletePost' ng-click="delete()"
+                            class="btn btn-danger"><i class="fa fa-trash-o"></i> Delete
+                    </button>
+                    <button id='savePost' ng-click="save()"
+                            class="btn btn-success"
+                            ng-disabled="doingPostApi"><i class="fa fa-save"></i> Save
+                    </button>
+                </div>
+            </div>
+
+            <div class="btn-group col-sm-6 pt5" ng-show="fullScreen">
+                <div class="button-group pull-right">
+                    <button ng-click="cancelFullScreen()"
+                            class="btn btn-default"><i class="fa fa-close"></i> Close
+                    </button>
+
+                    <button id='printPost' ng-click="printPost()"
+                            class="btn btn-default"><i class="fa fa-print"></i>
+                    </button>
+
+                    <button id='deletePost' ng-click="delete()"
+                            class="btn btn-danger"><i class="fa fa-trash-o"></i> Delete
+                    </button>
+                    <button id='savePostt' ng-click="save()"
+                            class="btn btn-success"
+                            ng-disabled="doingPostApi"><i class="fa fa-save"></i> Save
+                    </button>
+
+
+                </div>
+            </div>
         </div>
-
-    <div class="btn-group col-sm-12  col-md-6 pt5" ng-hide="fullScreen">
-            <div class="button-group pull-right">
-                <button id='closePost' ng-click="cancel()"
-                        class="btn btn-default"
-                        ng-show="$parent.postView=='grid' ||  $parent.postView=='feed'"><i class="fa fa-close"></i> Close
-                </button>
-
-
-                <button id='fullScreen' ng-click="showFullScreen()"
-                        class="btn btn-default"
-                        ng-hide="$parent.postView=='grid'"><i class="fa fa-expand"></i>
-                </button>
-                <button id='printPost' ng-click="printPost()"
-                        class="btn btn-default"><i class="fa fa-print"></i>
-                </button>
-
-                <button id='copyPost' ng-click="copy()"
-                        class="btn btn-default"><i class="fa fa-copy"></i>
-            </button>
-
-                <button id='deletePost' ng-click="delete()"
-                        class="btn btn-danger"><i class="fa fa-trash-o"></i> Delete
-                </button>
-            <button id='savePost' ng-click="save()"
-                    class="btn btn-success"
-                    ng-disabled="doingPostApi"><i class="fa fa-save"></i> Save
-            </button>
-        </div></div>
-
-    <div class="btn-group col-sm-6 pt5" ng-show="fullScreen">
-        <div class="button-group pull-right">
-            <button ng-click="cancelFullScreen()"
-                    class="btn btn-default"><i class="fa fa-close"></i> Close
-            </button>
-
-            <button id='printPost' ng-click="printPost()"
-                    class="btn btn-default"><i class="fa fa-print"></i>
-            </button>
-
-            <button id='deletePost' ng-click="delete()"
-                    class="btn btn-danger"><i class="fa fa-trash-o"></i> Delete
-            </button>
-            <button id='savePostt' ng-click="save()"
-                    class="btn btn-success"
-                    ng-disabled="doingPostApi"><i class="fa fa-save"></i> Save
-            </button>
-
-
-        </div>
-    </div>
-</div>
 
     </div>
     <div class="panel-body light-gray">

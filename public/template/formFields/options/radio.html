@@ -1,9 +1,10 @@
 <form class="form-horizontal" role="form">
+    <h5 class="text-info optionsTitle"><i class="fa fa-caret-right"></i> Layout</h5>
     <div class="form-group">
         <label class="col-sm-4 control-label">Field Label</label>
 
         <div class="col-sm-8">
-            <input type='text' class="form-control" ng-model="form.fields[nowEditing].label"/>
+            <input type='text' class="form-control input-sm" ng-model="form.fields[nowEditing].label"/>
         </div>
     </div>
     <div class="form-group">
@@ -16,21 +17,6 @@
     </div>
 
     <div class="form-group">
-        <label class="col-sm-4 control-label">Required </label>
-
-        <div class="col-sm-8">
-            <input type='checkbox' ng-model="form.fields[nowEditing].required"></label>
-        </div>
-    </div>
-    <div class="form-group">
-        <label class="col-sm-4 control-label">Admin Only R</label>
-
-        <div class="col-sm-8">
-            <input type='checkbox' ng-model="form.fields[nowEditing].adminOnly"></label>
-        </div>
-    </div>
-
-    <div class="form-group">
         <label class="col-sm-4 control-label">Instructions for user</label>
 
         <div class="col-sm-8">
@@ -38,6 +24,7 @@
                    ng-model="form.fields[nowEditing].userInstructions"/>
         </div>
     </div>
+
     <div class="form-group">
         <label class="col-sm-4 control-label">Display</label>
 
@@ -52,8 +39,8 @@
             </label>
         </div>
     </div>
-    <div class="">
-        <h6>Options</h6>
+    <div class="alert alert-info p5">
+        <h5>Content Options</h5>
 
         <div ng-repeat='option in form.fields[nowEditing].options track by $index'>
             <div class="input-group">
@@ -76,27 +63,7 @@
 
 
         </div>
-    </div>
-    <div class="form-group">
-        <label class="col-sm-4 control-label">Show in Feed View</label>
 
-        <div class="col-sm-8">
-            <input type='checkbox' name='showInFeed' ng-model="form.fields[nowEditing].showInFeed"></label>
-        </div>
     </div>
-    <div class="form-group">
-        <label class="col-sm-4 control-label">Show in List View</label>
-
-        <div class="col-sm-8">
-            <input type='checkbox' name='showInList' ng-model="form.fields[nowEditing].showInList"></label>
-        </div>
-    </div>
-    <div class="form-group">
-        <label class="col-sm-4 control-label">Show in Grid View</label>
-
-        <div class="col-sm-8">
-            <input type='checkbox' name='showInGrid' ng-model="form.fields[nowEditing].showInGrid"></label>
-        </div>
-    </div>
+    <div ng-include="'/template/formFields/options/common_displayOptions.html'"></div>
 </form>
-</div>

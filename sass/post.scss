@@ -44,10 +44,11 @@ display: block;
   border-radius: 3px;
   -webkit-box-sizing: border-box;
   box-sizing: border-box;
-  background-color: rgba(255,255,255,.9);
-  border: 1px solid rgb(204, 200, 185);
-  border-bottom-width: 2px;
-  border-top-width: 0;
+  background-color: #fff;
+
+  border: 1px solid rgba(222, 223, 225, 0.58) !important;
+  border-top: 0px !important;
+  border-bottom: 1px solid #dedfe1 !important;
   vertical-align: top;
 }
 
@@ -67,8 +68,10 @@ color: #888;
   line-height: 18px;
   border-radius: 0px;
   box-shadow: none;
-  background: rgba(204, 200, 185, 0.12) !important;
-  border-top: 1px dashed rgb(204, 200, 185) !important;
+  background: #f7f9fa !important;
+
+  border-top: 1px dashed #ced7da !important;
+;
 }
 
 .panel-foo-feed .panel-footer a{
@@ -130,7 +133,7 @@ color: #888;
    margin-left: -6px;
    margin-top: -3px;
    border-radius: 50%;
-   border: 1px solid #efefef;
+   border: 1px solid #DAE3E5;
  }
 .panel-foo-feed .post-user-img {
   width: 38px;
@@ -141,7 +144,8 @@ color: #888;
   margin-right: 0px;
   margin-left: -6px;
   margin-top: 3px;
-  border: 1px solid #efefef;
+  border: 1px solid #DAE3E5;
+
 }
 
 .panel-foo-feed .thumbnail{
@@ -210,6 +214,40 @@ box-shadow: 1px 1px 7px rgba(255,255,255,.3);
 .panel-feed-selected{
   border-left: 10px solid #9bd843 !important;
 }
+.panel-feed-deleted{
+  border-left: 10px solid #d84344 !important;
+ position: relative;
+  display: block;
+  -webkit-animation: delete 1.6s forwards;
+  -webkit-animation-delay: 0.1s;
+  animation: delete 1.6s forwards;
+  animation-delay: 0.1s;
+  overflow: hidden;
+}
+
+
+@keyframes delete {
+  50% {
+    left: 0;
+   transform: scale(.9,.7);
+
+  }
+  100% {
+    transform: scale(.5,.7);
+    left: -200%;
+  }
+}
+@-webkit-keyframes delete {
+  50% {
+    left: 0;
+    transform: scale(.9,.7);
+
+  }
+  100% {
+    transform: scale(.5,.7);
+  left: -200%;
+  }
+}
 
 .panel-foo-light{
   background: transparent !important;
@@ -232,7 +270,8 @@ padding: 8px;
   margin-bottom: 10px;
   background: #fff;
   font-weight: 300 !important;
-  border: 1px solid rgb(204, 200, 185);
+  border: 1px solid #DAE3E5;
+
 }
 .comment .text-muted {
   font-size: .9em;
@@ -287,6 +326,7 @@ display: block;
   display: block;
   background: #3d4b5b !important;
   height: 39px !important;
+  white-space: nowrap;
 
 }
 .foo-grid tbody{
@@ -326,7 +366,7 @@ display: block;
 .foo-grid td {
   vertical-align: middle;
   padding: 4px !important;
-  border: 1px solid rgba(204, 200, 185, 0.69) !important;
+  border: 1px solid #DAE3E5;
 height: 24px;
   font-weight: 400;
   font-size: 1.1em;
@@ -343,8 +383,8 @@ height: 24px;
 .foo-grid tr.active td{
 
 
-  background:   rgba(204, 200, 185, 0.69) !important;
-  text-shadow: 1px 1px 1px rgba(255,255,255,.5) !important;
+  background:  #FFF !important;
+  font-weight:600;
 }
 .foo-grid th input {
   padding: 5px;

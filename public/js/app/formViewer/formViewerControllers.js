@@ -11,7 +11,9 @@ angular.module('formViewer')
             $scope.showPostForm = false;
             $scope.printPreview = false;
             $scope.tableRows = 10;
-            $scope.feedPosition = {'top': '170px'};
+            $scope.feedPosition = {'top': '150px'};
+            $scope.deletingPostId = false;
+
             // Posts are linked to the post collection directive
             $scope.posts = [];
             // Need location to set correct url for Edit button
@@ -37,6 +39,7 @@ angular.module('formViewer')
             }
             $scope.form = _.find(folder.forms, {displayName: formName});
             $scope.activeForm = $scope.form;
+            Session.forms.push($scope.activeForm);
             if (!$scope.form) {
                 window.location.href = '/dashboard';
             }
@@ -67,9 +70,15 @@ angular.module('formViewer')
             $scope.createGridHeadings();
 
             $scope.newPost = function () {
-                $scope.activePost = Posts.newPost(angular.copy($scope.form));
-                $scope.showPostForm = true;
-                $scope.setMessage('');
+
+                $scope.activePost=false;
+
+                $timeout(function () {
+                    $scope.activePost = Posts.newPost(angular.copy($scope.form));
+                    $scope.activePost.lastModified = '';
+                    $scope.showPostForm = true;
+                    $scope.setMessage('');
+                }, 0);
             };
 
             $scope.cancelPost = function () {
@@ -80,10 +89,24 @@ angular.module('formViewer')
                 var newPost = angular.copy($scope.activePost);
                 if (newPost._id) {
                     delete newPost._id;
+                    delete newPost.createdBy;
                 }
                 $scope.activePost = newPost;
-                SweetAlert.swal('Post Copied');
+                $scope.activePost.lastModified = '';
 
+                PostService.createPost($scope.activePost, function (err, post) {
+                    $scope.doingPostApi = false;
+                    if (err) {
+                        $log.error(err);
+                        SweetAlert.swal('Not Saved!', 'Your post has not been created.', 'error');
+                    } else {
+                        $scope.posts.unshift(post);
+                        SweetAlert.swal('Copied', 'Your post has been copied and saved.', 'success');
+                        $timeout(function(){
+                            $scope.activePost = Restangular.copy(post);
+                        });
+                    }
+                });
             };
             $scope.savePost = function () {
                 $scope.doingPostApi = true;
@@ -98,19 +121,22 @@ angular.module('formViewer')
                     // Brian
 
                     $scope.activePost.lastModified = new Date();
-                    var postToSave = $scope.activePost;
 
-                    delete postToSave.commentStreams;
-                    PostService.updatePost(postToSave, function (err, post) {
+                    PostService.updatePost($scope.activePost, function (err, post) {
                         $scope.doingPostApi = false;
                         if (err) {
                             $log.error(err);
                             SweetAlert.swal('Not Saved!', 'An error occurred trying to update your post.', 'error');
                         } else {
-                            $log.debug(post);
-                            $scope.activePost = post;
+                            var postIndex = _.findIndex($scope.posts,function(i){return i._id === $scope.activePost._id});
+
+                            $scope.posts[postIndex] = Restangular.copy(post);
 
                             $scope.showPostForm = false;
+                            $scope.activePost=false;
+                            $timeout(function(){
+                                $scope.activePost = Restangular.copy(post);
+                            });
                         }
                     });
                 } else {
@@ -121,8 +147,12 @@ angular.module('formViewer')
                             SweetAlert.swal('Not Saved!', 'Your post has not been created.', 'error');
                         } else {
                             $scope.posts.unshift(post);
-                            $scope.activePost = post;
+
                             $scope.showPostForm = false;
+                            $scope.activePost=false;
+                            $timeout(function(){
+                                $scope.activePost = Restangular.copy(post);
+                            });
                         }
                     });
                 }
@@ -132,22 +162,41 @@ angular.module('formViewer')
 
             $scope.deletePost = function () {
                 if ($scope.activePost._id) {
+
                     SweetAlert.swal({
                             title: 'Are you sure?', text: 'Your will not be able to recover this post!',
                             type: 'warning',
                             showCancelButton: true, confirmButtonColor: '#DD6B55',
-                            confirmButtonText: 'Yes, delete it!', closeOnConfirm: false
+                            confirmButtonText: 'Yes, delete it!', closeOnConfirm: true
                         },
                         function () {
                             PostService.deletePost($scope.activePost, function (err) {
+                                $scope.deletingPostId = $scope.activePost._id;
                                 $scope.doingPostApi = false;
                                 if (err) {
                                     SweetAlert.swal('Not Deleted!', 'An error occurred trying to delete your post.', 'error');
                                     console.log(err);
+                                    $scope.deletingPostId = '';
                                 } else {
-                                    _.pull($scope.posts, $scope.activePost);
-                                    $scope.activePost = Posts.newPost($scope.form);
-                                    SweetAlert.swal('Deleted!', 'Your post has been deleted.', 'success');
+                                    var postIndex = _.findIndex($scope.posts,function(i){return i._id === $scope.activePost._id});
+
+
+
+                                    $scope.showPostForm = false;
+                                    $scope.activePost=false;
+
+                                    $timeout(function(){
+
+                                        $scope.posts.splice(postIndex,1);
+                                        $scope.deletingPostId = false;
+                                        var postcount = $scope.posts.length;
+                                        if (postIndex<postcount){
+                                            $scope.activePost = Restangular.copy($scope.posts[postIndex]);
+                                        }else{
+                                            $scope.activePost = Restangular.copy($scope.posts[postcount-1]);
+                                        }
+                                    },1500);
+
                                 }
                             });
                         });
@@ -155,6 +204,7 @@ angular.module('formViewer')
                     $scope.doingPostApi = false;
                     // Post was never saved
                     $scope.activePost = Posts.newPost($scope.form);
+                    $scope.deletingPostId = '';
                 }
                 //Update the grid
                 // $scope.posts2Grid();
@@ -191,7 +241,7 @@ angular.module('formViewer')
             //Grid Related
             $scope.setFeedHeight = function () {
                 var feedHeader = angular.element('#feedHeader')[0];
-                $scope.feedPosition = {'top': feedHeader.offsetHeight + feedHeader.offsetTop, opacity: '0.05'};
+                $scope.feedPosition = {'top': 150, opacity: '0.05'};
                 $timeout(function () {
 
                     //var height = $window.innerHeight - (feedHeader.offsetHeight + feedHeader.offsetTop);
@@ -199,6 +249,8 @@ angular.module('formViewer')
                     $scope.feedPosition = {'top': feedHeader.offsetHeight + feedHeader.offsetTop};
 
                     // Sort out the FooGrid
+
+                    if ($scope.postView==='grid'){
                     var fooGrid = angular.element('#fooGrid');
 
                     fooGrid[0].style.minWidth = feedHeader.offsetWidth;
@@ -251,7 +303,7 @@ angular.module('formViewer')
                             }
                         }
                     }
-
+                    };
                 }, 500);
 
 

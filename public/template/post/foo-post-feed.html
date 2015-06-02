@@ -1,6 +1,6 @@
 <div class="panel panel-foo-feed animated m0"
      ng-repeat="post in posts | statusFilter:status"
-     ng-class="{ 'panel-feed-selected': activePost._id == post._id }"
+     ng-class="{ 'panel-feed-selected': activePost._id == post._id , 'panel-feed-deleted' : post._id == deletingPostId}"
      >
     <feed-header class="panel-heading" ng-click="selectPost(post)"></feed-header>
 

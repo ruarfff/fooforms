@@ -13,30 +13,31 @@ angular.module('post')
                     status: '=status',
                     team: '=team',
                     gridHeadings: '=gridHeadings',
-                    showPostForm: '=showPostForm'
+                    showPostForm: '=showPostForm',
+                    deletingPostId : '=deletingPostId'
                 },
                 transclude: true,
-                controller: function ($log, $scope, PostService, _, Session) {
+                controller: function ($log, $scope, PostService, _, Session, Restangular) {
                     var currentPostPage = 0;
                     var postPageSize = 15;
                     var hasMorePosts = true;
-                    $scope.fetching=true;
-                    $scope.showIntroPage=false;
-                    $scope.view='list';
+                    $scope.fetching = true;
+                    $scope.showIntroPage = false;
+                    $scope.view = 'list';
 
                     $scope.noUserForms = Session.user.defaultFolder.forms.length === 0;
 
                     $scope.posts = [];
 
                     var getPosts = function (page, pageSize, postStreams) {
-                        $scope.fetching=true;
-                        if(postStreams) {
+                        $scope.fetching = true;
+                        if (postStreams) {
                             PostService.getPostsByStreamList({
                                 postStreams: postStreams,
                                 page: page,
                                 pageSize: pageSize
                             }, function (err, posts) {
-                                $scope.fetching=false;
+                                $scope.fetching = false;
 
                                 if (err) {
                                     $log.error(err);
@@ -49,13 +50,13 @@ angular.module('post')
 
 
                                 if ($scope.posts.length > 0 && !$scope.activePost) {
-                                    $scope.activePost = $scope.posts[0];
+                                    $scope.activePost = Restangular.copy($scope.posts[0]);
                                 }
 
-                                if (!$scope.activeForm){
+                                if (!$scope.activeForm && $scope.posts.length > 0) {
 
-                                    $scope.activeForm =_.find(Session.forms, function(form){
-                                        return _.indexOf(form.postStreams, $scope.activePost.postStream) > -1 ? true: false;
+                                    $scope.activeForm = _.find(Session.forms, function (form) {
+                                        return _.indexOf(form.postStreams, $scope.activePost.postStream) > -1 ? true : false;
                                     });
 
                                 }
@@ -64,9 +65,9 @@ angular.module('post')
                             });
 
                         } else {
-                            $scope.fetching=false;
-                            $scope.showIntroPage=true;
-                            $scope.$parent.postView='list';
+                            $scope.fetching = false;
+                            $scope.showIntroPage = true;
+                            $scope.$parent.postView = 'list';
                             $log.debug('Could not load posts. No post streams provided.');
                         }
                     };
@@ -78,11 +79,6 @@ angular.module('post')
                             getPosts(currentPostPage, postPageSize, $scope.streams);
                         }
                     };
-
-
-
-
-
 
 
                 },
@@ -111,8 +107,15 @@ angular.module('post')
                     cancelFullScreen: '&cancelFullScreen',
                     doingPostApi: '=doingPostApi'
                 },
-                controller: function($scope){
-                    $scope.addRepeat = function (groupBox, field) {
+                controller: function ($scope, $timeout) {
+                    $scope.addRepeat = function (groupBoxId, row) {
+                        var requireRefresh = false;
+                        var groupBox = _.findIndex($scope.activePost.fields, function (field) {
+                            return field.id == groupBoxId
+                        });
+
+                        var tempRepeaters = angular.copy($scope.activePost.fields[groupBox].repeaters);
+
                         var repeater = {};
                         repeater.id = new Date().getTime();
                         repeater.fields = angular.copy($scope.activePost.fields[groupBox].fields);
@@ -127,6 +130,8 @@ angular.module('post')
                             // Fields specified in calculation need filedIds updated
                             if (repeater.fields[fieldIndex].type == 'calculation') {
 
+                                requireRefresh = true;
+
                                 if (repeater.fields[fieldIndex].options.field1.item != 'Specified Value') {
                                     var fieldItem = repeater.fields[fieldIndex].options.field1.item;
                                     repeater.fields[fieldIndex].options.field1.item = repeater.id + '_' + fieldItem;
@@ -136,14 +141,87 @@ angular.module('post')
                                     repeater.fields[fieldIndex].options.field2.item = repeater.id + '_' + fieldItem;
                                 }
                             }
+
+                            if (repeater.fields[fieldIndex].type == 'progress') {
+
+                                requireRefresh = true;
+
+                                if (repeater.fields[fieldIndex].options.updateMethod) {
+                                    var fieldItem = repeater.fields[fieldIndex].options.updateField;
+                                    repeater.fields[fieldIndex].options.updateField = repeater.id + '_' + fieldItem;
+                                }
+
+                            }
                         }
 
-                        $scope.activePost.fields[groupBox].repeaters.push(repeater);
+
+                        if ($scope.activePost.fields[groupBox].repeaters.length === 0) {
+                            $scope.activePost.fields[groupBox].repeaters.splice(row + 1, 0, repeater);
+                        } else {
+                            tempRepeaters.splice(row + 1, 0, repeater);
+                            //we've changed the structure of the array so all the watchers are pointing to the wrong place.
+                            //We need to dump the repeater array and then recreate with scope applied to recreate the correct watchers.
+                            // But only if we have fields requiring watchers, such as calc or progress
+                            if (requireRefresh) {
+                                $scope.activePost.fields[groupBox].repeaters = [];
+                                $timeout(function () {
+                                    $scope.activePost.fields[groupBox].repeaters = angular.copy(tempRepeaters);
+
+                                });
+                            } else {
+                                $scope.activePost.fields[groupBox].repeaters = angular.copy(tempRepeaters);
+                            }
+
+
+                        }
+
 
                     };
-                    $scope.removeRepeat = function (groupBox, field) {
+                    $scope.removeRepeat = function (groupBoxId, row) {
+
+                        var groupBox = _.findIndex($scope.activePost.fields, function (field) {
+                            return field.id == groupBoxId
+                        });
+                        var tempRepeaters = angular.copy($scope.activePost.fields[groupBox].repeaters);
+
+                        tempRepeaters.splice(row, 1);
+                        //we've changed the structure of the array so all the watchers are pointing to the wrong place.
+                        //We need to dump the repeater array and then recreate with scope applied to recreate the correct watchers.
+
+                        $scope.activePost.fields[groupBox].repeaters = [];
+                        $timeout(function () {
+                            $scope.activePost.fields[groupBox].repeaters = angular.copy(tempRepeaters);
+                        });
 
                     };
+
+
+                    // Check if the form has a GroupBox and if it's empty
+                    // If empty - then add the first repeater row
+                    if ($scope.activePost) {
+                        var groupBoxes = _.where($scope.activePost.fields, {type: 'groupBox'});
+                        var tables = _.where($scope.activePost.fields, {type: 'table'});
+                        groupBoxes = groupBoxes.concat(tables);
+                        if (groupBoxes.length > 0) {
+
+                            var count = groupBoxes.length;
+                            for (var i = 0; i < count; i++) {
+
+                                var groupBoxIndex = _.findIndex($scope.activePost.fields, function (field) {
+                                    return field.id == groupBoxes[i].id
+                                });
+                                if (groupBoxIndex !== -1) {
+                                    if ($scope.activePost.fields[groupBoxIndex].repeaters.length === 0) {
+                                        $scope.addRepeat(groupBoxes[i].id, 0);
+                                    }
+                                }
+
+
+                            }
+
+                        }
+                    }
+
 
                 },
                 templateUrl: '/template/post/foo-post.html'
@@ -159,15 +237,28 @@ angular.module('post')
                     posts: '=posts',
                     activePost: '=activePost',
                     activeForm: '=activeForm',
+                    deletingPostId: '=deletingPostId',
                     status: '=status'
                 },
-                controller: function ($scope, Session) {
+                controller: function ($scope, Session, $timeout, Restangular) {
                     $scope.selectPost = function (post) {
-                        $scope.postView='list';
-                        $scope.activePost = post;
-                        $scope.activeForm =_.find(Session.forms, function(form){
-                            return _.indexOf(form.postStreams, $scope.activePost.postStream) > -1 ? true: false;
-                        });
+
+                        if ($scope.activePost._id !== post._id) {
+
+                            $scope.activePost = false;
+
+                            $timeout(function () {
+                                $scope.postView = 'list';
+
+
+                                $scope.activePost = Restangular.copy(post);
+                                $scope.deletingPostId = $scope.activePost.id;
+                                $scope.activeForm = _.find(Session.forms, function (form) {
+                                    return _.indexOf(form.postStreams, $scope.activePost.postStream) > -1 ? true : false;
+                                });
+                            }, 0);
+
+                        }
 
                     };
                 },
@@ -187,30 +278,31 @@ angular.module('post')
                     activePost: '=activePost',
                     activeForm: '=activeForm',
                     status: '=status',
+                    deletingPostId: '=deletingPostId',
                     showPostForm: '=showPostForm'
 
                 },
                 link: function (scope, $element) {
 
-                    var postForm={};
-                    scope.titles =[];
-                    scope.statusTitles =[];
+                    var postForm = {};
+                    scope.titles = [];
+                    scope.statusTitles = [];
                     if (angular.isUndefined(scope.post)) {
                         scope.post = scope.posts.activePost;
                     }
                     if (!scope.activeForm || (scope.post.postStream !== scope.activeForm.postStream)) {
 
-                        postForm =_.find(Session.forms, function(form){
-                            return _.indexOf(form.postStreams, scope.post.postStream) > -1 ? true: false;
+                        postForm = _.find(Session.forms, function (form) {
+                            return _.indexOf(form.postStreams, scope.post.postStream) > -1 ? true : false;
                         });
 
                         // If we still don't have post form then the page has been loaded directly and thus Session.forms is empty
                         // Hack for now is to get the form by looking at $scope great great granparents
-                        if (!postForm){
+                        if (!postForm) {
                             postForm = scope.$parent.$parent.$parent.form;
                         }
-                    }else{
-                        postForm =scope.activeForm ;
+                    } else {
+                        postForm = scope.activeForm;
 
                     }
                     var titles = _.where(postForm.fields, {'showInList': true});
@@ -218,13 +310,13 @@ angular.module('post')
 
                     var fieldCount = titles.length;
 
-                    for (var i=0;i<fieldCount;i++){
+                    for (var i = 0; i < fieldCount; i++) {
 
                         var postField = _.where(scope.post.fields, {'id': titles[i].id});
 
-                        if (postField.length>0){
+                        if (postField.length > 0) {
 
-                                scope.titles.push(postField[0]);
+                            scope.titles.push(postField[0]);
 
 
                         }
@@ -232,20 +324,29 @@ angular.module('post')
 
 
                 },
-                controller: function ($scope, Session, CommentService) {
+                controller: function ($scope, Session, $timeout, Restangular) {
                     $scope.selectPost = function (post) {
-                        $scope.postView='feed';
-                        $scope.activePost = post;
-                        $scope.activeForm =_.find(Session.forms, function(form){
-                            return _.indexOf(form.postStreams, $scope.activePost.postStream) > -1 ? true: false;
-                        });
+
+                        if ($scope.activePost._id !== post._id) {
+                            $scope.activePost = false;
+
+                            $timeout(function () {
+                                $scope.postView = 'feed';
+                                $scope.activePost = Restangular.copy(post);
+                                $scope.activeForm = _.find(Session.forms, function (form) {
+                                    return _.indexOf(form.postStreams, $scope.activePost.postStream) > -1 ? true : false;
+                                });
+                            }, 0);
+                        }
+
                     };
+
 
                     $scope.showForm = function (post) {
 
-                            $scope.activePost = post;
-                            $scope.showPostForm=true;
-
+                        $timeout(function () {
+                            $scope.showPostForm = true;
+                        }, 0);
                     };
 
                 },
@@ -264,15 +365,26 @@ angular.module('post')
                     activeForm: '=activeForm',
                     status: '=status',
                     gridHeadings: '=gridHeadings',
+                    deletingPostId: '=deletingPostId',
                     showPostForm: '=showPostForm'
                 },
-                controller: function ($scope, Session) {
+                controller: function ($scope, Session, $timeout, Restangular) {
                     $scope.selectPost = function (post) {
-                        if($scope.showPostForm && $scope.activePost._id===post._id){
-                            $scope.showPostForm=false;
-                        }else{
-                            $scope.activePost = post;
-                            $scope.showPostForm=true;
+                        if ($scope.showPostForm && $scope.activePost._id === post._id) {
+                            $scope.showPostForm = false;
+                        } else {
+                            $scope.activePost = false;
+
+                            $timeout(function () {
+                                $scope.activePost = Restangular.copy(post);
+                                $scope.showPostForm = true;
+
+                                $scope.activeForm = _.find(Session.forms, function (form) {
+                                    return _.indexOf(form.postStreams, $scope.activePost.postStream) > -1 ? true : false;
+                                });
+                            }, 0);
+
+
                         }
                     };
                 },
@@ -297,14 +409,14 @@ angular.module('post')
                 },
                 link: function (scope, element, attrs, postCollectionCtrl) {
                     var blankCell = {
-                        value:'',
-                        type:'text'
+                        value: '',
+                        type: 'text'
                     };
 
-                    var hasField = _.where(scope.row.fields,{id: scope.cell.id});
-                    if (hasField.length>0){
+                    var hasField = _.where(scope.row.fields, {id: scope.cell.id});
+                    if (hasField.length > 0) {
                         scope.formField = hasField[0];
-                    }else{
+                    } else {
                         scope.formField = blankCell;
                     }
 
@@ -313,7 +425,7 @@ angular.module('post')
 
             };
         }])
-    .directive('feedHeader', ['Session',function (Session) {
+    .directive('feedHeader', ['Session', function (Session) {
 
         return {
             restrict: 'E',
@@ -322,22 +434,22 @@ angular.module('post')
 
             link: function (scope, $element) {
 
-                var postForm={};
-                scope.titles =[];
-                scope.statusTitles =[];
+                var postForm = {};
+                scope.titles = [];
+                scope.statusTitles = [];
                 if (angular.isUndefined(scope.post)) {
                     scope.post = scope.posts.activePost;
                 }
                 if (!scope.activeForm || (scope.post.postStream !== scope.activeForm.postStream)) {
-                    postForm =_.find(Session.forms, function(form){
-                        return _.indexOf(form.postStreams, scope.post.postStream) > -1 ? true: false;
+                    postForm = _.find(Session.forms, function (form) {
+                        return _.indexOf(form.postStreams, scope.post.postStream) > -1 ? true : false;
                     });                    // If we still don't have post form then the page has been loaded directly and thus Session.forms is empty
                     // Hack for now is to get the form by looking at $scope great great granparents
-                    if (!postForm){
+                    if (!postForm) {
                         postForm = scope.$parent.$parent.$parent.form;
                     }
-                }else{
-                    postForm =scope.activeForm ;
+                } else {
+                    postForm = scope.activeForm;
 
                 }
                 var titles = _.where(postForm.fields, {'showInList': true});
@@ -345,20 +457,20 @@ angular.module('post')
 
                 var fieldCount = titles.length;
 
-                 for (var i=0;i<fieldCount;i++){
+                for (var i = 0; i < fieldCount; i++) {
 
-                     var postField = _.where(scope.post.fields, {'id': titles[i].id});
+                    var postField = _.where(scope.post.fields, {'id': titles[i].id});
 
-                      if (postField.length>0){
-                          postField[0].label = titles[i].label;
-                          if (postField[0].type=='status'){
-                              scope.statusTitles.push(postField[0]);
-                          }else{
-                              scope.titles.push(postField[0]);
-                          }
+                    if (postField.length > 0) {
+                        postField[0].label = titles[i].label;
+                        if (postField[0].type == 'status') {
+                            scope.statusTitles.push(postField[0]);
+                        } else {
+                            scope.titles.push(postField[0]);
+                        }
 
-                      }
-                 }
+                    }
+                }
 
 
             },
@@ -366,7 +478,7 @@ angular.module('post')
             templateUrl: '/template/post/feed-header.html'
         };
 
-    }]).directive('feedBody', ['Session',function (Session) {
+    }]).directive('feedBody', ['Session', function (Session) {
 
         return {
             restrict: 'E',
@@ -375,22 +487,22 @@ angular.module('post')
 
             link: function (scope, $element) {
 
-                var postForm={};
-                scope.feedTitles =[];
-                  if (angular.isUndefined(scope.post)) {
+                var postForm = {};
+                scope.feedTitles = [];
+                if (angular.isUndefined(scope.post)) {
                     scope.post = scope.posts.activePost;
                 }
                 if (!scope.activeForm || (scope.post.postStream !== scope.activeForm.postStream)) {
-                    postForm =_.find(Session.forms, function(form){
-                        return _.indexOf(form.postStreams, scope.post.postStream) > -1 ? true: false;
+                    postForm = _.find(Session.forms, function (form) {
+                        return _.indexOf(form.postStreams, scope.post.postStream) > -1 ? true : false;
                     });
                     // If we still don't have post form then the page has been loaded directly and thus Session.forms is empty
                     // Hack for now is to get the form by looking at $scope great great granparents
-                    if (!postForm){
+                    if (!postForm) {
                         postForm = scope.$parent.$parent.$parent.form;
                     }
-                }else{
-                    postForm =scope.activeForm ;
+                } else {
+                    postForm = scope.activeForm;
 
                 }
                 var titles = _.where(postForm.fields, {'showInFeed': true});
@@ -398,13 +510,13 @@ angular.module('post')
 
                 var fieldCount = titles.length;
 
-                for (var i=0;i<fieldCount;i++){
+                for (var i = 0; i < fieldCount; i++) {
 
                     var postField = _.where(scope.post.fields, {'id': titles[i].id});
 
-                    if (postField.length>0){
+                    if (postField.length > 0) {
                         postField[0].label = titles[i].label;
-                       scope.feedTitles.push(postField[0]);
+                        scope.feedTitles.push(postField[0]);
 
 
                     }

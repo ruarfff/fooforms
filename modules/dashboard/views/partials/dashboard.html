@@ -51,7 +51,7 @@
             </form>
 
                 <span ng-show="form">
-                    <img class="form-icon" ng-src="{{form.icon}}">
+                    <img class="form-icon" ng-src="{{form.icon}}" />
                     <p>{{form.displayName}}
                         <a href="{{location}}/edit"><i class="fa fa-edit"></i>
                         </a></p>
@@ -106,13 +106,17 @@
              slideFeedOut: (showPostForm && postView=='feed')
              }">
 
+        <div class="m10 p10 block text-center" ng-show="fetching">
+            <i class="fa fa-circle-o-notch fa-spin fa-2x text-muted m10 p10"></i>
+        </div>
         <foo-post-collection view="{{postView}}" streams="{{postStreams}}" active-post="activePost"
                              active-form="activeForm" posts="posts"
                              team="team" status="selectedStatus"
                              grid-headings="gridHeadings"
                              copy-post="copyPost()"
                              save-post="savePost()"
-                             show-post-form="showPostForm">
+                             show-post-form="showPostForm"
+                             deleting-post-id="deletingPostId">
         </foo-post-collection>
 
         <div class="panel-slider hidden-print animated animated-slow ng-cloak" ng-show="postView=='grid'"
@@ -128,7 +132,8 @@
                           print-post="printPost()" show-full-screen="showFullScreen()"
                           cancel-full-screen="cancelFullScreen()"
                           cancel-post="cancelPost()" add-repeat="addRepeat()"
-                          doing-post-api="doingPostApi"></foo-post>
+                          doing-post-api="doingPostApi"
+                        ng-show="activePost"></foo-post>
 
 
 

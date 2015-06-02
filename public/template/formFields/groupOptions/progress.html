@@ -1,0 +1,76 @@
+<form class="form-horizontal" role="form">
+    <h5 class="text-info optionsTitle"><i class="fa fa-caret-right"></i> Layout</h5>
+    <div class="form-group">
+        <label class="col-sm-4 control-label">Field Label</label>
+
+        <div class="col-sm-8">
+            <input type='text' class="form-control input-sm" ng-model="form.fields[nowEditing].fields[nowSubEditing].label"/>
+        </div>
+    </div>
+    <div class="form-group">
+        <label class="col-sm-4 control-label">Box size</label>
+
+        <div class="col-sm-8">
+            <input type="range" name="points" min="1" max="12"
+                   ng-model="form.fields[nowEditing].fields[nowSubEditing].boxSize">
+        </div>
+    </div>
+    <div class="form-group">
+        <label class="col-sm-4 control-label">Field size</label>
+
+        <div class="col-sm-8">
+            <input type="range" min="10" max="100" ng-model="form.fields[nowEditing].fields[nowSubEditing].size">
+
+        </div>
+    </div>
+
+    <div class="form-group">
+        <label class="col-sm-4 control-label">Update Method</label>
+
+        <div class="col-sm-8">
+            <toggle-switch off-text="Manual" on-text="Auto" off-style="info" on-style="info"
+                           ng-model="form.fields[nowEditing].fields[nowSubEditing].options.updateMethod"></toggle-switch>
+        </div>
+    </div>
+
+
+
+    <div class="form-group" ng-show="!form.fields[nowEditing].fields[nowSubEditing].options.updateMethod">
+        <label class="col-sm-4 control-label">Initial Value</label>
+
+        <div class="col-sm-8">
+            <div class="input-group">
+                <input type='number' min="0" max="100" class="form-control input-sm"
+                       ng-model="form.fields[nowEditing].fields[nowSubEditing].value"/>
+                <span class="input-group-addon">%</span>
+
+            </div>
+
+        </div>
+    </div>
+    <div class="form-group"  ng-show="form.fields[nowEditing].fields[nowSubEditing].options.updateMethod">
+        <label class="col-sm-4 control-label">Get Value From</label>
+        <div class="col-sm-8">
+    <select ng-model="form.fields[nowEditing].fields[nowSubEditing].options.updateField"
+            class="form-control">
+        <option ng-repeat="field in form.fields[nowEditing].fields"
+                value="{{field.id}}"
+                ng-selected="form.fields[nowEditing].fields[nowSubEditing].options.updateField==field.id">{{field.label}} - [ {{field.name}} ]
+        </option>
+
+
+    </select>
+            </div>
+        </div>
+
+    <div class="form-group">
+        <label class="col-sm-4 control-label">Instructions for user</label>
+
+        <div class="col-sm-8">
+            <input type='text' class="form-control input-sm"
+                   ng-model="form.fields[nowEditing].fields[nowSubEditing].userInstructions"/>
+        </div>
+    </div>
+
+    <div ng-include="'/template/formFields/options/common_displayOptions.html'"></div>
+</form>

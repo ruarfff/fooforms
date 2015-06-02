@@ -3,6 +3,21 @@
   box-shadow: none;
 }
 
+label.radio{
+  margin-left: 24px !important;
+  vertical-align: middle;
+}
+label.checkbox{
+  margin-left: 24px !important;
+  vertical-align: middle;
+}
+input[type="radio"]{
+  margin-top: 0 !important;
+}
+
+input[type="checkbox"]{
+  margin-top: 2px !important;
+}
 .blockInsert {
   background-color: #E5F1FD;
   margin: 5px;
@@ -71,6 +86,12 @@ background: #f5f5f5;
   display: block;
 }
 
+.optionsTitle{
+
+  vertical-align: top;
+padding: 8px;
+  padding-left: 0px;
+}
 
 .card{
   display:  block;

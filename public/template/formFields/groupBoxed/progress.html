@@ -1,0 +1,26 @@
+<div class="form-group clearfix">
+    <label for="{{subField.id}}">{{subField.label}} <span class="text-danger" ng-show="subField.required">*</span>
+        <i class="fa fa-question-circle"
+           ng-hide="!subField.userInstructions"
+           popover="{{subField.userInstructions}}"
+           popover-trigger="mouseenter"
+           popover-append-to-body="true"></i>
+    </label>
+
+    <div class="progress" ng-click="editProgress=!editProgress">
+        <div class="progress-bar" role="progressbar" aria-valuenow="{{subField.value}}" aria-valuemin="0" aria-valuemax="100" style="min-width: 2em;width: {{subField.value}}%">
+            {{subField.value}}%
+        </div>
+    </div>
+
+    <div class="input-group appear col-sm-3" ng-show="editProgress">
+                <input type="number" min="0" max="100"
+               class="form-control"
+               id="{{subField.id}}"
+               ng-model="subField.value"/>
+        <span class="input-group-addon">%</span>
+         <span class="input-group-btn">
+        <button class="btn btn-default" type="button" ng-click="editProgress=!editProgress"><i class="fa fa-caret-up text-primary"></i></button>
+      </span>
+    </div>
+</div>
