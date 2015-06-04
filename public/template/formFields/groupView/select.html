@@ -1,13 +1,13 @@
 <div class="form-group clearfix">
 
 
-    <div class="input-group" ng-style="{'width': formField.size+'%'}">
-        <span class="input-group-addon" ng-show="formField.required">*</span>
-        <select data-ng-attr-size="{{formField.rows}}"
+    <div class="input-group" ng-style="{'width': repeater.size+'%'}">
+        <span class="input-group-addon" ng-show="repeater.required">*</span>
+        <select data-ng-attr-size="{{repeater.rows}}"
                 class="form-control"
-                id="{{formField.id}}"
+                id="{{repeater.id}}"
                 >
-            <option ng-repeat='option in formField.options' ng-selected="formField.selected==option.label">
+            <option ng-repeat='option in repeater.options' ng-selected="repeater.selected==option.label">
                 {{option.label}}
             </option>
         </select>

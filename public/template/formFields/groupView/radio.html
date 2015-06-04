@@ -1,10 +1,10 @@
 <div class="form-group clearfix">
 
 
-    <div class="input-group" ng-style="{'width': formField.size+'%'}">
-        <label ng-class="{ 'radio-inline': formField.settings.display == 'Inline' ,'radio' : formField.settings.display == 'Stacked'}"
-               ng-repeat='option in formField.options track by $index'>
-            <input type="radio" name="{{formField.id}}" ng-model="formField.selected" ng-value="option.label">{{option.label}}
+    <div class="input-group" ng-style="{'width': repeater.size+'%'}">
+        <label ng-class="{ 'radio-inline': repeater.settings.display == 'Inline' ,'radio' : repeater.settings.display == 'Stacked'}"
+               ng-repeat='option in repeater.options track by $index'>
+            <input type="radio" name="{{repeater.id}}" ng-model="repeater.selected" ng-value="option.label">{{option.label}}
         </label>
 
 

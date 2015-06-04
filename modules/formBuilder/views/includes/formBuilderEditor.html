@@ -4,9 +4,10 @@
          ng-click="editField(null,null,'Form', $event)"><img class='icon pull-left'
                                                              ng-src="{{form.icon}}">
 
-        <h4 id='formName'>{{form.title || 'Click Here To Edit Form Name'}}</h4>
+        <h4 id='formName'>{{form.title || 'Click Here to Edit the Form Name'}}</h4>
 
-        <p id='formDescription'>{{form.description || 'Your Form Description'}} </p>
+        <p id='formDescription'>{{form.description || 'A word or two to describe this form to others.'}} </p>
+
     </div>
     <div class="container-fluid p10"
          ng-class="{ 'newForm': form.fields.length==0}">
@@ -33,7 +34,7 @@
                                 ng-show="$index == nowEditing">X
                         </button>
                     </div>
-                    <div ng-include='formField.template'></div>
+                    <div ng-include='"/template/formFields/" + formField.type + ".html"'></div>
                 </div>
 
 

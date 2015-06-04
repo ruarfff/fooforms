@@ -123,4 +123,35 @@ angular.module('post')
             }
             return out;
         };
-    });
+    })
+    .filter('gridFilter', function () {
+        return function (gridHeadings,form) {
+
+           var blankCell = {
+                value:' ',
+                type:'text'
+            };
+var rowData = [];
+            var cellCount =gridHeadings.length;
+            for (var i=0; i<cellCount; i++){
+
+                var  cellData = _.where(form.fields,{id: gridHeadings[i].id});
+
+
+                if (cellData.length>0){
+                    rowData.push(cellData[0]);
+                }else{
+                    rowData.push(blankCell);
+                }
+
+            }
+            gridHeadings.data = rowData;
+
+            return gridHeadings;
+
+
+
+
+
+
+        }});

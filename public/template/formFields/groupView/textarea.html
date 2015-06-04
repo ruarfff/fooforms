@@ -1,13 +1,13 @@
 <div class="form-group clearfix">
 
 
-    <div class="input-group" ng-style="{'width': formField.size+'%'}">
-        <span class="input-group-addon" ng-show="formField.required">*</span>
+    <div class="input-group" ng-style="{'width': repeater.size+'%'}">
+        <span class="input-group-addon" ng-show="repeater.required">*</span>
         <textarea
-                rows="{{formField.rows}}"
+                rows="{{repeater.rows}}"
                 class="form-control"
-                id="{{formField.id}}"
-                placeholder="{{formField.placeholder}}"
-                ng-model="formField.value"></textarea>
+                id="{{repeater.id}}"
+                placeholder="{{repeater.placeholder}}"
+                ng-model="repeater.value"></textarea>
     </div>
 </div>

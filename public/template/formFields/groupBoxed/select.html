@@ -14,7 +14,7 @@
                 ng-model="subField.selected">
 
             <option ng-repeat='option in subField.options' ng-selected="subField.selected==option.label"
-                    ng-value="{{subField.label}}">{{option.label }}
+                    ng-value="option.label">{{option.label }}
             </option>
         </select>
     </div>

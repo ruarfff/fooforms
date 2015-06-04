@@ -1,4 +1,5 @@
 <form class="form-horizontal" role="form">
+    <h5 class="text-info optionsTitle"><i class="fa fa-caret-right"></i> Layout</h5>
     <div class="form-group">
         <label class="col-sm-4 control-label">Field Label</label>
 
@@ -23,19 +24,13 @@
         </div>
     </div>
 
-    <div class="form-group">
-        <label class="col-sm-4 control-label">Admin Only </label>
 
-        <div class="col-sm-8">
-            <input type='checkbox' ng-model="form.fields[nowEditing].adminOnly"></label>
-        </div>
-    </div>
     <div class="form-group">
-        <label class="col-sm-4 control-label">Placeholder</label>
+        <label class="col-sm-4 control-label">Decimal Places</label>
 
         <div class="col-sm-8">
             <input type='text' class="form-control input-sm"
-                   ng-model="form.fields[nowEditing].placeholder"/>
+                   ng-model="form.fields[nowEditing].decimalPlaces"/>
         </div>
     </div>
     <div class="form-group">
@@ -46,20 +41,30 @@
                    ng-model="form.fields[nowEditing].userInstructions"/>
         </div>
     </div>
-    <div class="row">
-        <div class="col-sm-12">
-            <h6>Options</h6>
+
+    <div class="alert alert-info p5">
+        <h5>Calculation Options</h5>
+        <div class="form-group">
+                <label class="col-sm-4 control-label">Visibility</label>
+
+                <div class="col-sm-8">
+                    <toggle-switch off-text="Show" on-text="Hide" off-style="success" on-style="daanger"
+                                   ng-model="form.fields[nowEditing].hidden"></toggle-switch>
+                </div>
+        </div>
 
 
-            <table class="table table-bordered">
-                <tr>
-                    <td>
+
+
+            <table class="table b0 bro p0 m0">
+                <tr class="info">
+                    <td class="p0 pt5 pb10">
                         <select ng-model="form.fields[nowEditing].options.field1.item"
-                                class="form-control">
+                                class="form-control m0 br0">
                             <option value="Specified Value">Specified Value</option>
                             <option ng-repeat="field in form.fields"
                                     value="{{field.id}}"
-                                    ng-selected="form.fields[nowEditing].options.field1.item==field.id">{{field.label}}
+                                    ng-selected="form.fields[nowEditing].options.field1.item==field.id">{{field.label}}  - [ {{field.name}} ]
                             </option>
                         </select>
 
@@ -69,24 +74,25 @@
                                class="form-control mt10">
                     </td>
 
-                    <td>
+                    <td class="p0 pt5 pb10">
                         <select ng-model="form.fields[nowEditing].options.operator"
-                                class="form-control">
+                                class="form-control p0 m0">
                             <option value="*">*</option>
                             <option value="+">+</option>
                             <option value="/">/</option>
                             <option value="-">-</option>
+                            <option value="%">%</option>
                         </select>
 
                     </td>
 
-                    <td>
+                    <td class="p0 pt5 pb10">
                         <select ng-model="form.fields[nowEditing].options.field2.item"
-                                class="form-control">
+                                class="form-control m0">
                             <option value="Specified Value">Specified Value</option>
                             <option ng-repeat="field in form.fields"
                                     value="{{field.id}}"
-                                    ng-selected="form.fields[nowEditing].options.field2.item==field.id">{{field.label}}
+                                    ng-selected="form.fields[nowEditing].options.field2.item==field.id">{{field.label}} - [ {{field.name}} ]
                             </option>
                         </select>
                         <input type="text"
@@ -98,32 +104,9 @@
             </table>
 
 
-        </div>
-
-
-    </div>
-    <div class="form-group">
-        <label class="col-sm-4 control-label">Show in Feed View</label>
-
-        <div class="col-sm-8">
-            <input type='checkbox' name='showInFeed' ng-model="form.fields[nowEditing].showInFeed"></label>
-        </div>
-    </div>
-    <div class="form-group">
-        <label class="col-sm-4 control-label">Show in List View</label>
-
-        <div class="col-sm-8">
-            <input type='checkbox' name='showInList' ng-model="form.fields[nowEditing].showInList"></label>
-        </div>
-    </div>
-    <div class="form-group">
-        <label class="col-sm-4 control-label">Show in Grid View</label>
-
-        <div class="col-sm-8">
-            <input type='checkbox' name='showInGrid' ng-model="form.fields[nowEditing].showInGrid"></label>
-        </div>
     </div>
 
 
+
+    <div ng-include="'/template/formFields/options/common_displayOptions.html'"></div>
 </form>
-</div>

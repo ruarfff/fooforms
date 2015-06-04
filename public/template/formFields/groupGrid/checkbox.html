@@ -1,0 +1,13 @@
+<div class="form-group clearfix">
+
+
+    <div class="input-group" ng-style="{'width': formField.size+'%'}">
+        <label ng-class="{ 'checkbox-inline': formField.settings.display == 'Inline' ,'checkbox' : formField.settings.display == 'Stacked'}"
+               ng-repeat='option in formField.options'>
+            <input type="checkbox" ng-model="option.selected"
+                   id="{{formField.id}}">{{option.label}}
+        </label>
+
+
+    </div>
+</div>

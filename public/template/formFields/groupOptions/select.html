@@ -1,4 +1,6 @@
 <form class="form-horizontal" role="form">
+    <h5 class="text-info optionsTitle"><i class="fa fa-caret-right"></i> Layout</h5>
+
     <div class="form-group">
         <label class="col-sm-4 control-label">Field Label</label>
 
@@ -36,7 +38,7 @@
         <label class="col-sm-4 control-label">Required </label>
 
         <div class="col-sm-8">
-            <input type='checkbox' ng-model="form.fields[nowEditing].fields[nowSubEditing].required"></label>
+            <input type='checkbox' ng-model="form.fields[nowEditing].fields[nowSubEditing].required">
         </div>
     </div>
 
@@ -48,47 +50,44 @@
                    ng-model="form.fields[nowEditing].fields[nowSubEditing].userInstructions"/>
         </div>
     </div>
-        <h6>Options</h6>
+    <h6>Content Options</h6>
 
     <div class="form-group">
         <label class="col-sm-4 control-label">Link options to a list</label>
 
         <div class="col-sm-8">
             <label><input type='checkbox' ng-model="form.fields[nowEditing].fields[nowSubEditing].list.enabled"></label>
-            <label class="pull-right"><select class="form-control" ng-show="form.fields[nowEditing].fields[nowSubEditing].list.enabled"
-                    ng-model="form.fields[nowEditing].fields[nowSubEditing].list.selected"
-                    ng-options="column for column in form.fields[nowEditing].list.columns"></select></label>
+            <label class="pull-right"><select class="form-control"
+                                              ng-show="form.fields[nowEditing].fields[nowSubEditing].list.enabled"
+                                              ng-model="form.fields[nowEditing].fields[nowSubEditing].list.selected"
+                                              ng-options="column for column in form.fields[nowEditing].list.columns"></select></label>
 
         </div>
     </div>
 
 
-
     <div ng-hide="form.fields[nowEditing].fields[nowSubEditing].list.enabled"
-            ng-repeat='option in form.fields[nowEditing].fields[nowSubEditing].options track by $index'>
+         ng-repeat='option in form.fields[nowEditing].fields[nowSubEditing].options track by $index'>
 
-            <div class="input-group">
+        <div class="input-group">
       <span class="input-group-addon">
         <input type="radio" name="form.fields[nowEditing].fields[nowSubEditing].id">
       </span>
-                <input type='text' value='{{option.label}}'
-                       ng-model='form.fields[nowEditing].fields[nowSubEditing].options[$index].label'
-                       class="form-control input-sm">
+            <input type='text' value='{{option.label}}'
+                   ng-model='form.fields[nowEditing].fields[nowSubEditing].options[$index].label'
+                   class="form-control input-sm">
 
-                <div class="input-group-btn">
-                    <button class='btn btn-default btn-sm' ng-click="addOption($index)"><i class="fa fa-plus fa-lg"></i>
-                    </button>
-                    <button class='btn btn-default btn-sm' ng-click="deleteOption($index)"><i
-                            class="fa fa-trash-o fa-lg"></i></button>
+            <div class="input-group-btn">
+                <button class='btn btn-default btn-sm' ng-click="addOption($index)"><i class="fa fa-plus fa-lg"></i>
+                </button>
+                <button class='btn btn-default btn-sm' ng-click="deleteOption($index)"><i
+                        class="fa fa-trash-o fa-lg"></i></button>
 
-                </div>
             </div>
-
-
         </div>
+
 
     </div>
 
 
 </form>
-</div>

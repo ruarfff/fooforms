@@ -1,0 +1,24 @@
+<div class="thumbnail b0 bg-white" ng-show="formField.value._id
+    && (formField.value.mimeType=='image/gif'
+    || formField.value.mimeType=='image/png'
+    || formField.value.mimeType=='image/jpg'
+    || formField.value.mimeType=='image/jpeg'
+    )" >
+    <img ng-src="/api/files/{{formField.value._id}}">
+
+</div>
+
+<div class="p5 mb10" ng-hide="(formField.value.mimeType=='image/gif'
+    || formField.value.mimeType=='image/png'
+    || formField.value.mimeType=='image/jpg'
+    || formField.value.mimeType=='image/jpeg'
+    || !formField.value._id
+    )">
+
+
+    <p ng-show="formField.value._id"> <a href="/api/files/{{formField.value._id}}" target="_new" class="btn btn-link">
+        <i class="fa fa-file-text-o text-muted"></i>
+        {{ formField.value.originalName }}
+    </a></p>
+
+</div>

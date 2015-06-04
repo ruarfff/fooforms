@@ -33,10 +33,20 @@
             <div class="row fadeIn" ng-hide="sorted">
                 <div class='col-sm-{{formField.boxSize}} under viewFormObject'
                      ng-repeat="formField in post.fields track by $index"
-                     ng-show="!formField.adminOnly">
+                     ng-hide="formField.adminOnly || formField.showInEmbedded===false">
 
-                    <div ng-include='formField.viewTemplate'></div>
+                    <div ng-include='"/template/formFields/view/" + formField.type + ".html"'></div>
+                    <pre><code>{{formField.adminOnly + ' ' +  formField.showInEmbedded}}</code></pre>
                 </div>
+
+
+                <div class='col-sm-{{formField.boxSize}} under viewFormObject'
+                     ng-repeat="formField in post.fields track by $index"
+                    >
+
+
+                </div>
+
             </div>
         </div>
     </form>

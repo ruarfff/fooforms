@@ -23,9 +23,8 @@
             <div class="row fadeIn">
                 <div class='col-xs-{{formField.boxSize}} under viewFormObject'
                      ng-repeat="formField in post.fields track by $index"
-                     ng-show="!formField.adminOnly">
-
-                    <div ng-include='"https://fooforms.com"+formField.viewTemplate'></div>
+                     ng-show="!formField.adminOnly || formField.showInEmbedded">
+                    <div ng-include='"https://fooforms.com/template/formFields/view/" + formField.type + ".html"'></div>
                 </div>
             </div>
         </div>

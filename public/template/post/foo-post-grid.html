@@ -1,4 +1,19 @@
-
-
-
-
+<div class="gridWrapper clearfix" id="gridWrapper">
+    <table id='fooGrid' class="foo-grid table table-hover table-striped">
+        <thead id="fooGridHead">
+        <tr>
+            <th nowrap class='p5' ng-repeat="th in gridHeadings track by $index">{{th.label}}</th>
+        </tr>
+        </thead>
+        <tbody id="fooGridBody" infinite-scroll="addMorePosts()">
+        <tr ng-repeat="post in posts | statusFilter:status"
+            ng-class="{ 'active': activePost._id == post._id , 'panel-feed-deleted' : post._id == deletingPostId}"
+            ng-click="selectPost(post)"
+            class="pointer animated">
+            <td ng-repeat="cell in gridHeadings track by $index">
+                <div foo-post-grid-cell cell="cell" row="post"></div>
+            </td>
+        </tr>
+        </tbody>
+    </table>
+</div>

@@ -76,6 +76,30 @@ angular.module('team')
                 setTeam(team);
             };
 
+            $scope.deleteTeam = function () {
+
+
+                SweetAlert.swal({
+                        title: 'Are you sure?', text: 'You will not be able to recover this team!',
+                        type: 'warning',
+                        showCancelButton: true, confirmButtonColor: '#DD6B55',
+                        confirmButtonText: 'Yes, delete it!', closeOnConfirm: false
+                    },
+                    function () {
+                        TeamService.deleteTeam($scope.currentTeam, function (err, res) {
+                            if (err) {
+                                SweetAlert.swal('Not Deleted!', 'An error occurred trying to delete the team.', 'error');
+                                $log.error(err);
+                            } else {
+
+                                SweetAlert.swal('Deleted!', 'Your team has been deleted.', 'success');
+                            }
+                        });
+                    });
+
+
+            }
+
             $scope.addToTeam = function (member) {
 
                 var args = {
@@ -99,6 +123,7 @@ angular.module('team')
 
 
                         } else {
+                            SweetAlert.swal('Not Moved!', 'There was an error adding that member to the team.', 'error');
                             $scope.addMemberError = 'There was an error adding that member to the team';
                         }
                     }
@@ -112,25 +137,30 @@ angular.module('team')
                     userId: member._id || member
                 };
 
-                TeamService.removeMember(args, function (err, team) {
-                    if (err) {
-                        $scope.removeMemberError = err.message;
-                    } else {
-                        if (team) {
-                            _.pull($scope.members, member);
-                            if (Session.user._id == member._id) {
-                                _.pull(Session.user.teams, $scope.currentTeam);
-                            }
-                            _.pull(member.teams, $scope.currentTeam);
-                            $scope.orgMembers.push(member);
-                            $scope.currentTeam = team;
-
+                if($scope.currentTeam.members.length===1){
+                    SweetAlert.swal('Not Moved!', 'Your team needs at least one member.', 'error');
+                }else{
+                    TeamService.removeMember(args, function (err, team) {
+                        if (err) {
+                            $scope.removeMemberError = err.message;
                         } else {
-                            $scope.removeMemberError = 'There was an error adding that member to the team';
-                        }
-                    }
+                            if (team) {
+                                _.pull($scope.members, member);
+                                if (Session.user._id == member._id) {
+                                    _.pull(Session.user.teams, $scope.currentTeam);
+                                }
+                                _.pull(member.teams, $scope.currentTeam);
+                                $scope.orgMembers.push(member);
+                                $scope.currentTeam = team;
 
-                });
+                            } else {
+                                $scope.removeMemberError = 'There was an error adding that member to the team';
+                            }
+                        }
+
+                    });
+                }
+
             };
 
         }
@@ -157,5 +187,6 @@ angular.module('team')
                         $log.error(err);
                     }
                 })
-            }
+            };
+
         }]);
