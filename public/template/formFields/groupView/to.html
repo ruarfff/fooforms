@@ -1,13 +1,5 @@
 <div class="form-group clearfix">
-    <label for="{{repeater.id}}">{{repeater.label}}
-        <i class="fa fa-question-circle"
-           ng-hide="!repeater.userInstructions"
-           popover="{{repeater.userInstructions}}"
-           popover-trigger="mouseenter"
-           popover-append-to-body="true"></i>
-    </label>
-
-    <div class="input-group" ng-style="{'width': repeater.size+'%'}">
+   <div class="input-group" ng-style="{'width': repeater.size+'%'}">
         <span class="input-group-addon" ng-show="repeater.required">*</span>
         <select class="form-control"
                id="{{repeater.id}}"
