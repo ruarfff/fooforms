@@ -15,7 +15,7 @@
 "help": "The most common form field. Use it to gather text data such as name, email address, etc.",
 "showInFeed":true,
 "showInList":true,
-"showInGrid":true,
+"showInGrid":true,"showInEmbedded":true,"adminOnly":false,
 "value" : ""
 },
 {
@@ -32,7 +32,7 @@
 "help": "Use it to gather text with multiple rows such as address or questions, etc.",
 "showInFeed":true,
 "showInList":false,
-"showInGrid":true,
+"showInGrid":true,"showInEmbedded":true,"adminOnly":false,
 "value" : ""
 },
 {
@@ -49,7 +49,7 @@
 "help": "Use it to gather text with multiple rows such as address or questions, etc.",
 "showInFeed":true,
 "showInList":false,
-"showInGrid":true,
+"showInGrid":true,"showInEmbedded":true,"adminOnly":false,
 "value" : ""
 },
 {
@@ -67,7 +67,7 @@
 "help": "Use it to choose from one of multiple options.",
 "showInFeed":true,
 "showInList":false,
-"showInGrid":true,
+"showInGrid":true,"showInEmbedded":true,"adminOnly":false,
 "value" : ""
 },
 {
@@ -84,7 +84,7 @@
 "help": "Use it to gather text with multiple rows such as address or questions, etc.",
 "showInFeed":true,
 "showInList":false,
-"showInGrid":true,
+"showInGrid":true,"showInEmbedded":true,"adminOnly":false,
 "value" : ""
 },
 {
@@ -101,7 +101,7 @@
 "help": "Use it toupload one or more image files, etc.",
 "showInFeed":true,
 "showInList":false,
-"showInGrid":true,
+"showInGrid":true,"showInEmbedded":true,"adminOnly":false,
 "src" : "",
 "progress" : 0
 },
@@ -122,7 +122,7 @@
 "help": "Use it to gather text with multiple rows such as address or questions, etc.",
 "showInFeed":true,
 "showInList":false,
-"showInGrid":true,
+"showInGrid":true,"showInEmbedded":true,"adminOnly":false,
 "value" : ""
 },
 {
@@ -160,13 +160,13 @@
 "help": "Use it to gather text with multiple rows such as address or questions, etc.",
 "showInFeed":true,
 "showInList":false,
-"showInGrid":true,
-"value" : ""
+"showInGrid":true,"showInEmbedded":true,"adminOnly":false,
+"value" : "Heading 1"
 },
 {
 "type": "paragraph",
 "name": "Paragraph Text",
-"label" : "",
+"label" : "Paragraph Text",
 "placeholder": "",
 "size" :100,
 "boxSize" : 12,
@@ -177,8 +177,8 @@
 "help": "Use it to gather text with multiple rows such as address or questions, etc.",
 "showInFeed":true,
 "showInList":false,
-"showInGrid":true,
-"value" : "Custom Text"
+"showInGrid":true,"showInEmbedded":true,"adminOnly":false,
+"value" : "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Curabitur vehicula in leo ac dictum. Vivamus rutrum lorem a leo semper pellentesque. In hac habitasse platea dictumst."
 }
 ,
 {
@@ -195,7 +195,7 @@
 "help": "Use it to gather text with multiple rows such as address or questions, etc.",
 "showInFeed":true,
 "showInList":false,
-"showInGrid":true,
+"showInGrid":true,"showInEmbedded":true,"adminOnly":false,
 "value" : ""
 }
 ,
@@ -268,7 +268,7 @@
 "help": "Use it to group items in a single container or  to enable the user to 'add' additional line items to the form, such as invoice items, etc.",
 "showInFeed":true,
 "showInList":false,
-"showInGrid":true,
+"showInGrid":true,"showInEmbedded":true,"adminOnly":false,
 "value" : 0
 },
 {
@@ -286,7 +286,7 @@
 "help": "Use it to group items in a single container or  to enable the user to 'add' additional line items to the form, such as invoice items, etc.",
 "showInFeed":true,
 "showInList":false,
-"showInGrid":true,
+"showInGrid":true,"showInEmbedded":true,"adminOnly":false,
 "value" : 0
 },
 {
@@ -306,7 +306,7 @@
 "help": "Use it to group items in a single container or  to enable the user to 'add' additional line items to the form, such as invoice items, etc.",
 "showInFeed":true,
 "showInList":false,
-"showInGrid":true,
+"showInGrid":true,"showInEmbedded":true,"adminOnly":false,
 "value" : 0
 },
 {
@@ -322,7 +322,7 @@
 "help": "Use it to  calculate the SUM of individual Calculaton fields used in a table, good for invoice items, etc.",
 "showInFeed":true,
 "showInList":false,
-"showInGrid":true,
+"showInGrid":true,"showInEmbedded":true,"adminOnly":false,
 "value" : 0
 },
 {
@@ -340,7 +340,7 @@
 "help": "The most common form field. Use it to gather text data such as name, email address, etc.",
 "showInFeed":true,
 "showInList":false,
-"showInGrid":true,
+"showInGrid":true,"showInEmbedded":true,"adminOnly":false,
 "value" : ""
 },
 {
@@ -358,7 +358,7 @@
 "help": "The most common form field. Use it to gather text data such as name, email address, etc.",
 "showInFeed":true,
 "showInList":false,
-"showInGrid":true,
+"showInGrid":true,"showInEmbedded":true,"adminOnly":false,
 "value" : ""
 },
 {
@@ -376,7 +376,7 @@
 "help": "Use it to group items in a single container or  to enable the user to 'add' additional line items to the form, such as invoice items, etc.",
 "showInFeed":true,
 "showInList":false,
-"showInGrid":true,
+"showInGrid":true,"showInEmbedded":true,"adminOnly":false,
 "value" : ""
 },
 {
@@ -394,7 +394,7 @@
 "help": "",
 "showInFeed":true,
 "showInList":false,
-"showInGrid":true,
+"showInGrid":true,"showInEmbedded":true,"adminOnly":false,
 "value" : ""
 },
 {
@@ -412,7 +412,7 @@
 "help": "",
 "showInFeed":true,
 "showInList":false,
-"showInGrid":true,
+"showInGrid":true,"showInEmbedded":true,"adminOnly":false,
 "value" : ""
 },
 {
@@ -430,7 +430,7 @@
 "help": "",
 "showInFeed":true,
 "showInList":false,
-"showInGrid":true,
+"showInGrid":true,"showInEmbedded":true,"adminOnly":false,
 "value" : ""
 },
 {
@@ -448,7 +448,7 @@
 "help": "The most common form field. Use it to gather text data such as name, email address, etc.",
 "showInFeed":true,
 "showInList":false,
-"showInGrid":true,
+"showInGrid":true,"showInEmbedded":true,"adminOnly":false,
 "value" : ""
 },
 {
@@ -466,7 +466,7 @@
 "help": "The most common form field. Use it to gather text data such as name, email address, etc.",
 "showInFeed":true,
 "showInList":false,
-"showInGrid":true,
+"showInGrid":true,"showInEmbedded":true,"adminOnly":false,
 "value" : ""
 },
 {
@@ -484,7 +484,7 @@
 "help": "The most common form field. Use it to gather text data such as name, email address, etc.",
 "showInFeed":true,
 "showInList":false,
-"showInGrid":true,
+"showInGrid":true,"showInEmbedded":true,"adminOnly":false,
 "value" : ""
 },
 {
@@ -502,7 +502,7 @@
 "help": "The most common form field. Use it to gather text data such as name, email address, etc.",
 "showInFeed":true,
 "showInList":false,
-"showInGrid":true,
+"showInGrid":true,"showInEmbedded":true,"adminOnly":false,
 "value" : ""
 },
 {
@@ -520,7 +520,7 @@
 "help": "",
 "showInFeed":true,
 "showInList":false,
-"showInGrid":true,
+"showInGrid":true,"showInEmbedded":true,"adminOnly":false,
 "value" : ""
 },
 {
@@ -538,7 +538,7 @@
 "help": "",
 "showInFeed":true,
 "showInList":false,
-"showInGrid":true,
+"showInGrid":true,"showInEmbedded":true,"adminOnly":false,
 "value" : ""
 },
 {
@@ -575,7 +575,7 @@
 "help": "The most common form field. Use it to gather text data such as name, email address, etc.",
 "showInFeed":true,
 "showInList":true,
-"showInGrid":true,
+"showInGrid":true,"showInEmbedded":true,"adminOnly":false,
 "value" : 0,
 "options" : {"updateMethod" : "Manual", "updateField" : ""}
 },
@@ -593,7 +593,7 @@
 "help": "The most common form field. Use it to gather text data such as name, email address, etc.",
 "showInFeed":true,
 "showInList":true,
-"showInGrid":true,
+"showInGrid":true,"showInEmbedded":true,"adminOnly":false,
 "value" : 0,
 "options" : {"formId" : "", "postId" : "", "fields": []}
 }

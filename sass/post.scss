@@ -324,26 +324,26 @@ display: block;
   position: fixed;
   z-index: 6;
   display: block;
-  background: #3d4b5b !important;
-  height: 39px !important;
+  background: #c0c0c0 !important;
+  height: 31px !important;
   white-space: nowrap;
 
 }
-.foo-grid tbody{
+.foo-grid>tbody{
   clear: both;
   position: absolute;
-  top: 41px;
+  top: 32px;
   z-index: 5;
 }
 
-.foo-grid th {
+.foo-grid tr th {
   padding: 0px 4px !important;
-  display: inline-block;
-  background: #3d4b5b !important;
-  color: #efefef;
+  display: table-cell;
+  background: #efefef !important;
+  color: #888;
+  text-shadow: 1px 1px 1px rgba(255,255,255,.7);
   font-weight: 400;
-  line-height: 38px !important;
-  height: 38px !important;
+  height: 30px !important;
   border: 1px solid rgba(171, 206, 255, 0.20) !important;
   @media screen and (max-width: 580px) {
     padding: 2px 12px;
@@ -367,10 +367,9 @@ display: block;
   vertical-align: middle;
   padding: 4px !important;
   border: 1px solid #DAE3E5;
-height: 24px;
+background : #fff !important;
   font-weight: 400;
-  font-size: 1.1em;
-  color: #606060;
+  color: #666;
  // background: #FFF !important;
   //color: #6e85a5 !important;
   text-shadow: none;
@@ -380,11 +379,15 @@ height: 24px;
     display: block;
   }
 }
-.foo-grid tr.active td{
+.foo-grid tr.active th{
+
+  background: rgba(226, 244, 198, 0.36) !important;
+}
+.foo-grid tr.active {
 
 
-  background:  #FFF !important;
-  font-weight:600;
+  border-left: 3px solid rgb(138, 223, 33) !important;
+
 }
 .foo-grid th input {
   padding: 5px;
@@ -392,6 +395,35 @@ height: 24px;
   line-height: 10px;
   height: 16px;
 
+}
+
+.foo-grid tr td div table{
+  position: relative;
+  font-size: .9em;
+  display: block;
+  margin: 0;
+  padding: 0;
+  font-weight: 300;
+}
+.foo-grid tr td div table tr th{
+  padding: 0px 4px !important;
+  display: table-cell !important;
+  background: #efefef !important;
+  color: #888;
+  font-weight: 400;
+  line-height: 15px !important;
+  height: 20px !important;
+  border: 1px solid rgba(171, 206, 255, 0.20) !important;
+}
+.foo-grid tr td div table tr td{
+  padding: 0px 4px !important;
+  display: table-cell !important;
+  background: #fff !important;
+  color: #666;
+  font-weight: 300 !important;
+  line-height: 20px !important;
+  height: 20px !important;
+  border: 1px solid rgba(171, 206, 255, 0.20) !important;
 }
 
 .ta-editor {

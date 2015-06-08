@@ -125,7 +125,7 @@ angular.module('comment')
                         try {
                             var comment = {};
                             var user = "";
-                            if (Session.user.name.givenName && Session.user.name.familyName){
+                            if (Session.user.name && Session.user.name.givenName && Session.user.name.familyName){
                                 user = Session.user.name.givenName +' ' + Session.user.name.familyName;
                             }else{
                                 user = Session.user.displayName;

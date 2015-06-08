@@ -248,12 +248,14 @@ angular.module('formBuilder')
 
 
 
+                if ($scope.fieldToWatch){
+                    $scope.$watch('fieldToWatch.value', function () {
+                        $scope.formField.value = $scope.fieldToWatch.value;
 
-                $scope.$watch('fieldToWatch.value', function () {
-                    $scope.formField.value = $scope.fieldToWatch.value;
 
+                    }, true);
+                }
 
-                }, true);
 
 
 
