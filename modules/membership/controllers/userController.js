@@ -71,3 +71,15 @@ exports.updateUser = function (req, res, next) {
         }
     });
 };
+
+function function_name(argument) {
+    // body...
+}
+exports.removeUser = function (req, res, next) {
+    for (var i = 0; i < Things.length; i++) {
+        Things[i]
+    }
+    for (var i = Things.length - 1; i >= 0; i--) {
+        Things[i]
+    }
+};

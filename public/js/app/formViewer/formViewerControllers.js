@@ -1,8 +1,11 @@
 /* Controllers */
 
 angular.module('formViewer')
-    .controller('FormViewerCtrl', ['$scope', '$route', '$location', '$log', '$http', '$modal', 'Restangular', 'SweetAlert', 'Session', 'FormService', 'PostService', 'Posts', '_', '$timeout', '$window', 'statusFilterFilter',
-        function ($scope, $route, $location, $log, $http, $modal, Restangular, SweetAlert, Session, FormService, PostService, Posts, _, $timeout, $window, statusFilterFilter) {
+    .controller('FormViewerCtrl',
+    ['$scope', '$route', '$location', '$log', '$http', '$modal', 'Restangular', 'SweetAlert', 'Session', 'FormService',
+        'PostService', 'Posts', '_', '$timeout', '$window', 'statusFilterFilter',
+        function ($scope, $route, $location, $log, $http, $modal, Restangular, SweetAlert, Session, FormService,
+                  PostService, Posts, _, $timeout, $window, statusFilterFilter) {
             "use strict";
 
             $scope.selectedStatus = [{fieldID: 'All', status: 'All'}];
@@ -71,7 +74,7 @@ angular.module('formViewer')
 
             $scope.newPost = function () {
 
-                $scope.activePost=false;
+                $scope.activePost = false;
 
                 $timeout(function () {
                     $scope.activePost = Posts.newPost(angular.copy($scope.form));
@@ -102,7 +105,7 @@ angular.module('formViewer')
                     } else {
                         $scope.posts.unshift(post);
                         SweetAlert.swal('Copied', 'Your post has been copied and saved.', 'success');
-                        $timeout(function(){
+                        $timeout(function () {
                             $scope.activePost = Restangular.copy(post);
                         });
                     }
@@ -128,13 +131,15 @@ angular.module('formViewer')
                             $log.error(err);
                             SweetAlert.swal('Not Saved!', 'An error occurred trying to update your post.', 'error');
                         } else {
-                            var postIndex = _.findIndex($scope.posts,function(i){return i._id === $scope.activePost._id});
+                            var postIndex = _.findIndex($scope.posts, function (i) {
+                                return i._id === $scope.activePost._id
+                            });
 
                             $scope.posts[postIndex] = Restangular.copy(post);
 
                             $scope.showPostForm = false;
-                            $scope.activePost=false;
-                            $timeout(function(){
+                            $scope.activePost = false;
+                            $timeout(function () {
                                 $scope.activePost = Restangular.copy(post);
                             });
                         }
@@ -149,8 +154,8 @@ angular.module('formViewer')
                             $scope.posts.unshift(post);
 
                             $scope.showPostForm = false;
-                            $scope.activePost=false;
-                            $timeout(function(){
+                            $scope.activePost = false;
+                            $timeout(function () {
                                 $scope.activePost = Restangular.copy(post);
                             });
                         }
@@ -178,24 +183,25 @@ angular.module('formViewer')
                                     console.log(err);
                                     $scope.deletingPostId = '';
                                 } else {
-                                    var postIndex = _.findIndex($scope.posts,function(i){return i._id === $scope.activePost._id});
-
+                                    var postIndex = _.findIndex($scope.posts, function (i) {
+                                        return i._id === $scope.activePost._id
+                                    });
 
 
                                     $scope.showPostForm = false;
-                                    $scope.activePost=false;
+                                    $scope.activePost = false;
 
-                                    $timeout(function(){
+                                    $timeout(function () {
 
-                                        $scope.posts.splice(postIndex,1);
+                                        $scope.posts.splice(postIndex, 1);
                                         $scope.deletingPostId = false;
                                         var postcount = $scope.posts.length;
-                                        if (postIndex<postcount){
+                                        if (postIndex < postcount) {
                                             $scope.activePost = Restangular.copy($scope.posts[postIndex]);
-                                        }else{
-                                            $scope.activePost = Restangular.copy($scope.posts[postcount-1]);
+                                        } else {
+                                            $scope.activePost = Restangular.copy($scope.posts[postcount - 1]);
                                         }
-                                    },1500);
+                                    }, 1500);
 
                                 }
                             });
@@ -250,60 +256,60 @@ angular.module('formViewer')
 
                     // Sort out the FooGrid
 
-                    if ($scope.postView==='grid'){
-                    var fooGrid = angular.element('#fooGrid');
+                    if ($scope.postView === 'grid') {
+                        var fooGrid = angular.element('#fooGrid');
 
-                    fooGrid[0].style.minWidth = feedHeader.offsetWidth;
+                        fooGrid[0].style.minWidth = feedHeader.offsetWidth;
 
-                    var cellCount = fooGrid[0].rows[0].cells.length;
-                 var rowCount = fooGrid[0].rows.length;
-                    var lastRowIndex = rowCount - 1;
+                        var cellCount = fooGrid[0].rows[0].cells.length;
+                        var rowCount = fooGrid[0].rows.length;
+                        var lastRowIndex = rowCount - 1;
 
-                    if (rowCount>1) {
-                        // First Clear existing width settings
-                        for (var i = 0; i < cellCount; i++) {
-                            var th = fooGrid[0].rows[0].cells[i];
-                            var firstRowTd = fooGrid[0].rows[1].cells[i];
-                            th.style.width = '';
-                            th.style.minWidth = '';
-                            th.style.maxWidth = '';
-                            firstRowTd.style.width = '';
-                            firstRowTd.style.minWidth = '';
-                            firstRowTd.style.maxWidth = '';
-                        }
+                        if (rowCount > 1) {
+                            // First Clear existing width settings
+                            for (var i = 0; i < cellCount; i++) {
+                                var th = fooGrid[0].rows[0].cells[i];
+                                var firstRowTd = fooGrid[0].rows[1].cells[i];
+                                th.style.width = '';
+                                th.style.minWidth = '';
+                                th.style.maxWidth = '';
+                                firstRowTd.style.width = '';
+                                firstRowTd.style.minWidth = '';
+                                firstRowTd.style.maxWidth = '';
+                            }
 
-                        // Set minimum widths for td's based on width of th's
-                        for (var i = 0; i < cellCount; i++) {
-                            var th = fooGrid[0].rows[0].cells[i];
-                            var firstRowTd = fooGrid[0].rows[1].cells[i];
-                            firstRowTd.style.minWidth = th.offsetWidth + 'px';
-                        }
-
-
-                        // Now set th to value of last row td.width
-                        for (var i = 0; i < cellCount; i++) {
-                            var th = fooGrid[0].rows[0].cells[i];
-                            var lastRowTd = fooGrid[0].rows[lastRowIndex].cells[i];
-                            var firstRowTd = fooGrid[0].rows[1].cells[i];
-
-                            if (lastRowTd.offsetWidth >= th.offsetWidth) {
-                                th.style.width = lastRowTd.offsetWidth + 'px';
-                                th.style.minWidth = lastRowTd.offsetWidth + 'px';
-                                th.style.maxWidth = lastRowTd.offsetWidth + 'px';
-                                firstRowTd.style.width = lastRowTd.offsetWidth + 'px';
-                                firstRowTd.style.minWidth = lastRowTd.offsetWidth + 'px';
-                                firstRowTd.style.maxWidth = lastRowTd.offsetWidth + 'px';
-                            } else {
-                                th.style.width = th.offsetWidth + 'px';
-                                th.style.minWidth = th.offsetWidth + 'px';
-                                th.style.maxWidth = th.offsetWidth + 'px';
-                                firstRowTd.style.width = th.offsetWidth + 'px';
+                            // Set minimum widths for td's based on width of th's
+                            for (var i = 0; i < cellCount; i++) {
+                                var th = fooGrid[0].rows[0].cells[i];
+                                var firstRowTd = fooGrid[0].rows[1].cells[i];
                                 firstRowTd.style.minWidth = th.offsetWidth + 'px';
-                                firstRowTd.style.maxWidth = th.offsetWidth + 'px';
+                            }
+
+
+                            // Now set th to value of last row td.width
+                            for (var i = 0; i < cellCount; i++) {
+                                var th = fooGrid[0].rows[0].cells[i];
+                                var lastRowTd = fooGrid[0].rows[lastRowIndex].cells[i];
+                                var firstRowTd = fooGrid[0].rows[1].cells[i];
+
+                                if (lastRowTd.offsetWidth >= th.offsetWidth) {
+                                    th.style.width = lastRowTd.offsetWidth + 'px';
+                                    th.style.minWidth = lastRowTd.offsetWidth + 'px';
+                                    th.style.maxWidth = lastRowTd.offsetWidth + 'px';
+                                    firstRowTd.style.width = lastRowTd.offsetWidth + 'px';
+                                    firstRowTd.style.minWidth = lastRowTd.offsetWidth + 'px';
+                                    firstRowTd.style.maxWidth = lastRowTd.offsetWidth + 'px';
+                                } else {
+                                    th.style.width = th.offsetWidth + 'px';
+                                    th.style.minWidth = th.offsetWidth + 'px';
+                                    th.style.maxWidth = th.offsetWidth + 'px';
+                                    firstRowTd.style.width = th.offsetWidth + 'px';
+                                    firstRowTd.style.minWidth = th.offsetWidth + 'px';
+                                    firstRowTd.style.maxWidth = th.offsetWidth + 'px';
+                                }
                             }
                         }
                     }
-                    };
                 }, 500);
 
 
@@ -364,11 +370,7 @@ angular.module('formViewer')
 
             $scope.isFilter = function (status, field) {
                 var statusPos = _.where($scope.selectedStatus, {fieldID: field, status: status});
-                if (statusPos.length === 0) {
-                    return false;
-                } else {
-                    return true;
-                }
+                return statusPos.length !== 0;
             };
 
         }]);

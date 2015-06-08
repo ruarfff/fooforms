@@ -31,7 +31,8 @@ angular.module('formBuilder').controller('FormBuilderCtrl',
                 $scope.resetEventTypes();
 
                 var name = $routeParams.name;
-                var owner = _.find(Session.user.organisations, {displayName: name}) || _.find(Session.user.teams, {displayName: name}) || Session.user.displayName;
+                var owner = _.find(Session.user.organisations, {displayName: name}) ||
+                    _.find(Session.user.teams, {displayName: name}) || Session.user.displayName;
                 var team = _.find(Session.user.teams, {displayName: $routeParams.team});
                 var folder;
 
@@ -46,7 +47,7 @@ angular.module('formBuilder').controller('FormBuilderCtrl',
                 } else {
                     window.location.href = '/dashboard';
                 }
-$scope.formFolder = folder;
+                $scope.formFolder = folder;
                 var formName = $routeParams.form;
 
                 if (formName) {
@@ -120,7 +121,7 @@ $scope.formFolder = folder;
                             // Are we dropping into a repeatBox or not?
                             if (ui.item.sortable.droptarget[0].className.indexOf("repeat-apps-container") > -1) {
                                 var repeatBoxId = parseInt(ui.item.sortable.droptarget[0].attributes.id.value);
-                                var rebeatBoxFormIndex = _.findIndex($scope.form.fields,  { id : repeatBoxId});
+                                var rebeatBoxFormIndex = _.findIndex($scope.form.fields, {id: repeatBoxId});
 
                                 $scope.dropped = $scope.nowSubEditing = ui.item.sortable.dropindex;
                                 $scope.nowEditing = rebeatBoxFormIndex;
@@ -433,7 +434,7 @@ $scope.formFolder = folder;
                             } else {
                                 $scope.form = form;
 
-                                var oldForm = _.find(Session.user.forms, { '_id': $scope.form._id });
+                                var oldForm = _.find(Session.user.forms, {'_id': $scope.form._id});
                                 var index = Session.user.defaultFolder.forms.indexOf(oldForm);
                                 if (~index) {
                                     Session.user.defaultFolder.forms = Session.user.defaultFolder.forms.push[$scope.form];
@@ -498,7 +499,7 @@ $scope.formFolder = folder;
                         delete newForm.postStreams;
                         newForm.folder = Session.user.defaultFolder._id;
 
-                        newForm.title='';
+                        newForm.title = '';
                     }
                     $scope.form = newForm;
                 });
@@ -769,7 +770,8 @@ var ModalListManagerCtrl = function ($scope, $modalInstance, list, $upload) {
         if ($scope.uploadFile.type != 'text/csv') {
 
             $scope.allowUpload = false;
-            $scope.setMessage(true, 'Invalid File Format', 'FOOFORMS expects a .csv file. Please ensure you have saved your file in .csv format', 'alert-danger');
+            $scope.setMessage(true, 'Invalid File Format',
+                'FOOFORMS expects a .csv file. Please ensure you have saved your file in .csv format', 'alert-danger');
         } else {
 
             $scope.allowUpload = true;
