@@ -94,6 +94,7 @@
     "mockgoose": "*",
     "passport-stub": "^1.0.1",
     "protractor": "*",
+      "recursive-readdir": "^1.2.1",
     "rewire": "^2.3.1",
     "should": "*",
     "supertest": "^0.14.0"

@@ -98,7 +98,7 @@ angular.module('team')
                     });
 
 
-            }
+            };
 
             $scope.addToTeam = function (member) {
 

@@ -6,7 +6,7 @@ module.exports = function (grunt) {
             reporter: require('jshint-stylish'),
             jshintrc: true
         },
-        all: ['Gruntfile.js', 'config/**/*.js', 'grunt-tasks/**/*.js', 'modules/**/*.js', 'public/js/app/**/*.js']
+        all: ['Gruntfile.js', 'config/**/*.js', 'grunt-tasks/**/*.js', 'modules/**/*.js', 'client/app/**/*.js']
     });
     grunt.loadNpmTasks('grunt-contrib-jshint');
 };

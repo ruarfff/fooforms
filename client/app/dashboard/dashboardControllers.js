@@ -6,7 +6,6 @@ angular.module('dashboard').controller('DashboardCtrl', ['$rootScope', '$scope',
         $scope.postView = 'feed';
         $scope.printPreview = false;
         $scope.fullScreen = false;
-        $scope.showIntroPage = false;
         $scope.deletingPostId = false;
 
         // Posts are linked to the post collection directive
@@ -93,7 +92,7 @@ angular.module('dashboard').controller('DashboardCtrl', ['$rootScope', '$scope',
                 } else {
                     $scope.posts.unshift(post);
                     SweetAlert.swal('Copied', 'Your post has been copied and saved.', 'success');
-                    $timeout(function(){
+                    $timeout(function () {
                         $scope.activePost = Restangular.copy(post);
                     });
                 }
@@ -162,22 +161,24 @@ angular.module('dashboard').controller('DashboardCtrl', ['$rootScope', '$scope',
                                 $scope.deletingPostId = false;
                             } else {
 
-                                var postIndex = _.findIndex($scope.posts,function(i){return i._id === $scope.activePost._id});
+                                var postIndex = _.findIndex($scope.posts, function (i) {
+                                    return i._id === $scope.activePost._id
+                                });
 
                                 $scope.showPostForm = false;
-                                $scope.activePost=false;
+                                $scope.activePost = false;
 
-                                $timeout(function(){
+                                $timeout(function () {
 
-                                    $scope.posts.splice(postIndex,1);
+                                    $scope.posts.splice(postIndex, 1);
                                     $scope.deletingPostId = false;
                                     var postcount = $scope.posts.length;
-                                    if (postIndex<postcount){
+                                    if (postIndex < postcount) {
                                         $scope.activePost = Restangular.copy($scope.posts[postIndex]);
-                                    }else{
-                                        $scope.activePost = Restangular.copy($scope.posts[postcount-1]);
+                                    } else {
+                                        $scope.activePost = Restangular.copy($scope.posts[postcount - 1]);
                                     }
-                                },1500);
+                                }, 1500);
 
                             }
                         });

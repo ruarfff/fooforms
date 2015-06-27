@@ -11,7 +11,7 @@ module.exports = function (grunt) {
             livereload: false
         },
         js: {
-            files: ['public/js/app/**/*.js'],
+            files: ['client/app/**/*.js'],
             tasks: ['process-frontend-js']
         },
         // No task here for views and public. Just livereload is run.

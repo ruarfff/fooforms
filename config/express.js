@@ -5,7 +5,7 @@ var engine = require('ejs');
 //var flash = require('connect-flash');
 var helpers = require('view-helpers');
 var express = require('express');
-var paginate = require('express-paginate')
+var paginate = require('express-paginate');
 var bodyParser = require('body-parser');
 var cookieParser = require('cookie-parser');
 var favicon = require('serve-favicon');
@@ -25,7 +25,7 @@ var compress = require('compression')({
 
 var env = process.env.NODE_ENV || 'development';
 if (env === 'development' || env === 'staging') {
-    errorHandler = require('errorhandler')({ dumpExceptions: true, showStack: true });
+    errorHandler = require('errorhandler')({dumpExceptions: true, showStack: true});
 } else {
     errorHandler = require('errorhandler')();
 }
@@ -44,6 +44,11 @@ module.exports = function (app, passport) {
     app.set('view engine', 'html');
     app.use(favicon(appRoot + '/public/assets/ico/favicon.ico'));
     app.use(express.static(appRoot + '/public'));
+    // If dev mode, expose unprocessed js
+    if (env === 'development') {
+        app.use(express.static(appRoot + '/client'));
+    }
+
     //Don't use logger for test env
     if (process.env.NODE_ENV !== 'test') {
         app.use(logger);

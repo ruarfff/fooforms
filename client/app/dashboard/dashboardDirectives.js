@@ -11,7 +11,7 @@ angular.module('fooformsApp')
                 templateUrl: '/template/dashboard/org-menu.html'
             };
         }
-    ])
+    ]);
 
 
 

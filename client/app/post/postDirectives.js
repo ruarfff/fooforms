@@ -56,7 +56,7 @@ angular.module('post')
                                 if (!$scope.activeForm && $scope.posts.length > 0) {
 
                                     $scope.activeForm = _.find(Session.forms, function (form) {
-                                        return _.indexOf(form.postStreams, $scope.activePost.postStream) > -1 ? true : false;
+                                        return _.indexOf(form.postStreams, $scope.activePost.postStream) > -1;
                                     });
 
                                 }

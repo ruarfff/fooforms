@@ -7,8 +7,8 @@ module.exports = function (grunt) {
                 separator: ';'
             },
             src: [
-                'public/js/app/main.js',
-                'public/js/app/**/*.js'
+                'client/app/main.js',
+                'client/app/**/*.js'
             ],
             dest: 'public/js/main.min.js'
         },
@@ -17,7 +17,7 @@ module.exports = function (grunt) {
                 separator: ';'
             },
             src: [
-                'public/js/app/authentication/**/*.js'
+                'client/app/authentication/**/*.js'
             ],
             dest: 'public/js/auth.min.js'
         },

@@ -12,7 +12,7 @@ module.exports = function(grunt) {
         },
         run: {
             options: {
-                configFile: "test/protractor.conf.js", // Target-specific config file
+                configFile: "protractor.conf.js", // Target-specific config file
                 args: {} // Target-specific arguments
             }
         }

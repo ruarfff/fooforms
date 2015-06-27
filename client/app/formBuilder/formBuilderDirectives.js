@@ -564,8 +564,6 @@ angular.module('formBuilder')
 
                     }, true);
                 }
-                ;
-
             }
         }
 
@@ -606,8 +604,6 @@ angular.module('formBuilder')
 
                     }, true);
                 }
-                ;
-
             }
         }
 
