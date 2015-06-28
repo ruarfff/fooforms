@@ -1,6 +1,4 @@
-/* global angular */
-
-angular.module('invite')
+angular.module('fooforms.invite')
 
     .factory('InviteService', ['$log', 'Restangular', function ($log, Restangular) {
         'use strict';

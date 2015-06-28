@@ -1,7 +1,6 @@
-/* global angular */
-
-angular.module('authentication')
-    .controller('AuthCtrl', ['$scope', '$modal', '$location', '$log', function ($scope, $modal, $location, $log) {
+angular.module('fooforms.authentication')
+    .controller('AuthCtrl', ['$scope', '$modal', '$location', '$log',
+        function ($scope, $modal, $location, $log) {
         var modalInstance;
         var template;
         var controller;
@@ -37,7 +36,8 @@ angular.module('authentication')
             $log.error(err);
         });
     }])
-    .controller('LoginCtrl', ['$scope', '$rootScope', '$modalInstance', 'AUTH_EVENTS', 'AuthService', function ($scope, $rootScope, $modalInstance, AUTH_EVENTS, AuthService) {
+    .controller('LoginCtrl', ['$scope', '$rootScope', '$modalInstance', 'AUTH_EVENTS', 'authService',
+        function ($scope, $rootScope, $modalInstance, AUTH_EVENTS, authService) {
         'use strict';
 
         $scope.sluggedUsername = '';
@@ -48,18 +48,18 @@ angular.module('authentication')
         $scope.loginError = false;
 
         $scope.login = function (credentials) {
-            AuthService.clearCredentials();
-            AuthService.setCredentials(credentials.username, credentials.password);
+            authService.clearCredentials();
+            authService.setCredentials(credentials.username, credentials.password);
             // Note: not posting anything in the login as the credentials get passed in the header
-            AuthService.login().success(function (res) {
-                if (AuthService.isAuthenticated) {
+            authService.login().success(function (res) {
+                if (authService.isAuthenticated) {
                     $rootScope.$broadcast(AUTH_EVENTS.loginSuccess);
                     $modalInstance.close(true);
                 } else {
                     $scope.loginError = res.message || 'An error occurred while trying to log you in.';
                 }
             }).error(function (res) {
-                AuthService.clearCredentials();
+                authService.clearCredentials();
                 $rootScope.$broadcast(AUTH_EVENTS.loginFailed);
                 $scope.loginError = res.message || 'An error occurred while trying to log you in.';
             });
@@ -70,16 +70,17 @@ angular.module('authentication')
         }
 
     }])
-    .controller('LogoutCtrl', ['$scope', '$rootScope', 'AUTH_EVENTS', 'AuthService', function ($scope, $rootScope, AUTH_EVENTS, AuthService) {
+    .controller('LogoutCtrl', ['$scope', '$rootScope', 'AUTH_EVENTS', 'authService', function ($scope, $rootScope, AUTH_EVENTS, authService) {
         'use strict';
 
         $scope.logout = function () {
-            AuthService.clearCredentials();
+            authService.clearCredentials();
             $rootScope.$broadcast(AUTH_EVENTS.logoutSuccess);
             window.location = '/';
         };
     }])
-    .controller('SignupCtrl', ['$scope', '$rootScope', '$modalInstance', 'AUTH_EVENTS', 'AuthService', function ($scope, $rootScope, $modalInstance, AUTH_EVENTS, AuthService) {
+    .controller('SignupCtrl', ['$scope', '$rootScope', '$modalInstance', 'AUTH_EVENTS', 'authService',
+        function ($scope, $rootScope, $modalInstance, AUTH_EVENTS, authService) {
         'use strict';
         $scope.details = {};
 
@@ -95,24 +96,24 @@ angular.module('authentication')
         };
 
         $scope.signup = function (details) {
-            AuthService.signup(details).success(function (res) {
-                AuthService.clearCredentials();
-                AuthService.setCredentials(details.displayName, details.password);
+            authService.signup(details).success(function (res) {
+                authService.clearCredentials();
+                authService.setCredentials(details.displayName, details.password);
 
                 var credentials = {
                     username: details.displayName,
                     password: details.password
                 };
 
-                AuthService.login(credentials).success(function (res) {
-                    if (AuthService.isAuthenticated) {
+                authService.login(credentials).success(function (res) {
+                    if (authService.isAuthenticated) {
                         $rootScope.$broadcast(AUTH_EVENTS.loginSuccess);
                         $modalInstance.close(true);
                     } else {
                         $scope.signupError = res.message || 'An error occurred while trying to log you in.';
                     }
                 }).error(function (res) {
-                    AuthService.clearCredentials();
+                    authService.clearCredentials();
                     $rootScope.$broadcast(AUTH_EVENTS.loginFailed);
                     $scope.signupError = res.message || 'An error occurred while trying to log you in.';
                 });
@@ -122,7 +123,8 @@ angular.module('authentication')
         };
 
     }])
-    .controller('ForgottenPasswordCtrl', ['$scope', '$modal', '$location', '$log', function ($scope, $modal, $location, $log) {
+    .controller('ForgottenPasswordCtrl', ['$scope', '$modal', '$location', '$log',
+        function ($scope, $modal, $location, $log) {
         'use strict';
         var modalInstance;
 
@@ -145,11 +147,12 @@ angular.module('authentication')
         });
 
     }])
-    .controller('ForgottenPasswordModalCtrl', ['$scope', '$modalInstance', '$location', 'SweetAlert', 'PasswordService', function ($scope, $modalInstance, $location, SweetAlert, PasswordService) {
+    .controller('ForgottenPasswordModalCtrl', ['$scope', '$modalInstance', '$location', 'SweetAlert', 'passwordService',
+        function ($scope, $modalInstance, $location, SweetAlert, passwordService) {
         'use strict';
 
         $scope.sendReset = function (email) {
-            PasswordService.sendReset(email, function () {
+            passwordService.sendReset(email, function () {
 
                 SweetAlert.swal({
                     title: "Sent",
@@ -163,7 +166,8 @@ angular.module('authentication')
         };
 
     }])
-    .controller('ResetPasswordCtrl', ['$scope', '$modal', '$location', '$log', function ($scope, $modal, $location, $log) {
+    .controller('ResetPasswordCtrl', ['$scope', '$modal', '$location', '$log',
+        function ($scope, $modal, $location, $log) {
         'use strict';
         var modalInstance;
 
@@ -185,7 +189,8 @@ angular.module('authentication')
         });
 
     }])
-    .controller('ResetPasswordModalCtrl', ['$scope', '$modalInstance', '$routeParams', 'PasswordService', function ($scope, $modalInstance, $routeParams, PasswordService) {
+    .controller('ResetPasswordModalCtrl', ['$scope', '$modalInstance', '$routeParams', 'passwordService',
+        function ($scope, $modalInstance, $routeParams, passwordService) {
         'use strict';
 
         $scope.resetError = false;
@@ -195,7 +200,7 @@ angular.module('authentication')
                 password: password,
                 token: $routeParams.token
             };
-            PasswordService.updatePassword(args, function (err) {
+            passwordService.updatePassword(args, function (err) {
                 $modalInstance.close(err);
             });
 

@@ -1,11 +1,9 @@
-/* global angular */
-
-angular.module('authentication').constant('USER_ROLES', {
+angular.module('fooforms.authentication').constant('USER_ROLES', {
     all: '*',
     admin: 'admin',
     user: 'user'
 });
-angular.module('authentication').constant('AUTH_EVENTS', {
+angular.module('fooforms.authentication').constant('AUTH_EVENTS', {
         loginSuccess: 'auth-login-success',
         loginFailed: 'auth-login-failed',
         logoutSuccess: 'auth-logout-success',

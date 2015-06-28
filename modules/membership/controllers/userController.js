@@ -6,7 +6,7 @@ var statusCodes = require('fooforms-rest').statusCodes;
 var slug = require('slug');
 var userProfile = require('../lib/userProfile');
 var membership = new Membership(db);
-var _ = require('underscore');
+var _ = require('lodash');
 
 
 exports.findUserById = function (req, res, next) {
@@ -72,14 +72,3 @@ exports.updateUser = function (req, res, next) {
     });
 };
 
-function function_name(argument) {
-    // body...
-}
-exports.removeUser = function (req, res, next) {
-    for (var i = 0; i < Things.length; i++) {
-        Things[i]
-    }
-    for (var i = Things.length - 1; i >= 0; i--) {
-        Things[i]
-    }
-};

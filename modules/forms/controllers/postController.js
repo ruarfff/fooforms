@@ -6,7 +6,7 @@ var statusCodes = require('fooforms-rest').statusCodes;
 var fooForm = new FooForm(db);
 var membership = new Membership(db);
 var paginate = require('express-paginate');
-var _ = require('underscore');
+var _ = require('lodash');
 var postEvents = require('../lib/postEvents');
 
 

@@ -1,26 +1,25 @@
-/* global angular */
+angular.module('fooforms.invite')
 
-angular.module('invite')
+    .controller('SendInviteCtrl', ['$scope', '$log', 'SweetAlert', 'InviteService', 'session',
+        function ($scope, $log, SweetAlert, InviteService, session) {
+            $scope.inviteEmail = '';
 
-    .controller('SendInviteCtrl', ['$scope', '$log', 'SweetAlert', 'InviteService', 'Session', function ($scope, $log, SweetAlert, InviteService, Session) {
-        $scope.inviteEmail = '';
+            $scope.invite = function () {
+                var invite = {
+                    organisation: session.user.organisations[0]._id,
+                    email: $scope.inviteEmail,
+                    message: $scope.message || ''
+                };
 
-        $scope.invite = function () {
-            var invite = {
-                organisation: Session.user.organisations[0]._id,
-                email: $scope.inviteEmail,
-                message: $scope.message || ''
-            };
-
-            InviteService.createInvitation(invite, function (err, createdInvite) {
-                if (err) $log.error(err);
-                $scope.inviteError = !createdInvite || createdInvite.status !== 'sent';
-                if(!$scope.inviteError) {
-                    SweetAlert.swal('Sent!', 'Your invitation has been sent.', 'success');
-                }
-            });
-        }
-    }])
+                InviteService.createInvitation(invite, function (err, createdInvite) {
+                    if (err) $log.error(err);
+                    $scope.inviteError = !createdInvite || createdInvite.status !== 'sent';
+                    if (!$scope.inviteError) {
+                        SweetAlert.swal('Sent!', 'Your invitation has been sent.', 'success');
+                    }
+                });
+            }
+        }])
     .controller('InviteCtrl', ['$scope', '$modal', '$location', '$log', function ($scope, $modal, $location, $log) {
         var modalInstance;
         var template = 'inviteContent.html';
@@ -46,45 +45,46 @@ angular.module('invite')
             $log.error(err);
         });
     }])
-    .controller('InviteModalCtrl', ['$scope', '$routeParams', 'SweetAlert', '$rootScope', '$modalInstance', 'AUTH_EVENTS', 'AuthService', 'InviteService', function ($scope, $routeParams, SweetAlert, $rootScope, $modalInstance, AUTH_EVENTS, AuthService, InviteService) {
-        $scope.details = {};
-        $scope.busy = InviteService.getInvitation($routeParams.invite).then(function (invite) {
-            $scope.invite = invite;
-            $scope.orgName = invite.organisation.displayName;
-            $scope.details = {
-                isInvite: true,
-                email: invite.email,
-                organisation: invite.organisation._id
-            }
+    .controller('InviteModalCtrl', ['$scope', '$routeParams', 'SweetAlert', '$rootScope', '$modalInstance', 'AUTH_EVENTS', 'authService', 'inviteService',
+        function ($scope, $routeParams, SweetAlert, $rootScope, $modalInstance, AUTH_EVENTS, authService, inviteService) {
+            $scope.details = {};
+            $scope.busy = inviteService.getInvitation($routeParams.invite).then(function (invite) {
+                $scope.invite = invite;
+                $scope.orgName = invite.organisation.displayName;
+                $scope.details = {
+                    isInvite: true,
+                    email: invite.email,
+                    organisation: invite.organisation._id
+                }
 
-        }, function (err) {
-            $log.error(err);
-        });
-
-        $scope.signup = function () {
-            AuthService.signup($scope.details).success(function (res) {
-                AuthService.clearCredentials();
-                AuthService.setCredentials($scope.details.displayName, $scope.details.password);
-
-                var credentials = {
-                    username: $scope.details.displayName,
-                    password: $scope.details.password
-                };
-
-                AuthService.login(credentials).success(function (res) {
-                    if (AuthService.isAuthenticated) {
-                        $rootScope.$broadcast(AUTH_EVENTS.loginSuccess);
-                        $modalInstance.close(true);
-                    } else {
-                        $scope.signupError = res.message || 'An error occurred while trying to log you in.';
-                    }
-                }).error(function (res) {
-                    AuthService.clearCredentials();
-                    $rootScope.$broadcast(AUTH_EVENTS.loginFailed);
-                    $scope.signupError = res.message || 'An error occurred while trying to log you in.';
-                });
-            }).error(function (res) {
-                $scope.signupError = res.message || 'An error occurred while trying to sign you up.';
+            }, function (err) {
+                $log.error(err);
             });
-        };
-    }]);
+
+            $scope.signup = function () {
+                authService.signup($scope.details).success(function (res) {
+                    authService.clearCredentials();
+                    authService.setCredentials($scope.details.displayName, $scope.details.password);
+
+                    var credentials = {
+                        username: $scope.details.displayName,
+                        password: $scope.details.password
+                    };
+
+                    authService.login(credentials).success(function (res) {
+                        if (authService.isAuthenticated) {
+                            $rootScope.$broadcast(AUTH_EVENTS.loginSuccess);
+                            $modalInstance.close(true);
+                        } else {
+                            $scope.signupError = res.message || 'An error occurred while trying to log you in.';
+                        }
+                    }).error(function (res) {
+                        authService.clearCredentials();
+                        $rootScope.$broadcast(AUTH_EVENTS.loginFailed);
+                        $scope.signupError = res.message || 'An error occurred while trying to log you in.';
+                    });
+                }).error(function (res) {
+                    $scope.signupError = res.message || 'An error occurred while trying to sign you up.';
+                });
+            };
+        }]);

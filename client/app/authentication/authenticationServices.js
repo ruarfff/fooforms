@@ -1,54 +1,53 @@
-/* global angular */
-
-angular.module('authentication')
-    .factory('AuthService', ['$rootScope', '$cookieStore', '$http', 'Base64', 'Session', 'AUTH_EVENTS', function ($rootScope, $cookieStore, $http, Base64, Session, AUTH_EVENTS) {
-        'use strict';
-        return {
-            login: function () {
-                return $http
-                    .post('/login');
-            },
-            signup: function (details) {
-                return $http
-                    .post('/signup', details);
-            },
-            isAuthenticated: function () {
-                return !!Session.user;
-            },
-            checkStoredCredentials: function (next) {
-                var encoded = $cookieStore.get('authdata');
-                if (encoded) {
-                    $http.defaults.headers.common.Authorization = 'Basic ' + encoded;
+angular.module('fooforms.authentication')
+    .factory('authService', ['$rootScope', '$cookieStore', '$http', 'base64', 'session', 'AUTH_EVENTS',
+        function ($rootScope, $cookieStore, $http, Base64, session, AUTH_EVENTS) {
+            'use strict';
+            return {
+                login: function () {
                     return $http
-                        .get('/api/users/check/me')
-                        .success(function (data) {
-                            Session.create(data);
-                            $rootScope.$broadcast(AUTH_EVENTS.loginSuccess);
-                            next(null, data);
-                        })
-                        .error(function (data, status) {
-                            document.execCommand("ClearAuthenticationCache");
-                            $cookieStore.remove('authdata');
-                            $http.defaults.headers.common.Authorization = 'Basic ';
-                            next(data + ' - ' + status);
-                        });
-                } else {
-                    next('Login required.');
+                        .post('/login');
+                },
+                signup: function (details) {
+                    return $http
+                        .post('/signup', details);
+                },
+                isAuthenticated: function () {
+                    return !!session.user;
+                },
+                checkStoredCredentials: function (next) {
+                    var encoded = $cookieStore.get('authdata');
+                    if (encoded) {
+                        $http.defaults.headers.common.Authorization = 'Basic ' + encoded;
+                        return $http
+                            .get('/api/users/check/me')
+                            .success(function (data) {
+                                session.create(data);
+                                $rootScope.$broadcast(AUTH_EVENTS.loginSuccess);
+                                next(null, data);
+                            })
+                            .error(function (data, status) {
+                                document.execCommand("ClearAuthenticationCache");
+                                $cookieStore.remove('authdata');
+                                $http.defaults.headers.common.Authorization = 'Basic ';
+                                next(data + ' - ' + status);
+                            });
+                    } else {
+                        next('Login required.');
+                    }
+                },
+                setCredentials: function (username, password) {
+                    var encoded = Base64.encode(username + ':' + password);
+                    $http.defaults.headers.common.Authorization = 'Basic ' + encoded;
+                    $cookieStore.put('authdata', encoded);
+                },
+                clearCredentials: function () {
+                    document.execCommand("ClearAuthenticationCache");
+                    $cookieStore.remove('authdata');
+                    $http.defaults.headers.common.Authorization = 'Basic ';
                 }
-            },
-            setCredentials: function (username, password) {
-                var encoded = Base64.encode(username + ':' + password);
-                $http.defaults.headers.common.Authorization = 'Basic ' + encoded;
-                $cookieStore.put('authdata', encoded);
-            },
-            clearCredentials: function () {
-                document.execCommand("ClearAuthenticationCache");
-                $cookieStore.remove('authdata');
-                $http.defaults.headers.common.Authorization = 'Basic ';
-            }
-        };
-    }])
-    .factory('PasswordService', ['$log', 'Restangular', function ($log, Restangular) {
+            };
+        }])
+    .factory('passwordService', ['$log', 'Restangular', function ($log, Restangular) {
         return {
             sendReset: function (email, next) {
                 var forgottenPasswordApi = Restangular.all('forgotten-password');
@@ -73,21 +72,7 @@ angular.module('authentication')
         }
 
     }])
-    .service('Session', function () {
-        'use strict';
-        this.posts = [];
-        this.org = {};
-        this.forms=[];
-        this.create = function (userProfile) {
-            this.user = userProfile;
-        };
-        this.destroy = function () {
-            this.user = null;
-            this.posts = null;
-        };
-        return this;
-    })
-    .factory('Base64', function () {
+    .factory('base64', function () {
         "use strict";
         var keyStr = 'ABCDEFGHIJKLMNOP' +
             'QRSTUVWXYZabcdef' +
@@ -118,10 +103,10 @@ angular.module('authentication')
                     }
 
                     output = output +
-                    keyStr.charAt(enc1) +
-                    keyStr.charAt(enc2) +
-                    keyStr.charAt(enc3) +
-                    keyStr.charAt(enc4);
+                        keyStr.charAt(enc1) +
+                        keyStr.charAt(enc2) +
+                        keyStr.charAt(enc3) +
+                        keyStr.charAt(enc4);
                     chr1 = chr2 = chr3 = "";
                     enc1 = enc2 = enc3 = enc4 = "";
                 } while (i < input.length);
@@ -139,8 +124,8 @@ angular.module('authentication')
                 var base64test = /[^A-Za-z0-9\+\/\=]/g;
                 if (base64test.exec(input)) {
                     alert("There were invalid base64 characters in the input text.\n" +
-                    "Valid base64 characters are A-Z, a-z, 0-9, '+', '/',and '='\n" +
-                    "Expect errors in decoding.");
+                        "Valid base64 characters are A-Z, a-z, 0-9, '+', '/',and '='\n" +
+                        "Expect errors in decoding.");
                 }
                 input = input.replace(/[^A-Za-z0-9\+\/\=]/g, "");
 

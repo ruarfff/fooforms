@@ -1,7 +1,5 @@
-/* global angular */
-
-angular.module('comment')
-    .factory('CommentService',
+angular.module('fooforms.comment')
+    .factory('commentService',
     ['$log', 'Restangular',
         function ($log, Restangular) {
             'use strict';
@@ -14,7 +12,11 @@ angular.module('comment')
                     if (!commentStream) {
                         return next(new Error('PostStreams are required to get posts'));
                     }
-                    commentApi.getList({commentStream: commentStream, page: page, pageSize: pageSize}).then(function (comments) {
+                    commentApi.getList({
+                        commentStream: commentStream,
+                        page: page,
+                        pageSize: pageSize
+                    }).then(function (comments) {
                         return next(null, comments);
                     }, function (err) {
                         $log.error(err);

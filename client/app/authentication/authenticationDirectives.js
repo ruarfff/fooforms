@@ -1,4 +1,4 @@
-angular.module('authentication')
+angular.module('fooforms.authentication')
     .directive('uniqueUsername', ['$http', function ($http) {
         return {
             require: 'ngModel',

@@ -8,7 +8,7 @@ var paginate = require('express-paginate');
 var fooForm = new FooForm(db);
 var membership = new Membership(db);
 var userProfile = require('../../membership/lib/userProfile');
-var _ = require('underscore');
+var _ = require('lodash');
 
 // TODO: This is just terrible.... but works. Refactor when not in get the thing out the door mode.
 var populateForms = function (args, next) {

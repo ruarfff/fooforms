@@ -7,20 +7,22 @@ var express = require('express');
 var router = express.Router();
 var recursive = require('recursive-readdir');
 var log = require('fooforms-logging').LOG;
-var _ = require('underscore');
+var _ = require('lodash');
 
 router.get('', function (req, res) {
     var assets = [];
     if ((process.env.NODE_ENV === 'development')) {
         // Livereload the dashboard while in dev mode
         assets.push('//localhost:35729/livereload.js');
-        recursive(appRoot + '/client/app', ['.DS_Store'], function (err, files) {
+        recursive(appRoot + '/client/app', ['.DS_Store', 'embeddedForm.js', '*.spec.js'], function (err, files) {
             if (err) {
                 log.error(err);
                 throw(err);
             }
-            files = _.map(files, function (file) {
-                return file.replace(appRoot, '');
+            files = _.sortBy(_.map(files, function (file) {
+                return file.replace(appRoot + '/client', '');
+            }), function (file) {
+                return file.indexOf('module') <= -1;
             });
             log.debug(files);
 

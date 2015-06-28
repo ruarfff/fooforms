@@ -1,6 +1,4 @@
-/* global angular */
-
-angular.module('post').factory('PostService',
+angular.module('fooforms.post').factory('postService',
     ['$log', 'Restangular',
         function ($log, Restangular) {
             'use strict';
@@ -30,7 +28,7 @@ angular.module('post').factory('PostService',
                     });
                 },
                 updatePost: function (post, next) {
-                    if(typeof post.put !== 'function') {
+                    if (typeof post.put !== 'function') {
                         post = Restangular.restangularizeElement(postApi, post, '');
                     }
                     post.put().then(function (res) {
@@ -41,7 +39,7 @@ angular.module('post').factory('PostService',
                     });
                 },
                 deletePost: function (post, next) {
-                    if(typeof post.remove !== 'function') {
+                    if (typeof post.remove !== 'function') {
                         post = Restangular.restangularizeElement(postApi, post, '');
                     }
                     post.remove().then(function () {
@@ -54,7 +52,7 @@ angular.module('post').factory('PostService',
             };
         }]);
 
-angular.module('post').service('Posts', function () {
+angular.module('fooforms.post').service('post', function () {
     'use strict';
     this.activePost = {};
     this.newPost = function (form) {

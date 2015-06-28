@@ -1,54 +1,36 @@
-function nl2br(str, is_xhtml) {
-
-    var breakTag = (is_xhtml || typeof is_xhtml === 'undefined') ? '<br ' + '/>' : '<br>'; // Adjust comment to avoid issue on phpjs.org display
-
-    return (str + '')
-        .replace(/([^>\r\n]?)(\r\n|\n\r|\r|\n)/g, '$1' + breakTag + '$2');
-}
-
 var FooForm = angular.module('FooForm', ['ngSanitize', 'pikaday', 'textAngular'])
-    .config(function($sceDelegateProvider) {
+    .config(function ($sceDelegateProvider) {
         $sceDelegateProvider.resourceUrlWhitelist([
             // Allow same origin resource loads.
             'self',
             // Allow loading from our assets domain.  Notice the difference between * and **.
             'https://fooforms.com/**'
-        ])})
-    .controller('FormCtrl', ['$scope', '$http', '$location', '$timeout',function ($scope, $http, $location, $timeout) {
-
+        ])
+    })
+    .controller('FormCtrl', ['$scope', '$http', '$location', '$timeout', function ($scope, $http, $location, $timeout) {
         var path = $location.absUrl().split('/');
-        path = path[path.length - 1];
-        if (!window.hasOwnProperty(formId)) {
-            var formId = path;
-        }else{
-            var formId=window.formId;
-        }
-
+        var formPart = path[path.length - 1];
+        var formId = (window.hasOwnProperty('formId')) ? window.formId : formPart;
         var resizeCount = 0;
-        $scope.doResize = function(){
+        var hostEnv = (window.location.hostname === 'localhost') ? 'localhost:3000' : 'fooforms.com';
+        var url = 'https://' + hostEnv + '/forms/repo/fetch/' + formId;
+        var postUrl = 'https://' + hostEnv + '/forms/repo/post';
+
+
+        $scope.sorted = false;
+        $scope.errorPosting = false;
+
+
+        $scope.doResize = function () {
             if (typeof parent.resizeIframe === "function") {
                 resizeCount++;
                 if (resizeCount < 10) {
                     var height = angular.element('#formLayout').height();
                     parent.resizeIframe(formId, height);
-
                     $timeout($scope.doResize(), 500);
                 }
             }
-
         };
-
-        $scope.sorted = false;
-        $scope.errorPosting = false;
-
-        var hostName = window.location.hostname;
-        if (hostName == 'localhost') {
-            var url = 'http://localhost:3000/forms/repo/fetch/' + formId;
-            var postUrl = 'http://localhost:3000/forms/repo/post';
-        } else {
-            var url = 'https://fooforms.com/forms/repo/fetch/' + formId;
-            var postUrl = 'https://fooforms.com/forms/repo/post';
-        }
 
         $http({
             url: url,

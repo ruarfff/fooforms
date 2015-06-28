@@ -1,11 +1,9 @@
-/* Controllers */
-
-angular.module('formViewer')
+angular.module('fooforms.formViewer')
     .controller('FormViewerCtrl',
-    ['$scope', '$route', '$location', '$log', '$http', '$modal', 'Restangular', 'SweetAlert', 'Session', 'FormService',
-        'PostService', 'Posts', '_', '$timeout', '$window', 'statusFilterFilter',
-        function ($scope, $route, $location, $log, $http, $modal, Restangular, SweetAlert, Session, FormService,
-                  PostService, Posts, _, $timeout, $window, statusFilterFilter) {
+    ['$scope', '$route', '$location', '$log', '$http', '$modal', '$timeout', '$window', '_', 'Restangular', 'SweetAlert', 'session', 'formService',
+        'postService', 'post',
+        function ($scope, $route, $location, $log, $http, $modal, $timeout, $window, _, Restangular, SweetAlert, session, formService,
+                  postService, post) {
             "use strict";
 
             $scope.selectedStatus = [{fieldID: 'All', status: 'All'}];
@@ -23,15 +21,15 @@ angular.module('formViewer')
             $scope.location = $location.path();
 
             $scope.owner = $route.current.params.name;
-            var org = _.find(Session.user.organisations, {displayName: $scope.owner});
+            var org = _.find(session.user.organisations, {displayName: $scope.owner});
 
-            var team = _.find(Session.user.teams, {displayName: $route.current.params.team});
+            var team = _.find(session.user.teams, {displayName: $route.current.params.team});
 
             var formName = $route.current.params.form;
             var folder;
 
-            folderDetect: if (Session.user.displayName === $scope.owner) {
-                folder = Session.user.defaultFolder;
+            folderDetect: if (session.user.displayName === $scope.owner) {
+                folder = session.user.defaultFolder;
             } else if (team) {
                 folder = team.defaultFolder;
                 break folderDetect;
@@ -42,7 +40,7 @@ angular.module('formViewer')
             }
             $scope.form = _.find(folder.forms, {displayName: formName});
             $scope.activeForm = $scope.form;
-            Session.forms.push($scope.activeForm);
+            session.forms.push($scope.activeForm);
             if (!$scope.form) {
                 window.location.href = '/dashboard';
             }
@@ -77,7 +75,7 @@ angular.module('formViewer')
                 $scope.activePost = false;
 
                 $timeout(function () {
-                    $scope.activePost = Posts.newPost(angular.copy($scope.form));
+                    $scope.activePost = post.newPost(angular.copy($scope.form));
                     $scope.activePost.lastModified = '';
                     $scope.showPostForm = true;
                     $scope.setMessage('');
@@ -97,7 +95,7 @@ angular.module('formViewer')
                 $scope.activePost = newPost;
                 $scope.activePost.lastModified = '';
 
-                PostService.createPost($scope.activePost, function (err, post) {
+                postService.createPost($scope.activePost, function (err, post) {
                     $scope.doingPostApi = false;
                     if (err) {
                         $log.error(err);
@@ -125,7 +123,7 @@ angular.module('formViewer')
 
                     $scope.activePost.lastModified = new Date();
 
-                    PostService.updatePost($scope.activePost, function (err, post) {
+                    postService.updatePost($scope.activePost, function (err, post) {
                         $scope.doingPostApi = false;
                         if (err) {
                             $log.error(err);
@@ -145,7 +143,7 @@ angular.module('formViewer')
                         }
                     });
                 } else {
-                    PostService.createPost($scope.activePost, function (err, post) {
+                    postService.createPost($scope.activePost, function (err, post) {
                         $scope.doingPostApi = false;
                         if (err) {
                             $log.error(err);
@@ -175,7 +173,7 @@ angular.module('formViewer')
                             confirmButtonText: 'Yes, delete it!', closeOnConfirm: true
                         },
                         function () {
-                            PostService.deletePost($scope.activePost, function (err) {
+                            postService.deletePost($scope.activePost, function (err) {
                                 $scope.deletingPostId = $scope.activePost._id;
                                 $scope.doingPostApi = false;
                                 if (err) {
@@ -209,7 +207,7 @@ angular.module('formViewer')
                 } else {
                     $scope.doingPostApi = false;
                     // Post was never saved
-                    $scope.activePost = Posts.newPost($scope.form);
+                    $scope.activePost = post.newPost($scope.form);
                     $scope.deletingPostId = '';
                 }
                 //Update the grid
@@ -265,6 +263,10 @@ angular.module('formViewer')
                         var rowCount = fooGrid[0].rows.length;
                         var lastRowIndex = rowCount - 1;
 
+                        // TODO: This code needs a little work. Hoisting might cause weird behaviour here.
+                        // For example, firstRowId gets hoisted to top of function scope and gets overwritten in
+                        // each loop. Similar with i and th. This may or may not be OK.
+                        // TODO here to hopefully remind me to fix this.
                         if (rowCount > 1) {
                             // First Clear existing width settings
                             for (var i = 0; i < cellCount; i++) {
@@ -312,7 +314,6 @@ angular.module('formViewer')
                     }
                 }, 500);
 
-
             };
 
             angular.element($window).bind('resize', function () {
@@ -321,27 +322,11 @@ angular.module('formViewer')
                 });
             });
 
-
-            $scope.$watch('postView', function (value) {
-
-
+            $scope.$watch('postView', function () {
                 $scope.setFeedHeight();
-
-
             });
 
-
             $scope.filterStatus = function (status, field) {
-
-                var hasAll = function () {
-                    if (_.indexOf($scope.selectedStatus, {fieldID: 'All', status: 'All'}) > -1) {
-                        return true
-                    } else {
-                        return false;
-                    }
-                };
-
-
                 switch (status) {
                     case 'All':
                         $scope.selectedStatus = [{fieldID: 'All', status: 'All'}];

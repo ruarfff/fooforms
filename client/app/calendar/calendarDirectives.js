@@ -7,7 +7,6 @@
  *       The calendar will watch any eventSource array and update itself when a change is made.
  *
  */
-/* global angular */
 angular.module('ui.calendar', [])
     .constant('uiCalendarConfig', {})
     .controller('uiCalendarCtrl', ['$scope', '$timeout', function ($scope, $timeout) {

@@ -1,39 +1,38 @@
-/* global angular */
+angular.module('fooforms.organisation').controller('OrganisationCtrl',
+    ['$rootScope', '$scope', '$log', '_', 'SweetAlert', 'organisationService', 'organisation', 'session',
+        function ($rootScope, $scope, $log, _, SweetAlert, organisationService, organisation, session) {
+            'use strict';
 
-angular.module('organisation').controller('OrganisationCtrl', ['$rootScope', '$scope', '$log', '_', 'SweetAlert', 'OrganisationService', 'Organisation', 'Session',
-    function ($rootScope, $scope, $log, _, SweetAlert, OrganisationService, Organisation, Session) {
-        'use strict';
+            $scope.members = [];
 
-        $scope.members = [];
+            $scope.organisation = session.user.organisations[0];
 
-        $scope.organisation = Session.user.organisations[0];
-
-        OrganisationService.getMembers($scope.organisation, function (err, members) {
-           $scope.members = members;
-        });
-
-
-        $scope.updateOrg = function (org) {
-
-            var orgDetails = {
-                "_id": org._id,
-                "photo": org.photo,
-                "billingEmail": org.billingEmail,
-                "title": org.title,
-                "displayName": org.displayName
-
-            };
+            organisationService.getMembers($scope.organisation, function (err, members) {
+                $scope.members = members;
+            });
 
 
-            OrganisationService.updateOrg(orgDetails, function (err, res) {
-                if (err) {
-                    SweetAlert.swal('Not Saved!', 'An error occurred trying to update the organisation.', 'error');
-                } else {
+            $scope.updateOrg = function (org) {
 
-                    SweetAlert.swal('Saved!', 'Your organisation has been updated.', 'success');
-                }
+                var orgDetails = {
+                    "_id": org._id,
+                    "photo": org.photo,
+                    "billingEmail": org.billingEmail,
+                    "title": org.title,
+                    "displayName": org.displayName
 
-            })
-        }
+                };
 
-    }]);
+
+                organisationService.updateOrg(orgDetails, function (err, res) {
+                    if (err) {
+                        SweetAlert.swal('Not Saved!', 'An error occurred trying to update the organisation.', 'error');
+                    } else {
+
+                        SweetAlert.swal('Saved!', 'Your organisation has been updated.', 'success');
+                    }
+
+                })
+            }
+
+        }]);

@@ -4,12 +4,11 @@ var log = require('fooforms-logging').LOG;
 var statusCodes = require('fooforms-rest').statusCodes;
 var slug = require('slug');
 var membership = new Membership(db);
-var Invite = require('../models/invite').Invite;
 var email = require('../lib/emails');
 
 
 exports.findById = function (req, res, next) {
-    Invite.findById(req.params.invite).populate('organisation').exec(function (err, invite) {
+    membership.findInviteById(req.params.invite, function (err, invite) {
         if (err) next(err);
         if (invite) {
             res.send(invite);
@@ -20,6 +19,8 @@ exports.findById = function (req, res, next) {
 };
 
 exports.create = function (req, res, next) {
+
+    /**
     var invite = new Invite({
         status: 'started',
         organisation: req.body.organisation,
@@ -31,7 +32,7 @@ exports.create = function (req, res, next) {
         if (err) return next(err);
         if (savedInvite) {
             Invite.populate(savedInvite, {path: 'organisation', model: 'Organisation'}, function (err, savedInvite) {
-                if(err) return next(err);
+                if (err) return next(err);
                 if (!savedInvite) return res.status(statusCodes.BAD_REQUEST).send();
                 // Passing in json like this to avoid another populate call for user
                 email.sendInvitation({
@@ -56,6 +57,7 @@ exports.create = function (req, res, next) {
             return next(new Error('Could not create invitation'));
         }
     });
+     */
 };
 
 

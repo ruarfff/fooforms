@@ -19,7 +19,7 @@ var rootUrls = require(path.resolve(__dirname, '../../../config/rootUrls'));
 var storeRoutes = require(path.resolve(__dirname, '../routes/storeApiRoutes'));
 var sampleStoreCreator = require('./sampleStoreCreator');
 
-var _ = require('underscore');
+var _ = require('lodash');
 
 var app = express();
 app.use(bodyParser.json());

@@ -1,6 +1,4 @@
-/* global angular */
-
-angular.module('post')
+angular.module('fooforms.post')
     .filter('statusFilter', function () {
         return function (posts, status) {
             if (!status || _.findIndex(status, {fieldID: 'All', status: 'All'}) > -1) {
@@ -55,10 +53,10 @@ angular.module('post')
         var A = '1';
         var MINUTE = ['min', 'mins'];
         var HOUR = ['hour', 'hours'];
-        var DAY = ['day','days'];
-        var MONTH = ['month','months'];
-        var YEAR = ['year','years'];
-        return function (toTime,fromTime) {
+        var DAY = ['day', 'days'];
+        var MONTH = ['month', 'months'];
+        var YEAR = ['year', 'years'];
+        return function (toTime, fromTime) {
             var out = toTime;
             toTime = new Date(toTime);
             if (!isNaN(toTime)) {
@@ -77,19 +75,19 @@ angular.module('post')
                 } else if (distanceInMinutes >= 2 && distanceInMinutes <= 45) {
                     out = distanceInMinutes + ' ' + MINUTE[1];
                 } else if (distanceInMinutes >= 46 && distanceInMinutes <= 1440) {
-                    var hours = Math.max(Math.round(distanceInMinutes/60.0),1);
+                    var hours = Math.max(Math.round(distanceInMinutes / 60.0), 1);
                     out = ABOUT + ' ' + hours + ' ' + HOUR[(hours <= 1 ? 0 : 1)];
                 } else if (distanceInMinutes >= 1441 && distanceInMinutes <= 43200) {
-                    var days = Math.max(Math.round(distanceInMinutes/1440.0),1);
-                    out =  days + ' ' + DAY[(days <= 1 ? 0 : 1)];
+                    var days = Math.max(Math.round(distanceInMinutes / 1440.0), 1);
+                    out = days + ' ' + DAY[(days <= 1 ? 0 : 1)];
                 } else if (distanceInMinutes > 43201 && distanceInMinutes <= 86400) {
-                    var aboutMonths = Math.max(Math.round(distanceInMinutes/43200.0),1);
+                    var aboutMonths = Math.max(Math.round(distanceInMinutes / 43200.0), 1);
                     out = ABOUT + ' ' + aboutMonths + ' ' + MONTH[(aboutMonths <= 1 ? 0 : 1)];
                 } else if (distanceInMinutes > 86401 && distanceInMinutes <= 525600) {
-                    var months = Math.max(Math.round(distanceInMinutes/43200.0),1);
+                    var months = Math.max(Math.round(distanceInMinutes / 43200.0), 1);
                     out = months + ' ' + MONTH[(months <= 1 ? 0 : 1)];
                 } else {
-                    var isLeapYear = function(year) {
+                    var isLeapYear = function (year) {
                         return ((year % 4 === 0) && (year % 100 !== 0)) || (year % 400 === 0);
                     };
                     var fromYear = fromTime.getFullYear();
@@ -125,22 +123,22 @@ angular.module('post')
         };
     })
     .filter('gridFilter', function () {
-        return function (gridHeadings,form) {
+        return function (gridHeadings, form) {
 
-           var blankCell = {
-                value:' ',
-                type:'text'
+            var blankCell = {
+                value: ' ',
+                type: 'text'
             };
-var rowData = [];
-            var cellCount =gridHeadings.length;
-            for (var i=0; i<cellCount; i++){
+            var rowData = [];
+            var cellCount = gridHeadings.length;
+            for (var i = 0; i < cellCount; i++) {
 
-                var  cellData = _.where(form.fields,{id: gridHeadings[i].id});
+                var cellData = _.where(form.fields, {id: gridHeadings[i].id});
 
 
-                if (cellData.length>0){
+                if (cellData.length > 0) {
                     rowData.push(cellData[0]);
-                }else{
+                } else {
                     rowData.push(blankCell);
                 }
 
@@ -150,8 +148,5 @@ var rowData = [];
             return gridHeadings;
 
 
-
-
-
-
-        }});
+        }
+    });

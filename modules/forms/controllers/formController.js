@@ -2,7 +2,7 @@ var FooForm = require('fooforms-forms');
 var db = require('mongoose').connection;
 var statusCodes = require('fooforms-rest').statusCodes;
 var fooForm = new FooForm(db);
-var _ = require('underscore');
+var _ = require('lodash');
 var slug = require('slug');
 
 exports.create = function (req, res, next) {

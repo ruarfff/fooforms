@@ -1,44 +1,14 @@
-/* global angular */
-
-angular.module('formBuilder')
-
-
-// not used but may be useful some day......
-
-    .directive('compile', ['$compile', function ($compile) {
-        'use strict';
-        // directive factory creates a link function
-        return function (scope, element, attrs) {
-            scope.$watch(
-                function (scope) {
-                    // watch the 'compile' expression for changes
-                    return scope.$eval(attrs.compile);
-                },
-                function (value) {
-                    // when the 'compile' expression changes
-                    // assign it into the current DOM
-                    element.html(value);
-
-                    // compile the new DOM and link it to the current
-                    // scope.
-                    // NOTE: we only compile .childNodes so that
-                    // we don't get into infinite loop compiling ourselves
-                    $compile(element.contents())(scope);
-                }
-            );
-        };
-    }]).directive('calculation', [function () {
-
+angular.module('fooforms.formBuilder')
+    .directive('calculation', [function () {
         return {
             restrict: 'E',
             scope: false,
-
 
             controller: function ($scope, $filter, $element) {
 
 
                 var index;
-                if (!$scope.activePost){
+                if (!$scope.activePost) {
                     return;
                 }
 
@@ -93,15 +63,15 @@ angular.module('formBuilder')
                             $scope.formField.value = ($scope.fieldA.value / $scope.fieldB.value);
                             break;
                         case '%' :
-                            $scope.formField.value = ($scope.fieldA.value / $scope.fieldB.value) *100;
+                            $scope.formField.value = ($scope.fieldA.value / $scope.fieldB.value) * 100;
                             break;
 
                     }
-                    if (!isFinite($scope.formField.value)){
+                    if (!isFinite($scope.formField.value)) {
                         $scope.formField.value = 0;
                     }
-                    if (!$scope.formField.decimalPlaces){
-                        $scope.formField.decimalPlaces= 0;
+                    if (!$scope.formField.decimalPlaces) {
+                        $scope.formField.decimalPlaces = 0;
                     }
 
 
@@ -171,19 +141,19 @@ angular.module('formBuilder')
                             $scope.repeater.value = ($scope.fieldA.value / $scope.fieldB.value);
                             break;
                         case '%' :
-                            $scope.repeater.value = ($scope.fieldA.value / $scope.fieldB.value) *100;
+                            $scope.repeater.value = ($scope.fieldA.value / $scope.fieldB.value) * 100;
                             break;
 
                     }
 
-                    if (!isFinite($scope.repeater.value)){
-                        $scope.repeater.value = Number($filter('number')($scope.repeater.value, $scope.repeater.decimalPlaces) );
+                    if (!isFinite($scope.repeater.value)) {
+                        $scope.repeater.value = Number($filter('number')($scope.repeater.value, $scope.repeater.decimalPlaces));
 
                     }
 
                     // calculate total for use with SUM field
                     var count = $scope.formField.fields.length;
-                    var repeatercount =  $scope.formField.repeaters.length;
+                    var repeatercount = $scope.formField.repeaters.length;
                     var total = 0;
                     var gboxFieldIndex = 0;
                     // get the index value for this field in the groupBox
@@ -193,8 +163,8 @@ angular.module('formBuilder')
                             break;
                         }
                     }
-                    for ( index = 0; index < repeatercount; index++) {
-                        total+=$scope.formField.repeaters[index].fields[gboxFieldIndex].value;
+                    for (index = 0; index < repeatercount; index++) {
+                        total += $scope.formField.repeaters[index].fields[gboxFieldIndex].value;
                     }
                     //We can store the total in the formField value as it's not used - values are tied to the repeaters
                     $scope.formField.fields[gboxFieldIndex].value = total;
@@ -217,7 +187,7 @@ angular.module('formBuilder')
 
 
                 var index;
-                if (!$scope.activePost){
+                if (!$scope.activePost) {
                     return;
                 }
 
@@ -225,19 +195,17 @@ angular.module('formBuilder')
 
 
                 var count = $scope.postObj.fields.length;
-                var groupBoxCount =0;
+                var groupBoxCount = 0;
                 var groupBoxIndex = 0;
 
 
-
-
-                    for (index = 0; index < count; index++) {
-                        if ($scope.postObj.fields[index].id == $scope.formField.options.groupBoxId) {
-                            groupBoxIndex = index;
-                            groupBoxCount = $scope.postObj.fields[index].fields.length;
-                            break;
-                        }
+                for (index = 0; index < count; index++) {
+                    if ($scope.postObj.fields[index].id == $scope.formField.options.groupBoxId) {
+                        groupBoxIndex = index;
+                        groupBoxCount = $scope.postObj.fields[index].fields.length;
+                        break;
                     }
+                }
 
                 for (index = 0; index < groupBoxCount; index++) {
                     if ($scope.postObj.fields[groupBoxIndex].fields[index].id == $scope.formField.options.calcFieldId) {
@@ -247,8 +215,7 @@ angular.module('formBuilder')
                 }
 
 
-
-                if ($scope.fieldToWatch){
+                if ($scope.fieldToWatch) {
                     $scope.$watch('fieldToWatch.value', function () {
                         $scope.formField.value = $scope.fieldToWatch.value;
 
@@ -257,16 +224,12 @@ angular.module('formBuilder')
                 }
 
 
-
-
-
-
             },
             replace: false,
             templateUrl: '/partials/calculateSum.html'
         };
 
-    }]).directive('uploader', ['$upload', '$log','SweetAlert' ,function ($upload, $log,SweetAlert) {
+    }]).directive('uploader', ['$upload', '$log', 'SweetAlert', function ($upload, $log, SweetAlert) {
 
         return {
             restrict: 'E',
@@ -285,7 +248,7 @@ angular.module('formBuilder')
                 };
 
                 scope.doFileUpload = function () {
-                    scope.uploading=true;
+                    scope.uploading = true;
                     scope.upload = $upload.upload({
                         url: '/api/files',
                         method: 'POST',
@@ -300,7 +263,7 @@ angular.module('formBuilder')
                         scope.uploadFile = [];
                         scope.allowUpload = null;
                         scope.formField.progress = 0;
-                        scope.uploading=false;
+                        scope.uploading = false;
 
                         if (data.err) {
                             $log.error(data.err);
@@ -309,10 +272,10 @@ angular.module('formBuilder')
                             scope.formField.value = data;
                         }
 
-                    }).error(function (err, code,headers) {
+                    }).error(function (err, code, headers) {
                         SweetAlert.swal('Not Saved!', 'An error occurred trying to upload this file.', 'error');
                         scope.formField.progress = 0;
-                        scope.uploading=false;
+                        scope.uploading = false;
                     });
                 }
             },
@@ -320,7 +283,7 @@ angular.module('formBuilder')
             templateUrl: '/partials/uploader.html'
         };
     }])
-    .directive('groupUploader', ['$upload', '$log','SweetAlert' ,function ($upload, $log,SweetAlert) {
+    .directive('groupUploader', ['$upload', '$log', 'SweetAlert', function ($upload, $log, SweetAlert) {
 
         return {
             restrict: 'E',
@@ -343,7 +306,7 @@ angular.module('formBuilder')
                 };
 
                 scope.doFileUpload = function () {
-                    scope.uploading=true;
+                    scope.uploading = true;
                     scope.upload = $upload.upload({
                         url: '/api/files',
                         method: 'POST',
@@ -358,7 +321,7 @@ angular.module('formBuilder')
                         scope.uploadFile = [];
                         scope.allowUpload = null;
                         scope.repeater.progress = 0;
-                        scope.uploading=false;
+                        scope.uploading = false;
 
                         if (data.err) {
                             $log.error(data.err);
@@ -367,10 +330,10 @@ angular.module('formBuilder')
                             scope.repeater.value = data;
                         }
 
-                    }).error(function (err, code,headers) {
+                    }).error(function (err, code, headers) {
                         SweetAlert.swal('Not Saved!', 'An error occurred trying to upload this file.', 'error');
                         scope.repeater.progress = 0;
-                        scope.uploading=false;
+                        scope.uploading = false;
                     });
                 }
             },
@@ -398,137 +361,103 @@ angular.module('formBuilder')
                     if (!scope.formLoaded) {
                         // don't send undefined to the server during dirty check
                         // empty form name is caught by required directive
-                        scope.formLoaded=true;
+                        scope.formLoaded = true;
                         return;
                     }
 
                     scope.formNameBusy = true;
                     $http.get('/api/forms/check/name/' + attrs.folder + '/' + value)
                         .success(function (data) {
-                          if (data.exists) {
+                            if (data.exists) {
                                 scope.sluggedFormName = '';
                                 ctrl.$setValidity('isTaken', false);
                             } else if (data.slugged) {
                                 scope.sluggedFormName = data.sluggedValue;
-                            }else{
-                                scope.sluggedFormName=scope.form.title;
+                            } else {
+                                scope.sluggedFormName = scope.form.title;
                             }
 
-                            scope.form.displayName=scope.sluggedFormName ;
+                            scope.form.displayName = scope.sluggedFormName;
 
 
                             scope.formNameBusy = false;
                         }).error(function (data) {
                             scope.sluggedFormName = '';
-                            scope.form.displayName=scope.sluggedFormName;
+                            scope.form.displayName = scope.sluggedFormName;
                             ctrl.$setValidity('error', false);
                             scope.formNameBusy = false;
                         });
                 })
             }
         }
-    }]).constant('PikadayConfig', {})
-    .directive('pikaday', ['PikadayConfig', function (PikadayConfig) {
-        PikadayConfig = PikadayConfig || {};
+    }]).directive("toggleSwitch", function () {
         return {
-            scope: {
-                'date': '=ngModel'
-            },
-            require: 'ngModel',
-            link: function ($scope, elem, attrs) {
-                var options = {
-                    field: elem[0],
-                    defaultDate: $scope.date,
-                    setDefaultDate: true
-                };
-                angular.extend(options, PikadayConfig, attrs.pikaday ? $scope.$parent.$eval(attrs.pikaday) : {});
+            scope: {},
+            require: "ngModel",
+            restrict: "E",
+            replace: "true",
+            template: "<div class='animated pointer toggleSwitch text-{{css}}' ng-class='{toggleOff : !checked, toggleOn: checked}'><div class='animated pointer'>{{displayText}}</div><button class='btn btn-default animated'></button></div>",
+            link: function (scope, elem, attrs, modelCtrl) {
 
-                var onSelect = options.onSelect;
+                // Default Checkmark Styling
+                scope.rotate = 'fa-rotate-180';
+                // If size is undefined, Checkbox has normal size (Bootstrap 'xs')
 
-                options.onSelect = function (date) {
-                    $scope.date = date;
-                    $scope.$apply($scope.date);
 
-                    if (angular.isFunction(onSelect)) {
-                        onSelect();
+                var trueValue = true;
+                var falseValue = false;
+
+                // If defined set true value
+                if (attrs.ngTrueValue !== undefined) {
+                    trueValue = attrs.ngTrueValue;
+                }
+                // If defined set false value
+                if (attrs.ngFalseValue !== undefined) {
+                    falseValue = attrs.ngFalseValue;
+                }
+
+                // Check if name attribute is set and if so add it to the DOM element
+                if (scope.name !== undefined) {
+                    elem.name = scope.name;
+                }
+
+                // Update element when model changes
+                scope.$watch(function () {
+                    if (modelCtrl.$modelValue === trueValue || modelCtrl.$modelValue === true) {
+                        modelCtrl.$setViewValue(trueValue);
+                        scope.displayText = attrs.onText;
+                        scope.css = attrs.onStyle;
+                        scope.rotate = 'fa-rotate-180';
+                    } else {
+                        modelCtrl.$setViewValue(falseValue);
+                        scope.displayText = attrs.offText;
+                        scope.css = attrs.offStyle;
+                        scope.rotate = '';
                     }
-                };
+                    return modelCtrl.$modelValue;
+                }, function (newVal, oldVal) {
+                    scope.checked = modelCtrl.$modelValue === trueValue;
+                }, true);
 
-                var picker = new Pikaday(options);
-
-                $scope.$on('$destroy', function () {
-                    picker.destroy();
-                });
-            }
-        };
-    }]).directive("toggleSwitch", function() {
-            return {
-                scope: {},
-                require: "ngModel",
-                restrict: "E",
-                replace: "true",
-                template: "<div class='animated pointer toggleSwitch text-{{css}}' ng-class='{toggleOff : !checked, toggleOn: checked}'><div class='animated pointer'>{{displayText}}</div><button class='btn btn-default animated'></button></div>",
-                link: function(scope, elem, attrs, modelCtrl) {
-
-                    // Default Checkmark Styling
-                    scope.rotate='fa-rotate-180';
-                    // If size is undefined, Checkbox has normal size (Bootstrap 'xs')
-
-
-                    var trueValue = true;
-                    var falseValue = false;
-
-                    // If defined set true value
-                    if(attrs.ngTrueValue !== undefined) {
-                        trueValue = attrs.ngTrueValue;
-                    }
-                    // If defined set false value
-                    if(attrs.ngFalseValue !== undefined) {
-                        falseValue = attrs.ngFalseValue;
-                    }
-
-                    // Check if name attribute is set and if so add it to the DOM element
-                    if(scope.name !== undefined) {
-                        elem.name = scope.name;
-                    }
-
-                    // Update element when model changes
-                    scope.$watch(function() {
-                        if(modelCtrl.$modelValue === trueValue || modelCtrl.$modelValue === true) {
+                // On click swap value and trigger onChange function
+                elem.bind("click", function () {
+                    scope.$apply(function () {
+                        if (modelCtrl.$modelValue === falseValue) {
                             modelCtrl.$setViewValue(trueValue);
                             scope.displayText = attrs.onText;
                             scope.css = attrs.onStyle;
-                            scope.rotate='fa-rotate-180';
+                            scope.rotate = 'fa-rotate-180';
                         } else {
                             modelCtrl.$setViewValue(falseValue);
                             scope.displayText = attrs.offText;
                             scope.css = attrs.offStyle;
-                            scope.rotate='';
+                            scope.rotate = '';
                         }
-                        return modelCtrl.$modelValue;
-                    }, function(newVal, oldVal) {
-                        scope.checked = modelCtrl.$modelValue === trueValue;
-                    }, true);
-
-                    // On click swap value and trigger onChange function
-                    elem.bind("click", function() {
-                        scope.$apply(function() {
-                            if(modelCtrl.$modelValue === falseValue) {
-                                modelCtrl.$setViewValue(trueValue);
-                                scope.displayText = attrs.onText;
-                                scope.css = attrs.onStyle;
-                                scope.rotate='fa-rotate-180';
-                            } else {
-                                modelCtrl.$setViewValue(falseValue);
-                                scope.displayText = attrs.offText;
-                                scope.css = attrs.offStyle;
-                                scope.rotate='';
-                            }
-                        });
                     });
-                }
-            };
-        }).directive('fooProgressBar', [function () {
+                });
+            }
+        };
+    }).directive('fooProgressBar', [function () {
 
         return {
             restrict: 'EA',
@@ -536,7 +465,7 @@ angular.module('formBuilder')
 
 
             controller: function ($scope, $element) {
- //updateMethod = true means auto update / false means manual
+                //updateMethod = true means auto update / false means manual
 
 
                 var index;
@@ -556,9 +485,9 @@ angular.module('formBuilder')
 
 
                     $scope.$watch('progressValueField', function () {
-                        if (isFinite($scope.progressValueField.value)){
+                        if (isFinite($scope.progressValueField.value)) {
                             $scope.formField.value = $scope.progressValueField.value;
-                        }else{
+                        } else {
                             $scope.formField.value = 0;
                         }
 
@@ -567,7 +496,7 @@ angular.module('formBuilder')
             }
         }
 
-        }]).directive('fooGroupProgressBar', [function () {
+    }]).directive('fooGroupProgressBar', [function () {
 
         return {
             restrict: 'EA',
@@ -576,7 +505,6 @@ angular.module('formBuilder')
 
             controller: function ($scope, $element) {
                 //updateMethod = true means auto update / false means manual
-
 
 
                 var index;
@@ -596,9 +524,9 @@ angular.module('formBuilder')
 
 
                     $scope.$watch('progressValueField', function () {
-                        if (isFinite($scope.progressValueField.value)){
+                        if (isFinite($scope.progressValueField.value)) {
                             $scope.repeater.value = $scope.progressValueField.value;
-                        }else{
+                        } else {
                             $scope.repeater.value = 0;
                         }
 

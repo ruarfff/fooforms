@@ -1,18 +1,30 @@
-angular.module('team')
-    .factory('TeamService',
-    ['$log', 'Restangular', 'Session',
-        function ($log, Restangular, Session) {
+angular.module('fooforms.team')
+    .factory('teamService',
+    ['$log', 'Restangular', 'session',
+        function ($log, Restangular, session) {
             'use strict';
             var teamApi = Restangular.all('teams');
+            var activeTeam = {};
             return {
+                newTeam: function () {
+                    activeTeam = {displayName: 'New Team', description: ''};
+                    if (activeTeam._id) {
+                        delete activeTeam._id;
+                    }
+                    return activeTeam;
+                },
+                setActiveTeam: function (team) {
+                    activeTeam = team;
+                    return activeTeam;
+                },
                 createTeam: function (team, next) {
                     if (!team.members) {
                         team.members = [];
                     }
-                    team.members.push(Session.user._id);
+                    team.members.push(session.user._id);
                     teamApi.post(team).then(function (teamResponse) {
-                        Session.user.teams.push(teamResponse);
-                        Session.user.put().then(function () {
+                        session.user.teams.push(teamResponse);
+                        session.user.put().then(function () {
                             return next(null, teamResponse);
                         }, function (err) {
                             $log.error(err);
@@ -24,15 +36,15 @@ angular.module('team')
                     });
                 },
                 updateTeam: function (team, next) {
-                    if(typeof team.put !== 'function') {
+                    if (typeof team.put !== 'function') {
                         team = Restangular.restangularizeElement(teamApi, team, '');
                     }
                     var memberIds = [];
 
-                    for(var i = 0; i < team.members.length; i++) {
+                    for (var i = 0; i < team.members.length; i++) {
                         var member = team.members[i];
-                        if(member) {
-                            if(member._id) {
+                        if (member) {
+                            if (member._id) {
                                 member = member._id;
                             }
                             memberIds.push(member);
@@ -50,7 +62,7 @@ angular.module('team')
                     });
                 },
                 deleteTeam: function (team, next) {
-                    if(typeof team.remove !== 'function') {
+                    if (typeof team.remove !== 'function') {
                         team = Restangular.restangularizeElement(teamApi, team, '');
                     }
                     team.remove().then(function () {
@@ -61,7 +73,7 @@ angular.module('team')
                     });
                 },
                 getMembers: function (team, next) {
-                    if(team) {
+                    if (team) {
                         if (typeof team.getList !== 'function') {
                             team = Restangular.restangularizeElement(teamApi, team, '');
                         }
@@ -100,24 +112,5 @@ angular.module('team')
                     });
                 }
             }
+        }]);
 
-
-        }])
-    .service('Team', function () {
-        'use strict';
-        this.activeTeam = {};
-        this.newTeam = function () {
-            this.activeTeam = {displayName: 'New Team', description: ''};
-            if (this.activeTeam._id) {
-                delete this.activeTeam._id;
-            }
-            return this.activeTeam;
-        };
-
-        this.setTeam = function (team) {
-            this.activeTeam = team;
-            return this.activeTeam;
-        };
-
-        return this;
-    });

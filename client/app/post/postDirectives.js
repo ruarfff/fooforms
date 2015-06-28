@@ -1,4 +1,4 @@
-angular.module('post')
+angular.module('fooforms.post')
     // For rendering a collection of posts
     .directive('fooPostCollection', [
         function () {
@@ -14,10 +14,10 @@ angular.module('post')
                     team: '=team',
                     gridHeadings: '=gridHeadings',
                     showPostForm: '=showPostForm',
-                    deletingPostId : '=deletingPostId'
+                    deletingPostId: '=deletingPostId'
                 },
                 transclude: true,
-                controller: function ($log, $scope, PostService, _, Session, Restangular) {
+                controller: function ($log, $scope, _, Restangular, postService, session) {
                     var currentPostPage = 0;
                     var postPageSize = 15;
                     var hasMorePosts = true;
@@ -25,14 +25,14 @@ angular.module('post')
                     $scope.showIntroPage = false;
                     $scope.view = 'list';
 
-                    $scope.noUserForms = Session.user.defaultFolder.forms.length === 0;
+                    $scope.noUserForms = session.user.defaultFolder.forms.length === 0;
 
                     $scope.posts = [];
 
                     var getPosts = function (page, pageSize, postStreams) {
                         $scope.fetching = true;
                         if (postStreams) {
-                            PostService.getPostsByStreamList({
+                            postService.getPostsByStreamList({
                                 postStreams: postStreams,
                                 page: page,
                                 pageSize: pageSize
@@ -55,7 +55,7 @@ angular.module('post')
 
                                 if (!$scope.activeForm && $scope.posts.length > 0) {
 
-                                    $scope.activeForm = _.find(Session.forms, function (form) {
+                                    $scope.activeForm = _.find(session.forms, function (form) {
                                         return _.indexOf(form.postStreams, $scope.activePost.postStream) > -1;
                                     });
 
@@ -133,12 +133,10 @@ angular.module('post')
                                 requireRefresh = true;
 
                                 if (repeater.fields[fieldIndex].options.field1.item != 'Specified Value') {
-                                    var fieldItem = repeater.fields[fieldIndex].options.field1.item;
-                                    repeater.fields[fieldIndex].options.field1.item = repeater.id + '_' + fieldItem;
+                                    repeater.fields[fieldIndex].options.field1.item = repeater.id + '_' + repeater.fields[fieldIndex].options.field1.item;
                                 }
                                 if (repeater.fields[fieldIndex].options.field2.item != 'Specified Value') {
-                                    var fieldItem = repeater.fields[fieldIndex].options.field2.item;
-                                    repeater.fields[fieldIndex].options.field2.item = repeater.id + '_' + fieldItem;
+                                    repeater.fields[fieldIndex].options.field2.item = repeater.id + '_' + repeater.fields[fieldIndex].options.field2.item;
                                 }
                             }
 
@@ -147,8 +145,7 @@ angular.module('post')
                                 requireRefresh = true;
 
                                 if (repeater.fields[fieldIndex].options.updateMethod) {
-                                    var fieldItem = repeater.fields[fieldIndex].options.updateField;
-                                    repeater.fields[fieldIndex].options.updateField = repeater.id + '_' + fieldItem;
+                                    repeater.fields[fieldIndex].options.updateField = repeater.id + '_' + repeater.fields[fieldIndex].options.updateField;
                                 }
 
                             }
@@ -240,7 +237,7 @@ angular.module('post')
                     deletingPostId: '=deletingPostId',
                     status: '=status'
                 },
-                controller: function ($scope, Session, $timeout, Restangular) {
+                controller: function ($scope, session, $timeout, Restangular) {
                     $scope.selectPost = function (post) {
 
                         if ($scope.activePost._id !== post._id) {
@@ -253,8 +250,8 @@ angular.module('post')
 
                                 $scope.activePost = Restangular.copy(post);
                                 $scope.deletingPostId = $scope.activePost.id;
-                                $scope.activeForm = _.find(Session.forms, function (form) {
-                                    return _.indexOf(form.postStreams, $scope.activePost.postStream) > -1 ? true : false;
+                                $scope.activeForm = _.find(session.forms, function (form) {
+                                    return _.indexOf(form.postStreams, $scope.activePost.postStream) > -1;
                                 });
                             }, 0);
 
@@ -292,11 +289,12 @@ angular.module('post')
                     }
                     if (!scope.activeForm || (scope.post.postStream !== scope.activeForm.postStream)) {
 
-                        postForm = _.find(Session.forms, function (form) {
-                            return _.indexOf(form.postStreams, scope.post.postStream) > -1 ? true : false;
+                        postForm = _.find(session.forms, function (form) {
+                            return _.indexOf(form.postStreams, scope.post.postStream) > -1;
                         });
 
-                        // If we still don't have post form then the page has been loaded directly and thus Session.forms is empty
+                        // If we still don't have post form then the page has been loaded directly and thus
+                        // session.forms is empty
                         // Hack for now is to get the form by looking at $scope great great granparents
                         if (!postForm) {
                             postForm = scope.$parent.$parent.$parent.form;
@@ -324,7 +322,7 @@ angular.module('post')
 
 
                 },
-                controller: function ($scope, Session, $timeout, Restangular) {
+                controller: function ($scope, session, $timeout, Restangular) {
                     $scope.selectPost = function (post) {
 
                         if ($scope.activePost._id !== post._id) {
@@ -333,8 +331,8 @@ angular.module('post')
                             $timeout(function () {
                                 $scope.postView = 'feed';
                                 $scope.activePost = Restangular.copy(post);
-                                $scope.activeForm = _.find(Session.forms, function (form) {
-                                    return _.indexOf(form.postStreams, $scope.activePost.postStream) > -1 ? true : false;
+                                $scope.activeForm = _.find(session.forms, function (form) {
+                                    return _.indexOf(form.postStreams, $scope.activePost.postStream) > -1;
                                 });
                             }, 0);
                         }
@@ -368,7 +366,7 @@ angular.module('post')
                     deletingPostId: '=deletingPostId',
                     showPostForm: '=showPostForm'
                 },
-                controller: function ($scope, Session, $timeout, Restangular) {
+                controller: function ($scope, session, $timeout, Restangular) {
                     $scope.selectPost = function (post) {
                         if ($scope.showPostForm && $scope.activePost._id === post._id) {
                             $scope.showPostForm = false;
@@ -379,8 +377,8 @@ angular.module('post')
                                 $scope.activePost = Restangular.copy(post);
                                 $scope.showPostForm = true;
 
-                                $scope.activeForm = _.find(Session.forms, function (form) {
-                                    return _.indexOf(form.postStreams, $scope.activePost.postStream) > -1 ? true : false;
+                                $scope.activeForm = _.find(session.forms, function (form) {
+                                    return _.indexOf(form.postStreams, $scope.activePost.postStream) > -1;
                                 });
                             }, 0);
 
@@ -403,7 +401,7 @@ angular.module('post')
                     row: '=row',
                     formField: '='
                 },
-                controller: function ($scope, Session) {
+                controller: function ($scope, session) {
 
 
                 },
@@ -425,7 +423,7 @@ angular.module('post')
 
             };
         }])
-    .directive('feedHeader', ['Session', function (Session) {
+    .directive('feedHeader', ['session', function (session) {
 
         return {
             restrict: 'E',
@@ -441,9 +439,10 @@ angular.module('post')
                     scope.post = scope.posts.activePost;
                 }
                 if (!scope.activeForm || (scope.post.postStream !== scope.activeForm.postStream)) {
-                    postForm = _.find(Session.forms, function (form) {
-                        return _.indexOf(form.postStreams, scope.post.postStream) > -1 ? true : false;
-                    });                    // If we still don't have post form then the page has been loaded directly and thus Session.forms is empty
+                    postForm = _.find(session.forms, function (form) {
+                        return _.indexOf(form.postStreams, scope.post.postStream) > -1;
+                    });                    // If we still don't have post form then the page has been loaded
+                    // directly and thus session.forms is empty
                     // Hack for now is to get the form by looking at $scope great great granparents
                     if (!postForm) {
                         postForm = scope.$parent.$parent.$parent.form;
@@ -478,7 +477,7 @@ angular.module('post')
             templateUrl: '/template/post/feed-header.html'
         };
 
-    }]).directive('feedBody', ['Session', function (Session) {
+    }]).directive('feedBody', ['session', function (session) {
 
         return {
             restrict: 'E',
@@ -493,8 +492,8 @@ angular.module('post')
                     scope.post = scope.posts.activePost;
                 }
                 if (!scope.activeForm || (scope.post.postStream !== scope.activeForm.postStream)) {
-                    postForm = _.find(Session.forms, function (form) {
-                        return _.indexOf(form.postStreams, scope.post.postStream) > -1 ? true : false;
+                    postForm = _.find(session.forms, function (form) {
+                        return _.indexOf(form.postStreams, scope.post.postStream) > -1;
                     });
                     // If we still don't have post form then the page has been loaded directly and thus Session.forms is empty
                     // Hack for now is to get the form by looking at $scope great great granparents

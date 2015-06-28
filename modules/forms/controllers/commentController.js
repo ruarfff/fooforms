@@ -6,7 +6,7 @@ var membership = new Membership(db);
 var statusCodes = require('fooforms-rest').statusCodes;
 var paginate = require('express-paginate');
 var async = require('async');
-var _ = require('underscore');
+var _ = require('lodash');
 
 
 var getCommenter = function (id, next) {

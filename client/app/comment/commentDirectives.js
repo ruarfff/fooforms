@@ -1,8 +1,6 @@
-/* global angular */
-
-angular.module('comment')
-    .directive('fooCommentCollection',  ['Session',
-        function (Session) {
+angular.module('fooforms.comment')
+    .directive('fooCommentCollection', ['session',
+        function (session) {
             return {
                 restrict: 'E',
                 scope: {
@@ -10,8 +8,8 @@ angular.module('comment')
                     activeForm: '=activeForm'
                 },
                 transclude: true,
-                
-                controller: function ($log, $scope, _, CommentService) {
+
+                controller: function ($log, $scope, _, commentService) {
                     var currentPage = 0;
                     var pageSize = 10;
                     var hasMore = true;
@@ -41,7 +39,7 @@ angular.module('comment')
                         $scope.fetchingComments=true;
 
                         if (stream) {
-                            CommentService.listByStream({
+                            commentService.listByStream({
                                 commentStream: stream,
                                 page: page,
                                 pageSize: pageSize
@@ -70,7 +68,7 @@ angular.module('comment')
                         $scope.titles=[];
 
                         if (!$scope.activeForm || ($scope.activePost.postStream !== $scope.activeForm.postStreams[0])) {
-                            postForm =_.find(Session.forms, function(form){
+                            postForm = _.find(session.forms, function (form) {
                                 return form.postStreams[0]== $scope.activePost.postStream;
                             });
                         }else{
@@ -94,7 +92,7 @@ angular.module('comment')
                         }
                     };
 
-                    
+
                     $scope.addMore = function () {
                         if (hasMore) {
                             currentPage = currentPage + 1;
@@ -106,12 +104,12 @@ angular.module('comment')
                         try {
                             if ($scope.comment.content) {
                                 $scope.comment.commentStream = $scope.activePost.commentStream;
-                                CommentService.create($scope.comment, function (err, comment) {
+                                commentService.create($scope.comment, function (err, comment) {
                                     if (err) {
                                         $log.error(err);
                                     }
                                     if (comment) {
-                                        comment.commenter= {photo: Session.user.photo};
+                                        comment.commenter = {photo: session.user.photo};
                                         $scope.comments.unshift(comment);
                                         $scope.comment = {};
                                     }
@@ -125,20 +123,20 @@ angular.module('comment')
                         try {
                             var comment = {};
                             var user = "";
-                            if (Session.user.name && Session.user.name.givenName && Session.user.name.familyName){
-                                user = Session.user.name.givenName +' ' + Session.user.name.familyName;
+                            if (session.user.name && session.user.name.givenName && session.user.name.familyName) {
+                                user = session.user.name.givenName + ' ' + session.user.name.familyName;
                             }else{
-                                user = Session.user.displayName;
+                                user = session.user.displayName;
                             }
 
                             comment.content= user + " likes this...";
                             comment.commentStream = $scope.activePost.commentStream;
-                            CommentService.create(comment, function (err, comment) {
+                            commentService.create(comment, function (err, comment) {
                                 if (err) {
                                     $log.error(err);
                                 }
                                 if (comment) {
-                                    comment.commenter= {photo: Session.user.photo};
+                                    comment.commenter = {photo: session.user.photo};
                                     $scope.comments.unshift(comment);
                                     $scope.comment = {};
                                 }
@@ -151,11 +149,7 @@ angular.module('comment')
 
                     $scope.toggleCommentBox = function(){
 
-                        if (!$scope.showCommentButton || $scope.comment.content){
-                            $scope.showCommentButton = true;
-                        }else{
-                            $scope.showCommentButton = false;
-                        }
+                        $scope.showCommentButton = !!(!$scope.showCommentButton || $scope.comment.content);
 
                     }
 

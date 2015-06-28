@@ -1,6 +1,4 @@
-/* global angular */
-
-angular.module('store').factory('StoreService',
+angular.module('fooforms.store').factory('storeService',
     ['$log', '$http',
         function ($log, $http) {
             'use strict';
@@ -11,7 +9,7 @@ angular.module('store').factory('StoreService',
             };
         }]);
 
-angular.module('store').service('Store', function () {
+angular.module('fooforms.store').service('store', function () {
     'use strict';
 
     return this;

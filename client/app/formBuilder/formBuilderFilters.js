@@ -1,6 +1,4 @@
-/* global angular */
-
-angular.module('formBuilder')
+angular.module('fooforms.formBuilder')
     .filter('filterTypes', function () {
         'use strict';
         return function (inputs, category) {
