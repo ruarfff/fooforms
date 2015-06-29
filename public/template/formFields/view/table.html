@@ -1,0 +1,51 @@
+<div class="form-group clearfix">
+    <label for="{{formField.id}}">{{formField.label}}
+        <i class="fa fa-question-circle"
+           ng-hide="!formField.userInstructions"
+           popover="{{formField.userInstructions}}"
+           popover-trigger="mouseenter"
+           popover-append-to-body="true"></i>
+    </label>
+
+    <div class="col-sm-12 p0 m0"
+            >
+        <div class=" col-sm-12 even">
+            <div class='formObject  plr5 col-sm-{{subField.boxSize}}'
+
+                 ng-repeat="subField in formField.fields track by $index">
+
+                <label for="{{subField.id}}">{{subField.label}}
+                    <i class="fa fa-question-circle"
+                       ng-hide="!subField.userInstructions"
+                       popover="{{subField.userInstructions}}"
+                       popover-trigger="mouseenter"></i>
+                </label>
+
+
+            </div>
+        </div>
+        <div class='row'
+
+             ng-class-odd="'odd'" ng-class-even="'even'"
+             ng-repeat="rows in formField.repeaters track by $index">
+<div class="col-sm-11">
+            <div class='col-sm-{{repeater.boxSize}}'
+
+                 ng-repeat="repeater in rows.fields track by $index"
+                 ng-include="'/template/formFields/groupView/' + repeater.type + '.html'">
+
+            </div>
+        </div>
+            <div class="col-sm-1 btn-group btn-group-xs" ng-show="formField.repeatable">
+                <button class="btn btn-default" ng-click="addRepeat(formField.id, $index);"><i class="fa fa-plus text-primary"></i></button>
+                <button ng-show="formField.repeaters.length>1" class="btn btn-default" ng-click="removeRepeat(formField.id,$index);"><i class="fa fa-trash text-danger"></i></button>
+            </div>
+        </div>
+
+    </div>
+
+
+
+
+</div>
+

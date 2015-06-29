@@ -1,7 +1,7 @@
-<div class="feed-fixed" ng-class="{percentageScreen : sideMenuVisible, halfScreen :!sideMenuVisible}">
+<div class="feed-fixed" ng-class="{'leftScreen-small' : sideMenuVisible, 'leftScreen-small-noMenu' :!sideMenuVisible}">
     <% include includes/formBuilderMenu.html %>
 </div>
-<div class="feed-fixed-wide" ng-class="{percentageScreenWide : sideMenuVisible, halfScreenWide :!sideMenuVisible}">
+<div class="feed-fixed-wide" ng-class="{'rightScreen-wide' : sideMenuVisible, 'rightScreen-wide-noMenu' :!sideMenuVisible}">
     <div class=" container-fluid">
 
         <div id='msgCenter' class="hide">

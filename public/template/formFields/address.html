@@ -1,0 +1,17 @@
+<div class="form-group clearfix">
+    <label for="{{formField.id}}">{{formField.label}} <span class="text-danger" ng-show="formField.required">*</span>
+        <i class="fa fa-question-circle"
+           ng-hide="!formField.userInstructions"
+           popover="{{formField.userInstructions}}"
+           popover-trigger="mouseenter"></i>
+    </label>
+
+    <div class="input-group" ng-style="{'width': formField.size+'%'}">
+        <textarea
+                rows="{{formField.rows}}"
+                class="form-control"
+                id="{{formField.id}}"
+                placeholder="{{formField.placeholder}}"
+                ng-model="formField.value"></textarea>
+    </div>
+</div>

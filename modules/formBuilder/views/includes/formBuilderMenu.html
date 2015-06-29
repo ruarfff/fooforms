@@ -1,5 +1,6 @@
 <div class="row">
 <div class="col-sm-12 scrollPanel">
+
 <div class="panel panel-foo">
 <div class="panel-heading p0">
     <ul id='optionTabs' class="nav nav-tabs">
@@ -19,7 +20,8 @@
         <div class="col-sm-6">
 
             <ul class="nav nav-pills nav-stacked" id="myTabs">
-                <li class="active"><a class="br0" id='standardFieldTab' data-toggle="tab" data-target="#standard" ng-click="openDesignTab()">Standard</a>
+                <li class="active"><a class="br0" id='standardFieldTab' data-toggle="tab" data-target="#standard"
+                                      ng-click="openDesignTab()">Standard</a>
                 </li>
                 <li><a class="br0" data-toggle="tab" data-target="#users" ng-click="openDesignTab()">Users & People</a>
                 </li>
@@ -150,15 +152,22 @@
 
 
 <div id="formTabs-settings" class="tab-pane">
-    <div class="panel panel-foo-dark" >
-        <div class='panel-heading' ng-show="nowEditing>=0 && showFieldSettings" class="appear">
-            <h6><span class="badge">{{nowEditing}}</span> <span>{{form.fields[nowEditing].name}} </span>
-            <span ng-show="nowSubEditing">
-            <span class="badge">{{nowSubEditing}}</span> <span>{{form.fields[nowEditing].fields[nowSubEditing].name}} </span></span>
-            </h6>
+    <div class="panel panel-foo-dark">
+        <div class='panel-heading appear' ng-show="nowEditing>=0 && (showFieldSettings || showGroupSettings)" >
+            <h5><span class="badge">{{nowEditing}}</span> <span>{{form.fields[nowEditing].label}}</span>
+                <span class="text-muted"> ({{form.fields[nowEditing].name}}) </span>
+            <span ng-show="nowSubEditing>=0 && showGroupSettings">
+                 <i class="fa fa-caret-right"></i>
+
+                <span class="badge">{{nowSubEditing}}</span>
+             <span>{{form.fields[nowEditing].fields[nowSubEditing].label}} </span>
+
+            <span class="text-muted"> ({{form.fields[nowEditing].fields[nowSubEditing].name}})</span>
+            </span>
+            </h5>
         </div>
 
-        <div class='panel-heading' ng-show="nowEditing>=0 && showEventSettings" class="appear">
+        <div class='panel-heading appear' ng-show="nowEditing>=0 && showEventSettings">
             <h6><span class="badge">{{nowEditing}}</span> <span>{{form.formEvents[nowEditing].name}} </span>
 
 
@@ -170,24 +179,26 @@
         <div  class="appear alert alert-warning"
               ng-hide="showFieldSettings || showGroupSettings || showEventSettings || showFormSettings">
 
-<h4>Nothing Selected to Edit</h4>
-            <p>Please Select a <strong>Form Field</strong> or the <strong>Form Title</strong> from the Design Tab or an <strong>Event</strong> from the Form Events Tab to Edit Settings.<strong> &raquo;</strong></p>
+            <h4>Nothing Selected to Edit</h4>
+
+            <p>Please Select a <strong>Form Field</strong> or the <strong>Form Title</strong> from the Design Tab or an
+                <strong>Event</strong> from the Form Events Tab to Edit Settings.<strong> &raquo;</strong></p>
 
 
         </div>
 
 
-        <div id="FieldSettings" class="appear panel-body" ng-show="showFieldSettings">
-            <div ng-include="form.fields[nowEditing].optionsTemplate" class="appear"></div>
+        <div id="FieldSettings" class="panel-body" ng-if="showFieldSettings===true">
+            <div ng-include="'/template/formFields/options/' + form.fields[nowEditing].type + '.html'"  class="appear"></div>
         </div>
         <!-- Settings Block for Group Fields -->
 
-        <div id="groupSettings" class="appear panel-body" ng-show="showGroupSettings">
-            <div ng-include="form.fields[nowEditing].fields[nowSubEditing].groupOptions"></div>
+        <div id="groupSettings" class="panel-body" ng-if="showGroupSettings===true">
+            <div ng-include="'/template/formFields/groupOptions/' + form.fields[nowEditing].fields[nowSubEditing].type + '.html'" class="appear"></div>
         </div>
 
 
-        <div id="EventSettings" class="appear panel-body m0 p0" ng-show="showEventSettings">
+        <div id="EventSettings" class="panel-body m0 p0" ng-if="showEventSettings===true">
             <div ng-include="form.formEvents[nowEditing].template" class="appear"></div>
         </div>
         <!-- Settings Block for Basic Form Settings -->
@@ -257,8 +268,8 @@
 
                     <div class="col-sm-8">
 
-                        <label class="checkbox-inline"><input type="checkbox"
-                                                              ng-model="form.settings.allowComments">&nbsp;</label>
+                       <toggle-switch off-text="No" on-text="Yes" off-style="danger" on-style="success"
+                                                              ng-model="form.settings.allowComments"></toggle-switch>
 
 
                     </div>
@@ -283,10 +294,11 @@
                     <label class="col-sm-4 control-label">Custom Dashboard</label>
 
                     <div class="col-sm-8">
-                        <label class="checkbox-inline"><input type="checkbox"
-                                                              ng-model="form.settings.displayOptions.customDashboard">&nbsp;
-                        </label>
-                        <button class="btn btn-xs btn-default pull-right" ng-click="openCodeEditor('customDashboardHtml')"
+
+                        <toggle-switch off-text="No" on-text="Enabled" off-style="danger" on-style="success"
+                                       ng-model="form.settings.displayOptions.customDashboard"></toggle-switch>
+                        <button class="btn btn-xs btn-default pull-right"
+                                ng-click="openCodeEditor('customDashboardHtml')"
                                 ng-show="form.settings.displayOptions.customDashboard">Open Editor
                         </button>
                     </div>
@@ -295,9 +307,10 @@
                     <label class="col-sm-4 control-label">Custom Form</label>
 
                     <div class="col-sm-8">
-                        <label class="checkbox-inline"><input type="checkbox"
-                                                              ng-model="form.settings.displayOptions.customForm">&nbsp;
-                        </label>
+
+                        <toggle-switch off-text="No" on-text="Enabled" off-style="danger" on-style="success"
+                                       ng-model="form.settings.displayOptions.customForm"></toggle-switch>
+
                         <button class="btn btn-xs btn-default pull-right" ng-click="openCodeEditor('customFormHtml')"
                                 ng-show="form.settings.displayOptions.customForm">Open Editor
                         </button>
@@ -307,9 +320,10 @@
                     <label class="col-sm-4 control-label">Custom Submit Message</label>
 
                     <div class="col-sm-8">
-                        <label class="checkbox-inline"><input type="checkbox"
-                                                              ng-model="form.settings.displayOptions.customSubmitMsg">&nbsp;
-                        </label>
+
+                        <toggle-switch off-text="No" on-text="Enabled" off-style="danger" on-style="success"
+                                       ng-model="form.settings.displayOptions.customSubmitMsg"></toggle-switch>
+
                         <button class="btn btn-xs btn-default pull-right" ng-click="openEditor('customSubmitHtml')"
                                 ng-show="form.settings.displayOptions.customSubmitMsg">Open Editor
                         </button>
@@ -320,8 +334,10 @@
                     <label class="col-sm-4 control-label">Terms & Conditions</label>
 
                     <div class="col-sm-8">
-                        <label class="checkbox-inline"><input type="checkbox" ng-model="form.settings.tandcWeb">&nbsp;
-                        </label>
+
+                        <toggle-switch off-text="No" on-text="Enabled" off-style="danger" on-style="success"
+                                       ng-model="form.settings.tandcWeb"></toggle-switch>
+
                         <button class="btn btn-xs btn-default pull-right" ng-click="openEditor('tandcHtml')"
                                 ng-show="form.settings.tandcWeb">Edit T&C's
                         </button>

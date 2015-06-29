@@ -92,15 +92,15 @@ exports.sendUpdatePostNotification = function (from,distributionList,post) {
 
         });
 
-    };
+    }
 };
 
-exports.sendEventEmail = function (from,to,msgTitle,msgContent) {
+exports.sendEventEmail = function (from, to, msgTitle, msgContent) {
     log.info('Sending Event Notification email');
 
 
     var htmlTemplate = path.join(templateDir, 'genericEmail.html');
-    var txtTemplate =  path.join(templateDir, 'genericEmail.txt');
+    var txtTemplate = path.join(templateDir, 'genericEmail.txt');
 
     var textContent = fs.readFileSync(txtTemplate).toString();
     textContent = textContent.replace('<% CONTENT %>', msgContent);
@@ -109,23 +109,23 @@ exports.sendEventEmail = function (from,to,msgTitle,msgContent) {
     htmlContent = htmlContent.replace('<% CONTENT %>', nl2br(msgContent));
 
 
-        var mailOptions = {
-            from: "FOOFORMS <notify@fooforms.com>",
-            to: to,
-            replyTo: from,
-            subject: msgTitle,
-            text: textContent,
-            html: htmlContent
-        };
-        // send mail with defined transport object
-        emailer.send(mailOptions, function (error, response) {
-            if (error) {
-                log.error(error);
-            } else {
-                log.info("Message sent: " + response.response);
-                log.info(response);
-            }
+    var mailOptions = {
+        from: "FOOFORMS <notify@fooforms.com>",
+        to: to,
+        replyTo: from,
+        subject: msgTitle,
+        text: textContent,
+        html: htmlContent
+    };
+    // send mail with defined transport object
+    emailer.send(mailOptions, function (error, response) {
+        if (error) {
+            log.error(error);
+        } else {
+            log.info("Message sent: " + response.response);
+            log.info(response);
+        }
 
-        });
+    });
 
 };

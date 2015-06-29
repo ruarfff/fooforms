@@ -1,0 +1,32 @@
+<div class="form-group clearfix">
+
+
+    <div class="repeat-apps-container col-sm-12 repeatBox"
+            >
+        <div class='formObject col-sm-{{subField.boxSize}}'
+
+             ng-click="editField($parent.$index, $index, 'Group', $event)"
+             ng-class="{ 'bg-info': $index== nowSubEditing ,'dropped' : $index == nowSubEditing}"
+             ng-repeat="subField in formField.fields track by $index">
+
+            <div ng-include="subField.groupTemplate" ></div>
+        </div>
+        <div class='formObject col-sm-{{subField.boxSize}}'
+
+             ng-click="editField($parent.$index, $index, 'Group', $event)"
+             ng-class="{ 'bg-info': $index== nowSubEditing ,'dropped' : $index == nowSubEditing}"
+             ng-repeat="subField in formField.repeaters track by $index">
+
+            <div ng-include="subField.groupTemplate" ></div>
+        </div>
+
+
+    </div>
+
+<div ng-show="formField.repeatable">
+    <button class="btn btn-default" ng-click="addRepeat($index,0);">+</button>
+</div>
+
+
+</div>
+

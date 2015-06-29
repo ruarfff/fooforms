@@ -8,10 +8,29 @@ var mockgoose = require('mockgoose');
 mockgoose(mongoose);
 
 var request = require('supertest');
+var rewire = require('rewire');
 var express = require('express');
 var bodyParser = require('body-parser');
 var should = require('should');
-var signupRoutes = require('../routes/signupRoutes');
+var signupRoutes = rewire('../routes/signupRoutes');
+var signupController = rewire('../controllers/signupController');
+
+var mockEmail = {
+    sendHelloWorld: function (next) {
+    },
+    sendInvitation: function (invite, next) {
+    },
+    sendWelcomeEmail: function (welcome) {
+    },
+    sendForgottenPasswordEmail: function (args, next) {
+    }
+};
+
+signupController.__set__('email', mockEmail);
+
+signupRoutes.__set__('signupController', signupController);
+
+
 var dashboardRoutes = require('../../dashboard/routes/dashboardApiRoutes');
 var rootUrls = require('../../../config/rootUrls');
 var Membership = require('fooforms-membership');
@@ -49,8 +68,10 @@ describe('Signup Routes', function () {
         it('user account is created', function (done) {
             request(app)
                 .post(rootUrl)
-                .send({ email: email, displayName: displayName,
-                    password: password, confirmPass: confirmPass, organisationName: organisationName })
+                .send({
+                    email: email, displayName: displayName,
+                    password: password, confirmPass: confirmPass, organisationName: organisationName
+                })
                 .set('Accept', 'application/json')
                 .expect(200, function (err, data) {
                     membership.findUserByDisplayName(displayName, function (err, result) {
@@ -90,8 +111,10 @@ describe('Signup Routes', function () {
         it('responds with error when no email is provided', function (done) {
             request(app)
                 .post(rootUrl)
-                .send({ email: '', displayName: displayName,
-                    password: password, confirmPass: confirmPass, organisationName: organisationName })
+                .send({
+                    email: '', displayName: displayName,
+                    password: password, confirmPass: confirmPass, organisationName: organisationName
+                })
                 .set('Accept', 'application/json')
                 .expect(400, function (err, data) {
                     var result = data.res.body;
@@ -102,8 +125,10 @@ describe('Signup Routes', function () {
         it('responds with error when no displayName is provided', function (done) {
             request(app)
                 .post(rootUrl)
-                .send({ email: email, displayName: '',
-                    password: password, confirmPass: confirmPass, organisationName: organisationName })
+                .send({
+                    email: email, displayName: '',
+                    password: password, confirmPass: confirmPass, organisationName: organisationName
+                })
                 .set('Accept', 'application/json')
                 .expect(400, function (err, data) {
                     var result = data.res.body;
@@ -114,7 +139,7 @@ describe('Signup Routes', function () {
         it('responds with error when no password is provided', function (done) {
             request(app)
                 .post(rootUrl)
-                .send({ email: email, displayName: displayName })
+                .send({email: email, displayName: displayName})
                 .set('Accept', 'application/json')
                 .expect(400, function (err, data) {
                     var result = data.res.body;
@@ -125,8 +150,10 @@ describe('Signup Routes', function () {
         it('responds with error when passwords do not match', function (done) {
             request(app)
                 .post(rootUrl)
-                .send({ email: email, displayName: displayName,
-                    password: password, confirmPass: wrongConfirmPass, organisationName: organisationName })
+                .send({
+                    email: email, displayName: displayName,
+                    password: password, confirmPass: wrongConfirmPass, organisationName: organisationName
+                })
                 .set('Accept', 'application/json')
                 .expect(400, function (err, data) {
                     var result = data.res.body;
@@ -137,8 +164,10 @@ describe('Signup Routes', function () {
         it('responds with error when no organisation name provided', function (done) {
             request(app)
                 .post(rootUrl)
-                .send({ email: email, displayName: displayName,
-                    password: password, confirmPass: confirmPass })
+                .send({
+                    email: email, displayName: displayName,
+                    password: password, confirmPass: confirmPass
+                })
                 .set('Accept', 'application/json')
                 .expect(400, function (err, data) {
                     var result = data.res.body;
@@ -150,11 +179,13 @@ describe('Signup Routes', function () {
         it('checking username returns true', function (done) {
             request(app)
                 .post(rootUrl)
-                .send({ email: email, displayName: displayName,
-                    password: password, confirmPass: confirmPass, organisationName: organisationName })
+                .send({
+                    email: email, displayName: displayName,
+                    password: password, confirmPass: confirmPass, organisationName: organisationName
+                })
                 .set('Accept', 'application/json')
                 .expect(200, function (err, data) {
-                  //  (data.text.indexOf(loginTitle) > -1).should.equal(true);
+                    //  (data.text.indexOf(loginTitle) > -1).should.equal(true);
                     request(app)
                         .get(rootUrl + '/check/username/' + displayName)
                         .set('Accept', 'application/json')
@@ -168,11 +199,13 @@ describe('Signup Routes', function () {
         it('checking org name returns true', function (done) {
             request(app)
                 .post(rootUrl)
-                .send({ email: email, displayName: displayName,
-                    password: password, confirmPass: confirmPass, organisationName: organisationName })
+                .send({
+                    email: email, displayName: displayName,
+                    password: password, confirmPass: confirmPass, organisationName: organisationName
+                })
                 .set('Accept', 'application/json')
                 .expect(200, function (err, data) {
-                   // (data.text.indexOf(loginTitle) > -1).should.equal(true);
+                    // (data.text.indexOf(loginTitle) > -1).should.equal(true);
                     request(app)
                         .get(rootUrl + '/check/username/' + organisationName)
                         .set('Accept', 'application/json')

@@ -1,0 +1,40 @@
+<div class="form-group clearfix">
+    <label for="{{formField.id}}">{{formField.label}}
+        <i class="fa fa-question-circle"
+           ng-hide="!formField.userInstructions"
+           popover="{{formField.userInstructions}}"
+           popover-trigger="mouseenter"
+           popover-append-to-body="true"></i>
+    </label>
+
+    <div class="input-group" ng-style="{'width': formField.size+'%'}">
+        <span class="input-group-addon" ng-show="formField.required">*</span>
+        <select class="form-control"
+               id="{{formField.id}}"
+               ng-model="formField.value"
+               ng-show="formField.options!='Profile'">
+        <option ng-repeat="member in members">{{member.name.givenName + ' ' + member.name.familyName }} ({{member.displayName}})</option>
+        </select>
+        <div class="button-group" ng-show="formField.options=='Profile'">
+            <button class="btn btn-default btn-sm dropdown-toggle" type="button" data-toggle="dropdown" aria-expanded="false">
+                <img class="profile-icon profile-icon-sm m0 p0" ng-src="{{formField.value.photo || '/assets/images/photo.jpg'}}" /> {{formField.value.name.givenName + ' ' + formField.value.name.familyName}} ({{formField.value.displayName}})
+                &nbsp; &nbsp; <span class="caret"></span>&nbsp;&nbsp;&nbsp;
+            </button>
+
+            <span class="sr-only">Toggle Dropdown</span>
+            </button>
+            <ul class="dropdown-menu" role="menu">
+                <li ng-repeat="member in members"><a
+                        ng-click="formField.value=member">
+                    <img class="profile-icon profile-icon-sm" ng-src="{{member.photo || '/assets/images/photo.jpg'}}" />
+
+                    {{member.name.givenName + ' ' + member.name.familyName }} ({{member.displayName}})</a></li>
+
+            </ul>
+    </div>
+
+    </div>
+
+    <!-- Split button -->
+
+</div>

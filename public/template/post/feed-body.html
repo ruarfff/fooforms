@@ -1,0 +1,15 @@
+<div class="panel-body"  ng-click="selectPost(post)">
+    <div class='plr5 col-xs-12'
+         ng-repeat="formField in feedTitles track by $index"
+         ng-include='"/template/formFields/feed/"+formField.type+".html"'>
+    </div>
+</div>
+<div class="panel-footer clearfix">
+    <div class="small inline-block col-sm-12 col-md-9"><span>{{post.createdBy.displayName}} <i class="fa fa-caret-right text-info"></i> {{post.title}}</span><br>
+        {{post.created | date : 'd MMM, y @ h:mma'}} <i class="fa fa-caret-right text-info"></i>
+        Last update: {{post.lastModified | ago}} ago</div>
+
+        <div class="mt10 pointer text-align-right col-sm-12 col-md-3">
+            <a ng-show="!showPostForm" ng-click="showForm(post)">Show Form <i class="fa fa-caret-right"></i></a>
+        </div>
+</div>

@@ -36,12 +36,12 @@
                         <li class="pull-left">
                             <a ng-click="sideMenuVisible=!sideMenuVisible">
                                 <span class="sr-only">Toggle navigation</span>
-                                <i class="fa fa-bars"></i>
+                                <i class="fa fa-bars fa-2x"></i>
                             </a>
                         </li>
                         <li class="pull-left">
                             <a class="navbar-brand" href="#">
-                                <span class="text-foo">FOOFORMS </span><span class="beta-tag">Beta</span></a>
+                                <span class="text-foo">FOOFORMS</span></a>
                         </li>
 
 
@@ -49,31 +49,44 @@
 
 
                     <ul class="nav navbar-nav navbar-right hidden-xs hidden-sm">
-<li><span>
-    <a target="_new" href="/contact" class="btn btn-default btn-sm mt10">Report a Bug</a>
+                        <li><span>
+    <a target="_new" href="/contact" class="btn btn-link btn-sm mt10 text-info">Report a Bug</a>
     </span>
-</li>
-                        <li class="dropdown" ng-cloak><a href="#" class="dropdown-toggle">&nbsp;
-                            <img class="nav-icon" ng-src="{{user.photo}}"/>
+                        </li>
+                        <li class="dropdown" ng-cloak><a href="#" class="dropdown-toggle" data-toggle="dropdown">&nbsp;
+                            <img class="nav-icon img-circle p0 m0" ng-src="{{user.photo}}"/>
                             {{user.displayName}}
-
                             <b class="caret"></b></a>
                             <ul class="dropdown-menu">
 
                                 <li><a href="/profile"><i class="fa fa-user"></i> Profile</a></li>
+                                <li ng-controller="LogoutCtrl"><a ng-click="logout()"><i
+                                        class="fa fa-lock"></i> Logout</a></li>
+                            </ul>
+                        </li>
+
+                        <li class="dropdown mt7" ng-cloak><a href="#" class="dropdown-toggle" data-toggle="dropdown">&nbsp;
+                            <i class="fa fa-cog m5"></i>
+                            Admin Settings
+
+                            <b class="caret"></b></a>
+                            <ul class="dropdown-menu">
+
+
+
+                                <li><a href="/organisations"><i class="fa fa-sitemap"></i> Invite Members</a></li>
+                                <li><a href="/organisations"><i class="fa fa-photo"></i> Upload Logo</a></li>
                                 <li><a href="/teams"><i class="fa fa-folder"></i> Teams</a></li>
-                                <li><a href="/organisations"><i class="fa fa-sitemap"></i> Organisations</a></li>
                                 <li class="divider"></li>
                                 <li>
                                     <a href="mailto:support@fooforms.com?subject=FOOFORMS%20Feedback&body=Thank you for taking the time to contact us. We are currently in Beta and we really appreciate your feedback. Please leave any comments and questions below.">
                                         <i class="fa fa-ticket"></i>Email Us
                                     </a>
                                 </li>
-                                <li class="divider"></li>
-                                <li ng-controller="LogoutCtrl"><a ng-click="logout()"><i
-                                        class="fa fa-lock"></i> Logout</a></li>
+
                             </ul>
                         </li>
+
                     </ul>
 
                 </div>
@@ -88,7 +101,7 @@
 
         <div class="company">
             <div ng-if="!user.organisations[0].photo">
-                <h2><a href="/organisations"> {{user.organisations[0].displayName}}</a></h2>
+                <h2><a href="/organisations"> {{user.organisations[0].title}}</a></h2>
                 <a href="/organisations"><i class="fa fa-cloud-upload"></i> Upload a Logo</a>
             </div>
 

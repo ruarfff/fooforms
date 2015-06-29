@@ -1,0 +1,19 @@
+<table class="m0 block">
+    <tr>
+        <th
+                ng-repeat="subField in formField.fields track by $index">
+            {{subField.label}}</th>
+    </tr>
+    <tr ng-class-odd="'odd'" ng-class-even="'even'"
+        ng-repeat="rows in formField.repeaters track by $index">
+        <td class='plr5 col-sm-{{repeater.boxSize}}'
+
+            ng-repeat="repeater in rows.fields track by $index">
+
+            <div ng-include="'/template/formFields/groupFeed/'+ repeater.type + '.html'"></div>
+
+
+        </td>
+
+    </tr>
+</table>

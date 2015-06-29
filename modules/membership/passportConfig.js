@@ -18,9 +18,9 @@ module.exports = function ( passport ) {
 
     passport.deserializeUser( function ( id, done ) {
         try {
-            new Membership(db).findUserById(id, function (err, req) {
-                if(req.user) {
-                    done(err, user);
+            new Membership(db).findUserById(id, function (err, result) {
+                if (result.user) {
+                    done(err, result.user);
                 } else {
                     done(err, false);
                 }

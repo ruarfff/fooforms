@@ -1,0 +1,22 @@
+<div class="form-group clearfix">
+    <label for="{{formField.id}}">{{formField.label}}
+        <i class="fa fa-question-circle"
+           ng-hide="!formField.userInstructions"
+           popover="{{formField.userInstructions}}"
+           popover-trigger="mouseenter"
+           popover-append-to-body="true"></i>
+    </label>
+
+    <div class="input-group" ng-style="{'width': formField.size+'%'}">
+        <span class="input-group-addon" ng-show="formField.required">*</span>
+        <input type="text"
+               class="form-control"
+               id="{{formField.id}}"
+               disabled
+               placeholder="{{formField.placeholder}}" ng-model="formField.value"/>
+    </div>
+    <div class="alert alert-danger" style="width: 100%" ng-show="formField.hidden">
+
+    <i class="fa fa-exclamation-triangle"></i> Hidden Field - Will not be visible on forms, but can still be displayed in Feed, List or Grid Display.
+</div>
+</div>

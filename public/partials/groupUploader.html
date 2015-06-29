@@ -1,0 +1,54 @@
+<div class="form-group clearfix">
+    <div class="thumbnail" ng-show="repeater.value._id
+    && (repeater.value.mimeType=='image/gif'
+    || repeater.value.mimeType=='image/png'
+    || repeater.value.mimeType=='image/jpg'
+    || repeater.value.mimeType=='image/jpeg'
+    )" >
+        <img ng-src="/api/files/{{repeater.value._id}}">
+
+        <div class="caption">
+            <h5>{{ repeater.value.originalName }} </h5>
+
+            <p>{{repeater.value.mimeType }}</p>
+        </div>
+    </div>
+
+    <div class="roundy-border p5 mb10" ng-hide="(repeater.value.mimeType=='image/gif'
+    || repeater.value.mimeType=='image/png'
+    || repeater.value.mimeType=='image/jpg'
+    || repeater.value.mimeType=='image/jpeg'
+    || !repeater.value._id
+    )" >
+
+
+           <h5> <a href="/api/files/{{repeater.value._id}}" target="_new">
+                <i class="fa fa-download"></i>
+                {{ repeater.value.originalName }}
+            </a></h5>
+
+    </div>
+
+
+    <div class="input-group" ng-style="{'width': repeater.size+'%'}">
+
+        <span class="input-group-addon" ng-show="repeater.required">*</span>
+
+
+            <input type="file" name="uploadFile" id="uploadFile_{{repeater.id}}"  ng-model="uploadFile"
+                   ng-file-select="onFileSelect($files, repeater)" />
+
+        </div>
+        <div class="progress mt5 progress-striped" ng-class="{'fadeOutDelayed' : repeater.progress==100}"
+             ng-show="repeater.progress>0 && uploading">
+            <div class="progress-bar" ng-class="{'progress-bar-success' : repeater.progress==100}" role="progressbar"
+                 aria-valuenow="{{repeater.progress}}" aria-valuemin="0" aria-valuemax="100"
+                 style="width: {{repeater.progress+'%'}}">
+            {{repeater.progress+'%'}}
+            </div>
+        </div>
+
+
+    </div>
+</div>
+

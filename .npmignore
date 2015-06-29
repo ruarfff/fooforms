@@ -8,10 +8,10 @@ out
 
 .git*
 docs/
-test/
+tests/
 .DS_Store
 
-frontend/src
+public/
 .bowerrc
 bower.json
 

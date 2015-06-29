@@ -1,0 +1,94 @@
+<form class="form-horizontal" role="form">
+    <h5 class="text-info optionsTitle"><i class="fa fa-caret-right"></i> Layout</h5>
+    <div class="form-group">
+        <label class="col-sm-4 control-label">Label</label>
+
+        <div class="col-sm-8">
+            <input type='text' class="form-control" ng-model="form.fields[nowEditing].label"/>
+        </div>
+    </div>
+    <div class="form-group">
+        <label class="col-sm-4 control-label">Content</label>
+
+        <div class="col-sm-8">
+            <textarea class="form-control" rows="5"
+                      ng-model="form.fields[nowEditing].value"> </textarea>
+        </div>
+    </div>
+    <div class="form-group">
+        <label class="col-sm-4 control-label">Box size</label>
+
+        <div class="col-sm-8">
+            <input type="range" name="points" min="1" max="12"
+                   ng-model="form.fields[nowEditing].boxSize">
+        </div>
+    </div>
+
+    <div class="form-group">
+        <label class="col-sm-4 control-label">Alignment</label>
+
+        <div class="col-sm-8 btn-group">
+            <a class="btn btn-default"
+               ng-class="{'btn-success' : form.fields[nowEditing].alignment=='text-justify' }"
+                   ng-click="form.fields[nowEditing].alignment='text-justify'"><i class="fa fa-align-justify"></i></a>
+
+            <a class="btn btn-default"
+               ng-class="{'btn-success' : form.fields[nowEditing].alignment=='text-left' }"
+               ng-click="form.fields[nowEditing].alignment='text-left'"><i class="fa fa-align-left"></i></a>
+
+            <a class="btn btn-default"
+               ng-class="{'btn-success' : form.fields[nowEditing].alignment=='text-center' }"
+               ng-click="form.fields[nowEditing].alignment='text-center'"><i class="fa fa-align-center"></i></a>
+            <a class="btn btn-default"
+               ng-class="{'btn-success' : form.fields[nowEditing].alignment=='text-right' }"
+               ng-click="form.fields[nowEditing].alignment='text-right'"><i class="fa fa-align-right"></i></a>
+        </div>
+    </div>
+
+        <h4 class="text-info">Display Options</h4><hr>
+
+        <div class="form-group">
+            <label class="col-sm-4 control-label">Show in Post Title</label>
+
+            <div class="col-sm-8">
+                <toggle-switch off-text="Hide" on-text="Show" off-style="danger" on-style="success"
+                               ng-model="form.fields[nowEditing].showInList"></toggle-switch>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label class="col-sm-4 control-label">Show in Post Body</label>
+
+            <div class="col-sm-8">
+                <toggle-switch off-text="Hide" on-text="Show" off-style="danger" on-style="success"
+                               ng-model="form.fields[nowEditing].showInFeed"></toggle-switch>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label class="col-sm-4 control-label">Show in Grid View</label>
+
+            <div class="col-sm-8">
+                <toggle-switch off-text="Hide" on-text="Show" off-style="danger" on-style="success"
+                               ng-model="form.fields[nowEditing].showInGrid"></toggle-switch>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label class="col-sm-4 control-label">Show in Public Form </label>
+
+            <div class="col-sm-8">
+                <toggle-switch off-text="Hide" on-text="Show" off-style="danger" on-style="success"
+                               ng-model="form.fields[nowEditing].showInEmbedded"></toggle-switch>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label class="col-sm-4 control-label">Show Only to Admins </label>
+
+            <div class="col-sm-8">
+                <toggle-switch off-text="No, Visible to Everyone" on-text="Yes" off-style="danger" on-style="success"
+                               ng-model="form.fields[nowEditing].adminOnly"></toggle-switch>
+            </div>
+        </div>
+</form>

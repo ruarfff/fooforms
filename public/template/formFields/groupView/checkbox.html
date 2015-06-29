@@ -1,0 +1,13 @@
+<div class="form-group clearfix">
+
+
+    <div class="input-group" ng-style="{'width': repeater.size+'%'}">
+        <label ng-class="{ 'checkbox-inline': repeater.settings.display == 'Inline' ,'checkbox' : repeater.settings.display == 'Stacked'}"
+               ng-repeat='option in repeater.options'>
+            <input type="checkbox" ng-model="option.selected"
+                   id="{{repeater.id}}">{{option.label}}
+        </label>
+
+
+    </div>
+</div>

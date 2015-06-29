@@ -1,0 +1,70 @@
+<div infinite-scroll="addMore()" infinite-scroll-distance="3">
+    <div class="panel panel-transparent panel-commentBox p0 b0 m0">
+        <!--Feed Header for dashboard, teams and forms-->
+
+        <div class="panel-body p0 b0 clearfix">
+            <div ng-show="comments.length===1" class="comment-label label-warning p5 m0 br0">
+                1 Comment on <strong>"
+                    <i ng-repeat="formField in titles track by $index"
+                       ng-include='"/template/formFields/list/" + formField.type + ".html"'>
+                    </i>"</strong></div>
+
+            <div ng-show="comments.length>1" class="comment-label label-warning p5 m0 br0">{{ comments.length }}
+                Comments on <strong>"
+                    <i ng-repeat="formField in titles track by $index"
+                       ng-include='"/template/formFields/list/" + formField.type + ".html"'>
+                    </i>"</strong></div>
+
+
+
+            <div ng-show="comments.length<1" class="comment-label label-primary comment-label-dark p5 m10 br0">No
+                Comments for <strong>"
+                    <i ng-repeat="formField in titles track by $index"
+                       ng-include='"/template/formFields/list/" + formField.type + ".html"'>
+                    </i>"</strong> - Be the First
+            </div>
+            <div class="row">
+                <div class="col-sm-12">
+                     <textarea class="form-control b0" ng-model="comment.content"
+                               ng-click="toggleCommentBox()"
+                               placeholder="Write a comment..."
+                               ng-class="{commentsMax : showCommentButton, commentsMin : !showCommentButton}"></textarea>
+                </div>
+
+            </div>
+
+        <div class="row pb10">
+            <div class="col-sm-6">
+                <button class="btn btn-success mt10 ml10" ng-click="likePost()">
+                    <i class="fa fa-thumbs-up"></i> Like
+                </button>
+</div>
+            <div class="col-sm-6 text-align-right">
+                <button ng-show="showCommentButton" class="btn btn-success mt10 mr10"
+                        ng-click="postComment(comment)">
+                    <i class="fa fa-comment"></i> Post Comment
+                </button>
+            </div>
+        </div>
+    </div>
+    <div class="panel-body text-align-center bt0" ng-show="fetchingComments">
+        <i class="fa fa-circle-o-notch fa-spin text-muted"></i>
+    </div>
+
+
+    <div class="panel-body comments-body mt-1" ng-show="comments.length>0">
+        <div class="comment appear" ng-repeat="comment in comments">
+            <img class="img-responsive img-circle post-user-img"
+                 ng-src="{{comment.commenter.photo || '/assets/images/photo.jpg'}}"/>
+            <i class="fa fa-caret-left speechbubble"></i>
+            <span class="text-muted" ng-show="comment.commenter.displayName">{{comment.commenter.name.givenName && comment.commenter.name.familyName ? comment.commenter.name.givenName + ' ' + comment.commenter.name.familyName : comment.commenter.displayName}} <i
+                    class="fa fa-caret-right"></i> {{comment.created | ago }} ago</span>
+            <span class="text-muted" ng-hide="comment.commenter.displayName">You <i class="fa fa-caret-right"></i> {{comment.created | ago }} ago</span>
+
+            <p>{{comment.content}}</p>
+        </div>
+    </div>
+</div>
+
+</div>
+

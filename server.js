@@ -171,7 +171,7 @@ var FooFormsServerApp = function () {
             self.bootstrapModels();
             membership.passport(passport);
             require('./config/express')(self.app, passport);
-            require('./config/routes')(self.app, passport);
+            require('./routes/routes')(self.app, passport);
 
 
             log.info(__filename, ' - ', 'Running environment: ' + env);

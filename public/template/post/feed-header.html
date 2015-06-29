@@ -1,0 +1,25 @@
+<img class="img-responsive img-circle post-user-img" ng-src="{{post.createdBy.photo || '/assets/images/photo.jpg'}}"/>
+<span class="pull-right text-muted pl5 text-smaller text-align-right">{{post.lastModified | ago}}<br><i>{{post.createdBy.displayName}}</i></span>
+<div class="p0 plr5 feed-title" ng-if="$parent.$parent.view=='list'">
+<span ng-repeat="formField in titles track by $index">
+    <span class="m0"
+        ng-include='"/template/formFields/list/"+formField.type+".html"'>
+    </span>
+    <i class="fa fa-caret-right text-muted text-small" ng-hide="$index===titles.length-1"></i>
+</span>
+    </div>
+<div class="p0 plr5 feed-title" ng-if="$parent.$parent.view=='feed'">
+<span ng-repeat="formField in titles track by $index">
+    <h3 class="m0"
+        ng-include='"/template/formFields/list/"+formField.type+".html"'>
+    </h3>
+    <i class="fa fa-caret-right text-muted text-small" ng-hide="$index===titles.length-1"></i>
+</span>
+
+
+</div>
+<div class='postStatusLabels' ng-show="statusTitles.length>0">
+    <span  ng-repeat="formField in statusTitles track by $index"
+          ng-include='"/template/formFields/list/"+formField.type+".html"'>
+</span>
+</div>

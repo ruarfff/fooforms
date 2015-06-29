@@ -1,0 +1,19 @@
+<div class="form-group clearfix">
+<label>{{formField.label}}
+        <i class="fa fa-question-circle"
+           ng-hide="!formField.userInstructions"
+           popover="{{formField.userInstructions}}"
+           popover-trigger="mouseenter"
+           popover-append-to-body="true"></i>
+    </label>
+
+    <div class="input-group" ng-style="{'width': formField.size+'%'}">
+        <button class="btn btn-default mr5"
+               ng-repeat='option in formField.options'
+                ng-click="formField.selected=option.label">
+<i class="fa fa-check-circle text-success" ng-show="formField.selected == option.label"></i>
+            {{option.label}}
+        </button>
+
+    </div>
+</div>

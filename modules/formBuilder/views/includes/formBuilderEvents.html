@@ -3,8 +3,11 @@
         <div class="panel-body">
 
             <h4 class="text-info">Form Events</h4>
+            <p ng-show="form.formEvents.length===0">
+                Add functionality to your form by automatically sending emails for specified events. Drag an event into the space below to create your first event now.
+            </p>
 
-            <div ng-class="{ 'newForm': form.formEvents.length==0}">
+            <div ng-class="{ 'newEvents': form.formEvents.length==0}">
 
                 <div ui-sortable="sortableOptions"
                      ng-model="form.formEvents"
@@ -30,7 +33,8 @@
                                         ng-show="$index == nowEditing">X
                                 </button>
 
-                            </div>If <strong>{{ event.name}}</strong>, then
+                            </div>
+                            If <strong>{{ event.name}}</strong>, then
                         </div>
                         <div class="panel-footer">
                             <p>Send an Email &raquo; {{ event.description}}</p>

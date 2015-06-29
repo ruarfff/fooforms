@@ -8,7 +8,7 @@
     </script>
     <link rel="stylesheet" href="https://fooforms.com/css/embedded-form.min.css">
     <link rel="stylesheet" href="https://fooforms.com/css/vendor.min.css">
- <script type="text/javascript" src="https://fooforms.com/js/embedded-form.min.js"></script>
+    <script type="text/javascript" src="https://fooforms.com/js/embedded-form.min.js"></script>
     <link href="//maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css" rel="stylesheet">
 
 
@@ -23,9 +23,8 @@
             <div class="row fadeIn">
                 <div class='col-xs-{{formField.boxSize}} under viewFormObject'
                      ng-repeat="formField in post.fields track by $index"
-                     ng-show="!formField.adminOnly">
-
-                    <div ng-include='"https://fooforms.com"+formField.viewTemplate'></div>
+                     ng-show="!formField.adminOnly || formField.showInEmbedded">
+                    <div ng-include='"https://fooforms.com/template/formFields/view/" + formField.type + ".html"'></div>
                 </div>
             </div>
         </div>
@@ -74,13 +73,15 @@
             <div class="pull-left mr10">
                 <i class="fa fa-check-square-o fa-4x"></i>
             </div>
-            <div><h4>Thank you</h4><p>Your form has been submitted successfully.</p></div>
+            <div><h4>Thank you</h4>
+
+                <p>Your form has been submitted successfully.</p></div>
         </div>
 
         <div class="col-sm-12 p5 alert alert-success br0" ng-if="post.settings.displayOptions.customSubmitMsg">
             <div compile="post.settings.customSubmitHtml"></div>
 
-    </div>
+        </div>
     </div>
 </div>
 <div ng-init="doResize()"></div>

@@ -14,7 +14,7 @@ module.exports = function (grunt) {
                     PORT: 3000
                 },
                 cwd: './',
-                ignore: ['node_modules/**', 'frontend/**', 'logs/**', 'test/**'],
+                ignore: ['node_modules/**', 'public/**', 'sass/**', 'bower/**', 'logs/**', 'tests/**'],
                 ext: 'js',
                 watch: ['server'],
                 delay: 1,

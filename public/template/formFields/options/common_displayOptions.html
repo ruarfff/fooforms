@@ -1,0 +1,61 @@
+
+
+
+
+    <h5 class="text-info optionsTitle"><i class="fa fa-caret-right"></i> Display Options</h5>
+
+    <div class="form-group">
+        <label class="col-sm-4 control-label">Required Field</label>
+
+        <div class="col-sm-8">
+            <toggle-switch off-text="No" on-text="Yes" off-style="danger" on-style="success"
+                           ng-model="form.fields[nowEditing].required"></toggle-switch>
+        </div>
+    </div>
+
+
+    <div class="form-group">
+        <label class="col-sm-4 control-label">Show in Post Title</label>
+
+        <div class="col-sm-8">
+            <toggle-switch off-text="Hide" on-text="Show" off-style="danger" on-style="success"
+                           ng-model="form.fields[nowEditing].showInList"></toggle-switch>
+        </div>
+    </div>
+
+    <div class="form-group">
+        <label class="col-sm-4 control-label">Show in Post Body</label>
+
+        <div class="col-sm-8">
+            <toggle-switch off-text="Hide" on-text="Show" off-style="danger" on-style="success"
+                           ng-model="form.fields[nowEditing].showInFeed"></toggle-switch>
+        </div>
+    </div>
+
+    <div class="form-group">
+        <label class="col-sm-4 control-label">Show in Grid View</label>
+
+        <div class="col-sm-8">
+            <toggle-switch off-text="Hide" on-text="Show" off-style="danger" on-style="success"
+                           ng-model="form.fields[nowEditing].showInGrid"></toggle-switch>
+        </div>
+    </div>
+
+    <div class="form-group">
+        <label class="col-sm-4 control-label">Show in Public Form </label>
+
+        <div class="col-sm-8">
+            <toggle-switch off-text="Hide" on-text="Show" off-style="danger" on-style="success"
+                           ng-model="form.fields[nowEditing].showInEmbedded"></toggle-switch>
+        </div>
+    </div>
+
+    <div class="form-group">
+        <label class="col-sm-4 control-label">Show Only to Admins </label>
+
+        <div class="col-sm-8">
+            <toggle-switch off-text="No, Visible to Everyone" on-text="Yes" off-style="danger" on-style="success"
+                           ng-model="form.fields[nowEditing].adminOnly"></toggle-switch>
+        </div>
+    </div>
+

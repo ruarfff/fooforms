@@ -20,7 +20,7 @@ var createFile = function (req, res) {
         var mimeType = req.files.file.type || '';
 
         fs.createReadStream(req.files.file.path)
-            .pipe(bucket.createWriteStream(internalName), {
+            .pipe(bucket.file(internalName).createWriteStream(), {
                 contentType: req.files.file.headers['content-type']
             })
             .on('error', function (err) {
@@ -62,15 +62,7 @@ var getFileById = function (req, res) {
             } else {
                 res.setHeader("Content-Type", file.mimeType || file.contentType);
 
-
-                bucket.getSignedUrl({
-                    action: 'read',
-                    expires: Math.round(Date.now() / 1000) + (60 * 60), // 1 hour.
-                    resource: file.name
-                }, function (err, url) {
-                    url = url.replace(/^http:\/\//i, 'https://');
-                    res.redirect(url);
-                });
+                bucket.file(file.name).createReadStream().pipe(res);
             }
         });
     } catch (err) {

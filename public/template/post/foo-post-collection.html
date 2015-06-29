@@ -1,0 +1,197 @@
+<div infinite-scroll="addMorePosts()" infinite-scroll-distance="1" infinite-scroll-parent="true"
+     infinite-scroll-container="'#foo-post-collection'"  ng-show="view!='grid'"
+     >
+
+    <!-- TODO: Move feed and list to own templates and directives -->
+
+    <!-- List View -->
+    <foo-post-list posts="posts" active-post="activePost" active-form="activeForm" ng-show="view=='list'"
+                   status="status" view="list" deleting-post-id="deletingPostId"></foo-post-list>
+
+    <!-- Feed View -->
+
+    <foo-post-feed posts="posts" active-post="activePost" active-form="activeForm" ng-show="view=='feed'"
+                   status="status" view="feed" show-post-form="showPostForm"  deleting-post-id="deletingPostId"></foo-post-feed>
+
+
+</div>
+
+
+
+<foo-post-grid posts="posts" active-post="activePost" active-form="activeForm" ng-show="view=='grid'"
+                   status="status" grid-headings="gridHeadings" show-post-form="showPostForm" deleting-post-id="deletingPostId"></foo-post-grid>
+
+
+<!--Default Emplty Post Display -->
+
+
+<div ng-cloak ng-if="showIntroPage">
+
+    <div class="panel panel-foo-feed animated pr10">
+
+        <div class="panel-body" ng-hide="team">
+
+            <h2 class="text-primary">hello :-)</h2>
+            <h4>Welcome to FooForms.</h4>
+
+            <p>Please take a moment to read the Quick Start Guide, it's so much easier than fumbling about.</p>
+
+            <p class="pt5">Be sure to get in touch if you find any bugs or have any questions.</p>
+            <br><br>
+            Follow us <a href="https://twitter.com/fooforms">@fooforms</a> for updates.<br>
+            <strong><i>The Fooforms Team</i></strong><br><br>
+        </div>
+
+
+        <div class="panel-body" ng-show="team">
+
+            <h2 class="text-primary">hello, this is a team feed :-)</h2>
+            <h4>This is where posts for the {{team.displayName}} team will appear.</h4>
+
+            <h5 class="text-primary">Edit your forms and select 'Sharing'  to assign forms to this team.</h5><br><br>
+        </div>
+
+    </div>
+
+
+</div>
+
+
+<div ng-cloak ng-if="posts.length==0 && !team && !fetching && activeForm">
+
+
+    <div class="panel panel-foo-feed">
+
+        <div class="panel-body">
+
+            <h2 class="text-primary">hello :-)</h2>
+
+            <h4>I've got no new posts to show you.</h4>
+
+            <h5 class="text-primary">Use your new form to create the first post now.</h5>
+            <br>
+        </div>
+
+    </div>
+
+
+</div>
+
+<div class="feed-fixed-wide hidden-print animated ng-cloak" ng-cloak ng-show="showIntroPage"
+     ng-class="{
+     'rightScreen-wide' : $parent.sideMenuVisible && ($parent.postView=='list'),
+     'rightScreen-wide-noMenu': !$parent.sideMenuVisible && ($parent.postView=='list'),
+     'rightScreen' : $parent.sideMenuVisible && ($parent.postView=='feed'),
+     'rightScreen-noMenu' :!$parent.sideMenuVisible && ($parent.postView=='feed')
+      }"
+     >
+    <div class="row">
+        <div class="col-sm-12">
+
+            <div class="panel panel-foo-dark">
+                <div class="panel-heading">
+                    <h5>Quick Start Guide </h5>
+                </div>
+                <div class="panel-body" ng-show="team">
+                    <h4>OK, you've got a team called <span class="text-primary">{{team.displayName}}</span></h4>
+
+                    <p>Now you need to create one or more forms for the team to use.</p>
+
+                    <ul class="icon-list clearfix">
+                        <li>
+                            <div class="form-icon-wrapper">
+                                <div class="form-icon yellow">
+                                    <a href="/formBuilder"> <i class="fa fa-edit fa-lg"></i></a>
+                                </div>
+                                <a href="/formBuilder">Create New Forms with Form Builder</a>
+                            </div>
+                        </li>
+                        <li>
+                            <div class="form-icon-wrapper">
+                                <div class="form-icon purple">
+                                    <a href="/forms"> <i class="fa fa-th fa-lg"></i></a>
+                                </div>
+                                <a href="/forms">Browse Form Templates in the Catalog</a>
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+                <div class="panel-body" ng-hide="team">
+
+                    <h4>How it works</h4>
+
+                    <p>
+                        Fooforms let's you share posts with your team just like any other social network.<br>
+                        You can share basic posts like you get in Twitter but you can create and share more complex
+                        forms like a Helpdesk, Bug Tracker or anything else too.
+                        <br>
+                    </p>
+
+                    <div class="alert alert-warning">
+                        <h4>Creating your first FooForm.</h4>
+                        <p>Use the links below to design your own form or browse the template gallery to get started right away.</p>
+                    </div>
+                    <ul class="icon-list clearfix">
+                        <li>
+                            <div class="form-icon-wrapper">
+                                <div class="form-icon yellow">
+                                    <a href="/formBuilder"> <i class="fa fa-edit fa-lg"></i></a>
+                                </div>
+                                <a href="/formBuilder">Form Builder</a>
+                            </div>
+                        </li>
+                        <li>
+                            <div class="form-icon-wrapper">
+                                <div class="form-icon purple">
+                                    <a href="/forms"> <i class="fa fa-th fa-lg"></i></a>
+                                </div>
+                                <a href="/forms">Template Gallery</a>
+                            </div>
+                        </li>
+                    </ul>
+
+                    <div class="alert alert-warning">
+                        <h4>Sharing with your team or clients.</h4>
+                        <p>Use the links below to Add Users to your Organisation and Create Teams.</p>
+                    </div>
+                    <ul  class="icon-list clearfix">
+                        <li>
+                            <div class="form-icon-wrapper">
+                                <div class="form-icon red">
+                                    <a href="/organisations"> <i class="fa fa-group fa-sitemap"></i></a>
+                                </div>
+                                <a href="/organisations">{{org.displayName}} Members</a>
+                            </div>
+                        </li>
+                        <li>
+                            <div class="form-icon-wrapper">
+                                <div class="form-icon blue">
+                                    <a href="/teams"> <i class="fa fa-group fa-lg"></i></a>
+                                </div>
+                                <a href="/teams">Manage Teams</a>
+                            </div>
+                        </li>
+                        <li>
+                            <div class="form-icon-wrapper">
+                                <div class="form-icon green">
+                                    <a href="/profile"> <i class="fa fa-user fa-lg"></i></a>
+                                </div>
+                                <a href="/profile">Your Profile</a>
+                            </div>
+                        </li>
+
+
+                    </ul>
+
+
+
+                    <div class="m10 p10">&nbsp;</div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+

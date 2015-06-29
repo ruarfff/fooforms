@@ -1,0 +1,361 @@
+.form-control{
+  padding: 4px 2px 4px 4px;
+  box-shadow: none;
+}
+
+label.radio{
+  margin-left: 24px !important;
+  vertical-align: middle;
+}
+label.checkbox{
+  margin-left: 24px !important;
+  vertical-align: middle;
+}
+input[type="radio"]{
+  margin-top: 0 !important;
+}
+
+input[type="checkbox"]{
+  margin-top: 2px !important;
+}
+.blockInsert {
+  background-color: #E5F1FD;
+  margin: 5px;
+  border: 1px solid #D2E5F7;
+  display: block;
+}
+
+#formTabs-fields {
+  max-width: 100%;
+  overflow: hidden;
+}
+
+#formHeading {
+  display: block;
+  //border: 1px solid #efefef;
+  margin: 0px;
+  padding: 5px;
+}
+
+
+#formHeading h2 {
+  font-size: 16px;
+  font-weight: bold;
+  line-height: 22px;
+  margin: 0px;
+  padding: 0px;
+  display: inline-block;
+}
+
+#formHeading p {
+  margin: 0px;
+  padding: 0px;
+  font-size: 10px;
+  font-weight: normal;
+  line-height: 14px;
+
+}
+
+#formTitle {
+  display: block;
+}
+
+.fieldObject {
+  cursor: move;
+  display: block;
+background: #f5f5f5;
+
+}
+
+.fooform .fieldObject{
+  width: 100%;
+  clear: both;
+}
+
+#formLayout, .formLayout {
+  height: 1000px;
+  display: block;
+  padding-bottom: 100px;
+}
+
+#formFields, #formEvents {
+  padding-bottom: 100px;
+}
+
+.formObject {
+  display: block;
+}
+
+.optionsTitle{
+
+  vertical-align: top;
+padding: 8px;
+  padding-left: 0px;
+}
+
+.card{
+  display:  block;
+  margin-bottom: 10px;
+  background:  #ffffff;
+  border:1px solid #9acfea;
+  cursor:  pointer;
+}
+.viewCard{
+  padding: 5px;
+  background: #fff;
+  font-weight:  normal;
+  font-size:  .8em;
+}
+.viewCard input{
+  border:  0px;
+  font-size:  .9em;
+  padding: 0px;
+}
+
+.card .media{
+  padding:  0px;
+  padding: 4px;
+  border-bottom: 1px solid #E5F1FD;
+}
+
+.feed-item{
+  border:  0px;
+  border-bottom: 1px solid #E5F1FD;
+}
+
+
+
+
+/*placeholder for draggies*/
+#formFields div.fieldObject, #formEvents div.fieldObject {
+
+  display: block;
+
+}
+
+.ui-sortable-placeholder {
+  visibility: visible !important;
+  display: inline-block !important;
+  background: #f8f8fc;
+  opacity: 1;
+  float: left;
+  -webkit-animation: placeHolder .3s forwards;
+  -webkit-animation-timing-function: ease-out;
+  animation: placeHolder .3s forwards;
+  -moz-box-shadow: 0 9px 21px rgba(39, 50, 57, .29);
+  -webkit-box-shadow: 0 9px 21px rgba(39, 50, 57, .29);
+  box-shadow: 0 9px 21px rgba(39, 50, 57, .29);
+}
+
+.ui-sortable-helper {
+  visibility: visible !important;
+  display: inline-block !important;
+  background: #d9edf7 !important;
+  float: left;
+}
+@-webkit-keyframes placeHolder {
+  0%{
+
+    -webkit-transform: scale(.85);
+    -moz-transform: scale(.85);
+    -o-transform: scale(.85);
+    -ms-transform: scale(.85);
+    transform: scale(.85);
+    float: left;
+  }100% {
+     -webkit-transform: scale(1);
+     -moz-transform: scale(1);
+     -o-transform: scale(1);
+     -ms-transform: scale(1);
+     transform: scale(1);
+   }
+}
+
+@keyframes placeHolder {
+  0%{
+    -webkit-transform: scale(.85);
+    -moz-transform: scale(.85);
+    -o-transform: scale(.85);
+    -ms-transform: scale(.85);
+    transform: scale(.85);
+    float: left;
+  }100% {
+     -webkit-transform: scale(1);
+     -moz-transform: scale(1);
+     -o-transform: scale(1);
+     -ms-transform: scale(1);
+     transform: scale(1);
+   }
+}
+
+
+.dropped {
+  -webkit-animation: dropped 0.2s forwards;
+  animation: dropped 0.2s forwards;
+}
+@-webkit-keyframes dropped {
+  0%{
+    -webkit-transform: scale(1.05);
+    -moz-transform: scale(1.05);
+    -o-transform: scale(1.05);
+    -ms-transform: scale(1.05);
+    transform: scale(1.05);
+  }100% {
+     -webkit-transform: scale(1);
+     -moz-transform: scale(1);
+     -o-transform: scale(1);
+     -ms-transform: scale(1);
+     transform: scale(1);
+   }
+}
+
+@keyframes dropped {
+  0%{
+    -webkit-transform: scale(.85);
+    -moz-transform: scale(.85);
+    -o-transform: scale(.85);
+    -ms-transform: scale(.85);
+    transform: scale(.85);
+  }100% {
+     -webkit-transform: scale(1);
+     -moz-transform: scale(1);
+     -o-transform: scale(1);
+     -ms-transform: scale(1);
+     transform: scale(1);
+   }
+}
+
+
+
+
+.zoomBox:hover {
+
+  -moz-background-clip: padding;
+  -webkit-background-clip: padding-box;
+  background-clip: padding-box;
+
+  -moz-box-shadow: 0 9px 21px rgba(39,50,57,.29);
+  -webkit-box-shadow: 0 9px 21px rgba(39,50,57,.29);
+  box-shadow: 0 9px 21px rgba(39,50,57,.29);
+  -webkit-transform: scale(1.05);
+  -moz-transform: scale(1.05);
+  -o-transform: scale(1.05);
+  -ms-transform: scale(1.05);
+  transform: scale(1.05);
+}
+.zoomBox {
+  margin: 10px;
+  -moz-background-clip: padding;
+  -webkit-background-clip: padding-box;
+  background-clip: padding-box;
+  background-color: #fff;
+
+  /* float: left; */
+  overflow: hidden;
+  display: inline-block;
+  -webkit-transition: 0.2s ease-in-out;
+  -moz-transition: 0.2s ease-in-out;
+  -ms-transition: 0.2s ease-in-out;
+  -o-transition: 0.2s ease-in-out;
+  transition: 0.2s ease-in-out;
+
+  -webkit-animation: slide .3s forwards;
+  -webkit-animation-timing-function: ease-out;
+  animation: slide .3s forwards;
+
+}
+
+/*icons and modal icon select dialog*/
+
+.icons {
+  list-style: none;
+  height: 400px;
+  overflow: scroll;
+}
+
+.icons a {
+  border: 3px solid #fff;
+  display: inline-block;
+  padding: 4px;
+  margin: 0px;
+}
+
+.icons a:hover {
+  border: 3px solid #D2E5F7;
+
+}
+
+img.icon {
+  max-width: 48px;
+  margin: 4px;
+}
+
+img.icon-xs {
+  max-width: 24px !important;
+  margin: 0px 4px;
+}
+
+img.icon-sm {
+  max-width: 36px;
+}
+
+
+.repeatBox {
+  display: inline-block;
+  padding: 0px;
+  margin: 0px;
+  border: 1px dotted #D2E5F7;
+  background: #fff !important;
+
+  min-height: 90px;
+}
+
+.repeatBox:hover {
+  border: 1px solid #D2E5F7;
+}
+
+
+
+label i.fa {
+  font-size: 1.4em;
+  color: #185aa7;
+  margin-left: 5px;
+}
+
+
+.onTop {
+  position: absolute !important;
+  z-index: 999999 !important;
+  float: right;
+  top: 2px;
+  right: 2px;
+
+}
+
+.underv {
+  position: relative !important;
+  z-index: 999998 !important;
+
+}
+
+.newForm {
+  background: url('/assets/images/appCanvas.png') top left no-repeat;
+  border: 2px dashed #D2E5F7;
+  min-height: 300px;
+  width: 98%;
+  margin: 1%;
+}
+
+img.icon {
+  max-height: 48px !important;
+  display: inline-block;
+  vertical-align: middle;
+}
+
+.inline {
+  display: inline !important;
+}
+.inline-block {
+  display: inline-block !important;
+}
+

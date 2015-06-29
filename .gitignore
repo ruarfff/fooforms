@@ -21,15 +21,13 @@ node_modules
 out
 *.sublime*
 
-frontend/src/bower
+bower
 
 # ignore auto generated files
 coverage.html
 
-frontend/public/site/css/*.min.css
-frontend/public/css/*.min.css
-frontend/public/js/*.min.js
-
-*.DS_Store
+public/site/css/*.min.css
+public/css/*.min.css
+public/js/*.min.js
 
 *.DS_Store

@@ -1,0 +1,21 @@
+<div class="form-group clearfix">
+
+    <div foo-group-progress-bar  class="progress" ng-click="editProgress=!editProgress">
+        <div class="progress-bar" role="progressbar" aria-valuenow="{{repeater.value}}" aria-valuemin="0" aria-valuemax="100" style="min-width: 2em;width: {{repeater.value}}%">
+            {{repeater.value}}%
+        </div>
+    </div>
+
+
+    <div class="input-group appear" ng-show="editProgress">
+        <span class="input-group-addon">%</span>
+        <input type="range" min="0" max="100"
+               class="form-control"
+               id="{{repeater.id}}"
+               ng-model="repeater.value"/>
+
+         <span class="input-group-btn">
+        <button class="btn btn-default" type="button" ng-click="editProgress=!editProgress"><i class="fa fa-close"></i></button>
+      </span>
+    </div>
+</div>
