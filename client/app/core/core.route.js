@@ -6,6 +6,7 @@
 
     routerConfig.$inject = ['$routeProvider', '$locationProvider'];
 
+    /* @ngInject */
     function routerConfig($routeProvider, $locationProvider) {
         'use strict';
 
@@ -51,7 +52,7 @@
             })
             .when('/people', {
                 templateUrl: '/users/partials/people',
-                controller: 'PeopleCtrl',
+                controller: 'PeopleController',
                 resolve: {
                     currentSession: function (sessionService) {
                         return sessionService.checkSession();
@@ -60,7 +61,7 @@
             })
             .when('/profile', {
                 templateUrl: '/users/partials/profile',
-                controller: 'ProfileCtrl',
+                controller: 'ProfileController',
                 resolve: {
                     currentSession: function (sessionService) {
                         return sessionService.checkSession();
@@ -155,7 +156,7 @@
             })
             .when('/user/:name', {
                 templateUrl: '/users/partials/user-profile',
-                controller: 'UserViewCtrl',
+                controller: 'UserViewController',
                 resolve: {
                     currentSession: function (sessionService) {
                         return sessionService.checkSession();

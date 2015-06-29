@@ -5,9 +5,8 @@
         .factory('authHttpResponseInterceptor', authHttpResponseInterceptor);
 
     authHttpResponseInterceptor.$inject = ['$q', '$location', '$log'];
-
+    /* @ngInject */
     function authHttpResponseInterceptor($q, $location, $log) {
-        'use strict';
         return {
             response: function (response) {
                 if (response.status === 401) {

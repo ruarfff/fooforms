@@ -88,6 +88,7 @@
     "grunt-karma": "^0.10.1",
     "grunt-mocha-test": "*",
     "grunt-newer": "*",
+      "grunt-ng-annotate": "^1.0.1",
     "grunt-nodemon": "*",
     "grunt-protractor-runner": "*",
       "gulp": "^3.9.0",
