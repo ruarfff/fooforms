@@ -6,11 +6,8 @@
            popover-trigger="mouseenter"></i>
     </label>
 
-    <div class="input-group" ng-style="{'width': subField.size+'%'}">
-        <span class="input-group-addon" ng-show="subField.required">*</span>
-
-        <div class="form-control"
-             id="{{subField.id}}">{{subField.placeholder}}
-        </div>
+    <div id="{{subField.id}}" ng-style="{'width': subField.size+'%'}"
+         text-angular
+         ng-model="subField.value">
     </div>
 </div>

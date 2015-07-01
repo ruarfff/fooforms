@@ -6,15 +6,15 @@
     <script>
         formId = '<%= formId %>';
     </script>
-    <link rel="stylesheet" href="https://fooforms.com/css/embedded-form.min.css">
-    <link rel="stylesheet" href="https://fooforms.com/css/vendor.min.css">
-    <script type="text/javascript" src="https://fooforms.com/js/embedded-form.min.js"></script>
+    <link rel="stylesheet" href="/css/embedded-form.min.css">
+    <link rel="stylesheet" href="/css/vendor.min.css">
+    <script type="text/javascript" src="/js/embedded-form.min.js"></script>
     <link href="//maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css" rel="stylesheet">
 
 
 </head>
 <body ng-controller="FormCtrl" ng-cloak class="ng-cloak">
-<div id='formLayout' class="container-fluid p10">
+<div id='formLayout' class="container p10">
     <div ng-if="post.settings.displayOptions.customForm">
         <div compile="post.settings.customFormHtml"></div>
     </div>
@@ -23,8 +23,10 @@
             <div class="row fadeIn">
                 <div class='col-xs-{{formField.boxSize}} under viewFormObject'
                      ng-repeat="formField in post.fields track by $index"
-                     ng-show="!formField.adminOnly || formField.showInEmbedded">
-                    <div ng-include='"https://fooforms.com/template/formFields/view/" + formField.type + ".html"'></div>
+                     ng-hide="formField.adminOnly || !formField.showInEmbedded">
+                    <div ng-include='"/template/formFields/view/" + formField.type + ".html"'></div>
+                    <pre><code>{{formField.adminOnly + ' ' +  formField.showInEmbedded}}</code></pre>
+
                 </div>
             </div>
         </div>

@@ -9,7 +9,7 @@
     <link rel="stylesheet" href="/css/embedded-form.min.css">
     <link rel="stylesheet" href="/css/vendor.min.css">
 
-    <!--<link href="//maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css" rel="stylesheet">-->
+    <link href="//maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css" rel="stylesheet">
 
     <script type="text/javascript" src="/js/embedded-form.min.js"></script>
 
@@ -29,24 +29,16 @@
             <p class="text-primary">{{post.description}}</p>
         </div>
         <div class="foo-body panel-body">
-
             <div class="row fadeIn" ng-hide="sorted">
                 <div class='col-sm-{{formField.boxSize}} under viewFormObject'
                      ng-repeat="formField in post.fields track by $index"
-                     ng-hide="formField.adminOnly || formField.showInEmbedded===false">
+                     ng-hide="formField.adminOnly || !formField.showInEmbedded">
 
                     <div ng-include='"/template/formFields/view/" + formField.type + ".html"'></div>
-                    <pre><code>{{formField.adminOnly + ' ' +  formField.showInEmbedded}}</code></pre>
                 </div>
-
-
                 <div class='col-sm-{{formField.boxSize}} under viewFormObject'
-                     ng-repeat="formField in post.fields track by $index"
-                    >
-
-
+                     ng-repeat="formField in post.fields track by $index">
                 </div>
-
             </div>
         </div>
     </form>
@@ -57,8 +49,6 @@
             <p>There seems to have been an error processing your form. Please review and try again.<br>{{status}}</p>
         </div>
     </div>
-
-
     <div class="modal fade" id="tandc" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
         <div class="modal-dialog">
             <div class="modal-content">
@@ -99,13 +89,10 @@
                 <i class="fa fa-check-square-o fa-4x"></i>
             </div>
             <div><h4>Thank you</h4>
-
                 <p>Your form has been submitted successfully.</p></div>
         </div>
-
         <div class="col-sm-12 p5 alert alert-success br0" ng-if="post.settings.displayOptions.customSubmitMsg">
             <div compile="post.settings.customSubmitHtml"></div>
-
         </div>
     </div>
 
