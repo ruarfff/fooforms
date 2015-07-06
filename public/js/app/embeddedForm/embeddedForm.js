@@ -6,7 +6,7 @@ function nl2br(str, is_xhtml) {
         .replace(/([^>\r\n]?)(\r\n|\n\r|\r|\n)/g, '$1' + breakTag + '$2');
 }
 
-var FooForm = angular.module('FooForm', ['ngSanitize', 'pikaday', 'textAngular'])
+var FooForm = angular.module('FooForm', ['ngSanitize', 'textAngular'])
     .config(function($sceDelegateProvider) {
         $sceDelegateProvider.resourceUrlWhitelist([
             // Allow same origin resource loads.
