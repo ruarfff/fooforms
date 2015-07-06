@@ -24,17 +24,10 @@ var FooForm = angular.module('FooForm', ['ngSanitize', 'pikaday', 'textAngular']
             var formId=window.formId;
         }
 
-        var resizeCount = 0;
         $scope.doResize = function(){
-            if (typeof parent.resizeIframe === "function") {
-                resizeCount++;
-                if (resizeCount < 10) {
-                    var height = angular.element('#formLayout').height();
-                    parent.resizeIframe(formId, height);
+            var height = angular.element('#formLayout').height();
+              parent.resizeIframe(formId, height);
 
-                    $timeout($scope.doResize(), 500);
-                }
-            }
 
         };
 
@@ -64,6 +57,20 @@ var FooForm = angular.module('FooForm', ['ngSanitize', 'pikaday', 'textAngular']
             if ($scope.post._id) {
                 delete $scope.post._id;
             }
+
+
+            if (typeof parent.resizeIframe === "function") {
+
+
+                    $timeout($scope.doResize(), 500);
+                    $timeout($scope.doResize(), 1000);
+                    $timeout($scope.doResize(), 2000);
+                    $timeout($scope.doResize(), 5000);
+                    $timeout($scope.doResize(), 10000);
+
+            };
+
+            $timeout($scope.doResize(), 500);
 
             $scope.addRepeat = function (groupBoxId, row) {
                 var requireRefresh = false;
