@@ -1,0 +1,24 @@
+<div class="thumbnail b0 bg-white" ng-show="repeater.value._id
+    && (repeater.value.mimeType=='image/gif'
+    || repeater.value.mimeType=='image/png'
+    || repeater.value.mimeType=='image/jpg'
+    || repeater.value.mimeType=='image/jpeg'
+    )" >
+    <img ng-src="/api/files/{{repeater.value._id}}">
+
+</div>
+
+<div class="p5 mb10" ng-hide="(repeater.value.mimeType=='image/gif'
+    || repeater.value.mimeType=='image/png'
+    || repeater.value.mimeType=='image/jpg'
+    || repeater.value.mimeType=='image/jpeg'
+    || !repeater.value._id
+    )">
+
+
+    <p ng-show="repeater.value._id"> <a href="/api/files/{{repeater.value._id}}" target="_new" class="btn btn-link">
+        <i class="fa fa-file-text-o text-muted"></i>
+        {{ repeater.value.originalName }}
+    </a></p>
+
+</div>
