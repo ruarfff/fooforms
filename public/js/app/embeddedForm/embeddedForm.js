@@ -7,26 +7,27 @@ function nl2br(str, is_xhtml) {
 }
 
 var FooForm = angular.module('FooForm', ['ngSanitize', 'textAngular'])
-    .config(function($sceDelegateProvider) {
+    .config(function ($sceDelegateProvider) {
         $sceDelegateProvider.resourceUrlWhitelist([
             // Allow same origin resource loads.
             'self',
             // Allow loading from our assets domain.  Notice the difference between * and **.
             'https://fooforms.com/**'
-        ])})
-    .controller('FormCtrl', ['$scope', '$http', '$location', '$timeout',function ($scope, $http, $location, $timeout) {
+        ])
+    })
+    .controller('FormCtrl', ['$scope', '$http', '$location', '$timeout', function ($scope, $http, $location, $timeout) {
 
         var path = $location.absUrl().split('/');
         path = path[path.length - 1];
         if (!window.hasOwnProperty(formId)) {
             var formId = path;
-        }else{
-            var formId=window.formId;
+        } else {
+            var formId = window.formId;
         }
 
-        $scope.doResize = function(){
-            var height = angular.element('#formLayout').height();
-              parent.resizeIframe(formId, height);
+        $scope.doResize = function () {
+            var height = angular.element('#formLayout')[0].scrollHeight;
+            parent.resizeIframe(formId, height);
 
 
         };
@@ -52,8 +53,8 @@ var FooForm = angular.module('FooForm', ['ngSanitize', 'textAngular'])
             $scope.post = angular.copy(form);
 
             $scope.post.postStream = form.postStreams[0]._id || form.postStreams[0];
-            
-            
+
+
             if ($scope.post._id) {
                 delete $scope.post._id;
             }
@@ -61,16 +62,26 @@ var FooForm = angular.module('FooForm', ['ngSanitize', 'textAngular'])
 
             if (typeof parent.resizeIframe === "function") {
 
+                $timeout(function () {
+                    $scope.doResize()
+                    }, 250);
+                $timeout(function () {
+                    $scope.doResize()
+                }, 500);
+                $timeout(function () {
+                    $scope.doResize()
+                }, 1000);
+                $timeout(function () {
+                    $scope.doResize()
+                }, 3000);
+                $timeout(function () {
+                    $scope.doResize()
+                }, 9000);
 
-                    $timeout($scope.doResize(), 500);
-                    $timeout($scope.doResize(), 1000);
-                    $timeout($scope.doResize(), 2000);
-                    $timeout($scope.doResize(), 5000);
-                    $timeout($scope.doResize(), 10000);
 
-            };
+            }
+            ;
 
-            $timeout($scope.doResize(), 500);
 
             $scope.addRepeat = function (groupBoxId, row) {
                 var requireRefresh = false;
@@ -185,15 +196,13 @@ var FooForm = angular.module('FooForm', ['ngSanitize', 'textAngular'])
 
                 }
             }
-            
-            
-            
+
 
         }).error(function (data, status) {
             $scope.error = status;
         });
-        
-        
+
+
         $scope.submit = function () {
             $scope.processing = true;
             $http({
@@ -246,7 +255,7 @@ var FooForm = angular.module('FooForm', ['ngSanitize', 'textAngular'])
 
 
                 var index;
-                if (!$scope.post){
+                if (!$scope.post) {
                     return;
                 }
 
@@ -301,15 +310,15 @@ var FooForm = angular.module('FooForm', ['ngSanitize', 'textAngular'])
                             $scope.formField.value = ($scope.fieldA.value / $scope.fieldB.value);
                             break;
                         case '%' :
-                            $scope.formField.value = ($scope.fieldA.value / $scope.fieldB.value) *100;
+                            $scope.formField.value = ($scope.fieldA.value / $scope.fieldB.value) * 100;
                             break;
 
                     }
-                    if (!isFinite($scope.formField.value)){
+                    if (!isFinite($scope.formField.value)) {
                         $scope.formField.value = 0;
                     }
-                    if (!$scope.formField.decimalPlaces){
-                        $scope.formField.decimalPlaces= 0;
+                    if (!$scope.formField.decimalPlaces) {
+                        $scope.formField.decimalPlaces = 0;
                     }
 
 
@@ -379,19 +388,19 @@ var FooForm = angular.module('FooForm', ['ngSanitize', 'textAngular'])
                             $scope.repeater.value = ($scope.fieldA.value / $scope.fieldB.value);
                             break;
                         case '%' :
-                            $scope.repeater.value = ($scope.fieldA.value / $scope.fieldB.value) *100;
+                            $scope.repeater.value = ($scope.fieldA.value / $scope.fieldB.value) * 100;
                             break;
 
                     }
 
-                    if (!isFinite($scope.repeater.value)){
-                        $scope.repeater.value = Number($filter('number')($scope.repeater.value, $scope.repeater.decimalPlaces) );
+                    if (!isFinite($scope.repeater.value)) {
+                        $scope.repeater.value = Number($filter('number')($scope.repeater.value, $scope.repeater.decimalPlaces));
 
                     }
 
                     // calculate total for use with SUM field
                     var count = $scope.formField.fields.length;
-                    var repeatercount =  $scope.formField.repeaters.length;
+                    var repeatercount = $scope.formField.repeaters.length;
                     var total = 0;
                     var gboxFieldIndex = 0;
                     // get the index value for this field in the groupBox
@@ -401,8 +410,8 @@ var FooForm = angular.module('FooForm', ['ngSanitize', 'textAngular'])
                             break;
                         }
                     }
-                    for ( index = 0; index < repeatercount; index++) {
-                        total+=$scope.formField.repeaters[index].fields[gboxFieldIndex].value;
+                    for (index = 0; index < repeatercount; index++) {
+                        total += $scope.formField.repeaters[index].fields[gboxFieldIndex].value;
                     }
                     //We can store the total in the formField value as it's not used - values are tied to the repeaters
                     $scope.formField.fields[gboxFieldIndex].value = total;
@@ -425,7 +434,7 @@ var FooForm = angular.module('FooForm', ['ngSanitize', 'textAngular'])
 
 
                 var index;
-                if (!$scope.post){
+                if (!$scope.post) {
                     return;
                 }
 
@@ -433,10 +442,8 @@ var FooForm = angular.module('FooForm', ['ngSanitize', 'textAngular'])
 
 
                 var count = $scope.postObj.fields.length;
-                var groupBoxCount =0;
+                var groupBoxCount = 0;
                 var groupBoxIndex = 0;
-
-
 
 
                 for (index = 0; index < count; index++) {
@@ -455,8 +462,7 @@ var FooForm = angular.module('FooForm', ['ngSanitize', 'textAngular'])
                 }
 
 
-
-                if ($scope.fieldToWatch){
+                if ($scope.fieldToWatch) {
                     $scope.$watch('fieldToWatch.value', function () {
                         $scope.formField.value = $scope.fieldToWatch.value;
 
@@ -465,16 +471,12 @@ var FooForm = angular.module('FooForm', ['ngSanitize', 'textAngular'])
                 }
 
 
-
-
-
-
             },
             replace: false,
             templateUrl: '/partials/calculateSum.html'
         };
 
-    }]).directive('uploader', ['$upload', '$log','SweetAlert' ,function ($upload, $log,SweetAlert) {
+    }]).directive('uploader', ['$upload', '$log', 'SweetAlert', function ($upload, $log, SweetAlert) {
 
         return {
             restrict: 'E',
@@ -493,7 +495,7 @@ var FooForm = angular.module('FooForm', ['ngSanitize', 'textAngular'])
                 };
 
                 scope.doFileUpload = function () {
-                    scope.uploading=true;
+                    scope.uploading = true;
                     scope.upload = $upload.upload({
                         url: '/api/files',
                         method: 'POST',
@@ -508,7 +510,7 @@ var FooForm = angular.module('FooForm', ['ngSanitize', 'textAngular'])
                         scope.uploadFile = [];
                         scope.allowUpload = null;
                         scope.formField.progress = 0;
-                        scope.uploading=false;
+                        scope.uploading = false;
 
                         if (data.err) {
                             $log.error(data.err);
@@ -517,10 +519,10 @@ var FooForm = angular.module('FooForm', ['ngSanitize', 'textAngular'])
                             scope.formField.value = data;
                         }
 
-                    }).error(function (err, code,headers) {
+                    }).error(function (err, code, headers) {
                         SweetAlert.swal('Not Saved!', 'An error occurred trying to upload this file.', 'error');
                         scope.formField.progress = 0;
-                        scope.uploading=false;
+                        scope.uploading = false;
                     });
                 }
             },
@@ -528,7 +530,7 @@ var FooForm = angular.module('FooForm', ['ngSanitize', 'textAngular'])
             templateUrl: '/partials/uploader.html'
         };
     }])
-    .directive('groupUploader', ['$upload', '$log','SweetAlert' ,function ($upload, $log,SweetAlert) {
+    .directive('groupUploader', ['$upload', '$log', 'SweetAlert', function ($upload, $log, SweetAlert) {
 
         return {
             restrict: 'E',
@@ -551,7 +553,7 @@ var FooForm = angular.module('FooForm', ['ngSanitize', 'textAngular'])
                 };
 
                 scope.doFileUpload = function () {
-                    scope.uploading=true;
+                    scope.uploading = true;
                     scope.upload = $upload.upload({
                         url: '/api/files',
                         method: 'POST',
@@ -566,7 +568,7 @@ var FooForm = angular.module('FooForm', ['ngSanitize', 'textAngular'])
                         scope.uploadFile = [];
                         scope.allowUpload = null;
                         scope.repeater.progress = 0;
-                        scope.uploading=false;
+                        scope.uploading = false;
 
                         if (data.err) {
                             $log.error(data.err);
@@ -575,10 +577,10 @@ var FooForm = angular.module('FooForm', ['ngSanitize', 'textAngular'])
                             scope.repeater.value = data;
                         }
 
-                    }).error(function (err, code,headers) {
+                    }).error(function (err, code, headers) {
                         SweetAlert.swal('Not Saved!', 'An error occurred trying to upload this file.', 'error');
                         scope.repeater.progress = 0;
-                        scope.uploading=false;
+                        scope.uploading = false;
                     });
                 }
             },
@@ -606,7 +608,7 @@ var FooForm = angular.module('FooForm', ['ngSanitize', 'textAngular'])
                     if (!scope.formLoaded) {
                         // don't send undefined to the server during dirty check
                         // empty form name is caught by required directive
-                        scope.formLoaded=true;
+                        scope.formLoaded = true;
                         return;
                     }
 
@@ -618,17 +620,17 @@ var FooForm = angular.module('FooForm', ['ngSanitize', 'textAngular'])
                                 ctrl.$setValidity('isTaken', false);
                             } else if (data.slugged) {
                                 scope.sluggedFormName = data.sluggedValue;
-                            }else{
-                                scope.sluggedFormName=scope.form.title;
+                            } else {
+                                scope.sluggedFormName = scope.form.title;
                             }
 
-                            scope.form.displayName=scope.sluggedFormName ;
+                            scope.form.displayName = scope.sluggedFormName;
 
 
                             scope.formNameBusy = false;
                         }).error(function (data) {
                             scope.sluggedFormName = '';
-                            scope.form.displayName=scope.sluggedFormName;
+                            scope.form.displayName = scope.sluggedFormName;
                             ctrl.$setValidity('error', false);
                             scope.formNameBusy = false;
                         });
@@ -669,17 +671,17 @@ var FooForm = angular.module('FooForm', ['ngSanitize', 'textAngular'])
                 });
             }
         };
-    }]).directive("toggleSwitch", function() {
+    }]).directive("toggleSwitch", function () {
         return {
             scope: {},
             require: "ngModel",
             restrict: "E",
             replace: "true",
             template: "<div class='animated pointer toggleSwitch text-{{css}}' ng-class='{toggleOff : !checked, toggleOn: checked}'><div class='animated pointer'>{{displayText}}</div><button class='btn btn-default animated'></button></div>",
-            link: function(scope, elem, attrs, modelCtrl) {
+            link: function (scope, elem, attrs, modelCtrl) {
 
                 // Default Checkmark Styling
-                scope.rotate='fa-rotate-180';
+                scope.rotate = 'fa-rotate-180';
                 // If size is undefined, Checkbox has normal size (Bootstrap 'xs')
 
 
@@ -687,50 +689,50 @@ var FooForm = angular.module('FooForm', ['ngSanitize', 'textAngular'])
                 var falseValue = false;
 
                 // If defined set true value
-                if(attrs.ngTrueValue !== undefined) {
+                if (attrs.ngTrueValue !== undefined) {
                     trueValue = attrs.ngTrueValue;
                 }
                 // If defined set false value
-                if(attrs.ngFalseValue !== undefined) {
+                if (attrs.ngFalseValue !== undefined) {
                     falseValue = attrs.ngFalseValue;
                 }
 
                 // Check if name attribute is set and if so add it to the DOM element
-                if(scope.name !== undefined) {
+                if (scope.name !== undefined) {
                     elem.name = scope.name;
                 }
 
                 // Update element when model changes
-                scope.$watch(function() {
-                    if(modelCtrl.$modelValue === trueValue || modelCtrl.$modelValue === true) {
+                scope.$watch(function () {
+                    if (modelCtrl.$modelValue === trueValue || modelCtrl.$modelValue === true) {
                         modelCtrl.$setViewValue(trueValue);
                         scope.displayText = attrs.onText;
                         scope.css = attrs.onStyle;
-                        scope.rotate='fa-rotate-180';
+                        scope.rotate = 'fa-rotate-180';
                     } else {
                         modelCtrl.$setViewValue(falseValue);
                         scope.displayText = attrs.offText;
                         scope.css = attrs.offStyle;
-                        scope.rotate='';
+                        scope.rotate = '';
                     }
                     return modelCtrl.$modelValue;
-                }, function(newVal, oldVal) {
+                }, function (newVal, oldVal) {
                     scope.checked = modelCtrl.$modelValue === trueValue;
                 }, true);
 
                 // On click swap value and trigger onChange function
-                elem.bind("click", function() {
-                    scope.$apply(function() {
-                        if(modelCtrl.$modelValue === falseValue) {
+                elem.bind("click", function () {
+                    scope.$apply(function () {
+                        if (modelCtrl.$modelValue === falseValue) {
                             modelCtrl.$setViewValue(trueValue);
                             scope.displayText = attrs.onText;
                             scope.css = attrs.onStyle;
-                            scope.rotate='fa-rotate-180';
+                            scope.rotate = 'fa-rotate-180';
                         } else {
                             modelCtrl.$setViewValue(falseValue);
                             scope.displayText = attrs.offText;
                             scope.css = attrs.offStyle;
-                            scope.rotate='';
+                            scope.rotate = '';
                         }
                     });
                 });
@@ -764,9 +766,9 @@ var FooForm = angular.module('FooForm', ['ngSanitize', 'textAngular'])
 
 
                     $scope.$watch('progressValueField', function () {
-                        if (isFinite($scope.progressValueField.value)){
+                        if (isFinite($scope.progressValueField.value)) {
                             $scope.formField.value = $scope.progressValueField.value;
-                        }else{
+                        } else {
                             $scope.formField.value = 0;
                         }
 
@@ -788,7 +790,6 @@ var FooForm = angular.module('FooForm', ['ngSanitize', 'textAngular'])
                 //updateMethod = true means auto update / false means manual
 
 
-
                 var index;
                 if (angular.isUndefined($scope.postObj)) {
                     $scope.postObj = $scope.post;
@@ -806,9 +807,9 @@ var FooForm = angular.module('FooForm', ['ngSanitize', 'textAngular'])
 
 
                     $scope.$watch('progressValueField', function () {
-                        if (isFinite($scope.progressValueField.value)){
+                        if (isFinite($scope.progressValueField.value)) {
                             $scope.repeater.value = $scope.progressValueField.value;
-                        }else{
+                        } else {
                             $scope.repeater.value = 0;
                         }
 
