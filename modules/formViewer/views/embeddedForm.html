@@ -13,7 +13,7 @@
 
 
 </head>
-<body ng-controller="FormCtrl" ng-cloak class="ng-cloak">
+<body ng-controller="FormCtrl" class="ng-cloak">
 <div id='formLayout' class="container p10">
     <div ng-if="post.settings.displayOptions.customForm">
         <div compile="post.settings.customFormHtml"></div>
@@ -25,7 +25,6 @@
                      ng-repeat="formField in post.fields track by $index"
                      ng-hide="formField.adminOnly || !formField.showInEmbedded">
                     <div ng-include='"https://fooforms.com/template/formFields/view/" + formField.type + ".html"'></div>
-                    <pre><code>{{formField.adminOnly + ' ' +  formField.showInEmbedded}}</code></pre>
 
                 </div>
             </div>
@@ -52,7 +51,7 @@
         </div>
     </div>
 
-    <div class="row" ng-show="post.settings.tandcWeb" ng-hide="sorted">
+    <div class="row fadeInSlow" ng-show="post.settings.tandcWeb && !sorted">
         <div class="col-sm-12 p5 alert alert-info">
             <input type="checkbox" ng-model="tandcAccepted"> I accept the <a data-toggle="modal" data-target="#tandc">Terms
             & Conditions</a>
@@ -61,7 +60,7 @@
             </button>
         </div>
     </div>
-    <div class="row fadeIn" ng-hide="post.settings.tandcWeb || sorted">
+    <div class="row fadeInSlow" ng-hide="post.settings.tandcWeb || sorted">
         <div class="col-sm-12 p5">
 
             <button id='savePostNoTC' ng-click="submit()"
