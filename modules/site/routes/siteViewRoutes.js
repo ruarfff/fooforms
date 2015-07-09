@@ -22,6 +22,11 @@ router.get('/contact', function (req, res) {
         dev: (process.env.NODE_ENV === 'development')
     });
 });
+router.get('/wordpress', function (req, res) {
+    res.render(path.join(viewDir, '/wordpress'), {
+        dev: (process.env.NODE_ENV === 'development')
+    });
+});
 
 
 module.exports = router;
