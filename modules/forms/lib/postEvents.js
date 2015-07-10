@@ -142,7 +142,7 @@ var getTeamMembers = function (post, next) {
 var sendEmails = function (from, recipients, subject, text) {
 
     recipients.forEach(function (to) {
-        emailer.sendEventEmail(from, to, subject, text);
+       // emailer.sendEventEmail(from, to, subject, text);
         log.debug(__filename, ' - ', 'EMail: From:' + from + ' To: ' + to + ' Subject: ' + subject + ' Text: ' + text);
 
     });
