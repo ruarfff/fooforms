@@ -345,6 +345,8 @@ fooformsApp
             'use strict';
             $scope.sideMenuVisible = true;
 
+            $scope.postView = 'feed';
+
             //Messaging throughout App
             $scope.activeMsgBox = ''; // any string --matches ng-show of various msgboxes.
             $scope.msgStatus = ''; // used in class, so alert-danger, etc...
