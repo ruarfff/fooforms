@@ -1,10 +1,7 @@
-<div id="tabs-publish" class="tab-pane">
+<div id="tabs-preview" class="tab-pane">
     <div class='panel panel-default'>
-        <div class='panel-body'>
-            <iframe class="iframe-large" ng-src="{{form.url}}"></iframe>
-            <pre class="ng-binding">
-     {{form | json}}
- </pre>
+        <div class='panel-body p0'>
+            <iframe class="iframe-large" id="previewPane" ng-src="{{form.url}}"></iframe>
         </div>
     </div>
 </div>

@@ -4,10 +4,16 @@ $fa-font-path: "/fonts";
 @import '../../bower/bootstrap-sass-official/assets/stylesheets/bootstrap/theme';
 
 body {
-  background-color: transparent !important;
+  background-color: transparent;
   padding: 0px;
   margin: 0px;
 }
+
+body.renderForm{
+  background: #94b5c3 ;
+  padding-top: 10px;
+}
+
 .container{
   max-width: 1000px;
 }
@@ -23,22 +29,47 @@ body {
   margin-right: 10px;
 }
 
-#formHeading h2 {
-  font-size: 16px;
-  font-weight: bold;
-  line-height: 22px;
-  margin: 0px;
-  padding: 0px;
-  display: inline-block;
+form.panel {
+  -webkit-box-shadow: none;
+  box-shadow: none;
+  border-bottom: 1px solid rgba(0,0,0,.05);
 }
 
-#formHeading p {
-  margin: 0px;
-  padding: 0px;
-  font-size: 10px;
-  font-weight: normal;
-  line-height: 14px;
+form.fooForm.panel.panel-default{
+  background-color: transparent !important;
 }
+
+form.fooForm.panel.panel-default div.panel-body{
+  background-color: rgba(255,255,255,.8);
+}
+
+form.fooForm.panel.panel-default div.panel-footer{
+  background-color: rgba(255,255,255,.4);
+  border: 0px;
+}
+
+.foo-header.panel-heading{
+  background: rgba(0,0,0,.1);
+  border: 0px;
+}
+.foo-header h4{
+  font-weight: 300;
+  margin-top: 18px;
+  line-height: 1em;
+  font-size: 1.4em;
+  padding: 0px;
+  margin-bottom: 0px;
+  color: rgba(255,255,255,.6);
+  text-shadow: 0px 1px 1px rgba(0,0,0,.3);
+}
+
+.foo-header p{
+  padding: 0px;
+  margin: 0px;
+  color: rgba(255,255,255,.8);
+  text-shadow: 0px 1px 1px rgba(0,0,0,.3);
+}
+
 
 .inline {
   display: inline-block;
@@ -48,6 +79,35 @@ body {
   display: block;
   padding-bottom: 0px;
 
+}
+
+.ng-invalid-required.ng-touched{
+  border: 1px solid #c84041;
+  background: rgba(200, 64, 65, 0.05) !important;
+  box-shadow: 0px 0px 3px 1px rgba(200, 64, 65, 0.76);
+}
+
+label i.fa.foo-required{
+  font-size: 1em;
+  color:  #c84041 ;
+  -ms-transform: scale(.55,.55); /* IE 9 */
+  -webkit-transform: scale(.55,.55); /* Safari */
+  transform: scale(.55,.55);
+  margin: 0px ;
+  padding: 0px;
+}
+
+.inlineFormFields div.form-group label{
+  display: inline-block;
+  text-align: right;
+  width: 20%;
+  margin-top: 8px;
+}
+
+.inlineFormFields div.form-group div.input-group{
+  display: inline-block;
+float: right;
+  width: 79% !important;
 }
 
 .modal.fade {

@@ -1,5 +1,5 @@
 <div class="form-group clearfix">
-    <label for="{{formField.id}}">{{formField.label}}
+    <label for="{{formField.id}}">{{formField.label}}<i class="fa fa-asterisk foo-required" ng-show="formField.required"></i>
         <i class="fa fa-question-circle"
            ng-hide="!formField.userInstructions"
            popover="{{formField.userInstructions}}"
@@ -8,11 +8,11 @@
     </label>
 
     <div class="input-group" ng-style="{'width': formField.size+'%'}">
-        <span class="input-group-addon" ng-show="formField.required">*</span>
         <input type="email"
                class="form-control"
                id="{{formField.id}}"
                placeholder="{{formField.placeholder}}"
+               ng-required="formField.required"
                ng-model="formField.value"/>
     </div>
 </div>

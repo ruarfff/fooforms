@@ -1,4 +1,4 @@
-<form role="form" class="panel panel-foo-post fixed">
+<form role="form" name="fooForm" class="panel panel-foo-post fixed">
     <div class="panel-heading pt10">
         <div class="row">
             <div class="col-sm-12  col-md-6 plr5">
@@ -50,8 +50,8 @@
                             class="btn btn-default"><i class="fa fa-trash-o"></i> Delete
                     </button>
                     <button id='savePost' ng-click="save()"
-                            class="btn btn-success"
-                            ng-disabled="doingPostApi"><i class="fa fa-save"></i> Save
+                            class="btn" ng-class="{'btn-success' : !fooForm.$invalid, 'btn-default' : fooForm.$invalid}"
+                            ng-disabled="doingPostApi || fooForm.$invalid"><i class="fa fa-save"></i> Save
                     </button>
                 </div>
             </div>
@@ -70,8 +70,8 @@
                             class="btn btn-default"><i class="fa fa-trash-o"></i> Delete
                     </button>
                     <button id='savePostt' ng-click="save()"
-                            class="btn btn-success"
-                            ng-disabled="doingPostApi"><i class="fa fa-save"></i> Save
+                            class="btn" ng-class="{'btn-success' : !fooForm.$invalid, 'btn-default' : fooForm.$invalid}"
+                            ng-disabled="doingPostApi || fooForm.$invalid"><i class="fa fa-save"></i> Save
                     </button>
 
 
@@ -82,9 +82,13 @@
     </div>
     <div class="panel-body light-gray">
         <fieldset>
+
             <div class='col-xs-12 plr5 col-sm-{{formField.boxSize}}'
+
+                 ng-class="{'inlineFormFields': activeForm.settings.displayOptions.inlineFormFields || activePost.settings.displayOptions.inlineFormFields}"
                  ng-repeat="formField in activePost.fields track by $index"
                  ng-show="formField.name"
+                 ng-form="subFooForm"
                  ng-include='"/template/formFields/view/"+formField.type+".html"'>
             </div>
 

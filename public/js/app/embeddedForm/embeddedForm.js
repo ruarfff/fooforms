@@ -26,8 +26,9 @@ var FooForm = angular.module('FooForm', ['ngSanitize', 'textAngular'])
         }
 
         $scope.doResize = function () {
-            var height = angular.element('#formLayout')[0].scrollHeight;
-            parent.resizeIframe(formId, height);
+
+                var height = angular.element('#formLayout')[0].scrollHeight;
+                parent.resizeIframe(formId, height);
 
 
         };
@@ -212,13 +213,17 @@ var FooForm = angular.module('FooForm', ['ngSanitize', 'textAngular'])
                 headers: {'Content-Type': 'application/json'}
             }).success(function () {
                 $scope.sorted = true;
-                $scope.$apply();
-                $scope.doResize();
+
+                if (typeof parent.resizeIframe === "function") {
+                    $scope.doResize();
+                }
+
             }).error(function (data, status) {
+
                 $scope.sorted = false;
                 $scope.errorPosting = true;
                 $scope.status = status;
-                $scope.$apply();
+
             });
         };
     }])

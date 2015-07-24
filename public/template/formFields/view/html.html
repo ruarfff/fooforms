@@ -1,5 +1,5 @@
 <div class="form-group clearfix">
-    <label for="{{formField.id}}">{{formField.label}}
+    <label for="{{formField.id}}">{{formField.label}}<i class="fa fa-asterisk foo-required" ng-show="formField.required"></i>
         <i class="fa fa-question-circle"
            ng-hide="!formField.userInstructions"
            popover="{{formField.userInstructions}}"
@@ -9,6 +9,6 @@
 
     <div text-angular id="{{formField.id}}" ng-style="{'width': formField.size+'%'}"
 
-         ng-model="formField.value">
+         ng-model="formField.value" ng-required="formField.required">
     </div>
 </div>
