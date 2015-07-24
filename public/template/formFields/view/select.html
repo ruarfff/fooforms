@@ -1,5 +1,5 @@
 <div class="form-group clearfix">
-    <label for="{{formField.id}}">{{formField.label}}
+    <label for="{{formField.id}}">{{formField.label}}<i class="fa fa-asterisk foo-required" ng-show="formField.required"></i>
         <i class="fa fa-question-circle"
            ng-hide="!formField.userInstructions"
            popover="{{formField.userInstructions}}"
@@ -7,11 +7,11 @@
     </label>
 
     <div class="input-group" ng-style="{'width': formField.size+'%'}">
-        <span class="input-group-addon" ng-show="formField.required">*</span>
         <select data-ng-attr-size="{{formField.rows}}"
                 class="form-control"
                 id="{{formField.id}}"
-                ng-model="formField.selected">
+                ng-model="formField.selected"
+                ng-required="formField.required">
             <option ng-repeat='option in formField.options' ng-selected="formField.selected==option.label"
                     ng-value="{{formField.label}}">{{option.label }}
             </option>

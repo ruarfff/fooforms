@@ -316,6 +316,9 @@ $scope.formFolder = folder;
 
             };
 
+            $scope.reloadPreview = function(){
+                document.getElementById('previewPane').src = document.getElementById('previewPane').src;
+            };
             //Icon Selection -  Modal Dialog
             $scope.open = function () {
 
@@ -440,6 +443,7 @@ $scope.formFolder = folder;
                                 } else {
                                     Session.user.defaultFolder.forms[index] = $scope.form;
                                 }
+                                document.getElementById('previewPane').src = document.getElementById('previewPane').src;
                                 SweetAlert.swal('Saved!', 'Your form has been updated.', 'success');
                             }
                         });

@@ -31,8 +31,7 @@
                 <li><a id="eventsTab" data-target="#tabs-events" data-toggle="tab" ng-click="openEventTabs()">Form
                     Events</a>
                 </li>
-                <!-- TODO: temporary removal until some updates are made -->
-                <!--<li><a data-target="#tabs-publish" data-toggle="tab">Preview</a></li>-->
+                <li><a data-target="#tabs-preview" data-toggle="tab" ng-click="reloadPreview()">Preview</a></li>
             </ul>
             <div class="tab-content">
                 <% include includes/formBuilderEditor.html %>
@@ -43,6 +42,7 @@
 
                 <% include includes/formBuilderPublishing.html %>
 
+                <% include includes/formBuilderPreview.html %>
 
             </div>
         </div>

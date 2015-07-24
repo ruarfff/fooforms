@@ -1,5 +1,5 @@
 <div class="form-group clearfix">
-    <label for="{{formField.id}}">{{formField.label}}
+    <label for="{{formField.id}}">{{formField.label}}<i class="fa fa-asterisk foo-required" ng-show="formField.required"></i>
         <i class="fa fa-question-circle"
            ng-hide="!formField.userInstructions"
            popover="{{formField.userInstructions}}"
@@ -11,6 +11,7 @@
         <label ng-class="{ 'checkbox-inline': formField.settings.display == 'Inline' ,'checkbox' : formField.settings.display == 'Stacked'}"
                ng-repeat='option in formField.options'>
             <input type="checkbox" ng-model="option.selected"
+                   ng-required="formField.required"
                    id="{{formField.id}}">{{option.label}}
         </label>
 

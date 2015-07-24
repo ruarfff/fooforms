@@ -2,8 +2,8 @@
      ng-class="{
      'leftScreen-small' : sideMenuVisible && (postView=='list'),
      'leftScreen-small-noMenu': !sideMenuVisible && (postView=='list'),
-     'fullScreen' : sideMenuVisible && (postView=='grid' || postView=='custom' ),
-     'fullScreen-noMenu':!sideMenuVisible && (postView=='grid' || postView=='custom'),
+     'fullScreen' : sideMenuVisible && (postView=='grid' || postView=='custom' || postView=='calendar' ),
+     'fullScreen-noMenu':!sideMenuVisible && (postView=='grid' || postView=='custom' || postView=='calendar' ),
      'leftScreen' : sideMenuVisible && (postView=='feed'),
      'leftScreen-noMenu' :!sideMenuVisible && (postView=='feed')
       }">
@@ -73,6 +73,10 @@
                           ng-class="{'label-success' : postView=='grid' , 'label-default':postView!='grid'}"
                           ng-click="postView='grid';"><i class="fa fa-table"></i></span>
 
+                   <!-- <span ng-show="form.settings.displayOptions.grid" class="label cursor-hand"
+                          ng-class="{'label-success' : postView=='calendar' , 'label-default':postView!='calendar'}"
+                          ng-click="postView='calendar';"><i class="fa fa-calendar"></i></span>-->
+
                     <span ng-show="form.settings.displayOptions.customDashboard || true"
                           class="label label-default cursor-hand"
                           ng-class="{'label-success' : postView=='custom' , 'label-default':postView!='custom'}"
@@ -99,7 +103,7 @@
 
 
     <div id='foo-post-collection' class="scroll m0 b0" ng-style="feedPosition"
-         ng-show="postView=='list' || postView=='feed' || postView=='grid'"
+         ng-show="postView=='list' || postView=='feed' || postView=='grid' || postView=='calendar'"
          ng-hide="post.hide" ng-cloak
          ng-class="{
               slideFeedIn: (!showPostForm && postView=='feed'),

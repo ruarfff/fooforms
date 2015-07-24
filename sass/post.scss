@@ -9,6 +9,34 @@
   width: 100px;
 }
 
+.ng-invalid-required.ng-touched{
+  border: 1px solid #c84041;
+  background: rgba(200, 64, 65, 0.05) !important;
+  box-shadow: 0px 0px 3px 1px rgba(200, 64, 65, 0.76);
+}
+
+label i.fa.foo-required{
+  font-size: 1em;
+  color:  #c84041 ;
+  -ms-transform: scale(.55,.55); /* IE 9 */
+  -webkit-transform: scale(.55,.55); /* Safari */
+  transform: scale(.55,.55);
+  margin: 0px ;
+  padding: 0px;
+}
+
+.inlineFormFields div.form-group label , .inlineFormFields fieldset div.form-group label{
+  display: inline-block;
+  text-align: right;
+width: 20%;
+  margin-top: 8px;
+}
+
+.inlineFormFields div.form-group div.input-group, .inlineFormFields fieldset div.form-group div.input-group{
+  display: inline-block;
+  float: right;
+  width: 79% !important;
+}
 
 .panel-foo-post{
   border: 1px solid rgb(204, 200, 185);

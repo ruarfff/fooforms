@@ -14,42 +14,42 @@
     <script type="text/javascript" src="/js/embedded-form.min.js"></script>
 
 </head>
-<body ng-controller="FormCtrl">
+<body ng-controller="FormCtrl" class="renderForm" ng-style="{'background': post.settings.displayOptions.color}">
 
 <div id='formLayout' class="container">
     <div ng-if="post.settings.displayOptions.customForm">
         <div compile="post.settings.customFormHtml"></div>
     </div>
-    <form role="form" class="panel panel-default b0 br0">
-
-        <div class="foo-header panel-heading text-info">
+    <form role="form" name="fooForm"  class="fooForm panel panel-default b0 br0">
+        <div class="foo-header panel-heading">
             <img class="icon pull-left" ng-src="{{post.icon}}" alt="">
-            <h4 class="inline p0 text-info">{{post.title || post.displayName}}</h4>
+            <h4 class="inline-block">{{post.title || post.displayName}}</h4>
 
-            <p class="text-primary">{{post.description}}</p>
+            <p>{{post.description}}</p>
         </div>
         <div class="foo-body panel-body">
             <div class="row fadeIn" ng-hide="sorted">
-                <div class='col-sm-{{formField.boxSize}} under viewFormObject'
+                <div class='col-xs-{{formField.boxSize}} under viewFormObject'
+                     ng-class="{'inlineFormFields': post.settings.displayOptions.inlineFormFields}"
                      ng-repeat="formField in post.fields track by $index"
                      ng-hide="formField.adminOnly || !formField.showInEmbedded">
 
                     <div ng-include='"/template/formFields/view/" + formField.type + ".html"'></div>
                 </div>
-                <div class='col-sm-{{formField.boxSize}} under viewFormObject'
-                     ng-repeat="formField in post.fields track by $index">
-                </div>
+
             </div>
         </div>
-    </form>
+<div class="panel-footer">
     <div class="row" ng-show="errorPosting">
         <div class="col-sm-12 p5 alert alert-danger">
             <h4>Oops!</h4>
 
-            <p>There seems to have been an error processing your form. Please review and try again.<br>{{status}}</p>
+            <p>There seems to have been an error processing your form. Please review and try again.<br>{{status}}
+            </p>
         </div>
     </div>
-    <div class="modal fade" id="tandc" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal fade" id="tandc" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
+         aria-hidden="true">
         <div class="modal-dialog">
             <div class="modal-content">
                 <div class="modal-header">
@@ -67,35 +67,40 @@
     </div>
 
     <div class="row" ng-show="post.settings.tandcWeb" ng-hide="sorted">
-        <div class="col-sm-12 p5 alert alert-info">
-            <input type="checkbox" ng-model="tandcAccepted"> I accept the <a data-toggle="modal" data-target="#tandc">Terms
+        <div class="col-sm-12">
+            <input type="checkbox" ng-model="tandcAccepted"> I accept the <a data-toggle="modal"
+                                                                             data-target="#tandc">Terms
             & Conditions</a>
             <button id='savePost' ng-click="submit()" ng-disabled="!tandcAccepted"
-                    class="btn btn-primary pull-right">Submit
+                    class="btn btn-default pull-right"
+                    ng-disabled="doingPostApi || fooForm.$invalid">Submit
             </button>
         </div>
     </div>
     <div class="row" ng-hide="post.settings.tandcWeb || sorted">
-        <div class="col-sm-12 p5">
-
+        <div class="col-sm-12">
             <button id='savePostNoTC' ng-click="submit()"
-                    class="btn btn-primary">Submit
+                    class="btn btn-default pull-right"
+                    ng-disabled="doingPostApi || fooForm.$invalid">Submit
             </button>
         </div>
     </div>
-    <div class="row slideExpandUp" ng-show="sorted">
-        <div class="col-sm-12 p5 alert alert-success br0" ng-if="!post.settings.displayOptions.customSubmitMsg">
+    <div class="row fadeIn" ng-show="sorted">
+        <div class="col-sm-12 br0" ng-if="!post.settings.displayOptions.customSubmitMsg">
             <div class="pull-left mr10">
                 <i class="fa fa-check-square-o fa-4x"></i>
             </div>
             <div><h4>Thank you</h4>
+
                 <p>Your form has been submitted successfully.</p></div>
         </div>
-        <div class="col-sm-12 p5 alert alert-success br0" ng-if="post.settings.displayOptions.customSubmitMsg">
+        <div class="col-sm-12" ng-if="post.settings.displayOptions.customSubmitMsg">
             <div compile="post.settings.customSubmitHtml"></div>
         </div>
     </div>
+</div>
 
+    </form>
 </div>
 
 </body>

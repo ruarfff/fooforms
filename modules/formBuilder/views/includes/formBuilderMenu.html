@@ -290,6 +290,18 @@
 
                     </div>
                 </div>
+
+                <div class="form-group">
+                    <label class="col-sm-4 control-label">Label Layout</label>
+
+                    <div class="col-sm-8">
+
+                        <toggle-switch off-text="Top" on-text="Left" off-style="info" on-style="info"
+                                       ng-model="form.settings.displayOptions.inlineFormFields"></toggle-switch>
+
+                    </div>
+                </div>
+
                 <div class="form-group">
                     <label class="col-sm-4 control-label">Custom Dashboard</label>
 
@@ -303,8 +315,21 @@
                         </button>
                     </div>
                 </div>
+                <h5 class="text-info optionsTitle"><i class="fa fa-caret-right"></i>Display Options for Published (External) Forms</h5>
                 <div class="form-group">
-                    <label class="col-sm-4 control-label">Custom Form</label>
+                    <label class="col-sm-4 control-label">Background Color</label>
+
+                    <div class="col-sm-4">
+
+<input type="color" class="form-control" ng-model="form.settings.displayOptions.color">
+</div>
+                    <div class="col-sm-4">
+                            <input type="text" class="form-control" ng-model="form.settings.displayOptions.color">
+                        </div>
+
+                </div>
+                <div class="form-group">
+                    <label class="col-sm-4 control-label">Custom Header</label>
 
                     <div class="col-sm-8">
 
