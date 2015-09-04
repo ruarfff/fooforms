@@ -1,0 +1,327 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <title>Code coverage report for app/form/formServices.js</title>
+    <meta charset="utf-8">
+    <link rel="stylesheet" href="../../prettify.css">
+    <link rel="stylesheet" href="../../base.css">
+    <style type='text/css'>
+        div.coverage-summary .sorter {
+            background-image: url(../../sort-arrow-sprite.png);
+        }
+    </style>
+</head>
+<body>
+<div class="header low">
+    <h1>Code coverage report for <span class="entity">app/form/formServices.js</span></h1>
+    <h2>
+        Statements: <span class="metric">3.23% <small>(1 / 31)</small></span> &nbsp;&nbsp;&nbsp;&nbsp;
+        Branches: <span class="metric">0% <small>(0 / 6)</small></span> &nbsp;&nbsp;&nbsp;&nbsp;
+        Functions: <span class="metric">0% <small>(0 / 17)</small></span> &nbsp;&nbsp;&nbsp;&nbsp;
+        Lines: <span class="metric">3.23% <small>(1 / 31)</small></span> &nbsp;&nbsp;&nbsp;&nbsp;
+        Ignored: <span class="metric"><span class="ignore-none">none</span></span> &nbsp;&nbsp;&nbsp;&nbsp;
+    </h2>
+    <div class="path"><a href="../../index.html">All files</a> &#187; <a href="index.html">app/form/</a> &#187; formServices.js</div>
+</div>
+<div class="body">
+<pre><table class="coverage">
+<tr><td class="line-count">1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+19
+20
+21
+22
+23
+24
+25
+26
+27
+28
+29
+30
+31
+32
+33
+34
+35
+36
+37
+38
+39
+40
+41
+42
+43
+44
+45
+46
+47
+48
+49
+50
+51
+52
+53
+54
+55
+56
+57
+58
+59
+60
+61
+62
+63
+64
+65
+66
+67
+68
+69
+70
+71
+72
+73
+74
+75
+76
+77
+78
+79
+80
+81
+82
+83
+84
+85
+86
+87
+88
+89
+90
+91
+92
+93
+94
+95</td><td class="line-coverage"><span class="cline-any cline-yes">1</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">angular.module('fooforms.form')
+    .factory('formService',
+    ['$log', 'Restangular', 'session',
+<span class="fstat-no" title="function not covered" >        function ($log, Restangular, session) {</span>
+            'use strict';
+<span class="cstat-no" title="statement not covered" >            var formApi = Restangular.all('forms');</span>
+<span class="cstat-no" title="statement not covered" >            return {</span>
+                createForm: <span class="fstat-no" title="function not covered" >function (form, next) {</span>
+<span class="cstat-no" title="statement not covered" >                    formApi.post(form).then(<span class="fstat-no" title="function not covered" >function (res) {</span></span>
+<span class="cstat-no" title="statement not covered" >                        next(null, res);</span>
+                    }, <span class="fstat-no" title="function not covered" >function (err) {</span>
+<span class="cstat-no" title="statement not covered" >                        $log.error(err);</span>
+<span class="cstat-no" title="statement not covered" >                        next(err);</span>
+                    });
+                },
+                updateForm: <span class="fstat-no" title="function not covered" >function (form, next) {</span>
+<span class="cstat-no" title="statement not covered" >                    if (typeof form.put !== 'function') {</span>
+<span class="cstat-no" title="statement not covered" >                        form = Restangular.restangularizeElement(formApi, form, '');</span>
+                    }
+<span class="cstat-no" title="statement not covered" >                    form.put().then(<span class="fstat-no" title="function not covered" >function (res) {</span></span>
+<span class="cstat-no" title="statement not covered" >                        next(null, res);</span>
+                    }, <span class="fstat-no" title="function not covered" >function (err) {</span>
+<span class="cstat-no" title="statement not covered" >                        $log.error(err);</span>
+<span class="cstat-no" title="statement not covered" >                        next(err);</span>
+                    });
+                },
+                deleteForm: <span class="fstat-no" title="function not covered" >function (form, next) {</span>
+<span class="cstat-no" title="statement not covered" >                    if (typeof form.remove !== 'function') {</span>
+<span class="cstat-no" title="statement not covered" >                        form = Restangular.restangularizeElement(formApi, form, '');</span>
+                    }
+<span class="cstat-no" title="statement not covered" >                    form.remove().then(<span class="fstat-no" title="function not covered" >function () {</span></span>
+<span class="cstat-no" title="statement not covered" >                        return next(null);</span>
+                    }, <span class="fstat-no" title="function not covered" >function (err) {</span>
+<span class="cstat-no" title="statement not covered" >                        $log.error(err);</span>
+<span class="cstat-no" title="statement not covered" >                        return next(err);</span>
+                    });
+                },
+                getUserForms: <span class="fstat-no" title="function not covered" >function (next) {</span>
+<span class="cstat-no" title="statement not covered" >                    formApi.getList().then(<span class="fstat-no" title="function not covered" >function (forms) {</span></span>
+<span class="cstat-no" title="statement not covered" >                        next(null, forms);</span>
+                    }, <span class="fstat-no" title="function not covered" >function (err) {</span>
+<span class="cstat-no" title="statement not covered" >                        $log.error(err);</span>
+<span class="cstat-no" title="statement not covered" >                        next(err);</span>
+                    });
+                },
+                moveToFolder: <span class="fstat-no" title="function not covered" >function (args, next) {</span>
+<span class="cstat-no" title="statement not covered" >                    if (typeof args.form.patch !== 'function') {</span>
+<span class="cstat-no" title="statement not covered" >                        args.form = Restangular.restangularizeElement(formApi, args.form, '');</span>
+                    }
+<span class="cstat-no" title="statement not covered" >                    args.form.patch({</span>
+                        action: 'moveToFolder',
+                        folder: args.folderId
+                    }).then(<span class="fstat-no" title="function not covered" >function (form) {</span>
+<span class="cstat-no" title="statement not covered" >                        return next(null, form);</span>
+                    }, <span class="fstat-no" title="function not covered" >function (err) {</span>
+<span class="cstat-no" title="statement not covered" >                        return next(err);</span>
+                    });
+                },
+                getFormTemplateObject: <span class="fstat-no" title="function not covered" >function () {</span>
+<span class="cstat-no" title="statement not covered" >                    var defaultFolder = session.user.defaultFolder;</span>
+<span class="cstat-no" title="statement not covered" >                    var template = {</span>
+                        "displayName": "",
+                        "title": "",
+                        "icon": "/assets/icons/color/document.png",
+                        "description": "My new form!",
+                        "btnLabel": "New Post",
+                        "settings": {
+                            "allowComments": true,
+                            "status": "draft",
+                            "tandcWeb": false,
+                            "tandcHtml": '',
+                            "displayOptions": {
+                                "feed": true,
+                                "list": true,
+                                "grid": true,
+                                "customDashboard": false,
+                                "customForm": false,
+                                "customSubmitMsg": false
+&nbsp;
+                            },
+                            "customDashboardHtml": '&lt;div&gt;Replace This with your Custom Dashboard View&lt;/div&gt;',
+                            "customFormHtml": '&lt;div&gt;Replace This with your Custom Form View&lt;/div&gt;',
+                            "customSubmitHtml": '&lt;div&gt;Replace This with your Custom Form View&lt;/div&gt;'
+                        },
+                        "fields": [],
+                        "owner": "",
+                        "folder": defaultFolder,
+                        "sharing": {"type": "ALL"},
+                        "formEvents": []
+                    };
+<span class="cstat-no" title="statement not covered" >                    return angular.copy(template);</span>
+                }
+            };
+        }]);
+&nbsp;</pre></td></tr>
+</table></pre>
+
+</div>
+<div class="footer">
+    <div class="meta">Generated by <a href="http://istanbul-js.org/" target="_blank">istanbul</a> at Tue Jun 30 2015 00:58:01 GMT+0100 (IST)</div>
+</div>
+<script src="../../prettify.js"></script>
+<script>
+window.onload = function () {
+        if (typeof prettyPrint === 'function') {
+            prettyPrint();
+        }
+};
+</script>
+<script src="../../sorter.js"></script>
+</body>
+</html>

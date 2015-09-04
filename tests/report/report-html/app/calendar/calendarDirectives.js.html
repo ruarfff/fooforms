@@ -1,0 +1,879 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <title>Code coverage report for app/calendar/calendarDirectives.js</title>
+    <meta charset="utf-8">
+    <link rel="stylesheet" href="../../prettify.css">
+    <link rel="stylesheet" href="../../base.css">
+    <style type='text/css'>
+        div.coverage-summary .sorter {
+            background-image: url(../../sort-arrow-sprite.png);
+        }
+    </style>
+</head>
+<body>
+<div class="header low">
+    <h1>Code coverage report for <span class="entity">app/calendar/calendarDirectives.js</span></h1>
+    <h2>
+        Statements: <span class="metric">1.49% <small>(2 / 134)</small></span> &nbsp;&nbsp;&nbsp;&nbsp;
+        Branches: <span class="metric">0% <small>(0 / 64)</small></span> &nbsp;&nbsp;&nbsp;&nbsp;
+        Functions: <span class="metric">0% <small>(0 / 29)</small></span> &nbsp;&nbsp;&nbsp;&nbsp;
+        Lines: <span class="metric">1.49% <small>(2 / 134)</small></span> &nbsp;&nbsp;&nbsp;&nbsp;
+        Ignored: <span class="metric"><span class="ignore-none">none</span></span> &nbsp;&nbsp;&nbsp;&nbsp;
+    </h2>
+    <div class="path"><a href="../../index.html">All files</a> &#187; <a href="index.html">app/calendar/</a> &#187; calendarDirectives.js</div>
+</div>
+<div class="body">
+<pre><table class="coverage">
+<tr><td class="line-count">1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+19
+20
+21
+22
+23
+24
+25
+26
+27
+28
+29
+30
+31
+32
+33
+34
+35
+36
+37
+38
+39
+40
+41
+42
+43
+44
+45
+46
+47
+48
+49
+50
+51
+52
+53
+54
+55
+56
+57
+58
+59
+60
+61
+62
+63
+64
+65
+66
+67
+68
+69
+70
+71
+72
+73
+74
+75
+76
+77
+78
+79
+80
+81
+82
+83
+84
+85
+86
+87
+88
+89
+90
+91
+92
+93
+94
+95
+96
+97
+98
+99
+100
+101
+102
+103
+104
+105
+106
+107
+108
+109
+110
+111
+112
+113
+114
+115
+116
+117
+118
+119
+120
+121
+122
+123
+124
+125
+126
+127
+128
+129
+130
+131
+132
+133
+134
+135
+136
+137
+138
+139
+140
+141
+142
+143
+144
+145
+146
+147
+148
+149
+150
+151
+152
+153
+154
+155
+156
+157
+158
+159
+160
+161
+162
+163
+164
+165
+166
+167
+168
+169
+170
+171
+172
+173
+174
+175
+176
+177
+178
+179
+180
+181
+182
+183
+184
+185
+186
+187
+188
+189
+190
+191
+192
+193
+194
+195
+196
+197
+198
+199
+200
+201
+202
+203
+204
+205
+206
+207
+208
+209
+210
+211
+212
+213
+214
+215
+216
+217
+218
+219
+220
+221
+222
+223
+224
+225
+226
+227
+228
+229
+230
+231
+232
+233
+234
+235
+236
+237
+238
+239
+240
+241
+242
+243
+244
+245
+246
+247
+248
+249
+250
+251
+252
+253
+254
+255
+256
+257
+258
+259
+260
+261
+262
+263
+264
+265
+266
+267
+268
+269
+270
+271
+272
+273
+274
+275
+276
+277
+278
+279</td><td class="line-coverage"><span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">/*
+ *  AngularJs Fullcalendar Wrapper for the JQuery FullCalendar
+ *  API @ http://arshaw.com/fullcalendar/
+ *
+ *  Angular Calendar Directive that takes in the [eventSources] nested array object as the ng-model and watches it deeply changes.
+ *       Can also take in multiple event urls as a source object(s) and feed the events per view.
+ *       The calendar will watch any eventSource array and update itself when a change is made.
+ *
+ */
+angular.module('ui.calendar', [])
+    .constant('uiCalendarConfig', {})
+    .controller('uiCalendarCtrl', ['$scope', '$timeout', <span class="fstat-no" title="function not covered" >function ($scope, $timeout) {</span>
+        'use strict';
+&nbsp;
+<span class="cstat-no" title="statement not covered" >        var sourceSerialId = 1,</span>
+            eventSerialId = 1,
+            sources = $scope.eventSources,
+            extraEventSignature = $scope.calendarWatchEvent ? $scope.calendarWatchEvent : angular.noop,
+&nbsp;
+            wrapFunctionWithScopeApply = <span class="fstat-no" title="function not covered" >function (functionToWrap) {</span>
+<span class="cstat-no" title="statement not covered" >                var wrapper;</span>
+&nbsp;
+<span class="cstat-no" title="statement not covered" >                if (functionToWrap) {</span>
+<span class="cstat-no" title="statement not covered" >                    wrapper = <span class="fstat-no" title="function not covered" >function () {</span></span>
+                        // This happens outside of angular context so we need to wrap it in a timeout which has an implied apply.
+                        // In this way the function will be safely executed on the next digest.
+&nbsp;
+<span class="cstat-no" title="statement not covered" >                        var args = arguments;</span>
+<span class="cstat-no" title="statement not covered" >                        $timeout(<span class="fstat-no" title="function not covered" >function () {</span></span>
+<span class="cstat-no" title="statement not covered" >                            functionToWrap.apply(this, args);</span>
+                        });
+                    };
+                }
+&nbsp;
+<span class="cstat-no" title="statement not covered" >                return wrapper;</span>
+            };
+&nbsp;
+<span class="cstat-no" title="statement not covered" >        this.eventsFingerprint = <span class="fstat-no" title="function not covered" >function (e) {</span></span>
+<span class="cstat-no" title="statement not covered" >            if (!e.__uiCalId) {</span>
+<span class="cstat-no" title="statement not covered" >                e.__uiCalId = eventSerialId++;</span>
+            }
+            // This extracts all the information we need from the event. http://jsperf.com/angular-calendar-events-fingerprint/3
+<span class="cstat-no" title="statement not covered" >            return "" + e.__uiCalId + (e.id || '') + (e.title || '') + (e.url || '') + (+e.start || '') + (+e.end || '') +</span>
+                (e.allDay || '') + (e.className || '') + extraEventSignature(e) || '';
+        };
+&nbsp;
+<span class="cstat-no" title="statement not covered" >        this.sourcesFingerprint = <span class="fstat-no" title="function not covered" >function (source) {</span></span>
+<span class="cstat-no" title="statement not covered" >            return source.__id || (source.__id = sourceSerialId++);</span>
+        };
+&nbsp;
+<span class="cstat-no" title="statement not covered" >        this.allEvents = <span class="fstat-no" title="function not covered" >function () {</span></span>
+            // return sources.flatten(); but we don't have flatten
+<span class="cstat-no" title="statement not covered" >            var arraySources = [];</span>
+<span class="cstat-no" title="statement not covered" >            if(sources) {</span>
+<span class="cstat-no" title="statement not covered" >                for (var i = 0, srcLen = sources.length; i &lt; srcLen; i++) {</span>
+<span class="cstat-no" title="statement not covered" >                    var source = sources[i];</span>
+<span class="cstat-no" title="statement not covered" >                    if (angular.isArray(source)) {</span>
+                        // event source as array
+<span class="cstat-no" title="statement not covered" >                        arraySources.push(source);</span>
+                    } else <span class="cstat-no" title="statement not covered" >if (angular.isObject(source) &amp;&amp; angular.isArray(source.events)) {</span>
+                        // event source as object, ie extended form
+<span class="cstat-no" title="statement not covered" >                        var extEvent = {};</span>
+<span class="cstat-no" title="statement not covered" >                        for (var key in source) {</span>
+<span class="cstat-no" title="statement not covered" >                            if (key !== '_uiCalId' &amp;&amp; key !== 'events') {</span>
+<span class="cstat-no" title="statement not covered" >                                extEvent[key] = source[key];</span>
+                            }
+                        }
+<span class="cstat-no" title="statement not covered" >                        for (var eI = 0; eI &lt; source.events.length; eI++) {</span>
+<span class="cstat-no" title="statement not covered" >                            angular.extend(source.events[eI], extEvent);</span>
+                        }
+<span class="cstat-no" title="statement not covered" >                        arraySources.push(source.events);</span>
+                    }
+                }
+            }
+&nbsp;
+<span class="cstat-no" title="statement not covered" >            return Array.prototype.concat.apply([], arraySources);</span>
+        };
+&nbsp;
+        // Track changes in array by assigning id tokens to each element and watching the scope for changes in those tokens
+        // arguments:
+        //  arraySource array of function that returns array of objects to watch
+        //  tokenFn function(object) that returns the token for a given object
+<span class="cstat-no" title="statement not covered" >        this.changeWatcher = <span class="fstat-no" title="function not covered" >function (arraySource, tokenFn) {</span></span>
+<span class="cstat-no" title="statement not covered" >            var self;</span>
+<span class="cstat-no" title="statement not covered" >            var getTokens = <span class="fstat-no" title="function not covered" >function () {</span></span>
+<span class="cstat-no" title="statement not covered" >                var array = angular.isFunction(arraySource) ? arraySource() : arraySource;</span>
+<span class="cstat-no" title="statement not covered" >                var result = [], token, el;</span>
+<span class="cstat-no" title="statement not covered" >                if (array) {</span>
+<span class="cstat-no" title="statement not covered" >                    for (var i = 0, n = array.length; i &lt; n; i++) {</span>
+<span class="cstat-no" title="statement not covered" >                        el = array[i];</span>
+<span class="cstat-no" title="statement not covered" >                        token = tokenFn(el);</span>
+<span class="cstat-no" title="statement not covered" >                        map[token] = el;</span>
+<span class="cstat-no" title="statement not covered" >                        result.push(token);</span>
+                    }
+                }
+<span class="cstat-no" title="statement not covered" >                return result;</span>
+            };
+            // returns elements in that are in a but not in b
+            // subtractAsSets([4, 5, 6], [4, 5, 7]) =&gt; [6]
+<span class="cstat-no" title="statement not covered" >            var subtractAsSets = <span class="fstat-no" title="function not covered" >function (a, b) {</span></span>
+<span class="cstat-no" title="statement not covered" >                var result = [], inB = {}, i, n;</span>
+<span class="cstat-no" title="statement not covered" >                for (i = 0, n = b.length; i &lt; n; i++) {</span>
+<span class="cstat-no" title="statement not covered" >                    inB[b[i]] = true;</span>
+                }
+<span class="cstat-no" title="statement not covered" >                for (i = 0, n = a.length; i &lt; n; i++) {</span>
+<span class="cstat-no" title="statement not covered" >                    if (!inB[a[i]]) {</span>
+<span class="cstat-no" title="statement not covered" >                        result.push(a[i]);</span>
+                    }
+                }
+<span class="cstat-no" title="statement not covered" >                return result;</span>
+            };
+&nbsp;
+            // Map objects to tokens and vice-versa
+<span class="cstat-no" title="statement not covered" >            var map = {};</span>
+&nbsp;
+<span class="cstat-no" title="statement not covered" >            var applyChanges = <span class="fstat-no" title="function not covered" >function (newTokens, oldTokens) {</span></span>
+<span class="cstat-no" title="statement not covered" >                var i, n, el, token;</span>
+<span class="cstat-no" title="statement not covered" >                var replacedTokens = {};</span>
+<span class="cstat-no" title="statement not covered" >                var removedTokens = subtractAsSets(oldTokens, newTokens);</span>
+<span class="cstat-no" title="statement not covered" >                for (i = 0, n = removedTokens.length; i &lt; n; i++) {</span>
+<span class="cstat-no" title="statement not covered" >                    var removedToken = removedTokens[i];</span>
+<span class="cstat-no" title="statement not covered" >                    el = map[removedToken];</span>
+<span class="cstat-no" title="statement not covered" >                    delete map[removedToken];</span>
+<span class="cstat-no" title="statement not covered" >                    var newToken = tokenFn(el);</span>
+                    // if the element wasn't removed but simply got a new token, its old token will be different from the current one
+<span class="cstat-no" title="statement not covered" >                    if (newToken === removedToken) {</span>
+<span class="cstat-no" title="statement not covered" >                        self.onRemoved(el);</span>
+                    } else {
+<span class="cstat-no" title="statement not covered" >                        replacedTokens[newToken] = removedToken;</span>
+<span class="cstat-no" title="statement not covered" >                        self.onChanged(el);</span>
+                    }
+                }
+&nbsp;
+<span class="cstat-no" title="statement not covered" >                var addedTokens = subtractAsSets(newTokens, oldTokens);</span>
+<span class="cstat-no" title="statement not covered" >                for (i = 0, n = addedTokens.length; i &lt; n; i++) {</span>
+<span class="cstat-no" title="statement not covered" >                    token = addedTokens[i];</span>
+<span class="cstat-no" title="statement not covered" >                    el = map[token];</span>
+<span class="cstat-no" title="statement not covered" >                    if (!replacedTokens[token]) {</span>
+<span class="cstat-no" title="statement not covered" >                        self.onAdded(el);</span>
+                    }
+                }
+            };
+<span class="cstat-no" title="statement not covered" >            return self = {</span>
+                subscribe: <span class="fstat-no" title="function not covered" >function (scope, onChanged) {</span>
+<span class="cstat-no" title="statement not covered" >                    scope.$watch(getTokens, <span class="fstat-no" title="function not covered" >function (newTokens, oldTokens) {</span></span>
+<span class="cstat-no" title="statement not covered" >                        if (!onChanged || onChanged(newTokens, oldTokens) !== false) {</span>
+<span class="cstat-no" title="statement not covered" >                            applyChanges(newTokens, oldTokens);</span>
+                        }
+                    }, true);
+                },
+                onAdded: angular.noop,
+                onChanged: angular.noop,
+                onRemoved: angular.noop
+            };
+        };
+&nbsp;
+<span class="cstat-no" title="statement not covered" >        this.getFullCalendarConfig = <span class="fstat-no" title="function not covered" >function (calendarSettings, uiCalendarConfig) {</span></span>
+<span class="cstat-no" title="statement not covered" >            var config = {};</span>
+&nbsp;
+<span class="cstat-no" title="statement not covered" >            angular.extend(config, uiCalendarConfig);</span>
+<span class="cstat-no" title="statement not covered" >            angular.extend(config, calendarSettings);</span>
+&nbsp;
+<span class="cstat-no" title="statement not covered" >            angular.forEach(config, <span class="fstat-no" title="function not covered" >function (value, key) {</span></span>
+<span class="cstat-no" title="statement not covered" >                if (typeof value === 'function') {</span>
+<span class="cstat-no" title="statement not covered" >                    config[key] = wrapFunctionWithScopeApply(config[key]);</span>
+                }
+            });
+&nbsp;
+<span class="cstat-no" title="statement not covered" >            return config;</span>
+        };
+    }])
+    .directive('uiCalendar', ['uiCalendarConfig', '$locale', <span class="fstat-no" title="function not covered" >function (uiCalendarConfig, $locale) {</span>
+        // Configure to use locale names by default
+        'use strict';
+<span class="cstat-no" title="statement not covered" >        var tValues = <span class="fstat-no" title="function not covered" >function (data) {</span></span>
+            // convert {0: "Jan", 1: "Feb", ...} to ["Jan", "Feb", ...]
+<span class="cstat-no" title="statement not covered" >            var r, k;</span>
+<span class="cstat-no" title="statement not covered" >            r = [];</span>
+<span class="cstat-no" title="statement not covered" >            for (k in data) {</span>
+<span class="cstat-no" title="statement not covered" >                r[k] = data[k];</span>
+            }
+<span class="cstat-no" title="statement not covered" >            return r;</span>
+        };
+<span class="cstat-no" title="statement not covered" >        var dtf = $locale.DATETIME_FORMATS;</span>
+<span class="cstat-no" title="statement not covered" >        uiCalendarConfig = angular.extend({</span>
+            monthNames: tValues(dtf.MONTH),
+            monthNamesShort: tValues(dtf.SHORTMONTH),
+            dayNames: tValues(dtf.DAY),
+            dayNamesShort: tValues(dtf.SHORTDAY)
+        }, uiCalendarConfig || {});
+&nbsp;
+<span class="cstat-no" title="statement not covered" >        return {</span>
+            restrict: 'A',
+            scope: {eventSources: '=ngModel', calendarWatchEvent: '&amp;'},
+            controller: 'uiCalendarCtrl',
+            link: <span class="fstat-no" title="function not covered" >function (scope, elm, attrs, controller) {</span>
+&nbsp;
+<span class="cstat-no" title="statement not covered" >                var sources = scope.eventSources,</span>
+                    sourcesChanged = false,
+                    eventSourcesWatcher = controller.changeWatcher(sources, controller.sourcesFingerprint),
+                    eventsWatcher = controller.changeWatcher(controller.allEvents, controller.eventsFingerprint),
+                    options = null;
+&nbsp;
+<span class="fstat-no" title="function not covered" >                function getOptions() {</span>
+<span class="cstat-no" title="statement not covered" >                    var calendarSettings = attrs.uiCalendar ? scope.$parent.$eval(attrs.uiCalendar) : {},</span>
+                        fullCalendarConfig;
+&nbsp;
+<span class="cstat-no" title="statement not covered" >                    fullCalendarConfig = controller.getFullCalendarConfig(calendarSettings, uiCalendarConfig);</span>
+&nbsp;
+<span class="cstat-no" title="statement not covered" >                    options = { eventSources: sources };</span>
+<span class="cstat-no" title="statement not covered" >                    angular.extend(options, fullCalendarConfig);</span>
+&nbsp;
+<span class="cstat-no" title="statement not covered" >                    var options2 = {};</span>
+<span class="cstat-no" title="statement not covered" >                    for (var o in options) {</span>
+<span class="cstat-no" title="statement not covered" >                        if (o !== 'eventSources') {</span>
+<span class="cstat-no" title="statement not covered" >                            options2[o] = options[o];</span>
+                        }
+                    }
+<span class="cstat-no" title="statement not covered" >                    return JSON.stringify(options2);</span>
+                }
+&nbsp;
+<span class="cstat-no" title="statement not covered" >                scope.destroy = <span class="fstat-no" title="function not covered" >function () {</span></span>
+<span class="cstat-no" title="statement not covered" >                    if (attrs.calendar) {</span>
+<span class="cstat-no" title="statement not covered" >                        scope.calendar = scope.$parent[attrs.calendar] = elm.html('');</span>
+                    } else {
+<span class="cstat-no" title="statement not covered" >                        scope.calendar = elm.html('');</span>
+                    }
+                };
+&nbsp;
+<span class="cstat-no" title="statement not covered" >                scope.init = <span class="fstat-no" title="function not covered" >function () {</span></span>
+<span class="cstat-no" title="statement not covered" >                    scope.calendar.fullCalendar(options);</span>
+                };
+&nbsp;
+<span class="cstat-no" title="statement not covered" >                eventSourcesWatcher.onAdded = <span class="fstat-no" title="function not covered" >function (source) {</span></span>
+<span class="cstat-no" title="statement not covered" >                    scope.calendar.fullCalendar('addEventSource', source);</span>
+<span class="cstat-no" title="statement not covered" >                    sourcesChanged = true;</span>
+                };
+&nbsp;
+<span class="cstat-no" title="statement not covered" >                eventSourcesWatcher.onRemoved = <span class="fstat-no" title="function not covered" >function (source) {</span></span>
+<span class="cstat-no" title="statement not covered" >                    scope.calendar.fullCalendar('removeEventSource', source);</span>
+<span class="cstat-no" title="statement not covered" >                    sourcesChanged = true;</span>
+                };
+&nbsp;
+<span class="cstat-no" title="statement not covered" >                eventsWatcher.onAdded = <span class="fstat-no" title="function not covered" >function (event) {</span></span>
+<span class="cstat-no" title="statement not covered" >                    scope.calendar.fullCalendar('renderEvent', event);</span>
+                };
+&nbsp;
+<span class="cstat-no" title="statement not covered" >                eventsWatcher.onRemoved = <span class="fstat-no" title="function not covered" >function (event) {</span></span>
+<span class="cstat-no" title="statement not covered" >                    scope.calendar.fullCalendar('removeEvents', <span class="fstat-no" title="function not covered" >function (e) {</span></span>
+<span class="cstat-no" title="statement not covered" >                        return e === event;</span>
+                    });
+                };
+&nbsp;
+<span class="cstat-no" title="statement not covered" >                eventsWatcher.onChanged = <span class="fstat-no" title="function not covered" >function (event) {</span></span>
+<span class="cstat-no" title="statement not covered" >                    scope.calendar.fullCalendar('updateEvent', event);</span>
+                };
+&nbsp;
+<span class="cstat-no" title="statement not covered" >                scope.destroy();</span>
+<span class="cstat-no" title="statement not covered" >                getOptions();</span>
+<span class="cstat-no" title="statement not covered" >                scope.init();</span>
+<span class="cstat-no" title="statement not covered" >                eventSourcesWatcher.subscribe(scope);</span>
+<span class="cstat-no" title="statement not covered" >                eventsWatcher.subscribe(scope, <span class="fstat-no" title="function not covered" >function (newTokens, oldTokens) {</span></span>
+<span class="cstat-no" title="statement not covered" >                    if (sourcesChanged === true) {</span>
+<span class="cstat-no" title="statement not covered" >                        sourcesChanged = false;</span>
+                        // prevent incremental updates in this case
+<span class="cstat-no" title="statement not covered" >                        return false;</span>
+                    }
+                });
+&nbsp;
+<span class="cstat-no" title="statement not covered" >                scope.$watch(getOptions, <span class="fstat-no" title="function not covered" >function (newO, oldO) {</span></span>
+<span class="cstat-no" title="statement not covered" >                    if (newO !== oldO) {</span>
+<span class="cstat-no" title="statement not covered" >                        scope.destroy();</span>
+<span class="cstat-no" title="statement not covered" >                        scope.init();</span>
+                    }
+                });
+            }
+        };
+    }]);
+&nbsp;</pre></td></tr>
+</table></pre>
+
+</div>
+<div class="footer">
+    <div class="meta">Generated by <a href="http://istanbul-js.org/" target="_blank">istanbul</a> at Tue Jun 30 2015 00:58:01 GMT+0100 (IST)</div>
+</div>
+<script src="../../prettify.js"></script>
+<script>
+window.onload = function () {
+        if (typeof prettyPrint === 'function') {
+            prettyPrint();
+        }
+};
+</script>
+<script src="../../sorter.js"></script>
+</body>
+</html>

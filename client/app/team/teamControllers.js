@@ -158,32 +158,5 @@ angular.module('fooforms.team')
                 }
             };
         }
-    ])
-    .controller('TeamProfileCtrl',
-    ['$scope', '$route', '$log', '_', 'Restangular', 'teamService', 'session',
-        function ($scope, $route, $log, _, Restangular, teamService, session) {
-            'use strict';
+    ]);
 
-            $scope.team = _.find(session.user.teams, {'displayName': $route.current.params.team});
-
-            $scope.createTeam = function () {
-                teamService.createTeam(teamService.newTeam(), function (err, res) {
-                    if (err) {
-                        $log.error(err);
-                    } else {
-                        $scope.team = res.team;
-                    }
-                })
-            };
-
-            $scope.saveTeam = function () {
-                teamService.createTeam($scope.team, function (err, res) {
-                    if (err) {
-                        $log.error(err);
-                    } else {
-                        $scope.team = res.team;
-                    }
-                })
-            };
-
-        }]);

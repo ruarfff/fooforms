@@ -1,0 +1,267 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <title>Code coverage report for app/post/postServices.js</title>
+    <meta charset="utf-8">
+    <link rel="stylesheet" href="../../prettify.css">
+    <link rel="stylesheet" href="../../base.css">
+    <style type='text/css'>
+        div.coverage-summary .sorter {
+            background-image: url(../../sort-arrow-sprite.png);
+        }
+    </style>
+</head>
+<body>
+<div class="header low">
+    <h1>Code coverage report for <span class="entity">app/post/postServices.js</span></h1>
+    <h2>
+        Statements: <span class="metric">11.9% <small>(5 / 42)</small></span> &nbsp;&nbsp;&nbsp;&nbsp;
+        Branches: <span class="metric">0% <small>(0 / 14)</small></span> &nbsp;&nbsp;&nbsp;&nbsp;
+        Functions: <span class="metric">6.25% <small>(1 / 16)</small></span> &nbsp;&nbsp;&nbsp;&nbsp;
+        Lines: <span class="metric">11.9% <small>(5 / 42)</small></span> &nbsp;&nbsp;&nbsp;&nbsp;
+        Ignored: <span class="metric"><span class="ignore-none">none</span></span> &nbsp;&nbsp;&nbsp;&nbsp;
+    </h2>
+    <div class="path"><a href="../../index.html">All files</a> &#187; <a href="index.html">app/post/</a> &#187; postServices.js</div>
+</div>
+<div class="body">
+<pre><table class="coverage">
+<tr><td class="line-count">1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+19
+20
+21
+22
+23
+24
+25
+26
+27
+28
+29
+30
+31
+32
+33
+34
+35
+36
+37
+38
+39
+40
+41
+42
+43
+44
+45
+46
+47
+48
+49
+50
+51
+52
+53
+54
+55
+56
+57
+58
+59
+60
+61
+62
+63
+64
+65
+66
+67
+68
+69
+70
+71
+72
+73
+74
+75</td><td class="line-coverage"><span class="cline-any cline-yes">1</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2</span>
+<span class="cline-any cline-yes">2</span>
+<span class="cline-any cline-yes">2</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">angular.module('fooforms.post').factory('postService',
+    ['$log', 'Restangular',
+        function ($log, Restangular) {
+            'use strict';
+            Restangular.setDefaultRequestParams('get', {limit: 15});
+            var postApi = Restangular.all('posts');
+            return {
+                getPostsByStreamList: <span class="fstat-no" title="function not covered" >function (args, next) {</span>
+<span class="cstat-no" title="statement not covered" >                    var postStreams = args.postStreams;</span>
+<span class="cstat-no" title="statement not covered" >                    var page = args.page || 1;</span>
+<span class="cstat-no" title="statement not covered" >                    var pageSize = args.pageSize || 15;</span>
+<span class="cstat-no" title="statement not covered" >                    if (!postStreams) {</span>
+<span class="cstat-no" title="statement not covered" >                        return next(new Error('PostStreams are required to get posts'));</span>
+                    }
+<span class="cstat-no" title="statement not covered" >                    postApi.getList({postStreams: postStreams, page: page, pageSize: pageSize}).then(<span class="fstat-no" title="function not covered" >function (posts) {</span></span>
+<span class="cstat-no" title="statement not covered" >                        return next(null, posts);</span>
+                    }, <span class="fstat-no" title="function not covered" >function (err) {</span>
+<span class="cstat-no" title="statement not covered" >                        $log.error(err);</span>
+<span class="cstat-no" title="statement not covered" >                        return next(err);</span>
+                    });
+                },
+                createPost: <span class="fstat-no" title="function not covered" >function (post, next) {</span>
+<span class="cstat-no" title="statement not covered" >                    postApi.post(post).then(<span class="fstat-no" title="function not covered" >function (res) {</span></span>
+<span class="cstat-no" title="statement not covered" >                        return next(null, res);</span>
+                    }, <span class="fstat-no" title="function not covered" >function (err) {</span>
+<span class="cstat-no" title="statement not covered" >                        $log.error(err);</span>
+<span class="cstat-no" title="statement not covered" >                        return next(err);</span>
+                    });
+                },
+                updatePost: <span class="fstat-no" title="function not covered" >function (post, next) {</span>
+<span class="cstat-no" title="statement not covered" >                    if (typeof post.put !== 'function') {</span>
+<span class="cstat-no" title="statement not covered" >                        post = Restangular.restangularizeElement(postApi, post, '');</span>
+                    }
+<span class="cstat-no" title="statement not covered" >                    post.put().then(<span class="fstat-no" title="function not covered" >function (res) {</span></span>
+<span class="cstat-no" title="statement not covered" >                        return next(null, res);</span>
+                    }, <span class="fstat-no" title="function not covered" >function (err) {</span>
+<span class="cstat-no" title="statement not covered" >                        $log.error(err);</span>
+<span class="cstat-no" title="statement not covered" >                        return next(err);</span>
+                    });
+                },
+                deletePost: <span class="fstat-no" title="function not covered" >function (post, next) {</span>
+<span class="cstat-no" title="statement not covered" >                    if (typeof post.remove !== 'function') {</span>
+<span class="cstat-no" title="statement not covered" >                        post = Restangular.restangularizeElement(postApi, post, '');</span>
+                    }
+<span class="cstat-no" title="statement not covered" >                    post.remove().then(<span class="fstat-no" title="function not covered" >function () {</span></span>
+<span class="cstat-no" title="statement not covered" >                        return next(null);</span>
+                    }, <span class="fstat-no" title="function not covered" >function (err) {</span>
+<span class="cstat-no" title="statement not covered" >                        $log.error(err);</span>
+<span class="cstat-no" title="statement not covered" >                        return next(err);</span>
+                    });
+                }
+            };
+        }]);
+&nbsp;
+angular.module('fooforms.post').service('post', <span class="fstat-no" title="function not covered" >function () {</span>
+    'use strict';
+<span class="cstat-no" title="statement not covered" >    this.activePost = {};</span>
+<span class="cstat-no" title="statement not covered" >    this.newPost = <span class="fstat-no" title="function not covered" >function (form) {</span></span>
+<span class="cstat-no" title="statement not covered" >        this.activePost = angular.copy(form);</span>
+<span class="cstat-no" title="statement not covered" >        this.activePost.postStream = form.postStreams[0]._id || form.postStreams[0];</span>
+<span class="cstat-no" title="statement not covered" >        if (this.activePost._id) {</span>
+<span class="cstat-no" title="statement not covered" >            this.activePost.formId = this.activePost._id;</span>
+<span class="cstat-no" title="statement not covered" >            delete this.activePost._id;</span>
+        }
+<span class="cstat-no" title="statement not covered" >        return this.activePost;</span>
+    };
+&nbsp;
+<span class="cstat-no" title="statement not covered" >    this.setPost = <span class="fstat-no" title="function not covered" >function (newPost) {</span></span>
+<span class="cstat-no" title="statement not covered" >        this.activePost = newPost;</span>
+<span class="cstat-no" title="statement not covered" >        return this.activePost;</span>
+    };
+&nbsp;
+<span class="cstat-no" title="statement not covered" >    return this;</span>
+});
+&nbsp;</pre></td></tr>
+</table></pre>
+
+</div>
+<div class="footer">
+    <div class="meta">Generated by <a href="http://istanbul-js.org/" target="_blank">istanbul</a> at Tue Jun 30 2015 00:58:01 GMT+0100 (IST)</div>
+</div>
+<script src="../../prettify.js"></script>
+<script>
+window.onload = function () {
+        if (typeof prettyPrint === 'function') {
+            prettyPrint();
+        }
+};
+</script>
+<script src="../../sorter.js"></script>
+</body>
+</html>

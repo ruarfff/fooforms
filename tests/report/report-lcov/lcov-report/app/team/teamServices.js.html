@@ -1,0 +1,393 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <title>Code coverage report for app/team/teamServices.js</title>
+    <meta charset="utf-8">
+    <link rel="stylesheet" href="../../prettify.css">
+    <link rel="stylesheet" href="../../base.css">
+    <style type='text/css'>
+        div.coverage-summary .sorter {
+            background-image: url(../../sort-arrow-sprite.png);
+        }
+    </style>
+</head>
+<body>
+<div class="header low">
+    <h1>Code coverage report for <span class="entity">app/team/teamServices.js</span></h1>
+    <h2>
+        Statements: <span class="metric">6.9% <small>(4 / 58)</small></span> &nbsp;&nbsp;&nbsp;&nbsp;
+        Branches: <span class="metric">0% <small>(0 / 20)</small></span> &nbsp;&nbsp;&nbsp;&nbsp;
+        Functions: <span class="metric">4.35% <small>(1 / 23)</small></span> &nbsp;&nbsp;&nbsp;&nbsp;
+        Lines: <span class="metric">6.9% <small>(4 / 58)</small></span> &nbsp;&nbsp;&nbsp;&nbsp;
+        Ignored: <span class="metric"><span class="ignore-none">none</span></span> &nbsp;&nbsp;&nbsp;&nbsp;
+    </h2>
+    <div class="path"><a href="../../index.html">All files</a> &#187; <a href="index.html">app/team/</a> &#187; teamServices.js</div>
+</div>
+<div class="body">
+<pre><table class="coverage">
+<tr><td class="line-count">1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+19
+20
+21
+22
+23
+24
+25
+26
+27
+28
+29
+30
+31
+32
+33
+34
+35
+36
+37
+38
+39
+40
+41
+42
+43
+44
+45
+46
+47
+48
+49
+50
+51
+52
+53
+54
+55
+56
+57
+58
+59
+60
+61
+62
+63
+64
+65
+66
+67
+68
+69
+70
+71
+72
+73
+74
+75
+76
+77
+78
+79
+80
+81
+82
+83
+84
+85
+86
+87
+88
+89
+90
+91
+92
+93
+94
+95
+96
+97
+98
+99
+100
+101
+102
+103
+104
+105
+106
+107
+108
+109
+110
+111
+112
+113
+114
+115
+116
+117</td><td class="line-coverage"><span class="cline-any cline-yes">1</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1</span>
+<span class="cline-any cline-yes">1</span>
+<span class="cline-any cline-yes">1</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">angular.module('fooforms.team')
+    .factory('teamService',
+    ['$log', 'Restangular', 'session',
+        function ($log, Restangular, session) {
+            'use strict';
+            var teamApi = Restangular.all('teams');
+            var activeTeam = {};
+            return {
+                newTeam: <span class="fstat-no" title="function not covered" >function () {</span>
+<span class="cstat-no" title="statement not covered" >                    activeTeam = {displayName: 'New Team', description: ''};</span>
+<span class="cstat-no" title="statement not covered" >                    if (activeTeam._id) {</span>
+<span class="cstat-no" title="statement not covered" >                        delete activeTeam._id;</span>
+                    }
+<span class="cstat-no" title="statement not covered" >                    return activeTeam;</span>
+                },
+                setActiveTeam: <span class="fstat-no" title="function not covered" >function (team) {</span>
+<span class="cstat-no" title="statement not covered" >                    activeTeam = team;</span>
+<span class="cstat-no" title="statement not covered" >                    return activeTeam;</span>
+                },
+                createTeam: <span class="fstat-no" title="function not covered" >function (team, next) {</span>
+<span class="cstat-no" title="statement not covered" >                    if (!team.members) {</span>
+<span class="cstat-no" title="statement not covered" >                        team.members = [];</span>
+                    }
+<span class="cstat-no" title="statement not covered" >                    team.members.push(session.user._id);</span>
+<span class="cstat-no" title="statement not covered" >                    teamApi.post(team).then(<span class="fstat-no" title="function not covered" >function (teamResponse) {</span></span>
+<span class="cstat-no" title="statement not covered" >                        session.user.teams.push(teamResponse);</span>
+<span class="cstat-no" title="statement not covered" >                        session.user.put().then(<span class="fstat-no" title="function not covered" >function () {</span></span>
+<span class="cstat-no" title="statement not covered" >                            return next(null, teamResponse);</span>
+                        }, <span class="fstat-no" title="function not covered" >function (err) {</span>
+<span class="cstat-no" title="statement not covered" >                            $log.error(err);</span>
+<span class="cstat-no" title="statement not covered" >                            return next(err);</span>
+                        });
+                    }, <span class="fstat-no" title="function not covered" >function (err) {</span>
+<span class="cstat-no" title="statement not covered" >                        $log.error(err);</span>
+<span class="cstat-no" title="statement not covered" >                        return next(err);</span>
+                    });
+                },
+                updateTeam: <span class="fstat-no" title="function not covered" >function (team, next) {</span>
+<span class="cstat-no" title="statement not covered" >                    if (typeof team.put !== 'function') {</span>
+<span class="cstat-no" title="statement not covered" >                        team = Restangular.restangularizeElement(teamApi, team, '');</span>
+                    }
+<span class="cstat-no" title="statement not covered" >                    var memberIds = [];</span>
+&nbsp;
+<span class="cstat-no" title="statement not covered" >                    for (var i = 0; i &lt; team.members.length; i++) {</span>
+<span class="cstat-no" title="statement not covered" >                        var member = team.members[i];</span>
+<span class="cstat-no" title="statement not covered" >                        if (member) {</span>
+<span class="cstat-no" title="statement not covered" >                            if (member._id) {</span>
+<span class="cstat-no" title="statement not covered" >                                member = member._id;</span>
+                            }
+<span class="cstat-no" title="statement not covered" >                            memberIds.push(member);</span>
+                        }
+&nbsp;
+                    }
+&nbsp;
+<span class="cstat-no" title="statement not covered" >                    team.members = memberIds;</span>
+&nbsp;
+<span class="cstat-no" title="statement not covered" >                    team.put().then(<span class="fstat-no" title="function not covered" >function (res) {</span></span>
+<span class="cstat-no" title="statement not covered" >                        return next(null, res);</span>
+                    }, <span class="fstat-no" title="function not covered" >function (err) {</span>
+<span class="cstat-no" title="statement not covered" >                        $log.error(err);</span>
+<span class="cstat-no" title="statement not covered" >                        return next(err);</span>
+                    });
+                },
+                deleteTeam: <span class="fstat-no" title="function not covered" >function (team, next) {</span>
+<span class="cstat-no" title="statement not covered" >                    if (typeof team.remove !== 'function') {</span>
+<span class="cstat-no" title="statement not covered" >                        team = Restangular.restangularizeElement(teamApi, team, '');</span>
+                    }
+<span class="cstat-no" title="statement not covered" >                    team.remove().then(<span class="fstat-no" title="function not covered" >function () {</span></span>
+<span class="cstat-no" title="statement not covered" >                        return next(null);</span>
+                    }, <span class="fstat-no" title="function not covered" >function (err) {</span>
+<span class="cstat-no" title="statement not covered" >                        $log.error(err);</span>
+<span class="cstat-no" title="statement not covered" >                        return next(err);</span>
+                    });
+                },
+                getMembers: <span class="fstat-no" title="function not covered" >function (team, next) {</span>
+<span class="cstat-no" title="statement not covered" >                    if (team) {</span>
+<span class="cstat-no" title="statement not covered" >                        if (typeof team.getList !== 'function') {</span>
+<span class="cstat-no" title="statement not covered" >                            team = Restangular.restangularizeElement(teamApi, team, '');</span>
+                        }
+<span class="cstat-no" title="statement not covered" >                        team.getList('members').then(<span class="fstat-no" title="function not covered" >function (members) {</span></span>
+<span class="cstat-no" title="statement not covered" >                            return next(null, members);</span>
+                        }, <span class="fstat-no" title="function not covered" >function (err) {</span>
+<span class="cstat-no" title="statement not covered" >                            $log.error(err);</span>
+<span class="cstat-no" title="statement not covered" >                            return next(err);</span>
+                        });
+                    }
+                },
+                addMember: <span class="fstat-no" title="function not covered" >function (args, next) {</span>
+<span class="cstat-no" title="statement not covered" >                    if (typeof args.team.patch !== 'function') {</span>
+<span class="cstat-no" title="statement not covered" >                        args.team = Restangular.restangularizeElement(teamApi, args.team, '');</span>
+                    }
+<span class="cstat-no" title="statement not covered" >                    args.team.patch({</span>
+                        action: 'addMember',
+                        user: args.userId
+                    }).then(<span class="fstat-no" title="function not covered" >function (team) {</span>
+<span class="cstat-no" title="statement not covered" >                        return next(null, team);</span>
+                    }, <span class="fstat-no" title="function not covered" >function (err) {</span>
+<span class="cstat-no" title="statement not covered" >                        return next(err);</span>
+                    });
+                },
+                removeMember: <span class="fstat-no" title="function not covered" >function (args, next) {</span>
+<span class="cstat-no" title="statement not covered" >                    if (typeof args.team.patch !== 'function') {</span>
+<span class="cstat-no" title="statement not covered" >                        args.team = Restangular.restangularizeElement(teamApi, args.team, '');</span>
+                    }
+<span class="cstat-no" title="statement not covered" >                    args.team.patch({</span>
+                        action: 'removeMember',
+                        user: args.userId
+                    }).then(<span class="fstat-no" title="function not covered" >function (team) {</span>
+<span class="cstat-no" title="statement not covered" >                        return next(null, team);</span>
+                    }, <span class="fstat-no" title="function not covered" >function (err) {</span>
+<span class="cstat-no" title="statement not covered" >                        return next(err);</span>
+                    });
+                }
+            }
+        }]);
+&nbsp;
+&nbsp;</pre></td></tr>
+</table></pre>
+
+</div>
+<div class="footer">
+    <div class="meta">Generated by <a href="http://istanbul-js.org/" target="_blank">istanbul</a> at Tue Jun 30 2015 00:58:01 GMT+0100 (IST)</div>
+</div>
+<script src="../../prettify.js"></script>
+<script>
+window.onload = function () {
+        if (typeof prettyPrint === 'function') {
+            prettyPrint();
+        }
+};
+</script>
+<script src="../../sorter.js"></script>
+</body>
+</html>

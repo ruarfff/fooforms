@@ -1,0 +1,525 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <title>Code coverage report for app/comment/commentDirectives.js</title>
+    <meta charset="utf-8">
+    <link rel="stylesheet" href="../../prettify.css">
+    <link rel="stylesheet" href="../../base.css">
+    <style type='text/css'>
+        div.coverage-summary .sorter {
+            background-image: url(../../sort-arrow-sprite.png);
+        }
+    </style>
+</head>
+<body>
+<div class="header low">
+    <h1>Code coverage report for <span class="entity">app/comment/commentDirectives.js</span></h1>
+    <h2>
+        Statements: <span class="metric">1.25% <small>(1 / 80)</small></span> &nbsp;&nbsp;&nbsp;&nbsp;
+        Branches: <span class="metric">0% <small>(0 / 37)</small></span> &nbsp;&nbsp;&nbsp;&nbsp;
+        Functions: <span class="metric">0% <small>(0 / 13)</small></span> &nbsp;&nbsp;&nbsp;&nbsp;
+        Lines: <span class="metric">1.25% <small>(1 / 80)</small></span> &nbsp;&nbsp;&nbsp;&nbsp;
+        Ignored: <span class="metric"><span class="ignore-none">none</span></span> &nbsp;&nbsp;&nbsp;&nbsp;
+    </h2>
+    <div class="path"><a href="../../index.html">All files</a> &#187; <a href="index.html">app/comment/</a> &#187; commentDirectives.js</div>
+</div>
+<div class="body">
+<pre><table class="coverage">
+<tr><td class="line-count">1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+19
+20
+21
+22
+23
+24
+25
+26
+27
+28
+29
+30
+31
+32
+33
+34
+35
+36
+37
+38
+39
+40
+41
+42
+43
+44
+45
+46
+47
+48
+49
+50
+51
+52
+53
+54
+55
+56
+57
+58
+59
+60
+61
+62
+63
+64
+65
+66
+67
+68
+69
+70
+71
+72
+73
+74
+75
+76
+77
+78
+79
+80
+81
+82
+83
+84
+85
+86
+87
+88
+89
+90
+91
+92
+93
+94
+95
+96
+97
+98
+99
+100
+101
+102
+103
+104
+105
+106
+107
+108
+109
+110
+111
+112
+113
+114
+115
+116
+117
+118
+119
+120
+121
+122
+123
+124
+125
+126
+127
+128
+129
+130
+131
+132
+133
+134
+135
+136
+137
+138
+139
+140
+141
+142
+143
+144
+145
+146
+147
+148
+149
+150
+151
+152
+153
+154
+155
+156
+157
+158
+159
+160
+161</td><td class="line-coverage"><span class="cline-any cline-yes">1</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">angular.module('fooforms.comment')
+    .directive('fooCommentCollection', ['session',
+<span class="fstat-no" title="function not covered" >        function (session) {</span>
+<span class="cstat-no" title="statement not covered" >            return {</span>
+                restrict: 'E',
+                scope: {
+                    activePost: '=activePost',
+                    activeForm: '=activeForm'
+                },
+                transclude: true,
+&nbsp;
+                controller: <span class="fstat-no" title="function not covered" >function ($log, $scope, _, commentService) {</span>
+<span class="cstat-no" title="statement not covered" >                    var currentPage = 0;</span>
+<span class="cstat-no" title="statement not covered" >                    var pageSize = 10;</span>
+<span class="cstat-no" title="statement not covered" >                    var hasMore = true;</span>
+&nbsp;
+<span class="cstat-no" title="statement not covered" >                    $scope.comment = {};</span>
+<span class="cstat-no" title="statement not covered" >                    $scope.comments = [];</span>
+<span class="cstat-no" title="statement not covered" >                    $scope.postTitle ='';</span>
+<span class="cstat-no" title="statement not covered" >                    $scope.fetchingComments=false;</span>
+<span class="cstat-no" title="statement not covered" >                    $scope.showCommentButton = false;</span>
+&nbsp;
+<span class="cstat-no" title="statement not covered" >                    $scope.$watch('activePost', <span class="fstat-no" title="function not covered" >function (newValue, oldValue) {</span></span>
+<span class="cstat-no" title="statement not covered" >                        if (newValue &amp;&amp; (newValue.commentStream != oldValue.commentStream)) {</span>
+<span class="cstat-no" title="statement not covered" >                            currentPage = 0;</span>
+<span class="cstat-no" title="statement not covered" >                            pageSize = 10;</span>
+<span class="cstat-no" title="statement not covered" >                            hasMore = true;</span>
+&nbsp;
+<span class="cstat-no" title="statement not covered" >                            $scope.comment = {};</span>
+<span class="cstat-no" title="statement not covered" >                            $scope.comments = [];</span>
+<span class="cstat-no" title="statement not covered" >                            $scope.postTitle ='';</span>
+&nbsp;
+<span class="cstat-no" title="statement not covered" >                            getComments(currentPage, pageSize, $scope.activePost.commentStream);</span>
+                        }
+                    });
+&nbsp;
+&nbsp;
+<span class="cstat-no" title="statement not covered" >                    var getComments = <span class="fstat-no" title="function not covered" >function (page, pageSize, stream) {</span></span>
+<span class="cstat-no" title="statement not covered" >                        $scope.fetchingComments=true;</span>
+&nbsp;
+<span class="cstat-no" title="statement not covered" >                        if (stream) {</span>
+<span class="cstat-no" title="statement not covered" >                            commentService.listByStream({</span>
+                                commentStream: stream,
+                                page: page,
+                                pageSize: pageSize
+                            }, <span class="fstat-no" title="function not covered" >function (err, comments) {</span>
+<span class="cstat-no" title="statement not covered" >                                if (err) {</span>
+<span class="cstat-no" title="statement not covered" >                                    $log.error(err);</span>
+                                }
+<span class="cstat-no" title="statement not covered" >                                if (comments) {</span>
+<span class="cstat-no" title="statement not covered" >                                    $scope.fetchingComments=false;</span>
+<span class="cstat-no" title="statement not covered" >                                    hasMore = comments.has_more;</span>
+<span class="cstat-no" title="statement not covered" >                                    $scope.comments = $scope.comments.concat(comments);</span>
+<span class="cstat-no" title="statement not covered" >                                    getPostTitle();</span>
+                                }
+&nbsp;
+                            });
+&nbsp;
+                        } else {
+<span class="cstat-no" title="statement not covered" >                            $log.debug('Could not load comments. No comment stream provided.');</span>
+<span class="cstat-no" title="statement not covered" >                            $scope.fetchingComments=false;</span>
+                        }
+                    };
+&nbsp;
+&nbsp;
+<span class="cstat-no" title="statement not covered" >                    var getPostTitle = <span class="fstat-no" title="function not covered" >function(){</span></span>
+<span class="cstat-no" title="statement not covered" >                        var postForm={};</span>
+<span class="cstat-no" title="statement not covered" >                        $scope.titles=[];</span>
+&nbsp;
+<span class="cstat-no" title="statement not covered" >                        if (!$scope.activeForm || ($scope.activePost.postStream !== $scope.activeForm.postStreams[0])) {</span>
+<span class="cstat-no" title="statement not covered" >                            postForm = _.find(session.forms, <span class="fstat-no" title="function not covered" >function (form) {</span></span>
+<span class="cstat-no" title="statement not covered" >                                return form.postStreams[0]== $scope.activePost.postStream;</span>
+                            });
+                        }else{
+<span class="cstat-no" title="statement not covered" >                            postForm =$scope.activeForm ;</span>
+&nbsp;
+                        }
+<span class="cstat-no" title="statement not covered" >                        var titles = _.where(postForm.fields, {'showInList': true});</span>
+&nbsp;
+&nbsp;
+<span class="cstat-no" title="statement not covered" >                        var fieldCount = titles.length;</span>
+&nbsp;
+<span class="cstat-no" title="statement not covered" >                        for (var i=0;i&lt;fieldCount;i++){</span>
+&nbsp;
+<span class="cstat-no" title="statement not covered" >                            var postField = _.where($scope.activePost.fields, {'id': titles[i].id});</span>
+&nbsp;
+<span class="cstat-no" title="statement not covered" >                            if (postField.length&gt;0 &amp;&amp; postField[0].type!=='status'){</span>
+&nbsp;
+<span class="cstat-no" title="statement not covered" >                                    $scope.titles.push(postField[0]);</span>
+                                }
+&nbsp;
+                        }
+                    };
+&nbsp;
+&nbsp;
+<span class="cstat-no" title="statement not covered" >                    $scope.addMore = <span class="fstat-no" title="function not covered" >function () {</span></span>
+<span class="cstat-no" title="statement not covered" >                        if (hasMore) {</span>
+<span class="cstat-no" title="statement not covered" >                            currentPage = currentPage + 1;</span>
+<span class="cstat-no" title="statement not covered" >                            getComments(currentPage, pageSize, $scope.activePost.commentStream);</span>
+                        }
+                    };
+&nbsp;
+<span class="cstat-no" title="statement not covered" >                    $scope.postComment = <span class="fstat-no" title="function not covered" >function () {</span></span>
+<span class="cstat-no" title="statement not covered" >                        try {</span>
+<span class="cstat-no" title="statement not covered" >                            if ($scope.comment.content) {</span>
+<span class="cstat-no" title="statement not covered" >                                $scope.comment.commentStream = $scope.activePost.commentStream;</span>
+<span class="cstat-no" title="statement not covered" >                                commentService.create($scope.comment, <span class="fstat-no" title="function not covered" >function (err, comment) {</span></span>
+<span class="cstat-no" title="statement not covered" >                                    if (err) {</span>
+<span class="cstat-no" title="statement not covered" >                                        $log.error(err);</span>
+                                    }
+<span class="cstat-no" title="statement not covered" >                                    if (comment) {</span>
+<span class="cstat-no" title="statement not covered" >                                        comment.commenter = {photo: session.user.photo};</span>
+<span class="cstat-no" title="statement not covered" >                                        $scope.comments.unshift(comment);</span>
+<span class="cstat-no" title="statement not covered" >                                        $scope.comment = {};</span>
+                                    }
+                                });
+                            }
+                        } catch (err) {
+<span class="cstat-no" title="statement not covered" >                            $log.error(err);</span>
+                        }
+                    };
+<span class="cstat-no" title="statement not covered" >                    $scope.likePost = <span class="fstat-no" title="function not covered" >function () {</span></span>
+<span class="cstat-no" title="statement not covered" >                        try {</span>
+<span class="cstat-no" title="statement not covered" >                            var comment = {};</span>
+<span class="cstat-no" title="statement not covered" >                            var user = "";</span>
+<span class="cstat-no" title="statement not covered" >                            if (session.user.name &amp;&amp; session.user.name.givenName &amp;&amp; session.user.name.familyName) {</span>
+<span class="cstat-no" title="statement not covered" >                                user = session.user.name.givenName + ' ' + session.user.name.familyName;</span>
+                            }else{
+<span class="cstat-no" title="statement not covered" >                                user = session.user.displayName;</span>
+                            }
+&nbsp;
+<span class="cstat-no" title="statement not covered" >                            comment.content= user + " likes this...";</span>
+<span class="cstat-no" title="statement not covered" >                            comment.commentStream = $scope.activePost.commentStream;</span>
+<span class="cstat-no" title="statement not covered" >                            commentService.create(comment, <span class="fstat-no" title="function not covered" >function (err, comment) {</span></span>
+<span class="cstat-no" title="statement not covered" >                                if (err) {</span>
+<span class="cstat-no" title="statement not covered" >                                    $log.error(err);</span>
+                                }
+<span class="cstat-no" title="statement not covered" >                                if (comment) {</span>
+<span class="cstat-no" title="statement not covered" >                                    comment.commenter = {photo: session.user.photo};</span>
+<span class="cstat-no" title="statement not covered" >                                    $scope.comments.unshift(comment);</span>
+<span class="cstat-no" title="statement not covered" >                                    $scope.comment = {};</span>
+                                }
+                            });
+&nbsp;
+                        } catch (err) {
+<span class="cstat-no" title="statement not covered" >                            $log.error(err);</span>
+                        }
+                    };
+&nbsp;
+<span class="cstat-no" title="statement not covered" >                    $scope.toggleCommentBox = <span class="fstat-no" title="function not covered" >function(){</span></span>
+&nbsp;
+<span class="cstat-no" title="statement not covered" >                        $scope.showCommentButton = !!(!$scope.showCommentButton || $scope.comment.content);</span>
+&nbsp;
+                    }
+&nbsp;
+                },
+                templateUrl: '/template/comment/foo-comment-collection.html'
+            };
+        }
+    ]);
+&nbsp;</pre></td></tr>
+</table></pre>
+
+</div>
+<div class="footer">
+    <div class="meta">Generated by <a href="http://istanbul-js.org/" target="_blank">istanbul</a> at Tue Jun 30 2015 00:58:01 GMT+0100 (IST)</div>
+</div>
+<script src="../../prettify.js"></script>
+<script>
+window.onload = function () {
+        if (typeof prettyPrint === 'function') {
+            prettyPrint();
+        }
+};
+</script>
+<script src="../../sorter.js"></script>
+</body>
+</html>

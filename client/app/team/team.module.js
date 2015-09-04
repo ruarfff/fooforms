@@ -1,1 +1,6 @@
-angular.module('fooforms.team', ['lodash']);
+angular.module('fooforms.team', [
+    'ngRoute',
+    'lodash',
+    'restangular',
+    'fooforms.session'
+]);

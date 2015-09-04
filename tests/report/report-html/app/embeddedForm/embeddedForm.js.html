@@ -1,0 +1,321 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <title>Code coverage report for app/embeddedForm/embeddedForm.js</title>
+    <meta charset="utf-8">
+    <link rel="stylesheet" href="../../prettify.css">
+    <link rel="stylesheet" href="../../base.css">
+    <style type='text/css'>
+        div.coverage-summary .sorter {
+            background-image: url(../../sort-arrow-sprite.png);
+        }
+    </style>
+</head>
+<body>
+<div class="header low">
+    <h1>Code coverage report for <span class="entity">app/embeddedForm/embeddedForm.js</span></h1>
+    <h2>
+        Statements: <span class="metric">2.5% <small>(1 / 40)</small></span> &nbsp;&nbsp;&nbsp;&nbsp;
+        Branches: <span class="metric">0% <small>(0 / 12)</small></span> &nbsp;&nbsp;&nbsp;&nbsp;
+        Functions: <span class="metric">0% <small>(0 / 12)</small></span> &nbsp;&nbsp;&nbsp;&nbsp;
+        Lines: <span class="metric">2.5% <small>(1 / 40)</small></span> &nbsp;&nbsp;&nbsp;&nbsp;
+        Ignored: <span class="metric"><span class="ignore-none">none</span></span> &nbsp;&nbsp;&nbsp;&nbsp;
+    </h2>
+    <div class="path"><a href="../../index.html">All files</a> &#187; <a href="index.html">app/embeddedForm/</a> &#187; embeddedForm.js</div>
+</div>
+<div class="body">
+<pre><table class="coverage">
+<tr><td class="line-count">1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+19
+20
+21
+22
+23
+24
+25
+26
+27
+28
+29
+30
+31
+32
+33
+34
+35
+36
+37
+38
+39
+40
+41
+42
+43
+44
+45
+46
+47
+48
+49
+50
+51
+52
+53
+54
+55
+56
+57
+58
+59
+60
+61
+62
+63
+64
+65
+66
+67
+68
+69
+70
+71
+72
+73
+74
+75
+76
+77
+78
+79
+80
+81
+82
+83
+84
+85
+86
+87
+88
+89
+90
+91
+92
+93</td><td class="line-coverage"><span class="cline-any cline-yes">1</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">var FooForm = angular.module('FooForm', ['ngSanitize', 'pikaday', 'textAngular'])
+    .config(<span class="fstat-no" title="function not covered" >function ($sceDelegateProvider) {</span>
+<span class="cstat-no" title="statement not covered" >        $sceDelegateProvider.resourceUrlWhitelist([</span>
+            // Allow same origin resource loads.
+            'self',
+            // Allow loading from our assets domain.  Notice the difference between * and **.
+            'https://fooforms.com/**'
+        ])
+    })
+    .controller('FormCtrl', ['$scope', '$http', '$location', '$timeout', <span class="fstat-no" title="function not covered" >function ($scope, $http, $location, $timeout) {</span>
+<span class="cstat-no" title="statement not covered" >        var path = $location.absUrl().split('/');</span>
+<span class="cstat-no" title="statement not covered" >        var formPart = path[path.length - 1];</span>
+<span class="cstat-no" title="statement not covered" >        var formId = (window.hasOwnProperty('formId')) ? window.formId : formPart;</span>
+<span class="cstat-no" title="statement not covered" >        var resizeCount = 0;</span>
+<span class="cstat-no" title="statement not covered" >        var hostEnv = (window.location.hostname === 'localhost') ? 'localhost:3000' : 'fooforms.com';</span>
+<span class="cstat-no" title="statement not covered" >        var url = 'https://' + hostEnv + '/forms/repo/fetch/' + formId;</span>
+<span class="cstat-no" title="statement not covered" >        var postUrl = 'https://' + hostEnv + '/forms/repo/post';</span>
+&nbsp;
+&nbsp;
+<span class="cstat-no" title="statement not covered" >        $scope.sorted = false;</span>
+<span class="cstat-no" title="statement not covered" >        $scope.errorPosting = false;</span>
+&nbsp;
+&nbsp;
+<span class="cstat-no" title="statement not covered" >        $scope.doResize = <span class="fstat-no" title="function not covered" >function () {</span></span>
+<span class="cstat-no" title="statement not covered" >            if (typeof parent.resizeIframe === "function") {</span>
+<span class="cstat-no" title="statement not covered" >                resizeCount++;</span>
+<span class="cstat-no" title="statement not covered" >                if (resizeCount &lt; 10) {</span>
+<span class="cstat-no" title="statement not covered" >                    var height = angular.element('#formLayout').height();</span>
+<span class="cstat-no" title="statement not covered" >                    parent.resizeIframe(formId, height);</span>
+<span class="cstat-no" title="statement not covered" >                    $timeout($scope.doResize(), 500);</span>
+                }
+            }
+        };
+&nbsp;
+<span class="cstat-no" title="statement not covered" >        $http({</span>
+            url: url,
+            method: 'GET'
+        }).success(<span class="fstat-no" title="function not covered" >function (data) {</span>
+<span class="cstat-no" title="statement not covered" >            var form = data;</span>
+&nbsp;
+<span class="cstat-no" title="statement not covered" >            $scope.post = angular.copy(form);</span>
+&nbsp;
+<span class="cstat-no" title="statement not covered" >            $scope.post.postStream = form.postStreams[0]._id || form.postStreams[0];</span>
+<span class="cstat-no" title="statement not covered" >            if ($scope.post._id) {</span>
+<span class="cstat-no" title="statement not covered" >                delete $scope.post._id;</span>
+            }
+&nbsp;
+        }).error(<span class="fstat-no" title="function not covered" >function (data, status) {</span>
+<span class="cstat-no" title="statement not covered" >            $scope.error = status;</span>
+        });
+<span class="cstat-no" title="statement not covered" >        $scope.submit = <span class="fstat-no" title="function not covered" >function () {</span></span>
+<span class="cstat-no" title="statement not covered" >            $scope.processing = true;</span>
+<span class="cstat-no" title="statement not covered" >            $http({</span>
+                url: postUrl,
+                method: "POST",
+                data: $scope.post,
+                headers: {'Content-Type': 'application/json'}
+            }).success(<span class="fstat-no" title="function not covered" >function () {</span>
+<span class="cstat-no" title="statement not covered" >                $scope.sorted = true;</span>
+<span class="cstat-no" title="statement not covered" >                $scope.$apply();</span>
+<span class="cstat-no" title="statement not covered" >                $scope.doResize();</span>
+            }).error(<span class="fstat-no" title="function not covered" >function (data, status) {</span>
+<span class="cstat-no" title="statement not covered" >                $scope.sorted = false;</span>
+<span class="cstat-no" title="statement not covered" >                $scope.errorPosting = true;</span>
+<span class="cstat-no" title="statement not covered" >                $scope.status = status;</span>
+<span class="cstat-no" title="statement not covered" >                $scope.$apply();</span>
+            });
+        };
+    }])
+    .directive('compile', ['$compile', <span class="fstat-no" title="function not covered" >function ($compile) {</span>
+        'use strict';
+        // directive factory creates a link function
+<span class="cstat-no" title="statement not covered" >        return <span class="fstat-no" title="function not covered" >function (scope, element, attrs) {</span></span>
+<span class="cstat-no" title="statement not covered" >            scope.$watch(</span>
+<span class="fstat-no" title="function not covered" >                function (scope) {</span>
+                    // watch the 'compile' expression for changes
+<span class="cstat-no" title="statement not covered" >                    return scope.$eval(attrs.compile);</span>
+                },
+<span class="fstat-no" title="function not covered" >                function (value) {</span>
+                    // when the 'compile' expression changes
+                    // assign it into the current DOM
+<span class="cstat-no" title="statement not covered" >                    element.html(value);</span>
+&nbsp;
+                    // compile the new DOM and link it to the current
+                    // scope.
+                    // NOTE: we only compile .childNodes so that
+                    // we don't get into infinite loop compiling ourselves
+<span class="cstat-no" title="statement not covered" >                    $compile(element.contents())(scope);</span>
+                }
+            );
+        };
+    }]);
+&nbsp;</pre></td></tr>
+</table></pre>
+
+</div>
+<div class="footer">
+    <div class="meta">Generated by <a href="http://istanbul-js.org/" target="_blank">istanbul</a> at Tue Jun 30 2015 00:58:01 GMT+0100 (IST)</div>
+</div>
+<script src="../../prettify.js"></script>
+<script>
+window.onload = function () {
+        if (typeof prettyPrint === 'function') {
+            prettyPrint();
+        }
+};
+</script>
+<script src="../../sorter.js"></script>
+</body>
+</html>
