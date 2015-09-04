@@ -1,0 +1,18 @@
+<div class="form-group clearfix">
+    <label>{{subField.label}}
+        <i class="fa fa-question-circle"
+           ng-hide="!subField.userInstructions"
+           popover="{{subField.userInstructions}}"
+           popover-trigger="mouseenter"></i>
+    </label>
+
+    <div class="input-group" ng-style="{'width': subField.size+'%'}">
+        <button class="btn m5 mt0 btn-default"
+                ng-repeat='option in subField.options'
+                ng-click="subField.selected=option.label">
+            <i class="fa fa-check-circle text-success" ng-show="subField.selected == option.label"></i>
+            {{option.label}}
+        </button>
+
+    </div>
+</div>

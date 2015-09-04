@@ -1,5 +1,6 @@
 <div class="form-group clearfix">
-    <label for="{{formField.id}}">{{formField.label}}
+    <label for="{{formField.id}}">{{formField.label}}<i class="fa fa-asterisk foo-required"
+                                                        ng-show="formField.required"></i>
         <i class="fa fa-question-circle"
            ng-hide="!formField.userInstructions"
            popover="{{formField.userInstructions}}"
@@ -8,11 +9,11 @@
     </label>
 
     <div class="input-group" ng-style="{'width': formField.size+'%'}">
-        <span class="input-group-addon" ng-show="formField.required">*</span>
         <select class="form-control"
                id="{{formField.id}}"
                ng-model="formField.value"
-               ng-show="formField.options!='Profile'">
+                ng-show="formField.options!='Profile'"
+                ng-required="formField.required">
         <option ng-repeat="member in members">{{member.name.givenName + ' ' + member.name.familyName }} ({{member.displayName}})</option>
         </select>
         <div class="button-group" ng-show="formField.options=='Profile'">

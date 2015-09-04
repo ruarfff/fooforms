@@ -10,7 +10,8 @@
             <ul class="list-group" ng-show="form.url">
 
                 <li class="list-group-item">
-                    <h4 class="list-group-item-heading bg-info text-info p10"><i class="fa fa-link"></i> Online Link to this Form</h4>
+                    <h4 class="list-group-item-heading bg-info text-info p10"><i class="fa fa-link"></i> Public Link to
+                        this Form</h4>
 
                     <p class="list-group-item-text">
                         Share the link below in emails, etc. to give anyone access to your form.<br>
@@ -36,6 +37,10 @@
                     </p><strong>
 <textarea class='form-control p10 m5 zoomBox'><script  type="text/javascript" id="{{form._id}}" src="https://fooforms.com/forms/repo/js/{{form._id}}"></script>
 </textarea></strong>
+
+                    <h5>Embed URL<br><a href="https://fooforms.com/forms/repo/embed/{{form._id}}" target="_new">https://fooforms.com/forms/repo/embed/{{form._id}}</a>
+                    </h5>
+
                 </li>
 
                 <li class="list-group-item">

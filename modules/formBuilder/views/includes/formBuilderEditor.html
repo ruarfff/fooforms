@@ -22,7 +22,7 @@
                      ng-repeat="formField in form.fields track by $index"
                      ng-show="formField.name"
                      ng-click="editField($index,null,'Field', $event)"
-                     ng-class="{ 'bg-info': $index == nowEditing , 'dropped' : $index == dropped}">
+                     ng-class="{ 'bg-info': $index == nowEditing , 'dropped' : $index == dropped, 'inlineFormFields': form.settings.displayOptions.inlineFormFields}">
                     <div class="btn-group pull-right onTop">
 
                         <button ng-click="editField($index, null, 'Field', $event)"

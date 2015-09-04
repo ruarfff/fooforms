@@ -9,12 +9,40 @@
   width: 100px;
 }
 
+.ng-invalid-required.ng-touched {
+    border: 1px solid #c84041;
+    background: rgba(200, 64, 65, 0.05) !important;
+    box-shadow: 0px 0px 3px 1px rgba(200, 64, 65, 0.76);
+}
+
+label i.fa.foo-required {
+    font-size: 1em;
+    color: #c84041;
+    -ms-transform: scale(.55, .55); /* IE 9 */
+    -webkit-transform: scale(.55, .55); /* Safari */
+    transform: scale(.55, .55);
+    margin: 0px;
+    padding: 0px;
+}
+
+.inlineFormFields div.form-group label, .inlineFormFields fieldset div.form-group label {
+    display: inline-block;
+    text-align: right;
+    width: 20%;
+    margin-top: 8px;
+}
+
+.inlineFormFields div.form-group div.input-group, .inlineFormFields fieldset div.form-group div.input-group {
+    display: inline-block;
+    float: right;
+    width: 79% !important;
+}
+
 .panel-foo-post {
-  border: 1px solid rgb(204, 200, 185);
+    border: 1px solid rgb(204, 200, 185);
     border-bottom-width: 2px;
 
 }
-
 .panel-foo-post .post-user-img {
   width: 32px;
   height: 32px;
@@ -26,7 +54,7 @@
 
 .panel-foo-post .panel-heading {
     color: #fff;
-  background: #3d4b5b;
+    background: #738e96;
   line-height: 16px;
 }
 
@@ -98,6 +126,7 @@
   display: table-cell;
 }
 
+
 .panel-foo-feed .feed-title {
   font-weight: 300;
   font-size: 1.2em;
@@ -113,6 +142,7 @@
   font-weight: 300;
   display: inline;
 }
+
 
 .panel-foo-feed .text-smaller, .panel-foo-list .text-smaller {
   font-weight: 300;
@@ -133,7 +163,6 @@
     border-radius: 50%;
     border: 1px solid #DAE3E5;
 }
-
 .panel-foo-feed .post-user-img {
   width: 38px;
   height: 38px;
@@ -157,7 +186,6 @@
   padding: 0px !important;
   border: 1px solid rgba(204, 200, 185, .7);
 }
-
 .panel-foo-feed .panel-heading, .panel-foo-list .panel-heading {
   color: #63768C !important;
     min-height: 30px;
@@ -228,6 +256,7 @@ label.label-foo-title i {
   overflow: hidden;
 }
 
+
 @keyframes delete {
   50% {
     left: 0;
@@ -239,7 +268,6 @@ label.label-foo-title i {
     left: -200%;
   }
 }
-
 @-webkit-keyframes delete {
   50% {
     left: 0;
@@ -279,7 +307,6 @@ label.label-foo-title i {
   border: 1px solid #DAE3E5;
 
 }
-
 .comment .text-muted {
   font-size: .9em;
 }
@@ -301,7 +328,6 @@ label.label-foo-title i {
   font-weight: 400;
 
 }
-
 .comment .post-user-img {
   width: 38px;
   height: 38px;
@@ -361,7 +387,7 @@ label.label-foo-title i {
   @media screen and (max-width: 580px) {
     padding: 2px 12px;
     display: block;
-  }
+}
 }
 
 .foo-grid th .text-muted {
@@ -394,13 +420,12 @@ label.label-foo-title i {
 
   background: rgba(226, 244, 198, 0.36) !important;
 }
-
 .foo-grid tr.active {
+
 
   border-left: 3px solid rgb(138, 223, 33) !important;
 
 }
-
 .foo-grid th input {
   padding: 5px;
   font-size: 10px;

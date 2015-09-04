@@ -67,6 +67,7 @@ module.exports = function (grunt) {
                 'bower/textAngular/dist/textAngular-rangy.min.js',
                 'bower/pikaday/pikaday.js',
                 'public/js/app/common/pikadayDirective.js',
+                'bower/lodash/dist/lodash.min.js',
                 'public/js/app/embeddedForm/embeddedForm.js'
             ],
             dest: 'public/js/embedded-form.min.js'

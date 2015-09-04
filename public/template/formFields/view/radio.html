@@ -1,5 +1,5 @@
 <div class="form-group clearfix">
-    <label>{{formField.label}}
+    <label>{{formField.label}}<i class="fa fa-asterisk foo-required" ng-show="formField.required"></i>
         <i class="fa fa-question-circle"
            ng-hide="!formField.userInstructions"
            popover="{{formField.userInstructions}}"
@@ -10,7 +10,11 @@
     <div class="input-group" ng-style="{'width': formField.size+'%'}">
         <label ng-class="{ 'radio-inline': formField.settings.display == 'Inline' ,'radio ml5' : formField.settings.display == 'Stacked'}"
                ng-repeat='option in formField.options track by $index'>
-            <input type="radio" name="{{formField.id}}" ng-model="formField.selected" ng-value="option.label">{{option.label}}
+            <input type="radio"
+                   ng-required="formField.required"
+                   name="{{formField.id}}"
+                   ng-model="formField.selected"
+                   ng-value="option.label">{{option.label}}
         </label>
 
 
