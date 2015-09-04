@@ -70,6 +70,7 @@ angular.module('fooforms.form')
                             "tandcWeb": false,
                             "tandcHtml": '',
                             "displayOptions": {
+                                "color": "#94b5c3",
                                 "feed": true,
                                 "list": true,
                                 "grid": true,

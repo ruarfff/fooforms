@@ -527,6 +527,44 @@ angular.module('fooforms.post')
             templateUrl: '/template/post/feed-body.html'
         };
 
-    }]);
+    }])
+    .directive('fooPostCalendar', [
+        function () {
+            return {
+                require: '?^fooPostCalendar',
+                restrict: 'E',
+                scope: {
+                    posts: '=posts',
+                    activePost: '=activePost',
+                    activeForm: '=activeForm',
+                    status: '=status',
+                    deletingPostId: '=deletingPostId',
+                    showPostForm: '=showPostForm'
+                },
+                controller: function ($scope, Session, $timeout, Restangular) {
+                    $scope.selectPost = function (post) {
+                        if ($scope.showPostForm && $scope.activePost._id === post._id) {
+                            $scope.showPostForm = false;
+                        } else {
+                            $scope.activePost = false;
+
+                            $timeout(function () {
+                                $scope.activePost = Restangular.copy(post);
+                                $scope.showPostForm = true;
+
+                                $scope.activeForm = _.find(Session.forms, function (form) {
+                                    return _.indexOf(form.postStreams, $scope.activePost.postStream) > -1 ? true : false;
+                                });
+                            }, 0);
+
+
+                        }
+                    };
+                },
+                link: function (scope, element, attrs, postCollectionCtrl) {
+                },
+                templateUrl: '/template/post/foo-post-calendar.html'
+            };
+        }]);
 
 

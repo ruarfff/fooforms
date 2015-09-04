@@ -316,6 +316,9 @@ angular.module('fooforms.formBuilder')
 
             };
 
+            $scope.reloadPreview = function(){
+                document.getElementById('previewPane').src = document.getElementById('previewPane').src;
+            };
             //Icon Selection -  Modal Dialog
             $scope.open = function () {
 
@@ -440,6 +443,7 @@ angular.module('fooforms.formBuilder')
                                 } else {
                                     session.user.defaultFolder.forms[index] = $scope.form;
                                 }
+                                document.getElementById('previewPane').src = document.getElementById('previewPane').src;
                                 SweetAlert.swal('Saved!', 'Your form has been updated.', 'success');
                             }
                         });
@@ -586,8 +590,8 @@ angular.module('fooforms.formBuilder')
             }
         ]);
 
-        $provide.decorator('taOptions', ['taRegisterTool', '$delegate', '$timeout', '$injector', '$compile',
-            function (taRegisterTool, taOptions, $timeout, $injector, $compile) {
+        $provide.decorator('taOptions', ['taRegisterTool','textAngularManager' ,'$delegate', '$timeout', '$injector', '$compile',
+            function (taRegisterTool, textAngularManager,taOptions, $timeout, $injector, $compile) {
 
                 //var $editor;
                 // $rootScope.$on('someEvent', function(event, mass) {
@@ -597,60 +601,15 @@ angular.module('fooforms.formBuilder')
                 var rScope = $injector.get('$rootScope');
                 if (rScope) {
                     rScope.$on('insertFooField', function (event, field) {
+                        var insertValue =  "&nbsp;<label id='" + field.id + "' class='fooField-embed disable-text-selection label label-warning'>" +field.label + "</label>&nbsp;";
 
+                        var editor = textAngularManager.retrieveEditor('htmlEmailEditor').scope;
+                                            editor.wrapSelection('insertHTML', insertValue, true);
 
-                        function insertTextAtCursor(node) {
-                            var sel, range, html;
-                            if (window.getSelection) {
-                                sel = window.getSelection();
-                                if (sel.getRangeAt && sel.rangeCount) {
-                                    range = sel.getRangeAt(0);
-                                    range.collapse(false);
-                                    var intersects = range.intersectsNode(angular.element(".ta-editor")[0]);
-                                    if (intersects) {
-                                        range.insertNode(node);
-                                    }
-                                }
-                            } else if (document.selection && document.selection.createRange) {
-                                range = document.selection.createRange();
-                                html = (node.nodeType == 3) ? node.data : node.outerHTML;
-                                range.pasteHTML(html);
-                            }
-                        }
-
-
-                        function moveCaret(charCount) {
-                            var sel, range;
-                            if (window.getSelection) {
-                                sel = window.getSelection();
-                                if (sel.rangeCount > 0) {
-                                    var textNode = sel.focusNode;
-                                    sel.collapse(textNode.nextSibling, charCount);
-                                }
-                            } else if ((sel = window.document.selection)) {
-                                if (sel.type != "Control") {
-                                    range = sel.createRange();
-                                    range.move("character", charCount);
-                                    range.select();
-                                }
-                            }
-                        }
-
-                        var fooField = document.createElement("label");
-                        var t = document.createTextNode(field.label);
-                        var space = document.createTextNode("\u00a0");
-
-                        fooField.appendChild(t);
-
-                        var att = document.createAttribute("class");
-                        att.value = "fooField-embed disable-text-selection label label-warning";
-                        fooField.setAttributeNode(att);
-                        fooField.setAttribute("id", field.id);
-
-                        insertTextAtCursor(space);
-                        insertTextAtCursor(fooField);
-
-                        //return moveCaret(1);
+                        $timeout(function(){
+                            var e = angular.element($('.ta-resizer-handle-background')).next()[0];
+                            e.focus();
+                        },1000);
 
                     });
                 }
@@ -671,6 +630,7 @@ var ModalEditorCtrl = function ($scope, $modalInstance, fieldData, form) {
     $scope.form = form;
 
     $scope.addFooField = function (field) {
+
 
         $scope.$emit('insertFooField', field);
 
