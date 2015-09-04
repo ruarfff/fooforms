@@ -1,7 +1,7 @@
 #spinner {
   position: fixed;
   z-index: 100000;
-  background: rgba(0,0,0,1);
+    background: rgba(0, 0, 0, 1);
   top: 50%;
   left: 50%;
   display: block;
@@ -9,61 +9,62 @@
   width: 100px;
 }
 
-.ng-invalid-required.ng-touched{
-  border: 1px solid #c84041;
-  background: rgba(200, 64, 65, 0.05) !important;
-  box-shadow: 0px 0px 3px 1px rgba(200, 64, 65, 0.76);
+.ng-invalid-required.ng-touched {
+    border: 1px solid #c84041;
+    background: rgba(200, 64, 65, 0.05) !important;
+    box-shadow: 0px 0px 3px 1px rgba(200, 64, 65, 0.76);
 }
 
-label i.fa.foo-required{
-  font-size: 1em;
-  color:  #c84041 ;
-  -ms-transform: scale(.55,.55); /* IE 9 */
-  -webkit-transform: scale(.55,.55); /* Safari */
-  transform: scale(.55,.55);
-  margin: 0px ;
-  padding: 0px;
+label i.fa.foo-required {
+    font-size: 1em;
+    color: #c84041;
+    -ms-transform: scale(.55, .55); /* IE 9 */
+    -webkit-transform: scale(.55, .55); /* Safari */
+    transform: scale(.55, .55);
+    margin: 0px;
+    padding: 0px;
 }
 
-.inlineFormFields div.form-group label , .inlineFormFields fieldset div.form-group label{
-  display: inline-block;
-  text-align: right;
-width: 20%;
-  margin-top: 8px;
+.inlineFormFields div.form-group label, .inlineFormFields fieldset div.form-group label {
+    display: inline-block;
+    text-align: right;
+    width: 20%;
+    margin-top: 8px;
 }
 
-.inlineFormFields div.form-group div.input-group, .inlineFormFields fieldset div.form-group div.input-group{
-  display: inline-block;
-  float: right;
-  width: 79% !important;
+.inlineFormFields div.form-group div.input-group, .inlineFormFields fieldset div.form-group div.input-group {
+    display: inline-block;
+    float: right;
+    width: 79% !important;
 }
 
-.panel-foo-post{
-  border: 1px solid rgb(204, 200, 185);
-border-bottom-width: 2px;
+.panel-foo-post {
+    border: 1px solid rgb(204, 200, 185);
+    border-bottom-width: 2px;
 
 }
 .panel-foo-post .post-user-img {
   width: 32px;
   height: 32px;
-  box-shadow:   1px 1px 1px  rgba(0,0,0,.4)  ;
+    box-shadow: 1px 1px 1px rgba(0, 0, 0, .4);
   float: left;
   vertical-align: middle;
   margin-right: 5px;
 }
 
-.panel-foo-post .panel-heading{
-color: #fff;
-  background: #738e96;
+.panel-foo-post .panel-heading {
+    color: #fff;
+    background: #738e96;
   line-height: 16px;
 }
-.panel-foo-post label{
+
+.panel-foo-post label {
   color: #63768C !important;
   font-weight: 400;
 }
 
-.panel-foo-feed{
-display: block;
+.panel-foo-feed {
+    display: block;
   margin: 10px !important;
   border-radius: 0px;
   word-wrap: break-word;
@@ -80,7 +81,7 @@ display: block;
   vertical-align: top;
 }
 
-.panel-foo-feed .panel-body{
+.panel-foo-feed .panel-body {
   margin: 0px 38px 0px 42px;
   padding: 0px;
   font-weight: 400;
@@ -88,21 +89,21 @@ display: block;
   color: #5b5b5b !important;
   text-shadow: none;
 }
-.panel-foo-feed .panel-footer{
+
+.panel-foo-feed .panel-footer {
   display: block;
-  margin: 10px 0px 0px 0px  !important;
-color: #888;
+    margin: 10px 0px 0px 0px !important;
+    color: #888;
   font-weight: 400;
   line-height: 18px;
   border-radius: 0px;
   box-shadow: none;
   background: #f7f9fa !important;
 
-  border-top: 1px dashed #ced7da !important;
-;
+    border-top: 1px dashed #ced7da !important;;
 }
 
-.panel-foo-feed .panel-footer a{
+.panel-foo-feed .panel-footer a {
   color: #6b8cff;
 }
 
@@ -136,7 +137,8 @@ color: #888;
   vertical-align: middle;
   height: 44px !important;
 }
-.panel-foo-feed .feed-title h3{
+
+.panel-foo-feed .feed-title h3 {
   font-weight: 300;
   display: inline;
 }
@@ -149,20 +151,18 @@ color: #888;
   text-shadow: none;
 }
 
-
-
- .panel-foo-list .post-user-img {
-   width: 38px;
-   height: 38px;
-   float: left;
-   background: #fff;
-   vertical-align: middle;
-   margin-right: 0px;
-   margin-left: -6px;
-   margin-top: -3px;
-   border-radius: 50%;
-   border: 1px solid #DAE3E5;
- }
+.panel-foo-list .post-user-img {
+    width: 38px;
+    height: 38px;
+    float: left;
+    background: #fff;
+    vertical-align: middle;
+    margin-right: 0px;
+    margin-left: -6px;
+    margin-top: -3px;
+    border-radius: 50%;
+    border: 1px solid #DAE3E5;
+}
 .panel-foo-feed .post-user-img {
   width: 38px;
   height: 38px;
@@ -176,19 +176,19 @@ color: #888;
 
 }
 
-.panel-foo-feed .thumbnail{
+.panel-foo-feed .thumbnail {
   padding: 0px !important;
-box-shadow: none !important;
+    box-shadow: none !important;
 }
 
-.panel-foo-feed .thumbnail img{
+.panel-foo-feed .thumbnail img {
   border-radius: 12px !important;
   padding: 0px !important;
   border: 1px solid rgba(204, 200, 185, .7);
 }
 .panel-foo-feed .panel-heading, .panel-foo-list .panel-heading {
   color: #63768C !important;
-min-height: 30px;
+    min-height: 30px;
   line-height: 16px;
   display: block;
 }
@@ -207,18 +207,20 @@ label.label-foo-title {
   background: #efefef;
   border: 1px solid rgba(206, 206, 206, 0.32);
   border-radius: 4px;
-  text-shadow: 1px 1px rgba(255,255,255,.5);
+    text-shadow: 1px 1px rgba(255, 255, 255, .5);
 }
 
-label.label-foo-title i{
+label.label-foo-title i {
   margin-left: 0px;
   font-size: 1em;
   color: $state-success-text !important;
 }
-.panel-foo-list label.label-foo-title{
+
+.panel-foo-list label.label-foo-title {
   padding: 1px 4px !important;
 }
-.panel-foo-feed .postStatusLabels{
+
+.panel-foo-feed .postStatusLabels {
   display: block;
   margin-top: 5px;
   margin-left: 0px;
@@ -227,7 +229,7 @@ label.label-foo-title i{
   font-weight: 600;
 }
 
-.panel-foo-list .postStatusLabels{
+.panel-foo-list .postStatusLabels {
   display: block;
   margin-top: 5px;
   margin-left: 42px;
@@ -236,15 +238,16 @@ label.label-foo-title i{
 }
 
 .panel-foo-feed:hover, .panel-foo-list:hover {
-box-shadow: 1px 1px 7px rgba(255,255,255,.3);
+    box-shadow: 1px 1px 7px rgba(255, 255, 255, .3);
 }
 
-.panel-feed-selected{
+.panel-feed-selected {
   border-left: 10px solid #9bd843 !important;
 }
-.panel-feed-deleted{
+
+.panel-feed-deleted {
   border-left: 10px solid #d84344 !important;
- position: relative;
+    position: relative;
   display: block;
   -webkit-animation: delete 1.6s forwards;
   -webkit-animation-delay: 0.1s;
@@ -257,42 +260,45 @@ box-shadow: 1px 1px 7px rgba(255,255,255,.3);
 @keyframes delete {
   50% {
     left: 0;
-   transform: scale(.9,.7);
+      transform: scale(.9, .7);
 
   }
   100% {
-    transform: scale(.5,.7);
+      transform: scale(.5, .7);
     left: -200%;
   }
 }
 @-webkit-keyframes delete {
   50% {
     left: 0;
-    transform: scale(.9,.7);
+      transform: scale(.9, .7);
 
   }
   100% {
-    transform: scale(.5,.7);
-  left: -200%;
+      transform: scale(.5, .7);
+      left: -200%;
   }
 }
 
-.panel-foo-light{
+.panel-foo-light {
   background: transparent !important;
 }
-.panel-foo-light .panel-heading{
+
+.panel-foo-light .panel-heading {
   color: #3d4b5b;
   background: rgba(76, 94, 116, 0.1);
 }
-.panel-comments{
+
+.panel-comments {
   background: transparent !important;
   box-shadow: none !important;
   border: none !important;
 }
-.comment{
+
+.comment {
   display: block;
-border-radius: 8px;
-padding: 8px;
+    border-radius: 8px;
+    padding: 8px;
   padding-top: 0px;
   margin-left: 45px;
   margin-bottom: 10px;
@@ -304,17 +310,20 @@ padding: 8px;
 .comment .text-muted {
   font-size: .9em;
 }
-.comment-label{
+
+.comment-label {
   color: #3d4b5b;
   font-size: .9em;
   font-weight: 300;
-text-shadow: 1px 1px 1px rgba(255,255,255,.5);
+    text-shadow: 1px 1px 1px rgba(255, 255, 255, .5);
 }
-.comment-label-dark{
+
+.comment-label-dark {
   color: #fff;
-  text-shadow: 1px 1px 1px rgba(61,75,91,.2);
+    text-shadow: 1px 1px 1px rgba(61, 75, 91, .2);
 }
-.comment-label strong{
+
+.comment-label strong {
 
   font-weight: 400;
 
@@ -331,23 +340,24 @@ text-shadow: 1px 1px 1px rgba(255,255,255,.5);
   border-radius: 50%;
   border: 1px solid rgba(14, 41, 57, 0.15);
 }
-.comment .speechbubble{
+
+.comment .speechbubble {
   font-size: 1.5em;
-color: #fff;
+    color: #fff;
   margin-left: -14px;
   margin-top: 2px;
-  text-shadow:  -1px 1px 1px  rgba(0, 0, 0, 0.15);
+    text-shadow: -1px 1px 1px rgba(0, 0, 0, 0.15);
   margin-right: 5px;
   vertical-align: top;
 }
 
-.foo-grid{
+.foo-grid {
   padding-left: 5px;
   padding-right: 5px;
-display: block;
+    display: block;
 }
 
-.foo-grid thead{
+.foo-grid thead {
   vertical-align: middle;
   position: fixed;
   z-index: 6;
@@ -357,7 +367,8 @@ display: block;
   white-space: nowrap;
 
 }
-.foo-grid>tbody{
+
+.foo-grid > tbody {
   clear: both;
   position: absolute;
   top: 32px;
@@ -369,7 +380,7 @@ display: block;
   display: table-cell;
   background: #efefef !important;
   color: #888;
-  text-shadow: 1px 1px 1px rgba(255,255,255,.7);
+    text-shadow: 1px 1px 1px rgba(255, 255, 255, .7);
   font-weight: 400;
   height: 30px !important;
   border: 1px solid rgba(171, 206, 255, 0.20) !important;
@@ -388,17 +399,14 @@ display: block;
 
 }
 
-
-
-
 .foo-grid td {
   vertical-align: middle;
   padding: 4px !important;
   border: 1px solid #DAE3E5;
-background : #fff !important;
+    background: #fff !important;
   font-weight: 400;
   color: #666;
- // background: #FFF !important;
+    // background: #FFF !important;
   //color: #6e85a5 !important;
   text-shadow: none;
   @media screen and (max-width: 580px) {
@@ -407,7 +415,8 @@ background : #fff !important;
     display: block;
   }
 }
-.foo-grid tr.active th{
+
+.foo-grid tr.active th {
 
   background: rgba(226, 244, 198, 0.36) !important;
 }
@@ -425,7 +434,7 @@ background : #fff !important;
 
 }
 
-.foo-grid tr td div table{
+.foo-grid tr td div table {
   position: relative;
   font-size: .9em;
   display: block;
@@ -433,7 +442,8 @@ background : #fff !important;
   padding: 0;
   font-weight: 300;
 }
-.foo-grid tr td div table tr th{
+
+.foo-grid tr td div table tr th {
   padding: 0px 4px !important;
   display: table-cell !important;
   background: #efefef !important;
@@ -443,7 +453,8 @@ background : #fff !important;
   height: 20px !important;
   border: 1px solid rgba(171, 206, 255, 0.20) !important;
 }
-.foo-grid tr td div table tr td{
+
+.foo-grid tr td div table tr td {
   padding: 0px 4px !important;
   display: table-cell !important;
   background: #fff !important;
@@ -467,11 +478,12 @@ background : #fff !important;
 .ta-bind {
   min-height: 200px !important;
 }
-.ta-hidden-input{
+
+.ta-hidden-input {
   display: none;
 }
 
-.toggleSwitch{
+.toggleSwitch {
   position: relative;
   border-radius: 4px;
   border: 1px solid #cecece !important;
@@ -492,7 +504,7 @@ background : #fff !important;
   position: relative;
 }
 
-.toggleSwitch button{
+.toggleSwitch button {
   min-height: 20px;
   line-height: 20px;
   border-radius: 4px;
@@ -501,45 +513,48 @@ background : #fff !important;
 }
 
 .toggleSwitch button:focus {
-  outline-style:none !important;
-  box-shadow:none !important;
-  border-color:transparent !important;
+    outline-style: none !important;
+    box-shadow: none !important;
+    border-color: transparent !important;
 }
 
-.toggleOn button{
+.toggleOn button {
   right: 0;
   margin-left: 20px !important;
 }
-.toggleOn div{
-left: 0;
-margin-right: 20px !important;
+
+.toggleOn div {
+    left: 0;
+    margin-right: 20px !important;
   opacity: 1 !important;
 }
 
-.toggleOff button{
-left: 0;
+.toggleOff button {
+    left: 0;
   margin-right: 20px !important;
 }
-.toggleOff div{
-right: 0;
+
+.toggleOff div {
+    right: 0;
   margin-left: 20px !important;
 }
 
-.panel-commentBox .panel-body{
+.panel-commentBox .panel-body {
   text-align: left !important;
 }
 
-textarea.commentsMax{
+textarea.commentsMax {
   -webkit-transition: 0.3s linear all;
   -moz-transition: 0.3s linear all;
   -o-transition: 0.3s linear all;
   transition: 0.3s linear all;
-height: 120px !important;
+    height: 120px !important;
 }
-textarea.commentsMin{
+
+textarea.commentsMin {
   -webkit-transition: 0.3s linear all;
   -moz-transition: 0.3s linear all;
   -o-transition: 0.3s linear all;
   transition: 0.3s linear all;
-height: 52px !important;
+    height: 52px !important;
 }

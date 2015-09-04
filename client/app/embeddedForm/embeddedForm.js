@@ -19,8 +19,8 @@ var FooForm = angular.module('FooForm', ['ngSanitize', 'textAngular'])
 
         $scope.doResize = function () {
 
-                var height = angular.element('#formLayout')[0].scrollHeight;
-                parent.resizeIframe(formId, height);
+            var height = angular.element('#formLayout')[0].scrollHeight;
+            parent.resizeIframe(formId, height);
 
 
         };
@@ -57,7 +57,7 @@ var FooForm = angular.module('FooForm', ['ngSanitize', 'textAngular'])
 
                 $timeout(function () {
                     $scope.doResize()
-                    }, 250);
+                }, 250);
                 $timeout(function () {
                     $scope.doResize()
                 }, 500);
@@ -73,9 +73,6 @@ var FooForm = angular.module('FooForm', ['ngSanitize', 'textAngular'])
 
 
             }
-            ;
-
-
             $scope.addRepeat = function (groupBoxId, row) {
                 var requireRefresh = false;
                 var groupBox = _.findIndex($scope.post.fields, function (field) {
@@ -771,8 +768,6 @@ var FooForm = angular.module('FooForm', ['ngSanitize', 'textAngular'])
 
                     }, true);
                 }
-                ;
-
             }
         }
 
@@ -812,8 +807,6 @@ var FooForm = angular.module('FooForm', ['ngSanitize', 'textAngular'])
 
                     }, true);
                 }
-                ;
-
             }
         }
 

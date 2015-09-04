@@ -51,7 +51,8 @@
             </label>
             <label class="radio-inline">
                 <input type='radio'
-                       ng-model="form.fields[nowEditing].fields[nowSubEditing].settings.display" value="Stacked"> Stacked
+                       ng-model="form.fields[nowEditing].fields[nowSubEditing].settings.display" value="Stacked">
+                Stacked
             </label>
         </div>
     </div>
@@ -63,7 +64,8 @@
         <div ng-repeat='option in form.fields[nowEditing].fields[nowSubEditing].options track by $index'>
             <div class="input-group">
       <span class="input-group-addon">
-        <input type="radio" name="form.fields[nowEditing].fields[nowSubEditing].id" ng-model="form.fields[nowEditing].fields[nowSubEditing].selected"
+        <input type="radio" name="form.fields[nowEditing].fields[nowSubEditing].id"
+               ng-model="form.fields[nowEditing].fields[nowSubEditing].selected"
                ng-value="option.label">
       </span>
                 <input type='text'
@@ -74,7 +76,7 @@
                     <button class='btn btn-default btn-sm' ng-click="addOption($index)"><i class="fa fa-plus fa-lg"></i>
                     </button>
                     <button class='btn btn-default btn-sm' ng-click="deleteOption($index)"><i
-                            class="fa fa-trash-o fa-lg"></i></button>
+                        class="fa fa-trash-o fa-lg"></i></button>
 
                 </div>
             </div>

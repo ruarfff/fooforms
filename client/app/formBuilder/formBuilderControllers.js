@@ -316,7 +316,7 @@ angular.module('fooforms.formBuilder')
 
             };
 
-            $scope.reloadPreview = function(){
+            $scope.reloadPreview = function () {
                 document.getElementById('previewPane').src = document.getElementById('previewPane').src;
             };
             //Icon Selection -  Modal Dialog
@@ -590,8 +590,8 @@ angular.module('fooforms.formBuilder')
             }
         ]);
 
-        $provide.decorator('taOptions', ['taRegisterTool','textAngularManager' ,'$delegate', '$timeout', '$injector', '$compile',
-            function (taRegisterTool, textAngularManager,taOptions, $timeout, $injector, $compile) {
+        $provide.decorator('taOptions', ['taRegisterTool', 'textAngularManager', '$delegate', '$timeout', '$injector', '$compile',
+            function (taRegisterTool, textAngularManager, taOptions, $timeout, $injector, $compile) {
 
                 //var $editor;
                 // $rootScope.$on('someEvent', function(event, mass) {
@@ -601,15 +601,15 @@ angular.module('fooforms.formBuilder')
                 var rScope = $injector.get('$rootScope');
                 if (rScope) {
                     rScope.$on('insertFooField', function (event, field) {
-                        var insertValue =  "&nbsp;<label id='" + field.id + "' class='fooField-embed disable-text-selection label label-warning'>" +field.label + "</label>&nbsp;";
+                        var insertValue = "&nbsp;<label id='" + field.id + "' class='fooField-embed disable-text-selection label label-warning'>" + field.label + "</label>&nbsp;";
 
                         var editor = textAngularManager.retrieveEditor('htmlEmailEditor').scope;
-                                            editor.wrapSelection('insertHTML', insertValue, true);
+                        editor.wrapSelection('insertHTML', insertValue, true);
 
-                        $timeout(function(){
+                        $timeout(function () {
                             var e = angular.element($('.ta-resizer-handle-background')).next()[0];
                             e.focus();
-                        },1000);
+                        }, 1000);
 
                     });
                 }
