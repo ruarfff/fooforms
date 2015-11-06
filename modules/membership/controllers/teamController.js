@@ -8,7 +8,7 @@ var membership = new Membership(db);
 var fooForm = new FooForm(db);
 var defaultFolders = require('../lib/defaultFolders');
 var userProfile = require('../lib/userProfile');
-var _ = require('underscore');
+var _ = require('lodash');
 
 
 var populateForms = function (team, next) {

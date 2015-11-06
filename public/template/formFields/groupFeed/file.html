@@ -3,7 +3,7 @@
     || repeater.value.mimeType=='image/png'
     || repeater.value.mimeType=='image/jpg'
     || repeater.value.mimeType=='image/jpeg'
-    )" >
+    )">
     <img ng-src="/api/files/{{repeater.value._id}}">
 
 </div>
@@ -16,7 +16,7 @@
     )">
 
 
-    <p ng-show="repeater.value._id"> <a href="/api/files/{{repeater.value._id}}" target="_new" class="btn btn-link">
+    <p ng-show="repeater.value._id"><a href="/api/files/{{repeater.value._id}}" target="_new" class="btn btn-link">
         <i class="fa fa-file-text-o text-muted"></i>
         {{ repeater.value.originalName }}
     </a></p>

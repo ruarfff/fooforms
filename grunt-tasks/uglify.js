@@ -10,11 +10,6 @@ module.exports = function (grunt) {
                 "public/js/vendor.min.js": ["public/js/vendor.min.js"]
             }
         },
-        vendorTop: {
-            files: {
-                "public/js/vendor-top.min.js": ["public/js/vendor-top.min.js"]
-            }
-        },
         site: {
             files: {
                 "public/js/site.min.js": ["public/js/site.min.js"]
@@ -22,7 +17,7 @@ module.exports = function (grunt) {
         },
         embeddedForm: {
             files: {
-                "public/js/embedded-form.min.js": ["public/js/embedded-form.min.js"]
+                "client/app/embedded-form.min.js": ["public/js/embedded-form.min.js"]
             }
         }
     });

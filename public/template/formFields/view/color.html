@@ -1,5 +1,6 @@
 <div class="form-group clearfix">
-    <label for="{{formField.id}}">{{formField.label}}<i class="fa fa-asterisk foo-required" ng-show="formField.required"></i>
+    <label for="{{formField.id}}">{{formField.label}}<i class="fa fa-asterisk foo-required"
+                                                        ng-show="formField.required"></i>
         <i class="fa fa-question-circle"
            ng-hide="!formField.userInstructions"
            popover="{{formField.userInstructions}}"
@@ -14,6 +15,6 @@
                placeholder="{{formField.placeholder}}"
                ng-model="formField.value"
                ng-required="formField.required"
-                />
+            />
     </div>
 </div>

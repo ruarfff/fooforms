@@ -6,7 +6,7 @@ var FooForm = require('fooforms-forms');
 var db = require('mongoose').connection;
 var statusCodes = require('fooforms-rest').statusCodes;
 var fooForm = new FooForm(db);
-var _ = require('underscore');
+var _ = require('lodash');
 var slug = require('slug');
 var log = require('fooforms-logging').LOG;
 var emailer = require('../lib/emails');
@@ -142,7 +142,7 @@ var getTeamMembers = function (post, next) {
 var sendEmails = function (from, recipients, subject, text) {
 
     recipients.forEach(function (to) {
-       // emailer.sendEventEmail(from, to, subject, text);
+        // emailer.sendEventEmail(from, to, subject, text);
         log.debug(__filename, ' - ', 'EMail: From:' + from + ' To: ' + to + ' Subject: ' + subject + ' Text: ' + text);
 
     });

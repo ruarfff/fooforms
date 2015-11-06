@@ -192,7 +192,7 @@ body {
   margin-bottom: 0px;
   height: 100px;
   line-height: 100px;
-  border-bottom: 1px solid #52666e;
+    border-bottom: 1px solid #52666e;
 
   background: #fff;
   color: #374555;
@@ -412,7 +412,7 @@ div.form-icon i.fa {
 
 .panel-foo-dark .panel-heading {
   color: #fff;
-  background: #738e96;
+    background: #738e96;
   line-height: 16px;
 }
 
@@ -884,7 +884,7 @@ div.nav-profile, div.nav-search {
   left: 0;
   bottom: 0px;
   width: 15%;
-  background: #738e96;
+    background: #738e96;
   overflow: auto;
   z-index: 20;
   font-size: 1.1em;
@@ -906,13 +906,13 @@ div.nav-profile, div.nav-search {
 }
 
 .sideMenu a:hover {
-  background: rgba(0, 0, 0, .3) !important;
+    background: rgba(0, 0, 0, .3) !important;
   color: #fff;
   font-weight: 900;
 }
 
 .sideMenu a:focus {
-  background: transparent !important;
+    background: transparent !important;
   color: #fff;
   font-weight: 900;
 }
@@ -922,7 +922,7 @@ div.nav-profile, div.nav-search {
   font-weight: 300 !important;
   color: #fff;
   border: 0px;
-  background: rgba(0, 0, 0, .1) !important;
+    background: rgba(0, 0, 0, .1) !important;
 }
 
 .sideMenu ul li ul li {
@@ -938,7 +938,7 @@ div.nav-profile, div.nav-search {
 .sideMenu ul li ul li ul li a {
   font-weight: 300 !important;
   color: #D9E5F4;
-  padding-left: 10px;
+    padding-left: 10px;
 }
 
 .sideMenu i.fa {
@@ -947,7 +947,7 @@ div.nav-profile, div.nav-search {
 }
 
 .nav .nav-icon {
-  height: 22px;
+    height: 22px;
   padding-right: 4px;
 }
 

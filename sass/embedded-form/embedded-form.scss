@@ -4,18 +4,18 @@ $fa-font-path: "/fonts";
 @import '../../bower/bootstrap-sass-official/assets/stylesheets/bootstrap/theme';
 
 body {
-  background-color: transparent;
+    background-color: transparent !important;
   padding: 0px;
   margin: 0px;
 }
 
-body.renderForm{
-  background: #94b5c3 ;
-  padding-top: 10px;
+body.renderForm {
+    background: #94b5c3;
+    padding-top: 10px;
 }
 
-.container{
-  max-width: 1000px;
+.container {
+    max-width: 1000px;
 }
 .br0 {
   border-radius: 0;
@@ -30,44 +30,45 @@ body.renderForm{
 }
 
 form.panel {
-  -webkit-box-shadow: none;
-  box-shadow: none;
-  border-bottom: 1px solid rgba(0,0,0,.05);
+    -webkit-box-shadow: none;
+    box-shadow: none;
+    border-bottom: 1px solid rgba(0, 0, 0, .05);
 }
 
-form.fooForm.panel.panel-default{
-  background-color: transparent !important;
+form.fooForm.panel.panel-default {
+    background-color: transparent !important;
 }
 
-form.fooForm.panel.panel-default div.panel-body{
-  background-color: rgba(255,255,255,.8);
+form.fooForm.panel.panel-default div.panel-body {
+    background-color: rgba(255, 255, 255, .8);
 }
 
-form.fooForm.panel.panel-default div.panel-footer{
-  background-color: rgba(255,255,255,.4);
-  border: 0px;
+form.fooForm.panel.panel-default div.panel-footer {
+    background-color: rgba(255, 255, 255, .4);
+    border: 0px;
 }
 
-.foo-header.panel-heading{
-  background: rgba(0,0,0,.1);
-  border: 0px;
+.foo-header.panel-heading {
+    background: rgba(0, 0, 0, .1);
+    border: 0px;
 }
-.foo-header h4{
-  font-weight: 300;
-  margin-top: 18px;
-  line-height: 1em;
-  font-size: 1.4em;
+
+.foo-header h4 {
+    font-weight: 300;
+    margin-top: 18px;
+    line-height: 1em;
+    font-size: 1.4em;
   padding: 0px;
-  margin-bottom: 0px;
-  color: rgba(255,255,255,.6);
-  text-shadow: 0px 1px 1px rgba(0,0,0,.3);
+    margin-bottom: 0px;
+    color: rgba(255, 255, 255, .6);
+    text-shadow: 0px 1px 1px rgba(0, 0, 0, .3);
 }
 
-.foo-header p{
+.foo-header p {
   padding: 0px;
-  margin: 0px;
-  color: rgba(255,255,255,.8);
-  text-shadow: 0px 1px 1px rgba(0,0,0,.3);
+    margin: 0px;
+    color: rgba(255, 255, 255, .8);
+    text-shadow: 0px 1px 1px rgba(0, 0, 0, .3);
 }
 
 
@@ -81,33 +82,33 @@ form.fooForm.panel.panel-default div.panel-footer{
 
 }
 
-.ng-invalid-required.ng-touched{
-  border: 1px solid #c84041;
-  background: rgba(200, 64, 65, 0.05) !important;
-  box-shadow: 0px 0px 3px 1px rgba(200, 64, 65, 0.76);
+.ng-invalid-required.ng-touched {
+    border: 1px solid #c84041;
+    background: rgba(200, 64, 65, 0.05) !important;
+    box-shadow: 0px 0px 3px 1px rgba(200, 64, 65, 0.76);
 }
 
-label i.fa.foo-required{
-  font-size: 1em;
-  color:  #c84041 ;
-  -ms-transform: scale(.55,.55); /* IE 9 */
-  -webkit-transform: scale(.55,.55); /* Safari */
-  transform: scale(.55,.55);
-  margin: 0px ;
-  padding: 0px;
+label i.fa.foo-required {
+    font-size: 1em;
+    color: #c84041;
+    -ms-transform: scale(.55, .55); /* IE 9 */
+    -webkit-transform: scale(.55, .55); /* Safari */
+    transform: scale(.55, .55);
+    margin: 0px;
+    padding: 0px;
 }
 
-.inlineFormFields div.form-group label{
-  display: inline-block;
-  text-align: right;
-  width: 20%;
-  margin-top: 8px;
+.inlineFormFields div.form-group label {
+    display: inline-block;
+    text-align: right;
+    width: 20%;
+    margin-top: 8px;
 }
 
-.inlineFormFields div.form-group div.input-group{
-  display: inline-block;
-float: right;
-  width: 79% !important;
+.inlineFormFields div.form-group div.input-group {
+    display: inline-block;
+    float: right;
+    width: 79% !important;
 }
 
 .modal.fade {
@@ -195,8 +196,8 @@ img.icon {
   animation-name: slideExpandUp;
   -webkit-animation-name: slideExpandUp;
 
-  animation-duration: .6s;
-  -webkit-animation-duration: .6s;
+    animation-duration: .6s;
+    -webkit-animation-duration: .6s;
 
   animation-timing-function: ease-out;
   -webkit-animation-timing-function: ease-out;
@@ -206,7 +207,7 @@ img.icon {
 
 @keyframes slideExpandUp {
   0% {
-    transform: translateY(100%) scaleX(0.8);
+      transform: translateY(100%) scaleX(0.8);
   }
 
   90% {
@@ -219,7 +220,7 @@ img.icon {
 
 @-webkit-keyframes slideExpandUp {
   0% {
-    -webkit-transform: translateY(100%) scaleX(0.8);
+      -webkit-transform: translateY(100%) scaleX(0.8);
   }
 
   90% {
@@ -234,8 +235,8 @@ img.icon {
   animation-name: fadeIn;
   -webkit-animation-name: fadeIn;
 
-  animation-duration: 0.5s;
-  -webkit-animation-duration: 0.5s;
+    animation-duration: 0.5s;
+    -webkit-animation-duration: 0.5s;
 
   animation-timing-function: ease-in-out;
   -webkit-animation-timing-function: ease-in-out;
@@ -243,23 +244,23 @@ img.icon {
   visibility: visible !important;
 }
 .fadeInSlow {
-  animation-name: fadeInSlow;
-  -webkit-animation-name: fadeInSlow;
+    animation-name: fadeInSlow;
+    -webkit-animation-name: fadeInSlow;
 
-  animation-duration: 1s;
-  -webkit-animation-duration: 1s;
+    animation-duration: 1s;
+    -webkit-animation-duration: 1s;
 
-  animation-timing-function: ease-in-out;
-  -webkit-animation-timing-function: ease-in-out;
+    animation-timing-function: ease-in-out;
+    -webkit-animation-timing-function: ease-in-out;
 
-  visibility: visible !important;
+    visibility: visible !important;
 }
 
 
 
 @keyframes fadeIn {
   0% {
-    transform: scale(.9);
+      transform: scale(.9);
     opacity: 0.0;
   }
 
@@ -271,38 +272,38 @@ img.icon {
 
 @-webkit-keyframes fadeIn {
   0% {
-    -webkit-transform: scale(.9);
+      -webkit-transform: scale(.9);
     opacity: 0.0;
   }
 
   100% {
     -webkit-transform: scale(1);
-    opacity: 1;
+      opacity: 1;
   }
 }
 
 @keyframes fadeInSlow {
-  0% {
-    opacity: 0.0;
-  }
-  60% {
-    opacity: 0;
-  }
+    0% {
+        opacity: 0.0;
+    }
+    60% {
+        opacity: 0;
+    }
 
-  100% {
-    opacity: 1;
-  }
+    100% {
+        opacity: 1;
+    }
 }
 
 @-webkit-keyframes fadeInSlow {
-  0% {
-    opacity: 0.0;
-  }
-  60% {
-    opacity: 0;
-  }
+    0% {
+        opacity: 0.0;
+    }
+    60% {
+        opacity: 0;
+    }
 
-  100% {
+    100% {
     opacity: 1;
   }
 }

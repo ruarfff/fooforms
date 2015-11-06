@@ -1,5 +1,6 @@
 <div class="form-group clearfix">
-    <label for="{{formField.id}}">{{formField.label}}<i class="fa fa-asterisk foo-required" ng-show="formField.required"></i>
+    <label for="{{formField.id}}">{{formField.label}}<i class="fa fa-asterisk foo-required"
+                                                        ng-show="formField.required"></i>
         <i class="fa fa-question-circle"
            ng-hide="!formField.userInstructions"
            popover="{{formField.userInstructions}}"
@@ -19,7 +20,7 @@
                id="{{formField.id}}"
                ng-model="formField.value"
                ng-required="formField.required"
-                />
+            />
         <span class="input-group-addon">%</span>
          <span class="input-group-btn">
         <button class="btn btn-default" type="button" ng-click="editProgress=!editProgress"><i class="fa fa-caret-up text-primary"></i></button>

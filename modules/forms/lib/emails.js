@@ -5,7 +5,7 @@ var emailer = require('../../email');
 var fs = require('fs');
 var path = require('path');
 var templateDir = path.join(__dirname, '../../email/templates');
-var _ = require('underscore');
+var _ = require('lodash');
 
 
 // Newline to <br>

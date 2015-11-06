@@ -51,7 +51,7 @@
             </form>
 
                 <span ng-show="form">
-                    <img class="form-icon" ng-src="{{form.icon}}" />
+                    <img class="form-icon" ng-src="{{form.icon}}"/>
                     <p>{{form.displayName}}
                         <a href="{{location}}/edit"><i class="fa fa-edit"></i>
                         </a></p>
@@ -129,18 +129,15 @@
              slidePanelOut: !showPostForm
              }"
              ng-style="feedPosition">
-           
-                <foo-post active-post="activePost" active-form="activeForm" members="org.members" delete-post="deletePost()"
-                          copy-post="copyPost()"
-                          save-post="savePost()" print-preview="printPreview" full-screen="fullScreen"
-                          print-post="printPost()" show-full-screen="showFullScreen()"
-                          cancel-full-screen="cancelFullScreen()"
-                          cancel-post="cancelPost()" add-repeat="addRepeat()"
-                          doing-post-api="doingPostApi"
-                        ng-show="activePost"></foo-post>
 
-
-
+            <foo-post active-post="activePost" active-form="activeForm" members="org.members" delete-post="deletePost()"
+                      copy-post="copyPost()"
+                      save-post="savePost()" print-preview="printPreview" full-screen="fullScreen"
+                      print-post="printPost()" show-full-screen="showFullScreen()"
+                      cancel-full-screen="cancelFullScreen()"
+                      cancel-post="cancelPost()" add-repeat="addRepeat()"
+                      doing-post-api="doingPostApi"
+                      ng-show="activePost"></foo-post>
 
 
         </div>
@@ -153,7 +150,7 @@
              slideFeedPanelOut: !showPostForm
              }"
          ng-style="feedPosition"
-            >
+        >
 
         <foo-post active-post="activePost" active-form="activeForm" members="org.members" delete-post="deletePost()"
                   copy-post="copyPost()"
@@ -208,9 +205,6 @@
     <div ng-show="postView=='custom'" compile="form.settings.customDashboardHtml"></div>
 
 </div>
-
-
-
 
 
 <div class="printPreview hidden-print slideExpandUp ng-cloak" ng-show="fullScreen">

@@ -11,7 +11,7 @@
                 <ul class="nav nav-pills nav-stacked" id="myTabs">
                     <li ng-repeat="org in user.organisations">
                         <a data-toggle="tab" data-target="#{{org.displayName}}" ng-click="org.active = true">
-                            <img class="icon-xs" src="{{org.photo}}"
+                            <img class="icon-xs" ng-src="{{org.photo}}"
                                  alt="{{org.title}}" ng-show="org.photo">
                             {{org.title}}</a></li>
                 </ul>
@@ -20,196 +20,173 @@
 
     </div>
     <div class="col-md-9 slideRight">
+        <div ng-repeat="org in user.organisations" active="org.active"
+             heading="{{org.displayName}}" id="{{org.displayName}}">
 
-            <!--        <div class="tab-pane" id="newOrganisation">
-                        <div class="panel panel-success">
-                            <div class="panel-heading">
-                                <h4>New Organisation</h4>
-                            </div>
-                            <div class="panel-body">
-                                <form novalidate class="css-form" role="form" name="createOrganisation">
-                                    <org-photo org="newOrg"></org-photo>
-                                    <div class="form-group">
-                                        <label for="orgName">Name</label>
-                                        <input type="text" class="form-control" id="orgName"
-                                               ng-model="newOrg.displayName" required
-                                               placeholder="Organisation Name"/><br/>
-                                    </div>
-                                    <div class="form-group">
-                                        <label for="orgDomain">Domain</label>
-                                        <input type="text" class="form-control" id="orgDomain"
-                                               ng-model="newOrg.domain"
-                                               placeholder="The organisation domain"/>
-                                    </div>
-                                    <button ng-click="createOrganisation(newOrg)" class="btn btn-success">Save
-                                    </button>
-                                </form>
-                                <div id="createOrganisation-error" class="alert alert-danger alert-dismissable"
-                                     ng-show="createOrganisationError">
-                                    <button type="button" class="close" data-dismiss="alert"
-                                            aria-hidden="true">&times;</button>
-                                    {{createOrganisationError}}
+
+            <ul class="nav nav-tabs" id="orgTabs">
+                <li class="active">
+                    <a data-toggle="tab" data-target="#orgSettings">Organisation Settings</a>
+                </li>
+                <li>
+                    <a data-toggle="tab" data-target="#orgMembers">Members</a>
+                </li>
+                <li>
+                    <a data-toggle="tab" data-target="#orgStats">Stats</a>
+                </li>
+                <li>
+                    <a data-toggle="tab" data-target="#orgActions"><i class="fa fa-users"></i> Invite New Members</a>
+                </li>
+            </ul>
+            <div class="tab-content panel panel-default">
+                <div class="tab-pane active panel-body" id="orgSettings">
+                    <h4>Organisation Settings</h4>
+
+                    <form novalidate class="form-horizontal">
+                        <div class="col-sm-3">
+                            <org-photo org="org"></org-photo>
+
+                        </div>
+                        <div class="col-sm-9">
+
+
+                            <div class="form-group"><label class="col-sm-3 control-label">Organisation
+                                Name:</label>
+
+                                <div class="col-sm-9">
+                                    <input class="form-control" type="text" ng-model="org.title"
+                                           required/>
                                 </div>
+                            </div>
 
+                            <div class="form-group">
+
+                                <label class="col-sm-3 control-label"> Fooforms URL:</label>
+
+                                <div class="col-sm-9">
+                                    <div class="input-group">
+                                        <span class="input-group-addon">fooforms.com/</span>
+                                        <input class="form-control" type="text" ng-model="org.displayName"
+                                               required/>
+                                    </div>
+
+                                </div>
+                            </div>
+
+                            <div class="form-group"><label class="col-sm-3 control-label">Admin
+                                E-mail:</label>
+
+                                <div class="col-sm-9">
+                                    <input class="form-control" type="email" ng-model="org.billingEmail"
+                                           required/>
+                                </div>
+                            </div>
+                            <div class="col-sm-12 text-align-right">
+                                <button class="btn btn-success" ng-click="updateOrg(org);">Save</button>
                             </div>
                         </div>
-                    </div>-->
+                    </form>
+                </div>
+                <div class="tab-pane panel-body" id="orgMembers">
+                    <h4>Members</h4>
 
-            <div ng-repeat="org in user.organisations" active="org.active"
-                 heading="{{org.displayName}}" id="{{org.displayName}}">
+                    <p>
+                        <a data-toggle="tab" data-target="#orgActions"
+                           class="btn btn-link">Invite New Members</a>
+                    </p>
 
+                    <div ng-repeat="member in members" class="col-sm-3 col-md-2">
+                        <div class="thumbnail text-center">
+                            <img class="icon image-responsive" ng-src="{{member.photo || '/assets/images/photo.jpg'}}">
 
+                            <div class="caption">
 
-                        <ul class="nav nav-tabs" id="orgTabs">
-                            <li class="active">
-                                <a data-toggle="tab" data-target="#orgSettings">Organisation Settings</a>
-                            </li>
-                            <li>
-                                <a data-toggle="tab" data-target="#orgMembers">Members</a>
-                            </li>
-                            <li>
-                                <a data-toggle="tab" data-target="#orgStats">Stats</a>
-                            </li>
-                            <li>
-                                <a data-toggle="tab" data-target="#orgActions"><i class="fa fa-users"></i> Invite New Members</a>
-                            </li>
-                        </ul>
-                        <div class="tab-content panel panel-default">
-                            <div class="tab-pane active panel-body" id="orgSettings">
-                                <h4>Organisation Settings</h4>
-                                <form novalidate class="form-horizontal">
-                                    <div class="col-sm-3">
-                                        <org-photo org="org"></org-photo>
-
-                                    </div>
-                                    <div class="col-sm-9">
-
-
-                                        <div class="form-group"><label class="col-sm-3 control-label">Organisation
-                                            Name:</label>
-
-                                            <div class="col-sm-9">
-                                                <input class="form-control" type="text" ng-model="org.title"
-                                                       required/>
-                                            </div>
-                                        </div>
-
-                                        <div class="form-group">
-
-                                            <label class="col-sm-3 control-label"> Fooforms URL:</label>
-
-                                            <div class="col-sm-9">
-                                                <div class="input-group">
-                                                    <span class="input-group-addon">fooforms.com/</span>
-                                                    <input class="form-control" type="text" ng-model="org.displayName"
-                                                           required/>
-                                                </div>
-
-                                            </div>
-                                        </div>
-
-                                        <div class="form-group"><label class="col-sm-3 control-label">Admin
-                                            E-mail:</label>
-
-                                            <div class="col-sm-9">
-                                                <input class="form-control" type="email" ng-model="org.billingEmail"
-                                                       required/>
-                                            </div>
-                                        </div>
-                                        <div class="col-sm-12 text-align-right">
-                                            <button class="btn btn-success" ng-click="updateOrg(org);">Save</button>
-                                        </div>
-                                    </div>
-                                </form>
-                            </div>
-                            <div class="tab-pane panel-body" id="orgMembers">
-                                <h4>Members</h4>
-
-                                <p>
-                                    <a data-toggle="tab" data-target="#orgActions"
-                                       class="btn btn-link">Invite New Members</a>
-                                </p>
-                                <div ng-repeat="member in members" class="col-sm-3 col-md-2">
-                                    <div class="thumbnail text-center">
-                                        <img class="icon image-responsive" ng-src="{{member.photo || '/assets/images/photo.jpg'}}">
-
-                                        <div class="caption">
-
-                                            <p> {{member.displayName}}<br>{{ member.name.givenName + ' ' +
-                                                member.name.familyName}}</p>
-                                        </div>
-                                    </div>
-                                </div>
-
-                                <div class="col-sm-3 col-md-2">
-                                    <div class="thumbnail text-center">
-                                        <a  class="pointer" data-toggle="tab" data-target="#orgActions"><i class="fa fa-plus fa-3x mt10 text-primary"></i></a>
-
-                                        <div class="caption">
-
-                                            <p><a class="pointer" data-toggle="tab" data-target="#orgActions">Add a New Member</a></p>
-                                        </div>
-                                    </div>
-                                </div>
-
-                            </div>
-
-                            <div class="tab-pane panel-body" id="orgStats">
-                                <h4>{{org.displayName}} Usage Stats</h4>
-<table class="table table-bordered table-striped table-responsive"><tr>
-    <th>Created</th><td> {{org.created | date : 'dd-MMM-yy'}} </td>
-</tr>
-    <tr>
-        <th>Teams</th><td> {{org.teams.length - 1}}</td>
-    </tr>
-    <tr>
-        <th>Members</th><td> {{members.length}}</td>
-    </tr>
-    <tr>
-        <th>Forms</th><td>{{org.folders.length}}</td>
-    </tr>
-</table>
-
-                            </div>
-
-                            <div class="tab-pane panel-body" id="orgActions">
-                                <form name="sendInviteForm" ng-controller="SendInviteCtrl" ng-submit="invite()"
-                                      class="form-horizontal">
-
-                                    <h4>Invite a New Member</h4>
-
-                                    <div class="form-group"><label class="col-sm-3 control-label" for="inviteEmail">Email</label>
-
-                                        <div class="col-sm-9">
-                                            <input id="inviteEmail" type="email" name="inviteEmail"
-                                                   class="form-control"
-                                                   ng-model="inviteEmail" required/>
-                                            <span class="error" ng-show="sendInviteForm.inviteEmail.$error.required">Email Required!</span>
-                                            <span class="error" ng-show="sendInviteForm.inviteEmail.$error.email">Not valid email!</span>
-                                            <span class="error"
-                                                  ng-show="inviteError">Invitation could not be sent</span>
-                                        </div>
-                                    </div>
-
-
-                                    <div class="form-group">
-                                        <label class="col-sm-3 control-label" for="message">Add a message</label>
-
-                                        <div class="col-sm-9">
-                                            <textarea rows="4" cols="50" name="message" id="message"
-                                                      class="form-control"
-                                                      ng-model="message"></textarea>
-                                        </div>
-                                    </div>
-                                    <div class="form-group">
-                                        <label class="col-sm-12 control-label" for="message"><input class='btn btn-success' type="submit" value="Send"></label>
-
-                                    </div>
-                                </form>
+                                <p> {{member.displayName}}<br>{{ member.name.givenName + ' ' +
+                                    member.name.familyName}}</p>
                             </div>
                         </div>
                     </div>
+
+                    <div class="col-sm-3 col-md-2">
+                        <div class="thumbnail text-center">
+                            <a class="pointer" data-toggle="tab" data-target="#orgActions"><i
+                                class="fa fa-plus fa-3x mt10 text-primary"></i></a>
+
+                            <div class="caption">
+
+                                <p><a class="pointer" data-toggle="tab" data-target="#orgActions">Add a New Member</a>
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+
                 </div>
 
+                <div class="tab-pane panel-body" id="orgStats">
+                    <h4>{{org.displayName}} Usage Stats</h4>
+                    <table class="table table-bordered table-striped table-responsive">
+                        <tr>
+                            <th>Created</th>
+                            <td> {{org.created | date : 'dd-MMM-yy'}}</td>
+                        </tr>
+                        <tr>
+                            <th>Teams</th>
+                            <td> {{org.teams.length - 1}}</td>
+                        </tr>
+                        <tr>
+                            <th>Members</th>
+                            <td> {{members.length}}</td>
+                        </tr>
+                        <tr>
+                            <th>Forms</th>
+                            <td>{{org.folders.length}}</td>
+                        </tr>
+                    </table>
 
+                </div>
+
+                <div class="tab-pane panel-body" id="orgActions">
+                    <form name="sendInviteForm" ng-controller="SendInviteCtrl" ng-submit="invite()"
+                          class="form-horizontal">
+
+                        <h4>Invite a New Member</h4>
+
+                        <div class="form-group"><label class="col-sm-3 control-label" for="inviteEmail">Email</label>
+
+                            <div class="col-sm-9">
+                                <input id="inviteEmail" type="email" name="inviteEmail"
+                                       class="form-control"
+                                       ng-model="inviteEmail" required/>
+                                <span class="error"
+                                      ng-show="sendInviteForm.inviteEmail.$error.required">Email Required!</span>
+                                <span class="error"
+                                      ng-show="sendInviteForm.inviteEmail.$error.email">Not valid email!</span>
+                                            <span class="error"
+                                                  ng-show="inviteError">Invitation could not be sent</span>
+                            </div>
+                        </div>
+
+
+                        <div class="form-group">
+                            <label class="col-sm-3 control-label" for="message">Add a message</label>
+
+                            <div class="col-sm-9">
+                                            <textarea rows="4" cols="50" name="message" id="message"
+                                                      class="form-control"
+                                                      ng-model="message"></textarea>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-sm-12 control-label" for="message"><input class='btn btn-success'
+                                                                                        type="submit"
+                                                                                        value="Send"></label>
+
+                        </div>
+                    </form>
+                </div>
             </div>
+        </div>
+    </div>
+
+
+</div>

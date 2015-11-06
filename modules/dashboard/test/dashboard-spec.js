@@ -20,7 +20,7 @@ var rootUrls = require(path.resolve(__dirname, '../../../config/rootUrls'));
 var dashboardRoutes = require(path.resolve(__dirname, '../routes/dashboardApiRoutes'));
 var sampleDashboardCreator = require('./sampleDashboardCreator');
 
-var _ = require('underscore');
+var _ = require('lodash');
 
 var app = express();
 app.use(bodyParser.json());
