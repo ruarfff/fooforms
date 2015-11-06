@@ -4,33 +4,5 @@
     },
     "app": {
         "name": "FooForms - Development"
-    },
-    "facebook": {
-        "clientID": "549767738378698",
-        "clientSecret": "3af17cc1e7c7e55df543e39ba3863116",
-        "callbackURL": "http://localhost:3000/auth/facebook/callback",
-        "profileFields": ["id", "email", "name", "picture"]
-    },
-    "twitter": {
-        "clientID": "nhWoUHO6Qtxp947zr6RSuA",
-        "clientSecret": "upXOlY7vVZsjCwhZKd7xPOVRr4Sd6F0lHxAHSOL7k",
-        "callbackURL": "http://localhost:3000/auth/twitter/callback",
-        "profileFields": ["id", "email", "displayName", "photos"]
-    },
-    "github": {
-        "clientID": "789eabf21a60e318eb52",
-        "clientSecret": "6f36fd66d71de1233a7e6340c20032cf5483daa7",
-        "callbackURL": "http://localhost:3000/auth/github/callback"
-    },
-    "google": {
-        "clientID": "150320538991.apps.googleusercontent.com",
-        "clientSecret": "yD0Q6YxFTO-MF8LowWyDeWNB",
-        "callbackURL": "http://localhost:3000/auth/google/callback",
-        "profileFields": ["id", "email", "displayName", "photos"]
-    },
-    "linkedin": {
-        "clientID": "u66njfbi0s24",
-        "clientSecret": "Xqtv04BVQbuc9nQW",
-        "callbackURL": "http://localhost:3000/auth/linkedin/callback"
     }
 }
