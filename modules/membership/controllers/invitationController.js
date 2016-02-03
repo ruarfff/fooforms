@@ -4,7 +4,7 @@ var log = require('fooforms-logging').LOG;
 var statusCodes = require('fooforms-rest').statusCodes;
 var slug = require('slug');
 var membership = new Membership(db);
-var Invite = require('../models/invite').Invite;
+var Invite = {};//require('../models/invite').Invite;
 var email = require('../lib/emails');
 
 
