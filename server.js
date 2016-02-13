@@ -9,6 +9,7 @@ var env = process.env.NODE_ENV = process.env.NODE_ENV || 'development';
  * Sort of goes against best practice however so will look in to a better way of doing this (someday.....).
  */
 global.config = require('./config/config')(env);
+global.config.database.url = process.env.DB || global.config.database.url;
 
 var app = require('express')();
 var http = require('http').Server(app);
@@ -44,7 +45,7 @@ var FooFormsServerApp = function () {
      */
     self.setupVariables = function () {
         self.ipaddress = "127.0.0.1";
-        self.port = 3000;
+        self.port = process.env.PORT || 3000;
         // Set up the express object to initialize the application
         self.app = app;
     };
